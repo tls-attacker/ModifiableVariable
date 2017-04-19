@@ -8,7 +8,6 @@
  */
 package de.rub.nds.tlsattacker.modifiablevariable.util;
 
-import de.rub.nds.tlsattacker.modifiablevariable.util.ArrayConverter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
