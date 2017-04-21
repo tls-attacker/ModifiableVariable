@@ -46,7 +46,7 @@ public class ByteArrayModificationFactory {
 
     private static List<VariableModification<byte[]>> modificationsFromFile;
 
-    public static final String FILE_NAME = "de/rub/nds/tlsattacker/explicit/array.vec";
+    public static final String FILE_NAME = "de/rub/nds/modifiablevariable/explicit/array.vec";
 
     /**
      * *
