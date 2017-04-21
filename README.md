@@ -1,3 +1,4 @@
+# Modifiable Variables
 Modifiable variable allows one to set modifications to basic types after or before their values are actually determined. When their actual values are determined and one tries to access the value via getters the original value will be returned in a modified form accordingly.
 
 The best way to present the functionality of this concept is by means of a simple example:
