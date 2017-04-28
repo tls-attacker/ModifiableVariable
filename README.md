@@ -1,5 +1,5 @@
 # Modifiable Variables
-Modifiable variable allows one to set modifications to basic types after or before their values are actually determined. When their actual values are determined and one tries to access the value via getters the original value will be returned in a modified form accordingly.
+Modifiable variable allows one to set modifications to basic types after or before their values are actually determined. When their actual values are determined and one tries to access the value via getters, the original value will be returned in a modified form accordingly.
 
 The best way to present the functionality of this concept is by means of a simple example:
 
@@ -15,12 +15,12 @@ In this example, we defined a new ModifiableInteger and set its value to 30. Nex
 You can use further modifications to an integer value, for example subtract, xor or shift.
 
 # Modifiable variables in Java
-If you use a modifiable variable in your Java code, use the modification factories, e.g.:
+If you use a modifiable variable in your Java code, use the modification factories, for example:
 ```java
 VariableModification<Integer> modifier = IntegerModificationFactory.explicitValue(7);
 VariableModification<BigInteger> modifier = BigIntegerModificationFactory.add(BigInteger.ONE);
-VariableModification<byte[]> modifier = ByteArrayModificationFactory.xor(modification1, 0);
-VariableModification<byte[]> modifier = ByteArrayModificationFactory.insert(modification1, 0);
+VariableModification<byte[]> modifier = ByteArrayModificationFactory.xor(modification, 0);
+VariableModification<byte[]> modifier = ByteArrayModificationFactory.insert(modification, 0);
 ```
 
 # Modifiable variables in XML
@@ -28,7 +28,7 @@ Modifiable variables are serializable with JAXB into XML.
 ```xml
       <SomeVariable>
          <integerAddModification>
-			<summand>2000</summand>
+            <summand>2000</summand>
          </integerAddModification>
       </SomeVariable>
      
