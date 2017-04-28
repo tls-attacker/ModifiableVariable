@@ -6,7 +6,7 @@
     <version>2.0</version>
     <packaging>jar</packaging>
     
-    <name>ModifiableVariable</name>
+    <name>${project.groupId}:${project.artifactId}</name>
     <description>A Modifiable Variable concept allows for easy runtime modifications of basic data types like integers, booleans, or byte arrays</description>
     <url>https://github.com/RUB-NDS/ModifiableVariable</url>
  
@@ -23,7 +23,7 @@
             <id>jsomorovsky</id>
             <name>Juraj Somorovsky</name>
             <email>Juraj.Somorovsky@rub.de</email>
-            <url>http://www.nds.rub.de/</url>
+            <url>https://github.com/jurajsomorovsky/</url>
             <organization>NDS</organization>
             <organizationUrl>http://www.nds.rub.de</organizationUrl>
             <roles>
@@ -35,7 +35,7 @@
             <id>ic0ns</id>
             <name>Robert Merget</name>
             <email>robert.merget@rub.de</email>
-            <url>http://www.nds.rub.de/</url>
+            <url>https://github.com/ic0ns/</url>
             <organization>NDS</organization>
             <organizationUrl>http://www.nds.rub.de</organizationUrl>
             <roles>
@@ -43,6 +43,12 @@
             </roles>
         </developer>
     </developers>
+    
+    <scm>
+        <connection>scm:git:git://github.com/RUB-NDS/ModifiableVariable.git</connection>
+        <developerConnection>scm:git:ssh://github.com/RUB-NDS/ModifiableVariable.git</developerConnection>
+        <url>https://github.com/RUB-NDS/ModifiableVariable/tree/master</url>
+    </scm>
     
     <dependencies>
         <dependency>
