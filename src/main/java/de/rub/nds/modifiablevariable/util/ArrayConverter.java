@@ -55,10 +55,8 @@ public class ArrayConverter {
     /**
      * Takes an integer value and stores its last bytes into a byte array
      *
-     * @param value
-     *            integer value
-     * @param size
-     *            byte size of the new integer byte array
+     * @param value integer value
+     * @param size byte size of the new integer byte array
      * @return
      */
     public static byte[] intToBytes(int value, int size) {
@@ -78,10 +76,8 @@ public class ArrayConverter {
     /**
      * Takes a long value and stores its last bytes into a byte array
      *
-     * @param value
-     *            long value
-     * @param size
-     *            byte size of the new integer byte array
+     * @param value long value
+     * @param size byte size of the new integer byte array
      * @return
      */
     public static byte[] longToBytes(long value, int size) {
@@ -134,35 +130,23 @@ public class ArrayConverter {
         if (array == null) {
             array = new byte[0];
         }
-        return bytesToHexString(array, array.length);
-    }
-
-    public static String bytesToHexString(byte[] array, int byteSize) {
-        boolean usePrettyPrinting = (byteSize > 15);
-        return bytesToHexString(array, byteSize, usePrettyPrinting);
+        boolean usePrettyPrinting = (array.length > 15);
+        return bytesToHexString(array, usePrettyPrinting);
     }
 
     public static String bytesToHexString(byte[] array, boolean usePrettyPrinting) {
         if (array == null) {
             array = new byte[0];
         }
-        return bytesToHexString(array, array.length, usePrettyPrinting);
+        return bytesToHexString(array, usePrettyPrinting, true);
     }
 
-    public static String bytesToHexString(byte[] array, int byteSize, boolean usePrettyPrinting) {
-        if (array == null) {
-            array = new byte[0];
-        }
-        return bytesToHexString(array, array.length, usePrettyPrinting, true);
-    }
-
-    public static String bytesToHexString(byte[] array, int byteSize, boolean usePrettyPrinting, boolean initialNewLine) {
+    public static String bytesToHexString(byte[] array, boolean usePrettyPrinting, boolean initialNewLine) {
         StringBuilder result = new StringBuilder();
-        int bs = (byteSize < array.length) ? byteSize : array.length;
         if (initialNewLine && usePrettyPrinting) {
             result.append("\n");
         }
-        for (int i = 0; i < bs; i++) {
+        for (int i = 0; i < array.length; i++) {
             if (usePrettyPrinting && i != 0) {
                 if (i % 16 == 0) {
                     result.append("\n");
@@ -241,9 +225,8 @@ public class ArrayConverter {
      *
      * @param value
      * @param blockSize
-     * @param removeSignByte
-     *            in a case the removeSignByte is set, the sign byte is removed
-     *            (in case the byte array contains one)
+     * @param removeSignByte in a case the removeSignByte is set, the sign byte
+     *                       is removed (in case the byte array contains one)
      * @return
      */
     public static byte[] bigIntegerToByteArray(BigInteger value, int blockSize, boolean removeSignByte) {
