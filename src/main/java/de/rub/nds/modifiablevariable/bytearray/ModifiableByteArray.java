@@ -10,7 +10,7 @@ package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import static de.rub.nds.modifiablevariable.util.ArrayConverter.bytesToHexString;
 import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -20,13 +20,14 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * 
+ *
  * @author Juraj Somorovsky - juraj.somorovsky@rub.de
+ * @author Matthias Terlinde - <matthias.terlinde@rub.de>
  */
 @XmlRootElement
-@XmlSeeAlso({ ByteArrayDeleteModification.class, ByteArrayExplicitValueModification.class,
-        ByteArrayInsertModification.class, ByteArrayXorModification.class, ByteArrayDuplicateModification.class })
-@XmlType(propOrder = { "originalValue", "modification", "assertEquals" })
+@XmlSeeAlso({ByteArrayDeleteModification.class, ByteArrayExplicitValueModification.class,
+    ByteArrayInsertModification.class, ByteArrayXorModification.class, ByteArrayDuplicateModification.class})
+@XmlType(propOrder = {"originalValue", "modification", "assertEquals"})
 public class ModifiableByteArray extends ModifiableVariable<byte[]> implements Serializable {
 
     private byte[] originalValue;
@@ -75,8 +76,18 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> implements S
 
     @Override
     public String toString() {
-        return ArrayConverter.bytesToHexString(this);
+        StringBuilder result = new StringBuilder();
+        if (this.isOriginalValueModified()) {
+            result.append("Actual byte value is: ");
+            result.append(bytesToHexString(this));
+            result.append("\nOriginal value was: ");
+            result.append(bytesToHexString(this.getOriginalValue()));
+        } else {
+            result.append("Original byte value is: ");
+            result.append(bytesToHexString(this.getOriginalValue()));
+        }
+        return result.toString();
+
     }
-    
-    
+
 }

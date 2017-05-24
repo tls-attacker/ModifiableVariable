@@ -26,6 +26,7 @@ import org.junit.Test;
  * @author Juraj Somorovsky <juraj.somorovsky@rub.de>
  */
 public class ModifiableByteArrayTest {
+
     private static final Logger LOGGER = LogManager.getLogger(ModifiableByteArray.class);
 
     private ModifiableByteArray start;
@@ -38,10 +39,10 @@ public class ModifiableByteArrayTest {
 
     @Before
     public void setUp() {
-        originalValue = new byte[] { (byte) 0, (byte) 1, (byte) 2, (byte) 3, (byte) 4, (byte) 5, (byte) 6 };
-        modification1 = new byte[] { (byte) 2, (byte) 3 };
-        modification2 = new byte[] { (byte) 2, (byte) 1, (byte) 0, (byte) 1, (byte) 2, (byte) 3, (byte) 4, (byte) 5,
-                (byte) 6 };
+        originalValue = new byte[]{(byte) 0, (byte) 1, (byte) 2, (byte) 3, (byte) 4, (byte) 5, (byte) 6};
+        modification1 = new byte[]{(byte) 2, (byte) 3};
+        modification2 = new byte[]{(byte) 2, (byte) 1, (byte) 0, (byte) 1, (byte) 2, (byte) 3, (byte) 4, (byte) 5,
+            (byte) 6};
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
     }
@@ -361,13 +362,13 @@ public class ModifiableByteArrayTest {
     @Test
     public void testIsOriginalValueModified() {
         assertFalse(start.isOriginalValueModified());
-        VariableModification<byte[]> modifier = ByteArrayModificationFactory.xor(new byte[] {}, 0);
+        VariableModification<byte[]> modifier = ByteArrayModificationFactory.xor(new byte[]{}, 0);
         start.setModification(modifier);
         assertFalse(start.isOriginalValueModified());
-        modifier = ByteArrayModificationFactory.xor(new byte[] { 1 }, 0);
+        modifier = ByteArrayModificationFactory.xor(new byte[]{1}, 0);
         start.setModification(modifier);
         assertTrue(start.isOriginalValueModified());
-        modifier = ByteArrayModificationFactory.xor(new byte[] { 0, 0 }, originalValue.length - 2);
+        modifier = ByteArrayModificationFactory.xor(new byte[]{0, 0}, originalValue.length - 2);
         start.setModification(modifier);
         assertFalse(start.isOriginalValueModified());
     }
@@ -398,13 +399,13 @@ public class ModifiableByteArrayTest {
 
         modifier = ByteArrayModificationFactory.explicitValueFromFile(1);
         start.setModification(modifier);
-        expectedResult = new byte[] { 00 };
+        expectedResult = new byte[]{00};
         result = start.getValue();
         assertArrayEquals(expectedResult, result);
 
         modifier = ByteArrayModificationFactory.explicitValueFromFile(17);
         start.setModification(modifier);
-        expectedResult = new byte[] { (byte) 255 };
+        expectedResult = new byte[]{(byte) 255};
         result = start.getValue();
         assertArrayEquals(expectedResult, result);
     }
@@ -415,42 +416,30 @@ public class ModifiableByteArrayTest {
     @Test
     public void testShuffle() {
         LOGGER.info("testShuffle");
-        VariableModification<byte[]> modifier = ByteArrayModificationFactory.shuffle(new byte[] { 0, 1 });
+        VariableModification<byte[]> modifier = ByteArrayModificationFactory.shuffle(new byte[]{0, 1});
         start.setModification(modifier);
-        byte[] result = { 1, 0, 2, 3, 4, 5, 6 };
+        byte[] result = {1, 0, 2, 3, 4, 5, 6};
         assertArrayEquals(result, start.getValue());
 
-        modifier = ByteArrayModificationFactory.shuffle(new byte[] { 0, 1, 2, 3, 4, 5, 6 });
+        modifier = ByteArrayModificationFactory.shuffle(new byte[]{0, 1, 2, 3, 4, 5, 6});
         start.setModification(modifier);
-        result = new byte[] { 1, 0, 3, 2, 5, 4, 6 };
+        result = new byte[]{1, 0, 3, 2, 5, 4, 6};
         assertArrayEquals(result, start.getValue());
 
-        modifier = ByteArrayModificationFactory.shuffle(new byte[] { 0, 1, 2, 3, 4, 5, 6, 7 });
+        modifier = ByteArrayModificationFactory.shuffle(new byte[]{0, 1, 2, 3, 4, 5, 6, 7});
         start.setModification(modifier);
-        result = new byte[] { 6, 0, 3, 2, 5, 4, 1 };
+        result = new byte[]{6, 0, 3, 2, 5, 4, 1};
         assertArrayEquals(result, start.getValue());
     }
-    
+
     @Test
     public void toStringTest() {
-                ModifiableByteArray toTest = new ModifiableByteArray();
+        ModifiableByteArray toTest = new ModifiableByteArray();
         toTest = ModifiableVariableFactory.safelySetValue(toTest, new byte[]{0x00, 0x11, 0x22, 0x33, 0x44});
-        assertEquals("00 11 22 33 44", toTest.toString());
+        assertEquals("Original byte value is: 00 11 22 33 44", toTest.toString());
 
-        toTest = ModifiableVariableFactory.safelySetValue(toTest, new byte[]{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08});
-        assertEquals("00 01 02 03 04 05 06 07 08", toTest.toString());
-
-        toTest = ModifiableVariableFactory.safelySetValue(toTest, new byte[]{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x10});
-        assertEquals("00 01 02 03 04 05 06 07 08 09 10", toTest.toString());
-
-        toTest = ModifiableVariableFactory.safelySetValue(toTest, new byte[]{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06,
-            0x07,});
-        assertEquals("\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07", toTest.toString());
-
-        toTest = ModifiableVariableFactory.safelySetValue(toTest, new byte[]{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06,
-            0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,});
-        assertEquals(
-                "\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07",
-                toTest.toString());
+        VariableModification modificatoin = new ByteArrayExplicitValueModification(new byte[]{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08});
+        toTest.setModification(modificatoin);
+        assertEquals("Actual byte value is: 00 01 02 03 04 05 06 07 08\nOriginal value was: 00 11 22 33 44", toTest.toString());
     }
 }
