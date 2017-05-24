@@ -10,6 +10,7 @@ package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
+import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -71,4 +72,11 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> implements S
         }
         return valid;
     }
+
+    @Override
+    public String toString() {
+        return ArrayConverter.bytesToHexString(this);
+    }
+    
+    
 }

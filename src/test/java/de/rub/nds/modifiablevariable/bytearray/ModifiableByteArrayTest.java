@@ -8,13 +8,13 @@
  */
 package de.rub.nds.modifiablevariable.bytearray;
 
-import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayModificationFactory;
+import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -429,5 +429,28 @@ public class ModifiableByteArrayTest {
         start.setModification(modifier);
         result = new byte[] { 6, 0, 3, 2, 5, 4, 1 };
         assertArrayEquals(result, start.getValue());
+    }
+    
+    @Test
+    public void toStringTest() {
+                ModifiableByteArray toTest = new ModifiableByteArray();
+        toTest = ModifiableVariableFactory.safelySetValue(toTest, new byte[]{0x00, 0x11, 0x22, 0x33, 0x44});
+        assertEquals("00 11 22 33 44", toTest.toString());
+
+        toTest = ModifiableVariableFactory.safelySetValue(toTest, new byte[]{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08});
+        assertEquals("00 01 02 03 04 05 06 07 08", toTest.toString());
+
+        toTest = ModifiableVariableFactory.safelySetValue(toTest, new byte[]{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x10});
+        assertEquals("00 01 02 03 04 05 06 07 08 09 10", toTest.toString());
+
+        toTest = ModifiableVariableFactory.safelySetValue(toTest, new byte[]{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06,
+            0x07,});
+        assertEquals("\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07", toTest.toString());
+
+        toTest = ModifiableVariableFactory.safelySetValue(toTest, new byte[]{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06,
+            0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,});
+        assertEquals(
+                "\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07",
+                toTest.toString());
     }
 }
