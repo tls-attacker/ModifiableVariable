@@ -7,6 +7,9 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  */
 package de.rub.nds.modifiablevariable.util;
+
+import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
+import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import java.math.BigInteger;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -58,13 +61,13 @@ public class ArrayConverterTest {
      */
     @Test
     public void testBytesToLong() {
-        /** TODO get the casting correct.
-        long result = 571714867398058L;
-        byte[] toParse = {0x02, 0x07, (byte) 0xf8, (byte) 0xbd, (byte) 0x95, (byte) 0x85, (byte) 0xaa};
-        byte[] test = ArrayConverter.longToBytes(result, 7);
-        int a = 0;
-        //assertEquals(result, ArrayConverter.bytesToLong(toParse));
-        */
+        /**
+         * TODO get the casting correct. long result = 571714867398058L; byte[]
+         * toParse = {0x02, 0x07, (byte) 0xf8, (byte) 0xbd, (byte) 0x95, (byte)
+         * 0x85, (byte) 0xaa}; byte[] test = ArrayConverter.longToBytes(result,
+         * 7); int a = 0; //assertEquals(result,
+         * ArrayConverter.bytesToLong(toParse));
+         */
 
     }
 
@@ -186,4 +189,33 @@ public class ArrayConverterTest {
 
         assertArrayEquals("Assert correct output", expectedResult, ArrayConverter.longToUint48Bytes(testValue));
     }
+
+    /**
+     * Test of bytesToHexString method, of class ArrayConverter. Differences in
+     * the overloaded methods should be visible in the other tests since the
+     * methods just pass the .getValue().
+     */
+    @Test
+    public void testBytesToHexString_ModifiableByteArray() {
+        ModifiableByteArray toTest = new ModifiableByteArray();
+        toTest = ModifiableVariableFactory.safelySetValue(toTest, new byte[]{0x00, 0x11, 0x22, 0x33, 0x44});
+        assertEquals("00 11 22 33 44", ArrayConverter.bytesToHexString(toTest));
+
+        toTest = ModifiableVariableFactory.safelySetValue(toTest, new byte[]{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08});
+        assertEquals("00 01 02 03 04 05 06 07 08", ArrayConverter.bytesToHexString(toTest));
+
+        toTest = ModifiableVariableFactory.safelySetValue(toTest, new byte[]{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x10});
+        assertEquals("00 01 02 03 04 05 06 07 08 09 10", ArrayConverter.bytesToHexString(toTest));
+
+        toTest = ModifiableVariableFactory.safelySetValue(toTest, new byte[]{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06,
+            0x07,});
+        assertEquals("\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07", ArrayConverter.bytesToHexString(toTest));
+
+        toTest = ModifiableVariableFactory.safelySetValue(toTest, new byte[]{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06,
+            0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,});
+        assertEquals(
+                "\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07",
+                ArrayConverter.bytesToHexString(toTest));
+    }
+
 }

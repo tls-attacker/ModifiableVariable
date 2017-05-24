@@ -8,12 +8,14 @@
  */
 package de.rub.nds.modifiablevariable.util;
 
+import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.util.List;
 
 /**
  * @author Juraj Somorovsky <juraj.somorovsky@rub.de>
+ * @author Matthias Terlinde <matthias.terlinde@rub.de>
  */
 public class ArrayConverter {
 
@@ -56,7 +58,7 @@ public class ArrayConverter {
      * Takes an integer value and stores its last bytes into a byte array
      *
      * @param value integer value
-     * @param size byte size of the new integer byte array
+     * @param size  byte size of the new integer byte array
      * @return
      */
     public static byte[] intToBytes(int value, int size) {
@@ -77,7 +79,7 @@ public class ArrayConverter {
      * Takes a long value and stores its last bytes into a byte array
      *
      * @param value long value
-     * @param size byte size of the new integer byte array
+     * @param size  byte size of the new integer byte array
      * @return
      */
     public static byte[] longToBytes(long value, int size) {
@@ -161,6 +163,19 @@ public class ArrayConverter {
             result.append(String.format("%02X", b));
         }
         return result.toString();
+    }
+
+    public static String bytesToHexString(ModifiableByteArray array) {
+        return bytesToHexString(array.getValue());
+    }
+
+    public static String bytesToHexString(ModifiableByteArray array, boolean usePrettyPrinting) {
+
+        return bytesToHexString(array.getValue(), usePrettyPrinting, true);
+    }
+
+    public static String bytesToHexString(ModifiableByteArray array, boolean usePrettyPrinting, boolean initialNewLine) {
+        return bytesToHexString(array.getValue(), usePrettyPrinting, initialNewLine);
     }
 
     @SafeVarargs
