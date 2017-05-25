@@ -14,7 +14,7 @@ import org.junit.Test;
 
 /**
  * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- * @author Florian Pfützenreuter <Florian.Pfuetzenreuter@rub.de>
+ * @author Florian PfÃ¼tzenreuter <Florian.Pfuetzenreuter@rub.de>
  * @author Matthias Terlinde <matthias.terlinde@rub.de>
  */
 public class ArrayConverterTest {
@@ -102,7 +102,7 @@ public class ArrayConverterTest {
     @Test
     public void testBytesToHexString_3args() {
     }
-
+    
     /**
      * Test of concatenate method, of class ArrayConverter.
      */

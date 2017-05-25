@@ -147,15 +147,15 @@ public class ArrayConverter {
             result.append("\n");
         }
         for (int i = 0; i < array.length; i++) {
-            if (usePrettyPrinting && i != 0) {
-                if (i % 16 == 0) {
+            if (i != 0) {
+                if (usePrettyPrinting && (i % 16 == 0)) {
                     result.append("\n");
-                } else if (i % 8 == 0) {
+                } else {
+                    if (usePrettyPrinting && (i % 8 == 0)) {
+                        result.append(" ");
+                    }
                     result.append(" ");
-                }
-            }
-            if (i % 16 != 0) {
-                result.append(" ");
+                }               
             }
             byte b = array[i];
             result.append(String.format("%02X", b));
@@ -163,18 +163,6 @@ public class ArrayConverter {
         return result.toString();
     }
 
-    /**
-     * Like bytesToHexString without formatting.
-     */
-    public static String bytesToRawHexString(byte[] array) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < array.length; i++) {
-            byte b = array[i];
-            result.append(String.format("%02X", b));
-        }
-        return result.toString();
-    }    
-    
     @SafeVarargs
     public static <T> T[] concatenate(final T[]... arrays) {
         if (arrays == null || arrays.length == 0) {
