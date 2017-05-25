@@ -110,6 +110,17 @@ public class ArrayConverterTest {
     }
     
     /**
+     * Test ArrayConverter.bytesToRawHexString().
+     */
+    @Test
+    public void testBytesToRawHexString() {
+        byte[] toTest = new byte[]{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06,
+            0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07};
+        assertEquals("0001020304050607000102030405060700010203040506070001020304050607",
+                ArrayConverter.bytesToRawHexString(toTest));
+    }
+
+    /**
      * Test of concatenate method, of class ArrayConverter.
      */
     @Test
