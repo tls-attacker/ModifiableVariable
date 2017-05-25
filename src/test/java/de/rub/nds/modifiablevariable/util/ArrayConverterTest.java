@@ -94,6 +94,12 @@ public class ArrayConverterTest {
      */
     @Test
     public void testBytesToHexString_byteArr_boolean() {
+        byte[] toTest = new byte[]{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06,
+            0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07};
+        assertEquals("00 01 02 03 04 05 06 07 00 01 02 03 04 05 06 07 00 01 02 03 04 05 06 07 00 01 02 03 04 05 06 07",
+                ArrayConverter.bytesToHexString(toTest, false));
+        assertEquals("\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07",
+                ArrayConverter.bytesToHexString(toTest, true));
     }
 
     /**
