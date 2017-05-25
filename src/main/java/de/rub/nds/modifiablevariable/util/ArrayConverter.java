@@ -163,6 +163,18 @@ public class ArrayConverter {
         return result.toString();
     }
 
+    /**
+     * Like bytesToHexString without formatting.
+     */
+    public static String bytesToRawHexString(byte[] array) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < array.length; i++) {
+            byte b = array[i];
+            result.append(String.format("%02X", b));
+        }
+        return result.toString();
+    }    
+    
     @SafeVarargs
     public static <T> T[] concatenate(final T[]... arrays) {
         if (arrays == null || arrays.length == 0) {
