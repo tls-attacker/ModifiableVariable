@@ -17,7 +17,7 @@ import org.junit.Test;
 
 /**
  * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- * @author Florian Pfützenreuter <Florian.Pfuetzenreuter@rub.de>
+ * @author Florian Pfuetzenreuter <Florian.Pfuetzenreuter@rub.de>
  * @author Matthias Terlinde <matthias.terlinde@rub.de>
  */
 public class ArrayConverterTest {
