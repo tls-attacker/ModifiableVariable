@@ -10,7 +10,7 @@ package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
-import static de.rub.nds.modifiablevariable.util.ArrayConverter.bytesToHexString;
+import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -79,12 +79,12 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> implements S
         StringBuilder result = new StringBuilder();
         if (this.isOriginalValueModified()) {
             result.append("Actual byte value is: ");
-            result.append(bytesToHexString(this));
+            result.append(ArrayConverter.bytesToHexString(this));
             result.append("\nOriginal value was: ");
-            result.append(bytesToHexString(this.getOriginalValue()));
+            result.append(ArrayConverter.bytesToHexString(this.getOriginalValue()));
         } else {
             result.append("Original byte value is: ");
-            result.append(bytesToHexString(this.getOriginalValue()));
+            result.append(ArrayConverter.bytesToHexString(this.getOriginalValue()));
         }
         return result.toString();
 
