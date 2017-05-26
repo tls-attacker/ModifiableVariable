@@ -20,8 +20,7 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * 
- * @author Robert Merget - robert.merget@rub.de
- * Highly Experimental
+ * @author Robert Merget - robert.merget@rub.de Highly Experimental
  */
 @XmlRootElement
 @XmlSeeAlso({ IntegerAddModification.class, IntegerExplicitValueModification.class, IntegerSubtractModification.class,
