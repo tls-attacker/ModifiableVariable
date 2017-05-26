@@ -43,7 +43,7 @@ public class ArrayConverterTest {
     public void testIntToBytes() {
         int toParse = 5717;
         byte[] result = ArrayConverter.intToBytes(toParse, 2);
-        assertArrayEquals("The conversion result of 5717 should be {0x16} {0x55}", new byte[]{0x16, 0x55}, result);
+        assertArrayEquals("The conversion result of 5717 should be {0x16} {0x55}", new byte[] { 0x16, 0x55 }, result);
     }
 
     /**
@@ -51,9 +51,10 @@ public class ArrayConverterTest {
      */
     @Test
     public void testBytesToInt() {
-        byte[] toParse = {0x16, 0x55};
+        byte[] toParse = { 0x16, 0x55 };
         int expectedResult = 5717;
-        assertEquals("The conversion result of {0x16, 0x55} should be 5717", expectedResult, ArrayConverter.bytesToInt(toParse));
+        assertEquals("The conversion result of {0x16, 0x55} should be 5717", expectedResult,
+                ArrayConverter.bytesToInt(toParse));
     }
 
     /**
@@ -76,17 +77,17 @@ public class ArrayConverterTest {
      */
     @Test
     public void testBytesToHexString_byteArr() {
-        byte[] toTest = new byte[]{0x00, 0x11, 0x22, 0x33, 0x44};
+        byte[] toTest = new byte[] { 0x00, 0x11, 0x22, 0x33, 0x44 };
         assertEquals("00 11 22 33 44", ArrayConverter.bytesToHexString(toTest));
-        toTest = new byte[]{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
+        toTest = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08 };
         assertEquals("00 01 02 03 04 05 06 07 08", ArrayConverter.bytesToHexString(toTest));
-        toTest = new byte[]{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x10};
+        toTest = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x10 };
         assertEquals("00 01 02 03 04 05 06 07 08 09 10", ArrayConverter.bytesToHexString(toTest));
-        toTest = new byte[]{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06,
-            0x07,};
+        toTest = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06,
+                0x07, };
         assertEquals("\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07", ArrayConverter.bytesToHexString(toTest));
-        toTest = new byte[]{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06,
-            0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,};
+        toTest = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06,
+                0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, };
         assertEquals(
                 "\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07",
                 ArrayConverter.bytesToHexString(toTest));
@@ -97,6 +98,14 @@ public class ArrayConverterTest {
      */
     @Test
     public void testBytesToHexString_byteArr_boolean() {
+        byte[] toTest = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04,
+                0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05,
+                0x06, 0x07 };
+        assertEquals("00 01 02 03 04 05 06 07 00 01 02 03 04 05 06 07 00 01 02 03 04 05 06 07 00 01 02 03 04 05 06 07",
+                ArrayConverter.bytesToHexString(toTest, false));
+        assertEquals(
+                "\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07",
+                ArrayConverter.bytesToHexString(toTest, true));
     }
 
     /**
@@ -104,6 +113,18 @@ public class ArrayConverterTest {
      */
     @Test
     public void testBytesToHexString_3args() {
+    }
+
+    /**
+     * Test ArrayConverter.bytesToRawHexString().
+     */
+    @Test
+    public void testBytesToRawHexString() {
+        byte[] toTest = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04,
+                0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05,
+                0x06, 0x07 };
+        assertEquals("0001020304050607000102030405060700010203040506070001020304050607",
+                ArrayConverter.bytesToRawHexString(toTest));
     }
 
     /**
@@ -154,13 +175,13 @@ public class ArrayConverterTest {
     @Test
     public void testHexStringToByteArray() {
         String hex = "01";
-        assertArrayEquals("Testing simple one byte hex value", new byte[]{0x01},
+        assertArrayEquals("Testing simple one byte hex value", new byte[] { 0x01 },
                 ArrayConverter.hexStringToByteArray(hex));
         hex = "FF";
-        assertArrayEquals("Testing one byte hex value > 0x7f", new byte[]{(byte) 0xff},
+        assertArrayEquals("Testing one byte hex value > 0x7f", new byte[] { (byte) 0xff },
                 ArrayConverter.hexStringToByteArray(hex));
         hex = "FFFFFF";
-        assertArrayEquals("Testing one byte hex value > 0x7f", new byte[]{(byte) 0xff, (byte) 0xff, (byte) 0xff},
+        assertArrayEquals("Testing one byte hex value > 0x7f", new byte[] { (byte) 0xff, (byte) 0xff, (byte) 0xff },
                 ArrayConverter.hexStringToByteArray(hex));
     }
 
@@ -170,7 +191,7 @@ public class ArrayConverterTest {
 
         assertArrayEquals("Check zero output size", new byte[0],
                 ArrayConverter.bigIntegerToNullPaddedByteArray(test, 0));
-        assertArrayEquals("Check check output size smaller than input", new byte[]{(byte) 0xEC},
+        assertArrayEquals("Check check output size smaller than input", new byte[] { (byte) 0xEC },
                 ArrayConverter.bigIntegerToNullPaddedByteArray(test, 1));
         assertArrayEquals("Check output size bigger than input size",
                 ArrayConverter.hexStringToByteArray("0000000000000000000000001D42C86F7923DFEC"),
