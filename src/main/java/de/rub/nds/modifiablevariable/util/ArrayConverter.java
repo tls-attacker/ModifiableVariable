@@ -55,8 +55,10 @@ public class ArrayConverter {
     /**
      * Takes an integer value and stores its last bytes into a byte array
      *
-     * @param value integer value
-     * @param size byte size of the new integer byte array
+     * @param value
+     *            integer value
+     * @param size
+     *            byte size of the new integer byte array
      * @return
      */
     public static byte[] intToBytes(int value, int size) {
@@ -76,8 +78,10 @@ public class ArrayConverter {
     /**
      * Takes a long value and stores its last bytes into a byte array
      *
-     * @param value long value
-     * @param size byte size of the new integer byte array
+     * @param value
+     *            long value
+     * @param size
+     *            byte size of the new integer byte array
      * @return
      */
     public static byte[] longToBytes(long value, int size) {
@@ -155,14 +159,14 @@ public class ArrayConverter {
                         result.append(" ");
                     }
                     result.append(" ");
-                }               
+                }
             }
             byte b = array[i];
             result.append(String.format("%02X", b));
         }
         return result.toString();
     }
-    
+
     /**
      * Like bytesToHexString() without any formatting.
      */
@@ -173,7 +177,7 @@ public class ArrayConverter {
             result.append(String.format("%02X", b));
         }
         return result.toString();
-    }        
+    }
 
     @SafeVarargs
     public static <T> T[] concatenate(final T[]... arrays) {
@@ -237,8 +241,9 @@ public class ArrayConverter {
      *
      * @param value
      * @param blockSize
-     * @param removeSignByte in a case the removeSignByte is set, the sign byte
-     *                       is removed (in case the byte array contains one)
+     * @param removeSignByte
+     *            in a case the removeSignByte is set, the sign byte is removed
+     *            (in case the byte array contains one)
      * @return
      */
     public static byte[] bigIntegerToByteArray(BigInteger value, int blockSize, boolean removeSignByte) {
