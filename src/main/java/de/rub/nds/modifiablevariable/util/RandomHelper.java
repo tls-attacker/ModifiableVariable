@@ -28,6 +28,10 @@ public class RandomHelper {
         return new BadRandom(getRandom(), null);
     }
 
+    public static void setRandom(Random random) {
+        RandomHelper.random = random;
+    }
+
     private RandomHelper() {
     }
 }
