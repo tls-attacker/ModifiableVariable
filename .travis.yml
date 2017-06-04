@@ -10,7 +10,7 @@ jdk:
 #branches:
 #  only:
 #    - master
-script: mvn clean install -Dgpg.skip=true
+install: mvn install -DskipTests -Dgpg.skip
 
 notifications:
   email:
