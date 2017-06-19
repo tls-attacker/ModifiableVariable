@@ -88,6 +88,24 @@ public class BigIntegerModificationFactory {
         return modifications.get(pos);
     }
 
+    public static VariableModification<BigInteger> interactive() {
+        return new BigIntegerInteractiveModification(
+                new BigIntegerInteractiveModification.InteractiveBigIntegerModification() {
+            @Override
+            public BigInteger modify(BigInteger oldVal) {
+                BigInteger result = null;
+                
+                System.out.println("Enter new value for BigInt (Old value is " 
+                        + oldVal.toString() + "): ");
+                String input = System.console().readLine().trim();
+                
+                result = new BigInteger(input);
+                
+                return result;
+            }
+        });
+    }
+
     public static synchronized List<VariableModification<BigInteger>> modificationsFromFile() {
         try {
             if (modificationsFromFile == null) {
