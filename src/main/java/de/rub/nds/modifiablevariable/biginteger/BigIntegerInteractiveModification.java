@@ -17,18 +17,17 @@ import javax.xml.bind.annotation.XmlType;
  * @author Janis Fliegenschmidt - janis.fliegenschmidt@rub.de
  */
 @XmlRootElement
-@XmlType(propOrder = {"interactive", "modificationFilter", "postModification"})
+@XmlType(propOrder = { "interactive", "modificationFilter", "postModification" })
 public class BigIntegerInteractiveModification extends VariableModification<BigInteger> {
 
     private InteractiveBigIntegerModification modification;
 
-    public BigIntegerInteractiveModification() {
+    protected BigIntegerInteractiveModification() {
         this(new InteractiveBigIntegerModification() {
             @Override
             public BigInteger modify(BigInteger oldVal) {
                 // Fail fast
-                throw new UnsupportedOperationException("No interactive modifi"
-                        + "cation specified.");
+                throw new UnsupportedOperationException("No interactive modifi" + "cation specified.");
             }
         });
     }
