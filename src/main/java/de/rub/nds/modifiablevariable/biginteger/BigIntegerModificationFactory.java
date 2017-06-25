@@ -20,6 +20,7 @@ import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * @author
@@ -96,9 +97,8 @@ public class BigIntegerModificationFactory {
 
                 System.out.println("Enter new value for " + variableName + " (Old value is " + oldVal.toString()
                         + "): ");
-                String input = System.console().readLine().trim();
-
-                result = new BigInteger(input);
+                
+                result = new Scanner(System.in).nextBigInteger();
 
                 return result;
             }
