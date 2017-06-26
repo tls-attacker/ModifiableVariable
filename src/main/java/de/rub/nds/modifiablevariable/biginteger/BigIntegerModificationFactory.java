@@ -89,29 +89,29 @@ public class BigIntegerModificationFactory {
         return modifications.get(pos);
     }
 
-    public static VariableModification<BigInteger> interactive(final String variableName) {
-        return interactive(new BigIntegerInteractiveModification.InteractiveBigIntegerModification() {
-            @Override
-            public BigInteger modify(BigInteger oldVal) {
-                BigInteger result = null;
+    /*
+     * Interactive modification
+     */
 
-                System.out.println("Enter new value for " + variableName + " (Old value is " + oldVal.toString()
-                        + "): ");
-                
-                result = new Scanner(System.in).nextBigInteger();
+    private static BigIntegerInteractiveModification.InteractiveBigIntegerModification standardInteractiveModification = new BigIntegerInteractiveModification.InteractiveBigIntegerModification() {
+        @Override
+        public BigInteger modify(BigInteger oldVal) {
+            System.out.println("Enter new value for BigInt: ");
+            return new Scanner(System.in).nextBigInteger();
+        }
+    };
 
-                return result;
-            }
-        });
+    public static void setStandardInteractiveModification(
+            BigIntegerInteractiveModification.InteractiveBigIntegerModification modification) {
+        standardInteractiveModification = modification;
+    }
+
+    protected static BigIntegerInteractiveModification.InteractiveBigIntegerModification getStandardInteractiveModification() {
+        return standardInteractiveModification;
     }
 
     public static VariableModification<BigInteger> interactive() {
-        return interactive("BigInt");
-    }
-
-    public static VariableModification<BigInteger> interactive(
-            BigIntegerInteractiveModification.InteractiveBigIntegerModification modification) {
-        return new BigIntegerInteractiveModification(modification);
+        return new BigIntegerInteractiveModification();
     }
 
     public static synchronized List<VariableModification<BigInteger>> modificationsFromFile() {
