@@ -20,6 +20,7 @@ import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * @author
@@ -86,6 +87,36 @@ public class BigIntegerModificationFactory {
         List<VariableModification<BigInteger>> modifications = modificationsFromFile();
         int pos = value % modifications.size();
         return modifications.get(pos);
+    }
+
+    /*
+     * Interactive modification
+     */
+    private static BigIntegerInteractiveModification.InteractiveBigIntegerModification standardInteractiveModification = new BigIntegerInteractiveModification.InteractiveBigIntegerModification() {
+        private BigInteger value;
+
+        @Override
+        public BigInteger modify(BigInteger oldVal) {
+            if (value == null) {
+                System.out.println("Enter new value for BigInt: ");
+                value = new Scanner(System.in).nextBigInteger();
+            }
+            return value;
+
+        }
+    };
+
+    public static void setStandardInteractiveModification(
+            BigIntegerInteractiveModification.InteractiveBigIntegerModification modification) {
+        standardInteractiveModification = modification;
+    }
+
+    protected static BigIntegerInteractiveModification.InteractiveBigIntegerModification getStandardInteractiveModification() {
+        return standardInteractiveModification;
+    }
+
+    public static VariableModification<BigInteger> interactive() {
+        return new BigIntegerInteractiveModification();
     }
 
     public static synchronized List<VariableModification<BigInteger>> modificationsFromFile() {

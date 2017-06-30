@@ -10,6 +10,7 @@ package de.rub.nds.modifiablevariable;
 
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerAddModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerExplicitValueModification;
+import de.rub.nds.modifiablevariable.biginteger.BigIntegerInteractiveModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerShiftLeftModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerShiftRightModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerSubtractModification;
@@ -46,7 +47,7 @@ import org.apache.logging.log4j.Logger;
  */
 @XmlRootElement
 @XmlTransient
-@XmlSeeAlso({ AccessModificationFilter.class, BigIntegerAddModification.class,
+@XmlSeeAlso({ AccessModificationFilter.class, BigIntegerAddModification.class, BigIntegerInteractiveModification.class,
         BigIntegerExplicitValueModification.class, BigIntegerSubtractModification.class,
         BigIntegerXorModification.class, BigIntegerShiftLeftModification.class, BigIntegerShiftRightModification.class,
         IntegerAddModification.class, IntegerExplicitValueModification.class, IntegerSubtractModification.class,
