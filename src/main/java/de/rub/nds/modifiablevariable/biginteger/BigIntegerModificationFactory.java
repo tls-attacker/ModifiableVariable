@@ -92,12 +92,17 @@ public class BigIntegerModificationFactory {
     /*
      * Interactive modification
      */
-
     private static BigIntegerInteractiveModification.InteractiveBigIntegerModification standardInteractiveModification = new BigIntegerInteractiveModification.InteractiveBigIntegerModification() {
+        private BigInteger value;
+
         @Override
         public BigInteger modify(BigInteger oldVal) {
-            System.out.println("Enter new value for BigInt: ");
-            return new Scanner(System.in).nextBigInteger();
+            if (value == null) {
+                System.out.println("Enter new value for BigInt: ");
+                value = new Scanner(System.in).nextBigInteger();
+            }
+            return value;
+
         }
     };
 
