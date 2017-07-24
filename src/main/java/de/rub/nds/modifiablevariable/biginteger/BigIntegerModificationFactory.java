@@ -10,12 +10,13 @@ package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.FileConfigurationException;
 import de.rub.nds.modifiablevariable.VariableModification;
+import de.rub.nds.modifiablevariable.bytearray.ByteArrayModificationFactory;
 import de.rub.nds.modifiablevariable.integer.IntegerModificationFactory;
 import de.rub.nds.modifiablevariable.util.RandomHelper;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
@@ -123,13 +124,13 @@ public class BigIntegerModificationFactory {
         try {
             if (modificationsFromFile == null) {
                 modificationsFromFile = new LinkedList<>();
-                ClassLoader classLoader = IntegerModificationFactory.class.getClassLoader();
-
-                File file = new File(classLoader.getResource(IntegerModificationFactory.FILE_NAME).getFile());
-                try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                        String value = line.trim().split(" ")[0];
+                ClassLoader classLoader = ByteArrayModificationFactory.class.getClassLoader();
+                InputStream is = classLoader.getResourceAsStream(IntegerModificationFactory.FILE_NAME);
+                BufferedReader br = new BufferedReader(new InputStreamReader(is));
+                String line;
+                while ((line = br.readLine()) != null) {
+                    String value = line.trim().split(" ")[0];
+                    if (!value.equals("")) {
                         modificationsFromFile.add(explicitValue(value));
                     }
                 }

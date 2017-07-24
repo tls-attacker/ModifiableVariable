@@ -88,15 +88,7 @@ public class ModifiableByteArrayTest {
 
         VariableModification<byte[]> modifier2 = ByteArrayModificationFactory.xor(modification2, 0);
         start.setModification(modifier2);
-
-        Exception e = null;
-        try {
-            start.getValue();
-        } catch (ArrayIndexOutOfBoundsException ae) {
-            e = ae;
-            LOGGER.debug(ae.getLocalizedMessage());
-        }
-        assertNotNull(e);
+        assertArrayEquals(originalValue, start.getValue());
     }
 
     /**
@@ -121,15 +113,7 @@ public class ModifiableByteArrayTest {
 
         VariableModification<byte[]> modifier2 = ByteArrayModificationFactory.xor(modification2, first);
         start.setModification(modifier2);
-
-        Exception e = null;
-        try {
-            start.getValue();
-        } catch (ArrayIndexOutOfBoundsException ae) {
-            e = ae;
-            LOGGER.debug(ae.getLocalizedMessage());
-        }
-        assertNotNull(e);
+        assertArrayEquals(originalValue, start.getValue());
     }
 
     /**
@@ -246,69 +230,31 @@ public class ModifiableByteArrayTest {
         modifier = ByteArrayModificationFactory.delete(0, len + 1);
         start.setModification(modifier);
 
-        Exception e = null;
-        try {
-            start.getValue();
-        } catch (ArrayIndexOutOfBoundsException ae) {
-            e = ae;
-            LOGGER.debug(ae.getLocalizedMessage());
-        }
-        assertNotNull(e);
+        assertArrayEquals(start.getValue(), originalValue);
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
         LOGGER.debug("Testing Delete negative amount");
         modifier = ByteArrayModificationFactory.delete(0, -1);
         start.setModification(modifier);
-        e = null;
-        try {
-            start.getValue();
-        } catch (IllegalArgumentException ae) {
-            e = ae;
-            LOGGER.debug(ae.getLocalizedMessage());
-        }
-        assertNotNull(e);
+        assertArrayEquals(start.getValue(), originalValue);
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
         LOGGER.debug("Testing Delete 0 Bytes");
         modifier = ByteArrayModificationFactory.delete(0, 0);
         start.setModification(modifier);
-        e = null;
-        try {
-            start.getValue();
-        } catch (IllegalArgumentException ae) {
-            e = ae;
-            LOGGER.debug(ae.getLocalizedMessage());
-        }
-        assertNotNull(e);
+        assertArrayEquals(start.getValue(), originalValue);
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
         LOGGER.debug("Testing Delete from negative Start position");
         modifier = ByteArrayModificationFactory.delete(len * -2, modification1.length);
         start.setModification(modifier);
-
-        e = null;
-        try {
-            start.getValue();
-        } catch (Exception ae) {
-            e = ae;
-            LOGGER.debug(ae.getLocalizedMessage());
-        }
-        assertNotNull(e);
+        assertArrayEquals(start.getValue(), originalValue);
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
         LOGGER.debug("Testing Delete from to big Start Position");
         modifier = ByteArrayModificationFactory.delete(len * 2, modification1.length);
         start.setModification(modifier);
-
-        e = null;
-        try {
-            start.getValue();
-        } catch (ArrayIndexOutOfBoundsException ae) {
-            e = ae;
-            LOGGER.debug(ae.getLocalizedMessage());
-        }
-        assertNotNull(e);
-
+        assertArrayEquals(start.getValue(), originalValue);
     }
 
     /**
@@ -323,14 +269,7 @@ public class ModifiableByteArrayTest {
         VariableModification<byte[]> modifier = ByteArrayModificationFactory.insert(modification1, -2
                 * originalValue.length);
         start.setModification(modifier);
-        Exception e = null;
-        try {
-            start.getValue();
-        } catch (IllegalArgumentException ae) {
-            e = ae;
-            LOGGER.debug(ae.getLocalizedMessage());
-        }
-        assertNotNull(e);
+        assertArrayEquals(start.getValue(), originalValue);
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
         LOGGER.debug("Inserting empty Array");
@@ -344,16 +283,7 @@ public class ModifiableByteArrayTest {
         LOGGER.debug("Inserting to big Start position");
         modifier = ByteArrayModificationFactory.insert(modification1, originalValue.length * 2);
         start.setModification(modifier);
-
-        e = null;
-        try {
-            start.getValue();
-        } catch (ArrayIndexOutOfBoundsException ae) {
-            e = ae;
-            LOGGER.debug(ae.getLocalizedMessage());
-        }
-        assertNotNull(e);
-
+        assertArrayEquals(originalValue, start.getValue());
     }
 
     /**

@@ -49,10 +49,11 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
         if (end > result.length) {
             // result = new byte[end];
             // System.arraycopy(input, 0, result, 0, input.length);
-            throw new ArrayIndexOutOfBoundsException(String.format(
+            LOGGER.debug(String.format(
                     "Input {%s} of length %d cannot be xored with {%s} of length %d with start position %d",
                     ArrayConverter.bytesToHexString(input), input.length, ArrayConverter.bytesToHexString(xor),
                     xor.length, startPosition));
+            return input;
         }
         for (int i = 0; i < xor.length; ++i) {
             result[start + i] = (byte) (input[start + i] ^ xor[i]);

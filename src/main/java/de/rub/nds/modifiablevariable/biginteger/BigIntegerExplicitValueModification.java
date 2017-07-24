@@ -23,7 +23,6 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
     private BigInteger explicitValue;
 
     public BigIntegerExplicitValueModification() {
-
     }
 
     public BigIntegerExplicitValueModification(BigInteger bi) {

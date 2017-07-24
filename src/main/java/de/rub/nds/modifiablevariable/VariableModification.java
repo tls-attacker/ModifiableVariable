@@ -62,7 +62,7 @@ import org.apache.logging.log4j.Logger;
 })
 public abstract class VariableModification<E> {
 
-    private static final Logger LOGGER = LogManager.getLogger(VariableModification.class);
+    protected static final Logger LOGGER = LogManager.getLogger(VariableModification.class);
 
     /**
      * post modification for next modification executed on the given variable
