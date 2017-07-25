@@ -141,13 +141,13 @@ public class ArrayConverter {
     }
 
     public static String bytesToHexString(byte[] array, boolean usePrettyPrinting) {
-        if (array == null) {
-            array = new byte[0];
-        }
         return bytesToHexString(array, usePrettyPrinting, true);
     }
 
     public static String bytesToHexString(byte[] array, boolean usePrettyPrinting, boolean initialNewLine) {
+        if (array == null) {
+            array = new byte[0];
+        }
         StringBuilder result = new StringBuilder();
         if (initialNewLine && usePrettyPrinting) {
             result.append("\n");

@@ -92,7 +92,9 @@ public class ByteArraySerializationTest {
         VariableModification<byte[]> modifier2 = ByteArrayModificationFactory.insert(new byte[] { 9, 8, 7 }, 3);
         modifier.setPostModification(modifier2);
         start.setModification(modifier);
+        System.out.println("mods set, marshalling...");
         m.marshal(start, writer);
+        System.out.println("done.");
 
         String xmlString = writer.toString();
         LOGGER.debug(xmlString);
