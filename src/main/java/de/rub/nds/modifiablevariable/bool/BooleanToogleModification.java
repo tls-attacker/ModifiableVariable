@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  * @author Robert Merget <robert.merget@rub.de>
  */
 @XmlRootElement
-@XmlType(propOrder = { "xor", "modificationFilter", "postModification" })
+@XmlType(propOrder = { "modificationFilter", "postModification" })
 public class BooleanToogleModification extends VariableModification<Boolean> {
 
     public BooleanToogleModification() {
