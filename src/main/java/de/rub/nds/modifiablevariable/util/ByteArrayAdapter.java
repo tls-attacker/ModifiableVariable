@@ -32,6 +32,9 @@ public class ByteArrayAdapter extends XmlAdapter<ByteArrayXmlType, byte[]> {
 
     @Override
     public ByteArrayXmlType marshal(byte[] value) throws Exception {
+        if (value == null) {
+            return null;
+        }
 
         String byteString = ArrayConverter.bytesToHexString(value, true, false);
         ByteArrayXmlType xmlType = new ByteArrayXmlType();
