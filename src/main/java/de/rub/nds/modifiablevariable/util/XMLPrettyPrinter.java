@@ -25,6 +25,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+import javax.xml.xpath.XPathFactoryConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -41,7 +42,8 @@ public class XMLPrettyPrinter {
     public static int IDENT_AMOUNT = 4;
 
     public static String prettyPrintXML(String input) throws TransformerConfigurationException,
-            ParserConfigurationException, SAXException, IOException, TransformerException, XPathExpressionException {
+            ParserConfigurationException, SAXException, IOException, TransformerException, XPathExpressionException,
+            XPathFactoryConfigurationException {
         Transformer transformer = TransformerFactory.newInstance().newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", Integer.toString(IDENT_AMOUNT));
@@ -53,6 +55,10 @@ public class XMLPrettyPrinter {
 
         // XPath for selecting all text contents
         XPathExpression xpath = XPathFactory.newInstance().newXPath().compile("//*[text()]/*");
+        // this is better but it does not work, because the default java xpath
+        // transformer does not support XPath 2.0
+        // XPathExpression xpath =
+        // XPathFactory.newInstance().newXPath().compile("//*[text()[matches(.,'^[0-9A-F ]*$')]]");
         // XPath for counting the number of ancestors of a current element
         XPathExpression xpathDepth = XPathFactory.newInstance().newXPath().compile("count(ancestor-or-self::*)");
 
