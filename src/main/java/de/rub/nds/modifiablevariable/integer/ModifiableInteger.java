@@ -71,4 +71,28 @@ public class ModifiableInteger extends ModifiableVariable<Integer> implements Se
     public void setOriginalValue(Integer originalValue) {
         this.originalValue = originalValue;
     }
+
+    @Override
+    public String toString() {
+        return "ModifiableInteger{" + "originalValue=" + originalValue + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof ModifiableInteger))
+            return false;
+
+        ModifiableInteger that = (ModifiableInteger) o;
+
+        return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (originalValue != null ? originalValue.hashCode() : 0);
+        return result;
+    }
 }

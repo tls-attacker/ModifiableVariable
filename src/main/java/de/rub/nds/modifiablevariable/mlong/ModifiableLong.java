@@ -71,4 +71,28 @@ public class ModifiableLong extends ModifiableVariable<Long> implements Serializ
     public void setOriginalValue(Long originalValue) {
         this.originalValue = originalValue;
     }
+
+    @Override
+    public String toString() {
+        return "ModifiableLong{" + "originalValue=" + originalValue + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof ModifiableLong))
+            return false;
+
+        ModifiableLong that = (ModifiableLong) o;
+
+        return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (originalValue != null ? originalValue.hashCode() : 0);
+        return result;
+    }
 }
