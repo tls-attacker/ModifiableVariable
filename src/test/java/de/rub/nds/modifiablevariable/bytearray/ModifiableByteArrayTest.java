@@ -13,6 +13,7 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Assert;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -443,5 +444,16 @@ public class ModifiableByteArrayTest {
         toTest.setModification(modificatoin);
         assertEquals("Actual byte value is: 00 01 02 03 04 05 06 07 08\nOriginal value was: 00 11 22 33 44",
                 toTest.toString());
+    }
+
+    @Test
+    public void testEquals() {
+        ModifiableByteArray array1 = new ModifiableByteArray();
+        array1.setOriginalValue(new byte[] { 1, 2, 3, });
+        ModifiableByteArray array2 = new ModifiableByteArray();
+        array2.setOriginalValue(new byte[] { 1, 2, 3, });
+        assertEquals(array1, array2);
+        array2.setOriginalValue(new byte[] { 3, 4, 5 });
+        Assert.assertNotEquals(array1, array2);
     }
 }
