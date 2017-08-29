@@ -58,7 +58,7 @@ public class ModifiableLengthField extends ModifiableInteger {
 
         ModifiableLengthField that = (ModifiableLengthField) o;
 
-        return ref != null ? getValue().equals(that.ref) : that.getValue() == null;
+        return ref != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }
 
     @Override
