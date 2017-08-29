@@ -26,7 +26,7 @@ public class Modifiable {
         return modifiableByteArray;
     }
 
-     private static ModifiableByte getModifiableByteWithModification(VariableModification<Byte> modification) {
+    private static ModifiableByte getModifiableByteWithModification(VariableModification<Byte> modification) {
         ModifiableByte modifiableByte = new ModifiableByte();
         modifiableByte.setModification(modification);
         return modifiableByte;
@@ -38,7 +38,8 @@ public class Modifiable {
         return modifiableInteger;
     }
 
-    private static ModifiableBigInteger getModifiableBigIntegerWithModification(VariableModification<BigInteger> modification) {
+    private static ModifiableBigInteger getModifiableBigIntegerWithModification(
+            VariableModification<BigInteger> modification) {
         ModifiableBigInteger modifiableBigInteger = new ModifiableBigInteger();
         modifiableBigInteger.setModification(modification);
         return modifiableBigInteger;
@@ -55,7 +56,6 @@ public class Modifiable {
         modifiableBoolean.setModification(modification);
         return modifiableBoolean;
     }
-
 
     public static ModifiableByteArray explicit(byte[] b) {
         return getModifiableByteArrayWithModification(ByteArrayModificationFactory.explicitValue(b));
@@ -81,7 +81,6 @@ public class Modifiable {
         return getModifiableBooleanWithModification(new BooleanExplicitValueModification(b));
     }
 
-
     public static ModifiableByteArray xor(byte[] b, int position) {
         return getModifiableByteArrayWithModification(ByteArrayModificationFactory.xor(b, position));
     }
@@ -102,8 +101,6 @@ public class Modifiable {
         return getModifiableLongWithModification(LongModificationFactory.xor(l));
     }
 
-
-
     public static ModifiableByte add(Byte b) {
         return getModifiableByteWithModification(ByteModificationFactory.add(b));
     }
@@ -119,7 +116,6 @@ public class Modifiable {
     public static ModifiableLong add(Long l) {
         return getModifiableLongWithModification(LongModificationFactory.add(l));
     }
-
 
     public static ModifiableByte sub(Byte b) {
         return getModifiableByteWithModification(ByteModificationFactory.sub(b));
@@ -137,7 +133,6 @@ public class Modifiable {
         return getModifiableLongWithModification(LongModificationFactory.sub(l));
     }
 
-
     public static ModifiableByteArray insert(byte[] b, int position) {
         return getModifiableByteArrayWithModification(ByteArrayModificationFactory.insert(b, position));
     }
@@ -154,11 +149,9 @@ public class Modifiable {
         return getModifiableByteArrayWithModification(ByteArrayModificationFactory.duplicate());
     }
 
-
     public static ModifiableBoolean toggle() {
         return getModifiableBooleanWithModification(new BooleanToogleModification());
     }
-
 
     public static ModifiableBigInteger shiftLeftBigInteger(Integer i) {
         return getModifiableBigIntegerWithModification(BigIntegerModificationFactory.shiftLeft(i));
@@ -167,7 +160,6 @@ public class Modifiable {
     public static ModifiableInteger shiftLeft(Integer i) {
         return getModifiableIntegerWithModification(IntegerModificationFactory.shiftLeft(i));
     }
-
 
     public static ModifiableBigInteger shiftRightBigInteger(Integer i) {
         return getModifiableBigIntegerWithModification(BigIntegerModificationFactory.shiftRight(i));
