@@ -105,7 +105,7 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> implements S
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + Arrays.hashCode(originalValue);
+        result = 31 * result + Arrays.hashCode(getValue());
         return result;
     }
 }

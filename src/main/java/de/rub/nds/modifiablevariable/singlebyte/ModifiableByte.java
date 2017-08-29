@@ -87,7 +87,7 @@ public class ModifiableByte extends ModifiableVariable<Byte> implements Serializ
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (originalValue != null ? originalValue.hashCode() : 0);
+        result = 31 * result + (getValue() != null ? getValue().hashCode() : 0);
         return result;
     }
 }

@@ -58,13 +58,13 @@ public class ModifiableLengthField extends ModifiableInteger {
 
         ModifiableLengthField that = (ModifiableLengthField) o;
 
-        return ref != null ? ref.equals(that.ref) : that.ref == null;
+        return ref != null ? getValue().equals(that.ref) : that.getValue() == null;
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (ref != null ? ref.hashCode() : 0);
+        result = 31 * result + (getValue() != null ? getValue().hashCode() : 0);
         return result;
     }
 }
