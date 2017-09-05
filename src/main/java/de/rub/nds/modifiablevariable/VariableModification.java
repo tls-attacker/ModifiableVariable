@@ -34,6 +34,7 @@ import de.rub.nds.modifiablevariable.singlebyte.ByteAddModification;
 import de.rub.nds.modifiablevariable.singlebyte.ByteExplicitValueModification;
 import de.rub.nds.modifiablevariable.singlebyte.ByteSubtractModification;
 import de.rub.nds.modifiablevariable.singlebyte.ByteXorModification;
+import de.rub.nds.modifiablevariable.string.StringExplicitValueModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -57,12 +58,11 @@ import org.apache.logging.log4j.Logger;
         IntegerShiftLeftModification.class, IntegerShiftRightModification.class, ByteArrayDeleteModification.class,
         ByteArrayExplicitValueModification.class, ByteArrayInsertModification.class, ByteArrayXorModification.class,
         ByteArrayDuplicateModification.class, ByteArrayShuffleModification.class, ByteAddModification.class,
-        ByteExplicitValueModification.class, ByteSubtractModification.class, ByteXorModification.class
-
-})
+        ByteExplicitValueModification.class, ByteSubtractModification.class, ByteXorModification.class,
+        StringExplicitValueModification.class })
 public abstract class VariableModification<E> {
 
-    private static final Logger LOGGER = LogManager.getLogger(VariableModification.class);
+    protected static final Logger LOGGER = LogManager.getLogger(VariableModification.class);
 
     /**
      * post modification for next modification executed on the given variable
