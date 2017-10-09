@@ -10,6 +10,7 @@ package de.rub.nds.modifiablevariable.serialization;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerAddModification;
+import de.rub.nds.modifiablevariable.biginteger.BigIntegerInteractiveModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerModificationFactory;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import de.rub.nds.modifiablevariable.bytearray.ByteArrayModificationFactory;
@@ -61,10 +62,17 @@ public class BigIntegerSerializationTest {
 
         writer = new StringWriter();
         context = JAXBContext.newInstance(ModifiableBigInteger.class, BigIntegerAddModification.class,
-                ByteArrayModificationFactory.class);
+                ByteArrayModificationFactory.class, BigIntegerInteractiveModification.class);
         m = context.createMarshaller();
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         um = context.createUnmarshaller();
+
+        BigIntegerModificationFactory
+                .setStandardInteractiveModification(new BigIntegerInteractiveModification.InteractiveBigIntegerModification() {
+                    public BigInteger modify(BigInteger oldVal) {
+                        return new BigInteger("12");
+                    }
+                });
     }
 
     @Test
@@ -102,7 +110,24 @@ public class BigIntegerSerializationTest {
         result = mv.getValue();
         assertEquals(expectedResult, result);
         assertNotSame(expectedResult, result);
+    }
 
+    @Test
+    public void testSerializationWithInteractiveMod() throws Exception {
+        VariableModification<BigInteger> mod = BigIntegerModificationFactory.interactive();
+        start.setModification(mod);
+        m.marshal(start, writer);
+
+        String xmlString = writer.toString();
+        LOGGER.debug(xmlString);
+
+        um = context.createUnmarshaller();
+        ModifiableBigInteger mv = (ModifiableBigInteger) um.unmarshal(new StringReader(xmlString));
+
+        expectedResult = new BigInteger("12");
+        result = mv.getValue();
+        assertEquals(expectedResult, result);
+        assertNotSame(expectedResult, result);
     }
 
     @Test

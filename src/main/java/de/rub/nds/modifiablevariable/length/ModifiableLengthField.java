@@ -43,4 +43,28 @@ public class ModifiableLengthField extends ModifiableInteger {
     public void setOriginalValue(Integer originalValue) {
         throw new UnsupportedOperationException("Cannot set original Value of ModifiableLengthField");
     }
+
+    @Override
+    public String toString() {
+        return "ModifiableLengthField{" + "ref=" + ref + "} " + super.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof ModifiableLengthField))
+            return false;
+
+        ModifiableLengthField that = (ModifiableLengthField) o;
+
+        return ref != null ? getValue().equals(that.getValue()) : that.getValue() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (getValue() != null ? getValue().hashCode() : 0);
+        return result;
+    }
 }
