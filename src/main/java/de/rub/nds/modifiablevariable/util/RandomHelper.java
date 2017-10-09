@@ -11,7 +11,7 @@ package de.rub.nds.modifiablevariable.util;
 import java.util.Random;
 
 /**
- * @author Juraj Somorovsky <juraj.somorovsky@rub.de>
+ * 
  */
 public class RandomHelper {
 

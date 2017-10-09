@@ -8,18 +8,11 @@
  */
 package de.rub.nds.modifiablevariable.mlong;
 
-import de.rub.nds.modifiablevariable.mlong.ModifiableLong;
-import de.rub.nds.modifiablevariable.mlong.LongModificationFactory;
 import de.rub.nds.modifiablevariable.VariableModification;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- * 
- * @author Philip Riese <philip.riese@rub.de>
- */
 public class LongModificationTest {
 
     private ModifiableLong start;

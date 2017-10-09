@@ -12,9 +12,6 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- */
 @XmlRootElement
 @XmlType(propOrder = { "explicitValue", "modificationFilter", "postModification" })
 public class ByteExplicitValueModification extends VariableModification<Byte> {

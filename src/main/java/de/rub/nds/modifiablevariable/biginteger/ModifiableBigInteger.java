@@ -17,10 +17,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- *
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- */
 @XmlRootElement
 @XmlSeeAlso({ BigIntegerAddModification.class, BigIntegerExplicitValueModification.class,
         BigIntegerSubtractModification.class, BigIntegerXorModification.class })

@@ -13,9 +13,6 @@ import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- */
 @XmlRootElement
 @XmlType(propOrder = { "summand", "modificationFilter", "postModification" })
 public class BigIntegerAddModification extends VariableModification<BigInteger> {

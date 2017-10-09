@@ -16,12 +16,10 @@
 package de.rub.nds.modifiablevariable.string;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.mlong.LongExplicitValueModification;
 import de.rub.nds.modifiablevariable.util.RandomHelper;
 
 /**
  *
- * @author Robert Merget <robert.merget@rub.de>
  */
 public class StringModificationFactory {
 

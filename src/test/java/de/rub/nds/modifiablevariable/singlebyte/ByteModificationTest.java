@@ -16,10 +16,6 @@ import static org.junit.Assert.assertNotSame;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * 
- * @author Florian Pfützenreuter
- */
 public class ByteModificationTest {
 
     private ModifiableByte start;

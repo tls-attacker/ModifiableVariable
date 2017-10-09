@@ -15,7 +15,6 @@ import java.util.Random;
 
 /**
  * 
- * @author Robert Merget - robert.merget@rub.de
  */
 public class BadRandom extends SecureRandom {
 

@@ -49,14 +49,12 @@ public class ByteArrayModificationFactory {
     public static final String FILE_NAME = "de/rub/nds/modifiablevariable/explicit/array.vec";
 
     /**
-     * *
      * 
      * @param xor
      *            bytes to xor
      * @param startPosition
-     *            , negative numbers mean that the position is taken from the
-     *            end
-     * @return
+     *            negative numbers mean that the position is taken from the end
+     * @return variable modification
      */
     public static VariableModification<byte[]> xor(final byte[] xor, final int startPosition) {
         return new ByteArrayXorModification(xor, startPosition);
@@ -68,9 +66,8 @@ public class ByteArrayModificationFactory {
      * @param bytesToInsert
      *            bytes to xor
      * @param startPosition
-     *            , negative numbers mean that the position is taken from the
-     *            end
-     * @return
+     *            negative numbers mean that the position is taken from the end
+     * @return variable modification
      */
     public static VariableModification<byte[]> insert(final byte[] bytesToInsert, final int startPosition) {
         return new ByteArrayInsertModification(bytesToInsert, startPosition);
@@ -80,10 +77,10 @@ public class ByteArrayModificationFactory {
      * * Deletes $count bytes from the input array beginning at $startPosition
      * 
      * @param startPosition
-     *            , negative numbers mean that the position is taken from the
-     *            end
+     *            negative numbers mean that the position is taken from the end
      * @param count
-     * @return
+     *            number of bytes to be deleted
+     * @return variable modification
      */
     public static VariableModification<byte[]> delete(final int startPosition, final int count) {
         return new ByteArrayDeleteModification(startPosition, count);
@@ -92,7 +89,7 @@ public class ByteArrayModificationFactory {
     /**
      * Duplicates the byte array
      * 
-     * @return
+     * @return duplicate variable modification
      */
     public static VariableModification<byte[]> duplicate() {
         return new ByteArrayDuplicateModification();
@@ -112,7 +109,8 @@ public class ByteArrayModificationFactory {
      * Shuffles the bytes in the array, given a specified array of positions.
      * 
      * @param shuffle
-     * @return
+     *            positions that define shuffling
+     * @return shuffling variable modification
      */
     public static VariableModification<byte[]> shuffle(final byte[] shuffle) {
         return new ByteArrayShuffleModification(shuffle);

@@ -14,8 +14,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 /**
- * @author Juraj Somorovsky <juraj.somorovsky@rub.de>
- * @author Matthias Terlinde <matthias.terlinde@rub.de>
+ * A utility class to handle arrays and array conversions
  */
 public class ArrayConverter {
 
@@ -24,7 +23,8 @@ public class ArrayConverter {
      * convert SQN numbers in TLS records)
      *
      * @param l
-     * @return
+     *            long value
+     * @return long represented by 8 bytes
      */
     public static byte[] longToUint64Bytes(long l) {
         byte[] result = new byte[8];
@@ -43,7 +43,8 @@ public class ArrayConverter {
      * Takes a long value and converts it to 4 bytes
      *
      * @param l
-     * @return
+     *            long value
+     * @return long represented by 4 bytes
      */
     public static byte[] longToUint32Bytes(long l) {
         byte[] result = new byte[4];
@@ -61,7 +62,9 @@ public class ArrayConverter {
      *            integer value
      * @param size
      *            byte size of the new integer byte array
-     * @return
+     * @return Byte array representing the integer. If the array size is larger,
+     *         00 bytes are prepended. If the number are larger, MSBs are
+     *         omitted.
      */
     public static byte[] intToBytes(int value, int size) {
         if (size < 1) {
@@ -84,7 +87,8 @@ public class ArrayConverter {
      *            long value
      * @param size
      *            byte size of the new integer byte array
-     * @return
+     * @return Byte array representing the long. If the array size is larger, 00
+     *         bytes are prepended. If the number are larger, MSBs are omitted.
      */
     public static byte[] longToBytes(long value, int size) {
         if (size < 1) {
@@ -104,7 +108,8 @@ public class ArrayConverter {
      * Converts multiple bytes into one int value
      *
      * @param value
-     * @return
+     *            byte array
+     * @return integer
      */
     public static int bytesToInt(byte[] value) {
         int result = 0;
@@ -120,7 +125,8 @@ public class ArrayConverter {
      * Converts multiple bytes into one long value
      *
      * @param value
-     * @return
+     *            byte array
+     * @return long
      */
     public static long bytesToLong(byte[] value) {
         int result = 0;
@@ -171,6 +177,10 @@ public class ArrayConverter {
 
     /**
      * Like bytesToHexString() without any formatting.
+     * 
+     * @param array
+     *            byte array
+     * @return hex string
      */
     public static String bytesToRawHexString(byte[] array) {
         StringBuilder result = new StringBuilder();
@@ -255,11 +265,13 @@ public class ArrayConverter {
      * with 0x00 bytes to achieve the block size length.
      *
      * @param value
+     *            big integer to be converted
      * @param blockSize
+     *            block size to be achieved
      * @param removeSignByte
      *            in a case the removeSignByte is set, the sign byte is removed
      *            (in case the byte array contains one)
-     * @return
+     * @return big integer represented in bytes, padded to a specific block size
      */
     public static byte[] bigIntegerToByteArray(BigInteger value, int blockSize, boolean removeSignByte) {
         byte[] array = value.toByteArray();
@@ -289,7 +301,8 @@ public class ArrayConverter {
      * necessary the sign byte is removed.
      *
      * @param value
-     * @return
+     *            big integer to be converted
+     * @return big integer represented in bytes
      */
     public static byte[] bigIntegerToByteArray(BigInteger value) {
         byte[] result = value.toByteArray();
@@ -306,7 +319,8 @@ public class ArrayConverter {
      * Converts a list of BigIntegers to an array
      *
      * @param list
-     * @return
+     *            list of big integers
+     * @return array of big integers
      */
     public static BigInteger[] convertListToArray(List<BigInteger> list) {
         BigInteger[] result = new BigInteger[list.size()];
@@ -321,7 +335,8 @@ public class ArrayConverter {
      * array.
      *
      * @param input
-     * @return
+     *            hex string
+     * @return byte array
      */
     public static byte[] hexStringToByteArray(String input) {
         if ((input == null) || (input.length() % 2 != 0)) {
@@ -343,8 +358,10 @@ public class ArrayConverter {
      * than the BigInteger, prepending bytes in the array will be 0x00.
      *
      * @param input
+     *            big integer
      * @param outputSizeInBytes
-     * @return
+     *            output size
+     * @return big integer converted to a byte array
      */
     public static byte[] bigIntegerToNullPaddedByteArray(BigInteger input, int outputSizeInBytes) {
         if (input == null) {

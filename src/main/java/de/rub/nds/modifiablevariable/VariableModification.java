@@ -43,11 +43,6 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/**
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- * @author Christian Mainka - christian.mainka@rub.de
- * @param <E>
- */
 @XmlRootElement
 @XmlTransient
 @XmlSeeAlso({ AccessModificationFilter.class, BigIntegerAddModification.class, BigIntegerInteractiveModification.class,
@@ -117,6 +112,7 @@ public abstract class VariableModification<E> {
      * thus we use isDebugEnabled() function
      *
      * @param value
+     *            variable modification that is going to be debugged
      */
     protected void debug(E value) {
         if (LOGGER.isDebugEnabled()) {

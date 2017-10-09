@@ -8,7 +8,6 @@
  */
 package de.rub.nds.modifiablevariable;
 
-import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
@@ -21,9 +20,6 @@ import org.apache.logging.log4j.Logger;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
-/**
- * @author Juraj Somorovsky <juraj.somorovsky@rub.de>
- */
 public class ModifiableVariableTest {
 
     private static final Logger LOGGER = LogManager.getLogger(ModifiableVariableTest.class);

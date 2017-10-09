@@ -21,7 +21,6 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  *
- * @author Robert Merget <robert.merget@rub.de>
  */
 @XmlRootElement
 @XmlType(propOrder = { "explicitValue", "modificationFilter", "postModification" })
