@@ -10,7 +10,7 @@ jdk:
 #branches:
 #  only:
 #    - master
-install: mvn install -DskipTests -Dgpg.skip -Dmaven.javadoc.skip=true
+install: mvn install
 
 notifications:
   email:
