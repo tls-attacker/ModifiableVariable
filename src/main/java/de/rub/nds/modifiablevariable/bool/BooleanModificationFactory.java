@@ -28,4 +28,12 @@ public class BooleanModificationFactory {
         }
         return null;
     }
+    
+    public static VariableModification<Boolean> toogle() {
+        return new BooleanToogleModification();
+    }
+    
+    public static VariableModification<Boolean> explicitValue(final boolean explicitValue) {
+        return new BooleanExplicitValueModification(explicitValue);
+    }
 }
