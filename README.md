@@ -10,7 +10,8 @@ The best way to present the functionality of this concept is by means of a simpl
 ```java
 ModifiableInteger i = new ModifiableInteger();
 i.setOriginalValue(30);
-i.setModification(new AddModification(20));
+VariableModification<Integer> modifier = IntegerModificationFactory.add(20);
+i.setModification(modifier);
 System.out.println(i.getValue());  // 50
 ```
 
@@ -18,27 +19,80 @@ In this example, we defined a new ModifiableInteger and set its value to 30. Nex
 
 You can use further modifications to an integer value, for example subtract, xor or shift.
 
-# Modifiable variables in Java
-If you use a modifiable variable in your Java code, use the modification factories, for example:
+In byte arrays you can use further modifications like shuffling or inserting bytes:
+
+```java
+ModifiableByteArray ba = new ModifiableByteArray();
+VariableModification<byte[]> modifier = ByteArrayModificationFactory.insert(new byte[] {2, 3}, 1);
+ba.setOriginalValue(new byte[]{1, 4});
+ba.setModification(modifier);
+System.out.println(ArrayConverter.bytesToHexString(ba)); // 01 02 03 04
+```
+
+# Supported data types
+The following modifiable variables are provided in this package with their modifications:
+* ModifiableBigInteger: add, explicitValue, shiftLeft, shiftRight, subtract, xor
+* ModifiableBoolean: explicitValue, toogle
+* ModifiableByteArray: delete, duplicate, explicitValue, insert, suffle, xor
+* ModifiableInteger: add, explicitValue, shiftLeft, shiftRight, subtract, xor
+* ModifiableLong: add, explicitValue, subtract, xor
+* ModifiableByte: add, explicitValue, subtract, xor
+* ModifiableString: explicitValue
+
+# Creating modifications
+If you use a modifiable variables in your Java code, use the modification factories, for example:
 ```java
 VariableModification<Integer> modifier = IntegerModificationFactory.explicitValue(7);
 VariableModification<BigInteger> modifier = BigIntegerModificationFactory.add(BigInteger.ONE);
-VariableModification<byte[]> modifier = ByteArrayModificationFactory.xor(modification, 0);
-VariableModification<byte[]> modifier = ByteArrayModificationFactory.insert(modification, 0);
+VariableModification<byte[]> modifier = ByteArrayModificationFactory.xor(new byte[] {2, 3}, 0);
 ```
 
 # Modifiable variables in XML
-Modifiable variables are serializable with JAXB into XML.
-```xml
-      <SomeVariable>
-         <integerAddModification>
-            <summand>2000</summand>
-         </integerAddModification>
-      </SomeVariable>
-     
+Modifiable variables are serializable with JAXB into XML. You can use the following code to do that:
+
+```java
+ModifiableByteArray mba = new ModifiableByteArray();
+mba.setOriginalValue(new byte[]{1, 2, 3});
+StringWriter writer = new StringWriter();
+
+// we have to create a jaxb context a put there all the classes we are going to use for serialization
+JAXBContext context = JAXBContext.newInstance(ModifiableByteArray.class, ByteArrayDeleteModification.class,
+                ByteArrayExplicitValueModification.class, ByteArrayInsertModification.class,
+                ByteArrayXorModification.class);
+Marshaller m = context.createMarshaller();
+m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        
+// we marshall the array into xml
+m.marshal(mba, writer);
+String xmlString = writer.toString();
+System.out.println(xmlString);
+
+// we can use the xml to create a modifiable byte array variable again
+Unmarshaller um = context.createUnmarshaller();
+ModifiableByteArray test = (ModifiableByteArray) um.unmarshal(new StringReader(xmlString));
+System.out.println(ArrayConverter.bytesToHexString(test));
 ```
 
-The following examples should give you a useful list of modifiable variables:
+The result of the serialized modifiable byte array looks as follows:
+
+```xml
+<modifiableByteArray>
+    <originalValue>01 02 03</originalValue>
+</modifiableByteArray>
+```
+
+If you would use modification from the previous example, the result would look as follows:
+```xml
+<modifiableByteArray>
+    <originalValue>01 02 03</originalValue>
+    <byteArrayInsertModification>
+        <bytesToInsert>02 03</bytesToInsert>
+        <startPosition>1</startPosition>
+    </byteArrayInsertModification>
+</modifiableByteArray>
+```
+
+The following examples should give you a useful list of modifications in modifiable variables:
 
 ## Integer
 - Explicit value:
@@ -69,6 +123,13 @@ The following examples should give you a useful list of modifiable variables:
     </integerShiftRightModification>
 ```
 
+- Left shift:
+```xml
+    <integerShiftLeftModification>
+        <shift>13</shift>
+    </integerShiftLeftModification>
+```
+
 - XOR:
 ```xml
     <integerXorModification>
@@ -82,15 +143,14 @@ You can use the same operations for BigInteger data types, for example:
         <summand>1</summand>
     </bigIntegerAddModification>
 ```
+ModifiableLong and ModifiableBytes support the following operations: add, explicitValue, subtract, xor
 
-## Byte Arrays
+## Byte Array
 - Explicit value:
 ```xml
     <byteArrayExplicitValueModification>
         <explicitValue>
-            4F 3F 8C FC 17 8E 66 0A  53 DF 4D 4E E9 0B D0 B3 
-            02 79 74 1F 8B 8A F6 D0  1E AC 59 53 7B 87 DE 89 
-            C4 13 28 69 3C 18 F8 3A  C7 3E 30 44 C9 61 D4 
+            4F 3F 8C FC 17 8E 66 0A  53 DF 4D 4E E9 0B D0
         </explicitValue>
     </byteArrayExplicitValueModification>
 ```
@@ -102,7 +162,6 @@ You can use the same operations for BigInteger data types, for example:
         <startPosition>1</startPosition>
     </byteArrayXorModification>
 ```
-Here, we XOR the original value with the xor value, starting with the startPosition:
 
 - Insert:
 ```xml
@@ -120,4 +179,32 @@ Here, we XOR the original value with the xor value, starting with the startPosit
         <count>2</count>
         <startPosition>0</startPosition>
     </byteArrayDeleteModification>
+```
+
+- Shuffle:
+```xml
+    <byteArrayShuffleModification>
+        <shuffle>02 03</shuffle>
+    </byteArrayShuffleModification>
+```
+
+# Boolean
+- Explicit value:
+```xml
+    <booleanExplicitValueModification>
+        <explicitValue>true</explicitValue>
+    </booleanExplicitValueModification>
+```
+
+- Toogle:
+```xml
+    <booleanToogleModification/>
+```
+
+# String
+- Explicit value:
+```xml
+    <stringExplicitValueModification>
+        <explicitValue>abc</explicitValue>
+    </stringExplicitValueModification>
 ```
