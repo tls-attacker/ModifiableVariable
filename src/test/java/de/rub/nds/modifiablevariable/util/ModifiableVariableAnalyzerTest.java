@@ -8,8 +8,6 @@
  */
 package de.rub.nds.modifiablevariable.util;
 
-import de.rub.nds.modifiablevariable.util.ModifiableVariableAnalyzer;
-import de.rub.nds.modifiablevariable.util.ModifiableVariableField;
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
@@ -22,10 +20,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
-/**
- * 
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- */
 public class ModifiableVariableAnalyzerTest {
 
     public ModifiableVariableAnalyzerTest() {

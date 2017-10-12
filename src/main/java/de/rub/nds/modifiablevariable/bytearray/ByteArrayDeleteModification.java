@@ -15,9 +15,6 @@ import java.util.Arrays;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- */
 @XmlRootElement
 @XmlType(propOrder = { "count", "startPosition", "modificationFilter", "postModification" })
 public class ByteArrayDeleteModification extends VariableModification<byte[]> {

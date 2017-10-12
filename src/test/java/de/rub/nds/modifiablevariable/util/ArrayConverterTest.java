@@ -15,11 +15,6 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
-/**
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- * @author Florian Pfuetzenreuter <Florian.Pfuetzenreuter@rub.de>
- * @author Matthias Terlinde <matthias.terlinde@rub.de>
- */
 public class ArrayConverterTest {
 
     /**

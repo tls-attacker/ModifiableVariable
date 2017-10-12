@@ -19,9 +19,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author
- */
 public class ByteModificationFactory {
 
     private static final int BYTE_EXPLICIT_VALUE_MODIFICATION = 3;

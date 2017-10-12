@@ -20,10 +20,6 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author Robert Merget <robert.merget@rub.de>
- */
 public class ModifiableBigIntegerTest {
 
     private ModifiableBigInteger integer1;

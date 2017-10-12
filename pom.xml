@@ -6,7 +6,7 @@
     <version>2.0</version>
     <packaging>jar</packaging>
     
-    <name>${project.groupId}:${project.artifactId}</name>
+    <name>ModifiableVariable</name>
     <description>A Modifiable Variable concept allows for easy runtime modifications of basic data types like integers, booleans, or byte arrays</description>
     <url>https://github.com/RUB-NDS/ModifiableVariable</url>
  
@@ -17,6 +17,17 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+    
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
   
     <developers>
         <developer>
@@ -44,6 +55,7 @@
         </developer>
     </developers>
     
+    <!-- Information to version control system -->
     <scm>
         <connection>scm:git:git://github.com/RUB-NDS/ModifiableVariable.git</connection>
         <developerConnection>scm:git:ssh://github.com/RUB-NDS/ModifiableVariable.git</developerConnection>
@@ -87,12 +99,71 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.4</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <skip>${skip.signature}</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.8</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <!-- deploy with the following command: mvn nexus-staging:release -->
+                    <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
+        <!-- We redefine the signature generation process, whic is enabled by default, 
+        but cannot be performed by typical users. Enable it using -Dskip.signature=false -->
+        <skip.signature>true</skip.signature>
     </properties>
 </project>

@@ -30,10 +30,6 @@ import static org.junit.Assert.assertNotSame;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * 
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- */
 public class BigIntegerSerializationTest {
 
     private static final Logger LOGGER = LogManager.getLogger(BigIntegerSerializationTest.class);

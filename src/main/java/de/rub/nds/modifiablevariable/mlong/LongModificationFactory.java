@@ -20,9 +20,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author
- */
 public class LongModificationFactory {
 
     private static final int MODIFICATION_COUNT = 5;

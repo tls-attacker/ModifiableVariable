@@ -21,8 +21,6 @@ import javax.xml.bind.annotation.XmlTransient;
  * subclasses, see:
  * http://blog.bdoughan.com/2011/06/ignoring-inheritance-with-xmltransient.html
  * 
- * @author Juraj Somorovsky <juraj.somorovsky@rub.de>
- * @param <E>
  */
 @XmlRootElement
 @XmlTransient

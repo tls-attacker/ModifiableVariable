@@ -19,10 +19,6 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author Robert Merget <robert.merget@rub.de>
- */
 public class ModifiableByteTest {
 
     private ModifiableByte byte1;

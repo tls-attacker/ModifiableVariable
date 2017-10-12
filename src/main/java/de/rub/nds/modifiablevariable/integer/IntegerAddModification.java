@@ -12,9 +12,6 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- */
 @XmlRootElement
 @XmlType(propOrder = { "summand", "modificationFilter", "postModification" })
 public class IntegerAddModification extends VariableModification<Integer> {

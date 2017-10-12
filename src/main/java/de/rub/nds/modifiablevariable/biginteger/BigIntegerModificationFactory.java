@@ -23,9 +23,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-/**
- * @author
- */
 public class BigIntegerModificationFactory {
 
     private static final int MODIFICATION_COUNT = 7;

@@ -19,7 +19,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * (#shuffle). Array pointers are currently defined as bytes, since we are
  * modifying rather smaller arrays.
  *
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
  */
 @XmlRootElement
 @XmlType(propOrder = { "shuffle", "modificationFilter", "postModification" })

@@ -12,10 +12,6 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.RandomHelper;
 import java.util.Random;
 
-/**
- *
- * @author Robert Merget <robert.merget@rub.de>
- */
 public class BooleanModificationFactory {
 
     private static final int MODIFICATION_COUNT = 3;

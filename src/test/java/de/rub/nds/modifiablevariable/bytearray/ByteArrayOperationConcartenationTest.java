@@ -8,20 +8,11 @@
  */
 package de.rub.nds.modifiablevariable.bytearray;
 
-import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayModificationFactory;
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerModificationFactory;
-import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
-import java.math.BigInteger;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author Robert Merget - robert.merget@rub.de
- */
 public class ByteArrayOperationConcartenationTest {
 
     private ModifiableByteArray start;

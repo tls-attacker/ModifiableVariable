@@ -15,9 +15,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * @author Juraj Somorovsky <juraj.somorovsky@rub.de>
- */
 public class ReflectionHelper {
 
     /**
@@ -35,7 +32,7 @@ public class ReflectionHelper {
      *            not be retrieved.
      * @param filterClass
      *            class that should be used as a type filter
-     * @return
+     * @return list of fields included in the class and its ancestors
      */
     public static List<Field> getFieldsUpTo(Class<?> startClass, Class<?> exclusiveParent, Class<?> filterClass) {
         List<Field> currentClassFields;
@@ -56,10 +53,6 @@ public class ReflectionHelper {
     /**
      * Takes a list of fields and returns only fields which are subclasses of
      * the filterClass
-     * 
-     * @param fields
-     * @param filterClass
-     * @return
      */
     private static List<Field> filterFieldList(List<Field> fields, Class<?> filterClass) {
         List<Field> filteredFields = new LinkedList<>();

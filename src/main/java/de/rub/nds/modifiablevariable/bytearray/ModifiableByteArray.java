@@ -19,11 +19,6 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-/**
- *
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- * @author Matthias Terlinde - <matthias.terlinde@rub.de>
- */
 @XmlRootElement
 @XmlSeeAlso({ ByteArrayDeleteModification.class, ByteArrayExplicitValueModification.class,
         ByteArrayInsertModification.class, ByteArrayXorModification.class, ByteArrayDuplicateModification.class })

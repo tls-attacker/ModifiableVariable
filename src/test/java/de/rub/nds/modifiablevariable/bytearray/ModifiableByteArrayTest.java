@@ -17,15 +17,11 @@ import org.junit.Assert;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * @author Juraj Somorovsky <juraj.somorovsky@rub.de>
- */
 public class ModifiableByteArrayTest {
 
     private static final Logger LOGGER = LogManager.getLogger(ModifiableByteArray.class);
