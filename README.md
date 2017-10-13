@@ -29,6 +29,15 @@ ba.setModification(modifier);
 System.out.println(ArrayConverter.bytesToHexString(ba)); // 01 02 03 04
 ```
 
+If you want to use modifiable variables in your maven projects, you can include the following dependency in your pom file:
+```xml
+<dependency>
+  <groupId>de.rub.nds</groupId>
+  <artifactId>ModifiableVariable</artifactId>
+  <version>2.1</version>
+</dependency>
+```
+
 # Supported data types
 The following modifiable variables are provided in this package with their modifications:
 * ModifiableBigInteger: add, explicitValue, shiftLeft, shiftRight, subtract, xor
