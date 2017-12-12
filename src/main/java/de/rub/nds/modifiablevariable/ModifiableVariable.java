@@ -74,4 +74,8 @@ public abstract class ModifiableVariable<E> implements Serializable {
     public boolean containsAssertion() {
         return (assertEquals != null);
     }
+
+    public boolean isCreateRandomModification() {
+        return createRandomModification;
+    }
 }
