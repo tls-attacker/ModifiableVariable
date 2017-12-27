@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *
  */
 @XmlRootElement
-@XmlType(propOrder = { "shuffle", "modificationFilter", "postModification" })
+@XmlType(propOrder = {"shuffle", "modificationFilter", "postModification"})
 public class ByteArrayShuffleModification extends VariableModification<byte[]> {
 
     private byte[] shuffle;
@@ -41,12 +41,14 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
         }
         byte[] result = input.clone();
         int size = input.length;
-        for (int i = 0; i < shuffle.length - 1; i += 2) {
-            int p1 = (shuffle[i] & 0xff) % size;
-            int p2 = (shuffle[i + 1] & 0xff) % size;
-            byte tmp = result[p1];
-            result[p1] = result[p2];
-            result[p2] = tmp;
+        if (size != 0) {
+            for (int i = 0; i < shuffle.length - 1; i += 2) {
+                int p1 = (shuffle[i] & 0xff) % size;
+                int p2 = (shuffle[i + 1] & 0xff) % size;
+                byte tmp = result[p1];
+                result[p1] = result[p2];
+                result[p2] = tmp;
+            }
         }
         return result;
     }
