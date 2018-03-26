@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement
-@XmlType(propOrder = { "explicitValue", "modificationFilter", "postModification" })
+@XmlType(propOrder = {"explicitValue", "modificationFilter", "postModification"})
 public class ByteArrayExplicitValueModification extends VariableModification<byte[]> {
 
     private byte[] explicitValue;
@@ -54,6 +54,9 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
     @Override
     public VariableModification<byte[]> getModifiedCopy() {
         Random r = new Random();
+        if (explicitValue.length == 0) {
+            return this;
+        }
         int index = r.nextInt(explicitValue.length);
         byte[] newValue = Arrays.copyOf(explicitValue, explicitValue.length);
         newValue[index] = (byte) r.nextInt(256);
