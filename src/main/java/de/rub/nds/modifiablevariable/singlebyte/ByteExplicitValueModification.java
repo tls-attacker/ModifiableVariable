@@ -9,11 +9,13 @@
 package de.rub.nds.modifiablevariable.singlebyte;
 
 import de.rub.nds.modifiablevariable.VariableModification;
+import de.rub.nds.modifiablevariable.mlong.LongExplicitValueModification;
+import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = { "explicitValue", "modificationFilter", "postModification" })
+@XmlType(propOrder = {"explicitValue", "modificationFilter", "postModification"})
 public class ByteExplicitValueModification extends VariableModification<Byte> {
 
     private Byte explicitValue;
@@ -37,5 +39,15 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
 
     public void setExplicitValue(Byte explicitValue) {
         this.explicitValue = explicitValue;
+    }
+
+    @Override
+    protected VariableModification<Byte> getModifiedCopy() {
+        Random r = new Random();
+        if (r.nextBoolean()) {
+            return new ByteExplicitValueModification((byte) (explicitValue + r.nextInt(16)));
+        } else {
+            return new ByteExplicitValueModification((byte) (explicitValue - r.nextInt(16)));
+        }
     }
 }

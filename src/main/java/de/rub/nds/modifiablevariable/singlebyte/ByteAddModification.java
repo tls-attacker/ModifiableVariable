@@ -9,11 +9,13 @@
 package de.rub.nds.modifiablevariable.singlebyte;
 
 import de.rub.nds.modifiablevariable.VariableModification;
+import de.rub.nds.modifiablevariable.integer.IntegerAddModification;
+import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = { "summand", "modificationFilter", "postModification" })
+@XmlType(propOrder = {"summand", "modificationFilter", "postModification"})
 public class ByteAddModification extends VariableModification<Byte> {
 
     private Byte summand;
@@ -40,5 +42,10 @@ public class ByteAddModification extends VariableModification<Byte> {
 
     public void setSummand(Byte summand) {
         this.summand = summand;
+    }
+
+    @Override
+    protected VariableModification<Byte> getModifiedCopy() {
+        return new ByteAddModification((byte) (summand + new Random().nextInt(16)));
     }
 }

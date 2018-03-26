@@ -49,6 +49,11 @@ public class BigIntegerOperationConcartenationTest {
             protected BigInteger modifyImplementationHook(BigInteger input) {
                 return input.add(new BigInteger("4")).xor(new BigInteger("3"));
             }
+
+            @Override
+            protected VariableModification<BigInteger> getModifiedCopy() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
         });
         expectedResult = new BigInteger("13");
         result = start.getValue();

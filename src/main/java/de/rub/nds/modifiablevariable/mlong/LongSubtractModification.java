@@ -9,11 +9,13 @@
 package de.rub.nds.modifiablevariable.mlong;
 
 import de.rub.nds.modifiablevariable.VariableModification;
+import de.rub.nds.modifiablevariable.integer.IntegerSubtractModification;
+import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = { "subtrahend", "modificationFilter", "postModification" })
+@XmlType(propOrder = {"subtrahend", "modificationFilter", "postModification"})
 public class LongSubtractModification extends VariableModification<Long> {
 
     private Long subtrahend;
@@ -38,4 +40,10 @@ public class LongSubtractModification extends VariableModification<Long> {
     public void setSubtrahend(Long subtrahend) {
         this.subtrahend = subtrahend;
     }
+
+    @Override
+    protected VariableModification<Long> getModifiedCopy() {
+        return new LongSubtractModification(subtrahend + new Random().nextInt(256));
+    }
+
 }

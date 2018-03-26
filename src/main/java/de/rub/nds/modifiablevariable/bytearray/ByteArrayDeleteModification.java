@@ -12,11 +12,12 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import static de.rub.nds.modifiablevariable.util.ArrayConverter.bytesToHexString;
 import java.util.Arrays;
+import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = { "count", "startPosition", "modificationFilter", "postModification" })
+@XmlType(propOrder = {"count", "startPosition", "modificationFilter", "postModification"})
 public class ByteArrayDeleteModification extends VariableModification<byte[]> {
 
     private int count;
@@ -77,5 +78,27 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    @Override
+    protected VariableModification<byte[]> getModifiedCopy() {
+        Random r = new Random();
+        int modifier = r.nextInt(32);
+        if (r.nextBoolean()) {
+            modifier *= -1;
+        }
+        if (r.nextBoolean()) {
+            modifier = startPosition + modifier;
+            if (modifier <= 0) {
+                modifier = 0;
+            }
+            return new ByteArrayDeleteModification(modifier, count);
+        } else {
+            modifier = startPosition + count;
+            if (modifier <= 0) {
+                modifier = 1;
+            }
+            return new ByteArrayDeleteModification(startPosition, modifier);
+        }
     }
 }

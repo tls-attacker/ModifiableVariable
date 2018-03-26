@@ -11,6 +11,8 @@ package de.rub.nds.modifiablevariable.bytearray;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
+import java.util.Arrays;
+import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -49,4 +51,12 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
                 + ArrayConverter.bytesToHexString(explicitValue) + '}';
     }
 
+    @Override
+    protected VariableModification<byte[]> getModifiedCopy() {
+        Random r = new Random();
+        int index = r.nextInt(explicitValue.length);
+        byte[] newValue = Arrays.copyOf(explicitValue, explicitValue.length);
+        newValue[index] = (byte) r.nextInt(256);
+        return new ByteArrayExplicitValueModification(newValue);
+    }
 }

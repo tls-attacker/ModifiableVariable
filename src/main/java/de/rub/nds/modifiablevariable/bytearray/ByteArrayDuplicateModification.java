@@ -28,4 +28,11 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
         }
         return ArrayConverter.concatenate(input, input);
     }
+
+    @Override
+    protected VariableModification<byte[]> getModifiedCopy() {
+        return new ByteArrayDuplicateModification();
+    }
+    
+    
 }

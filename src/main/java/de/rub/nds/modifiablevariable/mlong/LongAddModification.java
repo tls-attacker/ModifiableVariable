@@ -9,11 +9,13 @@
 package de.rub.nds.modifiablevariable.mlong;
 
 import de.rub.nds.modifiablevariable.VariableModification;
+import de.rub.nds.modifiablevariable.integer.IntegerAddModification;
+import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = { "summand", "modificationFilter", "postModification" })
+@XmlType(propOrder = {"summand", "modificationFilter", "postModification"})
 public class LongAddModification extends VariableModification<Long> {
 
     private Long summand;
@@ -37,5 +39,10 @@ public class LongAddModification extends VariableModification<Long> {
 
     public void setSummand(Long summand) {
         this.summand = summand;
+    }
+
+    @Override
+    protected VariableModification<Long> getModifiedCopy() {
+        return new LongAddModification(summand + new Random().nextInt(256));
     }
 }

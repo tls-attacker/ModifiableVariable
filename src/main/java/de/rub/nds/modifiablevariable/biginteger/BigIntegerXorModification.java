@@ -10,6 +10,7 @@ package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import java.math.BigInteger;
+import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -41,5 +42,10 @@ public class BigIntegerXorModification extends VariableModification<BigInteger> 
 
     public void setXor(BigInteger xor) {
         this.xor = xor;
+    }
+
+    @Override
+    protected VariableModification<BigInteger> getModifiedCopy() {
+        return new BigIntegerXorModification(xor.add(new BigInteger(8, new Random())));
     }
 }

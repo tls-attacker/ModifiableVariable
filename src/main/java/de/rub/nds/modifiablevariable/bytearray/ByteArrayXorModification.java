@@ -11,6 +11,8 @@ package de.rub.nds.modifiablevariable.bytearray;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
+import java.util.Arrays;
+import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -73,5 +75,27 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
 
     public void setStartPosition(int startPosition) {
         this.startPosition = startPosition;
+    }
+
+    @Override
+    protected VariableModification<byte[]> getModifiedCopy() {
+        Random r = new Random();
+        if (r.nextBoolean()) {
+            int index = r.nextInt(xor.length);
+            byte[] newValue = Arrays.copyOf(xor, xor.length);
+            newValue[index] = (byte) r.nextInt(256);
+            return new ByteArrayXorModification(newValue, startPosition);
+        } else {
+            byte[] newValue = Arrays.copyOf(xor, xor.length);
+            int modifier = r.nextInt(32);
+            if (r.nextBoolean()) {
+                modifier *= -1;
+            }
+            modifier = startPosition + modifier;
+            if (modifier <= 0) {
+                modifier = 1;
+            }
+            return new ByteArrayXorModification(newValue, modifier);
+        }
     }
 }

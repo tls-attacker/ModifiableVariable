@@ -10,6 +10,8 @@ package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
+import java.util.Arrays;
+import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -58,5 +60,14 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
 
     public void setShuffle(byte[] shuffle) {
         this.shuffle = shuffle;
+    }
+
+    @Override
+    protected VariableModification<byte[]> getModifiedCopy() {
+        Random r = new Random();
+        int index = r.nextInt(shuffle.length);
+        byte[] newValue = Arrays.copyOf(shuffle, shuffle.length);
+        newValue[index] = (byte) r.nextInt(256);
+        return new ByteArrayShuffleModification(shuffle);
     }
 }

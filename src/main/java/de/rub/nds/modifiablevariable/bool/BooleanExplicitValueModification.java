@@ -37,4 +37,9 @@ public class BooleanExplicitValueModification extends VariableModification<Boole
     public void setExplicitValue(boolean explicitValue) {
         this.explicitValue = explicitValue;
     }
+
+    @Override
+    protected VariableModification<Boolean> getModifiedCopy() {
+        return new BooleanExplicitValueModification(!explicitValue);
+    }
 }

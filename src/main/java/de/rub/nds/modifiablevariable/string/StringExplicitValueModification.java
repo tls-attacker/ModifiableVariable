@@ -47,4 +47,10 @@ public class StringExplicitValueModification extends VariableModification<String
     public void setExplicitValue(String explicitValue) {
         this.explicitValue = explicitValue;
     }
+
+    @Override
+    protected VariableModification<String> getModifiedCopy() {
+        //TODO should we support this?
+        return new StringExplicitValueModification(explicitValue);
+    }
 }
