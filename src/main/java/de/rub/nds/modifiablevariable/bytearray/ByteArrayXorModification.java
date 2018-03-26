@@ -78,7 +78,7 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
     }
 
     @Override
-    protected VariableModification<byte[]> getModifiedCopy() {
+    public VariableModification<byte[]> getModifiedCopy() {
         Random r = new Random();
         if (r.nextBoolean()) {
             int index = r.nextInt(xor.length);

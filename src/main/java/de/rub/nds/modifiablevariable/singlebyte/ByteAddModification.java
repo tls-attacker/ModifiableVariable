@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = {"summand", "modificationFilter", "postModification"})
+@XmlType(propOrder = { "summand", "modificationFilter", "postModification" })
 public class ByteAddModification extends VariableModification<Byte> {
 
     private Byte summand;
@@ -45,7 +45,7 @@ public class ByteAddModification extends VariableModification<Byte> {
     }
 
     @Override
-    protected VariableModification<Byte> getModifiedCopy() {
+    public VariableModification<Byte> getModifiedCopy() {
         return new ByteAddModification((byte) (summand + new Random().nextInt(16)));
     }
 }

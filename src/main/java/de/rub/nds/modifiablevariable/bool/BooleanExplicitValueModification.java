@@ -39,7 +39,7 @@ public class BooleanExplicitValueModification extends VariableModification<Boole
     }
 
     @Override
-    protected VariableModification<Boolean> getModifiedCopy() {
+    public VariableModification<Boolean> getModifiedCopy() {
         return new BooleanExplicitValueModification(!explicitValue);
     }
 }

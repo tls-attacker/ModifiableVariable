@@ -30,9 +30,8 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
     }
 
     @Override
-    protected VariableModification<byte[]> getModifiedCopy() {
+    public VariableModification<byte[]> getModifiedCopy() {
         return new ByteArrayDuplicateModification();
     }
-    
-    
+
 }

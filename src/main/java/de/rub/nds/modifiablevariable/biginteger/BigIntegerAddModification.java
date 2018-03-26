@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = {"summand", "modificationFilter", "postModification"})
+@XmlType(propOrder = { "summand", "modificationFilter", "postModification" })
 public class BigIntegerAddModification extends VariableModification<BigInteger> {
 
     private BigInteger summand;
@@ -42,7 +42,7 @@ public class BigIntegerAddModification extends VariableModification<BigInteger> 
     }
 
     @Override
-    protected VariableModification<BigInteger> getModifiedCopy() {
+    public VariableModification<BigInteger> getModifiedCopy() {
         return new BigIntegerAddModification(summand.add(new BigInteger(8, new Random())));
     }
 }

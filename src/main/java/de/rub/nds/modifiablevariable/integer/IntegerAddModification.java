@@ -41,7 +41,7 @@ public class IntegerAddModification extends VariableModification<Integer> {
     }
 
     @Override
-    protected VariableModification<Integer> getModifiedCopy() {
+    public VariableModification<Integer> getModifiedCopy() {
         return new IntegerAddModification(summand + new Random().nextInt(256));
     }
 }

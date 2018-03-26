@@ -51,8 +51,17 @@ public class BigIntegerOperationConcartenationTest {
             }
 
             @Override
-            protected VariableModification<BigInteger> getModifiedCopy() {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            public VariableModification<BigInteger> getModifiedCopy() {
+                throw new UnsupportedOperationException("Not supported yet."); // To
+                                                                               // change
+                                                                               // body
+                                                                               // of
+                                                                               // generated
+                                                                               // methods,
+                                                                               // choose
+                                                                               // Tools
+                                                                               // |
+                                                                               // Templates.
             }
         });
         expectedResult = new BigInteger("13");

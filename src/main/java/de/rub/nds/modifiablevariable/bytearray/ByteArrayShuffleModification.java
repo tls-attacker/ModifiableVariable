@@ -63,7 +63,7 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
     }
 
     @Override
-    protected VariableModification<byte[]> getModifiedCopy() {
+    public VariableModification<byte[]> getModifiedCopy() {
         Random r = new Random();
         int index = r.nextInt(shuffle.length);
         byte[] newValue = Arrays.copyOf(shuffle, shuffle.length);

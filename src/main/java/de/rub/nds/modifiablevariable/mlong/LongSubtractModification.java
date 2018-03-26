@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = {"subtrahend", "modificationFilter", "postModification"})
+@XmlType(propOrder = { "subtrahend", "modificationFilter", "postModification" })
 public class LongSubtractModification extends VariableModification<Long> {
 
     private Long subtrahend;
@@ -42,7 +42,7 @@ public class LongSubtractModification extends VariableModification<Long> {
     }
 
     @Override
-    protected VariableModification<Long> getModifiedCopy() {
+    public VariableModification<Long> getModifiedCopy() {
         return new LongSubtractModification(subtrahend + new Random().nextInt(256));
     }
 

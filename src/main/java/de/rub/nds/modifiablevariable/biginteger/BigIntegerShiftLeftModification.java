@@ -45,7 +45,7 @@ public class BigIntegerShiftLeftModification extends VariableModification<BigInt
     }
 
     @Override
-    protected VariableModification<BigInteger> getModifiedCopy() {
+    public VariableModification<BigInteger> getModifiedCopy() {
         return new BigIntegerShiftLeftModification(shift + new Random().nextInt(32));
     }
 }

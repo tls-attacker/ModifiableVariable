@@ -45,7 +45,7 @@ public class BigIntegerXorModification extends VariableModification<BigInteger> 
     }
 
     @Override
-    protected VariableModification<BigInteger> getModifiedCopy() {
+    public VariableModification<BigInteger> getModifiedCopy() {
         return new BigIntegerXorModification(xor.add(new BigInteger(8, new Random())));
     }
 }

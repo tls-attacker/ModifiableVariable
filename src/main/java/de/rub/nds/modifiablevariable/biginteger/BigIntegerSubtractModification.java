@@ -43,9 +43,9 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
     public void setSubtrahend(BigInteger subtrahend) {
         this.subtrahend = subtrahend;
     }
-    
+
     @Override
-    protected VariableModification<BigInteger> getModifiedCopy() {
+    public VariableModification<BigInteger> getModifiedCopy() {
         return new BigIntegerSubtractModification(subtrahend.add(new BigInteger(8, new Random())));
     }
 }

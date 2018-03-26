@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = {"explicitValue", "modificationFilter", "postModification"})
+@XmlType(propOrder = { "explicitValue", "modificationFilter", "postModification" })
 public class LongExplicitValueModification extends VariableModification<Long> {
 
     private Long explicitValue;
@@ -42,7 +42,7 @@ public class LongExplicitValueModification extends VariableModification<Long> {
     }
 
     @Override
-    protected VariableModification<Long> getModifiedCopy() {
+    public VariableModification<Long> getModifiedCopy() {
         Random r = new Random();
         if (r.nextBoolean()) {
             return new LongExplicitValueModification(explicitValue + r.nextInt(256));

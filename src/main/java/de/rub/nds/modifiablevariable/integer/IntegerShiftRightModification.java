@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = {"shift", "modificationFilter", "postModification"})
+@XmlType(propOrder = { "shift", "modificationFilter", "postModification" })
 public class IntegerShiftRightModification extends VariableModification<Integer> {
 
     private int shift;
@@ -41,7 +41,7 @@ public class IntegerShiftRightModification extends VariableModification<Integer>
     }
 
     @Override
-    protected VariableModification<Integer> getModifiedCopy() {
+    public VariableModification<Integer> getModifiedCopy() {
         Random r = new Random();
         int newShift;
         if (r.nextBoolean()) {

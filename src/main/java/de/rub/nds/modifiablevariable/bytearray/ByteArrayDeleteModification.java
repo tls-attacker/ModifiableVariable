@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = {"count", "startPosition", "modificationFilter", "postModification"})
+@XmlType(propOrder = { "count", "startPosition", "modificationFilter", "postModification" })
 public class ByteArrayDeleteModification extends VariableModification<byte[]> {
 
     private int count;
@@ -81,7 +81,7 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
     }
 
     @Override
-    protected VariableModification<byte[]> getModifiedCopy() {
+    public VariableModification<byte[]> getModifiedCopy() {
         Random r = new Random();
         int modifier = r.nextInt(32);
         if (r.nextBoolean()) {

@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = {"xor", "modificationFilter", "postModification"})
+@XmlType(propOrder = { "xor", "modificationFilter", "postModification" })
 public class LongXorModification extends VariableModification<Long> {
 
     private Long xor;
@@ -42,7 +42,7 @@ public class LongXorModification extends VariableModification<Long> {
     }
 
     @Override
-    protected VariableModification<Long> getModifiedCopy() {
+    public VariableModification<Long> getModifiedCopy() {
         Random r = new Random();
         if (r.nextBoolean()) {
             return new LongXorModification(xor + new Random().nextInt(256));

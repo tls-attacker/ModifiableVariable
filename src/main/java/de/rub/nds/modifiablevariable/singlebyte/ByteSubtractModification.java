@@ -42,9 +42,9 @@ public class ByteSubtractModification extends VariableModification<Byte> {
     public void setSubtrahend(Byte subtrahend) {
         this.subtrahend = subtrahend;
     }
-    
+
     @Override
-    protected VariableModification<Byte> getModifiedCopy() {
+    public VariableModification<Byte> getModifiedCopy() {
         return new ByteAddModification((byte) (subtrahend + new Random().nextInt(16)));
     }
 }

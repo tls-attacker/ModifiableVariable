@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = {"summand", "modificationFilter", "postModification"})
+@XmlType(propOrder = { "summand", "modificationFilter", "postModification" })
 public class LongAddModification extends VariableModification<Long> {
 
     private Long summand;
@@ -42,7 +42,7 @@ public class LongAddModification extends VariableModification<Long> {
     }
 
     @Override
-    protected VariableModification<Long> getModifiedCopy() {
+    public VariableModification<Long> getModifiedCopy() {
         return new LongAddModification(summand + new Random().nextInt(256));
     }
 }

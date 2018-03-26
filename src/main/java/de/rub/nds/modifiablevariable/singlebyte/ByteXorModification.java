@@ -42,9 +42,9 @@ public class ByteXorModification extends VariableModification<Byte> {
     public void setXor(Byte xor) {
         this.xor = xor;
     }
-    
+
     @Override
-    protected VariableModification<Byte> getModifiedCopy() {
+    public VariableModification<Byte> getModifiedCopy() {
         Random r = new Random();
         if (r.nextBoolean()) {
             return new ByteXorModification((byte) (xor + r.nextInt(16)));

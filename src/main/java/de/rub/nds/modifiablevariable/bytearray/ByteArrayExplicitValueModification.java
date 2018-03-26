@@ -52,7 +52,7 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
     }
 
     @Override
-    protected VariableModification<byte[]> getModifiedCopy() {
+    public VariableModification<byte[]> getModifiedCopy() {
         Random r = new Random();
         int index = r.nextInt(explicitValue.length);
         byte[] newValue = Arrays.copyOf(explicitValue, explicitValue.length);

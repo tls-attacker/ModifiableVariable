@@ -49,8 +49,8 @@ public class StringExplicitValueModification extends VariableModification<String
     }
 
     @Override
-    protected VariableModification<String> getModifiedCopy() {
-        //TODO should we support this?
+    public VariableModification<String> getModifiedCopy() {
+        // TODO should we support this?
         return new StringExplicitValueModification(explicitValue);
     }
 }

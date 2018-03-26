@@ -43,9 +43,9 @@ public class BigIntegerShiftRightModification extends VariableModification<BigIn
     public void setShift(int shift) {
         this.shift = shift;
     }
-    
+
     @Override
-    protected VariableModification<BigInteger> getModifiedCopy() {
+    public VariableModification<BigInteger> getModifiedCopy() {
         return new BigIntegerShiftRightModification(shift + new Random().nextInt(32));
     }
 }
