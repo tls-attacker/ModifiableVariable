@@ -20,6 +20,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "count", "startPosition", "modificationFilter", "postModification" })
 public class ByteArrayDeleteModification extends VariableModification<byte[]> {
 
+    private final static int MAX_MODIFIER_LENGTH = 32;
+
     private int count;
 
     private int startPosition;
@@ -83,7 +85,7 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
     @Override
     public VariableModification<byte[]> getModifiedCopy() {
         Random r = new Random();
-        int modifier = r.nextInt(32);
+        int modifier = r.nextInt(MAX_MODIFIER_LENGTH);
         if (r.nextBoolean()) {
             modifier *= -1;
         }

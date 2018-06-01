@@ -9,7 +9,6 @@
 package de.rub.nds.modifiablevariable.mlong;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.integer.IntegerExplicitValueModification;
 import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -17,6 +16,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @XmlType(propOrder = { "explicitValue", "modificationFilter", "postModification" })
 public class LongExplicitValueModification extends VariableModification<Long> {
+
+    private final static int MAX_EXPLICIT_MODIFIER = 256;
 
     private Long explicitValue;
 
@@ -45,9 +46,9 @@ public class LongExplicitValueModification extends VariableModification<Long> {
     public VariableModification<Long> getModifiedCopy() {
         Random r = new Random();
         if (r.nextBoolean()) {
-            return new LongExplicitValueModification(explicitValue + r.nextInt(256));
+            return new LongExplicitValueModification(explicitValue + r.nextInt(MAX_EXPLICIT_MODIFIER));
         } else {
-            return new LongExplicitValueModification(explicitValue - r.nextInt(256));
+            return new LongExplicitValueModification(explicitValue - r.nextInt(MAX_EXPLICIT_MODIFIER));
         }
     }
 }

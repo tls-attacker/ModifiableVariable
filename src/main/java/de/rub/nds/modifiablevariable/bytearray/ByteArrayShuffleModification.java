@@ -26,6 +26,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(propOrder = { "shuffle", "modificationFilter", "postModification" })
 public class ByteArrayShuffleModification extends VariableModification<byte[]> {
 
+    private final static int MAX_MODIFIER_VALUE = 256;
+
     private byte[] shuffle;
 
     public ByteArrayShuffleModification() {
@@ -69,7 +71,7 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
         Random r = new Random();
         int index = r.nextInt(shuffle.length);
         byte[] newValue = Arrays.copyOf(shuffle, shuffle.length);
-        newValue[index] = (byte) r.nextInt(256);
+        newValue[index] = (byte) r.nextInt(MAX_MODIFIER_VALUE);
         return new ByteArrayShuffleModification(shuffle);
     }
 }

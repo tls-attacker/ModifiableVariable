@@ -18,6 +18,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "subtrahend", "modificationFilter", "postModification" })
 public class BigIntegerSubtractModification extends VariableModification<BigInteger> {
 
+    private final static int MAX_SUBTRACT_LENGTH = 8;
+
     private BigInteger subtrahend;
 
     public BigIntegerSubtractModification() {
@@ -46,6 +48,6 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
 
     @Override
     public VariableModification<BigInteger> getModifiedCopy() {
-        return new BigIntegerSubtractModification(subtrahend.add(new BigInteger(8, new Random())));
+        return new BigIntegerSubtractModification(subtrahend.add(new BigInteger(MAX_SUBTRACT_LENGTH, new Random())));
     }
 }

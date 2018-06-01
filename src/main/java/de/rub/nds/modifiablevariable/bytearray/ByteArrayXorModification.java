@@ -21,6 +21,10 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(propOrder = { "xor", "startPosition", "modificationFilter", "postModification" })
 public class ByteArrayXorModification extends VariableModification<byte[]> {
 
+    private final static int MAX_MODIFIER_VALUE = 256;
+
+    private final static int MAX_XOR_MODIFIER = 32;
+
     private byte[] xor;
 
     private int startPosition;
@@ -83,11 +87,11 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
         if (r.nextBoolean()) {
             int index = r.nextInt(xor.length);
             byte[] newValue = Arrays.copyOf(xor, xor.length);
-            newValue[index] = (byte) r.nextInt(256);
+            newValue[index] = (byte) r.nextInt(MAX_MODIFIER_VALUE);
             return new ByteArrayXorModification(newValue, startPosition);
         } else {
             byte[] newValue = Arrays.copyOf(xor, xor.length);
-            int modifier = r.nextInt(32);
+            int modifier = r.nextInt(MAX_XOR_MODIFIER);
             if (r.nextBoolean()) {
                 modifier *= -1;
             }

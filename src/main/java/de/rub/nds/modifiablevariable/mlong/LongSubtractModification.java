@@ -18,6 +18,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "subtrahend", "modificationFilter", "postModification" })
 public class LongSubtractModification extends VariableModification<Long> {
 
+    private final static int MAX_SUBTRACT_MODIFIER = 256;
+
     private Long subtrahend;
 
     public LongSubtractModification() {
@@ -43,7 +45,7 @@ public class LongSubtractModification extends VariableModification<Long> {
 
     @Override
     public VariableModification<Long> getModifiedCopy() {
-        return new LongSubtractModification(subtrahend + new Random().nextInt(256));
+        return new LongSubtractModification(subtrahend + new Random().nextInt(MAX_SUBTRACT_MODIFIER));
     }
 
 }

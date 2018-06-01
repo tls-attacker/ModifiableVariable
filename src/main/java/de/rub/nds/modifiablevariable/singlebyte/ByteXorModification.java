@@ -17,6 +17,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "xor", "modificationFilter", "postModification" })
 public class ByteXorModification extends VariableModification<Byte> {
 
+    private final static int MAX_XOR_MODIFIER = 16;
+
     private Byte xor;
 
     public ByteXorModification() {
@@ -47,9 +49,9 @@ public class ByteXorModification extends VariableModification<Byte> {
     public VariableModification<Byte> getModifiedCopy() {
         Random r = new Random();
         if (r.nextBoolean()) {
-            return new ByteXorModification((byte) (xor + r.nextInt(16)));
+            return new ByteXorModification((byte) (xor + r.nextInt(MAX_XOR_MODIFIER)));
         } else {
-            return new ByteXorModification((byte) (xor - r.nextInt(16)));
+            return new ByteXorModification((byte) (xor - r.nextInt(MAX_XOR_MODIFIER)));
         }
     }
 }

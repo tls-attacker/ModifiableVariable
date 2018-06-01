@@ -18,6 +18,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "summand", "modificationFilter", "postModification" })
 public class LongAddModification extends VariableModification<Long> {
 
+    private final static int MAX_ADD_MODIFIER = 32;
+
     private Long summand;
 
     public LongAddModification() {
@@ -43,6 +45,6 @@ public class LongAddModification extends VariableModification<Long> {
 
     @Override
     public VariableModification<Long> getModifiedCopy() {
-        return new LongAddModification(summand + new Random().nextInt(256));
+        return new LongAddModification(summand + new Random().nextInt(MAX_ADD_MODIFIER));
     }
 }

@@ -17,6 +17,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "explicitValue", "modificationFilter", "postModification" })
 public class IntegerExplicitValueModification extends VariableModification<Integer> {
 
+    private final static int MAX_VALUE_MODIFIER = 256;
+
     private Integer explicitValue;
 
     public IntegerExplicitValueModification() {
@@ -44,9 +46,9 @@ public class IntegerExplicitValueModification extends VariableModification<Integ
     public VariableModification<Integer> getModifiedCopy() {
         Random r = new Random();
         if (r.nextBoolean()) {
-            return new IntegerExplicitValueModification(explicitValue + r.nextInt(256));
+            return new IntegerExplicitValueModification(explicitValue + r.nextInt(MAX_VALUE_MODIFIER));
         } else {
-            return new IntegerExplicitValueModification(explicitValue - r.nextInt(256));
+            return new IntegerExplicitValueModification(explicitValue - r.nextInt(MAX_VALUE_MODIFIER));
         }
     }
 }

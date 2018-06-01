@@ -18,6 +18,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "xor", "modificationFilter", "postModification" })
 public class LongXorModification extends VariableModification<Long> {
 
+    private final static int MAX_XOR_MODIFIER = 256;
+
     private Long xor;
 
     public LongXorModification() {
@@ -45,9 +47,9 @@ public class LongXorModification extends VariableModification<Long> {
     public VariableModification<Long> getModifiedCopy() {
         Random r = new Random();
         if (r.nextBoolean()) {
-            return new LongXorModification(xor + new Random().nextInt(256));
+            return new LongXorModification(xor + new Random().nextInt(MAX_XOR_MODIFIER));
         } else {
-            return new LongXorModification(xor - new Random().nextInt(256));
+            return new LongXorModification(xor - new Random().nextInt(MAX_XOR_MODIFIER));
         }
     }
 

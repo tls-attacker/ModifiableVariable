@@ -21,6 +21,10 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(propOrder = { "bytesToInsert", "startPosition", "modificationFilter", "postModification" })
 public class ByteArrayInsertModification extends VariableModification<byte[]> {
 
+    private final static int MAX_EXPLICIT_VALUE = 256;
+
+    private final static int MAX_INSERT_MODIFIER = 32;
+
     private byte[] bytesToInsert;
 
     private int startPosition;
@@ -85,11 +89,11 @@ public class ByteArrayInsertModification extends VariableModification<byte[]> {
         if (r.nextBoolean()) {
             int index = r.nextInt(bytesToInsert.length);
             byte[] newValue = Arrays.copyOf(bytesToInsert, bytesToInsert.length);
-            newValue[index] = (byte) r.nextInt(256);
+            newValue[index] = (byte) r.nextInt(MAX_EXPLICIT_VALUE);
             return new ByteArrayInsertModification(newValue, startPosition);
         } else {
             byte[] newValue = Arrays.copyOf(bytesToInsert, bytesToInsert.length);
-            int modifier = r.nextInt(32);
+            int modifier = r.nextInt(MAX_INSERT_MODIFIER);
             if (r.nextBoolean()) {
                 modifier *= -1;
             }

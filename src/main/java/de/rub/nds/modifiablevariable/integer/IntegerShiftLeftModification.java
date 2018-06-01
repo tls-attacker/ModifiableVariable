@@ -17,6 +17,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "shift", "modificationFilter", "postModification" })
 public class IntegerShiftLeftModification extends VariableModification<Integer> {
 
+    private final static int MAX_SHIFT_MODIFIER = 32;
+
     private int shift;
 
     public IntegerShiftLeftModification() {
@@ -45,13 +47,13 @@ public class IntegerShiftLeftModification extends VariableModification<Integer> 
         Random r = new Random();
         int newShift;
         if (r.nextBoolean()) {
-            newShift = shift + r.nextInt(32);
+            newShift = shift + r.nextInt(MAX_SHIFT_MODIFIER);
         } else {
-            newShift = shift - r.nextInt(32);
+            newShift = shift - r.nextInt(MAX_SHIFT_MODIFIER);
         }
         if (newShift < 0) {
-            newShift = 31;
-        } else if (newShift > 31) {
+            newShift = MAX_SHIFT_MODIFIER - 1;
+        } else if (newShift > MAX_SHIFT_MODIFIER - 1) {
             newShift = 0;
         }
         return new IntegerShiftLeftModification(newShift);

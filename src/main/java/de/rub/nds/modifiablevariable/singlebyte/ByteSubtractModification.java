@@ -17,6 +17,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "subtrahend", "modificationFilter", "postModification" })
 public class ByteSubtractModification extends VariableModification<Byte> {
 
+    private final static int MAX_SUBTRACT_MODIFIER = 16;
+
     private Byte subtrahend;
 
     public ByteSubtractModification() {
@@ -45,6 +47,6 @@ public class ByteSubtractModification extends VariableModification<Byte> {
 
     @Override
     public VariableModification<Byte> getModifiedCopy() {
-        return new ByteAddModification((byte) (subtrahend + new Random().nextInt(16)));
+        return new ByteAddModification((byte) (subtrahend + new Random().nextInt(MAX_SUBTRACT_MODIFIER)));
     }
 }

@@ -18,6 +18,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "explicitValue", "modificationFilter", "postModification" })
 public class BigIntegerExplicitValueModification extends VariableModification<BigInteger> {
 
+    private final static int MAX_EXPLICIT_LENGTH = 8;
+
     private BigInteger explicitValue;
 
     public BigIntegerExplicitValueModification() {
@@ -44,9 +46,10 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
     public VariableModification<BigInteger> getModifiedCopy() {
         Random r = new Random();
         if (r.nextBoolean()) {
-            return new BigIntegerExplicitValueModification(explicitValue.add(new BigInteger(8, r)));
+            return new BigIntegerExplicitValueModification(explicitValue.add(new BigInteger(MAX_EXPLICIT_LENGTH, r)));
         } else {
-            return new BigIntegerExplicitValueModification(explicitValue.subtract(new BigInteger(8, r)));
+            return new BigIntegerExplicitValueModification(
+                    explicitValue.subtract(new BigInteger(MAX_EXPLICIT_LENGTH, r)));
         }
     }
 }

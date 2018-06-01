@@ -17,6 +17,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "summand", "modificationFilter", "postModification" })
 public class IntegerAddModification extends VariableModification<Integer> {
 
+    private final static int MAX_ADD_MODIFIER = 256;
+
     private Integer summand;
 
     public IntegerAddModification() {
@@ -42,6 +44,6 @@ public class IntegerAddModification extends VariableModification<Integer> {
 
     @Override
     public VariableModification<Integer> getModifiedCopy() {
-        return new IntegerAddModification(summand + new Random().nextInt(256));
+        return new IntegerAddModification(summand + new Random().nextInt(MAX_ADD_MODIFIER));
     }
 }

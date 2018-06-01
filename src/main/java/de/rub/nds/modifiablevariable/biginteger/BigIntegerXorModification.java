@@ -18,6 +18,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "xor", "modificationFilter", "postModification" })
 public class BigIntegerXorModification extends VariableModification<BigInteger> {
 
+    private final static int MAX_XOR_LENGTH = 8;
+
     private BigInteger xor;
 
     public BigIntegerXorModification() {
@@ -46,6 +48,6 @@ public class BigIntegerXorModification extends VariableModification<BigInteger> 
 
     @Override
     public VariableModification<BigInteger> getModifiedCopy() {
-        return new BigIntegerXorModification(xor.add(new BigInteger(8, new Random())));
+        return new BigIntegerXorModification(xor.add(new BigInteger(MAX_XOR_LENGTH, new Random())));
     }
 }

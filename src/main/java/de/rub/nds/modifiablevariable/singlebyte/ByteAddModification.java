@@ -18,6 +18,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "summand", "modificationFilter", "postModification" })
 public class ByteAddModification extends VariableModification<Byte> {
 
+    private final static int MAX_ADD_MODIFIER = 16;
+
     private Byte summand;
 
     public ByteAddModification() {
@@ -46,6 +48,6 @@ public class ByteAddModification extends VariableModification<Byte> {
 
     @Override
     public VariableModification<Byte> getModifiedCopy() {
-        return new ByteAddModification((byte) (summand + new Random().nextInt(16)));
+        return new ByteAddModification((byte) (summand + new Random().nextInt(MAX_ADD_MODIFIER)));
     }
 }

@@ -21,6 +21,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(propOrder = { "explicitValue", "modificationFilter", "postModification" })
 public class ByteArrayExplicitValueModification extends VariableModification<byte[]> {
 
+    private final static int MAX_EXPLICIT_VALUE = 256;
+
     private byte[] explicitValue;
 
     public ByteArrayExplicitValueModification() {
@@ -59,7 +61,7 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
         }
         int index = r.nextInt(explicitValue.length);
         byte[] newValue = Arrays.copyOf(explicitValue, explicitValue.length);
-        newValue[index] = (byte) r.nextInt(256);
+        newValue[index] = (byte) r.nextInt(MAX_EXPLICIT_VALUE);
         return new ByteArrayExplicitValueModification(newValue);
     }
 }

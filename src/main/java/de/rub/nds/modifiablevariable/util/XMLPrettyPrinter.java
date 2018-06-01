@@ -35,7 +35,6 @@ import org.xml.sax.SAXException;
  * The goal of this class is to pretty print byte array text nodes so that text
  * contents and closing XML tags are correctly aligned.
  *
- * Juraj Somorovsky <juraj.somorovsky@rub.de>
  */
 public class XMLPrettyPrinter {
 
