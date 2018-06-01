@@ -13,16 +13,13 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.integer.IntegerModificationFactory;
 import de.rub.nds.modifiablevariable.util.RandomHelper;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author
- */
 public class LongModificationFactory {
 
     private static final int MODIFICATION_COUNT = 5;
@@ -74,13 +71,12 @@ public class LongModificationFactory {
             if (modificationsFromFile == null) {
                 modificationsFromFile = new LinkedList<>();
                 ClassLoader classLoader = IntegerModificationFactory.class.getClassLoader();
-                File file = new File(classLoader.getResource(IntegerModificationFactory.FILE_NAME).getFile());
-                try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                        String value = line.trim().split(" ")[0];
-                        modificationsFromFile.add(explicitValue(value));
-                    }
+                InputStream is = classLoader.getResourceAsStream(IntegerModificationFactory.FILE_NAME);
+                BufferedReader br = new BufferedReader(new InputStreamReader(is));
+                String line;
+                while ((line = br.readLine()) != null) {
+                    String value = line.trim().split(" ")[0];
+                    modificationsFromFile.add(explicitValue(value));
                 }
             }
             return modificationsFromFile;

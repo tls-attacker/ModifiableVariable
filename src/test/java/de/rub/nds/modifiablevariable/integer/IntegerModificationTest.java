@@ -8,16 +8,11 @@
  */
 package de.rub.nds.modifiablevariable.integer;
 
-import de.rub.nds.modifiablevariable.integer.IntegerModificationFactory;
-import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
 import de.rub.nds.modifiablevariable.VariableModification;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * @author dev
- */
 public class IntegerModificationTest {
 
     private ModifiableInteger start;

@@ -34,6 +34,7 @@ import de.rub.nds.modifiablevariable.singlebyte.ByteAddModification;
 import de.rub.nds.modifiablevariable.singlebyte.ByteExplicitValueModification;
 import de.rub.nds.modifiablevariable.singlebyte.ByteSubtractModification;
 import de.rub.nds.modifiablevariable.singlebyte.ByteXorModification;
+import de.rub.nds.modifiablevariable.string.StringExplicitValueModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -42,11 +43,6 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/**
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- * @author Christian Mainka - christian.mainka@rub.de
- * @param <E>
- */
 @XmlRootElement
 @XmlTransient
 @XmlSeeAlso({ AccessModificationFilter.class, BigIntegerAddModification.class, BigIntegerInteractiveModification.class,
@@ -57,12 +53,11 @@ import org.apache.logging.log4j.Logger;
         IntegerShiftLeftModification.class, IntegerShiftRightModification.class, ByteArrayDeleteModification.class,
         ByteArrayExplicitValueModification.class, ByteArrayInsertModification.class, ByteArrayXorModification.class,
         ByteArrayDuplicateModification.class, ByteArrayShuffleModification.class, ByteAddModification.class,
-        ByteExplicitValueModification.class, ByteSubtractModification.class, ByteXorModification.class
-
-})
+        ByteExplicitValueModification.class, ByteSubtractModification.class, ByteXorModification.class,
+        StringExplicitValueModification.class })
 public abstract class VariableModification<E> {
 
-    private static final Logger LOGGER = LogManager.getLogger(VariableModification.class);
+    protected static final Logger LOGGER = LogManager.getLogger(VariableModification.class);
 
     /**
      * post modification for next modification executed on the given variable
@@ -112,11 +107,14 @@ public abstract class VariableModification<E> {
 
     protected abstract E modifyImplementationHook(E input);
 
+    public abstract VariableModification<E> getModifiedCopy();
+
     /**
      * Debugging modified variables. Getting stack trace can be time consuming,
      * thus we use isDebugEnabled() function
      *
      * @param value
+     *            variable modification that is going to be debugged
      */
     protected void debug(E value) {
         if (LOGGER.isDebugEnabled()) {

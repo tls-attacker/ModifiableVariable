@@ -9,12 +9,10 @@
 package de.rub.nds.modifiablevariable.integer;
 
 import de.rub.nds.modifiablevariable.VariableModification;
+import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- */
 @XmlRootElement
 @XmlType(propOrder = { "subtrahend", "modificationFilter", "postModification" })
 public class IntegerSubtractModification extends VariableModification<Integer> {
@@ -40,5 +38,10 @@ public class IntegerSubtractModification extends VariableModification<Integer> {
 
     public void setSubtrahend(Integer subtrahend) {
         this.subtrahend = subtrahend;
+    }
+
+    @Override
+    public VariableModification<Integer> getModifiedCopy() {
+        return new IntegerSubtractModification(subtrahend + new Random().nextInt(256));
     }
 }

@@ -9,12 +9,11 @@
 package de.rub.nds.modifiablevariable.mlong;
 
 import de.rub.nds.modifiablevariable.VariableModification;
+import de.rub.nds.modifiablevariable.integer.IntegerSubtractModification;
+import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- */
 @XmlRootElement
 @XmlType(propOrder = { "xor", "modificationFilter", "postModification" })
 public class LongXorModification extends VariableModification<Long> {
@@ -41,4 +40,15 @@ public class LongXorModification extends VariableModification<Long> {
     public void setXor(Long xor) {
         this.xor = xor;
     }
+
+    @Override
+    public VariableModification<Long> getModifiedCopy() {
+        Random r = new Random();
+        if (r.nextBoolean()) {
+            return new LongXorModification(xor + new Random().nextInt(256));
+        } else {
+            return new LongXorModification(xor - new Random().nextInt(256));
+        }
+    }
+
 }

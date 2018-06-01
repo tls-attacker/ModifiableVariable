@@ -8,10 +8,6 @@
  */
 package de.rub.nds.modifiablevariable;
 
-/**
- * 
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- */
 public class FileConfigurationException extends RuntimeException {
 
     public FileConfigurationException() {

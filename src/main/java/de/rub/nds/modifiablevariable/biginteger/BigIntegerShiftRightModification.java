@@ -10,12 +10,10 @@ package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import java.math.BigInteger;
+import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- */
 @XmlRootElement
 @XmlType(propOrder = { "shift", "modificationFilter", "postModification" })
 public class BigIntegerShiftRightModification extends VariableModification<BigInteger> {
@@ -44,5 +42,10 @@ public class BigIntegerShiftRightModification extends VariableModification<BigIn
 
     public void setShift(int shift) {
         this.shift = shift;
+    }
+
+    @Override
+    public VariableModification<BigInteger> getModifiedCopy() {
+        return new BigIntegerShiftRightModification(shift + new Random().nextInt(32));
     }
 }

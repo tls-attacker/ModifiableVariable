@@ -15,10 +15,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- * 
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- */
 @XmlRootElement
 @XmlSeeAlso({ ByteAddModification.class, ByteExplicitValueModification.class, ByteSubtractModification.class,
         ByteXorModification.class })
@@ -65,5 +61,29 @@ public class ModifiableByte extends ModifiableVariable<Byte> implements Serializ
     @Override
     public void setOriginalValue(Byte originalValue) {
         this.originalValue = originalValue;
+    }
+
+    @Override
+    public String toString() {
+        return "ModifiableByte{" + "originalValue=" + originalValue + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof ModifiableByte))
+            return false;
+
+        ModifiableByte that = (ModifiableByte) o;
+
+        return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (getValue() != null ? getValue().hashCode() : 0);
+        return result;
     }
 }

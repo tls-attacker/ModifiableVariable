@@ -13,9 +13,6 @@ import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- * @author Janis Fliegenschmidt - janis.fliegenschmidt@rub.de
- */
 @XmlRootElement
 @XmlType(propOrder = { "modificationFilter", "postModification" })
 public class BigIntegerInteractiveModification extends VariableModification<BigInteger> {
@@ -39,4 +36,10 @@ public class BigIntegerInteractiveModification extends VariableModification<BigI
 
         BigInteger modify(BigInteger oldVal);
     }
+
+    @Override
+    public VariableModification<BigInteger> getModifiedCopy() {
+        throw new UnsupportedOperationException("This method is not supported for interactive Modifactions");
+    }
+
 }

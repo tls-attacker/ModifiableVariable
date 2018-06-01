@@ -8,18 +8,12 @@
  */
 package de.rub.nds.modifiablevariable.biginteger;
 
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerModificationFactory;
-import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import de.rub.nds.modifiablevariable.VariableModification;
 import java.math.BigInteger;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * @author Juraj Somorovsky <juraj.somorovsky@rub.de>
- * @author Christian Mainka <christian.mainka@rub.de>
- */
 public class BigIntegerOperationConcartenationTest {
 
     private ModifiableBigInteger start;
@@ -54,6 +48,20 @@ public class BigIntegerOperationConcartenationTest {
             @Override
             protected BigInteger modifyImplementationHook(BigInteger input) {
                 return input.add(new BigInteger("4")).xor(new BigInteger("3"));
+            }
+
+            @Override
+            public VariableModification<BigInteger> getModifiedCopy() {
+                throw new UnsupportedOperationException("Not supported yet."); // To
+                                                                               // change
+                                                                               // body
+                                                                               // of
+                                                                               // generated
+                                                                               // methods,
+                                                                               // choose
+                                                                               // Tools
+                                                                               // |
+                                                                               // Templates.
             }
         });
         expectedResult = new BigInteger("13");

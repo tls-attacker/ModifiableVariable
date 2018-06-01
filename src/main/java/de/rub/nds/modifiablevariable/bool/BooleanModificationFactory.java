@@ -12,10 +12,6 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.RandomHelper;
 import java.util.Random;
 
-/**
- *
- * @author Robert Merget <robert.merget@rub.de>
- */
 public class BooleanModificationFactory {
 
     private static final int MODIFICATION_COUNT = 3;
@@ -31,5 +27,13 @@ public class BooleanModificationFactory {
                 return new BooleanToogleModification();
         }
         return null;
+    }
+
+    public static VariableModification<Boolean> toogle() {
+        return new BooleanToogleModification();
+    }
+
+    public static VariableModification<Boolean> explicitValue(final boolean explicitValue) {
+        return new BooleanExplicitValueModification(explicitValue);
     }
 }

@@ -19,10 +19,6 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * 
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- */
 public class IntegerSerializationTest {
 
     private static final Logger LOGGER = LogManager.getLogger(IntegerSerializationTest.class);

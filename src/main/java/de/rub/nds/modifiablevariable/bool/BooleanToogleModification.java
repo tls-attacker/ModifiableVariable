@@ -12,10 +12,6 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- *
- * @author Robert Merget <robert.merget@rub.de>
- */
 @XmlRootElement
 @XmlType(propOrder = { "modificationFilter", "postModification" })
 public class BooleanToogleModification extends VariableModification<Boolean> {
@@ -29,5 +25,10 @@ public class BooleanToogleModification extends VariableModification<Boolean> {
             input = Boolean.FALSE;
         }
         return !input;
+    }
+
+    @Override
+    public VariableModification<Boolean> getModifiedCopy() {
+        return new BooleanToogleModification();
     }
 }

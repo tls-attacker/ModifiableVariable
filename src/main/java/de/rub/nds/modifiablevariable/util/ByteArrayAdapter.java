@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  *
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
  */
 public class ByteArrayAdapter extends XmlAdapter<String, byte[]> {
 

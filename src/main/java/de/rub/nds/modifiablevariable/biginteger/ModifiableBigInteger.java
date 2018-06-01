@@ -17,10 +17,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- *
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- */
 @XmlRootElement
 @XmlSeeAlso({ BigIntegerAddModification.class, BigIntegerExplicitValueModification.class,
         BigIntegerSubtractModification.class, BigIntegerXorModification.class })
@@ -74,5 +70,29 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> impleme
     @Override
     public void setOriginalValue(BigInteger originalValue) {
         this.originalValue = originalValue;
+    }
+
+    @Override
+    public String toString() {
+        return "ModifiableBigInteger{" + "originalValue=" + originalValue + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof ModifiableBigInteger))
+            return false;
+
+        ModifiableBigInteger that = (ModifiableBigInteger) o;
+
+        return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (getValue() != null ? getValue().hashCode() : 0);
+        return result;
     }
 }

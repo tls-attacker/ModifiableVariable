@@ -9,12 +9,10 @@
 package de.rub.nds.modifiablevariable.singlebyte;
 
 import de.rub.nds.modifiablevariable.VariableModification;
+import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- */
 @XmlRootElement
 @XmlType(propOrder = { "xor", "modificationFilter", "postModification" })
 public class ByteXorModification extends VariableModification<Byte> {
@@ -43,5 +41,15 @@ public class ByteXorModification extends VariableModification<Byte> {
 
     public void setXor(Byte xor) {
         this.xor = xor;
+    }
+
+    @Override
+    public VariableModification<Byte> getModifiedCopy() {
+        Random r = new Random();
+        if (r.nextBoolean()) {
+            return new ByteXorModification((byte) (xor + r.nextInt(16)));
+        } else {
+            return new ByteXorModification((byte) (xor - r.nextInt(16)));
+        }
     }
 }

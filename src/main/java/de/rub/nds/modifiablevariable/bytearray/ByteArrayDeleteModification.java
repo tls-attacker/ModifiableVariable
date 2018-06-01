@@ -12,12 +12,10 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import static de.rub.nds.modifiablevariable.util.ArrayConverter.bytesToHexString;
 import java.util.Arrays;
+import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- */
 @XmlRootElement
 @XmlType(propOrder = { "count", "startPosition", "modificationFilter", "postModification" })
 public class ByteArrayDeleteModification extends VariableModification<byte[]> {
@@ -44,18 +42,19 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
         if (start < 0) {
             start += input.length;
             if (start < 0) {
-                throw new IllegalArgumentException("Trying to delete from too negative Startposition. start = "
-                        + (start - input.length));
+                LOGGER.debug("Trying to delete from too negative Startposition. start = " + (start - input.length));
+                return input;
             }
         }
         final int endPosition = start + count;
         if ((endPosition) > input.length) {
-            throw new ArrayIndexOutOfBoundsException(String.format(
-                    "Bytes %d..%d cannot be deleted from {%s} of length %d", start, endPosition,
+            LOGGER.debug(String.format("Bytes %d..%d cannot be deleted from {%s} of length %d", start, endPosition,
                     bytesToHexString(input), input.length));
+            return input;
         }
         if (count <= 0) {
-            throw new IllegalArgumentException("You must delete at least one byte. count = " + count);
+            LOGGER.debug("You must delete at least one byte. count = " + count);
+            return input;
         }
         byte[] ret1 = Arrays.copyOf(input, start);
         byte[] ret2 = null;
@@ -79,5 +78,27 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    @Override
+    public VariableModification<byte[]> getModifiedCopy() {
+        Random r = new Random();
+        int modifier = r.nextInt(32);
+        if (r.nextBoolean()) {
+            modifier *= -1;
+        }
+        if (r.nextBoolean()) {
+            modifier = startPosition + modifier;
+            if (modifier <= 0) {
+                modifier = 0;
+            }
+            return new ByteArrayDeleteModification(modifier, count);
+        } else {
+            modifier = startPosition + count;
+            if (modifier <= 0) {
+                modifier = 1;
+            }
+            return new ByteArrayDeleteModification(startPosition, modifier);
+        }
     }
 }

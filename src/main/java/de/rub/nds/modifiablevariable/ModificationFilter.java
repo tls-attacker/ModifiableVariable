@@ -16,7 +16,6 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * accesses or specific data. For example, only the first data access returns a
  * modified value. This can be achieved using a ModificationFilter object.
  * 
- * @author Juraj Somorovsky <juraj.somorovsky@rub.de>
  */
 @XmlSeeAlso({ AccessModificationFilter.class })
 public abstract class ModificationFilter {

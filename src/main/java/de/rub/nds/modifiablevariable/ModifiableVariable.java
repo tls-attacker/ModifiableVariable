@@ -8,6 +8,7 @@
  */
 package de.rub.nds.modifiablevariable;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -20,12 +21,10 @@ import javax.xml.bind.annotation.XmlTransient;
  * subclasses, see:
  * http://blog.bdoughan.com/2011/06/ignoring-inheritance-with-xmltransient.html
  * 
- * @author Juraj Somorovsky <juraj.somorovsky@rub.de>
- * @param <E>
  */
 @XmlRootElement
 @XmlTransient
-public abstract class ModifiableVariable<E> {
+public abstract class ModifiableVariable<E> implements Serializable {
 
     private VariableModification<E> modification = null;
 
@@ -74,5 +73,9 @@ public abstract class ModifiableVariable<E> {
 
     public boolean containsAssertion() {
         return (assertEquals != null);
+    }
+
+    public boolean isCreateRandomModification() {
+        return createRandomModification;
     }
 }

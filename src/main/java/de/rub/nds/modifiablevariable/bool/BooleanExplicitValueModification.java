@@ -12,10 +12,6 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- *
- * @author Robert Merget <robert.merget@rub.de>
- */
 @XmlRootElement
 @XmlType(propOrder = { "explicitValue", "modificationFilter", "postModification" })
 public class BooleanExplicitValueModification extends VariableModification<Boolean> {
@@ -40,5 +36,10 @@ public class BooleanExplicitValueModification extends VariableModification<Boole
 
     public void setExplicitValue(boolean explicitValue) {
         this.explicitValue = explicitValue;
+    }
+
+    @Override
+    public VariableModification<Boolean> getModifiedCopy() {
+        return new BooleanExplicitValueModification(!explicitValue);
     }
 }

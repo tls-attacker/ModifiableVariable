@@ -18,7 +18,6 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * 
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
  */
 public class ModifiableVariableAnalyzer {
 
@@ -28,7 +27,8 @@ public class ModifiableVariableAnalyzer {
      * Lists all the modifiable variables declared in the given class
      * 
      * @param object
-     * @return
+     *            Analyzed object
+     * @return A list of modifiable variable fields for the given object
      */
     public static List<Field> getAllModifiableVariableFields(Object object) {
         return ReflectionHelper.getFieldsUpTo(object.getClass(), null, ModifiableVariable.class);
@@ -39,7 +39,8 @@ public class ModifiableVariableAnalyzer {
      * class
      * 
      * @param object
-     * @return
+     *            Analyzed object
+     * @return A random field representing a modifiable variable
      */
     public static Field getRandomModifiableVariableField(Object object) {
         List<Field> fields = getAllModifiableVariableFields(object);
@@ -51,7 +52,8 @@ public class ModifiableVariableAnalyzer {
      * Returns true if the given object contains a modifiable variable
      * 
      * @param object
-     * @return
+     *            Analyzed object
+     * @return True if the object contains a modifiable variable.
      */
     public static boolean isModifiableVariableHolder(Object object) {
         List<Field> fields = getAllModifiableVariableFields(object);
@@ -63,7 +65,9 @@ public class ModifiableVariableAnalyzer {
      * representations) for a given object.
      * 
      * @param object
-     * @return
+     *            Analyzed object
+     * @return A list of objects with their modifiable variable fields (only
+     *         objects with modifiable variables are selected)
      */
     public static List<ModifiableVariableField> getAllModifiableVariableFieldsRecursively(Object object) {
         List<ModifiableVariableListHolder> holders = getAllModifiableVariableHoldersRecursively(object);
@@ -81,7 +85,9 @@ public class ModifiableVariableAnalyzer {
      * including this instance.
      * 
      * @param object
-     * @return
+     *            Analyzed object
+     * @return A list of objects with their modifiable variable fields (only
+     *         objects with modifiable variables are selected)
      */
     public static List<ModifiableVariableListHolder> getAllModifiableVariableHoldersRecursively(Object object) {
         List<ModifiableVariableListHolder> holders = new LinkedList<>();
@@ -113,7 +119,9 @@ public class ModifiableVariableAnalyzer {
 
     /**
      * @param list
-     * @return
+     *            Analyzed list
+     * @return A list of objects with their modifiable variable fields (only
+     *         objects with modifiable variables are selected)
      */
     public static List<ModifiableVariableListHolder> getAllModifiableVariableHoldersFromList(List<Object> list) {
         List<ModifiableVariableListHolder> result = new LinkedList<>();
@@ -129,7 +137,9 @@ public class ModifiableVariableAnalyzer {
 
     /**
      * @param array
-     * @return
+     *            Analyzed array of objects
+     * @return A list of objects with their modifiable variable fields (only
+     *         objects with modifiable variables are selected)
      */
     public static List<ModifiableVariableListHolder> getAllModifiableVariableHoldersFromArray(Object[] array) {
         List<ModifiableVariableListHolder> result = new LinkedList<>();
@@ -138,16 +148,4 @@ public class ModifiableVariableAnalyzer {
         }
         return result;
     }
-
-    // /**
-    // * Returns a random modifiable variable holder
-    // *
-    // * @return
-    // */
-    // public ModifiableVariableListHolder getRandomModifiableVariableHolder() {
-    // List<ModifiableVariableHolder> holders =
-    // getAllModifiableVariableHolders();
-    // int randomHolder = RandomHelper.getRandom().nextInt(holders.size());
-    // return holders.get(randomHolder);
-    // }
 }

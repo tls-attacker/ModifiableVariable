@@ -9,12 +9,10 @@
 package de.rub.nds.modifiablevariable.singlebyte;
 
 import de.rub.nds.modifiablevariable.VariableModification;
+import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- */
 @XmlRootElement
 @XmlType(propOrder = { "subtrahend", "modificationFilter", "postModification" })
 public class ByteSubtractModification extends VariableModification<Byte> {
@@ -43,5 +41,10 @@ public class ByteSubtractModification extends VariableModification<Byte> {
 
     public void setSubtrahend(Byte subtrahend) {
         this.subtrahend = subtrahend;
+    }
+
+    @Override
+    public VariableModification<Byte> getModifiedCopy() {
+        return new ByteAddModification((byte) (subtrahend + new Random().nextInt(16)));
     }
 }

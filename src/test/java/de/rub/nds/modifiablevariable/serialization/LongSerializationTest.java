@@ -27,11 +27,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- * 
- * @author Philip Riese <philip.riese@rub.de>
- */
 public class LongSerializationTest {
 
     private static final Logger LOGGER = LogManager.getLogger(LongSerializationTest.class);

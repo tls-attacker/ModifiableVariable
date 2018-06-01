@@ -19,11 +19,6 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-/**
- *
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- * @author Matthias Terlinde - <matthias.terlinde@rub.de>
- */
 @XmlRootElement
 @XmlSeeAlso({ ByteArrayDeleteModification.class, ByteArrayExplicitValueModification.class,
         ByteArrayInsertModification.class, ByteArrayXorModification.class, ByteArrayDuplicateModification.class })
@@ -90,4 +85,22 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> implements S
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof ModifiableByteArray))
+            return false;
+
+        ModifiableByteArray that = (ModifiableByteArray) o;
+
+        return Arrays.equals(getValue(), that.getValue());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + Arrays.hashCode(getValue());
+        return result;
+    }
 }

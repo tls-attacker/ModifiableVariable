@@ -16,10 +16,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- * 
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- */
 @XmlRootElement
 @XmlSeeAlso({ IntegerAddModification.class, IntegerExplicitValueModification.class, IntegerSubtractModification.class,
         IntegerXorModification.class })
@@ -70,5 +66,29 @@ public class ModifiableInteger extends ModifiableVariable<Integer> implements Se
     @Override
     public void setOriginalValue(Integer originalValue) {
         this.originalValue = originalValue;
+    }
+
+    @Override
+    public String toString() {
+        return "ModifiableInteger{" + "originalValue=" + originalValue + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof ModifiableInteger))
+            return false;
+
+        ModifiableInteger that = (ModifiableInteger) o;
+
+        return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (getValue() != null ? getValue().hashCode() : 0);
+        return result;
     }
 }

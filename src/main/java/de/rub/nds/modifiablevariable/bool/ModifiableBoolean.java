@@ -10,16 +10,10 @@ package de.rub.nds.modifiablevariable.bool;
 
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerModificationFactory;
-import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- *
- * @author Robert Merget <robert.merget@rub.de>
- */
 @XmlRootElement
 @XmlSeeAlso({ BooleanExplicitValueModification.class, BooleanExplicitValueModification.class })
 @XmlType(propOrder = { "originalValue", "modification", })
@@ -63,5 +57,29 @@ public class ModifiableBoolean extends ModifiableVariable<Boolean> {
             }
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "ModifiableBoolean{" + "originalValue=" + originalValue + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof ModifiableBoolean))
+            return false;
+
+        ModifiableBoolean that = (ModifiableBoolean) o;
+
+        return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (getValue() != null ? getValue().hashCode() : 0);
+        return result;
     }
 }

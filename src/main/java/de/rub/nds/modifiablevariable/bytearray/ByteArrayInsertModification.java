@@ -12,13 +12,11 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
 import java.util.Arrays;
+import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-/**
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- */
 @XmlRootElement
 @XmlType(propOrder = { "bytesToInsert", "startPosition", "modificationFilter", "postModification" })
 public class ByteArrayInsertModification extends VariableModification<byte[]> {
@@ -46,13 +44,14 @@ public class ByteArrayInsertModification extends VariableModification<byte[]> {
         if (start < 0) {
             start += input.length;
             if (start < 0) {
-                throw new IllegalArgumentException("Trying to insert from too negative Startposition. start = "
-                        + startPosition);
+                LOGGER.debug("Trying to insert from too negative Startposition. start = " + startPosition);
+                return input;
             }
         }
         if (startPosition > input.length) {
-            throw new ArrayIndexOutOfBoundsException("Trying to insert behind the Array. ArraySize:" + input.length
-                    + " Insert Position:" + startPosition);
+            LOGGER.debug("Trying to insert behind the Array. ArraySize:" + input.length + " Insert Position:"
+                    + startPosition);
+            return input;
         }
         byte[] ret1 = Arrays.copyOf(input, start);
         byte[] ret3 = null;
@@ -77,5 +76,28 @@ public class ByteArrayInsertModification extends VariableModification<byte[]> {
 
     public void setStartPosition(int startPosition) {
         this.startPosition = startPosition;
+    }
+
+    @Override
+    public VariableModification<byte[]> getModifiedCopy() {
+        Random r = new Random();
+
+        if (r.nextBoolean()) {
+            int index = r.nextInt(bytesToInsert.length);
+            byte[] newValue = Arrays.copyOf(bytesToInsert, bytesToInsert.length);
+            newValue[index] = (byte) r.nextInt(256);
+            return new ByteArrayInsertModification(newValue, startPosition);
+        } else {
+            byte[] newValue = Arrays.copyOf(bytesToInsert, bytesToInsert.length);
+            int modifier = r.nextInt(32);
+            if (r.nextBoolean()) {
+                modifier *= -1;
+            }
+            modifier = startPosition + modifier;
+            if (modifier <= 0) {
+                modifier = 1;
+            }
+            return new ByteArrayInsertModification(newValue, modifier);
+        }
     }
 }

@@ -18,7 +18,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  * getValue() function on a modifiable variable, the modification is executed
  * only during the second and fourth getValue() method invocation.
  * 
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
  */
 @XmlRootElement
 public class AccessModificationFilter extends ModificationFilter {

@@ -8,7 +8,6 @@
  */
 package de.rub.nds.modifiablevariable.filter;
 
-import de.rub.nds.modifiablevariable.filter.ModificationFilterFactory;
 import de.rub.nds.modifiablevariable.ModificationFilter;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerModificationFactory;
@@ -19,9 +18,6 @@ import static org.junit.Assert.assertNotSame;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * @author Juraj Somorovsky <juraj.somorovsky@rub.de>
- */
 public class ModificationApprovalTest {
 
     private ModifiableBigInteger start;

@@ -22,10 +22,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * 
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- */
 public class ByteSerializationTest {
 
     private static final Logger LOGGER = LogManager.getLogger(ByteSerializationTest.class);

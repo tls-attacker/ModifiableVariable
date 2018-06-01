@@ -13,9 +13,6 @@ import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- */
 @XmlRootElement
 @XmlType(propOrder = { "modificationFilter", "postModification" })
 public class ByteArrayDuplicateModification extends VariableModification<byte[]> {
@@ -31,4 +28,10 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
         }
         return ArrayConverter.concatenate(input, input);
     }
+
+    @Override
+    public VariableModification<byte[]> getModifiedCopy() {
+        return new ByteArrayDuplicateModification();
+    }
+
 }

@@ -12,14 +12,11 @@ import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
-import de.rub.nds.modifiablevariable.length.ModifiableLengthField;
 import de.rub.nds.modifiablevariable.mlong.ModifiableLong;
 import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
+import de.rub.nds.modifiablevariable.string.ModifiableString;
 import java.math.BigInteger;
 
-/**
- * @author Juraj Somorovsky <juraj.somorovsky@rub.de>
- */
 public class ModifiableVariableFactory {
 
     public static ModifiableBigInteger createBigIntegerModifiableVariable() {
@@ -45,6 +42,14 @@ public class ModifiableVariableFactory {
     public static ModifiableBigInteger safelySetValue(ModifiableBigInteger mv, BigInteger value) {
         if (mv == null) {
             mv = new ModifiableBigInteger();
+        }
+        mv.setOriginalValue(value);
+        return mv;
+    }
+
+    public static ModifiableString safelySetValue(ModifiableString mv, String value) {
+        if (mv == null) {
+            mv = new ModifiableString();
         }
         mv.setOriginalValue(value);
         return mv;

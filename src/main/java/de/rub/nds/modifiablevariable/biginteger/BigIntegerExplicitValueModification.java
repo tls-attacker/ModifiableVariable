@@ -10,12 +10,10 @@ package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import java.math.BigInteger;
+import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-/**
- * @author Juraj Somorovsky - juraj.somorovsky@rub.de
- */
 @XmlRootElement
 @XmlType(propOrder = { "explicitValue", "modificationFilter", "postModification" })
 public class BigIntegerExplicitValueModification extends VariableModification<BigInteger> {
@@ -23,7 +21,6 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
     private BigInteger explicitValue;
 
     public BigIntegerExplicitValueModification() {
-
     }
 
     public BigIntegerExplicitValueModification(BigInteger bi) {
@@ -41,5 +38,15 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
 
     public void setExplicitValue(BigInteger explicitValue) {
         this.explicitValue = explicitValue;
+    }
+
+    @Override
+    public VariableModification<BigInteger> getModifiedCopy() {
+        Random r = new Random();
+        if (r.nextBoolean()) {
+            return new BigIntegerExplicitValueModification(explicitValue.add(new BigInteger(8, r)));
+        } else {
+            return new BigIntegerExplicitValueModification(explicitValue.subtract(new BigInteger(8, r)));
+        }
     }
 }
