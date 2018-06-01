@@ -9,12 +9,15 @@
 package de.rub.nds.modifiablevariable.integer;
 
 import de.rub.nds.modifiablevariable.VariableModification;
+import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
 @XmlType(propOrder = { "xor", "modificationFilter", "postModification" })
 public class IntegerXorModification extends VariableModification<Integer> {
+
+    private final static int MAX_VALUE_MODIFIER = 256;
 
     private Integer xor;
 
@@ -37,5 +40,15 @@ public class IntegerXorModification extends VariableModification<Integer> {
 
     public void setXor(Integer xor) {
         this.xor = xor;
+    }
+
+    @Override
+    public VariableModification<Integer> getModifiedCopy() {
+        Random r = new Random();
+        if (r.nextBoolean()) {
+            return new IntegerSubtractModification(xor + new Random().nextInt(MAX_VALUE_MODIFIER));
+        } else {
+            return new IntegerSubtractModification(xor - new Random().nextInt(MAX_VALUE_MODIFIER));
+        }
     }
 }

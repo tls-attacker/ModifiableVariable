@@ -9,12 +9,15 @@
 package de.rub.nds.modifiablevariable.integer;
 
 import de.rub.nds.modifiablevariable.VariableModification;
+import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
 @XmlType(propOrder = { "shift", "modificationFilter", "postModification" })
 public class IntegerShiftLeftModification extends VariableModification<Integer> {
+
+    private final static int MAX_SHIFT_MODIFIER = 32;
 
     private int shift;
 
@@ -37,5 +40,22 @@ public class IntegerShiftLeftModification extends VariableModification<Integer> 
 
     public void setShift(int shift) {
         this.shift = shift;
+    }
+
+    @Override
+    public VariableModification<Integer> getModifiedCopy() {
+        Random r = new Random();
+        int newShift;
+        if (r.nextBoolean()) {
+            newShift = shift + r.nextInt(MAX_SHIFT_MODIFIER);
+        } else {
+            newShift = shift - r.nextInt(MAX_SHIFT_MODIFIER);
+        }
+        if (newShift < 0) {
+            newShift = MAX_SHIFT_MODIFIER - 1;
+        } else if (newShift > MAX_SHIFT_MODIFIER - 1) {
+            newShift = 0;
+        }
+        return new IntegerShiftLeftModification(newShift);
     }
 }

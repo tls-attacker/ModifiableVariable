@@ -107,6 +107,8 @@ public abstract class VariableModification<E> {
 
     protected abstract E modifyImplementationHook(E input);
 
+    public abstract VariableModification<E> getModifiedCopy();
+
     /**
      * Debugging modified variables. Getting stack trace can be time consuming,
      * thus we use isDebugEnabled() function

@@ -9,12 +9,15 @@
 package de.rub.nds.modifiablevariable.integer;
 
 import de.rub.nds.modifiablevariable.VariableModification;
+import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
 @XmlType(propOrder = { "summand", "modificationFilter", "postModification" })
 public class IntegerAddModification extends VariableModification<Integer> {
+
+    private final static int MAX_ADD_MODIFIER = 256;
 
     private Integer summand;
 
@@ -37,5 +40,10 @@ public class IntegerAddModification extends VariableModification<Integer> {
 
     public void setSummand(Integer summand) {
         this.summand = summand;
+    }
+
+    @Override
+    public VariableModification<Integer> getModifiedCopy() {
+        return new IntegerAddModification(summand + new Random().nextInt(MAX_ADD_MODIFIER));
     }
 }

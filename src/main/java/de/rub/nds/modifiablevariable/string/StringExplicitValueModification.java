@@ -47,4 +47,9 @@ public class StringExplicitValueModification extends VariableModification<String
     public void setExplicitValue(String explicitValue) {
         this.explicitValue = explicitValue;
     }
+
+    @Override
+    public VariableModification<String> getModifiedCopy() {
+        return new StringExplicitValueModification(explicitValue);
+    }
 }

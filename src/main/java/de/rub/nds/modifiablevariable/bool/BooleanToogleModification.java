@@ -26,4 +26,9 @@ public class BooleanToogleModification extends VariableModification<Boolean> {
         }
         return !input;
     }
+
+    @Override
+    public VariableModification<Boolean> getModifiedCopy() {
+        return new BooleanToogleModification();
+    }
 }

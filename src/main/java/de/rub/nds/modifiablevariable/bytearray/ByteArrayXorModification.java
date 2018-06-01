@@ -11,6 +11,8 @@ package de.rub.nds.modifiablevariable.bytearray;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
+import java.util.Arrays;
+import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -18,6 +20,10 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlRootElement
 @XmlType(propOrder = { "xor", "startPosition", "modificationFilter", "postModification" })
 public class ByteArrayXorModification extends VariableModification<byte[]> {
+
+    private final static int MAX_MODIFIER_VALUE = 256;
+
+    private final static int MAX_XOR_MODIFIER = 32;
 
     private byte[] xor;
 
@@ -73,5 +79,27 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
 
     public void setStartPosition(int startPosition) {
         this.startPosition = startPosition;
+    }
+
+    @Override
+    public VariableModification<byte[]> getModifiedCopy() {
+        Random r = new Random();
+        if (r.nextBoolean()) {
+            int index = r.nextInt(xor.length);
+            byte[] newValue = Arrays.copyOf(xor, xor.length);
+            newValue[index] = (byte) r.nextInt(MAX_MODIFIER_VALUE);
+            return new ByteArrayXorModification(newValue, startPosition);
+        } else {
+            byte[] newValue = Arrays.copyOf(xor, xor.length);
+            int modifier = r.nextInt(MAX_XOR_MODIFIER);
+            if (r.nextBoolean()) {
+                modifier *= -1;
+            }
+            modifier = startPosition + modifier;
+            if (modifier <= 0) {
+                modifier = 1;
+            }
+            return new ByteArrayXorModification(newValue, modifier);
+        }
     }
 }

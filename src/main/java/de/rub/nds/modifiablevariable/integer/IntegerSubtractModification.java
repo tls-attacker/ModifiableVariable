@@ -9,12 +9,15 @@
 package de.rub.nds.modifiablevariable.integer;
 
 import de.rub.nds.modifiablevariable.VariableModification;
+import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
 @XmlType(propOrder = { "subtrahend", "modificationFilter", "postModification" })
 public class IntegerSubtractModification extends VariableModification<Integer> {
+
+    private final static int MAX_SUBTRACT_MODIFIER = 256;
 
     private Integer subtrahend;
 
@@ -37,5 +40,10 @@ public class IntegerSubtractModification extends VariableModification<Integer> {
 
     public void setSubtrahend(Integer subtrahend) {
         this.subtrahend = subtrahend;
+    }
+
+    @Override
+    public VariableModification<Integer> getModifiedCopy() {
+        return new IntegerSubtractModification(subtrahend + new Random().nextInt(MAX_SUBTRACT_MODIFIER));
     }
 }
