@@ -47,36 +47,25 @@ public class XMLPrettyPrinter {
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", Integer.toString(IDENT_AMOUNT));
         transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-
         StreamResult result = new StreamResult(new StringWriter());
         Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
                 .parse(new InputSource(new StringReader(input)));
-
-        // XPath for selecting all text contents
-        XPathExpression xpath = XPathFactory.newInstance().newXPath().compile("//*[text()]/*");
-        // this is better but it does not work, because the default java xpath
-        // transformer does not support XPath 2.0
-        // XPathExpression xpath =
-        // XPathFactory.newInstance().newXPath().compile("//*[text()[matches(.,'^[0-9A-F ]*$')]]");
-        // XPath for counting the number of ancestors of a current element
+        XPathExpression xpath = XPathFactory.newInstance().newXPath().compile("//*[count(./*) = 0]");
         XPathExpression xpathDepth = XPathFactory.newInstance().newXPath().compile("count(ancestor-or-self::*)");
 
         NodeList textNodes = (NodeList) xpath.evaluate(doc, XPathConstants.NODESET);
 
         for (int i = 0; i < textNodes.getLength(); i++) {
             String content = textNodes.item(i).getTextContent();
-            System.out.println(textNodes.item(i).getTextContent());
             double doubleDepth = (Double) xpathDepth.evaluate(textNodes.item(i), XPathConstants.NUMBER);
             int depth = (int) doubleDepth;
             String emptyString = createEmptyString(depth);
-            System.out.println(depth);
             String newContent = content.replaceAll("\n", ("\n" + emptyString));
-            // remove last white space elements from the text content to align
-            // the closing tag
             if (newContent.length() > content.length()) {
                 newContent = newContent.substring(0, newContent.length() - IDENT_AMOUNT);
             }
             textNodes.item(i).setTextContent(newContent);
+
         }
 
         DOMSource source = new DOMSource(doc);

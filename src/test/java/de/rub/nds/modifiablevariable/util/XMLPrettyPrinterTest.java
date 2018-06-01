@@ -31,5 +31,4 @@ public class XMLPrettyPrinterTest {
 
         assertEquals(expected.trim(), result.trim());
     }
-
 }
