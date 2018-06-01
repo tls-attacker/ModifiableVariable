@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement
-@XmlType(propOrder = {"explicitValue", "modificationFilter", "postModification"})
+@XmlType(propOrder = { "explicitValue", "modificationFilter", "postModification" })
 public class ByteArrayExplicitValueModification extends VariableModification<byte[]> {
 
     private byte[] explicitValue;
