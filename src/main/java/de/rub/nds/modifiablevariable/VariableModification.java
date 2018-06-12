@@ -17,12 +17,7 @@ import de.rub.nds.modifiablevariable.biginteger.BigIntegerSubtractModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerXorModification;
 import de.rub.nds.modifiablevariable.bool.BooleanExplicitValueModification;
 import de.rub.nds.modifiablevariable.bool.BooleanToogleModification;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayDeleteModification;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayDuplicateModification;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayExplicitValueModification;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayInsertModification;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayShuffleModification;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayXorModification;
+import de.rub.nds.modifiablevariable.bytearray.*;
 import de.rub.nds.modifiablevariable.filter.AccessModificationFilter;
 import de.rub.nds.modifiablevariable.integer.IntegerAddModification;
 import de.rub.nds.modifiablevariable.integer.IntegerExplicitValueModification;
@@ -52,9 +47,9 @@ import org.apache.logging.log4j.Logger;
         IntegerExplicitValueModification.class, IntegerSubtractModification.class, IntegerXorModification.class,
         IntegerShiftLeftModification.class, IntegerShiftRightModification.class, ByteArrayDeleteModification.class,
         ByteArrayExplicitValueModification.class, ByteArrayInsertModification.class, ByteArrayXorModification.class,
-        ByteArrayDuplicateModification.class, ByteArrayShuffleModification.class, ByteAddModification.class,
-        ByteExplicitValueModification.class, ByteSubtractModification.class, ByteXorModification.class,
-        StringExplicitValueModification.class })
+        ByteArrayDuplicateModification.class, ByteArrayShuffleModification.class, ByteArrayPayloadModification.class,
+        ByteAddModification.class, ByteExplicitValueModification.class, ByteSubtractModification.class,
+        ByteXorModification.class, StringExplicitValueModification.class })
 public abstract class VariableModification<E> {
 
     protected static final Logger LOGGER = LogManager.getLogger(VariableModification.class);

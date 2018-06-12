@@ -21,7 +21,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement
 @XmlSeeAlso({ ByteArrayDeleteModification.class, ByteArrayExplicitValueModification.class,
-        ByteArrayInsertModification.class, ByteArrayXorModification.class, ByteArrayDuplicateModification.class })
+        ByteArrayInsertModification.class, ByteArrayXorModification.class, ByteArrayDuplicateModification.class,
+        ByteArrayPayloadModification.class })
 @XmlType(propOrder = { "originalValue", "modification", "assertEquals" })
 public class ModifiableByteArray extends ModifiableVariable<byte[]> implements Serializable {
 
