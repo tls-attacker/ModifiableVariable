@@ -61,6 +61,16 @@ public class ByteArrayModificationFactory {
     }
 
     /**
+     *
+     * @param payload
+     *            bytes are set as value
+     * @return variable modification
+     */
+    public static VariableModification<byte[]> payload(final byte[] payload) {
+        return new ByteArrayPayloadModification(payload);
+    }
+
+    /**
      * *
      * 
      * @param bytesToInsert

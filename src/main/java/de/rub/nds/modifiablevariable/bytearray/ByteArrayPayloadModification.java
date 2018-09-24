@@ -1,0 +1,123 @@
+/**
+ * ModifiableVariable - A Variable Concept for Runtime Modifications
+ *
+ * Copyright 2014-2017 Ruhr University Bochum / Hackmanit GmbH
+ *
+ * Licensed under Apache License 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+package de.rub.nds.modifiablevariable.bytearray;
+
+import de.rub.nds.modifiablevariable.VariableModification;
+import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
+
+import java.util.Arrays;
+import java.util.Random;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+@XmlRootElement
+@XmlType(propOrder = { "prependPayload", "payload", "appendPayload", "insert", "insertPosition", "modificationFilter",
+        "postModification" })
+public class ByteArrayPayloadModification extends VariableModification<byte[]> {
+
+    private byte[] prependPayload = new byte[] {};
+
+    private byte[] payload = new byte[] {};
+
+    private byte[] appendPayload = new byte[] {};
+
+    private boolean insert = false;
+
+    private int insertPosition = 0;
+
+    public ByteArrayPayloadModification() {
+
+    }
+
+    public ByteArrayPayloadModification(byte[] payload) {
+        this.payload = payload;
+    }
+
+    public ByteArrayPayloadModification(byte[] payload, int insertPosition) {
+        this.payload = payload;
+        this.insert = true;
+        this.insertPosition = insertPosition;
+    }
+
+    @Override
+    protected byte[] modifyImplementationHook(byte[] input) {
+        byte[] completePayload = getCompletePayload();
+
+        if (!insert) {
+            return completePayload;
+        }
+
+        ByteArrayInsertModification insertMod = new ByteArrayInsertModification(completePayload, this.insertPosition);
+        return insertMod.modify(input);
+    }
+
+    @XmlJavaTypeAdapter(ByteArrayAdapter.class)
+    public byte[] getPrependPayload() {
+        return prependPayload;
+    }
+
+    public void setPrependPayload(byte[] prependPayload) {
+        this.prependPayload = prependPayload;
+    }
+
+    @XmlJavaTypeAdapter(ByteArrayAdapter.class)
+    public byte[] getPayload() {
+        return payload;
+    }
+
+    public void setPayload(byte[] payload) {
+        this.payload = payload;
+    }
+
+    @XmlJavaTypeAdapter(ByteArrayAdapter.class)
+    public byte[] getAppendPayload() {
+        return appendPayload;
+    }
+
+    public void setAppendPayload(byte[] appendPayload) {
+        this.appendPayload = appendPayload;
+    }
+
+    public boolean isInsert() {
+        return insert;
+    }
+
+    public void setInsert(boolean insert) {
+        this.insert = insert;
+    }
+
+    public int getInsertPosition() {
+        return insertPosition;
+    }
+
+    public void setInsertPosition(int insertPosition) {
+        this.insertPosition = insertPosition;
+    }
+
+    public byte[] getCompletePayload() {
+        return ArrayConverter.concatenate(prependPayload, payload, appendPayload);
+    }
+
+    @Override
+    public VariableModification<byte[]> getModifiedCopy() {
+        ByteArrayPayloadModification mod = new ByteArrayPayloadModification(payload);
+        mod.setAppendPayload(appendPayload);
+        mod.setPrependPayload(prependPayload);
+
+        if (this.insert) {
+            mod.setInsert(true);
+            mod.setInsertPosition(insertPosition);
+            return mod;
+        }
+
+        return mod;
+    }
+}

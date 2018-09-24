@@ -68,6 +68,30 @@ public class ModifiableByteArrayTest {
     }
 
     /**
+     * Test of payload method, of class ModifiableByteArray.
+     */
+    @Test
+    public void testPayload() {
+        LOGGER.info("testPayload");
+        VariableModification<byte[]> modifier = ByteArrayModificationFactory.payload(modification1);
+        start.setModification(modifier);
+        assertArrayEquals(modification1, start.getValue());
+    }
+
+    /**
+     * Test of payload method, of class ModifiableByteArray.
+     */
+    @Test
+    public void testPayloadWithInsert() {
+        LOGGER.info("testPayload");
+        VariableModification<byte[]> modifier = ByteArrayModificationFactory.payload(modification1);
+        ((ByteArrayPayloadModification) modifier).setInsert(true);
+        ((ByteArrayPayloadModification) modifier).setInsertPosition(0);
+        start.setModification(modifier);
+        assertArrayEquals(ArrayConverter.concatenate(modification1, originalValue), start.getValue());
+    }
+
+    /**
      * Test of setXorFirstBytes method, of class ModifiableByteArray.
      */
     @Test
