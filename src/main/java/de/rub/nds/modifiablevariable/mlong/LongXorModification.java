@@ -10,12 +10,13 @@ package de.rub.nds.modifiablevariable.mlong;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.integer.IntegerSubtractModification;
+import java.util.Objects;
 import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = { "xor", "modificationFilter", "postModification" })
+@XmlType(propOrder = {"xor", "modificationFilter", "postModification"})
 public class LongXorModification extends VariableModification<Long> {
 
     private final static int MAX_XOR_MODIFIER = 256;
@@ -53,4 +54,28 @@ public class LongXorModification extends VariableModification<Long> {
         }
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + Objects.hashCode(this.xor);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final LongXorModification other = (LongXorModification) obj;
+        if (!Objects.equals(this.xor, other.xor)) {
+            return false;
+        }
+        return true;
+    }
 }

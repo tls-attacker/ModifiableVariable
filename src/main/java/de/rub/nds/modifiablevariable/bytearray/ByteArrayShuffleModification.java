@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *
  */
 @XmlRootElement
-@XmlType(propOrder = { "shuffle", "modificationFilter", "postModification" })
+@XmlType(propOrder = {"shuffle", "modificationFilter", "postModification"})
 public class ByteArrayShuffleModification extends VariableModification<byte[]> {
 
     private final static int MAX_MODIFIER_VALUE = 256;
@@ -73,5 +73,30 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
         byte[] newValue = Arrays.copyOf(shuffle, shuffle.length);
         newValue[index] = (byte) r.nextInt(MAX_MODIFIER_VALUE);
         return new ByteArrayShuffleModification(shuffle);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 71 * hash + Arrays.hashCode(this.shuffle);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ByteArrayShuffleModification other = (ByteArrayShuffleModification) obj;
+        if (!Arrays.equals(this.shuffle, other.shuffle)) {
+            return false;
+        }
+        return true;
     }
 }

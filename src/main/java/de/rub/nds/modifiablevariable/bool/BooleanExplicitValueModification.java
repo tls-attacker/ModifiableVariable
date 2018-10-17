@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = { "explicitValue", "modificationFilter", "postModification" })
+@XmlType(propOrder = {"explicitValue", "modificationFilter", "postModification"})
 public class BooleanExplicitValueModification extends VariableModification<Boolean> {
 
     private boolean explicitValue;
@@ -41,5 +41,30 @@ public class BooleanExplicitValueModification extends VariableModification<Boole
     @Override
     public VariableModification<Boolean> getModifiedCopy() {
         return new BooleanExplicitValueModification(!explicitValue);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + (this.explicitValue ? 1 : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final BooleanExplicitValueModification other = (BooleanExplicitValueModification) obj;
+        if (this.explicitValue != other.explicitValue) {
+            return false;
+        }
+        return true;
     }
 }

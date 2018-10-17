@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @XmlType(propOrder = { "modificationFilter", "postModification" })
 public class BooleanToogleModification extends VariableModification<Boolean> {
-
+    
     public BooleanToogleModification() {
     }
 
@@ -30,5 +30,25 @@ public class BooleanToogleModification extends VariableModification<Boolean> {
     @Override
     public VariableModification<Boolean> getModifiedCopy() {
         return new BooleanToogleModification();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        return true;
     }
 }

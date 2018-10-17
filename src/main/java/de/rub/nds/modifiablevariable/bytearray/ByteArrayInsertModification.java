@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement
-@XmlType(propOrder = { "bytesToInsert", "startPosition", "modificationFilter", "postModification" })
+@XmlType(propOrder = {"bytesToInsert", "startPosition", "modificationFilter", "postModification"})
 public class ByteArrayInsertModification extends VariableModification<byte[]> {
 
     private final static int MAX_EXPLICIT_VALUE = 256;
@@ -103,5 +103,34 @@ public class ByteArrayInsertModification extends VariableModification<byte[]> {
             }
             return new ByteArrayInsertModification(newValue, modifier);
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + Arrays.hashCode(this.bytesToInsert);
+        hash = 59 * hash + this.startPosition;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ByteArrayInsertModification other = (ByteArrayInsertModification) obj;
+        if (this.startPosition != other.startPosition) {
+            return false;
+        }
+        if (!Arrays.equals(this.bytesToInsert, other.bytesToInsert)) {
+            return false;
+        }
+        return true;
     }
 }

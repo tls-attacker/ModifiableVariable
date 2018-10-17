@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = { "modificationFilter", "postModification" })
+@XmlType(propOrder = {"modificationFilter", "postModification"})
 public class ByteArrayDuplicateModification extends VariableModification<byte[]> {
 
     public ByteArrayDuplicateModification() {
@@ -34,4 +34,23 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
         return new ByteArrayDuplicateModification();
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        return true;
+    }
 }

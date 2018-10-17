@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = { "shift", "modificationFilter", "postModification" })
+@XmlType(propOrder = {"shift", "modificationFilter", "postModification"})
 public class BigIntegerShiftLeftModification extends VariableModification<BigInteger> {
 
     private final static int MAX_SHIFT_LENGTH = 32;
@@ -49,5 +49,30 @@ public class BigIntegerShiftLeftModification extends VariableModification<BigInt
     @Override
     public VariableModification<BigInteger> getModifiedCopy() {
         return new BigIntegerShiftLeftModification(shift + new Random().nextInt(MAX_SHIFT_LENGTH));
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + this.shift;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final BigIntegerShiftLeftModification other = (BigIntegerShiftLeftModification) obj;
+        if (this.shift != other.shift) {
+            return false;
+        }
+        return true;
     }
 }

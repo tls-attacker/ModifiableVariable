@@ -10,12 +10,13 @@ package de.rub.nds.modifiablevariable.mlong;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.integer.IntegerAddModification;
+import java.util.Objects;
 import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = { "summand", "modificationFilter", "postModification" })
+@XmlType(propOrder = {"summand", "modificationFilter", "postModification"})
 public class LongAddModification extends VariableModification<Long> {
 
     private final static int MAX_ADD_MODIFIER = 32;
@@ -47,4 +48,30 @@ public class LongAddModification extends VariableModification<Long> {
     public VariableModification<Long> getModifiedCopy() {
         return new LongAddModification(summand + new Random().nextInt(MAX_ADD_MODIFIER));
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 43 * hash + Objects.hashCode(this.summand);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final LongAddModification other = (LongAddModification) obj;
+        if (!Objects.equals(this.summand, other.summand)) {
+            return false;
+        }
+        return true;
+    }
+
 }
