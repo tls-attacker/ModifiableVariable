@@ -19,15 +19,15 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement
-@XmlType(propOrder = {"prependPayload", "payload", "appendPayload", "insert", "insertPosition", "modificationFilter",
-    "postModification"})
+@XmlType(propOrder = { "prependPayload", "payload", "appendPayload", "insert", "insertPosition", "modificationFilter",
+        "postModification" })
 public class ByteArrayPayloadModification extends VariableModification<byte[]> {
 
-    private byte[] prependPayload = new byte[]{};
+    private byte[] prependPayload = new byte[] {};
 
-    private byte[] payload = new byte[]{};
+    private byte[] payload = new byte[] {};
 
-    private byte[] appendPayload = new byte[]{};
+    private byte[] appendPayload = new byte[] {};
 
     private boolean insert = false;
 

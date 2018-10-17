@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = {"count", "startPosition", "modificationFilter", "postModification"})
+@XmlType(propOrder = { "count", "startPosition", "modificationFilter", "postModification" })
 public class ByteArrayDeleteModification extends VariableModification<byte[]> {
 
     private final static int MAX_MODIFIER_LENGTH = 32;

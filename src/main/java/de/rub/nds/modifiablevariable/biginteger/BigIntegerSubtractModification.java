@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = {"subtrahend", "modificationFilter", "postModification"})
+@XmlType(propOrder = { "subtrahend", "modificationFilter", "postModification" })
 public class BigIntegerSubtractModification extends VariableModification<BigInteger> {
 
     private final static int MAX_SUBTRACT_LENGTH = 8;

@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = {"shift", "modificationFilter", "postModification"})
+@XmlType(propOrder = { "shift", "modificationFilter", "postModification" })
 public class IntegerShiftLeftModification extends VariableModification<Integer> {
 
     private final static int MAX_SHIFT_MODIFIER = 32;

@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *
  */
 @XmlRootElement
-@XmlType(propOrder = {"shuffle", "modificationFilter", "postModification"})
+@XmlType(propOrder = { "shuffle", "modificationFilter", "postModification" })
 public class ByteArrayShuffleModification extends VariableModification<byte[]> {
 
     private final static int MAX_MODIFIER_VALUE = 256;

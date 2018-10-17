@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = {"modificationFilter", "postModification"})
+@XmlType(propOrder = { "modificationFilter", "postModification" })
 public class ByteArrayDuplicateModification extends VariableModification<byte[]> {
 
     public ByteArrayDuplicateModification() {

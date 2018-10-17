@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = {"xor", "modificationFilter", "postModification"})
+@XmlType(propOrder = { "xor", "modificationFilter", "postModification" })
 public class ByteXorModification extends VariableModification<Byte> {
 
     private final static int MAX_XOR_MODIFIER = 16;
