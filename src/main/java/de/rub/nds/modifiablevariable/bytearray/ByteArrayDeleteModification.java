@@ -132,4 +132,10 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "ByteArrayDeleteModification{" + "count=" + count + ", startPosition=" + startPosition + '}';
+    }
+
 }

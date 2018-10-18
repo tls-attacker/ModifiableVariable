@@ -53,4 +53,10 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "ByteArrayDuplicateModification{" + '}';
+    }
+
 }

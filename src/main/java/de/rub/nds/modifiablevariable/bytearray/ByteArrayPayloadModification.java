@@ -161,4 +161,13 @@ public class ByteArrayPayloadModification extends VariableModification<byte[]> {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "ByteArrayPayloadModification{" + "prependPayload=" + ArrayConverter.bytesToHexString(prependPayload)
+                + ", payload=" + ArrayConverter.bytesToHexString(payload) + ", appendPayload="
+                + ArrayConverter.bytesToHexString(appendPayload) + ", insert=" + insert + ", insertPosition="
+                + insertPosition + '}';
+    }
+
 }

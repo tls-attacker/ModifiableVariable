@@ -133,4 +133,11 @@ public class ByteArrayInsertModification extends VariableModification<byte[]> {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "ByteArrayInsertModification{" + "bytesToInsert=" + ArrayConverter.bytesToHexString(bytesToInsert)
+                + ", startPosition=" + startPosition + '}';
+    }
+
 }

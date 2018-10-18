@@ -51,4 +51,10 @@ public class BooleanToogleModification extends VariableModification<Boolean> {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "BooleanToogleModification{" + '}';
+    }
+
 }

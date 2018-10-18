@@ -9,6 +9,7 @@
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
+import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
 import java.util.Arrays;
 import java.util.Random;
@@ -99,4 +100,10 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "ByteArrayShuffleModification{" + "shuffle=" + ArrayConverter.bytesToHexString(shuffle) + '}';
+    }
+
 }

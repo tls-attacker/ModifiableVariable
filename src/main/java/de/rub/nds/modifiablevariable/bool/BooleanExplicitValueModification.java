@@ -67,4 +67,10 @@ public class BooleanExplicitValueModification extends VariableModification<Boole
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "BooleanExplicitValueModification{" + "explicitValue=" + explicitValue + '}';
+    }
+
 }

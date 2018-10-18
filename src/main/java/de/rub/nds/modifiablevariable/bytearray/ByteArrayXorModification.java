@@ -131,4 +131,11 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "ByteArrayXorModification{" + "xor=" + ArrayConverter.bytesToHexString(xor) + ", startPosition="
+                + startPosition + '}';
+    }
+
 }
