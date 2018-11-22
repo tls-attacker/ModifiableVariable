@@ -237,4 +237,14 @@ public class ArrayConverterTest {
                 ArrayConverter.bytesToHexString(toTest));
     }
 
+    /**
+     * Test of reverseByteOrder method, of class ArrayConverter.
+     */
+    @Test
+    public void testReverseByteOrder() {
+        byte[] array = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04 };
+
+        assertArrayEquals("Testing byte order reversion", new byte[] { 0x04, 0x03, 0x02, 0x01, 0x00 },
+                ArrayConverter.reverseByteOrder(array));
+    }
 }
