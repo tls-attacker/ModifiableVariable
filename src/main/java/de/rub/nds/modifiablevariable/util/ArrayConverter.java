@@ -403,8 +403,8 @@ public class ArrayConverter {
     }
 
     /**
-     * Reverses the order of a byte array: So, [0x00,0x01,0x02,0x03] will be returned as
-     * [0x03,0x02,0x01,0x00]
+     * Reverses the order of a byte array: So, [0x00,0x01,0x02,0x03] will be
+     * returned as [0x03,0x02,0x01,0x00]
      *
      * @param array
      *            the byte array to reverse
