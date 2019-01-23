@@ -177,7 +177,7 @@ public class ArrayConverter {
 
     /**
      * Like bytesToHexString() without any formatting.
-     * 
+     *
      * @param array
      *            byte array
      * @return hex string
@@ -400,5 +400,23 @@ public class ArrayConverter {
         output[5] = (byte) input;
 
         return output;
+    }
+
+    /**
+     * Reverses the order of a byte array: So, [0x00,0x01,0x02,0x03] will be
+     * returned as [0x03,0x02,0x01,0x00]
+     *
+     * @param array
+     *            the byte array to reverse
+     * @return byte array with reversed byte order
+     */
+    public static byte[] reverseByteOrder(byte[] array) {
+        int length = array.length;
+        byte[] temp = new byte[length];
+        int counter = length - 1;
+        for (int i = 0; i < length; i++) {
+            temp[i] = array[counter--];
+        }
+        return temp;
     }
 }
