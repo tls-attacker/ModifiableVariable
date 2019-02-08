@@ -31,7 +31,6 @@ public class ModifiableBooleanTest {
         boolean1.setOriginalValue(Boolean.TRUE);
         boolean2 = new ModifiableBoolean();
         boolean2.setOriginalValue(Boolean.TRUE);
-
     }
 
     /**

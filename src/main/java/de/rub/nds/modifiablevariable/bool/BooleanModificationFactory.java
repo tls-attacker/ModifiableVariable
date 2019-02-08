@@ -24,13 +24,13 @@ public class BooleanModificationFactory {
             case 1:
                 return new BooleanExplicitValueModification(false);
             case 2:
-                return new BooleanToogleModification();
+                return new BooleanToggleModification();
         }
         return null;
     }
 
     public static VariableModification<Boolean> toogle() {
-        return new BooleanToogleModification();
+        return new BooleanToggleModification();
     }
 
     public static VariableModification<Boolean> explicitValue(final boolean explicitValue) {
