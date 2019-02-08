@@ -10,6 +10,7 @@ package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import java.math.BigInteger;
+import java.util.Objects;
 import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -51,5 +52,30 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
             return new BigIntegerExplicitValueModification(
                     explicitValue.subtract(new BigInteger(MAX_EXPLICIT_LENGTH, r)));
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 41 * hash + Objects.hashCode(this.explicitValue);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final BigIntegerExplicitValueModification other = (BigIntegerExplicitValueModification) obj;
+        if (!Objects.equals(this.explicitValue, other.explicitValue)) {
+            return false;
+        }
+        return true;
     }
 }

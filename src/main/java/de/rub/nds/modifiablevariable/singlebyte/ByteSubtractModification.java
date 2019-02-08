@@ -9,6 +9,7 @@
 package de.rub.nds.modifiablevariable.singlebyte;
 
 import de.rub.nds.modifiablevariable.VariableModification;
+import java.util.Objects;
 import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -48,5 +49,30 @@ public class ByteSubtractModification extends VariableModification<Byte> {
     @Override
     public VariableModification<Byte> getModifiedCopy() {
         return new ByteAddModification((byte) (subtrahend + new Random().nextInt(MAX_SUBTRACT_MODIFIER)));
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 71 * hash + Objects.hashCode(this.subtrahend);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ByteSubtractModification other = (ByteSubtractModification) obj;
+        if (!Objects.equals(this.subtrahend, other.subtrahend)) {
+            return false;
+        }
+        return true;
     }
 }

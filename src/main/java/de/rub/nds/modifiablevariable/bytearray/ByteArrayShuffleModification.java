@@ -9,6 +9,7 @@
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
+import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
 import java.util.Arrays;
 import java.util.Random;
@@ -74,4 +75,35 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
         newValue[index] = (byte) r.nextInt(MAX_MODIFIER_VALUE);
         return new ByteArrayShuffleModification(shuffle);
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 71 * hash + Arrays.hashCode(this.shuffle);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ByteArrayShuffleModification other = (ByteArrayShuffleModification) obj;
+        if (!Arrays.equals(this.shuffle, other.shuffle)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "ByteArrayShuffleModification{" + "shuffle=" + ArrayConverter.bytesToHexString(shuffle) + '}';
+    }
+
 }

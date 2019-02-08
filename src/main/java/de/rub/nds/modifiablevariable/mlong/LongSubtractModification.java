@@ -10,6 +10,7 @@ package de.rub.nds.modifiablevariable.mlong;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.integer.IntegerSubtractModification;
+import java.util.Objects;
 import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -48,4 +49,28 @@ public class LongSubtractModification extends VariableModification<Long> {
         return new LongSubtractModification(subtrahend + new Random().nextInt(MAX_SUBTRACT_MODIFIER));
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.subtrahend);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final LongSubtractModification other = (LongSubtractModification) obj;
+        if (!Objects.equals(this.subtrahend, other.subtrahend)) {
+            return false;
+        }
+        return true;
+    }
 }

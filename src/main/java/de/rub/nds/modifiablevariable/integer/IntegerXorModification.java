@@ -9,6 +9,7 @@
 package de.rub.nds.modifiablevariable.integer;
 
 import de.rub.nds.modifiablevariable.VariableModification;
+import java.util.Objects;
 import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -50,5 +51,30 @@ public class IntegerXorModification extends VariableModification<Integer> {
         } else {
             return new IntegerSubtractModification(xor - new Random().nextInt(MAX_VALUE_MODIFIER));
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.xor);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final IntegerXorModification other = (IntegerXorModification) obj;
+        if (!Objects.equals(this.xor, other.xor)) {
+            return false;
+        }
+        return true;
     }
 }

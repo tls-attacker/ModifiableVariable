@@ -120,4 +120,54 @@ public class ByteArrayPayloadModification extends VariableModification<byte[]> {
 
         return mod;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + Arrays.hashCode(this.prependPayload);
+        hash = 59 * hash + Arrays.hashCode(this.payload);
+        hash = 59 * hash + Arrays.hashCode(this.appendPayload);
+        hash = 59 * hash + (this.insert ? 1 : 0);
+        hash = 59 * hash + this.insertPosition;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ByteArrayPayloadModification other = (ByteArrayPayloadModification) obj;
+        if (this.insert != other.insert) {
+            return false;
+        }
+        if (this.insertPosition != other.insertPosition) {
+            return false;
+        }
+        if (!Arrays.equals(this.prependPayload, other.prependPayload)) {
+            return false;
+        }
+        if (!Arrays.equals(this.payload, other.payload)) {
+            return false;
+        }
+        if (!Arrays.equals(this.appendPayload, other.appendPayload)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "ByteArrayPayloadModification{" + "prependPayload=" + ArrayConverter.bytesToHexString(prependPayload)
+                + ", payload=" + ArrayConverter.bytesToHexString(payload) + ", appendPayload="
+                + ArrayConverter.bytesToHexString(appendPayload) + ", insert=" + insert + ", insertPosition="
+                + insertPosition + '}';
+    }
+
 }

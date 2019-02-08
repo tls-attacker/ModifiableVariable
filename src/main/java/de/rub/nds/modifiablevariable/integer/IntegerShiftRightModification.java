@@ -58,4 +58,29 @@ public class IntegerShiftRightModification extends VariableModification<Integer>
         }
         return new IntegerShiftRightModification(newShift);
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 59 * hash + this.shift;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final IntegerShiftRightModification other = (IntegerShiftRightModification) obj;
+        if (this.shift != other.shift) {
+            return false;
+        }
+        return true;
+    }
 }

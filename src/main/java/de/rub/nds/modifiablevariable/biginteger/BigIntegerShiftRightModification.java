@@ -50,4 +50,29 @@ public class BigIntegerShiftRightModification extends VariableModification<BigIn
     public VariableModification<BigInteger> getModifiedCopy() {
         return new BigIntegerShiftRightModification(shift + new Random().nextInt(MAX_SHIFT_LENGTH));
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + this.shift;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final BigIntegerShiftRightModification other = (BigIntegerShiftRightModification) obj;
+        if (this.shift != other.shift) {
+            return false;
+        }
+        return true;
+    }
 }

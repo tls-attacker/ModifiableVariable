@@ -103,4 +103,39 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
             return new ByteArrayDeleteModification(startPosition, modifier);
         }
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + this.count;
+        hash = 89 * hash + this.startPosition;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ByteArrayDeleteModification other = (ByteArrayDeleteModification) obj;
+        if (this.count != other.count) {
+            return false;
+        }
+        if (this.startPosition != other.startPosition) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "ByteArrayDeleteModification{" + "count=" + count + ", startPosition=" + startPosition + '}';
+    }
+
 }

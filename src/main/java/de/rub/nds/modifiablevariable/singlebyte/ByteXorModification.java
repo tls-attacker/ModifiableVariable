@@ -9,6 +9,7 @@
 package de.rub.nds.modifiablevariable.singlebyte;
 
 import de.rub.nds.modifiablevariable.VariableModification;
+import java.util.Objects;
 import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -53,5 +54,30 @@ public class ByteXorModification extends VariableModification<Byte> {
         } else {
             return new ByteXorModification((byte) (xor - r.nextInt(MAX_XOR_MODIFIER)));
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.xor);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ByteXorModification other = (ByteXorModification) obj;
+        if (!Objects.equals(this.xor, other.xor)) {
+            return false;
+        }
+        return true;
     }
 }

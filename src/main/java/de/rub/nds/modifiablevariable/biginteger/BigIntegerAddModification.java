@@ -10,6 +10,7 @@ package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import java.math.BigInteger;
+import java.util.Objects;
 import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -47,4 +48,30 @@ public class BigIntegerAddModification extends VariableModification<BigInteger> 
     public VariableModification<BigInteger> getModifiedCopy() {
         return new BigIntegerAddModification(summand.add(new BigInteger(MAX_ADD_LENGTH, new Random())));
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.summand);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final BigIntegerAddModification other = (BigIntegerAddModification) obj;
+        if (!Objects.equals(this.summand, other.summand)) {
+            return false;
+        }
+        return true;
+    }
+
 }

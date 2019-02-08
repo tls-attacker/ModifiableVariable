@@ -4,7 +4,7 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerModificationFactory;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import de.rub.nds.modifiablevariable.bool.BooleanExplicitValueModification;
-import de.rub.nds.modifiablevariable.bool.BooleanToogleModification;
+import de.rub.nds.modifiablevariable.bool.BooleanToggleModification;
 import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
 import de.rub.nds.modifiablevariable.bytearray.ByteArrayModificationFactory;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
@@ -150,7 +150,7 @@ public class Modifiable {
     }
 
     public static ModifiableBoolean toggle() {
-        return getModifiableBooleanWithModification(new BooleanToogleModification());
+        return getModifiableBooleanWithModification(new BooleanToggleModification());
     }
 
     public static ModifiableBigInteger shiftLeftBigInteger(Integer i) {

@@ -102,4 +102,40 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
             return new ByteArrayXorModification(newValue, modifier);
         }
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Arrays.hashCode(this.xor);
+        hash = 97 * hash + this.startPosition;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ByteArrayXorModification other = (ByteArrayXorModification) obj;
+        if (this.startPosition != other.startPosition) {
+            return false;
+        }
+        if (!Arrays.equals(this.xor, other.xor)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "ByteArrayXorModification{" + "xor=" + ArrayConverter.bytesToHexString(xor) + ", startPosition="
+                + startPosition + '}';
+    }
+
 }

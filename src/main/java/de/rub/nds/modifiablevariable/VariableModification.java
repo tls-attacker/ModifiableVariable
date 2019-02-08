@@ -16,7 +16,7 @@ import de.rub.nds.modifiablevariable.biginteger.BigIntegerShiftRightModification
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerSubtractModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerXorModification;
 import de.rub.nds.modifiablevariable.bool.BooleanExplicitValueModification;
-import de.rub.nds.modifiablevariable.bool.BooleanToogleModification;
+import de.rub.nds.modifiablevariable.bool.BooleanToggleModification;
 import de.rub.nds.modifiablevariable.bytearray.*;
 import de.rub.nds.modifiablevariable.filter.AccessModificationFilter;
 import de.rub.nds.modifiablevariable.integer.IntegerAddModification;
@@ -42,7 +42,7 @@ import org.apache.logging.log4j.Logger;
 @XmlTransient
 @XmlSeeAlso({ AccessModificationFilter.class, BigIntegerAddModification.class, BigIntegerInteractiveModification.class,
         BigIntegerExplicitValueModification.class, BigIntegerSubtractModification.class,
-        BooleanExplicitValueModification.class, BooleanToogleModification.class, BigIntegerXorModification.class,
+        BooleanExplicitValueModification.class, BooleanToggleModification.class, BigIntegerXorModification.class,
         BigIntegerShiftLeftModification.class, BigIntegerShiftRightModification.class, IntegerAddModification.class,
         IntegerExplicitValueModification.class, IntegerSubtractModification.class, IntegerXorModification.class,
         IntegerShiftLeftModification.class, IntegerShiftRightModification.class, ByteArrayDeleteModification.class,

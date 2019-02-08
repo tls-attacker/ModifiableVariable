@@ -16,6 +16,7 @@
 package de.rub.nds.modifiablevariable.string;
 
 import de.rub.nds.modifiablevariable.VariableModification;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -51,5 +52,30 @@ public class StringExplicitValueModification extends VariableModification<String
     @Override
     public VariableModification<String> getModifiedCopy() {
         return new StringExplicitValueModification(explicitValue);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 83 * hash + Objects.hashCode(this.explicitValue);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final StringExplicitValueModification other = (StringExplicitValueModification) obj;
+        if (!Objects.equals(this.explicitValue, other.explicitValue)) {
+            return false;
+        }
+        return true;
     }
 }

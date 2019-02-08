@@ -104,4 +104,40 @@ public class ByteArrayInsertModification extends VariableModification<byte[]> {
             return new ByteArrayInsertModification(newValue, modifier);
         }
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + Arrays.hashCode(this.bytesToInsert);
+        hash = 59 * hash + this.startPosition;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ByteArrayInsertModification other = (ByteArrayInsertModification) obj;
+        if (this.startPosition != other.startPosition) {
+            return false;
+        }
+        if (!Arrays.equals(this.bytesToInsert, other.bytesToInsert)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "ByteArrayInsertModification{" + "bytesToInsert=" + ArrayConverter.bytesToHexString(bytesToInsert)
+                + ", startPosition=" + startPosition + '}';
+    }
+
 }
