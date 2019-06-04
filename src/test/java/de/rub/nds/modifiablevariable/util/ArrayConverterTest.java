@@ -261,4 +261,15 @@ public class ArrayConverterTest {
             assertEquals(b, c);
         }
     }
+
+    @Test
+    public void testIntegerReconversion() {
+        Random r = new Random(0);
+        for (int i = 0; i < 10000; i++) {
+            Integer b = r.nextInt();
+            byte[] intBytes = ArrayConverter.intToBytes(b, 4);
+            Integer c = ArrayConverter.bytesToInt(intBytes);
+            assertEquals(b, c);
+        }
+    }
 }
