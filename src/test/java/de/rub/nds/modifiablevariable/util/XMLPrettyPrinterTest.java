@@ -28,7 +28,6 @@ public class XMLPrettyPrinterTest {
                 + "        FF 01 02 03 FF 01 02 03  FF 01 02 03 FF 01 02 03\n" + "        FF 01 02 03\n"
                 + "    </originalValue>\n" + "</modifiableByteArray>";
         String result = XMLPrettyPrinter.prettyPrintXML(input);
-        System.out.println(result);
         assertEquals(expected.trim(), result.trim());
     }
 }
