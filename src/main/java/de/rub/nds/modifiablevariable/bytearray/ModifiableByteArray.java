@@ -26,6 +26,10 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(propOrder = { "originalValue", "modification", "assertEquals" })
 public class ModifiableByteArray extends ModifiableVariable<byte[]> implements Serializable {
 
+    public ModifiableByteArray() {
+        autoformat = true;
+    }
+
     private byte[] originalValue;
 
     @Override
@@ -88,10 +92,12 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> implements S
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (!(o instanceof ModifiableByteArray))
+        }
+        if (!(o instanceof ModifiableByteArray)) {
             return false;
+        }
 
         ModifiableByteArray that = (ModifiableByteArray) o;
 

@@ -27,6 +27,9 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import javax.xml.xpath.XPathFactoryConfigurationException;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -40,6 +43,20 @@ public class XMLPrettyPrinter {
 
     public static int IDENT_AMOUNT = 4;
 
+    /**
+     * This function formats all tags (and their children) which are marked with
+     * the autoformat="true" attribute and removes this attribute.
+     *
+     * @param input
+     * @return
+     * @throws TransformerConfigurationException
+     * @throws ParserConfigurationException
+     * @throws SAXException
+     * @throws IOException
+     * @throws TransformerException
+     * @throws XPathExpressionException
+     * @throws XPathFactoryConfigurationException
+     */
     public static String prettyPrintXML(String input) throws TransformerConfigurationException,
             ParserConfigurationException, SAXException, IOException, TransformerException, XPathExpressionException,
             XPathFactoryConfigurationException {
@@ -50,24 +67,25 @@ public class XMLPrettyPrinter {
         StreamResult result = new StreamResult(new StringWriter());
         Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
                 .parse(new InputSource(new StringReader(input)));
-        XPathExpression xpath = XPathFactory.newInstance().newXPath().compile("//*[count(./*) = 0]");
         XPathExpression xpathDepth = XPathFactory.newInstance().newXPath().compile("count(ancestor-or-self::*)");
-
-        NodeList textNodes = (NodeList) xpath.evaluate(doc, XPathConstants.NODESET);
-
+        XPathExpression toBeFormatted = XPathFactory.newInstance().newXPath().compile("//*[@autoformat = \'true\']/*");
+        NodeList textNodes = (NodeList) toBeFormatted.evaluate(doc, XPathConstants.NODESET);
         for (int i = 0; i < textNodes.getLength(); i++) {
-            String content = textNodes.item(i).getTextContent();
+            Node node = textNodes.item(i);
+            String content = node.getTextContent();
             double doubleDepth = (Double) xpathDepth.evaluate(textNodes.item(i), XPathConstants.NUMBER);
             int depth = (int) doubleDepth;
             String emptyString = createEmptyString(depth);
             String newContent = content.replaceAll("\n", ("\n" + emptyString));
-            if (newContent.length() > content.length()) {
+            if (newContent.length() > content.length()
+                    && newContent.substring(newContent.length() - IDENT_AMOUNT, newContent.length()).trim().equals("")) {
                 newContent = newContent.substring(0, newContent.length() - IDENT_AMOUNT);
             }
-            textNodes.item(i).setTextContent(newContent);
+            node.setTextContent(newContent);
+            Element element = (Element) node.getParentNode();
+            element.removeAttribute("autoformat");
 
         }
-
         DOMSource source = new DOMSource(doc);
         transformer.transform(source, result);
         return result.getWriter().toString();
