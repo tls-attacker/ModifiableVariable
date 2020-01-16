@@ -11,8 +11,11 @@ package de.rub.nds.modifiablevariable.util;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import java.math.BigInteger;
+import java.util.Random;
+import org.hamcrest.core.IsEqual;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 public class ArrayConverterTest {
@@ -246,5 +249,27 @@ public class ArrayConverterTest {
 
         assertArrayEquals("Testing byte order reversion", new byte[] { 0x04, 0x03, 0x02, 0x01, 0x00 },
                 ArrayConverter.reverseByteOrder(array));
+    }
+
+    @Test
+    public void testBigIntegerReconversion() {
+        Random r = new Random(0);
+        for (int i = 0; i < 10000; i++) {
+            BigInteger b = new BigInteger(1024 + r.nextInt(1000), r);
+            byte[] bigIntegerToByteArray = ArrayConverter.bigIntegerToByteArray(b);
+            BigInteger c = new BigInteger(1, bigIntegerToByteArray);
+            assertEquals(b, c);
+        }
+    }
+
+    @Test
+    public void testIntegerReconversion() {
+        Random r = new Random(0);
+        for (int i = 0; i < 10000; i++) {
+            Integer b = r.nextInt();
+            byte[] intBytes = ArrayConverter.intToBytes(b, 4);
+            Integer c = ArrayConverter.bytesToInt(intBytes);
+            assertEquals(b, c);
+        }
     }
 }

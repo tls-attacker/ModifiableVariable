@@ -21,14 +21,13 @@ public class XMLPrettyPrinterTest {
      */
     @Test
     public void testPrettyPrintXML() throws Exception {
-        String input = "<modifiableByteArray>\n" + "    <originalValue>\n"
+        String input = "<modifiableByteArray autoformat=\"true\">\n" + "    <originalValue>\n"
                 + "FF 01 02 03 FF 01 02 03  FF 01 02 03 FF 01 02 03\n" + "FF 01 02 03\n" + "</originalValue>\n"
                 + "</modifiableByteArray>";
         String expected = "<modifiableByteArray>\n" + "    <originalValue>\n"
                 + "        FF 01 02 03 FF 01 02 03  FF 01 02 03 FF 01 02 03\n" + "        FF 01 02 03\n"
                 + "    </originalValue>\n" + "</modifiableByteArray>";
         String result = XMLPrettyPrinter.prettyPrintXML(input);
-
         assertEquals(expected.trim(), result.trim());
     }
 }

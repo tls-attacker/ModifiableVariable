@@ -10,21 +10,24 @@ package de.rub.nds.modifiablevariable;
 
 import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * The base abstract class for modifiable variables, including the getValue
  * function.
- * 
+ *
  * The class needs to be defined transient to allow propOrder definition in
  * subclasses, see:
  * http://blog.bdoughan.com/2011/06/ignoring-inheritance-with-xmltransient.html
- * 
+ *
  */
 @XmlRootElement
 @XmlTransient
 public abstract class ModifiableVariable<E> implements Serializable {
+
+    protected Boolean autoformat = null;
 
     private VariableModification<E> modification = null;
 
@@ -34,6 +37,15 @@ public abstract class ModifiableVariable<E> implements Serializable {
 
     public ModifiableVariable() {
 
+    }
+
+    @XmlAttribute(required = false)
+    public Boolean getAutoformat() {
+        return autoformat;
+    }
+
+    public void setAutoformat(Boolean autoformat) {
+        this.autoformat = autoformat;
     }
 
     public void setModification(VariableModification<E> modification) {
