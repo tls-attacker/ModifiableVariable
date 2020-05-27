@@ -87,7 +87,7 @@ public class ModifiableLong extends ModifiableVariable<Long> implements Serializ
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
+        int result = 17;
         result = 31 * result + (getValue() != null ? getValue().hashCode() : 0);
         return result;
     }
