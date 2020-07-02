@@ -44,6 +44,34 @@ public class ArrayConverterTest {
         assertArrayEquals("The conversion result of 5717 should be {0x16} {0x55}", new byte[] { 0x16, 0x55 }, result);
     }
 
+    @Test
+    public void testIntToBytesOverflow() {
+        int toParse = 5717;
+        byte[] result = ArrayConverter.intToBytes(toParse, 5);
+        assertArrayEquals("The conversion result of 5717 should be {0x00} {0x00} {0x00} {0x16} {0x55}", new byte[] {
+                0x00, 0x00, 0x00, 0x16, 0x55 }, result);
+    }
+
+    /**
+     * Test of intToBytes method, of class ArrayConverter.
+     */
+    @Test
+    public void testLongToBytes() {
+        long toParse = 5717;
+        byte[] result = ArrayConverter.longToBytes(toParse, 2);
+        assertArrayEquals("The conversion result of 5717 should be {0x16} {0x55}", new byte[] { 0x16, 0x55 }, result);
+    }
+
+    @Test
+    public void testLongToBytesOverflow() {
+        int toParse = 5717;
+        byte[] result = ArrayConverter.longToBytes(toParse, 10);
+        assertArrayEquals(
+                "The conversion result of 5717 should be {0x00} {0x00} {0x00} {0x00} {0x00} {0x00} {0x00} {0x00} "
+                        + "{0x16} {0x55}", new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x16, 0x55 },
+                result);
+    }
+
     /**
      * Test of bytesToInt method, of class ArrayConverter.
      */
