@@ -14,6 +14,8 @@ import de.rub.nds.modifiablevariable.mlong.LongModificationFactory;
 import de.rub.nds.modifiablevariable.mlong.ModifiableLong;
 import de.rub.nds.modifiablevariable.singlebyte.ByteModificationFactory;
 import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
+import de.rub.nds.modifiablevariable.string.ModifiableString;
+import de.rub.nds.modifiablevariable.string.StringModificationFactory;
 
 import java.math.BigInteger;
 
@@ -55,6 +57,12 @@ public class Modifiable {
         ModifiableBoolean modifiableBoolean = new ModifiableBoolean();
         modifiableBoolean.setModification(modification);
         return modifiableBoolean;
+    }
+
+    private static ModifiableString getModifiableStringWithModification(VariableModification<String> modification) {
+        ModifiableString modifiableString = new ModifiableString();
+        modifiableString.setModification(modification);
+        return modifiableString;
     }
 
     public static ModifiableByteArray explicit(byte[] b) {
@@ -167,6 +175,10 @@ public class Modifiable {
 
     public static ModifiableInteger shiftRight(Integer i) {
         return getModifiableIntegerWithModification(IntegerModificationFactory.shiftRight(i));
+    }
+
+    public static ModifiableString explicit(String s) {
+        return getModifiableStringWithModification(StringModificationFactory.explicitValue(s));
     }
 
 }
