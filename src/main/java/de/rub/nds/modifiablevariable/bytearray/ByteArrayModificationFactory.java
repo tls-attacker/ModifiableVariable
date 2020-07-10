@@ -50,9 +50,10 @@ public class ByteArrayModificationFactory {
 
     /**
      *
-     * @param xor bytes to xor
-     * @param startPosition negative numbers mean that the position is taken
-     * from the end
+     * @param xor
+     *            bytes to xor
+     * @param startPosition
+     *            negative numbers mean that the position is taken from the end
      * @return variable modification
      */
     public static VariableModification<byte[]> xor(final byte[] xor, final int startPosition) {
@@ -61,7 +62,8 @@ public class ByteArrayModificationFactory {
 
     /**
      *
-     * @param payload bytes are set as value
+     * @param payload
+     *            bytes are set as value
      * @return variable modification
      */
     public static VariableModification<byte[]> payload(final byte[] payload) {
@@ -71,9 +73,10 @@ public class ByteArrayModificationFactory {
     /**
      * *
      *
-     * @param bytesToInsert bytes to xor
-     * @param startPosition negative numbers mean that the position is taken
-     * from the end
+     * @param bytesToInsert
+     *            bytes to xor
+     * @param startPosition
+     *            negative numbers mean that the position is taken from the end
      * @return variable modification
      */
     public static VariableModification<byte[]> insert(final byte[] bytesToInsert, final int startPosition) {
@@ -83,9 +86,10 @@ public class ByteArrayModificationFactory {
     /**
      * * Deletes $count bytes from the input array beginning at $startPosition
      *
-     * @param startPosition negative numbers mean that the position is taken
-     * from the end
-     * @param count number of bytes to be deleted
+     * @param startPosition
+     *            negative numbers mean that the position is taken from the end
+     * @param count
+     *            number of bytes to be deleted
      * @return variable modification
      */
     public static VariableModification<byte[]> delete(final int startPosition, final int count) {
@@ -114,7 +118,8 @@ public class ByteArrayModificationFactory {
     /**
      * Shuffles the bytes in the array, given a specified array of positions.
      *
-     * @param shuffle positions that define shuffling
+     * @param shuffle
+     *            positions that define shuffling
      * @return shuffling variable modification
      */
     public static VariableModification<byte[]> shuffle(final byte[] shuffle) {
