@@ -276,8 +276,7 @@ public class ArrayConverter {
      * @return big integer represented in bytes, padded to a specific block size
      */
     public static byte[] bigIntegerToByteArray(BigInteger value, int blockSize, boolean removeSignByte) {
-        if(blockSize == 0)
-        {
+        if (blockSize == 0) {
             return new byte[0];
         }
         byte[] array = value.toByteArray();
