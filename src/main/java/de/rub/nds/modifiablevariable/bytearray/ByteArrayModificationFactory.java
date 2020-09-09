@@ -49,7 +49,7 @@ public class ByteArrayModificationFactory {
     public static final String FILE_NAME = "de/rub/nds/modifiablevariable/explicit/array.vec";
 
     /**
-     * 
+     *
      * @param xor
      *            bytes to xor
      * @param startPosition
@@ -72,7 +72,7 @@ public class ByteArrayModificationFactory {
 
     /**
      * *
-     * 
+     *
      * @param bytesToInsert
      *            bytes to xor
      * @param startPosition
@@ -85,7 +85,7 @@ public class ByteArrayModificationFactory {
 
     /**
      * * Deletes $count bytes from the input array beginning at $startPosition
-     * 
+     *
      * @param startPosition
      *            negative numbers mean that the position is taken from the end
      * @param count
@@ -98,7 +98,7 @@ public class ByteArrayModificationFactory {
 
     /**
      * Duplicates the byte array
-     * 
+     *
      * @return duplicate variable modification
      */
     public static VariableModification<byte[]> duplicate() {
@@ -117,7 +117,7 @@ public class ByteArrayModificationFactory {
 
     /**
      * Shuffles the bytes in the array, given a specified array of positions.
-     * 
+     *
      * @param shuffle
      *            positions that define shuffling
      * @return shuffling variable modification
@@ -162,6 +162,9 @@ public class ByteArrayModificationFactory {
         switch (r) {
             case BYTE_ARRAY_XOR_MODIFICATION:
                 int modificationArrayLength = random.nextInt(modifiedArrayLength);
+                if (modificationArrayLength == 0) {
+                    modificationArrayLength++;
+                }
                 byte[] xor = new byte[modificationArrayLength];
                 random.nextBytes(xor);
                 int startPosition = random.nextInt(modifiedArrayLength - modificationArrayLength);
@@ -169,6 +172,9 @@ public class ByteArrayModificationFactory {
                 return vm;
             case BYTE_ARRAY_INSERT_MODIFICATION:
                 modificationArrayLength = random.nextInt(MAX_CONFIG_PARAMETER);
+                if (modificationArrayLength == 0) {
+                    modificationArrayLength++;
+                }
                 byte[] bytesToInsert = new byte[modificationArrayLength];
                 random.nextBytes(bytesToInsert);
                 int insertPosition = random.nextInt(modifiedArrayLength);
@@ -182,6 +188,9 @@ public class ByteArrayModificationFactory {
                 return vm;
             case BYTE_ARRAY_EXPLICIT_VALUE_MODIFICATION:
                 modificationArrayLength = random.nextInt(MAX_CONFIG_PARAMETER);
+                if (modificationArrayLength == 0) {
+                    modificationArrayLength++;
+                }
                 byte[] explicitValue = new byte[modificationArrayLength];
                 random.nextBytes(explicitValue);
                 vm = new ByteArrayExplicitValueModification(explicitValue);
