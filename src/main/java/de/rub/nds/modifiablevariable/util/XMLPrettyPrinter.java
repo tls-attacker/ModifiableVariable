@@ -60,35 +60,46 @@ public class XMLPrettyPrinter {
     public static String prettyPrintXML(String input) throws TransformerConfigurationException,
             ParserConfigurationException, SAXException, IOException, TransformerException, XPathExpressionException,
             XPathFactoryConfigurationException {
-        Transformer transformer = TransformerFactory.newInstance().newTransformer();
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", Integer.toString(IDENT_AMOUNT));
-        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-        StreamResult result = new StreamResult(new StringWriter());
-        Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-                .parse(new InputSource(new StringReader(input)));
-        XPathExpression xpathDepth = XPathFactory.newInstance().newXPath().compile("count(ancestor-or-self::*)");
-        XPathExpression toBeFormatted = XPathFactory.newInstance().newXPath().compile("//*[@autoformat = \'true\']/*");
-        NodeList textNodes = (NodeList) toBeFormatted.evaluate(doc, XPathConstants.NODESET);
-        for (int i = 0; i < textNodes.getLength(); i++) {
-            Node node = textNodes.item(i);
-            String content = node.getTextContent();
-            double doubleDepth = (Double) xpathDepth.evaluate(textNodes.item(i), XPathConstants.NUMBER);
-            int depth = (int) doubleDepth;
-            String emptyString = createEmptyString(depth);
-            String newContent = content.replaceAll("\n", ("\n" + emptyString));
-            if (newContent.length() > content.length()
-                    && newContent.substring(newContent.length() - IDENT_AMOUNT, newContent.length()).trim().equals("")) {
-                newContent = newContent.substring(0, newContent.length() - IDENT_AMOUNT);
-            }
-            node.setTextContent(newContent);
-            Element element = (Element) node.getParentNode();
-            element.removeAttribute("autoformat");
-
-        }
-        DOMSource source = new DOMSource(doc);
-        transformer.transform(source, result);
-        return result.getWriter().toString();
+        return input;
+        // Transformer transformer =
+        // TransformerFactory.newInstance().newTransformer();
+        // transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        // transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount",
+        // Integer.toString(IDENT_AMOUNT));
+        // transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION,
+        // "yes");
+        // StreamResult result = new StreamResult(new StringWriter());
+        // Document doc =
+        // DocumentBuilderFactory.newInstance().newDocumentBuilder()
+        // .parse(new InputSource(new StringReader(input)));
+        // XPathExpression xpathDepth =
+        // XPathFactory.newInstance().newXPath().compile("count(ancestor-or-self::*)");
+        // XPathExpression toBeFormatted =
+        // XPathFactory.newInstance().newXPath().compile("//*[@autoformat = \'true\']/*");
+        // NodeList textNodes = (NodeList) toBeFormatted.evaluate(doc,
+        // XPathConstants.NODESET);
+        // for (int i = 0; i < textNodes.getLength(); i++) {
+        // Node node = textNodes.item(i);
+        // String content = node.getTextContent();
+        // double doubleDepth = (Double) xpathDepth.evaluate(textNodes.item(i),
+        // XPathConstants.NUMBER);
+        // int depth = (int) doubleDepth;
+        // String emptyString = createEmptyString(depth);
+        // String newContent = content.replaceAll("\n", ("\n" + emptyString));
+        // if (newContent.length() > content.length()
+        // && newContent.substring(newContent.length() - IDENT_AMOUNT,
+        // newContent.length()).trim().equals("")) {
+        // newContent = newContent.substring(0, newContent.length() -
+        // IDENT_AMOUNT);
+        // }
+        // node.setTextContent(newContent);
+        // Element element = (Element) node.getParentNode();
+        // element.removeAttribute("autoformat");
+        //
+        // }
+        // DOMSource source = new DOMSource(doc);
+        // transformer.transform(source, result);
+        // return result.getWriter().toString();
     }
 
     private static String createEmptyString(int depth) {
