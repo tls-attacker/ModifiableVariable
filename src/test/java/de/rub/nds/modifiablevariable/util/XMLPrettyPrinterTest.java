@@ -24,9 +24,9 @@ public class XMLPrettyPrinterTest {
         String input = "<modifiableByteArray autoformat=\"true\">\n" + "    <originalValue>\n"
                 + "FF 01 02 03 FF 01 02 03  FF 01 02 03 FF 01 02 03\n" + "FF 01 02 03\n" + "</originalValue>\n"
                 + "</modifiableByteArray>";
-        String expected = "<modifiableByteArray>\n" + "    <originalValue>\n"
+        String expected = "<modifiableByteArray>\n        \n" + "    <originalValue>\n"
                 + "        FF 01 02 03 FF 01 02 03  FF 01 02 03 FF 01 02 03\n" + "        FF 01 02 03\n"
-                + "    </originalValue>\n" + "</modifiableByteArray>";
+                + "    </originalValue>\n    \n" + "</modifiableByteArray>";
         String result = XMLPrettyPrinter.prettyPrintXML(input);
         assertEquals(expected.trim(), result.trim());
     }
