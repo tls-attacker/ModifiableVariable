@@ -47,21 +47,21 @@ public class XMLPrettyPrinter {
      * the depth of indentation of its parent node. The
      * {@code autoformat="true"} is also removed from the tree.
      *
-     * <br />
-     * <br />
+     * <br>
+     * <br>
      *
      * <b>Note:</b> the function also removes all blank text from nodes which
      * may merge {@code <a></a>} into {@code <a/>}.
      *
-     * <br />
-     * <br />
+     * <br>
+     * <br>
      *
      * <b>Caution:</b> the function literally takes the textContent of the child
      * nodes of the autoformat node. This removes any other nodes from that
      * child node and leaves only the textContent left.
      *
-     * <br />
-     * <br />
+     * <br>
+     * <br>
      *
      * <h3>Example</h3>
      *
