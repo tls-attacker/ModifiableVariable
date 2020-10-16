@@ -24,9 +24,60 @@ public class XMLPrettyPrinterTest {
         String input = "<modifiableByteArray autoformat=\"true\">\n" + "    <originalValue>\n"
                 + "FF 01 02 03 FF 01 02 03  FF 01 02 03 FF 01 02 03\n" + "FF 01 02 03\n" + "</originalValue>\n"
                 + "</modifiableByteArray>";
-        String expected = "<modifiableByteArray>\n        \n" + "    <originalValue>\n"
+        String expected = "<modifiableByteArray>\n" + "    <originalValue>\n"
                 + "        FF 01 02 03 FF 01 02 03  FF 01 02 03 FF 01 02 03\n" + "        FF 01 02 03\n"
-                + "    </originalValue>\n    \n" + "</modifiableByteArray>";
+                + "    </originalValue>\n" + "</modifiableByteArray>";
+        String result = XMLPrettyPrinter.prettyPrintXML(input);
+        assertEquals(expected.trim(), result.trim());
+    }
+
+    /**
+     * Test of prettyPrintXML method, of class XMLPrettyPrinter.
+     */
+    @Test
+    public void testPrettyPrintXMLNoAutoformat() throws Exception {
+        String input = "<modifiableByteArray>\n" + "    <originalValue>\n"
+                + "FF 01 02 03 FF 01 02 03  FF 01 02 03 FF 01 02 03\n" + "FF 01 02 03\n" + "</originalValue>\n"
+                + "</modifiableByteArray>";
+        String result = XMLPrettyPrinter.prettyPrintXML(input);
+        assertEquals(input.trim(), result.trim());
+    }
+
+    /**
+     * Test of prettyPrintXML method, of class XMLPrettyPrinter.
+     */
+    @Test
+    public void testPrettyPrintXMLWhitespaceOnlyNodes() throws Exception {
+        String input = "<modifiableByteArray autoformat=\"true\">\n" + "    <originalValue>\n\n\n"
+                + "    </originalValue>\n" + "</modifiableByteArray>";
+        String expected = "<modifiableByteArray>\n" + "    <originalValue/>\n" + "</modifiableByteArray>";
+        String result = XMLPrettyPrinter.prettyPrintXML(input);
+        assertEquals(result.trim(), expected.trim());
+    }
+
+    /**
+     * Test of prettyPrintXML method, of class XMLPrettyPrinter.
+     */
+    @Test
+    public void testPrettyPrintXMLWhitespaceOnlyNodesNoAutoformat() throws Exception {
+        String input = "<modifiableByteArray>\n" + "    <originalValue>\n\n\n" + "    </originalValue>\n"
+                + "</modifiableByteArray>";
+        String expected = "<modifiableByteArray>\n" + "    <originalValue/>\n" + "</modifiableByteArray>";
+        String result = XMLPrettyPrinter.prettyPrintXML(input);
+        assertEquals(result.trim(), expected.trim());
+    }
+
+    /**
+     * Test of prettyPrintXML method, of class XMLPrettyPrinter.
+     */
+    @Test
+    public void testPrettyPrintXMLMultiInheritance() throws Exception {
+        String input = "<modifiableByteArray autoformat=\"true\">\n" + "    <originalValue><foo><bar><baz>\n"
+                + "FF 01 02 03 FF 01 02 03  FF 01 02 03 FF 01 02 03\n" + "FF 01 02 03\n"
+                + "</baz></bar></foo></originalValue>\n" + "</modifiableByteArray>";
+        String expected = "" + "<modifiableByteArray>\n" + "    <originalValue>\n"
+                + "        FF 01 02 03 FF 01 02 03  FF 01 02 03 FF 01 02 03\n" + "        FF 01 02 03\n"
+                + "    </originalValue>\n" + "</modifiableByteArray>";
         String result = XMLPrettyPrinter.prettyPrintXML(input);
         assertEquals(expected.trim(), result.trim());
     }
