@@ -1,11 +1,12 @@
 language: java
-dist: trusty
+dist: bionic
 sudo: false
 
 jdk:
-  - oraclejdk8
-  - openjdk7
+    # - oraclejdk8  # deactivated b/c travis does not support this version in any distro > trusty
+  - oraclejdk11
   - openjdk8
+  - openjdk11
 
 #branches:
 #  only:
