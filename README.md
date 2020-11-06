@@ -34,7 +34,7 @@ If you want to use modifiable variables in your maven projects, you can include 
 <dependency>
   <groupId>de.rub.nds</groupId>
   <artifactId>ModifiableVariable</artifactId>
-  <version>2.6</version>
+  <version>3.0.0</version>
 </dependency>
 ```
 
