@@ -98,11 +98,9 @@ public class XMLPrettyPrinter {
      * @throws SAXException
      * @throws IOException
      * @throws TransformerException
-     * @throws XPathExpressionException
      */
     public static String prettyPrintXML(String input) throws TransformerConfigurationException,
-            ParserConfigurationException, SAXException, IOException, TransformerException, XPathExpressionException,
-            XPathFactoryConfigurationException {
+            ParserConfigurationException, SAXException, IOException, TransformerException, XPathExpressionException {
         return input;
         // Transformer transformer =
         // TransformerFactory.newInstance().newTransformer();
