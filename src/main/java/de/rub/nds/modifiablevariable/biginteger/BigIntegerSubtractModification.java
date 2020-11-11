@@ -12,11 +12,14 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import java.math.BigInteger;
 import java.util.Objects;
 import java.util.Random;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = { "subtrahend", "modificationFilter", "postModification" })
+@XmlType(propOrder = { "subtrahend", "modificationFilter" })
+@XmlAccessorType(XmlAccessType.FIELD)
 public class BigIntegerSubtractModification extends VariableModification<BigInteger> {
 
     private final static int MAX_SUBTRACT_LENGTH = 8;

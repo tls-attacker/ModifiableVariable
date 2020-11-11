@@ -13,14 +13,12 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import java.io.Serializable;
 import java.math.BigInteger;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlSeeAlso({ BigIntegerAddModification.class, BigIntegerExplicitValueModification.class,
-        BigIntegerSubtractModification.class, BigIntegerXorModification.class })
-@XmlType(propOrder = { "originalValue", "modification", "assertEquals" })
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ModifiableBigInteger extends ModifiableVariable<BigInteger> implements Serializable {
 
     private BigInteger originalValue;

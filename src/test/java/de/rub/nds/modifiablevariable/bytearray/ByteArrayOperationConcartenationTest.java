@@ -8,10 +8,7 @@
  */
 package de.rub.nds.modifiablevariable.bytearray;
 
-import de.rub.nds.modifiablevariable.VariableModification;
 import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class ByteArrayOperationConcartenationTest {
 
@@ -26,16 +23,5 @@ public class ByteArrayOperationConcartenationTest {
     public void setUp() {
         start = new ModifiableByteArray();
         start.setOriginalValue(new byte[] { 1, 10 });
-    }
-
-    @Test
-    public void testInsertThenXOR() {
-        // input (insert4@1) xor 1,2,3 = 1 4 10 XOR 1 2 3,
-        VariableModification<byte[]> modifier = ByteArrayModificationFactory.insert(new byte[] { 4 }, 1);
-        start.setModification(modifier);
-        modifier.setPostModification(ByteArrayModificationFactory.xor(new byte[] { 1, 2, 3 }, 0));
-        expectedResult = new byte[] { 0, 6, 9 };
-        result = start.getValue();
-        assertArrayEquals(expectedResult, result);
     }
 }

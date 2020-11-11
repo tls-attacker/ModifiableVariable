@@ -13,14 +13,15 @@ import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
 
 import java.util.Arrays;
-import java.util.Random;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement
-@XmlType(propOrder = { "prependPayload", "payload", "appendPayload", "insert", "insertPosition", "modificationFilter",
-        "postModification" })
+@XmlType(propOrder = { "prependPayload", "payload", "appendPayload", "insert", "insertPosition", "modificationFilter" })
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ByteArrayPayloadModification extends VariableModification<byte[]> {
 
     private byte[] prependPayload = new byte[] {};
@@ -59,7 +60,6 @@ public class ByteArrayPayloadModification extends VariableModification<byte[]> {
         return insertMod.modify(input);
     }
 
-    @XmlJavaTypeAdapter(ByteArrayAdapter.class)
     public byte[] getPrependPayload() {
         return prependPayload;
     }
@@ -68,7 +68,6 @@ public class ByteArrayPayloadModification extends VariableModification<byte[]> {
         this.prependPayload = prependPayload;
     }
 
-    @XmlJavaTypeAdapter(ByteArrayAdapter.class)
     public byte[] getPayload() {
         return payload;
     }
@@ -77,7 +76,6 @@ public class ByteArrayPayloadModification extends VariableModification<byte[]> {
         this.payload = payload;
     }
 
-    @XmlJavaTypeAdapter(ByteArrayAdapter.class)
     public byte[] getAppendPayload() {
         return appendPayload;
     }

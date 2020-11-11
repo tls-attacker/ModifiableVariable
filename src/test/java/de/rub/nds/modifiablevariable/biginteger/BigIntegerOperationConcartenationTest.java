@@ -30,17 +30,6 @@ public class BigIntegerOperationConcartenationTest {
     }
 
     @Test
-    public void testAddThenMultiply() {
-        // (input + 4) ^ 3 = (10 + 4) ^ 3 = 13
-        VariableModification<BigInteger> modifier = BigIntegerModificationFactory.add("4");
-        start.setModification(modifier);
-        modifier.setPostModification(BigIntegerModificationFactory.xor("3"));
-        expectedResult = new BigInteger("13");
-        result = start.getValue();
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
     public void testAddThenMultiplyWithInnerClass() {
         // (input + 4) ^ 3 = (10 + 4) ^ 3 = 13
         start.setModification(new VariableModification<BigInteger>() {

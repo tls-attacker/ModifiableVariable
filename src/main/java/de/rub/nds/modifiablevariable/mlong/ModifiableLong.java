@@ -12,14 +12,12 @@ import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import java.io.Serializable;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlSeeAlso({ LongAddModification.class, LongExplicitValueModification.class, LongSubtractModification.class,
-        LongXorModification.class })
-@XmlType(propOrder = { "originalValue", "modification", "assertEquals" })
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ModifiableLong extends ModifiableVariable<Long> implements Serializable {
 
     private Long originalValue;

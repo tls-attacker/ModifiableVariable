@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = { "explicitValue", "modificationFilter", "postModification" })
+@XmlType(propOrder = { "explicitValue", "modificationFilter" })
 public class IntegerExplicitValueModification extends VariableModification<Integer> {
 
     private final static int MAX_VALUE_MODIFIER = 256;
