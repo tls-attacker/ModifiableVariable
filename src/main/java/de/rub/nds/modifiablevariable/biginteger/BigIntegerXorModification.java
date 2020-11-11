@@ -12,11 +12,14 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import java.math.BigInteger;
 import java.util.Objects;
 import java.util.Random;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = { "xor", "modificationFilter", "postModification" })
+@XmlType(propOrder = { "xor", "modificationFilter" })
+@XmlAccessorType(XmlAccessType.FIELD)
 public class BigIntegerXorModification extends VariableModification<BigInteger> {
 
     private final static int MAX_XOR_LENGTH = 8;

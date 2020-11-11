@@ -13,11 +13,14 @@ import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import static de.rub.nds.modifiablevariable.util.ArrayConverter.bytesToHexString;
 import java.util.Arrays;
 import java.util.Random;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = { "count", "startPosition", "modificationFilter", "postModification" })
+@XmlType(propOrder = { "count", "startPosition", "modificationFilter" })
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ByteArrayDeleteModification extends VariableModification<byte[]> {
 
     private final static int MAX_MODIFIER_LENGTH = 32;

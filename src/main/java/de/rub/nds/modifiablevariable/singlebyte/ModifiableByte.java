@@ -11,14 +11,12 @@ package de.rub.nds.modifiablevariable.singlebyte;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
 import java.io.Serializable;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlSeeAlso({ ByteAddModification.class, ByteExplicitValueModification.class, ByteSubtractModification.class,
-        ByteXorModification.class })
-@XmlType(propOrder = { "originalValue", "modification", "assertEquals" })
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ModifiableByte extends ModifiableVariable<Byte> implements Serializable {
 
     private Byte originalValue;

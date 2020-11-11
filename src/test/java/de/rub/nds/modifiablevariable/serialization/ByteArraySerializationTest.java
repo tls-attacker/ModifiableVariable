@@ -83,10 +83,9 @@ public class ByteArraySerializationTest {
     }
 
     @Test
-    public void testSerializeDeserializeWithDoubleModification() throws Exception {
+    public void testSerializeDeserializeWithModification() throws Exception {
         VariableModification<byte[]> modifier = ByteArrayModificationFactory.insert(new byte[] { 1, 2 }, 0);
-        VariableModification<byte[]> modifier2 = ByteArrayModificationFactory.insert(new byte[] { 9, 8, 7 }, 3);
-        modifier.setPostModification(modifier2);
+
         start.setModification(modifier);
         m.marshal(start, writer);
 
@@ -96,7 +95,7 @@ public class ByteArraySerializationTest {
         um = context.createUnmarshaller();
         ModifiableByteArray mba = (ModifiableByteArray) um.unmarshal(new StringReader(xmlString));
 
-        expectedResult = new byte[] { 1, 2, (byte) 0xff, 9, 8, 7, 1, 2, 3 };
+        expectedResult = new byte[] { 1, 2, (byte) 0xff, 1, 2, 3 };
         result = mba.getValue();
         assertArrayEquals(expectedResult, result);
         assertNotSame(expectedResult, result);
@@ -104,13 +103,11 @@ public class ByteArraySerializationTest {
     }
 
     @Test
-    public void testSerializeDeserializeWithDoubleModificationFilter() throws Exception {
+    public void testSerializeDeserializeWithModificationFilter() throws Exception {
         VariableModification<byte[]> modifier = ByteArrayModificationFactory.delete(1, 1);
         int[] filtered = { 1, 3 };
         AccessModificationFilter filter = ModificationFilterFactory.access(filtered);
         modifier.setModificationFilter(filter);
-        VariableModification<byte[]> modifier2 = ByteArrayModificationFactory.xor(new byte[] { 1 }, 1);
-        modifier.setPostModification(modifier2);
         start.setModification(modifier);
         m.marshal(start, writer);
 
@@ -120,19 +117,10 @@ public class ByteArraySerializationTest {
         um = context.createUnmarshaller();
         ModifiableByteArray mv = (ModifiableByteArray) um.unmarshal(new StringReader(xmlString));
 
-        // it happens nothing, because the first modification is filtered
+        // it happens nothing, because the modification is filtered
         expectedResult = new byte[] { (byte) 0xff, 1, 2, 3 };
         result = mv.getValue();
         assertArrayEquals(expectedResult, result);
         assertNotSame(expectedResult, result);
-
-        // there we have a modification
-        // first, 1 is deleted
-        // then, 2 is xored with 1, resulting in 3
-        expectedResult = new byte[] { (byte) 0xff, 3, 3 };
-        result = mv.getValue();
-        assertArrayEquals(expectedResult, result);
-        assertNotSame(expectedResult, result);
-
     }
 }

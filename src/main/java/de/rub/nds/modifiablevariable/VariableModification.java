@@ -8,90 +8,37 @@
  */
 package de.rub.nds.modifiablevariable;
 
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerAddModification;
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerExplicitValueModification;
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerInteractiveModification;
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerShiftLeftModification;
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerShiftRightModification;
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerSubtractModification;
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerXorModification;
-import de.rub.nds.modifiablevariable.bool.BooleanExplicitValueModification;
-import de.rub.nds.modifiablevariable.bool.BooleanToggleModification;
-import de.rub.nds.modifiablevariable.bytearray.*;
 import de.rub.nds.modifiablevariable.filter.AccessModificationFilter;
-import de.rub.nds.modifiablevariable.integer.IntegerAddModification;
-import de.rub.nds.modifiablevariable.integer.IntegerExplicitValueModification;
-import de.rub.nds.modifiablevariable.integer.IntegerShiftLeftModification;
-import de.rub.nds.modifiablevariable.integer.IntegerShiftRightModification;
-import de.rub.nds.modifiablevariable.integer.IntegerSubtractModification;
-import de.rub.nds.modifiablevariable.integer.IntegerXorModification;
-import de.rub.nds.modifiablevariable.singlebyte.ByteAddModification;
-import de.rub.nds.modifiablevariable.singlebyte.ByteExplicitValueModification;
-import de.rub.nds.modifiablevariable.singlebyte.ByteSubtractModification;
-import de.rub.nds.modifiablevariable.singlebyte.ByteXorModification;
-import de.rub.nds.modifiablevariable.string.StringExplicitValueModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import javax.xml.bind.annotation.XmlAnyElement;
+import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @XmlRootElement
 @XmlTransient
-@XmlSeeAlso({ AccessModificationFilter.class, BigIntegerAddModification.class, BigIntegerInteractiveModification.class,
-        BigIntegerExplicitValueModification.class, BigIntegerSubtractModification.class,
-        BooleanExplicitValueModification.class, BooleanToggleModification.class, BigIntegerXorModification.class,
-        BigIntegerShiftLeftModification.class, BigIntegerShiftRightModification.class, IntegerAddModification.class,
-        IntegerExplicitValueModification.class, IntegerSubtractModification.class, IntegerXorModification.class,
-        IntegerShiftLeftModification.class, IntegerShiftRightModification.class, ByteArrayDeleteModification.class,
-        ByteArrayExplicitValueModification.class, ByteArrayInsertModification.class, ByteArrayXorModification.class,
-        ByteArrayDuplicateModification.class, ByteArrayShuffleModification.class, ByteArrayPayloadModification.class,
-        ByteAddModification.class, ByteExplicitValueModification.class, ByteSubtractModification.class,
-        ByteXorModification.class, StringExplicitValueModification.class })
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlJavaTypeAdapter(value = ByteArrayAdapter.class, type = byte[].class)
 public abstract class VariableModification<E> {
 
     protected static final Logger LOGGER = LogManager.getLogger(VariableModification.class);
-
-    /**
-     * post modification for next modification executed on the given variable
-     */
-    private VariableModification<E> postModification = null;
 
     /**
      * In specific cases it is possible to filter out some modifications based
      * on given rules. ModificationFilter is responsible for validating if the
      * modification can be executed.
      */
+    @XmlElements(value = { @XmlElement(type = AccessModificationFilter.class, name = "AccessModificationFilter") })
     private ModificationFilter modificationFilter = null;
-
-    /**
-     * Get the value of postModification
-     *
-     * @return the value of postModification
-     */
-    // http://stackoverflow.com/questions/5122296/jaxb-not-unmarshalling-xml-any-element-to-jaxbelement
-    @XmlAnyElement(lax = true)
-    public VariableModification<E> getPostModification() {
-        return postModification;
-    }
-
-    /**
-     * Set the value of postModification
-     *
-     * @param postModification
-     *            new value of postModification
-     */
-    public void setPostModification(VariableModification<E> postModification) {
-        this.postModification = postModification;
-    }
 
     public E modify(E input) {
         E modifiedValue = modifyImplementationHook(input);
-        if (postModification != null) {
-            modifiedValue = postModification.modify(modifiedValue);
-        }
         if ((modificationFilter == null) || (modificationFilter.filterModification() == false)) {
             debug(modifiedValue);
             return modifiedValue;

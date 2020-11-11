@@ -12,24 +12,23 @@ import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
+import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import java.io.Serializable;
 import java.util.Arrays;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement
-@XmlSeeAlso({ ByteArrayDeleteModification.class, ByteArrayExplicitValueModification.class,
-        ByteArrayInsertModification.class, ByteArrayXorModification.class, ByteArrayDuplicateModification.class,
-        ByteArrayPayloadModification.class })
-@XmlType(propOrder = { "originalValue", "modification", "assertEquals" })
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ModifiableByteArray extends ModifiableVariable<byte[]> implements Serializable {
 
     public ModifiableByteArray() {
         autoformat = true;
     }
 
+    @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] originalValue;
 
     @Override
@@ -38,7 +37,6 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> implements S
         setModification(vm);
     }
 
-    @XmlJavaTypeAdapter(ByteArrayAdapter.class)
     @Override
     public byte[] getOriginalValue() {
         return originalValue;
@@ -49,7 +47,6 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> implements S
         this.originalValue = originalValue;
     }
 
-    @XmlJavaTypeAdapter(ByteArrayAdapter.class)
     public byte[] getAssertEquals() {
         return assertEquals;
     }

@@ -79,10 +79,8 @@ public class LongSerializationTest {
     }
 
     @Test
-    public void testSerializeDeserializeWithDoubleModification() throws Exception {
+    public void testSerializeDeserializeWithModification() throws Exception {
         VariableModification<Long> modifier = LongModificationFactory.add(1L);
-        VariableModification<Long> modifier2 = LongModificationFactory.add(1L);
-        modifier.setPostModification(modifier2);
         start.setModification(modifier);
         m.marshal(start, writer);
 
@@ -92,20 +90,18 @@ public class LongSerializationTest {
         um = context.createUnmarshaller();
         ModifiableLong mv = (ModifiableLong) um.unmarshal(new StringReader(xmlString));
 
-        expectedResult = 12L;
+        expectedResult = 11L;
         result = mv.getValue();
         assertEquals(expectedResult, result);
 
     }
 
     @Test
-    public void testSerializeDeserializeWithDoubleModificationFilter() throws Exception {
+    public void testSerializeDeserializeWithModificationFilter() throws Exception {
         VariableModification<Long> modifier = LongModificationFactory.add(1L);
         int[] filtered = { 1, 3 };
         AccessModificationFilter filter = ModificationFilterFactory.access(filtered);
         modifier.setModificationFilter(filter);
-        VariableModification<Long> modifier2 = LongModificationFactory.add(1L);
-        modifier.setPostModification(modifier2);
         start.setModification(modifier);
         m.marshal(start, writer);
 
