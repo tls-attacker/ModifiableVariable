@@ -18,16 +18,15 @@ package de.rub.nds.modifiablevariable.string;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
 import java.io.Serializable;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
 
 /**
  *
  */
 @XmlRootElement
-@XmlSeeAlso({ StringExplicitValueModification.class })
-@XmlType(propOrder = { "originalValue", "modification", "assertEquals" })
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ModifiableString extends ModifiableVariable<String> implements Serializable {
 
     private String originalValue;

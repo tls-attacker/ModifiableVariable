@@ -10,11 +10,14 @@ package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = { "modificationFilter", "postModification" })
+@XmlType(propOrder = { "modificationFilter" })
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ByteArrayDuplicateModification extends VariableModification<byte[]> {
 
     public ByteArrayDuplicateModification() {

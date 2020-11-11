@@ -10,15 +10,16 @@ package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
 import java.util.Arrays;
 import java.util.Random;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement
-@XmlType(propOrder = { "xor", "startPosition", "modificationFilter", "postModification" })
+@XmlType(propOrder = { "xor", "startPosition", "modificationFilter" })
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ByteArrayXorModification extends VariableModification<byte[]> {
 
     private final static int MAX_MODIFIER_VALUE = 256;
@@ -64,7 +65,6 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
         return result;
     }
 
-    @XmlJavaTypeAdapter(ByteArrayAdapter.class)
     public byte[] getXor() {
         return xor;
     }

@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = { "explicitValue", "modificationFilter", "postModification" })
+@XmlType(propOrder = { "explicitValue", "modificationFilter" })
 public class BooleanExplicitValueModification extends VariableModification<Boolean> {
 
     private boolean explicitValue;

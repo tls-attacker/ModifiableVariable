@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = { "summand", "modificationFilter", "postModification" })
+@XmlType(propOrder = { "summand", "modificationFilter" })
 public class IntegerAddModification extends VariableModification<Integer> {
 
     private final static int MAX_ADD_MODIFIER = 256;

@@ -21,14 +21,10 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-import javax.xml.xpath.XPathFactoryConfigurationException;
+import javax.xml.xpath.*;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -44,8 +40,56 @@ public class XMLPrettyPrinter {
     public static int IDENT_AMOUNT = 4;
 
     /**
-     * This function formats all tags (and their children) which are marked with
-     * the autoformat="true" attribute and removes this attribute.
+     * This functions autoformats the text content of the child nodes of the
+     * node which have the {@code autoformat="true"} attribute set. The
+     * autoformatting results in having the textContent of the node aligned to
+     * the depth of indentation of its parent node. The
+     * {@code autoformat="true"} is also removed from the tree.
+     *
+     * <br>
+     * <br>
+     *
+     * <b>Note:</b> the function also removes all blank text from nodes which
+     * may merge {@code <a></a>} into {@code <a/>}.
+     *
+     * <br>
+     * <br>
+     *
+     * <b>Caution:</b> the function literally takes the textContent of the child
+     * nodes of the autoformat node. This removes any other nodes from that
+     * child node and leaves only the textContent left.
+     *
+     * <br>
+     * <br>
+     *
+     * <h3>Example</h3>
+     *
+     * Using this XML as input:
+     *
+     * <pre>
+     * {@code
+     * <root autoformat="true">
+     *     <textnode>
+     * this text should
+     * be aligned
+     *     </textnode>
+     * </root>
+     * }
+     * </pre>
+     *
+     * Results in this output XML:
+     *
+     * <pre>
+     * {@code
+     * <root>
+     *     <textnode>
+     *         this text sould
+     *         be aligned
+     *     </textnode>
+     * </root>
+     * }
+     * </pre>
+     *
      *
      * @param input
      * @return
@@ -55,7 +99,6 @@ public class XMLPrettyPrinter {
      * @throws IOException
      * @throws TransformerException
      * @throws XPathExpressionException
-     * @throws XPathFactoryConfigurationException
      */
     public static String prettyPrintXML(String input) throws TransformerConfigurationException,
             ParserConfigurationException, SAXException, IOException, TransformerException, XPathExpressionException,

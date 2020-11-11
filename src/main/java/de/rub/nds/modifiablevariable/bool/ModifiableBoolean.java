@@ -10,13 +10,12 @@ package de.rub.nds.modifiablevariable.bool;
 
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlSeeAlso({ BooleanExplicitValueModification.class, BooleanExplicitValueModification.class })
-@XmlType(propOrder = { "originalValue", "modification", })
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ModifiableBoolean extends ModifiableVariable<Boolean> {
 
     private Boolean originalValue;

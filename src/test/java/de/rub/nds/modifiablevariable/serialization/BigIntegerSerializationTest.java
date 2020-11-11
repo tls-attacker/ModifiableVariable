@@ -89,10 +89,8 @@ public class BigIntegerSerializationTest {
     }
 
     @Test
-    public void testSerializeDeserializeWithDoubleModification() throws Exception {
+    public void testSerializeDeserializeWithModification() throws Exception {
         VariableModification<BigInteger> modifier = BigIntegerModificationFactory.add(BigInteger.ONE);
-        VariableModification<BigInteger> modifier2 = BigIntegerModificationFactory.add(BigInteger.ONE);
-        modifier.setPostModification(modifier2);
         start.setModification(modifier);
         m.marshal(start, writer);
 
@@ -102,7 +100,7 @@ public class BigIntegerSerializationTest {
         um = context.createUnmarshaller();
         ModifiableBigInteger mv = (ModifiableBigInteger) um.unmarshal(new StringReader(xmlString));
 
-        expectedResult = new BigInteger("12");
+        expectedResult = new BigInteger("11");
         result = mv.getValue();
         assertEquals(expectedResult, result);
         assertNotSame(expectedResult, result);
@@ -127,13 +125,11 @@ public class BigIntegerSerializationTest {
     }
 
     @Test
-    public void testSerializeDeserializeWithDoubleModificationFilter() throws Exception {
+    public void testSerializeDeserializeWithModificationFilter() throws Exception {
         VariableModification<BigInteger> modifier = BigIntegerModificationFactory.add(BigInteger.ONE);
         int[] filtered = { 1, 3 };
         AccessModificationFilter filter = ModificationFilterFactory.access(filtered);
         modifier.setModificationFilter(filter);
-        VariableModification<BigInteger> modifier2 = BigIntegerModificationFactory.add(BigInteger.ONE);
-        modifier.setPostModification(modifier2);
         start.setModification(modifier);
         m.marshal(start, writer);
 

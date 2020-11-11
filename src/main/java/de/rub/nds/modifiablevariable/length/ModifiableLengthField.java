@@ -10,18 +10,12 @@ package de.rub.nds.modifiablevariable.length;
 
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
-import de.rub.nds.modifiablevariable.integer.IntegerAddModification;
-import de.rub.nds.modifiablevariable.integer.IntegerExplicitValueModification;
-import de.rub.nds.modifiablevariable.integer.IntegerSubtractModification;
-import de.rub.nds.modifiablevariable.integer.IntegerXorModification;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlSeeAlso({ IntegerAddModification.class, IntegerExplicitValueModification.class, IntegerSubtractModification.class,
-        IntegerXorModification.class })
-@XmlType(propOrder = { "originalValue", "modification", "assertEquals" })
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ModifiableLengthField extends ModifiableInteger {
 
     private final ModifiableByteArray ref;

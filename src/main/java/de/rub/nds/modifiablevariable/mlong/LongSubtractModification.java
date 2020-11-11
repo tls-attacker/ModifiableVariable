@@ -9,14 +9,13 @@
 package de.rub.nds.modifiablevariable.mlong;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.integer.IntegerSubtractModification;
 import java.util.Objects;
 import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = { "subtrahend", "modificationFilter", "postModification" })
+@XmlType(propOrder = { "subtrahend", "modificationFilter" })
 public class LongSubtractModification extends VariableModification<Long> {
 
     private final static int MAX_SUBTRACT_MODIFIER = 256;

@@ -9,14 +9,13 @@
 package de.rub.nds.modifiablevariable.singlebyte;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.integer.IntegerAddModification;
 import java.util.Objects;
 import java.util.Random;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = { "summand", "modificationFilter", "postModification" })
+@XmlType(propOrder = { "summand", "modificationFilter" })
 public class ByteAddModification extends VariableModification<Byte> {
 
     private final static int MAX_ADD_MODIFIER = 16;
