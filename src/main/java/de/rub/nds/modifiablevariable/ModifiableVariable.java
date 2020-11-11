@@ -156,6 +156,9 @@ public abstract class ModifiableVariable<E> implements Serializable {
     }
 
     public Boolean isCreateRandomModification() {
+        if (createRandomModification == null) {
+            return false;
+        }
         return createRandomModification;
     }
 }
