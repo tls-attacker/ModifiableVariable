@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.VariableModification;
@@ -44,7 +45,7 @@ public class BigIntegerInteractiveModification extends VariableModification<BigI
 
     @Override
     public VariableModification<BigInteger> getModifiedCopy() {
-        throw new UnsupportedOperationException("This method is not supported for interactive Modifactions");
+        throw new UnsupportedOperationException("This method is not supported for interactive modifications");
     }
 
 }

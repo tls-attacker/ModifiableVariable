@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package de.rub.nds.modifiablevariable.bool;
 
 import org.junit.Before;
@@ -39,32 +40,28 @@ public class BooleanExplicitValueModificationTest {
     }
 
     /**
-     * Test of modifyImplementationHook method, of class
-     * BooleanExplicitValueModification.
+     * Test of modifyImplementationHook method, of class BooleanExplicitValueModification.
      */
     @Test
     public void testModifyImplementationHook() {
     }
 
     /**
-     * Test of isExplicitValue method, of class
-     * BooleanExplicitValueModification.
+     * Test of isExplicitValue method, of class BooleanExplicitValueModification.
      */
     @Test
     public void testIsExplicitValue() {
     }
 
     /**
-     * Test of setExplicitValue method, of class
-     * BooleanExplicitValueModification.
+     * Test of setExplicitValue method, of class BooleanExplicitValueModification.
      */
     @Test
     public void testSetExplicitValue() {
     }
 
     /**
-     * Test of getModifiedCopy method, of class
-     * BooleanExplicitValueModification.
+     * Test of getModifiedCopy method, of class BooleanExplicitValueModification.
      */
     @Test
     public void testGetModifiedCopy() {

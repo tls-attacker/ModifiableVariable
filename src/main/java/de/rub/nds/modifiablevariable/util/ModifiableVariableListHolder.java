@@ -6,14 +6,15 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.util;
 
 import java.lang.reflect.Field;
 import java.util.List;
 
 /**
- * Represents a modifiable variable holder (an object containing at least one
- * ModifiableVariable field), containing a list of its ModifiableVariable fields
+ * Represents a modifiable variable holder (an object containing at least one ModifiableVariable field), containing a
+ * list of its ModifiableVariable fields
  * 
  */
 public class ModifiableVariableListHolder {

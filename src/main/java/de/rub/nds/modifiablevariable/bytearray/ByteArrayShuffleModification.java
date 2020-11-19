@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
@@ -20,9 +21,8 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * Shuffles the byte array, using a pre-defined array of array pointers
- * (#shuffle). Array pointers are currently defined as bytes, since we are
- * modifying rather smaller arrays.
+ * Shuffles the byte array, using a pre-defined array of array pointers (#shuffle). Array pointers are currently defined
+ * as bytes, since we are modifying rather smaller arrays.
  *
  */
 @XmlRootElement
@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ByteArrayShuffleModification extends VariableModification<byte[]> {
 
-    private final static int MAX_MODIFIER_VALUE = 256;
+    private static final int MAX_MODIFIER_VALUE = 256;
 
     private byte[] shuffle;
 

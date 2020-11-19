@@ -41,8 +41,8 @@ If you want to use modifiable variables in your maven projects, you can include 
 # Supported data types
 The following modifiable variables are provided in this package with their modifications:
 * ModifiableBigInteger: add, explicitValue, shiftLeft, shiftRight, subtract, xor
-* ModifiableBoolean: explicitValue, toogle
-* ModifiableByteArray: delete, duplicate, explicitValue, insert, suffle, xor
+* ModifiableBoolean: explicitValue, toggle
+* ModifiableByteArray: delete, duplicate, explicitValue, insert, shuffle, xor
 * ModifiableInteger: add, explicitValue, shiftLeft, shiftRight, subtract, xor
 * ModifiableLong: add, explicitValue, subtract, xor
 * ModifiableByte: add, explicitValue, subtract, xor
@@ -205,9 +205,9 @@ ModifiableLong and ModifiableBytes support the following operations: add, explic
     </booleanExplicitValueModification>
 ```
 
-- Toogle:
+- Toggle:
 ```xml
-    <booleanToogleModification/>
+    <booleanToggleModification/>
 ```
 
 # String

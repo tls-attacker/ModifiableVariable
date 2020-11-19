@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.VariableModification;
@@ -14,13 +15,13 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-public class BigIntegerOperationConcartenationTest {
+public class BigIntegerOperationConcatenationTest {
 
     private ModifiableBigInteger start;
 
     private BigInteger expectedResult, result;
 
-    public BigIntegerOperationConcartenationTest() {
+    public BigIntegerOperationConcatenationTest() {
     }
 
     @Before

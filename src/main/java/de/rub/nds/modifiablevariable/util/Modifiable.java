@@ -1,3 +1,4 @@
+
 package de.rub.nds.modifiablevariable.util;
 
 import de.rub.nds.modifiablevariable.VariableModification;
@@ -16,13 +17,13 @@ import de.rub.nds.modifiablevariable.singlebyte.ByteModificationFactory;
 import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import de.rub.nds.modifiablevariable.string.StringModificationFactory;
-
 import java.math.BigInteger;
 
 @SuppressWarnings("unused")
 public class Modifiable {
 
-    private static ModifiableByteArray getModifiableByteArrayWithModification(VariableModification<byte[]> modification) {
+    private static ModifiableByteArray
+        getModifiableByteArrayWithModification(VariableModification<byte[]> modification) {
         ModifiableByteArray modifiableByteArray = new ModifiableByteArray();
         modifiableByteArray.setModification(modification);
         return modifiableByteArray;
@@ -41,7 +42,7 @@ public class Modifiable {
     }
 
     private static ModifiableBigInteger getModifiableBigIntegerWithModification(
-            VariableModification<BigInteger> modification) {
+        VariableModification<BigInteger> modification) {
         ModifiableBigInteger modifiableBigInteger = new ModifiableBigInteger();
         modifiableBigInteger.setModification(modification);
         return modifiableBigInteger;
@@ -87,6 +88,10 @@ public class Modifiable {
 
     public static ModifiableBoolean explicit(Boolean b) {
         return getModifiableBooleanWithModification(new BooleanExplicitValueModification(b));
+    }
+
+    public static ModifiableString explicit(String s) {
+        return getModifiableStringWithModification(StringModificationFactory.explicitValue(s));
     }
 
     public static ModifiableByteArray xor(byte[] b, int position) {
@@ -175,10 +180,6 @@ public class Modifiable {
 
     public static ModifiableInteger shiftRight(Integer i) {
         return getModifiableIntegerWithModification(IntegerModificationFactory.shiftRight(i));
-    }
-
-    public static ModifiableString explicit(String s) {
-        return getModifiableStringWithModification(StringModificationFactory.explicitValue(s));
     }
 
 }

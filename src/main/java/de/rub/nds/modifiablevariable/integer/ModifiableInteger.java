@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.integer;
 
 import de.rub.nds.modifiablevariable.ModifiableVariable;
@@ -73,10 +74,12 @@ public class ModifiableInteger extends ModifiableVariable<Integer> implements Se
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (!(o instanceof ModifiableInteger))
+        }
+        if (!(o instanceof ModifiableInteger)) {
             return false;
+        }
 
         ModifiableInteger that = (ModifiableInteger) o;
 

@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.serialization;
 
 import de.rub.nds.modifiablevariable.VariableModification;
@@ -54,8 +55,9 @@ public class LongSerializationTest {
         result = null;
 
         writer = new StringWriter();
-        context = JAXBContext.newInstance(ModifiableLong.class, LongAddModification.class,
-                ByteArrayModificationFactory.class);
+        context =
+            JAXBContext
+                .newInstance(ModifiableLong.class, LongAddModification.class, ByteArrayModificationFactory.class);
         m = context.createMarshaller();
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         um = context.createUnmarshaller();

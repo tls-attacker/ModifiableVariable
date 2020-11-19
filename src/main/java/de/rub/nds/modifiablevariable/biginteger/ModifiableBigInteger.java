@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.ModifiableVariable;
@@ -77,10 +78,12 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> impleme
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (!(o instanceof ModifiableBigInteger))
+        }
+        if (!(o instanceof ModifiableBigInteger)) {
             return false;
+        }
 
         ModifiableBigInteger that = (ModifiableBigInteger) o;
 

@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.util;
 
 import java.lang.reflect.Field;
@@ -18,20 +19,17 @@ import java.util.List;
 public class ReflectionHelper {
 
     /**
-     * Source:
-     * http://stackoverflow.com/questions/17451506/list-all-private-fields
-     * -of-a-java-object Retrieves all fields (all access levels) from all
-     * classes up the class hierarchy starting with {@code startClass} stopping
-     * with and not including {@code exclusiveParent}. Generally
-     * {@code Object.class} should be passed as {@code exclusiveParent}.
+     * Source: http://stackoverflow.com/questions/17451506/list-all-private-fields -of-a-java-object Retrieves all
+     * fields (all access levels) from all classes up the class hierarchy starting with {@code startClass} stopping with
+     * and not including {@code exclusiveParent}. Generally {@code Object.class} should be passed as
+     * {@code exclusiveParent}.
      * 
      * @param startClass
-     *            the class whose fields should be retrieved
+     * the class whose fields should be retrieved
      * @param exclusiveParent
-     *            if not null, the base class of startClass whose fields should
-     *            not be retrieved.
+     * if not null, the base class of startClass whose fields should not be retrieved.
      * @param filterClass
-     *            class that should be used as a type filter
+     * class that should be used as a type filter
      * @return list of fields included in the class and its ancestors
      */
     public static List<Field> getFieldsUpTo(Class<?> startClass, Class<?> exclusiveParent, Class<?> filterClass) {
@@ -51,8 +49,7 @@ public class ReflectionHelper {
     }
 
     /**
-     * Takes a list of fields and returns only fields which are subclasses of
-     * the filterClass
+     * Takes a list of fields and returns only fields which are subclasses of the filterClass
      */
     private static List<Field> filterFieldList(List<Field> fields, Class<?> filterClass) {
         List<Field> filteredFields = new LinkedList<>();

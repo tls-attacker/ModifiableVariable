@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.integer;
 
 import de.rub.nds.modifiablevariable.VariableModification;
@@ -17,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "shift", "modificationFilter" })
 public class IntegerShiftLeftModification extends VariableModification<Integer> {
 
-    private final static int MAX_SHIFT_MODIFIER = 32;
+    private static final int MAX_SHIFT_MODIFIER = 32;
 
     private int shift;
 

@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.serialization;
 
 import de.rub.nds.modifiablevariable.VariableModification;
@@ -57,18 +58,19 @@ public class BigIntegerSerializationTest {
         result = null;
 
         writer = new StringWriter();
-        context = JAXBContext.newInstance(ModifiableBigInteger.class, BigIntegerAddModification.class,
+        context =
+            JAXBContext.newInstance(ModifiableBigInteger.class, BigIntegerAddModification.class,
                 ByteArrayModificationFactory.class, BigIntegerInteractiveModification.class);
         m = context.createMarshaller();
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         um = context.createUnmarshaller();
 
         BigIntegerModificationFactory
-                .setStandardInteractiveModification(new BigIntegerInteractiveModification.InteractiveBigIntegerModification() {
-                    public BigInteger modify(BigInteger oldVal) {
-                        return new BigInteger("12");
-                    }
-                });
+            .setStandardInteractiveModification(new BigIntegerInteractiveModification.InteractiveBigIntegerModification() {
+                public BigInteger modify(BigInteger oldVal) {
+                    return new BigInteger("12");
+                }
+            });
     }
 
     @Test

@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.bool;
 
 import de.rub.nds.modifiablevariable.VariableModification;
@@ -54,7 +55,7 @@ public class BooleanToggleModification extends VariableModification<Boolean> {
 
     @Override
     public String toString() {
-        return "BooleanToogleModification{" + '}';
+        return "BooleanToggleModification{" + '}';
     }
 
 }
