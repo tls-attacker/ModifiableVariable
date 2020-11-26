@@ -1,7 +1,7 @@
 # Modifiable Variables
 
 ![licence](https://img.shields.io/badge/License-Apachev2-brightgreen.svg)
-[![travis](https://travis-ci.org/RUB-NDS/ModifiableVariable.svg?branch=master)](https://travis-ci.org/RUB-NDS/ModifiableVariable)
+![jenkins](https://hydrogen.cloud.nds.rub.de/buildStatus/icon?job=ModifiableVariable)
 
 Modifiable variable allows one to set modifications to basic types after or before their values are actually determined. When their actual values are determined and one tries to access the value via getters, the original value will be returned in a modified form accordingly.
 
