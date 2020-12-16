@@ -278,6 +278,8 @@ public class ArrayConverter {
     public static byte[] bigIntegerToByteArray(BigInteger value, int blockSize, boolean removeSignByte) {
         if (blockSize == 0) {
             return new byte[0];
+        } else if (value.equals(BigInteger.ZERO)) {
+            return new byte[blockSize];
         }
         byte[] array = value.toByteArray();
         int remainder = array.length % blockSize;
