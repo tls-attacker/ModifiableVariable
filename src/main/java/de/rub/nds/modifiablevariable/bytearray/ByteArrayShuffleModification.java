@@ -11,7 +11,7 @@ package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
+import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import java.util.Arrays;
 import java.util.Random;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -32,6 +32,7 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
 
     private static final int MAX_MODIFIER_VALUE = 256;
 
+    @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] shuffle;
 
     public ByteArrayShuffleModification() {

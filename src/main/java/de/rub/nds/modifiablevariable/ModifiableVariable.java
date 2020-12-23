@@ -40,7 +40,7 @@ import de.rub.nds.modifiablevariable.singlebyte.ByteExplicitValueModification;
 import de.rub.nds.modifiablevariable.singlebyte.ByteSubtractModification;
 import de.rub.nds.modifiablevariable.singlebyte.ByteXorModification;
 import de.rub.nds.modifiablevariable.string.StringExplicitValueModification;
-import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
+import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -62,7 +62,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlRootElement
 @XmlTransient
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlJavaTypeAdapter(value = ByteArrayAdapter.class, type = byte[].class)
 public abstract class ModifiableVariable<E> implements Serializable {
 
     protected Boolean autoformat = null;
@@ -83,7 +82,7 @@ public abstract class ModifiableVariable<E> implements Serializable {
         @XmlElement(type = ByteArrayExplicitValueModification.class, name = "ByteArrayExplicitValueModification"),
         @XmlElement(type = ByteArrayDuplicateModification.class, name = "ByteArrayDuplicateModification"),
         @XmlElement(type = ByteArrayDeleteModification.class, name = "ByteArrayDeleteModification"),
-        @XmlElement(type = IntegerXorModification.class, name = "IntegerXorModification"),
+        @XmlElement(typeg = IntegerXorModification.class, name = "IntegerXorModification"),
         @XmlElement(type = IntegerSubtractModification.class, name = "IntegerSubtractModification"),
         @XmlElement(type = IntegerShiftRightModification.class, name = "IntegerShiftRightModification"),
         @XmlElement(type = IntegerShiftLeftModification.class, name = "IntegerShiftLeftModification"),
@@ -120,6 +119,7 @@ public abstract class ModifiableVariable<E> implements Serializable {
         this.modification = modification;
     }
 
+    @XmlTransient
     public VariableModification<E> getModification() {
         return modification;
     }

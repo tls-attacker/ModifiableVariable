@@ -11,7 +11,7 @@ package de.rub.nds.modifiablevariable;
 
 import de.rub.nds.modifiablevariable.filter.AccessModificationFilter;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
+import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -25,7 +25,6 @@ import org.apache.logging.log4j.Logger;
 @XmlRootElement
 @XmlTransient
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlJavaTypeAdapter(value = ByteArrayAdapter.class, type = byte[].class)
 public abstract class VariableModification<E> {
 
     protected static final Logger LOGGER = LogManager.getLogger(VariableModification.class);

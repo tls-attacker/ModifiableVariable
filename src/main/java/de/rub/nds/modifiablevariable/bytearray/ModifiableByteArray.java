@@ -12,7 +12,6 @@ package de.rub.nds.modifiablevariable.bytearray;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -22,14 +21,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class ModifiableByteArray extends ModifiableVariable<byte[]> implements Serializable {
 
     public ModifiableByteArray() {
         autoformat = true;
     }
 
-    @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] originalValue;
 
     @Override
@@ -39,6 +37,7 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> implements S
     }
 
     @Override
+    @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     public byte[] getOriginalValue() {
         return originalValue;
     }
@@ -48,6 +47,7 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> implements S
         this.originalValue = originalValue;
     }
 
+    @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     public byte[] getAssertEquals() {
         return assertEquals;
     }
