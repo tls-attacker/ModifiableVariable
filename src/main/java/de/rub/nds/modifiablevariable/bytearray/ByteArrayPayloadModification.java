@@ -11,21 +11,25 @@ package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import java.util.Arrays;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement
 @XmlType(propOrder = { "prependPayload", "payload", "appendPayload", "insert", "insertPosition", "modificationFilter" })
-@XmlAccessorType(XmlAccessType.FIELD)
 public class ByteArrayPayloadModification extends VariableModification<byte[]> {
 
+    @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] prependPayload = new byte[] {};
 
+    @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] payload = new byte[] {};
 
+    @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] appendPayload = new byte[] {};
 
     private boolean insert = false;
