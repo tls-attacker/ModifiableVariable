@@ -117,6 +117,7 @@
             <plugin>
                 <groupId>net.revelc.code</groupId>
                 <artifactId>formatter-maven-plugin</artifactId>
+                <version>0.5.2</version>
                 <configuration>
                     <configFile>maven-eclipse-codestyle.xml</configFile>
                 </configuration>
