@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
@@ -22,7 +23,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ByteArrayExplicitValueModification extends VariableModification<byte[]> {
 
-    private final static int MAX_EXPLICIT_VALUE = 256;
+    private static final int MAX_EXPLICIT_VALUE = 256;
 
     private byte[] explicitValue;
 
@@ -50,7 +51,7 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
     @Override
     public String toString() {
         return "ByteArrayExplicitValueModification{" + "explicitValue="
-                + ArrayConverter.bytesToHexString(explicitValue) + '}';
+            + ArrayConverter.bytesToHexString(explicitValue) + '}';
     }
 
     @Override

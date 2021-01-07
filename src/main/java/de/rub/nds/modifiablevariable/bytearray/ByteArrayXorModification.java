@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
@@ -22,9 +23,9 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ByteArrayXorModification extends VariableModification<byte[]> {
 
-    private final static int MAX_MODIFIER_VALUE = 256;
+    private static final int MAX_MODIFIER_VALUE = 256;
 
-    private final static int MAX_XOR_MODIFIER = 32;
+    private static final int MAX_XOR_MODIFIER = 32;
 
     private byte[] xor;
 
@@ -54,9 +55,9 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
             // result = new byte[end];
             // System.arraycopy(input, 0, result, 0, input.length);
             LOGGER.debug(String.format(
-                    "Input {%s} of length %d cannot be xored with {%s} of length %d with start position %d",
-                    ArrayConverter.bytesToHexString(input), input.length, ArrayConverter.bytesToHexString(xor),
-                    xor.length, startPosition));
+                "Input {%s} of length %d cannot be xor-ed with {%s} of length %d with start position %d",
+                ArrayConverter.bytesToHexString(input), input.length, ArrayConverter.bytesToHexString(xor), xor.length,
+                startPosition));
             return input;
         }
         for (int i = 0; i < xor.length; ++i) {
@@ -135,7 +136,7 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
     @Override
     public String toString() {
         return "ByteArrayXorModification{" + "xor=" + ArrayConverter.bytesToHexString(xor) + ", startPosition="
-                + startPosition + '}';
+            + startPosition + '}';
     }
 
 }

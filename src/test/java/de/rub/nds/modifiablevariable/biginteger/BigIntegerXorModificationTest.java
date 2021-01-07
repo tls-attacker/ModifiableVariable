@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package de.rub.nds.modifiablevariable.biginteger;
 
 import java.math.BigInteger;
@@ -40,8 +41,7 @@ public class BigIntegerXorModificationTest {
     }
 
     /**
-     * Test of modifyImplementationHook method, of class
-     * BigIntegerXorModification.
+     * Test of modifyImplementationHook method, of class BigIntegerXorModification.
      */
     @Test
     public void testModifyImplementationHook() {

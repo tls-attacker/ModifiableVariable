@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.util;
 
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
@@ -26,8 +27,7 @@ public class ModifiableVariableAnalyzerTest {
     }
 
     /**
-     * Test of getAllModifiableVariableFields method, of class
-     * ModifiableVariableAnalyzer.
+     * Test of getAllModifiableVariableFields method, of class ModifiableVariableAnalyzer.
      * 
      */
     @Test
@@ -42,8 +42,7 @@ public class ModifiableVariableAnalyzerTest {
     }
 
     /**
-     * Test of getRandomModifiableVariableField method, of class
-     * ModifiableVariableAnalyzer.
+     * Test of getRandomModifiableVariableField method, of class ModifiableVariableAnalyzer.
      */
     @Test
     public void testGetRandomModifiableVariableField() {
@@ -64,8 +63,8 @@ public class ModifiableVariableAnalyzerTest {
         SimpleClassWithModVariables test1 = new SimpleClassWithModVariables();
         test1.bi = new ModifiableBigInteger();
         test1.x = new Integer("1");
-        List<ModifiableVariableField> fields = ModifiableVariableAnalyzer
-                .getAllModifiableVariableFieldsRecursively(test1);
+        List<ModifiableVariableField> fields =
+            ModifiableVariableAnalyzer.getAllModifiableVariableFieldsRecursively(test1);
         assertEquals(3, fields.size());
         test1.test = new SimpleClassWithModVariables();
         fields = ModifiableVariableAnalyzer.getAllModifiableVariableFieldsRecursively(test1);
@@ -90,12 +89,12 @@ public class ModifiableVariableAnalyzerTest {
         test1.bi = new ModifiableBigInteger();
         test1.x = new Integer("1");
         test1.test = new SimpleClassWithModVariables();
-        List<ModifiableVariableField> fields1 = ModifiableVariableAnalyzer
-                .getAllModifiableVariableFieldsRecursively(test1);
+        List<ModifiableVariableField> fields1 =
+            ModifiableVariableAnalyzer.getAllModifiableVariableFieldsRecursively(test1);
         SimpleClassWithModVariables test2 = new SimpleClassWithModVariables();
         test2.test = new SimpleClassWithModVariables();
-        List<ModifiableVariableField> fields2 = ModifiableVariableAnalyzer
-                .getAllModifiableVariableFieldsRecursively(test2);
+        List<ModifiableVariableField> fields2 =
+            ModifiableVariableAnalyzer.getAllModifiableVariableFieldsRecursively(test2);
         assertEquals(6, fields1.size());
         assertEquals(6, fields2.size());
         for (int i = 0; i < fields1.size(); i++) {

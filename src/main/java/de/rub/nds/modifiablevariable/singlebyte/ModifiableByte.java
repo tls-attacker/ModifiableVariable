@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.singlebyte;
 
 import de.rub.nds.modifiablevariable.ModifiableVariable;
@@ -68,10 +69,12 @@ public class ModifiableByte extends ModifiableVariable<Byte> implements Serializ
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (!(o instanceof ModifiableByte))
+        }
+        if (!(o instanceof ModifiableByte)) {
             return false;
+        }
 
         ModifiableByte that = (ModifiableByte) o;
 

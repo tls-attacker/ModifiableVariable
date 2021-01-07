@@ -6,18 +6,16 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import de.rub.nds.modifiablevariable.util.ByteArrayAdapter;
-
 import java.util.Arrays;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement
 @XmlType(propOrder = { "prependPayload", "payload", "appendPayload", "insert", "insertPosition", "modificationFilter" })
@@ -163,9 +161,9 @@ public class ByteArrayPayloadModification extends VariableModification<byte[]> {
     @Override
     public String toString() {
         return "ByteArrayPayloadModification{" + "prependPayload=" + ArrayConverter.bytesToHexString(prependPayload)
-                + ", payload=" + ArrayConverter.bytesToHexString(payload) + ", appendPayload="
-                + ArrayConverter.bytesToHexString(appendPayload) + ", insert=" + insert + ", insertPosition="
-                + insertPosition + '}';
+            + ", payload=" + ArrayConverter.bytesToHexString(payload) + ", appendPayload="
+            + ArrayConverter.bytesToHexString(appendPayload) + ", insert=" + insert + ", insertPosition="
+            + insertPosition + '}';
     }
 
 }

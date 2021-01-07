@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.serialization;
 
 import de.rub.nds.modifiablevariable.VariableModification;
@@ -57,7 +58,8 @@ public class ByteArraySerializationTest {
         result = null;
 
         writer = new StringWriter();
-        context = JAXBContext.newInstance(ModifiableByteArray.class, ByteArrayDeleteModification.class,
+        context =
+            JAXBContext.newInstance(ModifiableByteArray.class, ByteArrayDeleteModification.class,
                 ByteArrayExplicitValueModification.class, ByteArrayInsertModification.class,
                 ByteArrayXorModification.class);
         m = context.createMarshaller();

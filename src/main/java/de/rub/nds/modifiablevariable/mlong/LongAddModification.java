@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.mlong;
 
 import de.rub.nds.modifiablevariable.VariableModification;
@@ -18,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "summand", "modificationFilter" })
 public class LongAddModification extends VariableModification<Long> {
 
-    private final static int MAX_ADD_MODIFIER = 32;
+    private static final int MAX_ADD_MODIFIER = 32;
 
     private Long summand;
 

@@ -6,11 +6,13 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.bytearray;
+
+import static de.rub.nds.modifiablevariable.util.ArrayConverter.bytesToHexString;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import static de.rub.nds.modifiablevariable.util.ArrayConverter.bytesToHexString;
 import java.util.Arrays;
 import java.util.Random;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -23,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ByteArrayDeleteModification extends VariableModification<byte[]> {
 
-    private final static int MAX_MODIFIER_LENGTH = 32;
+    private static final int MAX_MODIFIER_LENGTH = 32;
 
     private int count;
 
@@ -54,7 +56,7 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
         final int endPosition = start + count;
         if ((endPosition) > input.length) {
             LOGGER.debug(String.format("Bytes %d..%d cannot be deleted from {%s} of length %d", start, endPosition,
-                    bytesToHexString(input), input.length));
+                bytesToHexString(input), input.length));
             return input;
         }
         if (count <= 0) {

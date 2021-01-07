@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable;
 
 import de.rub.nds.modifiablevariable.filter.AccessModificationFilter;
@@ -30,9 +31,8 @@ public abstract class VariableModification<E> {
     protected static final Logger LOGGER = LogManager.getLogger(VariableModification.class);
 
     /**
-     * In specific cases it is possible to filter out some modifications based
-     * on given rules. ModificationFilter is responsible for validating if the
-     * modification can be executed.
+     * In specific cases it is possible to filter out some modifications based on given rules. ModificationFilter is
+     * responsible for validating if the modification can be executed.
      */
     @XmlElements(value = { @XmlElement(type = AccessModificationFilter.class, name = "AccessModificationFilter") })
     private ModificationFilter modificationFilter = null;
@@ -52,11 +52,10 @@ public abstract class VariableModification<E> {
     public abstract VariableModification<E> getModifiedCopy();
 
     /**
-     * Debugging modified variables. Getting stack trace can be time consuming,
-     * thus we use isDebugEnabled() function
+     * Debugging modified variables. Getting stack trace can be time consuming, thus we use isDebugEnabled() function
      *
      * @param value
-     *            variable modification that is going to be debugged
+     * variable modification that is going to be debugged
      */
     protected void debug(E value) {
         if (LOGGER.isDebugEnabled()) {
@@ -74,7 +73,7 @@ public abstract class VariableModification<E> {
                 valueString = value.toString();
             }
             LOGGER.debug("Using {} in function:\n  {}\n  New value: {}", this.getClass().getSimpleName(), stack[index],
-                    valueString);
+                valueString);
         }
     }
 

@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.VariableModification;
@@ -21,7 +22,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BigIntegerShiftLeftModification extends VariableModification<BigInteger> {
 
-    private final static int MAX_SHIFT_LENGTH = 32;
+    private static final int MAX_SHIFT_LENGTH = 32;
 
     private int shift;
 

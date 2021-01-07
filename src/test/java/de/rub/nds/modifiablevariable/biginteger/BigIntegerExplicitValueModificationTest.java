@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package de.rub.nds.modifiablevariable.biginteger;
 
 import java.math.BigInteger;
@@ -40,32 +41,28 @@ public class BigIntegerExplicitValueModificationTest {
     }
 
     /**
-     * Test of modifyImplementationHook method, of class
-     * BigIntegerExplicitValueModification.
+     * Test of modifyImplementationHook method, of class BigIntegerExplicitValueModification.
      */
     @Test
     public void testModifyImplementationHook() {
     }
 
     /**
-     * Test of getExplicitValue method, of class
-     * BigIntegerExplicitValueModification.
+     * Test of getExplicitValue method, of class BigIntegerExplicitValueModification.
      */
     @Test
     public void testGetExplicitValue() {
     }
 
     /**
-     * Test of setExplicitValue method, of class
-     * BigIntegerExplicitValueModification.
+     * Test of setExplicitValue method, of class BigIntegerExplicitValueModification.
      */
     @Test
     public void testSetExplicitValue() {
     }
 
     /**
-     * Test of getModifiedCopy method, of class
-     * BigIntegerExplicitValueModification.
+     * Test of getModifiedCopy method, of class BigIntegerExplicitValueModification.
      */
     @Test
     public void testGetModifiedCopy() {

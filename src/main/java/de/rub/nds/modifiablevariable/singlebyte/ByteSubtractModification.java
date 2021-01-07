@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.singlebyte;
 
 import de.rub.nds.modifiablevariable.VariableModification;
@@ -18,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "subtrahend", "modificationFilter" })
 public class ByteSubtractModification extends VariableModification<Byte> {
 
-    private final static int MAX_SUBTRACT_MODIFIER = 16;
+    private static final int MAX_SUBTRACT_MODIFIER = 16;
 
     private Byte subtrahend;
 
