@@ -95,7 +95,6 @@
             <version>3.11</version>
             <type>jar</type>
         </dependency>
-        </dependency>
     </dependencies>
     <build>
         <plugins>
