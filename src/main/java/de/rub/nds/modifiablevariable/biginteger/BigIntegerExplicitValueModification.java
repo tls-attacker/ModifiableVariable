@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.VariableModification;
@@ -22,7 +23,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BigIntegerExplicitValueModification extends VariableModification<BigInteger> {
 
-    private final static int MAX_EXPLICIT_LENGTH = 8;
+    private static final int MAX_EXPLICIT_LENGTH = 8;
 
     private BigInteger explicitValue;
 
@@ -53,7 +54,7 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
             return new BigIntegerExplicitValueModification(explicitValue.add(new BigInteger(MAX_EXPLICIT_LENGTH, r)));
         } else {
             return new BigIntegerExplicitValueModification(
-                    explicitValue.subtract(new BigInteger(MAX_EXPLICIT_LENGTH, r)));
+                explicitValue.subtract(new BigInteger(MAX_EXPLICIT_LENGTH, r)));
         }
     }
 

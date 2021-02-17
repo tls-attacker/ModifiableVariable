@@ -6,26 +6,30 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import java.util.Arrays;
 import java.util.Random;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement
 @XmlType(propOrder = { "bytesToInsert", "startPosition", "modificationFilter" })
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ByteArrayInsertModification extends VariableModification<byte[]> {
 
-    private final static int MAX_EXPLICIT_VALUE = 256;
+    private static final int MAX_EXPLICIT_VALUE = 256;
 
-    private final static int MAX_INSERT_MODIFIER = 32;
+    private static final int MAX_INSERT_MODIFIER = 32;
 
+    @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] bytesToInsert;
 
     private int startPosition;
@@ -55,7 +59,7 @@ public class ByteArrayInsertModification extends VariableModification<byte[]> {
         }
         if (startPosition > input.length) {
             LOGGER.debug("Trying to insert behind the Array. ArraySize:" + input.length + " Insert Position:"
-                    + startPosition);
+                + startPosition);
             return input;
         }
         byte[] ret1 = Arrays.copyOf(input, start);
@@ -137,7 +141,7 @@ public class ByteArrayInsertModification extends VariableModification<byte[]> {
     @Override
     public String toString() {
         return "ByteArrayInsertModification{" + "bytesToInsert=" + ArrayConverter.bytesToHexString(bytesToInsert)
-                + ", startPosition=" + startPosition + '}';
+            + ", startPosition=" + startPosition + '}';
     }
 
 }

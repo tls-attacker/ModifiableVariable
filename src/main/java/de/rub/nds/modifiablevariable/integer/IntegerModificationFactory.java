@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.integer;
 
 import de.rub.nds.modifiablevariable.FileConfigurationException;
@@ -132,8 +133,9 @@ public class IntegerModificationFactory {
             case 6:
                 vm = explicitValueFromFile(random.nextInt(MAX_MODIFICATION_VALUE));
                 return vm;
+            default:
+                return vm;
         }
-        return vm;
     }
 
     private IntegerModificationFactory() {

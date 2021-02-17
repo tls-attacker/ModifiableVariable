@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.integer;
 
 import de.rub.nds.modifiablevariable.VariableModification;
@@ -18,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "explicitValue", "modificationFilter" })
 public class IntegerExplicitValueModification extends VariableModification<Integer> {
 
-    private final static int MAX_VALUE_MODIFIER = 256;
+    private static final int MAX_VALUE_MODIFIER = 256;
 
     private Integer explicitValue;
 

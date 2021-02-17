@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package de.rub.nds.modifiablevariable.bytearray;
 
 import org.junit.Before;
@@ -41,8 +42,7 @@ public class ByteArrayDeleteModificationTest {
     }
 
     /**
-     * Test of modifyImplementationHook method, of class
-     * ByteArrayDeleteModification.
+     * Test of modifyImplementationHook method, of class ByteArrayDeleteModification.
      */
     @Test
     public void testModifyImplementationHook() {

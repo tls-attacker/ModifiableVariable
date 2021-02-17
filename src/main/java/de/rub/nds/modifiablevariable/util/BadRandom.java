@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.util;
 
 import java.security.Provider;
@@ -18,36 +19,36 @@ import java.util.Random;
  */
 public class BadRandom extends SecureRandom {
 
-    private Random r;
+    private Random random;
 
     public BadRandom() {
-        r = new Random(0);
+        random = new Random(0);
     }
 
-    public BadRandom(Random r, byte[] seed) {
-        this.r = r;
+    public BadRandom(Random random, byte[] seed) {
+        this.random = random;
     }
 
-    public BadRandom(Random r, SecureRandomSpi secureRandomSpi, Provider provider) {
-        this.r = r;
+    public BadRandom(Random random, SecureRandomSpi secureRandomSpi, Provider provider) {
+        this.random = random;
     }
 
     @Override
     public byte[] generateSeed(int numBytes) {
         byte[] ray = new byte[numBytes];
-        r.nextBytes(ray);
+        random.nextBytes(ray);
         return ray;
     }
 
     @Override
     public synchronized void nextBytes(byte[] bytes) {
-        r.nextBytes(bytes);
+        random.nextBytes(bytes);
 
     }
 
     @Override
     public void setSeed(long seed) {
-        r = new Random(seed);
+        random = new Random(seed);
     }
 
     @Override
@@ -62,37 +63,37 @@ public class BadRandom extends SecureRandom {
 
     @Override
     public int nextInt() {
-        return r.nextInt();
+        return random.nextInt();
     }
 
     @Override
     public int nextInt(int n) {
-        return r.nextInt(n);
+        return random.nextInt(n);
     }
 
     @Override
     public long nextLong() {
-        return r.nextLong();
+        return random.nextLong();
     }
 
     @Override
     public boolean nextBoolean() {
-        return r.nextBoolean();
+        return random.nextBoolean();
     }
 
     @Override
     public float nextFloat() {
-        return r.nextFloat();
+        return random.nextFloat();
     }
 
     @Override
     public double nextDouble() {
-        return r.nextDouble();
+        return random.nextDouble();
     }
 
     @Override
     public synchronized double nextGaussian() {
-        return r.nextGaussian();
+        return random.nextGaussian();
     }
 
 }

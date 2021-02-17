@@ -6,24 +6,28 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import java.util.Arrays;
 import java.util.Random;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement
 @XmlType(propOrder = { "explicitValue", "modificationFilter" })
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ByteArrayExplicitValueModification extends VariableModification<byte[]> {
 
-    private final static int MAX_EXPLICIT_VALUE = 256;
+    private static final int MAX_EXPLICIT_VALUE = 256;
 
+    @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] explicitValue;
 
     public ByteArrayExplicitValueModification() {
@@ -50,7 +54,7 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
     @Override
     public String toString() {
         return "ByteArrayExplicitValueModification{" + "explicitValue="
-                + ArrayConverter.bytesToHexString(explicitValue) + '}';
+            + ArrayConverter.bytesToHexString(explicitValue) + '}';
     }
 
     @Override

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package de.rub.nds.modifiablevariable.biginteger;
 
 import java.math.BigInteger;
@@ -43,8 +44,7 @@ public class BigIntegerSubtractModificationTest {
     }
 
     /**
-     * Test of modifyImplementationHook method, of class
-     * BigIntegerSubtractModification.
+     * Test of modifyImplementationHook method, of class BigIntegerSubtractModification.
      */
     @Test
     public void testModifyImplementationHook() {

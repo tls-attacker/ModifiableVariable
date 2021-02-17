@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.FileConfigurationException;
@@ -90,26 +91,28 @@ public class BigIntegerModificationFactory {
     /*
      * Interactive modification
      */
-    private static BigIntegerInteractiveModification.InteractiveBigIntegerModification standardInteractiveModification = new BigIntegerInteractiveModification.InteractiveBigIntegerModification() {
-        private BigInteger value;
+    private static BigIntegerInteractiveModification.InteractiveBigIntegerModification standardInteractiveModification =
+        new BigIntegerInteractiveModification.InteractiveBigIntegerModification() {
+            private BigInteger value;
 
-        @Override
-        public BigInteger modify(BigInteger oldVal) {
-            if (value == null) {
-                System.out.println("Enter new value for BigInt: ");
-                value = new Scanner(System.in).nextBigInteger();
+            @Override
+            public BigInteger modify(BigInteger oldVal) {
+                if (value == null) {
+                    System.out.println("Enter new value for BigInt: ");
+                    value = new Scanner(System.in).nextBigInteger();
+                }
+                return value;
+
             }
-            return value;
-
-        }
-    };
+        };
 
     public static void setStandardInteractiveModification(
-            BigIntegerInteractiveModification.InteractiveBigIntegerModification modification) {
+        BigIntegerInteractiveModification.InteractiveBigIntegerModification modification) {
         standardInteractiveModification = modification;
     }
 
-    protected static BigIntegerInteractiveModification.InteractiveBigIntegerModification getStandardInteractiveModification() {
+    protected static BigIntegerInteractiveModification.InteractiveBigIntegerModification
+        getStandardInteractiveModification() {
         return standardInteractiveModification;
     }
 
@@ -166,8 +169,10 @@ public class BigIntegerModificationFactory {
             case 6:
                 vm = explicitValueFromFile(MAX_MODIFICATION_VALUE);
                 return vm;
+            default: // unreachable but included for checkstyle
+                vm = explicitValueFromFile(MAX_MODIFICATION_VALUE);
+                return vm;
         }
-        return vm;
     }
 
     private BigIntegerModificationFactory() {

@@ -1,7 +1,7 @@
 # Modifiable Variables
 
 ![licence](https://img.shields.io/badge/License-Apachev2-brightgreen.svg)
-[![travis](https://travis-ci.org/RUB-NDS/ModifiableVariable.svg?branch=master)](https://travis-ci.org/RUB-NDS/ModifiableVariable)
+[![jenkins](https://hydrogen.cloud.nds.rub.de/buildStatus/icon.svg?job=ModifiableVariable)](https://hydrogen.cloud.nds.rub.de/job/ModifiableVariable/)
 
 Modifiable variable allows one to set modifications to basic types after or before their values are actually determined. When their actual values are determined and one tries to access the value via getters, the original value will be returned in a modified form accordingly.
 
@@ -41,8 +41,8 @@ If you want to use modifiable variables in your maven projects, you can include 
 # Supported data types
 The following modifiable variables are provided in this package with their modifications:
 * ModifiableBigInteger: add, explicitValue, shiftLeft, shiftRight, subtract, xor
-* ModifiableBoolean: explicitValue, toogle
-* ModifiableByteArray: delete, duplicate, explicitValue, insert, suffle, xor
+* ModifiableBoolean: explicitValue, toggle
+* ModifiableByteArray: delete, duplicate, explicitValue, insert, shuffle, xor
 * ModifiableInteger: add, explicitValue, shiftLeft, shiftRight, subtract, xor
 * ModifiableLong: add, explicitValue, subtract, xor
 * ModifiableByte: add, explicitValue, subtract, xor
@@ -205,9 +205,9 @@ ModifiableLong and ModifiableBytes support the following operations: add, explic
     </booleanExplicitValueModification>
 ```
 
-- Toogle:
+- Toggle:
 ```xml
-    <booleanToogleModification/>
+    <booleanToggleModification/>
 ```
 
 # String

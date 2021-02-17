@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
@@ -38,8 +39,8 @@ public class ModifiableByteArrayTest {
     public void setUp() {
         originalValue = new byte[] { (byte) 0, (byte) 1, (byte) 2, (byte) 3, (byte) 4, (byte) 5, (byte) 6 };
         modification1 = new byte[] { (byte) 2, (byte) 3 };
-        modification2 = new byte[] { (byte) 2, (byte) 1, (byte) 0, (byte) 1, (byte) 2, (byte) 3, (byte) 4, (byte) 5,
-                (byte) 6 };
+        modification2 =
+            new byte[] { (byte) 2, (byte) 1, (byte) 0, (byte) 1, (byte) 2, (byte) 3, (byte) 4, (byte) 5, (byte) 6 };
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
     }
@@ -177,8 +178,8 @@ public class ModifiableByteArrayTest {
             }
         }
 
-        VariableModification<byte[]> modifier = ByteArrayModificationFactory
-                .insert(modification1, originalValue.length);
+        VariableModification<byte[]> modifier =
+            ByteArrayModificationFactory.insert(modification1, originalValue.length);
         start.setModification(modifier);
 
         LOGGER.debug("Expected: " + ArrayConverter.bytesToHexString(expResult));
@@ -192,7 +193,7 @@ public class ModifiableByteArrayTest {
     @Test
     public void testDeleteLastBytes() {
         LOGGER.info("testDeleteLastBytes");
-        // Löscht modification lenght viele bytes
+        // Deletes modification length many bytes
         Assume.assumeTrue(modification1.length < originalValue.length);
         int len = originalValue.length - modification1.length;
         byte[] expResult = new byte[len];
@@ -212,7 +213,7 @@ public class ModifiableByteArrayTest {
     @Test
     public void testDeleteFirstBytes() {
         LOGGER.info("testDeleteFirstBytes");
-        // Löscht modification lenght viele bytes
+        // Deletes modification length many bytes
         Assume.assumeTrue(modification1.length < originalValue.length);
 
         int len = originalValue.length;
@@ -236,7 +237,7 @@ public class ModifiableByteArrayTest {
     @Test
     public void testDeleteBytes() {
         LOGGER.info("testDeleteBytes");
-        // versucht randcases abzudecken
+        // try to cover edge cases
         LOGGER.debug("Testing Delete all Bytes");
         int len = originalValue.length;
         byte[] expResult = new byte[0];
@@ -284,11 +285,11 @@ public class ModifiableByteArrayTest {
     @Test
     public void testInsertBytes() {
         LOGGER.info("testInsertBytes");
-        // Insert negativ position, insert 0 bytes, insert zu weit
+        // Insert negative position, insert 0 bytes, insert too far
         Assume.assumeTrue(modification1.length < originalValue.length);
         LOGGER.debug("Inserting negative Position");
-        VariableModification<byte[]> modifier = ByteArrayModificationFactory.insert(modification1, -2
-                * originalValue.length);
+        VariableModification<byte[]> modifier =
+            ByteArrayModificationFactory.insert(modification1, -2 * originalValue.length);
         start.setModification(modifier);
         assertArrayEquals(start.getValue(), originalValue);
         start = new ModifiableByteArray();
@@ -389,11 +390,11 @@ public class ModifiableByteArrayTest {
         toTest = ModifiableVariableFactory.safelySetValue(toTest, new byte[] { 0x00, 0x11, 0x22, 0x33, 0x44 });
         assertEquals("Original byte value is: 00 11 22 33 44", toTest.toString());
 
-        VariableModification modificatoin = new ByteArrayExplicitValueModification(new byte[] { 0x00, 0x01, 0x02, 0x03,
-                0x04, 0x05, 0x06, 0x07, 0x08 });
-        toTest.setModification(modificatoin);
+        VariableModification modification =
+            new ByteArrayExplicitValueModification(new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08 });
+        toTest.setModification(modification);
         assertEquals("Actual byte value is: 00 01 02 03 04 05 06 07 08\nOriginal value was: 00 11 22 33 44",
-                toTest.toString());
+            toTest.toString());
     }
 
     @Test

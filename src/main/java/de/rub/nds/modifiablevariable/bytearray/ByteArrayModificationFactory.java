@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.FileConfigurationException;
@@ -51,9 +52,9 @@ public class ByteArrayModificationFactory {
     /**
      *
      * @param xor
-     *            bytes to xor
+     * bytes to xor
      * @param startPosition
-     *            negative numbers mean that the position is taken from the end
+     * negative numbers mean that the position is taken from the end
      * @return variable modification
      */
     public static VariableModification<byte[]> xor(final byte[] xor, final int startPosition) {
@@ -63,7 +64,7 @@ public class ByteArrayModificationFactory {
     /**
      *
      * @param payload
-     *            bytes are set as value
+     * bytes are set as value
      * @return variable modification
      */
     public static VariableModification<byte[]> payload(final byte[] payload) {
@@ -74,9 +75,9 @@ public class ByteArrayModificationFactory {
      * *
      *
      * @param bytesToInsert
-     *            bytes to xor
+     * bytes to xor
      * @param startPosition
-     *            negative numbers mean that the position is taken from the end
+     * negative numbers mean that the position is taken from the end
      * @return variable modification
      */
     public static VariableModification<byte[]> insert(final byte[] bytesToInsert, final int startPosition) {
@@ -87,9 +88,9 @@ public class ByteArrayModificationFactory {
      * * Deletes $count bytes from the input array beginning at $startPosition
      *
      * @param startPosition
-     *            negative numbers mean that the position is taken from the end
+     * negative numbers mean that the position is taken from the end
      * @param count
-     *            number of bytes to be deleted
+     * number of bytes to be deleted
      * @return variable modification
      */
     public static VariableModification<byte[]> delete(final int startPosition, final int count) {
@@ -119,7 +120,7 @@ public class ByteArrayModificationFactory {
      * Shuffles the bytes in the array, given a specified array of positions.
      *
      * @param shuffle
-     *            positions that define shuffling
+     * positions that define shuffling
      * @return shuffling variable modification
      */
     public static VariableModification<byte[]> shuffle(final byte[] shuffle) {
@@ -207,8 +208,9 @@ public class ByteArrayModificationFactory {
                 random.nextBytes(shuffle);
                 vm = shuffle(shuffle);
                 return vm;
+            default:
+                return vm;
         }
-        return vm;
     }
 
     private ByteArrayModificationFactory() {

@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.filter;
 
 import de.rub.nds.modifiablevariable.ModificationFilter;
@@ -40,8 +41,7 @@ public class ModificationApprovalTest {
     }
 
     /**
-     * Test filter modification. The first and third modification are filtered
-     * out so that no modification is visible.
+     * Test filter modification. The first and third modification are filtered out so that no modification is visible.
      */
     @Test
     public void testAdd() {

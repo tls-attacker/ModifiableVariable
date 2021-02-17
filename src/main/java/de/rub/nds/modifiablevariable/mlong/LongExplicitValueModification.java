@@ -6,6 +6,7 @@
  * Licensed under Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 package de.rub.nds.modifiablevariable.mlong;
 
 import de.rub.nds.modifiablevariable.VariableModification;
@@ -18,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "explicitValue", "modificationFilter" })
 public class LongExplicitValueModification extends VariableModification<Long> {
 
-    private final static int MAX_EXPLICIT_MODIFIER = 256;
+    private static final int MAX_EXPLICIT_MODIFIER = 256;
 
     private Long explicitValue;
 
