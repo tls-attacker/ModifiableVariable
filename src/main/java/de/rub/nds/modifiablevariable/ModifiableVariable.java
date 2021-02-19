@@ -11,6 +11,7 @@ package de.rub.nds.modifiablevariable;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerAddModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerExplicitValueModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerInteractiveModification;
+import de.rub.nds.modifiablevariable.biginteger.BigIntegerMultiplyModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerShiftLeftModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerShiftRightModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerSubtractModification;
@@ -75,6 +76,7 @@ public abstract class ModifiableVariable<E> implements Serializable {
             @XmlElement(type = BigIntegerExplicitValueModification.class, name = "BigIntegerExplicitValueModification"),
             @XmlElement(type = BigIntegerAddModification.class, name = "BigIntegerAddModification"),
             @XmlElement(type = BigIntegerInteractiveModification.class, name = "BigIntegerInteractiveModification"),
+            @XmlElement(type = BigIntegerMultiplyModification.class, name = "BigIntegerMultiplyModification"),
             @XmlElement(type = BooleanToggleModification.class, name = "BooleanToggleModification"),
             @XmlElement(type = BooleanExplicitValueModification.class, name = "BooleanExplicitValueModification"),
             @XmlElement(type = ByteArrayXorModification.class, name = "ByteArrayXorModification"),
