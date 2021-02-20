@@ -57,6 +57,10 @@ public class BigIntegerModificationFactory {
         return new BigIntegerShiftRightModification(shift);
     }
 
+    public static BigIntegerMultiplyModification multiply(final BigInteger factor) {
+        return new BigIntegerMultiplyModification(factor);
+    }
+
     public static VariableModification<BigInteger> sub(final String subtrahend) {
         return sub(new BigInteger(subtrahend));
     }
