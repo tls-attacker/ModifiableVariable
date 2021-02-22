@@ -65,9 +65,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class ModifiableVariable<E> implements Serializable {
 
-    @XmlTransient
-    protected Boolean autoformat = null;
-
     @XmlElements(value = { @XmlElement(type = BigIntegerXorModification.class, name = "BigIntegerXorModification"),
         @XmlElement(type = BigIntegerSubtractModification.class, name = "BigIntegerSubtractModification"),
         @XmlElement(type = BigIntegerShiftRightModification.class, name = "BigIntegerShiftRightModification"),
@@ -107,14 +104,6 @@ public abstract class ModifiableVariable<E> implements Serializable {
 
     public ModifiableVariable() {
 
-    }
-
-    public Boolean getAutoformat() {
-        return autoformat;
-    }
-
-    public void setAutoformat(Boolean autoformat) {
-        this.autoformat = autoformat;
     }
 
     public void setModification(VariableModification<E> modification) {
