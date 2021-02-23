@@ -178,6 +178,10 @@ public class Modifiable {
         return getModifiableBigIntegerWithModification(BigIntegerModificationFactory.shiftRight(i));
     }
 
+    public static ModifiableBigInteger multiplyBigInteger(BigInteger i) {
+        return getModifiableBigIntegerWithModification(BigIntegerModificationFactory.multiply(i));
+    }
+
     public static ModifiableInteger shiftRight(Integer i) {
         return getModifiableIntegerWithModification(IntegerModificationFactory.shiftRight(i));
     }
