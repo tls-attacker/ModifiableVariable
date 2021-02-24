@@ -150,7 +150,6 @@
                     <mapping>
                         <java>JAVADOC_STYLE</java>
                     </mapping>
-
                 </configuration>
                 <executions>
                     <execution>
