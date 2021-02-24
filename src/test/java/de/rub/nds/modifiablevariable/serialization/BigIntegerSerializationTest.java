@@ -1,10 +1,10 @@
 /**
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2017 Ruhr University Bochum / Hackmanit GmbH
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
  *
- * Licensed under Apache License 2.0
- * http://www.apache.org/licenses/LICENSE-2.0
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
 
 package de.rub.nds.modifiablevariable.serialization;
@@ -58,15 +58,14 @@ public class BigIntegerSerializationTest {
         result = null;
 
         writer = new StringWriter();
-        context =
-            JAXBContext.newInstance(ModifiableBigInteger.class, BigIntegerAddModification.class,
-                ByteArrayModificationFactory.class, BigIntegerInteractiveModification.class);
+        context = JAXBContext.newInstance(ModifiableBigInteger.class, BigIntegerAddModification.class,
+            ByteArrayModificationFactory.class, BigIntegerInteractiveModification.class);
         m = context.createMarshaller();
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         um = context.createUnmarshaller();
 
-        BigIntegerModificationFactory
-            .setStandardInteractiveModification(new BigIntegerInteractiveModification.InteractiveBigIntegerModification() {
+        BigIntegerModificationFactory.setStandardInteractiveModification(
+            new BigIntegerInteractiveModification.InteractiveBigIntegerModification() {
                 public BigInteger modify(BigInteger oldVal) {
                     return new BigInteger("12");
                 }
