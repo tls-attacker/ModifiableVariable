@@ -1,10 +1,10 @@
 /**
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2017 Ruhr University Bochum / Hackmanit GmbH
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
  *
- * Licensed under Apache License 2.0
- * http://www.apache.org/licenses/LICENSE-2.0
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
 
 package de.rub.nds.modifiablevariable.util;
@@ -27,9 +27,9 @@ public class ModifiableVariableAnalyzer {
     /**
      * Lists all the modifiable variables declared in the given class
      * 
-     * @param object
-     * Analyzed object
-     * @return A list of modifiable variable fields for the given object
+     * @param  object
+     *                Analyzed object
+     * @return        A list of modifiable variable fields for the given object
      */
     public static List<Field> getAllModifiableVariableFields(Object object) {
         return ReflectionHelper.getFieldsUpTo(object.getClass(), null, ModifiableVariable.class);
@@ -38,9 +38,9 @@ public class ModifiableVariableAnalyzer {
     /**
      * Returns a random field representing a modifiable variable in the given class
      * 
-     * @param object
-     * Analyzed object
-     * @return A random field representing a modifiable variable
+     * @param  object
+     *                Analyzed object
+     * @return        A random field representing a modifiable variable
      */
     public static Field getRandomModifiableVariableField(Object object) {
         List<Field> fields = getAllModifiableVariableFields(object);
@@ -51,9 +51,9 @@ public class ModifiableVariableAnalyzer {
     /**
      * Returns true if the given object contains a modifiable variable
      * 
-     * @param object
-     * Analyzed object
-     * @return True if the object contains a modifiable variable.
+     * @param  object
+     *                Analyzed object
+     * @return        True if the object contains a modifiable variable.
      */
     public static boolean isModifiableVariableHolder(Object object) {
         List<Field> fields = getAllModifiableVariableFields(object);
@@ -63,10 +63,10 @@ public class ModifiableVariableAnalyzer {
     /**
      * Returns a list of all ModifiableVariableFields (object-field representations) for a given object.
      * 
-     * @param object
-     * Analyzed object
-     * @return A list of objects with their modifiable variable fields (only objects with modifiable variables are
-     * selected)
+     * @param  object
+     *                Analyzed object
+     * @return        A list of objects with their modifiable variable fields (only objects with modifiable variables
+     *                are selected)
      */
     public static List<ModifiableVariableField> getAllModifiableVariableFieldsRecursively(Object object) {
         List<ModifiableVariableListHolder> holders = getAllModifiableVariableHoldersRecursively(object);
@@ -82,10 +82,10 @@ public class ModifiableVariableAnalyzer {
     /**
      * Returns a list of all the modifiable variable holders in the object, including this instance.
      * 
-     * @param object
-     * Analyzed object
-     * @return A list of objects with their modifiable variable fields (only objects with modifiable variables are
-     * selected)
+     * @param  object
+     *                Analyzed object
+     * @return        A list of objects with their modifiable variable fields (only objects with modifiable variables
+     *                are selected)
      */
     public static List<ModifiableVariableListHolder> getAllModifiableVariableHoldersRecursively(Object object) {
         List<ModifiableVariableListHolder> holders = new LinkedList<>();
@@ -116,10 +116,10 @@ public class ModifiableVariableAnalyzer {
     }
 
     /**
-     * @param list
-     * Analyzed list
-     * @return A list of objects with their modifiable variable fields (only objects with modifiable variables are
-     * selected)
+     * @param  list
+     *              Analyzed list
+     * @return      A list of objects with their modifiable variable fields (only objects with modifiable variables are
+     *              selected)
      */
     public static List<ModifiableVariableListHolder> getAllModifiableVariableHoldersFromList(List<Object> list) {
         List<ModifiableVariableListHolder> result = new LinkedList<>();
@@ -134,10 +134,10 @@ public class ModifiableVariableAnalyzer {
     }
 
     /**
-     * @param array
-     * Analyzed array of objects
-     * @return A list of objects with their modifiable variable fields (only objects with modifiable variables are
-     * selected)
+     * @param  array
+     *               Analyzed array of objects
+     * @return       A list of objects with their modifiable variable fields (only objects with modifiable variables are
+     *               selected)
      */
     public static List<ModifiableVariableListHolder> getAllModifiableVariableHoldersFromArray(Object[] array) {
         List<ModifiableVariableListHolder> result = new LinkedList<>();
