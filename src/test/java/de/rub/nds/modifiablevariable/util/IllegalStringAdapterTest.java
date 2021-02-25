@@ -16,10 +16,11 @@
 
 package de.rub.nds.modifiablevariable.util;
 
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -27,11 +28,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author ic0ns
- */
 public class IllegalStringAdapterTest {
+
+    private Logger LOGGER = LogManager.getLogger();
 
     public IllegalStringAdapterTest() {
     }
@@ -62,14 +61,13 @@ public class IllegalStringAdapterTest {
         for (int i = 0; i < data.length; i++) {
             data[i] = (byte) i;
         }
-        // System.out.println("Plain: " + new String(data, StandardCharsets.US_ASCII));
-        System.out.println(Arrays.toString(new String(data, StandardCharsets.ISO_8859_1)
-            .getBytes(StandardCharsets.ISO_8859_1)));
+        LOGGER.info("Bytes :"
+            + Arrays.toString(new String(data, StandardCharsets.ISO_8859_1).getBytes(StandardCharsets.ISO_8859_1)));
         String marshal = instance.marshal(new String(data, StandardCharsets.ISO_8859_1));
-        System.out.println("Marshal: " + marshal);
+        LOGGER.info("Marshal: " + marshal);
         String unmarshal = instance.unmarshal(marshal);
-        System.out.println(StringEscapeUtils.unescapeXml(unmarshal));
-        System.out.println("Unmarshal: " + unmarshal);
+        LOGGER.info("Unescaped:" + StringEscapeUtils.unescapeXml(unmarshal));
+        LOGGER.info("Unmarshal: " + unmarshal);
         assertArrayEquals(data, unmarshal.getBytes(StandardCharsets.ISO_8859_1));
     }
 }
