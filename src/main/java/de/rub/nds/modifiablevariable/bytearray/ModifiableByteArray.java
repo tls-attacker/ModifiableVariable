@@ -25,7 +25,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class ModifiableByteArray extends ModifiableVariable<byte[]> implements Serializable {
 
     public ModifiableByteArray() {
-        autoformat = true;
     }
 
     private byte[] originalValue;
