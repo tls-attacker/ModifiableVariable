@@ -1,10 +1,10 @@
 /**
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2017 Ruhr University Bochum / Hackmanit GmbH
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
  *
- * Licensed under Apache License 2.0
- * http://www.apache.org/licenses/LICENSE-2.0
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
 
 package de.rub.nds.modifiablevariable.bytearray;
@@ -51,11 +51,11 @@ public class ByteArrayModificationFactory {
 
     /**
      *
-     * @param xor
-     * bytes to xor
-     * @param startPosition
-     * negative numbers mean that the position is taken from the end
-     * @return variable modification
+     * @param  xor
+     *                       bytes to xor
+     * @param  startPosition
+     *                       negative numbers mean that the position is taken from the end
+     * @return               variable modification
      */
     public static VariableModification<byte[]> xor(final byte[] xor, final int startPosition) {
         return new ByteArrayXorModification(xor, startPosition);
@@ -63,9 +63,9 @@ public class ByteArrayModificationFactory {
 
     /**
      *
-     * @param payload
-     * bytes are set as value
-     * @return variable modification
+     * @param  payload
+     *                 bytes are set as value
+     * @return         variable modification
      */
     public static VariableModification<byte[]> payload(final byte[] payload) {
         return new ByteArrayPayloadModification(payload);
@@ -74,11 +74,11 @@ public class ByteArrayModificationFactory {
     /**
      * *
      *
-     * @param bytesToInsert
-     * bytes to xor
-     * @param startPosition
-     * negative numbers mean that the position is taken from the end
-     * @return variable modification
+     * @param  bytesToInsert
+     *                       bytes to xor
+     * @param  startPosition
+     *                       negative numbers mean that the position is taken from the end
+     * @return               variable modification
      */
     public static VariableModification<byte[]> insert(final byte[] bytesToInsert, final int startPosition) {
         return new ByteArrayInsertModification(bytesToInsert, startPosition);
@@ -87,11 +87,11 @@ public class ByteArrayModificationFactory {
     /**
      * * Deletes $count bytes from the input array beginning at $startPosition
      *
-     * @param startPosition
-     * negative numbers mean that the position is taken from the end
-     * @param count
-     * number of bytes to be deleted
-     * @return variable modification
+     * @param  startPosition
+     *                       negative numbers mean that the position is taken from the end
+     * @param  count
+     *                       number of bytes to be deleted
+     * @return               variable modification
      */
     public static VariableModification<byte[]> delete(final int startPosition, final int count) {
         return new ByteArrayDeleteModification(startPosition, count);
@@ -119,9 +119,9 @@ public class ByteArrayModificationFactory {
     /**
      * Shuffles the bytes in the array, given a specified array of positions.
      *
-     * @param shuffle
-     * positions that define shuffling
-     * @return shuffling variable modification
+     * @param  shuffle
+     *                 positions that define shuffling
+     * @return         shuffling variable modification
      */
     public static VariableModification<byte[]> shuffle(final byte[] shuffle) {
         return new ByteArrayShuffleModification(shuffle);

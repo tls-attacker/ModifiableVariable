@@ -1,3 +1,11 @@
+/**
+ * ModifiableVariable - A Variable Concept for Runtime Modifications
+ *
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ *
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ */
 
 package de.rub.nds.modifiablevariable.util;
 
@@ -41,8 +49,8 @@ public class Modifiable {
         return modifiableInteger;
     }
 
-    private static ModifiableBigInteger getModifiableBigIntegerWithModification(
-        VariableModification<BigInteger> modification) {
+    private static ModifiableBigInteger
+        getModifiableBigIntegerWithModification(VariableModification<BigInteger> modification) {
         ModifiableBigInteger modifiableBigInteger = new ModifiableBigInteger();
         modifiableBigInteger.setModification(modification);
         return modifiableBigInteger;
@@ -176,6 +184,10 @@ public class Modifiable {
 
     public static ModifiableBigInteger shiftRightBigInteger(Integer i) {
         return getModifiableBigIntegerWithModification(BigIntegerModificationFactory.shiftRight(i));
+    }
+
+    public static ModifiableBigInteger multiplyBigInteger(BigInteger i) {
+        return getModifiableBigIntegerWithModification(BigIntegerModificationFactory.multiply(i));
     }
 
     public static ModifiableInteger shiftRight(Integer i) {

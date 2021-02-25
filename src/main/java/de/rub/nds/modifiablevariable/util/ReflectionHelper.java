@@ -1,10 +1,10 @@
 /**
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2017 Ruhr University Bochum / Hackmanit GmbH
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
  *
- * Licensed under Apache License 2.0
- * http://www.apache.org/licenses/LICENSE-2.0
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
 
 package de.rub.nds.modifiablevariable.util;
@@ -24,13 +24,13 @@ public class ReflectionHelper {
      * and not including {@code exclusiveParent}. Generally {@code Object.class} should be passed as
      * {@code exclusiveParent}.
      * 
-     * @param startClass
-     * the class whose fields should be retrieved
-     * @param exclusiveParent
-     * if not null, the base class of startClass whose fields should not be retrieved.
-     * @param filterClass
-     * class that should be used as a type filter
-     * @return list of fields included in the class and its ancestors
+     * @param  startClass
+     *                         the class whose fields should be retrieved
+     * @param  exclusiveParent
+     *                         if not null, the base class of startClass whose fields should not be retrieved.
+     * @param  filterClass
+     *                         class that should be used as a type filter
+     * @return                 list of fields included in the class and its ancestors
      */
     public static List<Field> getFieldsUpTo(Class<?> startClass, Class<?> exclusiveParent, Class<?> filterClass) {
         List<Field> currentClassFields;

@@ -1,10 +1,10 @@
 /**
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2017 Ruhr University Bochum / Hackmanit GmbH
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
  *
- * Licensed under Apache License 2.0
- * http://www.apache.org/licenses/LICENSE-2.0
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
 
 package de.rub.nds.modifiablevariable.biginteger;
@@ -56,6 +56,10 @@ public class BigIntegerModificationFactory {
 
     public static BigIntegerShiftRightModification shiftRight(final Integer shift) {
         return new BigIntegerShiftRightModification(shift);
+    }
+
+    public static BigIntegerMultiplyModification multiply(final BigInteger factor) {
+        return new BigIntegerMultiplyModification(factor);
     }
 
     public static VariableModification<BigInteger> sub(final String subtrahend) {

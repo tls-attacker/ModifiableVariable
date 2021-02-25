@@ -1,10 +1,10 @@
 /**
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2017 Ruhr University Bochum / Hackmanit GmbH
+ * Copyright 2014-2021 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
  *
- * Licensed under Apache License 2.0
- * http://www.apache.org/licenses/LICENSE-2.0
+ * Licensed under Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
 
 package de.rub.nds.modifiablevariable;
@@ -12,6 +12,7 @@ package de.rub.nds.modifiablevariable;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerAddModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerExplicitValueModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerInteractiveModification;
+import de.rub.nds.modifiablevariable.biginteger.BigIntegerMultiplyModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerShiftLeftModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerShiftRightModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerSubtractModification;
@@ -64,8 +65,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class ModifiableVariable<E> implements Serializable {
 
-    protected Boolean autoformat = null;
-
     @XmlElements(value = { @XmlElement(type = BigIntegerXorModification.class, name = "BigIntegerXorModification"),
         @XmlElement(type = BigIntegerSubtractModification.class, name = "BigIntegerSubtractModification"),
         @XmlElement(type = BigIntegerShiftRightModification.class, name = "BigIntegerShiftRightModification"),
@@ -73,6 +72,7 @@ public abstract class ModifiableVariable<E> implements Serializable {
         @XmlElement(type = BigIntegerExplicitValueModification.class, name = "BigIntegerExplicitValueModification"),
         @XmlElement(type = BigIntegerAddModification.class, name = "BigIntegerAddModification"),
         @XmlElement(type = BigIntegerInteractiveModification.class, name = "BigIntegerInteractiveModification"),
+        @XmlElement(type = BigIntegerMultiplyModification.class, name = "BigIntegerMultiplyModification"),
         @XmlElement(type = BooleanToggleModification.class, name = "BooleanToggleModification"),
         @XmlElement(type = BooleanExplicitValueModification.class, name = "BooleanExplicitValueModification"),
         @XmlElement(type = ByteArrayXorModification.class, name = "ByteArrayXorModification"),
@@ -105,14 +105,6 @@ public abstract class ModifiableVariable<E> implements Serializable {
 
     public ModifiableVariable() {
 
-    }
-
-    public Boolean getAutoformat() {
-        return autoformat;
-    }
-
-    public void setAutoformat(Boolean autoformat) {
-        this.autoformat = autoformat;
     }
 
     public void setModification(VariableModification<E> modification) {
