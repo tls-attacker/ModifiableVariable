@@ -13,6 +13,8 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  *
@@ -21,6 +23,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "explicitValue", "modificationFilter" })
 public class StringExplicitValueModification extends VariableModification<String> {
 
+    @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     private String explicitValue;
 
     public StringExplicitValueModification() {
