@@ -5,7 +5,34 @@
 
 Modifiable variable allows one to set modifications to basic types after or before their values are actually determined. When their actual values are determined and one tries to access the value via getters, the original value will be returned in a modified form accordingly.
 
-The best way to present the functionality of this concept is by means of a simple example:
+#Installation
+
+In order to compile and use TLS-Attacker, you need to have Java and Maven installed. On Ubuntu you can install Maven by running:
+```bash
+$ sudo apt-get install maven
+```
+ModifiableVariable currently needs Java JDK 8 to run. If you have the correct Java version you can install
+ ModifiableVariable as follows.
+```bash
+$ git clone https://github.com/tls-attacker/ModifiableVariable.git
+$ cd ModifiableVariable
+$ mvn clean install
+```
+
+If you want to use this project as a dependency, you do not have to compile it yourself and can include it in your pom
+.xml as follows.
+
+```xml
+<dependency>
+    <groupId>de.rub.nds</groupId>
+    <artifactId>ModifiableVariable</artifactId>
+    <version>3.0.0</version>
+</dependency>
+```
+
+#Usage
+
+The best way to present the functionality of ModifiableVariables is by means of a simple example:
 
 ```java
 ModifiableInteger i = new ModifiableInteger();
