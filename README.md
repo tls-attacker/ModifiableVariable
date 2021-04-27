@@ -7,7 +7,8 @@ Modifiable variable allows one to set modifications to basic types after or befo
 
 #Installation
 
-In order to compile and use TLS-Attacker, you need to have Java and Maven installed. On Ubuntu you can install Maven by running:
+In order to compile and use ModifiableVariable, you need to have Java and Maven installed. On Ubuntu you can install
+ Maven by running:
 ```bash
 $ sudo apt-get install maven
 ```
