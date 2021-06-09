@@ -5,7 +5,7 @@
 
 Modifiable variable allows one to set modifications to basic types after or before their values are actually determined. When their actual values are determined and one tries to access the value via getters, the original value will be returned in a modified form accordingly.
 
-#Installation
+# Installation
 
 In order to compile and use ModifiableVariable, you need to have Java and Maven installed. On Ubuntu you can install
  Maven by running:
@@ -31,7 +31,7 @@ If you want to use this project as a dependency, you do not have to compile it y
 </dependency>
 ```
 
-#Usage
+# Usage
 
 The best way to present the functionality of ModifiableVariables is by means of a simple example:
 
@@ -55,15 +55,6 @@ VariableModification<byte[]> modifier = ByteArrayModificationFactory.insert(new 
 ba.setOriginalValue(new byte[]{1, 4});
 ba.setModification(modifier);
 System.out.println(ArrayConverter.bytesToHexString(ba)); // 01 02 03 04
-```
-
-If you want to use modifiable variables in your maven projects, you can include the following dependency in your pom file:
-```xml
-<dependency>
-  <groupId>de.rub.nds</groupId>
-  <artifactId>ModifiableVariable</artifactId>
-  <version>3.0.0</version>
-</dependency>
 ```
 
 # Supported data types
