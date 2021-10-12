@@ -113,10 +113,10 @@ If you would use modification from the previous example, the result would look a
 ```xml
 <modifiableByteArray>
     <originalValue>01 02 03</originalValue>
-    <byteArrayInsertModification>
+    <ByteArrayInsertModification>
         <bytesToInsert>02 03</bytesToInsert>
         <startPosition>1</startPosition>
-    </byteArrayInsertModification>
+    </ByteArrayInsertModification>
 </modifiableByteArray>
 ```
 
@@ -125,114 +125,114 @@ The following examples should give you a useful list of modifications in modifia
 ## Integer
 - Explicit value:
 ```xml
-    <integerExplicitValueModification>
+    <IntegerExplicitValueModification>
         <explicitValue>25872</explicitValue>
-    </integerExplicitValueModification>
+    </IntegerExplicitValueModification>
 ```
 
 - Subtract:
 ```xml
-    <integerSubtractModification>
+    <IntegerSubtractModification>
         <subtrahend>30959</subtrahend>
-    </integerSubtractModification>
+    </IntegerSubtractModification>
 ```
 
 - Add:
 ```xml
-    <integerAddModification>
+    <IntegerAddModification>
         <summand>960</summand>
-    </integerAddModification>
+    </IntegerAddModification>
 ```
 
 - Right shift:
 ```xml
-    <integerShiftRightModification>
+    <IntegerShiftRightModification>
         <shift>13</shift>
-    </integerShiftRightModification>
+    </IntegerShiftRightModification>
 ```
 
 - Left shift:
 ```xml
-    <integerShiftLeftModification>
+    <IntegerShiftLeftModification>
         <shift>13</shift>
-    </integerShiftLeftModification>
+    </IntegerShiftLeftModification>
 ```
 
 - XOR:
 ```xml
-    <integerXorModification>
+    <IntegerXorModification>
         <xor>22061</xor>
-    </integerXorModification>
+    </IntegerXorModification>
 ```
 
 You can use the same operations for BigInteger data types, for example:
 ```xml
-    <bigIntegerAddModification>
+    <BigIntegerAddModification>
         <summand>1</summand>
-    </bigIntegerAddModification>
+    </BigIntegerAddModification>
 ```
 ModifiableLong and ModifiableBytes support the following operations: add, explicitValue, subtract, xor
 
 ## Byte Array
 - Explicit value:
 ```xml
-    <byteArrayExplicitValueModification>
+    <ByteArrayExplicitValueModification>
         <explicitValue>
             4F 3F 8C FC 17 8E 66 0A  53 DF 4D 4E E9 0B D0
         </explicitValue>
-    </byteArrayExplicitValueModification>
+    </ByteArrayExplicitValueModification>
 ```
 
 - XOR:
 ```xml
-    <byteArrayXorModification>
+    <ByteArrayXorModification>
         <xor>11 22</xor>
         <startPosition>1</startPosition>
-    </byteArrayXorModification>
+    </ByteArrayXorModification>
 ```
 
 - Insert:
 ```xml
-    <byteArrayInsertModification>
+    <ByteArrayInsertModification>
         <bytesToInsert>
             3D 9F 3B 77 65 03 F9 8A  93 6D 94 CD 7E 4A C5 1B 
         </bytesToInsert>
         <startPosition>0</startPosition>
-    </byteArrayInsertModification>
+    </ByteArrayInsertModification>
 ```
 
 - Delete: 
 ```xml
-    <byteArrayDeleteModification>
+    <ByteArrayDeleteModification>
         <count>2</count>
         <startPosition>0</startPosition>
-    </byteArrayDeleteModification>
+    </ByteArrayDeleteModification>
 ```
 
 - Shuffle:
 ```xml
-    <byteArrayShuffleModification>
+    <ByteArrayShuffleModification>
         <shuffle>02 03</shuffle>
-    </byteArrayShuffleModification>
+    </ByteArrayShuffleModification>
 ```
 
 # Boolean
 - Explicit value:
 ```xml
-    <booleanExplicitValueModification>
+    <BooleanExplicitValueModification>
         <explicitValue>true</explicitValue>
-    </booleanExplicitValueModification>
+    </BooleanExplicitValueModification>
 ```
 
 - Toggle:
 ```xml
-    <booleanToggleModification/>
+    <BooleanToggleModification/>
 ```
 
 # String
 - Explicit value:
 ```xml
-    <stringExplicitValueModification>
+    <StringExplicitValueModification>
         <explicitValue>abc</explicitValue>
-    </stringExplicitValueModification>
+    </StringExplicitValueModification>
 ```
