@@ -208,7 +208,10 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
-                    <source>8</source>
+                    <source>11</source>
+                    <javadocExecutable>
+                        ${java.home}/bin/javadoc
+                    </javadocExecutable>
                 </configuration>
                 <executions>
                     <execution>
@@ -258,8 +261,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
         </plugins>
