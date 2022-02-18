@@ -9,12 +9,14 @@
 
 package de.rub.nds.modifiablevariable.string;
 
-import de.rub.nds.modifiablevariable.VariableModification;
 import java.util.Objects;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import de.rub.nds.modifiablevariable.VariableModification;
+import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
 
 /**
  *

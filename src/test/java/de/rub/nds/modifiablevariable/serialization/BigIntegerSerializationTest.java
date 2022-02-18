@@ -9,6 +9,20 @@
 
 package de.rub.nds.modifiablevariable.serialization;
 
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.math.BigInteger;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.Before;
+import org.junit.Test;
+
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerAddModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerInteractiveModification;
@@ -17,19 +31,9 @@ import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import de.rub.nds.modifiablevariable.bytearray.ByteArrayModificationFactory;
 import de.rub.nds.modifiablevariable.filter.AccessModificationFilter;
 import de.rub.nds.modifiablevariable.filter.ModificationFilterFactory;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.math.BigInteger;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
-import org.junit.Before;
-import org.junit.Test;
 
 public class BigIntegerSerializationTest {
 

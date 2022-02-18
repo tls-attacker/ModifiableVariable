@@ -9,17 +9,20 @@
 
 package de.rub.nds.modifiablevariable;
 
+import java.math.BigInteger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.Test;
+
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
 import de.rub.nds.modifiablevariable.mlong.ModifiableLong;
 import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import java.math.BigInteger;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 import static org.junit.Assert.assertNotNull;
-import org.junit.Test;
 
 public class ModifiableVariableTest {
 

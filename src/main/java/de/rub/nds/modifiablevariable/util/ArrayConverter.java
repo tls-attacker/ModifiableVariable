@@ -9,10 +9,11 @@
 
 package de.rub.nds.modifiablevariable.util;
 
-import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.util.List;
+
+import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 
 /**
  * A utility class to handle arrays and array conversions

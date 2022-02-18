@@ -9,10 +9,12 @@
 
 package de.rub.nds.modifiablevariable.integer;
 
-import de.rub.nds.modifiablevariable.VariableModification;
 import java.util.Random;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
+import de.rub.nds.modifiablevariable.VariableModification;
 
 @XmlRootElement
 @XmlType(propOrder = { "shift", "modificationFilter" })

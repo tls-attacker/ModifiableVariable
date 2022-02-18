@@ -9,11 +9,12 @@
 
 package de.rub.nds.modifiablevariable.bool;
 
-import de.rub.nds.modifiablevariable.ModifiableVariable;
-import de.rub.nds.modifiablevariable.VariableModification;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import de.rub.nds.modifiablevariable.ModifiableVariable;
+import de.rub.nds.modifiablevariable.VariableModification;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

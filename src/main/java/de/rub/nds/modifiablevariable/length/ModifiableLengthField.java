@@ -9,11 +9,12 @@
 
 package de.rub.nds.modifiablevariable.length;
 
-import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
-import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
+import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

@@ -9,14 +9,16 @@
 
 package de.rub.nds.modifiablevariable.assertion;
 
+import org.junit.Before;
+import org.junit.Test;
+
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.integer.IntegerModificationFactory;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import org.junit.Before;
-import org.junit.Test;
 
 public class AssertionTest {
 

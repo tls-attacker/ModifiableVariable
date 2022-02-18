@@ -9,9 +9,6 @@
 
 package de.rub.nds.modifiablevariable.integer;
 
-import de.rub.nds.modifiablevariable.FileConfigurationException;
-import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.util.RandomHelper;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,6 +16,10 @@ import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+
+import de.rub.nds.modifiablevariable.FileConfigurationException;
+import de.rub.nds.modifiablevariable.VariableModification;
+import de.rub.nds.modifiablevariable.util.RandomHelper;
 
 public class IntegerModificationFactory {
 

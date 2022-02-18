@@ -9,13 +9,13 @@
 
 package de.rub.nds.modifiablevariable.singlebyte;
 
-import de.rub.nds.modifiablevariable.singlebyte.ByteModificationFactory;
-import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
-import de.rub.nds.modifiablevariable.VariableModification;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
 import org.junit.Before;
 import org.junit.Test;
+
+import de.rub.nds.modifiablevariable.VariableModification;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 
 public class ByteModificationTest {
 

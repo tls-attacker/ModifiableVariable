@@ -9,15 +9,16 @@
 
 package de.rub.nds.modifiablevariable.util;
 
-import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
-import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import java.math.BigInteger;
 import java.util.Random;
-import org.hamcrest.core.IsEqual;
+
+import org.junit.Test;
+
+import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
+import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
+
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import org.junit.Test;
 
 public class ArrayConverterTest {
 

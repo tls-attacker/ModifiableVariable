@@ -9,19 +9,21 @@
 
 package de.rub.nds.modifiablevariable.bytearray;
 
-import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
-import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
+import org.junit.Assume;
+import org.junit.Before;
+import org.junit.Test;
+
+import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
+import de.rub.nds.modifiablevariable.VariableModification;
+import de.rub.nds.modifiablevariable.util.ArrayConverter;
+
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import org.junit.Assume;
-import org.junit.Before;
-import org.junit.Test;
 
 public class ModifiableByteArrayTest {
 

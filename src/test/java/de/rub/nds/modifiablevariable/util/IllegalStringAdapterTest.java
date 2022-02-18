@@ -11,6 +11,7 @@ package de.rub.nds.modifiablevariable.util;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,6 +20,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class IllegalStringAdapterTest {

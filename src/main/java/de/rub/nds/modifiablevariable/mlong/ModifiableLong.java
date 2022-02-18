@@ -9,13 +9,15 @@
 
 package de.rub.nds.modifiablevariable.mlong;
 
-import de.rub.nds.modifiablevariable.ModifiableVariable;
-import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import de.rub.nds.modifiablevariable.ModifiableVariable;
+import de.rub.nds.modifiablevariable.VariableModification;
+import de.rub.nds.modifiablevariable.util.ArrayConverter;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

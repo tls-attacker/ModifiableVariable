@@ -9,6 +9,8 @@
 
 package de.rub.nds.modifiablevariable.util;
 
+import java.math.BigInteger;
+
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerModificationFactory;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
@@ -25,7 +27,6 @@ import de.rub.nds.modifiablevariable.singlebyte.ByteModificationFactory;
 import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import de.rub.nds.modifiablevariable.string.StringModificationFactory;
-import java.math.BigInteger;
 
 @SuppressWarnings("unused")
 public class Modifiable {

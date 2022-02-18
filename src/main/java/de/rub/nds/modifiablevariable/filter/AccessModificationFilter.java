@@ -9,10 +9,11 @@
 
 package de.rub.nds.modifiablevariable.filter;
 
-import de.rub.nds.modifiablevariable.ModificationFilter;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import de.rub.nds.modifiablevariable.ModificationFilter;
 
 /**
  * Filters modification executions for specific accesses, starting with 1.

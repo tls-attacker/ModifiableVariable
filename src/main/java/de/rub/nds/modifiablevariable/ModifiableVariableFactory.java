@@ -9,6 +9,8 @@
 
 package de.rub.nds.modifiablevariable;
 
+import java.math.BigInteger;
+
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
@@ -16,7 +18,6 @@ import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
 import de.rub.nds.modifiablevariable.mlong.ModifiableLong;
 import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
-import java.math.BigInteger;
 
 public class ModifiableVariableFactory {
 

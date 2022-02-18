@@ -9,6 +9,16 @@
 
 package de.rub.nds.modifiablevariable;
 
+import java.io.Serializable;
+import java.util.Objects;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerAddModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerExplicitValueModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerInteractiveModification;
@@ -41,16 +51,6 @@ import de.rub.nds.modifiablevariable.singlebyte.ByteExplicitValueModification;
 import de.rub.nds.modifiablevariable.singlebyte.ByteSubtractModification;
 import de.rub.nds.modifiablevariable.singlebyte.ByteXorModification;
 import de.rub.nds.modifiablevariable.string.StringExplicitValueModification;
-import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
-import java.io.Serializable;
-import java.util.Objects;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * The base abstract class for modifiable variables, including the getValue function.The class needs to be defined

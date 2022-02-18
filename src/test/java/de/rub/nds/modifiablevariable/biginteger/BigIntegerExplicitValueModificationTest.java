@@ -10,8 +10,10 @@
 package de.rub.nds.modifiablevariable.biginteger;
 
 import java.math.BigInteger;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**

@@ -9,9 +9,11 @@
 
 package de.rub.nds.modifiablevariable.length;
 
-import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import org.junit.Before;
 import org.junit.Test;
+
+import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
+
 import static org.junit.Assert.*;
 
 public class ModifiableLengthFieldTest {

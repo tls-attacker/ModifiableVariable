@@ -9,14 +9,16 @@
 
 package de.rub.nds.modifiablevariable.biginteger;
 
-import de.rub.nds.modifiablevariable.VariableModification;
 import java.math.BigInteger;
 import java.util.Objects;
 import java.util.Random;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
+import de.rub.nds.modifiablevariable.VariableModification;
 
 @XmlRootElement
 @XmlType(propOrder = { "xor", "modificationFilter" })

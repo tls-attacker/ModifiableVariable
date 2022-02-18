@@ -10,6 +10,7 @@
 package de.rub.nds.modifiablevariable.util;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
+
 import org.apache.commons.lang.StringEscapeUtils;
 
 /**

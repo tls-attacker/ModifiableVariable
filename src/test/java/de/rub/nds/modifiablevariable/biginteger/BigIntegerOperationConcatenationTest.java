@@ -9,11 +9,14 @@
 
 package de.rub.nds.modifiablevariable.biginteger;
 
-import de.rub.nds.modifiablevariable.VariableModification;
 import java.math.BigInteger;
-import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import de.rub.nds.modifiablevariable.VariableModification;
+
+import static org.junit.Assert.assertEquals;
 
 public class BigIntegerOperationConcatenationTest {
 

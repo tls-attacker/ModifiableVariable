@@ -9,14 +9,13 @@
 
 package de.rub.nds.modifiablevariable.bytearray;
 
-import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import de.rub.nds.modifiablevariable.VariableModification;
+import de.rub.nds.modifiablevariable.util.ArrayConverter;
 
 @XmlRootElement
 @XmlType(propOrder = { "modificationFilter" })
