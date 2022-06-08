@@ -116,7 +116,7 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <configLocation>checkstyle.xml</configLocation>
+                    <configLocation>${project.basedir}/checkstyle.xml</configLocation>
                     <violationSeverity>info</violationSeverity>
                     <failOnViolation>false</failOnViolation>
                 </configuration>
@@ -126,7 +126,7 @@
                 <artifactId>formatter-maven-plugin</artifactId>
                 <version>2.14.0</version>
                 <configuration>
-                    <configFile>maven-eclipse-codestyle.xml</configFile>
+                    <configFile>${project.basedir}/maven-eclipse-codestyle.xml</configFile>
                 </configuration>
                 <executions>
                     <execution>
@@ -141,7 +141,7 @@
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
                 <configuration>
-                    <header>license_header_plain.txt</header>
+                    <header>${project.basedir}/license_header_plain.txt</header>
                     <strictCheck>true</strictCheck>
                     <includes>
                         <include>src/**/*.java</include>
