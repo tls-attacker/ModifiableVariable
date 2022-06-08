@@ -18,7 +18,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * 
+ *
  */
 public class ModifiableVariableAnalyzer {
 
@@ -26,7 +26,7 @@ public class ModifiableVariableAnalyzer {
 
     /**
      * Lists all the modifiable variables declared in the given class
-     * 
+     *
      * @param  object
      *                Analyzed object
      * @return        A list of modifiable variable fields for the given object
@@ -37,7 +37,7 @@ public class ModifiableVariableAnalyzer {
 
     /**
      * Returns a random field representing a modifiable variable in the given class
-     * 
+     *
      * @param  object
      *                Analyzed object
      * @return        A random field representing a modifiable variable
@@ -50,7 +50,7 @@ public class ModifiableVariableAnalyzer {
 
     /**
      * Returns true if the given object contains a modifiable variable
-     * 
+     *
      * @param  object
      *                Analyzed object
      * @return        True if the object contains a modifiable variable.
@@ -62,7 +62,7 @@ public class ModifiableVariableAnalyzer {
 
     /**
      * Returns a list of all ModifiableVariableFields (object-field representations) for a given object.
-     * 
+     *
      * @param  object
      *                Analyzed object
      * @return        A list of objects with their modifiable variable fields (only objects with modifiable variables
@@ -81,7 +81,7 @@ public class ModifiableVariableAnalyzer {
 
     /**
      * Returns a list of all the modifiable variable holders in the object, including this instance.
-     * 
+     *
      * @param  object
      *                Analyzed object
      * @return        A list of objects with their modifiable variable fields (only objects with modifiable variables
