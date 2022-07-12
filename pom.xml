@@ -8,7 +8,7 @@
     
     <name>ModifiableVariable</name>
     <description>A Modifiable Variable concept allows for easy runtime modifications of basic data types like integers, booleans, or byte arrays</description>
-    <url>https://github.com/RUB-NDS/ModifiableVariable</url>
+    <url>https://github.com/tls-attacker/ModifiableVariable</url>
  
     <licenses>
         <license>
@@ -57,9 +57,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/RUB-NDS/ModifiableVariable.git</connection>
-        <developerConnection>scm:git:ssh://github.com/RUB-NDS/ModifiableVariable.git</developerConnection>
-        <url>https://github.com/RUB-NDS/ModifiableVariable/tree/master</url>
+        <connection>scm:git:git://github.com/tls-attacker/ModifiableVariable.git</connection>
+        <developerConnection>scm:git:ssh://github.com/tls-attacker/ModifiableVariable.git</developerConnection>
+        <url>https://github.com/tls-attacker/ModifiableVariable/tree/master</url>
     </scm>
     
     <dependencies>
