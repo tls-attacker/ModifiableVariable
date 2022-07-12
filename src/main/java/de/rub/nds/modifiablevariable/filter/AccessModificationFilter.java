@@ -10,9 +10,9 @@
 package de.rub.nds.modifiablevariable.filter;
 
 import de.rub.nds.modifiablevariable.ModificationFilter;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * Filters modification executions for specific accesses, starting with 1.

@@ -12,11 +12,11 @@ package de.rub.nds.modifiablevariable.bytearray;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement
 @XmlType(propOrder = { "modificationFilter" })

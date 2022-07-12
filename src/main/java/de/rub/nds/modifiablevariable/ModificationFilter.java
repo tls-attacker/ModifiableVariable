@@ -10,7 +10,7 @@
 package de.rub.nds.modifiablevariable;
 
 import de.rub.nds.modifiablevariable.filter.AccessModificationFilter;
-import javax.xml.bind.annotation.XmlSeeAlso;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
 
 /**
  * It is possible to filter modifications only for specific number of data accesses or specific data. For example, only
