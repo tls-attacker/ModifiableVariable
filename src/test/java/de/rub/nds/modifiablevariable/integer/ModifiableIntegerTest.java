@@ -9,9 +9,12 @@
 
 package de.rub.nds.modifiablevariable.integer;
 
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 public class ModifiableIntegerTest {
 
@@ -19,7 +22,7 @@ public class ModifiableIntegerTest {
 
     private ModifiableInteger integer2;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         integer1 = new ModifiableInteger();
         integer1.setOriginalValue(2);
@@ -30,6 +33,7 @@ public class ModifiableIntegerTest {
     /**
      * Test of createRandomModification method, of class ModifiableInteger.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testCreateRandomModification() {
     }
@@ -37,6 +41,7 @@ public class ModifiableIntegerTest {
     /**
      * Test of getAssertEquals method, of class ModifiableInteger.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testGetAssertEquals() {
     }
@@ -44,6 +49,7 @@ public class ModifiableIntegerTest {
     /**
      * Test of setAssertEquals method, of class ModifiableInteger.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testSetAssertEquals() {
     }
@@ -51,6 +57,7 @@ public class ModifiableIntegerTest {
     /**
      * Test of isOriginalValueModified method, of class ModifiableInteger.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testIsOriginalValueModified() {
     }
@@ -58,6 +65,7 @@ public class ModifiableIntegerTest {
     /**
      * Test of getByteArray method, of class ModifiableInteger.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testGetByteArray() {
     }
@@ -65,6 +73,7 @@ public class ModifiableIntegerTest {
     /**
      * Test of validateAssertions method, of class ModifiableInteger.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testValidateAssertions() {
     }
@@ -72,6 +81,7 @@ public class ModifiableIntegerTest {
     /**
      * Test of getOriginalValue method, of class ModifiableInteger.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testGetOriginalValue() {
     }
@@ -79,6 +89,7 @@ public class ModifiableIntegerTest {
     /**
      * Test of setOriginalValue method, of class ModifiableInteger.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testSetOriginalValue() {
     }
@@ -86,6 +97,7 @@ public class ModifiableIntegerTest {
     /**
      * Test of toString method, of class ModifiableInteger.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testToString() {
     }
@@ -103,6 +115,7 @@ public class ModifiableIntegerTest {
     /**
      * Test of hashCode method, of class ModifiableInteger.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testHashCode() {
     }

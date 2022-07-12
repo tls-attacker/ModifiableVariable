@@ -9,16 +9,19 @@
 
 package de.rub.nds.modifiablevariable.singlebyte;
 
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 public class ModifiableByteTest {
 
     private ModifiableByte byte1;
     private ModifiableByte byte2;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         byte1 = new ModifiableByte();
         byte1.setOriginalValue((byte) 3);
@@ -29,6 +32,7 @@ public class ModifiableByteTest {
     /**
      * Test of createRandomModification method, of class ModifiableByte.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testCreateRandomModification() {
     }
@@ -36,6 +40,7 @@ public class ModifiableByteTest {
     /**
      * Test of getAssertEquals method, of class ModifiableByte.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testGetAssertEquals() {
     }
@@ -43,6 +48,7 @@ public class ModifiableByteTest {
     /**
      * Test of setAssertEquals method, of class ModifiableByte.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testSetAssertEquals() {
     }
@@ -50,6 +56,7 @@ public class ModifiableByteTest {
     /**
      * Test of isOriginalValueModified method, of class ModifiableByte.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testIsOriginalValueModified() {
     }
@@ -57,6 +64,7 @@ public class ModifiableByteTest {
     /**
      * Test of validateAssertions method, of class ModifiableByte.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testValidateAssertions() {
     }
@@ -64,6 +72,7 @@ public class ModifiableByteTest {
     /**
      * Test of getOriginalValue method, of class ModifiableByte.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testGetOriginalValue() {
     }
@@ -71,6 +80,7 @@ public class ModifiableByteTest {
     /**
      * Test of setOriginalValue method, of class ModifiableByte.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testSetOriginalValue() {
     }
@@ -78,6 +88,7 @@ public class ModifiableByteTest {
     /**
      * Test of toString method, of class ModifiableByte.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testToString() {
     }
@@ -95,6 +106,7 @@ public class ModifiableByteTest {
     /**
      * Test of hashCode method, of class ModifiableByte.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testHashCode() {
     }

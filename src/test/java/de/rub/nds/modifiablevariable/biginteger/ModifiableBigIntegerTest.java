@@ -9,10 +9,14 @@
 
 package de.rub.nds.modifiablevariable.biginteger;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
 import java.math.BigInteger;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class ModifiableBigIntegerTest {
 
@@ -20,7 +24,7 @@ public class ModifiableBigIntegerTest {
 
     private ModifiableBigInteger integer2;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         integer1 = new ModifiableBigInteger();
         integer1.setOriginalValue(BigInteger.ONE);
@@ -31,6 +35,7 @@ public class ModifiableBigIntegerTest {
     /**
      * Test of createRandomModification method, of class ModifiableBigInteger.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testCreateRandomModification() {
     }
@@ -38,6 +43,7 @@ public class ModifiableBigIntegerTest {
     /**
      * Test of getAssertEquals method, of class ModifiableBigInteger.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testGetAssertEquals() {
     }
@@ -45,6 +51,7 @@ public class ModifiableBigIntegerTest {
     /**
      * Test of setAssertEquals method, of class ModifiableBigInteger.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testSetAssertEquals() {
     }
@@ -52,6 +59,7 @@ public class ModifiableBigIntegerTest {
     /**
      * Test of isOriginalValueModified method, of class ModifiableBigInteger.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testIsOriginalValueModified() {
     }
@@ -59,6 +67,7 @@ public class ModifiableBigIntegerTest {
     /**
      * Test of getByteArray method, of class ModifiableBigInteger.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testGetByteArray_0args() {
     }
@@ -66,6 +75,7 @@ public class ModifiableBigIntegerTest {
     /**
      * Test of getByteArray method, of class ModifiableBigInteger.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testGetByteArray_int() {
     }
@@ -73,6 +83,7 @@ public class ModifiableBigIntegerTest {
     /**
      * Test of validateAssertions method, of class ModifiableBigInteger.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testValidateAssertions() {
     }
@@ -80,6 +91,7 @@ public class ModifiableBigIntegerTest {
     /**
      * Test of getOriginalValue method, of class ModifiableBigInteger.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testGetOriginalValue() {
     }
@@ -87,6 +99,7 @@ public class ModifiableBigIntegerTest {
     /**
      * Test of setOriginalValue method, of class ModifiableBigInteger.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testSetOriginalValue() {
     }
@@ -94,6 +107,7 @@ public class ModifiableBigIntegerTest {
     /**
      * Test of toString method, of class ModifiableBigInteger.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testToString() {
     }
@@ -103,14 +117,15 @@ public class ModifiableBigIntegerTest {
      */
     @Test
     public void testEquals() {
-        assertFalse(integer1.equals(integer2));
+        assertNotEquals(integer1, integer2);
         integer2.setOriginalValue(BigInteger.ONE);
-        assertTrue(integer1.equals(integer2));
+        assertEquals(integer1, integer2);
     }
 
     /**
      * Test of hashCode method, of class ModifiableBigInteger.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testHashCode() {
     }

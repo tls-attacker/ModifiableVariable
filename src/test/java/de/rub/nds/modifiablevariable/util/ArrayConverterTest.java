@@ -9,21 +9,23 @@
 
 package de.rub.nds.modifiablevariable.util;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
 import java.math.BigInteger;
 import java.util.Random;
-import org.hamcrest.core.IsEqual;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import org.junit.Test;
 
 public class ArrayConverterTest {
 
     /**
      * Test of longToUint64Bytes method, of class ArrayConverter.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testLongToUint64Bytes() {
     }
@@ -31,6 +33,7 @@ public class ArrayConverterTest {
     /**
      * Test of longToUint32Bytes method, of class ArrayConverter.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testLongToUint32Bytes() {
     }
@@ -42,15 +45,15 @@ public class ArrayConverterTest {
     public void testIntToBytes() {
         int toParse = 5717;
         byte[] result = ArrayConverter.intToBytes(toParse, 2);
-        assertArrayEquals("The conversion result of 5717 should be {0x16} {0x55}", new byte[] { 0x16, 0x55 }, result);
+        assertArrayEquals(new byte[] { 0x16, 0x55 }, result, "The conversion result of 5717 should be {0x16} {0x55}");
     }
 
     @Test
     public void testIntToBytesOverflow() {
         int toParse = 5717;
         byte[] result = ArrayConverter.intToBytes(toParse, 5);
-        assertArrayEquals("The conversion result of 5717 should be {0x00} {0x00} {0x00} {0x16} {0x55}",
-            new byte[] { 0x00, 0x00, 0x00, 0x16, 0x55 }, result);
+        assertArrayEquals(new byte[] { 0x00, 0x00, 0x00, 0x16, 0x55 }, result,
+            "The conversion result of 5717 should be {0x00} {0x00} {0x00} {0x16} {0x55}");
     }
 
     /**
@@ -60,17 +63,16 @@ public class ArrayConverterTest {
     public void testLongToBytes() {
         long toParse = 5717;
         byte[] result = ArrayConverter.longToBytes(toParse, 2);
-        assertArrayEquals("The conversion result of 5717 should be {0x16} {0x55}", new byte[] { 0x16, 0x55 }, result);
+        assertArrayEquals(new byte[] { 0x16, 0x55 }, result, "The conversion result of 5717 should be {0x16} {0x55}");
     }
 
     @Test
     public void testLongToBytesOverflow() {
         int toParse = 5717;
         byte[] result = ArrayConverter.longToBytes(toParse, 10);
-        assertArrayEquals(
+        assertArrayEquals(new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x16, 0x55 }, result,
             "The conversion result of 5717 should be {0x00} {0x00} {0x00} {0x00} {0x00} {0x00} {0x00} {0x00} "
-                + "{0x16} {0x55}",
-            new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x16, 0x55 }, result);
+                + "{0x16} {0x55}");
     }
 
     /**
@@ -80,16 +82,17 @@ public class ArrayConverterTest {
     public void testBytesToInt() {
         byte[] toParse = { 0x16, 0x55 };
         int expectedResult = 5717;
-        assertEquals("The conversion result of {0x16, 0x55} should be 5717", expectedResult,
-            ArrayConverter.bytesToInt(toParse));
+        assertEquals(expectedResult, ArrayConverter.bytesToInt(toParse),
+            "The conversion result of {0x16, 0x55} should be 5717");
     }
 
     /**
      * Test of bytesToLong method, of class ArrayConverter.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testBytesToLong() {
-        /**
+        /*
          * TODO get the casting correct. long result = 571714867398058L; byte[] toParse = {0x02, 0x07, (byte) 0xf8,
          * (byte) 0xbd, (byte) 0x95, (byte) 0x85, (byte) 0xaa}; byte[] test = ArrayConverter.longToBytes(result, 7); int
          * a = 0; //assertEquals(result, ArrayConverter.bytesToLong(toParse));
@@ -136,6 +139,7 @@ public class ArrayConverterTest {
     /**
      * Test of bytesToHexString method, of class ArrayConverter.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testBytesToHexString_3args() {
     }
@@ -155,6 +159,7 @@ public class ArrayConverterTest {
     /**
      * Test of concatenate method, of class ArrayConverter.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testConcatenate_GenericType() {
     }
@@ -162,6 +167,7 @@ public class ArrayConverterTest {
     /**
      * Test of concatenate method, of class ArrayConverter.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testConcatenate_byteArrArr() {
     }
@@ -169,6 +175,7 @@ public class ArrayConverterTest {
     /**
      * Test of makeArrayNonZero method, of class ArrayConverter.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testMakeArrayNonZero() {
     }
@@ -176,6 +183,7 @@ public class ArrayConverterTest {
     /**
      * Test of bigIntegerToByteArray method, of class ArrayConverter.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testBigIntegerToByteArray_3args() {
     }
@@ -183,6 +191,7 @@ public class ArrayConverterTest {
     /**
      * Test of bigIntegerToByteArray method, of class ArrayConverter.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testBigIntegerToByteArray_BigInteger() {
     }
@@ -190,6 +199,7 @@ public class ArrayConverterTest {
     /**
      * Test of convertListToArray method, of class ArrayConverter.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testConvertListToArray() {
     }
@@ -200,27 +210,26 @@ public class ArrayConverterTest {
     @Test
     public void testHexStringToByteArray() {
         String hex = "01";
-        assertArrayEquals("Testing simple one byte hex value", new byte[] { 0x01 },
-            ArrayConverter.hexStringToByteArray(hex));
+        assertArrayEquals(new byte[] { 0x01 }, ArrayConverter.hexStringToByteArray(hex),
+            "Testing simple one byte hex value");
         hex = "FF";
-        assertArrayEquals("Testing one byte hex value > 0x7f", new byte[] { (byte) 0xff },
-            ArrayConverter.hexStringToByteArray(hex));
+        assertArrayEquals(new byte[] { (byte) 0xff }, ArrayConverter.hexStringToByteArray(hex),
+            "Testing one byte hex value > 0x7f");
         hex = "FFFFFF";
-        assertArrayEquals("Testing one byte hex value > 0x7f", new byte[] { (byte) 0xff, (byte) 0xff, (byte) 0xff },
-            ArrayConverter.hexStringToByteArray(hex));
+        assertArrayEquals(new byte[] { (byte) 0xff, (byte) 0xff, (byte) 0xff },
+            ArrayConverter.hexStringToByteArray(hex), "Testing one byte hex value > 0x7f");
     }
 
     @Test
     public void testBigIntegerToNullPaddedByteArray() {
         BigInteger test = new BigInteger("1D42C86F7923DFEC", 16);
 
-        assertArrayEquals("Check zero output size", new byte[0],
-            ArrayConverter.bigIntegerToNullPaddedByteArray(test, 0));
-        assertArrayEquals("Check check output size smaller than input", new byte[] { (byte) 0xEC },
-            ArrayConverter.bigIntegerToNullPaddedByteArray(test, 1));
-        assertArrayEquals("Check output size bigger than input size",
-            ArrayConverter.hexStringToByteArray("0000000000000000000000001D42C86F7923DFEC"),
-            ArrayConverter.bigIntegerToNullPaddedByteArray(test, 20));
+        assertArrayEquals(new byte[0], ArrayConverter.bigIntegerToNullPaddedByteArray(test, 0),
+            "Check zero output size");
+        assertArrayEquals(new byte[] { (byte) 0xEC }, ArrayConverter.bigIntegerToNullPaddedByteArray(test, 1),
+            "Check check output size smaller than input");
+        assertArrayEquals(ArrayConverter.hexStringToByteArray("0000000000000000000000001D42C86F7923DFEC"),
+            ArrayConverter.bigIntegerToNullPaddedByteArray(test, 20), "Check output size bigger than input size");
     }
 
     @Test
@@ -228,12 +237,12 @@ public class ArrayConverterTest {
         long testValue = 0x0000123456789ABCL;
         byte[] expectedResult = ArrayConverter.hexStringToByteArray("123456789ABC");
 
-        assertArrayEquals("Assert correct output", expectedResult, ArrayConverter.longToUint48Bytes(testValue));
+        assertArrayEquals(expectedResult, ArrayConverter.longToUint48Bytes(testValue), "Assert correct output");
 
         testValue = 0x0000000000000001L;
         expectedResult = ArrayConverter.hexStringToByteArray("000000000001");
 
-        assertArrayEquals("Assert correct output", expectedResult, ArrayConverter.longToUint48Bytes(testValue));
+        assertArrayEquals(expectedResult, ArrayConverter.longToUint48Bytes(testValue), "Assert correct output");
     }
 
     /**
@@ -273,8 +282,8 @@ public class ArrayConverterTest {
     public void testReverseByteOrder() {
         byte[] array = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04 };
 
-        assertArrayEquals("Testing byte order reversion", new byte[] { 0x04, 0x03, 0x02, 0x01, 0x00 },
-            ArrayConverter.reverseByteOrder(array));
+        assertArrayEquals(new byte[] { 0x04, 0x03, 0x02, 0x01, 0x00 }, ArrayConverter.reverseByteOrder(array),
+            "Testing byte order reversion");
     }
 
     @Test

@@ -9,18 +9,15 @@
 
 package de.rub.nds.modifiablevariable.biginteger;
 
-import java.math.BigInteger;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-/**
- *
- * @author captain
- */
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+import java.math.BigInteger;
+
 public class BigIntegerSubtractModificationTest {
 
     private BigIntegerSubtractModification b1;
@@ -28,7 +25,7 @@ public class BigIntegerSubtractModificationTest {
     private BigIntegerSubtractModification b3;
     private Integer integer1;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         b1 = new BigIntegerSubtractModification(BigInteger.ONE);
         b2 = new BigIntegerSubtractModification(BigInteger.TEN);
@@ -39,6 +36,7 @@ public class BigIntegerSubtractModificationTest {
     /**
      * Test of modifyImplementationHook method, of class BigIntegerSubtractModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testModifyImplementationHook() {
     }
@@ -46,6 +44,7 @@ public class BigIntegerSubtractModificationTest {
     /**
      * Test of getSubtrahend method, of class BigIntegerSubtractModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testGetSubtrahend() {
     }
@@ -53,6 +52,7 @@ public class BigIntegerSubtractModificationTest {
     /**
      * Test of setSubtrahend method, of class BigIntegerSubtractModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testSetSubtrahend() {
     }
@@ -60,6 +60,7 @@ public class BigIntegerSubtractModificationTest {
     /**
      * Test of getModifiedCopy method, of class BigIntegerSubtractModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testGetModifiedCopy() {
     }
@@ -67,6 +68,7 @@ public class BigIntegerSubtractModificationTest {
     /**
      * Test of hashCode method, of class BigIntegerSubtractModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testHashCode() {
     }
@@ -76,10 +78,10 @@ public class BigIntegerSubtractModificationTest {
      */
     @Test
     public void testEquals() {
-        assertFalse(b1.equals(b2));
-        assertFalse(b1.equals(integer1));
-        assertTrue(b1.equals(b1));
-        assertTrue(b1.equals(b3));
+        assertNotEquals(b1, b2);
+        assertNotEquals(b1, integer1);
+        assertEquals(b1, b1);
+        assertEquals(b1, b3);
     }
 
 }

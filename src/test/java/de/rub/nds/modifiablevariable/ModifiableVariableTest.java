@@ -9,17 +9,19 @@
 
 package de.rub.nds.modifiablevariable;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
 import de.rub.nds.modifiablevariable.mlong.ModifiableLong;
 import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import java.math.BigInteger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import static org.junit.Assert.assertNotNull;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import java.math.BigInteger;
 
 public class ModifiableVariableTest {
 
@@ -44,7 +46,7 @@ public class ModifiableVariableTest {
     }
 
     @Test
-    public void testRandomByteArrayModification() throws Exception {
+    public void testRandomByteArrayModification() {
         ModifiableByteArray array = ModifiableVariableFactory.createByteArrayModifiableVariable();
         array.setOriginalValue(new byte[] { 0, 1, 2 });
         array.createRandomModificationAtRuntime();
@@ -53,7 +55,7 @@ public class ModifiableVariableTest {
     }
 
     @Test
-    public void testRandomSingleByteModification() throws Exception {
+    public void testRandomSingleByteModification() {
         ModifiableByte singleByte = ModifiableVariableFactory.createByteModifiableVariable();
         singleByte.setOriginalValue((byte) 0);
         singleByte.createRandomModificationAtRuntime();
@@ -62,9 +64,9 @@ public class ModifiableVariableTest {
     }
 
     @Test
-    public void testRandomLongModification() throws Exception {
+    public void testRandomLongModification() {
         ModifiableLong modLong = ModifiableVariableFactory.createLongModifiableVariable();
-        modLong.setOriginalValue(new Long(0));
+        modLong.setOriginalValue(0L);
         modLong.createRandomModificationAtRuntime();
         LOGGER.info("Randomly modified Long: " + modLong.getValue());
         assertNotNull(modLong.getModification());

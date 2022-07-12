@@ -9,9 +9,12 @@
 
 package de.rub.nds.modifiablevariable.bool;
 
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 public class ModifiableBooleanTest {
 
@@ -19,7 +22,7 @@ public class ModifiableBooleanTest {
 
     private ModifiableBoolean boolean2;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         boolean1 = new ModifiableBoolean();
         boolean1.setOriginalValue(Boolean.TRUE);
@@ -30,6 +33,7 @@ public class ModifiableBooleanTest {
     /**
      * Test of getOriginalValue method, of class ModifiableBoolean.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testGetOriginalValue() {
     }
@@ -37,6 +41,7 @@ public class ModifiableBooleanTest {
     /**
      * Test of setOriginalValue method, of class ModifiableBoolean.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testSetOriginalValue() {
     }
@@ -44,6 +49,7 @@ public class ModifiableBooleanTest {
     /**
      * Test of createRandomModification method, of class ModifiableBoolean.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testCreateRandomModification() {
     }
@@ -51,6 +57,7 @@ public class ModifiableBooleanTest {
     /**
      * Test of isOriginalValueModified method, of class ModifiableBoolean.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testIsOriginalValueModified() {
     }
@@ -58,6 +65,7 @@ public class ModifiableBooleanTest {
     /**
      * Test of validateAssertions method, of class ModifiableBoolean.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testValidateAssertions() {
     }
@@ -65,6 +73,7 @@ public class ModifiableBooleanTest {
     /**
      * Test of toString method, of class ModifiableBoolean.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testToString() {
     }
@@ -82,6 +91,7 @@ public class ModifiableBooleanTest {
     /**
      * Test of hashCode method, of class ModifiableBoolean.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testHashCode() {
     }

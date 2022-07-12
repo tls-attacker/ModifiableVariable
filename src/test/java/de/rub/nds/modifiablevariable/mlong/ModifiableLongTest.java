@@ -9,9 +9,12 @@
 
 package de.rub.nds.modifiablevariable.mlong;
 
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 public class ModifiableLongTest {
 
@@ -19,17 +22,18 @@ public class ModifiableLongTest {
 
     private ModifiableLong long2;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         long1 = new ModifiableLong();
-        long1.setOriginalValue(2l);
+        long1.setOriginalValue(2L);
         long2 = new ModifiableLong();
-        long2.setOriginalValue(2l);
+        long2.setOriginalValue(2L);
     }
 
     /**
      * Test of createRandomModification method, of class ModifiableLong.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testCreateRandomModification() {
     }
@@ -37,6 +41,7 @@ public class ModifiableLongTest {
     /**
      * Test of getAssertEquals method, of class ModifiableLong.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testGetAssertEquals() {
     }
@@ -44,6 +49,7 @@ public class ModifiableLongTest {
     /**
      * Test of setAssertEquals method, of class ModifiableLong.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testSetAssertEquals() {
     }
@@ -51,6 +57,7 @@ public class ModifiableLongTest {
     /**
      * Test of isOriginalValueModified method, of class ModifiableLong.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testIsOriginalValueModified() {
     }
@@ -58,6 +65,7 @@ public class ModifiableLongTest {
     /**
      * Test of getByteArray method, of class ModifiableLong.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testGetByteArray() {
     }
@@ -65,6 +73,7 @@ public class ModifiableLongTest {
     /**
      * Test of validateAssertions method, of class ModifiableLong.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testValidateAssertions() {
     }
@@ -72,6 +81,7 @@ public class ModifiableLongTest {
     /**
      * Test of getOriginalValue method, of class ModifiableLong.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testGetOriginalValue() {
     }
@@ -79,6 +89,7 @@ public class ModifiableLongTest {
     /**
      * Test of setOriginalValue method, of class ModifiableLong.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testSetOriginalValue() {
     }
@@ -86,6 +97,7 @@ public class ModifiableLongTest {
     /**
      * Test of toString method, of class ModifiableLong.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testToString() {
     }
@@ -96,13 +108,14 @@ public class ModifiableLongTest {
     @Test
     public void testEquals() {
         assertEquals(long1, long2);
-        long2.setOriginalValue(3l);
+        long2.setOriginalValue(3L);
         assertNotEquals(long1, long2);
     }
 
     /**
      * Test of hashCode method, of class ModifiableLong.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testHashCode() {
     }
