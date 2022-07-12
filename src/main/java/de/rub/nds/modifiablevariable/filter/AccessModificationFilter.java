@@ -16,10 +16,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Filters modification executions for specific accesses, starting with 1.
- * 
+ *
  * For example, if one defines accessNumbers = {1,3} and executes four times getValue() function on a modifiable
  * variable, the modification is executed only during the second and fourth getValue() method invocation.
- * 
+ *
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation interface for modifiable variables.
- * 
+ *
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Represents a modifiable variable holder (an object containing at least one ModifiableVariable field), containing a
  * list of its ModifiableVariable fields
- * 
+ *
  */
 public class ModifiableVariableListHolder {
 
