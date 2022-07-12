@@ -208,6 +208,12 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M7</version>
             </plugin>
+            <!-- Build jar file -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.2</version>
+            </plugin>
             <!-- Compile javadoc -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
