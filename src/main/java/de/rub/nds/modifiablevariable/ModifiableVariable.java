@@ -9,29 +9,11 @@
 
 package de.rub.nds.modifiablevariable;
 
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerAddModification;
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerExplicitValueModification;
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerInteractiveModification;
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerMultiplyModification;
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerShiftLeftModification;
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerShiftRightModification;
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerSubtractModification;
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerXorModification;
+import de.rub.nds.modifiablevariable.biginteger.*;
 import de.rub.nds.modifiablevariable.bool.BooleanExplicitValueModification;
 import de.rub.nds.modifiablevariable.bool.BooleanToggleModification;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayDeleteModification;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayDuplicateModification;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayExplicitValueModification;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayInsertModification;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayPayloadModification;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayShuffleModification;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayXorModification;
-import de.rub.nds.modifiablevariable.integer.IntegerAddModification;
-import de.rub.nds.modifiablevariable.integer.IntegerExplicitValueModification;
-import de.rub.nds.modifiablevariable.integer.IntegerShiftLeftModification;
-import de.rub.nds.modifiablevariable.integer.IntegerShiftRightModification;
-import de.rub.nds.modifiablevariable.integer.IntegerSubtractModification;
-import de.rub.nds.modifiablevariable.integer.IntegerXorModification;
+import de.rub.nds.modifiablevariable.bytearray.*;
+import de.rub.nds.modifiablevariable.integer.*;
 import de.rub.nds.modifiablevariable.mlong.LongAddModification;
 import de.rub.nds.modifiablevariable.mlong.LongExplicitValueModification;
 import de.rub.nds.modifiablevariable.mlong.LongSubtractModification;
@@ -41,16 +23,11 @@ import de.rub.nds.modifiablevariable.singlebyte.ByteExplicitValueModification;
 import de.rub.nds.modifiablevariable.singlebyte.ByteSubtractModification;
 import de.rub.nds.modifiablevariable.singlebyte.ByteXorModification;
 import de.rub.nds.modifiablevariable.string.StringExplicitValueModification;
-import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
+import de.rub.nds.modifiablevariable.uinteger.*;
+
+import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 import java.util.Objects;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * The base abstract class for modifiable variables, including the getValue function.The class needs to be defined
@@ -88,6 +65,13 @@ public abstract class ModifiableVariable<E> implements Serializable {
         @XmlElement(type = IntegerShiftLeftModification.class, name = "IntegerShiftLeftModification"),
         @XmlElement(type = IntegerExplicitValueModification.class, name = "IntegerExplicitValueModification"),
         @XmlElement(type = IntegerAddModification.class, name = "IntegerAddModification"),
+        @XmlElement(type = UnsignedIntegerAddModification.class, name = "UnsignedIntegerAddModification"),
+        @XmlElement(type = UnsignedIntegerSubtractModification.class, name = "UnsignedIntegerSubtractModification"),
+        @XmlElement(type = UnsignedIntegerXorModification.class, name = "UnsignedIntegerXorModification"),
+        @XmlElement(type = UnsignedIntegerExplicitValueModification.class,
+            name = "UnsignedIntegerExplicitValueModification"),
+        @XmlElement(type = UnsignedIntegerShiftLeftModification.class, name = "UnsignedIntegerShiftLeftModification"),
+        @XmlElement(type = UnsignedIntegerShiftRightModification.class, name = "UnsignedIntegerShiftRightModification"),
         @XmlElement(type = LongXorModification.class, name = "LongXorModification"),
         @XmlElement(type = LongSubtractModification.class, name = "LongSubtractModification"),
         @XmlElement(type = LongExplicitValueModification.class, name = "LongExplicitValueModification"),

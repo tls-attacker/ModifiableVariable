@@ -9,6 +9,8 @@
 
 package de.rub.nds.modifiablevariable.util;
 
+import com.google.common.primitives.UnsignedInteger;
+import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerModificationFactory;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
@@ -25,6 +27,9 @@ import de.rub.nds.modifiablevariable.singlebyte.ByteModificationFactory;
 import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import de.rub.nds.modifiablevariable.string.StringModificationFactory;
+import de.rub.nds.modifiablevariable.uinteger.ModifiableUnsignedInteger;
+import de.rub.nds.modifiablevariable.uinteger.UnsignedIntegerModificationFactory;
+
 import java.math.BigInteger;
 
 @SuppressWarnings("unused")
@@ -47,6 +52,13 @@ public class Modifiable {
         ModifiableInteger modifiableInteger = new ModifiableInteger();
         modifiableInteger.setModification(modification);
         return modifiableInteger;
+    }
+
+    private static ModifiableUnsignedInteger
+        getModifiableUnsignedIntegerWithModification(VariableModification<UnsignedInteger> modification) {
+        ModifiableUnsignedInteger modifiableUnsignedInteger = new ModifiableUnsignedInteger();
+        modifiableUnsignedInteger.setModification(modification);
+        return modifiableUnsignedInteger;
     }
 
     private static ModifiableBigInteger
@@ -86,6 +98,10 @@ public class Modifiable {
         return getModifiableIntegerWithModification(IntegerModificationFactory.explicitValue(i));
     }
 
+    public static ModifiableUnsignedInteger explicit(UnsignedInteger i) {
+        return getModifiableUnsignedIntegerWithModification(UnsignedIntegerModificationFactory.explicitValue(i));
+    }
+
     public static ModifiableBigInteger explicit(BigInteger i) {
         return getModifiableBigIntegerWithModification(BigIntegerModificationFactory.explicitValue(i));
     }
@@ -114,6 +130,10 @@ public class Modifiable {
         return getModifiableIntegerWithModification(IntegerModificationFactory.xor(i));
     }
 
+    public static ModifiableUnsignedInteger xor(UnsignedInteger i) {
+        return getModifiableUnsignedIntegerWithModification(UnsignedIntegerModificationFactory.xor(i));
+    }
+
     public static ModifiableBigInteger xor(BigInteger i) {
         return getModifiableBigIntegerWithModification(BigIntegerModificationFactory.xor(i));
     }
@@ -130,6 +150,10 @@ public class Modifiable {
         return getModifiableIntegerWithModification(IntegerModificationFactory.add(i));
     }
 
+    public static ModifiableUnsignedInteger add(UnsignedInteger i) {
+        return getModifiableUnsignedIntegerWithModification(UnsignedIntegerModificationFactory.add(i));
+    }
+
     public static ModifiableBigInteger add(BigInteger i) {
         return getModifiableBigIntegerWithModification(BigIntegerModificationFactory.add(i));
     }
@@ -144,6 +168,10 @@ public class Modifiable {
 
     public static ModifiableInteger sub(Integer i) {
         return getModifiableIntegerWithModification(IntegerModificationFactory.sub(i));
+    }
+
+    public static ModifiableUnsignedInteger sub(UnsignedInteger i) {
+        return getModifiableUnsignedIntegerWithModification(UnsignedIntegerModificationFactory.sub(i));
     }
 
     public static ModifiableBigInteger sub(BigInteger i) {
@@ -182,6 +210,10 @@ public class Modifiable {
         return getModifiableIntegerWithModification(IntegerModificationFactory.shiftLeft(i));
     }
 
+    public static ModifiableUnsignedInteger shiftLeftUnsignedInteger(Integer i) {
+        return getModifiableUnsignedIntegerWithModification(UnsignedIntegerModificationFactory.shiftLeft(i));
+    }
+
     public static ModifiableBigInteger shiftRightBigInteger(Integer i) {
         return getModifiableBigIntegerWithModification(BigIntegerModificationFactory.shiftRight(i));
     }
@@ -194,4 +226,7 @@ public class Modifiable {
         return getModifiableIntegerWithModification(IntegerModificationFactory.shiftRight(i));
     }
 
+    public static ModifiableUnsignedInteger shiftRightUnsignedInteger(Integer i) {
+        return getModifiableUnsignedIntegerWithModification(UnsignedIntegerModificationFactory.shiftRight(i));
+    }
 }
