@@ -46,6 +46,10 @@ public class UnsignedIntegerSubtractModification extends VariableModification<Un
         return subtrahend;
     }
 
+    public void setSubtrahend(Integer subtrahend) {
+        setSubtrahend(subtrahend != null ? UnsignedInteger.fromIntBits(subtrahend) : null);
+    }
+
     public void setSubtrahend(UnsignedInteger subtrahend) {
         this.subtrahend = subtrahend;
     }

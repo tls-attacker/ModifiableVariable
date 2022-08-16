@@ -10,6 +10,7 @@
 package de.rub.nds.modifiablevariable;
 
 import com.google.common.primitives.UnsignedInteger;
+import com.google.common.primitives.UnsignedLong;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
@@ -18,6 +19,7 @@ import de.rub.nds.modifiablevariable.mlong.ModifiableLong;
 import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import de.rub.nds.modifiablevariable.uinteger.ModifiableUnsignedInteger;
+import de.rub.nds.modifiablevariable.ulong.ModifiableUnsignedLong;
 
 import java.math.BigInteger;
 
@@ -45,6 +47,10 @@ public class ModifiableVariableFactory {
 
     public static ModifiableLong createLongModifiableVariable() {
         return new ModifiableLong();
+    }
+
+    public static ModifiableUnsignedLong createUnsignedLongModifiableVariable() {
+        return new ModifiableUnsignedLong();
     }
 
     public static ModifiableBigInteger safelySetValue(ModifiableBigInteger mv, BigInteger value) {
@@ -106,6 +112,22 @@ public class ModifiableVariableFactory {
     public static ModifiableLong safelySetValue(ModifiableLong mv, Long value) {
         if (mv == null) {
             mv = new ModifiableLong();
+        }
+        mv.setOriginalValue(value);
+        return mv;
+    }
+
+    public static ModifiableUnsignedLong safelySetValue(ModifiableUnsignedLong mv, Long value) {
+        if (mv == null) {
+            mv = new ModifiableUnsignedLong();
+        }
+        mv.setOriginalValue(value);
+        return mv;
+    }
+
+    public static ModifiableUnsignedLong safelySetValue(ModifiableUnsignedLong mv, UnsignedLong value) {
+        if (mv == null) {
+            mv = new ModifiableUnsignedLong();
         }
         mv.setOriginalValue(value);
         return mv;

@@ -46,6 +46,10 @@ public class UnsignedIntegerAddModification extends VariableModification<Unsigne
         return summand;
     }
 
+    public void setSummand(Integer summand) {
+        setSummand(summand != null ? UnsignedInteger.fromIntBits(summand) : null);
+    }
+
     public void setSummand(UnsignedInteger summand) {
         this.summand = summand;
     }

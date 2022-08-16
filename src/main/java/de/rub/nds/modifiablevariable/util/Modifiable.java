@@ -10,6 +10,7 @@
 package de.rub.nds.modifiablevariable.util;
 
 import com.google.common.primitives.UnsignedInteger;
+import com.google.common.primitives.UnsignedLong;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerModificationFactory;
@@ -29,6 +30,8 @@ import de.rub.nds.modifiablevariable.string.ModifiableString;
 import de.rub.nds.modifiablevariable.string.StringModificationFactory;
 import de.rub.nds.modifiablevariable.uinteger.ModifiableUnsignedInteger;
 import de.rub.nds.modifiablevariable.uinteger.UnsignedIntegerModificationFactory;
+import de.rub.nds.modifiablevariable.ulong.ModifiableUnsignedLong;
+import de.rub.nds.modifiablevariable.ulong.UnsignedLongModificationFactory;
 
 import java.math.BigInteger;
 
@@ -74,6 +77,13 @@ public class Modifiable {
         return modifiableLong;
     }
 
+    private static ModifiableUnsignedLong
+        getModifiableUnsignedLongWithModification(VariableModification<UnsignedLong> modification) {
+        ModifiableUnsignedLong modifiableUnsignedLong = new ModifiableUnsignedLong();
+        modifiableUnsignedLong.setModification(modification);
+        return modifiableUnsignedLong;
+    }
+
     private static ModifiableBoolean getModifiableBooleanWithModification(VariableModification<Boolean> modification) {
         ModifiableBoolean modifiableBoolean = new ModifiableBoolean();
         modifiableBoolean.setModification(modification);
@@ -108,6 +118,10 @@ public class Modifiable {
 
     public static ModifiableLong explicit(Long l) {
         return getModifiableLongWithModification(LongModificationFactory.explicitValue(l));
+    }
+
+    public static ModifiableUnsignedLong explicit(UnsignedLong l) {
+        return getModifiableUnsignedLongWithModification(UnsignedLongModificationFactory.explicitValue(l));
     }
 
     public static ModifiableBoolean explicit(Boolean b) {
@@ -151,6 +165,8 @@ public class Modifiable {
             return clazz.cast(explicit(valueString != null ? new BigInteger(valueString) : null));
         } else if (clazz.equals(ModifiableUnsignedInteger.class)) {
             return clazz.cast(explicit(valueString != null ? UnsignedInteger.valueOf(valueString) : null));
+        } else if (clazz.equals(ModifiableUnsignedLong.class)) {
+            return clazz.cast(explicit(valueString != null ? UnsignedLong.valueOf(valueString) : null));
         } else {
             // May happen if the user implements its own subclass and tries to call this method with it
             // TODO: This can be avoided by implementing a sealed class with all supported classes as permitted
@@ -182,6 +198,10 @@ public class Modifiable {
 
     public static ModifiableLong xor(Long l) {
         return getModifiableLongWithModification(LongModificationFactory.xor(l));
+    }
+
+    public static ModifiableUnsignedLong xor(UnsignedLong l) {
+        return getModifiableUnsignedLongWithModification(UnsignedLongModificationFactory.xor(l));
     }
 
     /**
@@ -216,6 +236,8 @@ public class Modifiable {
             return clazz.cast(xor(xorString != null ? new BigInteger(xorString) : null));
         } else if (clazz.equals(ModifiableUnsignedInteger.class)) {
             return clazz.cast(xor(xorString != null ? UnsignedInteger.valueOf(xorString) : null));
+        } else if (clazz.equals(ModifiableUnsignedLong.class)) {
+            return clazz.cast(xor(xorString != null ? UnsignedLong.valueOf(xorString) : null));
         } else {
             // May happen if the user implements its own subclass and tries to call this method with it
             // TODO: This can be avoided by implementing a sealed class with all supported classes as permitted
@@ -243,6 +265,10 @@ public class Modifiable {
 
     public static ModifiableLong add(Long l) {
         return getModifiableLongWithModification(LongModificationFactory.add(l));
+    }
+
+    public static ModifiableUnsignedLong add(UnsignedLong l) {
+        return getModifiableUnsignedLongWithModification(UnsignedLongModificationFactory.add(l));
     }
 
     /**
@@ -277,6 +303,8 @@ public class Modifiable {
             return clazz.cast(add(summandString != null ? new BigInteger(summandString) : null));
         } else if (clazz.equals(ModifiableUnsignedInteger.class)) {
             return clazz.cast(add(summandString != null ? UnsignedInteger.valueOf(summandString) : null));
+        } else if (clazz.equals(ModifiableUnsignedLong.class)) {
+            return clazz.cast(add(summandString != null ? UnsignedLong.valueOf(summandString) : null));
         } else {
             // May happen if the user implements its own subclass and tries to call this method with it
             // TODO: This can be avoided by implementing a sealed class with all supported classes as permitted
@@ -304,6 +332,10 @@ public class Modifiable {
 
     public static ModifiableLong sub(Long l) {
         return getModifiableLongWithModification(LongModificationFactory.sub(l));
+    }
+
+    public static ModifiableUnsignedLong sub(UnsignedLong l) {
+        return getModifiableUnsignedLongWithModification(UnsignedLongModificationFactory.sub(l));
     }
 
     /**
@@ -339,6 +371,8 @@ public class Modifiable {
             return clazz.cast(sub(subtrahendString != null ? new BigInteger(subtrahendString) : null));
         } else if (clazz.equals(ModifiableUnsignedInteger.class)) {
             return clazz.cast(sub(subtrahendString != null ? UnsignedInteger.valueOf(subtrahendString) : null));
+        } else if (clazz.equals(ModifiableUnsignedLong.class)) {
+            return clazz.cast(sub(subtrahendString != null ? UnsignedLong.valueOf(subtrahendString) : null));
         } else {
             // May happen if the user implements its own subclass and tries to call this method with it
             // TODO: This can be avoided by implementing a sealed class with all supported classes as permitted

@@ -7,67 +7,74 @@
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
 
-package de.rub.nds.modifiablevariable.uinteger;
+package de.rub.nds.modifiablevariable.ulong;
 
-import com.google.common.primitives.UnsignedInteger;
+import com.google.common.primitives.UnsignedLong;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ModifiableUnsignedInteger extends ModifiableVariable<UnsignedInteger> {
+public class ModifiableUnsignedLong extends ModifiableVariable<UnsignedLong> implements Serializable {
 
-    private UnsignedInteger originalValue;
+    private UnsignedLong originalValue;
 
     @Override
     protected void createRandomModification() {
-        VariableModification<UnsignedInteger> vm = UnsignedIntegerModificationFactory.createRandomModification();
+        VariableModification<UnsignedLong> vm = UnsignedLongModificationFactory.createRandomModification();
         setModification(vm);
     }
 
-    public UnsignedInteger getAssertEquals() {
+    public UnsignedLong getAssertEquals() {
         return assertEquals;
     }
 
-    public void setAssertEquals(Integer assertEquals) {
-        setAssertEquals(assertEquals != null ? UnsignedInteger.fromIntBits(assertEquals) : null);
+    public void setAssertEquals(UnsignedLong assertEquals) {
+        this.assertEquals = assertEquals;
     }
 
-    public void setAssertEquals(UnsignedInteger assertEquals) {
-        this.assertEquals = assertEquals;
+    public void setAssertEquals(Long assertEquals) {
+        this.assertEquals = assertEquals != null ? UnsignedLong.fromLongBits(assertEquals) : null;
     }
 
     @Override
     public boolean isOriginalValueModified() {
-        return getOriginalValue() != null && getOriginalValue().compareTo(getValue()) != 0;
+        return originalValue != null && originalValue.compareTo(getValue()) != 0;
     }
 
     @Override
     public boolean validateAssertions() {
-        return assertEquals == null || assertEquals.compareTo(getValue()) == 0;
+        boolean valid = true;
+        if (assertEquals != null) {
+            if (assertEquals.compareTo(getValue()) != 0) {
+                valid = false;
+            }
+        }
+        return valid;
     }
 
     @Override
-    public UnsignedInteger getOriginalValue() {
+    public UnsignedLong getOriginalValue() {
         return originalValue;
     }
 
-    public void setOriginalValue(Integer originalValue) {
-        setOriginalValue(originalValue != null ? UnsignedInteger.fromIntBits(originalValue) : null);
+    @Override
+    public void setOriginalValue(UnsignedLong originalValue) {
+        this.originalValue = originalValue;
     }
 
-    @Override
-    public void setOriginalValue(UnsignedInteger originalValue) {
-        this.originalValue = originalValue;
+    public void setOriginalValue(Long originalValue) {
+        this.originalValue = originalValue != null ? UnsignedLong.fromLongBits(originalValue) : null;
     }
 
     @Override
     public String toString() {
-        return "ModifiableUnsignedInteger{originalValue=" + originalValue + "}";
+        return "ModifiableUnsignedLong{" + "originalValue=" + originalValue + '}';
     }
 
     @Override
@@ -75,11 +82,11 @@ public class ModifiableUnsignedInteger extends ModifiableVariable<UnsignedIntege
         if (this == o) {
             return true;
         }
-        if (!(o instanceof ModifiableUnsignedInteger)) {
+        if (!(o instanceof ModifiableUnsignedLong)) {
             return false;
         }
 
-        ModifiableUnsignedInteger that = (ModifiableUnsignedInteger) o;
+        ModifiableUnsignedLong that = (ModifiableUnsignedLong) o;
 
         return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }

@@ -54,7 +54,7 @@ public class UnsignedIntegerExplicitValueModification extends VariableModificati
     public VariableModification<UnsignedInteger> getModifiedCopy() {
         Random r = new Random();
         UnsignedInteger modification = UnsignedInteger.fromIntBits(r.nextInt(MAX_VALUE_MODIFIER));
-        if (r.nextBoolean() || explicitValue.compareTo(modification) < 0) {
+        if (r.nextBoolean()) {
             return new UnsignedIntegerExplicitValueModification(explicitValue.plus(modification));
         } else {
             return new UnsignedIntegerExplicitValueModification(explicitValue.minus(modification));

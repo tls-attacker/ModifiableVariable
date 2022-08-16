@@ -24,6 +24,10 @@ import de.rub.nds.modifiablevariable.singlebyte.ByteSubtractModification;
 import de.rub.nds.modifiablevariable.singlebyte.ByteXorModification;
 import de.rub.nds.modifiablevariable.string.StringExplicitValueModification;
 import de.rub.nds.modifiablevariable.uinteger.*;
+import de.rub.nds.modifiablevariable.ulong.UnsignedLongAddModification;
+import de.rub.nds.modifiablevariable.ulong.UnsignedLongExplicitValueModification;
+import de.rub.nds.modifiablevariable.ulong.UnsignedLongSubtractModification;
+import de.rub.nds.modifiablevariable.ulong.UnsignedLongXorModification;
 
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
@@ -76,6 +80,10 @@ public abstract class ModifiableVariable<E> implements Serializable {
         @XmlElement(type = LongSubtractModification.class, name = "LongSubtractModification"),
         @XmlElement(type = LongExplicitValueModification.class, name = "LongExplicitValueModification"),
         @XmlElement(type = LongAddModification.class, name = "LongAddModification"),
+        @XmlElement(type = UnsignedLongAddModification.class, name = "UnsignedLongAddModification"),
+        @XmlElement(type = UnsignedLongSubtractModification.class, name = "UnsignedLongSubtractModification"),
+        @XmlElement(type = UnsignedLongXorModification.class, name = "UnsignedLongXorModification"),
+        @XmlElement(type = UnsignedLongExplicitValueModification.class, name = "UnsignedLongExplicitValueModification"),
         @XmlElement(type = ByteXorModification.class, name = "ByteXorModification"),
         @XmlElement(type = ByteSubtractModification.class, name = "ByteSubtractModification"),
         @XmlElement(type = ByteAddModification.class, name = "ByteAddModification"),
