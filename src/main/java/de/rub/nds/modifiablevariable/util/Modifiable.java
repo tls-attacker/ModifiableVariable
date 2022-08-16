@@ -118,6 +118,48 @@ public class Modifiable {
         return getModifiableStringWithModification(StringModificationFactory.explicitValue(s));
     }
 
+    /**
+     * Creates a new modifiable variable with an explicit value modification which replaces the original value.
+     *
+     * @param  value
+     *                                  The explicit value which replaces the original value.
+     * @param  clazz
+     *                                  Class of the modifiable variable to create. If the class is not supported an
+     *                                  {@link IllegalArgumentException} will be thrown.
+     * @return                          A new modifiable variable of the given class with an explicit value
+     *                                  modification.
+     * @param  <N>
+     *                                  Type of the explicit value.
+     * @param  <MV>
+     *                                  Type of the modifiable variable to return.
+     * @throws IllegalArgumentException
+     *                                  Thrown whenever the provided class is not supported.
+     */
+    public static <N extends Number, MV extends ModifiableVariable<? extends Number>> MV explicit(N value,
+        Class<MV> clazz) {
+        if (clazz.equals(ModifiableByte.class)) {
+            return clazz.cast(explicit(value != null ? value.byteValue() : null));
+        } else if (clazz.equals(ModifiableInteger.class)) {
+            return clazz.cast(explicit(value != null ? value.intValue() : null));
+        } else if (clazz.equals(ModifiableLong.class)) {
+            return clazz.cast(explicit(value != null ? value.longValue() : null));
+        }
+        // No ModifiableVariable of primitive type => best effort
+        // We just assume here that the toString() method does a good job at returning a parsable string value
+        String valueString = value != null ? value.toString() : null;
+        if (clazz.equals(ModifiableBigInteger.class)) {
+            return clazz.cast(explicit(valueString != null ? new BigInteger(valueString) : null));
+        } else if (clazz.equals(ModifiableUnsignedInteger.class)) {
+            return clazz.cast(explicit(valueString != null ? UnsignedInteger.valueOf(valueString) : null));
+        } else {
+            // May happen if the user implements its own subclass and tries to call this method with it
+            // TODO: This can be avoided by implementing a sealed class with all supported classes as permitted
+            // subclasses (requires Java 17)
+            throw new IllegalArgumentException("Unable to create modifiable variable of class " + clazz.getSimpleName()
+                + " with explicit value modification");
+        }
+    }
+
     public static ModifiableByteArray xor(byte[] b, int position) {
         return getModifiableByteArrayWithModification(ByteArrayModificationFactory.xor(b, position));
     }
@@ -142,6 +184,47 @@ public class Modifiable {
         return getModifiableLongWithModification(LongModificationFactory.xor(l));
     }
 
+    /**
+     * Creates a new modifiable variable with an XOR modification which returns the XOR result of xor and the original
+     * vlaue.
+     *
+     * @param  xor
+     *                                  The xor value which is being xor'ed to the original value.
+     * @param  clazz
+     *                                  Class of the modifiable variable to create. If the class is not supported an
+     *                                  {@link IllegalArgumentException} will be thrown.
+     * @return                          A new modifiable variable of the given class with an XOR modification.
+     * @param  <N>
+     *                                  Type of the xor value.
+     * @param  <MV>
+     *                                  Type of the modifiable variable to return.
+     * @throws IllegalArgumentException
+     *                                  Thrown whenever the provided class is not supported.
+     */
+    public static <N extends Number, MV extends ModifiableVariable<? extends Number>> MV xor(N xor, Class<MV> clazz) {
+        if (clazz.equals(ModifiableByte.class)) {
+            return clazz.cast(xor(xor != null ? xor.byteValue() : null));
+        } else if (clazz.equals(ModifiableInteger.class)) {
+            return clazz.cast(xor(xor != null ? xor.intValue() : null));
+        } else if (clazz.equals(ModifiableLong.class)) {
+            return clazz.cast(xor(xor != null ? xor.longValue() : null));
+        }
+        // No ModifiableVariable of primitive type => best effort
+        // We just assume here that the toString() method does a good job at returning a parsable string value
+        String xorString = xor != null ? xor.toString() : null;
+        if (clazz.equals(ModifiableBigInteger.class)) {
+            return clazz.cast(xor(xorString != null ? new BigInteger(xorString) : null));
+        } else if (clazz.equals(ModifiableUnsignedInteger.class)) {
+            return clazz.cast(xor(xorString != null ? UnsignedInteger.valueOf(xorString) : null));
+        } else {
+            // May happen if the user implements its own subclass and tries to call this method with it
+            // TODO: This can be avoided by implementing a sealed class with all supported classes as permitted
+            // subclasses (requires Java 17)
+            throw new IllegalArgumentException(
+                "Unable to create modifiable variable of class " + clazz.getSimpleName() + " with xor modification");
+        }
+    }
+
     public static ModifiableByte add(Byte b) {
         return getModifiableByteWithModification(ByteModificationFactory.add(b));
     }
@@ -162,6 +245,47 @@ public class Modifiable {
         return getModifiableLongWithModification(LongModificationFactory.add(l));
     }
 
+    /**
+     * Creates a new modifiable variable with an add modification which adds the given summand to the original value.
+     *
+     * @param  summand
+     *                                  Value to add to the original value.
+     * @param  clazz
+     *                                  Class of the modifiable variable to create. If the class is not supported an
+     *                                  {@link IllegalArgumentException} will be thrown.
+     * @return                          A new modifiable variable of the given class with an add modification.
+     * @param  <N>
+     *                                  Type of the summand.
+     * @param  <MV>
+     *                                  Type of the modifiable variable to return.
+     * @throws IllegalArgumentException
+     *                                  Thrown whenever the provided class is not supported.
+     */
+    public static <N extends Number, MV extends ModifiableVariable<? extends Number>> MV add(N summand,
+        Class<MV> clazz) {
+        if (clazz.equals(ModifiableByte.class)) {
+            return clazz.cast(add(summand != null ? summand.byteValue() : null));
+        } else if (clazz.equals(ModifiableInteger.class)) {
+            return clazz.cast(add(summand != null ? summand.intValue() : null));
+        } else if (clazz.equals(ModifiableLong.class)) {
+            return clazz.cast(add(summand != null ? summand.longValue() : null));
+        }
+        // No ModifiableVariable of primitive type => best effort
+        // We just assume here that the toString() method does a good job at returning a parsable string value
+        String summandString = summand != null ? summand.toString() : null;
+        if (clazz.equals(ModifiableBigInteger.class)) {
+            return clazz.cast(add(summandString != null ? new BigInteger(summandString) : null));
+        } else if (clazz.equals(ModifiableUnsignedInteger.class)) {
+            return clazz.cast(add(summandString != null ? UnsignedInteger.valueOf(summandString) : null));
+        } else {
+            // May happen if the user implements its own subclass and tries to call this method with it
+            // TODO: This can be avoided by implementing a sealed class with all supported classes as permitted
+            // subclasses (requires Java 17)
+            throw new IllegalArgumentException(
+                "Unable to create modifiable variable of class " + clazz.getSimpleName() + " with add modification");
+        }
+    }
+
     public static ModifiableByte sub(Byte b) {
         return getModifiableByteWithModification(ByteModificationFactory.sub(b));
     }
@@ -180,6 +304,48 @@ public class Modifiable {
 
     public static ModifiableLong sub(Long l) {
         return getModifiableLongWithModification(LongModificationFactory.sub(l));
+    }
+
+    /**
+     * Creates a new modifiable variable with a subtract modification which subtracts the given subtrahend from the
+     * original value.
+     *
+     * @param  subtrahend
+     *                                  Value to subtract from the original value.
+     * @param  clazz
+     *                                  Class of the modifiable variable to create. If the class is not supported an
+     *                                  {@link IllegalArgumentException} will be thrown.
+     * @return                          A new modifiable variable of the given class with a subtract modification.
+     * @param  <N>
+     *                                  Type of the subtrahend.
+     * @param  <MV>
+     *                                  Type of the modifiable variable to return.
+     * @throws IllegalArgumentException
+     *                                  Thrown whenever the provided class is not supported.
+     */
+    public static <N extends Number, MV extends ModifiableVariable<? extends Number>> MV sub(N subtrahend,
+        Class<MV> clazz) {
+        if (clazz.equals(ModifiableByte.class)) {
+            return clazz.cast(sub(subtrahend != null ? subtrahend.byteValue() : null));
+        } else if (clazz.equals(ModifiableInteger.class)) {
+            return clazz.cast(sub(subtrahend != null ? subtrahend.intValue() : null));
+        } else if (clazz.equals(ModifiableLong.class)) {
+            return clazz.cast(sub(subtrahend != null ? subtrahend.longValue() : null));
+        }
+        // No ModifiableVariable of primitive type => best effort
+        // We just assume here that the toString() method does a good job at returning a parsable string value
+        String subtrahendString = subtrahend != null ? subtrahend.toString() : null;
+        if (clazz.equals(ModifiableBigInteger.class)) {
+            return clazz.cast(sub(subtrahendString != null ? new BigInteger(subtrahendString) : null));
+        } else if (clazz.equals(ModifiableUnsignedInteger.class)) {
+            return clazz.cast(sub(subtrahendString != null ? UnsignedInteger.valueOf(subtrahendString) : null));
+        } else {
+            // May happen if the user implements its own subclass and tries to call this method with it
+            // TODO: This can be avoided by implementing a sealed class with all supported classes as permitted
+            // subclasses (requires Java 17)
+            throw new IllegalArgumentException("Unable to create modifiable variable of class " + clazz.getSimpleName()
+                + " with subtract modification");
+        }
     }
 
     public static ModifiableByteArray insert(byte[] b, int position) {
