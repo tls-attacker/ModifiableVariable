@@ -12,7 +12,7 @@ package de.rub.nds.modifiablevariable.util;
 import java.util.Random;
 
 /**
- * 
+ *
  */
 public class RandomHelper {
 

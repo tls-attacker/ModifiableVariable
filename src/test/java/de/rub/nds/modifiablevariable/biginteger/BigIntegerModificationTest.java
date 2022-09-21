@@ -9,14 +9,13 @@
 
 package de.rub.nds.modifiablevariable.biginteger;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import de.rub.nds.modifiablevariable.VariableModification;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import java.math.BigInteger;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
-import org.junit.Before;
-import org.junit.Test;
 
 public class BigIntegerModificationTest {
 
@@ -24,10 +23,7 @@ public class BigIntegerModificationTest {
 
     private BigInteger expectedResult, result;
 
-    public BigIntegerModificationTest() {
-    }
-
-    @Before
+    @BeforeEach
     public void setUp() {
         start = new ModifiableBigInteger();
         start.setOriginalValue(BigInteger.TEN);

@@ -15,7 +15,7 @@ import java.security.SecureRandomSpi;
 import java.util.Random;
 
 /**
- * 
+ *
  */
 public class BadRandom extends SecureRandom {
 

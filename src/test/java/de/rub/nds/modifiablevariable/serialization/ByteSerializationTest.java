@@ -9,19 +9,22 @@
 
 package de.rub.nds.modifiablevariable.serialization;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import de.rub.nds.modifiablevariable.singlebyte.ByteAddModification;
 import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
-import java.io.StringReader;
-import java.io.StringWriter;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import static org.junit.Assert.assertEquals;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
+import java.io.StringReader;
+import java.io.StringWriter;
 
 public class ByteSerializationTest {
 
@@ -39,10 +42,7 @@ public class ByteSerializationTest {
 
     private Unmarshaller um;
 
-    public ByteSerializationTest() {
-    }
-
-    @Before
+    @BeforeEach
     public void setUp() throws JAXBException {
         start = new ModifiableByte();
         start.setOriginalValue((byte) 10);
@@ -69,14 +69,16 @@ public class ByteSerializationTest {
         assertEquals(expectedResult, result);
     }
 
+    @Disabled("Not yet implemented")
     @Test
-    public void testSerializeDeserializeWithDoubleModification() throws Exception {
+    public void testSerializeDeserializeWithDoubleModification() {
         // TODO
 
     }
 
+    @Disabled("Not yet implemented")
     @Test
-    public void testSerializeDeserializeWithDoubleModificationFilter() throws Exception {
+    public void testSerializeDeserializeWithDoubleModificationFilter() {
         // TODO
 
     }

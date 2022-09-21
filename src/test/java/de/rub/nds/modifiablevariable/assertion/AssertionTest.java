@@ -9,14 +9,15 @@
 
 package de.rub.nds.modifiablevariable.assertion;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.integer.IntegerModificationFactory;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class AssertionTest {
 
@@ -24,10 +25,7 @@ public class AssertionTest {
 
     private ModifiableByteArray mba;
 
-    public AssertionTest() {
-    }
-
-    @Before
+    @BeforeEach
     public void setUp() {
         mi = new ModifiableInteger();
         mi.setOriginalValue(10);

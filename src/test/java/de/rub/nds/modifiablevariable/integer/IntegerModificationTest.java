@@ -9,10 +9,11 @@
 
 package de.rub.nds.modifiablevariable.integer;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import de.rub.nds.modifiablevariable.VariableModification;
-import static org.junit.Assert.assertEquals;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class IntegerModificationTest {
 
@@ -20,10 +21,7 @@ public class IntegerModificationTest {
 
     private Integer expectedResult, result;
 
-    public IntegerModificationTest() {
-    }
-
-    @Before
+    @BeforeEach
     public void setUp() {
         start = new ModifiableInteger();
         start.setOriginalValue(10);
@@ -41,7 +39,7 @@ public class IntegerModificationTest {
         expectedResult = 11;
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(new Integer(10), start.getOriginalValue());
+        assertEquals(Integer.valueOf(10), start.getOriginalValue());
     }
 
     /**
@@ -54,7 +52,7 @@ public class IntegerModificationTest {
         expectedResult = 9;
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(new Integer(10), start.getOriginalValue());
+        assertEquals(Integer.valueOf(10), start.getOriginalValue());
     }
 
     /**
@@ -67,7 +65,7 @@ public class IntegerModificationTest {
         expectedResult = 8;
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(new Integer(10), start.getOriginalValue());
+        assertEquals(Integer.valueOf(10), start.getOriginalValue());
     }
 
     /**
@@ -80,7 +78,7 @@ public class IntegerModificationTest {
         expectedResult = 7;
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(new Integer(10), start.getOriginalValue());
+        assertEquals(Integer.valueOf(10), start.getOriginalValue());
     }
 
     @Test
@@ -90,7 +88,7 @@ public class IntegerModificationTest {
         expectedResult = 40;
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(new Integer(10), start.getOriginalValue());
+        assertEquals(Integer.valueOf(10), start.getOriginalValue());
     }
 
     @Test
@@ -100,7 +98,7 @@ public class IntegerModificationTest {
         expectedResult = 2;
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(new Integer(10), start.getOriginalValue());
+        assertEquals(Integer.valueOf(10), start.getOriginalValue());
     }
 
     /**

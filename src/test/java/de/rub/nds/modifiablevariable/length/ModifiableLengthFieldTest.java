@@ -9,10 +9,13 @@
 
 package de.rub.nds.modifiablevariable.length;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 public class ModifiableLengthFieldTest {
 
@@ -22,7 +25,7 @@ public class ModifiableLengthFieldTest {
 
     private ModifiableByteArray array;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         array = new ModifiableByteArray();
         array.setOriginalValue(new byte[] { 0, 1, 2, 3 });
@@ -35,12 +38,13 @@ public class ModifiableLengthFieldTest {
      */
     @Test
     public void testGetOriginalValue() {
-        assertTrue(lengthField1.getValue() == 4);
+        assertEquals(4, (int) lengthField1.getValue());
     }
 
     /**
      * Test of setOriginalValue method, of class ModifiableLengthField.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testSetOriginalValue() {
 
@@ -49,6 +53,7 @@ public class ModifiableLengthFieldTest {
     /**
      * Test of toString method, of class ModifiableLengthField.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testToString() {
     }
@@ -68,6 +73,7 @@ public class ModifiableLengthFieldTest {
     /**
      * Test of hashCode method, of class ModifiableLengthField.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testHashCode() {
     }

@@ -9,7 +9,7 @@
 
 package de.rub.nds.modifiablevariable.bytearray;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 public class ByteArrayOperationConcatenationTest {
 
@@ -17,10 +17,7 @@ public class ByteArrayOperationConcatenationTest {
 
     private byte[] expectedResult, result;
 
-    public ByteArrayOperationConcatenationTest() {
-    }
-
-    @Before
+    @BeforeEach
     public void setUp() {
         start = new ModifiableByteArray();
         start.setOriginalValue(new byte[] { 1, 10 });

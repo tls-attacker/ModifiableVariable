@@ -9,19 +9,16 @@
 
 package de.rub.nds.modifiablevariable.bytearray;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.Assert;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import org.junit.Assume;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ModifiableByteArrayTest {
 
@@ -35,7 +32,7 @@ public class ModifiableByteArrayTest {
 
     private byte[] modification2;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         originalValue = new byte[] { (byte) 0, (byte) 1, (byte) 2, (byte) 3, (byte) 4, (byte) 5, (byte) 6 };
         modification1 = new byte[] { (byte) 2, (byte) 3 };
@@ -194,7 +191,7 @@ public class ModifiableByteArrayTest {
     public void testDeleteLastBytes() {
         LOGGER.info("testDeleteLastBytes");
         // Deletes modification length many bytes
-        Assume.assumeTrue(modification1.length < originalValue.length);
+        assumeTrue(modification1.length < originalValue.length);
         int len = originalValue.length - modification1.length;
         byte[] expResult = new byte[len];
         System.arraycopy(originalValue, 0, expResult, 0, len);
@@ -214,14 +211,11 @@ public class ModifiableByteArrayTest {
     public void testDeleteFirstBytes() {
         LOGGER.info("testDeleteFirstBytes");
         // Deletes modification length many bytes
-        Assume.assumeTrue(modification1.length < originalValue.length);
+        assumeTrue(modification1.length < originalValue.length);
 
         int len = originalValue.length;
         byte[] expResult = new byte[len - modification1.length];
-        for (int i = modification1.length; i < len; i++) {
-            expResult[i - modification1.length] = originalValue[i];
-
-        }
+        System.arraycopy(originalValue, modification1.length, expResult, 0, len - modification1.length);
         VariableModification<byte[]> modifier = ByteArrayModificationFactory.delete(0, modification1.length);
         start.setModification(modifier);
 
@@ -286,7 +280,7 @@ public class ModifiableByteArrayTest {
     public void testInsertBytes() {
         LOGGER.info("testInsertBytes");
         // Insert negative position, insert 0 bytes, insert too far
-        Assume.assumeTrue(modification1.length < originalValue.length);
+        assumeTrue(modification1.length < originalValue.length);
         LOGGER.debug("Inserting negative Position");
         VariableModification<byte[]> modifier =
             ByteArrayModificationFactory.insert(modification1, -2 * originalValue.length);
@@ -351,13 +345,13 @@ public class ModifiableByteArrayTest {
 
         modifier = ByteArrayModificationFactory.explicitValueFromFile(1);
         start.setModification(modifier);
-        expectedResult = new byte[] { 00 };
+        expectedResult = new byte[] { 0x00 };
         result = start.getValue();
         assertArrayEquals(expectedResult, result);
 
         modifier = ByteArrayModificationFactory.explicitValueFromFile(17);
         start.setModification(modifier);
-        expectedResult = new byte[] { (byte) 255 };
+        expectedResult = new byte[] { (byte) 0xFF };
         result = start.getValue();
         assertArrayEquals(expectedResult, result);
     }
@@ -390,7 +384,7 @@ public class ModifiableByteArrayTest {
         toTest = ModifiableVariableFactory.safelySetValue(toTest, new byte[] { 0x00, 0x11, 0x22, 0x33, 0x44 });
         assertEquals("Original byte value is: 00 11 22 33 44", toTest.toString());
 
-        VariableModification modification =
+        VariableModification<byte[]> modification =
             new ByteArrayExplicitValueModification(new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08 });
         toTest.setModification(modification);
         assertEquals("Actual byte value is: 00 01 02 03 04 05 06 07 08\nOriginal value was: 00 11 22 33 44",
@@ -405,6 +399,6 @@ public class ModifiableByteArrayTest {
         array2.setOriginalValue(new byte[] { 1, 2, 3, });
         assertEquals(array1, array2);
         array2.setOriginalValue(new byte[] { 3, 4, 5 });
-        Assert.assertNotEquals(array1, array2);
+        assertNotEquals(array1, array2);
     }
 }

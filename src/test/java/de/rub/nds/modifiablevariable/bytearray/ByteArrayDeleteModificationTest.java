@@ -9,14 +9,13 @@
 
 package de.rub.nds.modifiablevariable.bytearray;
 
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-/**
- *
- * @author captain
- */
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
 public class ByteArrayDeleteModificationTest {
 
     private ByteArrayDeleteModification b1;
@@ -25,7 +24,7 @@ public class ByteArrayDeleteModificationTest {
     private ByteArrayDeleteModification b4;
     private int b5;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         b1 = new ByteArrayDeleteModification(0, 0);
         b2 = b1;
@@ -37,6 +36,7 @@ public class ByteArrayDeleteModificationTest {
     /**
      * Test of modifyImplementationHook method, of class ByteArrayDeleteModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testModifyImplementationHook() {
     }
@@ -44,6 +44,7 @@ public class ByteArrayDeleteModificationTest {
     /**
      * Test of getStartPosition method, of class ByteArrayDeleteModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testGetStartPosition() {
     }
@@ -51,6 +52,7 @@ public class ByteArrayDeleteModificationTest {
     /**
      * Test of setStartPosition method, of class ByteArrayDeleteModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testSetStartPosition() {
     }
@@ -58,6 +60,7 @@ public class ByteArrayDeleteModificationTest {
     /**
      * Test of getCount method, of class ByteArrayDeleteModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testGetCount() {
     }
@@ -65,6 +68,7 @@ public class ByteArrayDeleteModificationTest {
     /**
      * Test of setCount method, of class ByteArrayDeleteModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testSetCount() {
     }
@@ -72,6 +76,7 @@ public class ByteArrayDeleteModificationTest {
     /**
      * Test of getModifiedCopy method, of class ByteArrayDeleteModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testGetModifiedCopy() {
     }
@@ -79,6 +84,7 @@ public class ByteArrayDeleteModificationTest {
     /**
      * Test of hashCode method, of class ByteArrayDeleteModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testHashCode() {
     }
@@ -88,16 +94,17 @@ public class ByteArrayDeleteModificationTest {
      */
     @Test
     public void testEquals() {
-        assertTrue(b1.equals(b1));
-        assertTrue(b1.equals(b2));
-        assertFalse(b1.equals(b3));
-        assertFalse(b1.equals(b4));
-        assertFalse(b1.equals(b5));
+        assertEquals(b1, b1);
+        assertEquals(b1, b2);
+        assertNotEquals(b1, b3);
+        assertNotEquals(b1, b4);
+        assertNotEquals(b1, b5);
     }
 
     /**
      * Test of toString method, of class ByteArrayDeleteModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testToString() {
     }

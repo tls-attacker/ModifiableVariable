@@ -9,14 +9,13 @@
 
 package de.rub.nds.modifiablevariable.bool;
 
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-/**
- *
- * @author captain
- */
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
 public class BooleanExplicitValueModificationTest {
 
     private BooleanExplicitValueModification b1;
@@ -24,7 +23,7 @@ public class BooleanExplicitValueModificationTest {
     private BooleanExplicitValueModification b3;
     private Integer integer1;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         b1 = new BooleanExplicitValueModification(true);
         b2 = new BooleanExplicitValueModification(false);
@@ -35,6 +34,7 @@ public class BooleanExplicitValueModificationTest {
     /**
      * Test of modifyImplementationHook method, of class BooleanExplicitValueModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testModifyImplementationHook() {
     }
@@ -42,6 +42,7 @@ public class BooleanExplicitValueModificationTest {
     /**
      * Test of isExplicitValue method, of class BooleanExplicitValueModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testIsExplicitValue() {
     }
@@ -49,6 +50,7 @@ public class BooleanExplicitValueModificationTest {
     /**
      * Test of setExplicitValue method, of class BooleanExplicitValueModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testSetExplicitValue() {
     }
@@ -56,6 +58,7 @@ public class BooleanExplicitValueModificationTest {
     /**
      * Test of getModifiedCopy method, of class BooleanExplicitValueModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testGetModifiedCopy() {
     }
@@ -63,6 +66,7 @@ public class BooleanExplicitValueModificationTest {
     /**
      * Test of hashCode method, of class BooleanExplicitValueModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testHashCode() {
     }
@@ -70,6 +74,7 @@ public class BooleanExplicitValueModificationTest {
     /**
      * Test of equals method, of class BooleanExplicitValueModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testEquals() {
     }
@@ -79,10 +84,10 @@ public class BooleanExplicitValueModificationTest {
      */
     @Test
     public void testToString() {
-        assertFalse(b1.equals(b2));
-        assertFalse(b1.equals(integer1));
-        assertTrue(b1.equals(b1));
-        assertTrue(b1.equals(b3));
+        assertNotEquals(b1, b2);
+        assertNotEquals(b1, integer1);
+        assertEquals(b1, b1);
+        assertEquals(b1, b3);
     }
 
 }

@@ -11,8 +11,8 @@ package de.rub.nds.modifiablevariable.integer;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import java.util.Random;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
 
 @XmlRootElement
 @XmlType(propOrder = { "shift", "modificationFilter" })

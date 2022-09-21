@@ -9,40 +9,19 @@
 
 package de.rub.nds.modifiablevariable.util;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import org.apache.commons.lang.StringEscapeUtils;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 public class IllegalStringAdapterTest {
 
-    private Logger LOGGER = LogManager.getLogger();
-
-    public IllegalStringAdapterTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
+    private static final Logger LOGGER = LogManager.getLogger();
 
     /**
      * Test of unmarshal method, of class IllegalStringAdapter.

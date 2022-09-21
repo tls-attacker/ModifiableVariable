@@ -9,11 +9,13 @@
 
 package de.rub.nds.modifiablevariable.biginteger;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import de.rub.nds.modifiablevariable.VariableModification;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import java.math.BigInteger;
-import static org.junit.Assert.assertEquals;
-import org.junit.Before;
-import org.junit.Test;
 
 public class BigIntegerOperationConcatenationTest {
 
@@ -21,10 +23,7 @@ public class BigIntegerOperationConcatenationTest {
 
     private BigInteger expectedResult, result;
 
-    public BigIntegerOperationConcatenationTest() {
-    }
-
-    @Before
+    @BeforeEach
     public void setUp() {
         start = new ModifiableBigInteger();
         start.setOriginalValue(BigInteger.TEN);
@@ -33,7 +32,7 @@ public class BigIntegerOperationConcatenationTest {
     @Test
     public void testAddThenMultiplyWithInnerClass() {
         // (input + 4) ^ 3 = (10 + 4) ^ 3 = 13
-        start.setModification(new VariableModification<BigInteger>() {
+        start.setModification(new VariableModification<>() {
 
             @Override
             protected BigInteger modifyImplementationHook(BigInteger input) {
@@ -43,15 +42,15 @@ public class BigIntegerOperationConcatenationTest {
             @Override
             public VariableModification<BigInteger> getModifiedCopy() {
                 throw new UnsupportedOperationException("Not supported yet."); // To
-                                                                               // change
-                                                                               // body
-                                                                               // of
-                                                                               // generated
-                                                                               // methods,
-                                                                               // choose
-                                                                               // Tools
-                                                                               // |
-                                                                               // Templates.
+                // change
+                // body
+                // of
+                // generated
+                // methods,
+                // choose
+                // Tools
+                // |
+                // Templates.
             }
         });
         expectedResult = new BigInteger("13");

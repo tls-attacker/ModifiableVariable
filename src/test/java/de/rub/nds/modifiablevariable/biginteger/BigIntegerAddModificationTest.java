@@ -9,15 +9,15 @@
 
 package de.rub.nds.modifiablevariable.biginteger;
 
-import java.math.BigInteger;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-/**
- *
- * @author captain
- */
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+import java.math.BigInteger;
+
 public class BigIntegerAddModificationTest {
 
     private BigIntegerAddModification b1;
@@ -28,7 +28,7 @@ public class BigIntegerAddModificationTest {
 
     private Integer integer1;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         b1 = new BigIntegerAddModification(BigInteger.ONE);
         b2 = new BigIntegerAddModification(BigInteger.TEN);
@@ -39,6 +39,7 @@ public class BigIntegerAddModificationTest {
     /**
      * Test of modifyImplementationHook method, of class BigIntegerAddModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testModifyImplementationHook() {
     }
@@ -46,6 +47,7 @@ public class BigIntegerAddModificationTest {
     /**
      * Test of getSummand method, of class BigIntegerAddModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testGetSummand() {
     }
@@ -53,6 +55,7 @@ public class BigIntegerAddModificationTest {
     /**
      * Test of setSummand method, of class BigIntegerAddModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testSetSummand() {
     }
@@ -60,6 +63,7 @@ public class BigIntegerAddModificationTest {
     /**
      * Test of getModifiedCopy method, of class BigIntegerAddModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testGetModifiedCopy() {
     }
@@ -67,6 +71,7 @@ public class BigIntegerAddModificationTest {
     /**
      * Test of hashCode method, of class BigIntegerAddModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testHashCode() {
     }
@@ -76,10 +81,10 @@ public class BigIntegerAddModificationTest {
      */
     @Test
     public void testEquals() {
-        assertFalse(b1.equals(b2));
-        assertFalse(b1.equals(integer1));
-        assertTrue(b1.equals(b1));
-        assertTrue(b1.equals(b3));
+        assertNotEquals(b1, b2);
+        assertNotEquals(b1, integer1);
+        assertEquals(b1, b1);
+        assertEquals(b1, b3);
     }
 
 }
