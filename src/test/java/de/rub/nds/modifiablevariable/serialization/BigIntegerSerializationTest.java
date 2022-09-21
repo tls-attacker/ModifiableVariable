@@ -9,6 +9,9 @@
 
 package de.rub.nds.modifiablevariable.serialization;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerAddModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerInteractiveModification;
@@ -17,19 +20,18 @@ import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import de.rub.nds.modifiablevariable.bytearray.ByteArrayModificationFactory;
 import de.rub.nds.modifiablevariable.filter.AccessModificationFilter;
 import de.rub.nds.modifiablevariable.filter.ModificationFilterFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.math.BigInteger;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import org.junit.Before;
-import org.junit.Test;
 
 public class BigIntegerSerializationTest {
 
@@ -47,10 +49,7 @@ public class BigIntegerSerializationTest {
 
     private Unmarshaller um;
 
-    public BigIntegerSerializationTest() {
-    }
-
-    @Before
+    @BeforeEach
     public void setUp() throws JAXBException {
         start = new ModifiableBigInteger();
         start.setOriginalValue(BigInteger.TEN);
@@ -64,12 +63,7 @@ public class BigIntegerSerializationTest {
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         um = context.createUnmarshaller();
 
-        BigIntegerModificationFactory.setStandardInteractiveModification(
-            new BigIntegerInteractiveModification.InteractiveBigIntegerModification() {
-                public BigInteger modify(BigInteger oldVal) {
-                    return new BigInteger("12");
-                }
-            });
+        BigIntegerModificationFactory.setStandardInteractiveModification(oldVal -> new BigInteger("12"));
     }
 
     @Test

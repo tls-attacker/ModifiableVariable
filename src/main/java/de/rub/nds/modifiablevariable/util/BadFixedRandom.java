@@ -14,7 +14,7 @@ import java.util.Random;
 /**
  * A fake random number generator for testing. This generator will always return the byte "retVal" passed to the
  * constructor.
- * 
+ *
  */
 public class BadFixedRandom extends Random {
 

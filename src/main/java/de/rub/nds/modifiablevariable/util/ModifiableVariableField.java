@@ -14,7 +14,7 @@ import java.lang.reflect.Field;
 
 /**
  * Represents an object with its modifiable variable field.
- * 
+ *
  */
 public class ModifiableVariableField {
 

@@ -17,7 +17,7 @@ import java.lang.annotation.Target;
 /**
  * Annotation interface for modifiable variables holders. A modifiable variable holder is for example a TLS protocol
  * message.
- * 
+ *
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

@@ -9,10 +9,11 @@
 
 package de.rub.nds.modifiablevariable.mlong;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import de.rub.nds.modifiablevariable.VariableModification;
-import static org.junit.Assert.assertEquals;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class LongModificationTest {
 
@@ -20,7 +21,7 @@ public class LongModificationTest {
 
     private Long expectedResult, result;
 
-    @Before
+    @BeforeEach
     public void setUp() {
 
         start = new ModifiableLong();
@@ -38,7 +39,7 @@ public class LongModificationTest {
         expectedResult = 11L;
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(new Long(10L), start.getOriginalValue());
+        assertEquals(Long.valueOf(10L), start.getOriginalValue());
 
     }
 
@@ -49,7 +50,7 @@ public class LongModificationTest {
         expectedResult = 9L;
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(new Long(10L), start.getOriginalValue());
+        assertEquals(Long.valueOf(10L), start.getOriginalValue());
     }
 
     @Test
@@ -59,7 +60,7 @@ public class LongModificationTest {
         expectedResult = 8L;
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(new Long(10L), start.getOriginalValue());
+        assertEquals(Long.valueOf(10L), start.getOriginalValue());
     }
 
     @Test
@@ -69,7 +70,7 @@ public class LongModificationTest {
         expectedResult = 7L;
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(new Long(10L), start.getOriginalValue());
+        assertEquals(Long.valueOf(10L), start.getOriginalValue());
     }
 
     /**

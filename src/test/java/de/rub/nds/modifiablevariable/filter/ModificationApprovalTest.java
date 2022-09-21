@@ -9,15 +9,17 @@
 
 package de.rub.nds.modifiablevariable.filter;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+
 import de.rub.nds.modifiablevariable.ModificationFilter;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerModificationFactory;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import java.math.BigInteger;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import org.junit.Before;
-import org.junit.Test;
 
 public class ModificationApprovalTest {
 
@@ -27,10 +29,7 @@ public class ModificationApprovalTest {
 
     private BigInteger expectedResult, result;
 
-    public ModificationApprovalTest() {
-    }
-
-    @Before
+    @BeforeEach
     public void setUp() {
         start = new ModifiableBigInteger();
         start.setOriginalValue(BigInteger.TEN);

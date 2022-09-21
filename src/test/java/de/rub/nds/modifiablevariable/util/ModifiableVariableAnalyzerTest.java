@@ -9,26 +9,24 @@
 
 package de.rub.nds.modifiablevariable.util;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
 import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import org.junit.Test;
 
 public class ModifiableVariableAnalyzerTest {
 
-    public ModifiableVariableAnalyzerTest() {
-    }
-
     /**
      * Test of getAllModifiableVariableFields method, of class ModifiableVariableAnalyzer.
-     * 
+     *
      */
     @Test
     public void testGetAllModifiableVariableFields() {
@@ -44,6 +42,7 @@ public class ModifiableVariableAnalyzerTest {
     /**
      * Test of getRandomModifiableVariableField method, of class ModifiableVariableAnalyzer.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testGetRandomModifiableVariableField() {
     }
@@ -52,7 +51,7 @@ public class ModifiableVariableAnalyzerTest {
     public void testGetAllModifiableVariableHolders() {
         SimpleClassWithModVariables test1 = new SimpleClassWithModVariables();
         test1.bi = new ModifiableBigInteger();
-        test1.x = new Integer("1");
+        test1.x = Integer.valueOf("1");
         assertEquals(1, ModifiableVariableAnalyzer.getAllModifiableVariableHoldersRecursively(test1).size());
         test1.test = new SimpleClassWithModVariables();
         assertEquals(2, ModifiableVariableAnalyzer.getAllModifiableVariableHoldersRecursively(test1).size());
@@ -62,7 +61,7 @@ public class ModifiableVariableAnalyzerTest {
     public void testGetAllModifiableVariableFieldsRecursively() {
         SimpleClassWithModVariables test1 = new SimpleClassWithModVariables();
         test1.bi = new ModifiableBigInteger();
-        test1.x = new Integer("1");
+        test1.x = Integer.valueOf("1");
         List<ModifiableVariableField> fields =
             ModifiableVariableAnalyzer.getAllModifiableVariableFieldsRecursively(test1);
         assertEquals(3, fields.size());
@@ -87,7 +86,7 @@ public class ModifiableVariableAnalyzerTest {
     public void testGetAllModifiableVariableFieldsRecursivelyOrder() {
         SimpleClassWithModVariables test1 = new SimpleClassWithModVariables();
         test1.bi = new ModifiableBigInteger();
-        test1.x = new Integer("1");
+        test1.x = Integer.valueOf("1");
         test1.test = new SimpleClassWithModVariables();
         List<ModifiableVariableField> fields1 =
             ModifiableVariableAnalyzer.getAllModifiableVariableFieldsRecursively(test1);
@@ -113,7 +112,7 @@ public class ModifiableVariableAnalyzerTest {
         return false;
     }
 
-    private class SimpleClassWithModVariables {
+    private static class SimpleClassWithModVariables {
         Integer x;
         ModifiableBigInteger bi;
         ModifiableByteArray array;
@@ -122,7 +121,7 @@ public class ModifiableVariableAnalyzerTest {
         SimpleClassWithModVariables test;
     }
 
-    private class SimpleClassWithModVariablesList {
+    private static class SimpleClassWithModVariablesList {
         Integer x;
         ModifiableBigInteger bi;
         ModifiableByteArray array;

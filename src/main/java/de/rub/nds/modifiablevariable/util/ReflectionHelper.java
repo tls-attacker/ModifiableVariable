@@ -23,7 +23,7 @@ public class ReflectionHelper {
      * fields (all access levels) from all classes up the class hierarchy starting with {@code startClass} stopping with
      * and not including {@code exclusiveParent}. Generally {@code Object.class} should be passed as
      * {@code exclusiveParent}.
-     * 
+     *
      * @param  startClass
      *                         the class whose fields should be retrieved
      * @param  exclusiveParent

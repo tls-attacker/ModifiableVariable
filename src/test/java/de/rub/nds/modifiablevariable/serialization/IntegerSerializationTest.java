@@ -10,15 +10,16 @@
 package de.rub.nds.modifiablevariable.serialization;
 
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
-import java.io.StringWriter;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
+import java.io.StringWriter;
 
 public class IntegerSerializationTest {
 
@@ -36,27 +37,27 @@ public class IntegerSerializationTest {
 
     private Unmarshaller um;
 
-    public IntegerSerializationTest() {
-    }
-
-    @Before
-    public void setUp() throws JAXBException {
+    @BeforeEach
+    public void setUp() {
         // todo
     }
 
+    @Disabled("Not yet implemented")
     @Test
-    public void testSerializeDeserializeSimple() throws Exception {
+    public void testSerializeDeserializeSimple() {
         // TODO
     }
 
+    @Disabled("Not yet implemented")
     @Test
-    public void testSerializeDeserializeWithDoubleModification() throws Exception {
+    public void testSerializeDeserializeWithDoubleModification() {
         // TODO
 
     }
 
+    @Disabled("Not yet implemented")
     @Test
-    public void testSerializeDeserializeWithDoubleModificationFilter() throws Exception {
+    public void testSerializeDeserializeWithDoubleModificationFilter() {
         // TODO
 
     }

@@ -9,13 +9,11 @@
 
 package de.rub.nds.modifiablevariable.singlebyte;
 
-import de.rub.nds.modifiablevariable.singlebyte.ByteModificationFactory;
-import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import de.rub.nds.modifiablevariable.VariableModification;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ByteModificationTest {
 
@@ -23,13 +21,10 @@ public class ByteModificationTest {
 
     private Byte expectedResult, result;
 
-    public ByteModificationTest() {
-    }
-
-    @Before
+    @BeforeEach
     public void setUp() {
         start = new ModifiableByte();
-        start.setOriginalValue(new Byte("10"));
+        start.setOriginalValue(Byte.valueOf("10"));
         expectedResult = null;
         result = null;
     }
@@ -39,13 +34,12 @@ public class ByteModificationTest {
      */
     @Test
     public void testAdd() {
-        VariableModification<Byte> modifier = ByteModificationFactory.add(new Byte("1"));
+        VariableModification<Byte> modifier = ByteModificationFactory.add(Byte.valueOf("1"));
         start.setModification(modifier);
-        expectedResult = new Byte("11");
+        expectedResult = Byte.valueOf("11");
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertNotSame(expectedResult, result);
-        assertEquals(new Byte("10"), start.getOriginalValue());
+        assertEquals(Byte.valueOf("10"), start.getOriginalValue());
     }
 
     /**
@@ -53,13 +47,12 @@ public class ByteModificationTest {
      */
     @Test
     public void testSub() {
-        VariableModification<Byte> modifier = ByteModificationFactory.sub(new Byte("1"));
+        VariableModification<Byte> modifier = ByteModificationFactory.sub(Byte.valueOf("1"));
         start.setModification(modifier);
-        expectedResult = new Byte("9");
+        expectedResult = Byte.valueOf("9");
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertNotSame(expectedResult, result);
-        assertEquals(new Byte("10"), start.getOriginalValue());
+        assertEquals(Byte.valueOf("10"), start.getOriginalValue());
     }
 
     /**
@@ -67,13 +60,12 @@ public class ByteModificationTest {
      */
     @Test
     public void testXor() {
-        VariableModification<Byte> modifier = ByteModificationFactory.xor(new Byte("2"));
+        VariableModification<Byte> modifier = ByteModificationFactory.xor(Byte.valueOf("2"));
         start.setModification(modifier);
-        expectedResult = new Byte("8");
+        expectedResult = Byte.valueOf("8");
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertNotSame(expectedResult, result);
-        assertEquals(new Byte("10"), start.getOriginalValue());
+        assertEquals(Byte.valueOf("10"), start.getOriginalValue());
     }
 
     /**
@@ -81,13 +73,12 @@ public class ByteModificationTest {
      */
     @Test
     public void testExplicitValue() {
-        VariableModification<Byte> modifier = ByteModificationFactory.explicitValue(new Byte("7"));
+        VariableModification<Byte> modifier = ByteModificationFactory.explicitValue(Byte.valueOf("7"));
         start.setModification(modifier);
-        expectedResult = new Byte("7");
+        expectedResult = Byte.valueOf("7");
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertNotSame(expectedResult, result);
-        assertEquals(new Byte("10"), start.getOriginalValue());
+        assertEquals(Byte.valueOf("10"), start.getOriginalValue());
     }
 
     /**

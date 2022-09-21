@@ -9,10 +9,14 @@
 
 package de.rub.nds.modifiablevariable.biginteger;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
 import java.math.BigInteger;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -25,7 +29,7 @@ public class BigIntegerXorModificationTest {
     private BigIntegerXorModification b3;
     private Integer integer1;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         b1 = new BigIntegerXorModification(BigInteger.ONE);
         b2 = new BigIntegerXorModification(BigInteger.TEN);
@@ -36,6 +40,7 @@ public class BigIntegerXorModificationTest {
     /**
      * Test of modifyImplementationHook method, of class BigIntegerXorModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testModifyImplementationHook() {
     }
@@ -43,6 +48,7 @@ public class BigIntegerXorModificationTest {
     /**
      * Test of getXor method, of class BigIntegerXorModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testGetXor() {
     }
@@ -50,6 +56,7 @@ public class BigIntegerXorModificationTest {
     /**
      * Test of setXor method, of class BigIntegerXorModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testSetXor() {
     }
@@ -57,6 +64,7 @@ public class BigIntegerXorModificationTest {
     /**
      * Test of getModifiedCopy method, of class BigIntegerXorModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testGetModifiedCopy() {
     }
@@ -64,6 +72,7 @@ public class BigIntegerXorModificationTest {
     /**
      * Test of hashCode method, of class BigIntegerXorModification.
      */
+    @Disabled("Not yet implemented")
     @Test
     public void testHashCode() {
     }
@@ -73,10 +82,10 @@ public class BigIntegerXorModificationTest {
      */
     @Test
     public void testEquals() {
-        assertFalse(b1.equals(b2));
-        assertFalse(b1.equals(integer1));
-        assertTrue(b1.equals(b1));
-        assertTrue(b1.equals(b3));
+        assertNotEquals(b1, b2);
+        assertNotEquals(b1, integer1);
+        assertEquals(b1, b1);
+        assertEquals(b1, b3);
     }
 
 }
