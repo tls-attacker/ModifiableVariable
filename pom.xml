@@ -4,12 +4,11 @@
     <parent>
         <groupId>de.rub.nds</groupId>
         <artifactId>protocol-toolkit-bom</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </parent>
 
     <artifactId>modifiable-variable</artifactId>
     <version>3.6.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
     
     <name>ModifiableVariable</name>
     <description>A Modifiable Variable concept allows for easy runtime modifications of basic data types like integers, booleans, or byte arrays</description>
@@ -22,36 +21,6 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>rub-nexus</id>
-            <name>Nexus Internal Repository (SNAPSHOT)</name>
-            <url>https://hydrogen.cloud.nds.rub.de/nexus/repository/maven-snapshots/</url>
-        </snapshotRepository>
-        <repository>
-            <id>rub-nexus</id>
-            <name>Nexus Internal Repository</name>
-            <url>https://hydrogen.cloud.nds.rub.de/nexus/repository/maven-releases/</url>
-        </repository>
-    </distributionManagement>
-
-    <profiles>
-        <!-- Deployment to Maven Central is done by activating this profile via -P maven-release -->
-        <profile>
-            <id>maven-release</id>
-            <distributionManagement>
-                <repository>
-                    <id>ossrh</id>
-                    <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-                </repository>
-            </distributionManagement>
-            <properties>
-                <!-- Artifacts pushed to maven central must be signed -->
-                <skip.signature>false</skip.signature>
-            </properties>
-        </profile>
-    </profiles>
   
     <developers>
         <developer>
@@ -123,29 +92,6 @@
                 <artifactId>maven-clean-plugin</artifactId>
             </plugin>
             <!--################# default lifecycle plugins #################-->
-            <!-- Enforce maven and java version -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>enforce-versions</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <requireMavenVersion>
-                                    <version>3.6</version>
-                                </requireMavenVersion>
-                                <requireJavaVersion>
-                                    <version>${maven.compiler.source}</version>
-                                </requireJavaVersion>
-                            </rules>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
             <!-- Formatting -->
             <plugin>
                 <groupId>net.revelc.code.formatter</groupId>
@@ -249,45 +195,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Sign artifacts -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <skip>${skip.signature}</skip>
-                </configuration>
-            </plugin>
-            <!-- Install artifacts to local maven repository -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-            </plugin>
-            <!-- Artifact deployment to OSSRH -->
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-                    <!-- deploy with the following command: mvn nexus-staging:release -->
-                    <autoReleaseAfterClose>false</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
             <!--############ plugins without lifecycle bindings #############-->
-            <!-- Dependency version management -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-            </plugin>
             <!-- Codestyle -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -307,6 +215,5 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
-        <skip.signature>true</skip.signature>
     </properties>
 </project>
