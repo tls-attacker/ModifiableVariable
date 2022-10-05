@@ -12,7 +12,7 @@ In order to compile and use ModifiableVariable, you need to have Java and Maven 
 ```bash
 $ sudo apt-get install maven
 ```
-ModifiableVariable currently needs Java JDK 8 to run. If you have the correct Java version you can install
+ModifiableVariable currently needs Java JDK 11 to run. If you have the correct Java version you can install
  ModifiableVariable as follows.
 ```bash
 $ git clone https://github.com/tls-attacker/ModifiableVariable.git
@@ -26,8 +26,8 @@ If you want to use this project as a dependency, you do not have to compile it y
 ```xml
 <dependency>
     <groupId>de.rub.nds</groupId>
-    <artifactId>ModifiableVariable</artifactId>
-    <version>3.1.0</version>
+    <artifactId>modifiable-variable</artifactId>
+    <version>4.0.0</version>
 </dependency>
 ```
 
