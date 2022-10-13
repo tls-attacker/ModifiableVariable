@@ -4,16 +4,16 @@
     <parent>
         <groupId>de.rub.nds</groupId>
         <artifactId>protocol-toolkit-bom</artifactId>
-        <version>1.1.0</version>
+        <version>1.2.0</version>
     </parent>
 
     <artifactId>modifiable-variable</artifactId>
     <version>4.0.1-SNAPSHOT</version>
-    
+
     <name>ModifiableVariable</name>
     <description>A Modifiable Variable concept allows for easy runtime modifications of basic data types like integers, booleans, or byte arrays</description>
     <url>https://github.com/tls-attacker/ModifiableVariable</url>
- 
+
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -21,7 +21,7 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-  
+
     <developers>
         <developer>
             <id>jsomorovsky</id>
@@ -51,12 +51,28 @@
     <scm>
         <connection>scm:git:https://github.com/tls-attacker/ModifiableVariable.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/tls-attacker/ModifiableVariable.git</developerConnection>
+        <tag>HEAD</tag>
         <url>https://github.com/tls-attacker/ModifiableVariable</url>
-      <tag>HEAD</tag>
-  </scm>
-    
+    </scm>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
+    </properties>
+
     <dependencies>
         <!-- scope: compile -->
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
@@ -66,16 +82,8 @@
             <artifactId>log4j-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>jakarta.xml.bind</groupId>
-            <artifactId>jakarta.xml.bind-api</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-text</artifactId>
         </dependency>
         <!-- scope: test -->
         <dependency>
@@ -95,50 +103,31 @@
             <!--################# default lifecycle plugins #################-->
             <!-- Formatting -->
             <plugin>
-                <groupId>net.revelc.code.formatter</groupId>
-                <artifactId>formatter-maven-plugin</artifactId>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
                 <configuration>
-                    <configFile>${project.basedir}/maven-eclipse-codestyle.xml</configFile>
+                    <java>
+                        <!-- Introduce spotless using ratchetFrom to format files gradually on change.
+                             Also avoid merge conflicts when merging into master due to one large format commit. -->
+                        <ratchetFrom>origin/master</ratchetFrom>
+                        <lineEndings>GIT_ATTRIBUTES</lineEndings>
+                        <trimTrailingWhitespace />
+                        <endWithNewline />
+                        <importOrder />
+                        <removeUnusedImports />
+                        <indent>
+                            <spaces>true</spaces>
+                            <spacesPerTab>4</spacesPerTab>
+                        </indent>
+                        <googleJavaFormat>
+                            <version>1.15.0</version>
+                            <style>AOSP</style>
+                        </googleJavaFormat>
+                        <licenseHeader>
+                            <file>${project.basedir}/license_header_plain.txt</file>
+                        </licenseHeader>
+                    </java>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>format-sources</id>
-                        <goals>
-                            <goal>format</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.mycila</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <configuration>
-                    <header>${project.basedir}/license_header_plain.txt</header>
-                    <strictCheck>true</strictCheck>
-                    <includes>
-                        <include>src/**/*.java</include>
-                    </includes>
-                    <properties>
-                        <startYear>2014</startYear>
-                        <year>${maven.build.timestamp}</year>
-                        <description>A Variable Concept for Runtime Modifications</description>
-                        <owner>Ruhr University Bochum, Paderborn University, Hackmanit GmbH</owner>
-                        <licenseName>Apache License, Version 2.0</licenseName>
-                        <licenseURL>http://www.apache.org/licenses/LICENSE-2.0.txt</licenseURL>
-                    </properties>
-                    <mapping>
-                        <java>JAVADOC_STYLE</java>
-                    </mapping>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>update-license-header</id>
-                        <phase>process-sources</phase>
-                        <goals>
-                            <goal>format</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <!-- Flatten pom.xml before install / deploy phases -->
             <plugin>
@@ -149,18 +138,18 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>flatten</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>flatten</goal>
-                        </goals>
-                    </execution>
-                    <execution>
                         <id>flatten-clean</id>
-                        <phase>clean</phase>
                         <goals>
                             <goal>clean</goal>
                         </goals>
+                        <phase>clean</phase>
+                    </execution>
+                    <execution>
+                        <id>flatten</id>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                        <phase>process-resources</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -194,9 +183,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <source>${maven.compiler.source}</source>
-                    <javadocExecutable>
-                        ${java.home}/bin/javadoc
-                    </javadocExecutable>
+                    <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
                 </configuration>
                 <executions>
                     <execution>
@@ -220,25 +207,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--############ plugins without lifecycle bindings #############-->
-            <!-- Codestyle -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <configuration>
-                    <configLocation>${project.basedir}/checkstyle.xml</configLocation>
-                    <violationSeverity>info</violationSeverity>
-                    <failOnViolation>false</failOnViolation>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
-    
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
-    </properties>
 </project>
