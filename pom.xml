@@ -61,6 +61,10 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
+        <!-- The following variables are required for Jenkins CI -->
+        <skipTests>false</skipTests>
+        <skip.surefire.tests>${skipTests}</skip.surefire.tests>
+        <skip.failsafe.tests>${skipTests}</skip.failsafe.tests>
     </properties>
 
     <dependencies>
@@ -93,13 +97,103 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>delayed-slow-tests</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <!-- Configure Surefire to run SlowTests during integration-test phase to speed up the build process -->
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-surefire-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <id>default-test</id>
+                                    <configuration>
+                                        <excludedGroups>SlowTest,IntegrationTest</excludedGroups>
+                                    </configuration>
+                                </execution>
+                                <execution>
+                                    <id>run-slow-unit-tests</id>
+                                    <phase>integration-test</phase>
+                                    <goals>
+                                        <goal>test</goal>
+                                    </goals>
+                                    <configuration>
+                                        <groups>SlowTest</groups>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+        <profile>
+            <id>coverage</id>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <!-- Configure JaCoCo to run during unit and integration tests -->
+                        <plugin>
+                            <groupId>org.jacoco</groupId>
+                            <artifactId>jacoco-maven-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <id>jacoco-prepare-agent</id>
+                                    <goals>
+                                        <goal>prepare-agent</goal>
+                                    </goals>
+                                </execution>
+                                <execution>
+                                    <id>jacoco-prepare-agent-it</id>
+                                    <goals>
+                                        <goal>prepare-agent-integration</goal>
+                                    </goals>
+                                </execution>
+                                <execution>
+                                    <id>jacoco-merge</id>
+                                    <phase>post-integration-test</phase>
+                                    <goals>
+                                        <goal>merge</goal>
+                                    </goals>
+                                    <configuration>
+                                        <destFile>${project.build.outputDirectory}/jacoco.merged.exec</destFile>
+                                        <fileSets>
+                                            <fileSet>
+                                                <directory>${project.build.directory}</directory>
+                                                <includes>
+                                                    <include>jacoco.exec</include>
+                                                    <include>jacoco-it.exec</include>
+                                                </includes>
+                                            </fileSet>
+                                        </fileSets>
+                                    </configuration>
+                                </execution>
+                                <execution>
+                                    <id>jacoco-report</id>
+                                    <phase>verify</phase>
+                                    <goals>
+                                        <goal>report</goal>
+                                    </goals>
+                                    <configuration>
+                                        <dataFile>${project.build.outputDirectory}/jacoco.merged.exec</dataFile>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
         <plugins>
-            <!--################## clean lifecycle plugins ##################-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-clean-plugin</artifactId>
-            </plugin>
             <!--################# default lifecycle plugins #################-->
             <!-- Formatting -->
             <plugin>
@@ -153,11 +247,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Copy project resources to output directory -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-            </plugin>
             <!-- Compile source files -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -171,6 +260,20 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <trimStackTrace>false</trimStackTrace>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                    <!-- Allow parallel execution of unit tests (execution in series within test classes) -->
+                    <parallel>classes</parallel>
+                    <!-- Can be adjusted depending on the local system, 3 should be a fair default value -->
+                    <forkCount>3</forkCount>
+                    <reuseForks>true</reuseForks>
+                    <!-- By default we include all but integration tests during surefire execution -->
+                    <excludedGroups>IntegrationTest</excludedGroups>
+                    <skipTests>${skip.surefire.tests}</skipTests>
+                </configuration>
             </plugin>
             <!-- Build jar file -->
             <plugin>
@@ -203,6 +306,36 @@
                         <id>attach-sources</id>
                         <goals>
                             <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Execute integration tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <configuration>
+                    <!-- By default, the Failsafe plugin excludes various files. We have to override that. -->
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                    <!-- Integration tests and slow tests are started -->
+                    <groups>IntegrationTest</groups>
+                    <skipITs>${skip.failsafe.tests}</skipITs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>run-integration-tests</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>verify-integration-tests</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>verify</goal>
                         </goals>
                     </execution>
                 </executions>
