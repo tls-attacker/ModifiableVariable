@@ -1,6 +1,7 @@
-${project.name} - ${description}
-
-Copyright ${startYear}-${year} ${owner}
-
-Licensed under ${licenseName}
-${licenseURL}
+/*
+ * ModifiableVariable - A Variable Concept for Runtime Modifications
+ *
+ * Copyright 2014-$YEAR Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
+ *
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
+ */
