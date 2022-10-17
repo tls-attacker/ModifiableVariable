@@ -453,7 +453,7 @@ public class CustomLayout extends AbstractStringLayout {
                 if (bArrayClass == param.getClass()) {
                     buffer.replace(buffer.indexOf(Arrays.toString((byte[]) param)),
                         buffer.indexOf(Arrays.toString((byte[]) param)) + Arrays.toString((byte[]) param).length(),
-                        ArrayConverter.bytesToHexString((byte[]) param, false, false));
+                        ArrayConverter.bytesToHexString((byte[]) param));
                 }
             }
 
