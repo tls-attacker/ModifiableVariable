@@ -57,10 +57,7 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
         if (end > result.length) {
             // result = new byte[end];
             // System.arraycopy(input, 0, result, 0, input.length);
-            LOGGER.debug(
-                String.format("Input {%s} of length %d cannot be xor-ed with {%s} of length %d with start position %d",
-                    ArrayConverter.bytesToHexString(input), input.length, ArrayConverter.bytesToHexString(xor),
-                    xor.length, startPosition));
+            LOGGER.debug("Input {{}} of length {} cannot be xor-ed with {{}} of length {} with start position {}",input, input.length, xor, xor.length, startPosition);
             return input;
         }
         for (int i = 0; i < xor.length; ++i) {

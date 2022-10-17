@@ -126,8 +126,8 @@ public class ModifiableByteArrayTest {
         VariableModification<byte[]> modifier = ByteArrayModificationFactory.xor(modification1, first);
         start.setModification(modifier);
 
-        LOGGER.debug("Expected: " + ArrayConverter.bytesToHexString(expResult));
-        LOGGER.debug("Computed: " + ArrayConverter.bytesToHexString(start.getValue()));
+        LOGGER.debug("Expected: {}", expResult);
+        LOGGER.debug("Computed: {}", () -> ArrayConverter.bytesToHexString(start.getValue()));
         assertArrayEquals(expResult, start.getValue());
 
         VariableModification<byte[]> modifier2 = ByteArrayModificationFactory.xor(modification2, first);
@@ -154,8 +154,8 @@ public class ModifiableByteArrayTest {
         VariableModification<byte[]> modifier = ByteArrayModificationFactory.insert(modification1, 0);
         start.setModification(modifier);
 
-        LOGGER.debug("Expected: " + ArrayConverter.bytesToHexString(expResult));
-        LOGGER.debug("Computed: " + ArrayConverter.bytesToHexString(start.getValue()));
+        LOGGER.debug("Expected: {}", expResult);
+        LOGGER.debug("Computed: {}", () -> ArrayConverter.bytesToHexString(start.getValue()));
         assertArrayEquals(expResult, start.getValue());
     }
 
@@ -179,8 +179,8 @@ public class ModifiableByteArrayTest {
             ByteArrayModificationFactory.insert(modification1, originalValue.length);
         start.setModification(modifier);
 
-        LOGGER.debug("Expected: " + ArrayConverter.bytesToHexString(expResult));
-        LOGGER.debug("Computed: " + ArrayConverter.bytesToHexString(start.getValue()));
+        LOGGER.debug("Expected: {}", expResult);
+        LOGGER.debug("Computed: {}", () -> ArrayConverter.bytesToHexString(start.getValue()));
         assertArrayEquals(expResult, start.getValue());
     }
 
@@ -198,8 +198,8 @@ public class ModifiableByteArrayTest {
         VariableModification<byte[]> modifier = ByteArrayModificationFactory.delete(len, modification1.length);
         start.setModification(modifier);
 
-        LOGGER.debug("Expected: " + ArrayConverter.bytesToHexString(expResult));
-        LOGGER.debug("Computed: " + ArrayConverter.bytesToHexString(start.getValue()));
+        LOGGER.debug("Expected: {}", expResult);
+        LOGGER.debug("Computed: {}", () -> ArrayConverter.bytesToHexString(start.getValue()));
         assertArrayEquals(expResult, start.getValue());
 
     }
@@ -219,8 +219,8 @@ public class ModifiableByteArrayTest {
         VariableModification<byte[]> modifier = ByteArrayModificationFactory.delete(0, modification1.length);
         start.setModification(modifier);
 
-        LOGGER.debug("Expected: " + ArrayConverter.bytesToHexString(expResult));
-        LOGGER.debug("Computed: " + ArrayConverter.bytesToHexString(start.getValue()));
+        LOGGER.debug("Expected: {}", expResult);
+        LOGGER.debug("Computed: {}", () -> ArrayConverter.bytesToHexString(start.getValue()));
         assertArrayEquals(expResult, start.getValue());
 
     }
@@ -327,8 +327,8 @@ public class ModifiableByteArrayTest {
         VariableModification<byte[]> modifier = ByteArrayModificationFactory.duplicate();
         start.setModification(modifier);
 
-        LOGGER.debug("Expected: " + ArrayConverter.bytesToHexString(expResult));
-        LOGGER.debug("Computed: " + ArrayConverter.bytesToHexString(start.getValue()));
+        LOGGER.debug("Expected: {}", expResult);
+        LOGGER.debug("Computed: {}", () -> ArrayConverter.bytesToHexString(start.getValue()));
         assertArrayEquals(expResult, start.getValue());
     }
 

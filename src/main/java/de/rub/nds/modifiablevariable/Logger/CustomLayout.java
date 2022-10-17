@@ -29,6 +29,9 @@ import org.apache.logging.log4j.util.Strings;
 import java.nio.charset.Charset;
 import java.util.*;
 
+/**
+ * A layout for LOG messages in the correct format and also for logging ByteArrays with good performance. The CustomLayout is mostly copied from {@link org.apache.logging.log4j.core.layout.PatternLayout}.
+ */
 @Plugin(name = "CustomLayout", category = "Core", elementType = "layout", printObject = true)
 public class CustomLayout extends AbstractStringLayout {
     public static final String DEFAULT_CONVERSION_PATTERN = "%m%n";
@@ -438,16 +441,16 @@ public class CustomLayout extends AbstractStringLayout {
                 buffer.append(str);
             }
 
-            byte[] tempArr = new byte[5];
-            new Random().nextBytes(tempArr);
-            Class<?> tempA = tempArr.getClass();
+            /**
+             * Added section to parse ByteArrays to the correct output format.
+             */
+            Class<?> bArrayClass = (new byte[1]).getClass();
 
+            //Iterate over each parameter of a {@Link LogEvent} to find all ByteArrays
             for (Object param : event.getMessage().getParameters()) {
 
-                if (tempA == param.getClass()) {// TODO ersetzt das byte Array durch den gegebene String. In Zukunft
-                                                // evtl. durch ein andern MessageFormatter ersetzbar, falls dies keine
-                                                // Auswirkungen hat. So etwas mehr Aufwand aber erreicht das gleiche
-                                                // Ziel.
+                //Replace all ByteArrays with the String representation of the ByteArray calculated by the ArrayConverter.
+                if (bArrayClass == param.getClass()) {
                     buffer.replace(buffer.indexOf(Arrays.toString((byte[]) param)),
                         buffer.indexOf(Arrays.toString((byte[]) param)) + Arrays.toString((byte[]) param).length(),
                         ArrayConverter.bytesToHexString((byte[]) param, false, false));
