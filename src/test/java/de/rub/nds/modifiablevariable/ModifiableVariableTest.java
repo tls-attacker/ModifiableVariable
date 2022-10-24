@@ -9,8 +9,6 @@
 
 package de.rub.nds.modifiablevariable;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
@@ -22,6 +20,8 @@ import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ModifiableVariableTest {
 
