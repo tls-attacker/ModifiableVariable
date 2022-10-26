@@ -60,7 +60,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
         <!-- The following variables are required for Jenkins CI -->
         <skipTests>false</skipTests>
         <skip.surefire.tests>${skipTests}</skip.surefire.tests>
@@ -244,6 +243,16 @@
                         <phase>verify</phase>
                     </execution>
                 </executions>
+            </plugin>
+            <!--############ plugins without lifecycle bindings #############-->
+            <!-- Static code analysis -->
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
