@@ -1,15 +1,15 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.Logger;
 
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import java.nio.charset.Charset;
+import java.util.*;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.DefaultConfiguration;
@@ -26,11 +26,10 @@ import org.apache.logging.log4j.core.pattern.RegexReplacement;
 import org.apache.logging.log4j.util.PropertiesUtil;
 import org.apache.logging.log4j.util.Strings;
 
-import java.nio.charset.Charset;
-import java.util.*;
-
 /**
- * A layout for LOG messages in the correct format and also for logging ByteArrays with good performance. The CustomLayout is mostly copied from {@link org.apache.logging.log4j.core.layout.PatternLayout}.
+ * A layout for LOG messages in the correct format and also for logging ByteArrays with good
+ * performance. The CustomLayout is mostly copied from {@link
+ * org.apache.logging.log4j.core.layout.PatternLayout}.
  */
 @Plugin(name = "CustomLayout", category = "Core", elementType = "layout", printObject = true)
 public class CustomLayout extends AbstractStringLayout {
@@ -42,22 +41,51 @@ public class CustomLayout extends AbstractStringLayout {
     private final PatternSelector patternSelector;
     private final AbstractStringLayout.Serializer eventSerializer;
 
-    private CustomLayout(Configuration config, RegexReplacement replace, String eventPattern,
-        PatternSelector patternSelector, Charset charset, boolean alwaysWriteExceptions, boolean disableAnsi,
-        boolean noConsoleNoAnsi, String headerPattern, String footerPattern) {
-        super(config, charset,
-            newSerializerBuilder().setConfiguration(config).setReplace(replace).setPatternSelector(patternSelector)
-                .setAlwaysWriteExceptions(alwaysWriteExceptions).setDisableAnsi(disableAnsi)
-                .setNoConsoleNoAnsi(noConsoleNoAnsi).setPattern(headerPattern).build(),
-            newSerializerBuilder().setConfiguration(config).setReplace(replace).setPatternSelector(patternSelector)
-                .setAlwaysWriteExceptions(alwaysWriteExceptions).setDisableAnsi(disableAnsi)
-                .setNoConsoleNoAnsi(noConsoleNoAnsi).setPattern(footerPattern).build());
+    private CustomLayout(
+            Configuration config,
+            RegexReplacement replace,
+            String eventPattern,
+            PatternSelector patternSelector,
+            Charset charset,
+            boolean alwaysWriteExceptions,
+            boolean disableAnsi,
+            boolean noConsoleNoAnsi,
+            String headerPattern,
+            String footerPattern) {
+        super(
+                config,
+                charset,
+                newSerializerBuilder()
+                        .setConfiguration(config)
+                        .setReplace(replace)
+                        .setPatternSelector(patternSelector)
+                        .setAlwaysWriteExceptions(alwaysWriteExceptions)
+                        .setDisableAnsi(disableAnsi)
+                        .setNoConsoleNoAnsi(noConsoleNoAnsi)
+                        .setPattern(headerPattern)
+                        .build(),
+                newSerializerBuilder()
+                        .setConfiguration(config)
+                        .setReplace(replace)
+                        .setPatternSelector(patternSelector)
+                        .setAlwaysWriteExceptions(alwaysWriteExceptions)
+                        .setDisableAnsi(disableAnsi)
+                        .setNoConsoleNoAnsi(noConsoleNoAnsi)
+                        .setPattern(footerPattern)
+                        .build());
         this.conversionPattern = eventPattern;
         this.patternSelector = patternSelector;
         this.eventSerializer =
-            newSerializerBuilder().setConfiguration(config).setReplace(replace).setPatternSelector(patternSelector)
-                .setAlwaysWriteExceptions(alwaysWriteExceptions).setDisableAnsi(disableAnsi)
-                .setNoConsoleNoAnsi(noConsoleNoAnsi).setPattern(eventPattern).setDefaultPattern("%m%n").build();
+                newSerializerBuilder()
+                        .setConfiguration(config)
+                        .setReplace(replace)
+                        .setPatternSelector(patternSelector)
+                        .setAlwaysWriteExceptions(alwaysWriteExceptions)
+                        .setDisableAnsi(disableAnsi)
+                        .setNoConsoleNoAnsi(noConsoleNoAnsi)
+                        .setPattern(eventPattern)
+                        .setDefaultPattern("%m%n")
+                        .build();
     }
 
     public static CustomLayout.SerializerBuilder newSerializerBuilder() {
@@ -66,14 +94,21 @@ public class CustomLayout extends AbstractStringLayout {
 
     public boolean requiresLocation() {
         return this.eventSerializer instanceof LocationAware
-            && ((LocationAware) this.eventSerializer).requiresLocation();
+                && ((LocationAware) this.eventSerializer).requiresLocation();
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     @Deprecated
-    public static AbstractStringLayout.Serializer createSerializer(Configuration configuration,
-        RegexReplacement replace, String pattern, String defaultPattern, PatternSelector patternSelector,
-        boolean alwaysWriteExceptions, boolean noConsoleNoAnsi) {
+    public static AbstractStringLayout.Serializer createSerializer(
+            Configuration configuration,
+            RegexReplacement replace,
+            String pattern,
+            String defaultPattern,
+            PatternSelector patternSelector,
+            boolean alwaysWriteExceptions,
+            boolean noConsoleNoAnsi) {
         CustomLayout.SerializerBuilder builder = newSerializerBuilder();
         builder.setAlwaysWriteExceptions(alwaysWriteExceptions);
         builder.setConfiguration(configuration);
@@ -110,15 +145,20 @@ public class CustomLayout extends AbstractStringLayout {
             super.encode(event, destination);
         } else {
             StringBuilder text =
-                this.toText((AbstractStringLayout.Serializer2) this.eventSerializer, event, getStringBuilder());
+                    this.toText(
+                            (AbstractStringLayout.Serializer2) this.eventSerializer,
+                            event,
+                            getStringBuilder());
             Encoder<StringBuilder> encoder = this.getStringBuilderEncoder();
             encoder.encode(text, destination);
             trimToMaxSize(text);
         }
     }
 
-    private StringBuilder toText(AbstractStringLayout.Serializer2 serializer, LogEvent event,
-        StringBuilder destination) {
+    private StringBuilder toText(
+            AbstractStringLayout.Serializer2 serializer,
+            LogEvent event,
+            StringBuilder destination) {
         return serializer.toSerializable(event, destination);
     }
 
@@ -138,21 +178,38 @@ public class CustomLayout extends AbstractStringLayout {
     }
 
     public String toString() {
-        return this.patternSelector == null ? this.conversionPattern : this.patternSelector.toString();
+        return this.patternSelector == null
+                ? this.conversionPattern
+                : this.patternSelector.toString();
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     @PluginFactory
     @Deprecated
-    public static CustomLayout createLayout(@PluginAttribute(value = "pattern", defaultString = "%m%n") String pattern,
-        @PluginElement("PatternSelector") PatternSelector patternSelector, @PluginConfiguration Configuration config,
-        @PluginElement("Replace") RegexReplacement replace, @PluginAttribute("charset") Charset charset,
-        @PluginAttribute(value = "alwaysWriteExceptions", defaultBoolean = true) boolean alwaysWriteExceptions,
-        @PluginAttribute("noConsoleNoAnsi") boolean noConsoleNoAnsi, @PluginAttribute("header") String headerPattern,
-        @PluginAttribute("footer") String footerPattern) {
-        return newBuilder().withPattern(pattern).withPatternSelector(patternSelector).withConfiguration(config)
-            .withRegexReplacement(replace).withCharset(charset).withAlwaysWriteExceptions(alwaysWriteExceptions)
-            .withNoConsoleNoAnsi(noConsoleNoAnsi).withHeader(headerPattern).withFooter(footerPattern).build();
+    public static CustomLayout createLayout(
+            @PluginAttribute(value = "pattern", defaultString = "%m%n") String pattern,
+            @PluginElement("PatternSelector") PatternSelector patternSelector,
+            @PluginConfiguration Configuration config,
+            @PluginElement("Replace") RegexReplacement replace,
+            @PluginAttribute("charset") Charset charset,
+            @PluginAttribute(value = "alwaysWriteExceptions", defaultBoolean = true)
+                    boolean alwaysWriteExceptions,
+            @PluginAttribute("noConsoleNoAnsi") boolean noConsoleNoAnsi,
+            @PluginAttribute("header") String headerPattern,
+            @PluginAttribute("footer") String footerPattern) {
+        return newBuilder()
+                .withPattern(pattern)
+                .withPatternSelector(patternSelector)
+                .withConfiguration(config)
+                .withRegexReplacement(replace)
+                .withCharset(charset)
+                .withAlwaysWriteExceptions(alwaysWriteExceptions)
+                .withNoConsoleNoAnsi(noConsoleNoAnsi)
+                .withHeader(headerPattern)
+                .withFooter(footerPattern)
+                .build();
     }
 
     public static CustomLayout createDefaultLayout() {
@@ -172,27 +229,24 @@ public class CustomLayout extends AbstractStringLayout {
         return this.eventSerializer;
     }
 
-    public static class Builder implements org.apache.logging.log4j.core.util.Builder<CustomLayout> {
-        @PluginBuilderAttribute
-        private String pattern;
+    public static class Builder
+            implements org.apache.logging.log4j.core.util.Builder<CustomLayout> {
+        @PluginBuilderAttribute private String pattern;
+
         @PluginElement("PatternSelector")
         private PatternSelector patternSelector;
-        @PluginConfiguration
-        private Configuration configuration;
+
+        @PluginConfiguration private Configuration configuration;
+
         @PluginElement("Replace")
         private RegexReplacement regexReplacement;
-        @PluginBuilderAttribute
-        private Charset charset;
-        @PluginBuilderAttribute
-        private boolean alwaysWriteExceptions;
-        @PluginBuilderAttribute
-        private boolean disableAnsi;
-        @PluginBuilderAttribute
-        private boolean noConsoleNoAnsi;
-        @PluginBuilderAttribute
-        private String header;
-        @PluginBuilderAttribute
-        private String footer;
+
+        @PluginBuilderAttribute private Charset charset;
+        @PluginBuilderAttribute private boolean alwaysWriteExceptions;
+        @PluginBuilderAttribute private boolean disableAnsi;
+        @PluginBuilderAttribute private boolean noConsoleNoAnsi;
+        @PluginBuilderAttribute private String header;
+        @PluginBuilderAttribute private String footer;
 
         private Builder() {
             this.pattern = "%m%n";
@@ -266,18 +320,29 @@ public class CustomLayout extends AbstractStringLayout {
                 this.configuration = new DefaultConfiguration();
             }
 
-            return new CustomLayout(this.configuration, this.regexReplacement, this.pattern, this.patternSelector,
-                this.charset, this.alwaysWriteExceptions, this.disableAnsi, this.noConsoleNoAnsi, this.header,
-                this.footer);
+            return new CustomLayout(
+                    this.configuration,
+                    this.regexReplacement,
+                    this.pattern,
+                    this.patternSelector,
+                    this.charset,
+                    this.alwaysWriteExceptions,
+                    this.disableAnsi,
+                    this.noConsoleNoAnsi,
+                    this.header,
+                    this.footer);
         }
     }
 
     private static class PatternSelectorSerializer
-        implements AbstractStringLayout.Serializer, AbstractStringLayout.Serializer2, LocationAware {
+            implements AbstractStringLayout.Serializer,
+                    AbstractStringLayout.Serializer2,
+                    LocationAware {
         private final PatternSelector patternSelector;
         private final RegexReplacement replace;
 
-        private PatternSelectorSerializer(PatternSelector patternSelector, RegexReplacement replace) {
+        private PatternSelectorSerializer(
+                PatternSelector patternSelector, RegexReplacement replace) {
             this.patternSelector = patternSelector;
             this.replace = replace;
         }
@@ -315,7 +380,7 @@ public class CustomLayout extends AbstractStringLayout {
 
         public boolean requiresLocation() {
             return this.patternSelector instanceof LocationAware
-                && ((LocationAware) this.patternSelector).requiresLocation();
+                    && ((LocationAware) this.patternSelector).requiresLocation();
         }
 
         public String toString() {
@@ -331,7 +396,7 @@ public class CustomLayout extends AbstractStringLayout {
     }
 
     public static class SerializerBuilder
-        implements org.apache.logging.log4j.core.util.Builder<AbstractStringLayout.Serializer> {
+            implements org.apache.logging.log4j.core.util.Builder<AbstractStringLayout.Serializer> {
         private Configuration configuration;
         private RegexReplacement replace;
         private String pattern;
@@ -341,8 +406,7 @@ public class CustomLayout extends AbstractStringLayout {
         private boolean disableAnsi;
         private boolean noConsoleNoAnsi;
 
-        public SerializerBuilder() {
-        }
+        public SerializerBuilder() {}
 
         public AbstractStringLayout.Serializer build() {
             if (Strings.isEmpty(this.pattern) && Strings.isEmpty(this.defaultPattern)) {
@@ -351,15 +415,21 @@ public class CustomLayout extends AbstractStringLayout {
                 try {
                     PatternParser parser = CustomLayout.createPatternParser(this.configuration);
                     List<PatternFormatter> list =
-                        parser.parse(this.pattern == null ? this.defaultPattern : this.pattern,
-                            this.alwaysWriteExceptions, this.disableAnsi, this.noConsoleNoAnsi);
-                    PatternFormatter[] formatters = (PatternFormatter[]) list.toArray(new PatternFormatter[0]);
+                            parser.parse(
+                                    this.pattern == null ? this.defaultPattern : this.pattern,
+                                    this.alwaysWriteExceptions,
+                                    this.disableAnsi,
+                                    this.noConsoleNoAnsi);
+                    PatternFormatter[] formatters =
+                            (PatternFormatter[]) list.toArray(new PatternFormatter[0]);
                     return new CustomLayout.NewCustSerializer(formatters, this.replace);
                 } catch (RuntimeException var4) {
-                    throw new IllegalArgumentException("Cannot parse pattern '" + this.pattern + "'", var4);
+                    throw new IllegalArgumentException(
+                            "Cannot parse pattern '" + this.pattern + "'", var4);
                 }
             } else {
-                return new CustomLayout.PatternSelectorSerializer(this.patternSelector, this.replace);
+                return new CustomLayout.PatternSelectorSerializer(
+                        this.patternSelector, this.replace);
             }
         }
 
@@ -388,7 +458,8 @@ public class CustomLayout extends AbstractStringLayout {
             return this;
         }
 
-        public CustomLayout.SerializerBuilder setAlwaysWriteExceptions(boolean alwaysWriteExceptions) {
+        public CustomLayout.SerializerBuilder setAlwaysWriteExceptions(
+                boolean alwaysWriteExceptions) {
             this.alwaysWriteExceptions = alwaysWriteExceptions;
             return this;
         }
@@ -405,7 +476,9 @@ public class CustomLayout extends AbstractStringLayout {
     }
 
     private static class NewCustSerializer
-        implements AbstractStringLayout.Serializer, AbstractStringLayout.Serializer2, LocationAware {
+            implements AbstractStringLayout.Serializer,
+                    AbstractStringLayout.Serializer2,
+                    LocationAware {
         private final PatternFormatter[] formatters;
         private final RegexReplacement replace;
 
@@ -441,19 +514,20 @@ public class CustomLayout extends AbstractStringLayout {
                 buffer.append(str);
             }
 
-            /**
-             * Added section to parse ByteArrays to the correct output format.
-             */
+            /** Added section to parse ByteArrays to the correct output format. */
             Class<?> bArrayClass = (new byte[1]).getClass();
 
-            //Iterate over each parameter of a {@Link LogEvent} to find all ByteArrays
+            // Iterate over each parameter of a {@Link LogEvent} to find all ByteArrays
             for (Object param : event.getMessage().getParameters()) {
 
-                //Replace all ByteArrays with the String representation of the ByteArray calculated by the ArrayConverter.
+                // Replace all ByteArrays with the String representation of the ByteArray calculated
+                // by the ArrayConverter.
                 if (bArrayClass == param.getClass()) {
-                    buffer.replace(buffer.indexOf(Arrays.toString((byte[]) param)),
-                        buffer.indexOf(Arrays.toString((byte[]) param)) + Arrays.toString((byte[]) param).length(),
-                        ArrayConverter.bytesToHexString((byte[]) param));
+                    buffer.replace(
+                            buffer.indexOf(Arrays.toString((byte[]) param)),
+                            buffer.indexOf(Arrays.toString((byte[]) param))
+                                    + Arrays.toString((byte[]) param).length(),
+                            ArrayConverter.bytesToHexString((byte[]) param));
                 }
             }
 
