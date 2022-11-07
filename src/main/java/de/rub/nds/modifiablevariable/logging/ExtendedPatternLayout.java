@@ -5,11 +5,14 @@
  *
  * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-package de.rub.nds.modifiablevariable.Logger;
+package de.rub.nds.modifiablevariable.logging;
 
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import java.nio.charset.Charset;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.DefaultConfiguration;
@@ -28,11 +31,15 @@ import org.apache.logging.log4j.util.Strings;
 
 /**
  * A layout for LOG messages in the correct format and also for logging ByteArrays with good
- * performance. The CustomLayout is mostly copied from {@link
+ * performance. The ExtendedPatternLayout is mostly copied from {@link
  * org.apache.logging.log4j.core.layout.PatternLayout}.
  */
-@Plugin(name = "CustomLayout", category = "Core", elementType = "layout", printObject = true)
-public class CustomLayout extends AbstractStringLayout {
+@Plugin(
+        name = "ExtendedPatternLayout",
+        category = "Core",
+        elementType = "layout",
+        printObject = true)
+public class ExtendedPatternLayout extends AbstractStringLayout {
     public static final String DEFAULT_CONVERSION_PATTERN = "%m%n";
     public static final String TTCC_CONVERSION_PATTERN = "%r [%t] %p %c %notEmpty{%x }- %m%n";
     public static final String SIMPLE_CONVERSION_PATTERN = "%d [%t] %p %c - %m%n";
@@ -41,7 +48,7 @@ public class CustomLayout extends AbstractStringLayout {
     private final PatternSelector patternSelector;
     private final AbstractStringLayout.Serializer eventSerializer;
 
-    private CustomLayout(
+    private ExtendedPatternLayout(
             Configuration config,
             RegexReplacement replace,
             String eventPattern,
@@ -88,10 +95,11 @@ public class CustomLayout extends AbstractStringLayout {
                         .build();
     }
 
-    public static CustomLayout.SerializerBuilder newSerializerBuilder() {
-        return new CustomLayout.SerializerBuilder();
+    public static ExtendedPatternLayout.SerializerBuilder newSerializerBuilder() {
+        return new ExtendedPatternLayout.SerializerBuilder();
     }
 
+    @Override
     public boolean requiresLocation() {
         return this.eventSerializer instanceof LocationAware
                 && ((LocationAware) this.eventSerializer).requiresLocation();
@@ -109,7 +117,7 @@ public class CustomLayout extends AbstractStringLayout {
             PatternSelector patternSelector,
             boolean alwaysWriteExceptions,
             boolean noConsoleNoAnsi) {
-        CustomLayout.SerializerBuilder builder = newSerializerBuilder();
+        ExtendedPatternLayout.SerializerBuilder builder = newSerializerBuilder();
         builder.setAlwaysWriteExceptions(alwaysWriteExceptions);
         builder.setConfiguration(configuration);
         builder.setDefaultPattern(defaultPattern);
@@ -177,6 +185,7 @@ public class CustomLayout extends AbstractStringLayout {
         }
     }
 
+    @Override
     public String toString() {
         return this.patternSelector == null
                 ? this.conversionPattern
@@ -188,7 +197,7 @@ public class CustomLayout extends AbstractStringLayout {
      */
     @PluginFactory
     @Deprecated
-    public static CustomLayout createLayout(
+    public static ExtendedPatternLayout createLayout(
             @PluginAttribute(value = "pattern", defaultString = "%m%n") String pattern,
             @PluginElement("PatternSelector") PatternSelector patternSelector,
             @PluginConfiguration Configuration config,
@@ -212,17 +221,17 @@ public class CustomLayout extends AbstractStringLayout {
                 .build();
     }
 
-    public static CustomLayout createDefaultLayout() {
+    public static ExtendedPatternLayout createDefaultLayout() {
         return newBuilder().build();
     }
 
-    public static CustomLayout createDefaultLayout(Configuration configuration) {
+    public static ExtendedPatternLayout createDefaultLayout(Configuration configuration) {
         return newBuilder().withConfiguration(configuration).build();
     }
 
     @PluginBuilderFactory
-    public static CustomLayout.Builder newBuilder() {
-        return new CustomLayout.Builder();
+    public static ExtendedPatternLayout.Builder newBuilder() {
+        return new ExtendedPatternLayout.Builder();
     }
 
     public AbstractStringLayout.Serializer getEventSerializer() {
@@ -230,7 +239,7 @@ public class CustomLayout extends AbstractStringLayout {
     }
 
     public static class Builder
-            implements org.apache.logging.log4j.core.util.Builder<CustomLayout> {
+            implements org.apache.logging.log4j.core.util.Builder<ExtendedPatternLayout> {
         @PluginBuilderAttribute private String pattern;
 
         @PluginElement("PatternSelector")
@@ -248,6 +257,13 @@ public class CustomLayout extends AbstractStringLayout {
         @PluginBuilderAttribute private String header;
         @PluginBuilderAttribute private String footer;
 
+
+        @PluginBuilderAttribute("initNewLine")
+        private static boolean initNewLine;
+
+        @PluginBuilderAttribute("prettyPrinting")
+        private static boolean prettyPrinting;
+
         private Builder() {
             this.pattern = "%m%n";
             this.charset = Charset.defaultCharset();
@@ -262,27 +278,28 @@ public class CustomLayout extends AbstractStringLayout {
             return isPlatformSupportsAnsi || isJansiRequested;
         }
 
-        public CustomLayout.Builder withPattern(String pattern) {
+        public ExtendedPatternLayout.Builder withPattern(String pattern) {
             this.pattern = pattern;
             return this;
         }
 
-        public CustomLayout.Builder withPatternSelector(PatternSelector patternSelector) {
+        public ExtendedPatternLayout.Builder withPatternSelector(PatternSelector patternSelector) {
             this.patternSelector = patternSelector;
             return this;
         }
 
-        public CustomLayout.Builder withConfiguration(Configuration configuration) {
+        public ExtendedPatternLayout.Builder withConfiguration(Configuration configuration) {
             this.configuration = configuration;
             return this;
         }
 
-        public CustomLayout.Builder withRegexReplacement(RegexReplacement regexReplacement) {
+        public ExtendedPatternLayout.Builder withRegexReplacement(
+                RegexReplacement regexReplacement) {
             this.regexReplacement = regexReplacement;
             return this;
         }
 
-        public CustomLayout.Builder withCharset(Charset charset) {
+        public ExtendedPatternLayout.Builder withCharset(Charset charset) {
             if (charset != null) {
                 this.charset = charset;
             }
@@ -290,37 +307,38 @@ public class CustomLayout extends AbstractStringLayout {
             return this;
         }
 
-        public CustomLayout.Builder withAlwaysWriteExceptions(boolean alwaysWriteExceptions) {
+        public ExtendedPatternLayout.Builder withAlwaysWriteExceptions(
+                boolean alwaysWriteExceptions) {
             this.alwaysWriteExceptions = alwaysWriteExceptions;
             return this;
         }
 
-        public CustomLayout.Builder withDisableAnsi(boolean disableAnsi) {
+        public ExtendedPatternLayout.Builder withDisableAnsi(boolean disableAnsi) {
             this.disableAnsi = disableAnsi;
             return this;
         }
 
-        public CustomLayout.Builder withNoConsoleNoAnsi(boolean noConsoleNoAnsi) {
+        public ExtendedPatternLayout.Builder withNoConsoleNoAnsi(boolean noConsoleNoAnsi) {
             this.noConsoleNoAnsi = noConsoleNoAnsi;
             return this;
         }
 
-        public CustomLayout.Builder withHeader(String header) {
+        public ExtendedPatternLayout.Builder withHeader(String header) {
             this.header = header;
             return this;
         }
 
-        public CustomLayout.Builder withFooter(String footer) {
+        public ExtendedPatternLayout.Builder withFooter(String footer) {
             this.footer = footer;
             return this;
         }
 
-        public CustomLayout build() {
+        public ExtendedPatternLayout build() {
             if (this.configuration == null) {
                 this.configuration = new DefaultConfiguration();
             }
 
-            return new CustomLayout(
+            return new ExtendedPatternLayout(
                     this.configuration,
                     this.regexReplacement,
                     this.pattern,
@@ -383,15 +401,14 @@ public class CustomLayout extends AbstractStringLayout {
                     && ((LocationAware) this.patternSelector).requiresLocation();
         }
 
+        @Override
         public String toString() {
-            StringBuilder builder = new StringBuilder();
-            builder.append(super.toString());
-            builder.append("[patternSelector=");
-            builder.append(this.patternSelector);
-            builder.append(", replace=");
-            builder.append(this.replace);
-            builder.append("]");
-            return builder.toString();
+            return super.toString()
+                    .concat("[patternSelector=")
+                    .concat(this.patternSelector.toString())
+                    .concat(", replace=")
+                    .concat(this.replace.toString())
+                    .concat("]");
         }
     }
 
@@ -413,7 +430,8 @@ public class CustomLayout extends AbstractStringLayout {
                 return null;
             } else if (this.patternSelector == null) {
                 try {
-                    PatternParser parser = CustomLayout.createPatternParser(this.configuration);
+                    PatternParser parser =
+                            ExtendedPatternLayout.createPatternParser(this.configuration);
                     List<PatternFormatter> list =
                             parser.parse(
                                     this.pattern == null ? this.defaultPattern : this.pattern,
@@ -422,67 +440,69 @@ public class CustomLayout extends AbstractStringLayout {
                                     this.noConsoleNoAnsi);
                     PatternFormatter[] formatters =
                             (PatternFormatter[]) list.toArray(new PatternFormatter[0]);
-                    return new CustomLayout.NewCustSerializer(formatters, this.replace);
+                    return new ExtendedPatternLayout.ExtendedPatternLayoutSerializer(formatters, this.replace);
                 } catch (RuntimeException var4) {
                     throw new IllegalArgumentException(
                             "Cannot parse pattern '" + this.pattern + "'", var4);
                 }
             } else {
-                return new CustomLayout.PatternSelectorSerializer(
+                return new ExtendedPatternLayout.PatternSelectorSerializer(
                         this.patternSelector, this.replace);
             }
         }
 
-        public CustomLayout.SerializerBuilder setConfiguration(Configuration configuration) {
+        public ExtendedPatternLayout.SerializerBuilder setConfiguration(
+                Configuration configuration) {
             this.configuration = configuration;
             return this;
         }
 
-        public CustomLayout.SerializerBuilder setReplace(RegexReplacement replace) {
+        public ExtendedPatternLayout.SerializerBuilder setReplace(RegexReplacement replace) {
             this.replace = replace;
             return this;
         }
 
-        public CustomLayout.SerializerBuilder setPattern(String pattern) {
+        public ExtendedPatternLayout.SerializerBuilder setPattern(String pattern) {
             this.pattern = pattern;
             return this;
         }
 
-        public CustomLayout.SerializerBuilder setDefaultPattern(String defaultPattern) {
+        public ExtendedPatternLayout.SerializerBuilder setDefaultPattern(String defaultPattern) {
             this.defaultPattern = defaultPattern;
             return this;
         }
 
-        public CustomLayout.SerializerBuilder setPatternSelector(PatternSelector patternSelector) {
+        public ExtendedPatternLayout.SerializerBuilder setPatternSelector(
+                PatternSelector patternSelector) {
             this.patternSelector = patternSelector;
             return this;
         }
 
-        public CustomLayout.SerializerBuilder setAlwaysWriteExceptions(
+        public ExtendedPatternLayout.SerializerBuilder setAlwaysWriteExceptions(
                 boolean alwaysWriteExceptions) {
             this.alwaysWriteExceptions = alwaysWriteExceptions;
             return this;
         }
 
-        public CustomLayout.SerializerBuilder setDisableAnsi(boolean disableAnsi) {
+        public ExtendedPatternLayout.SerializerBuilder setDisableAnsi(boolean disableAnsi) {
             this.disableAnsi = disableAnsi;
             return this;
         }
 
-        public CustomLayout.SerializerBuilder setNoConsoleNoAnsi(boolean noConsoleNoAnsi) {
+        public ExtendedPatternLayout.SerializerBuilder setNoConsoleNoAnsi(boolean noConsoleNoAnsi) {
             this.noConsoleNoAnsi = noConsoleNoAnsi;
             return this;
         }
     }
 
-    private static class NewCustSerializer
+    private static class ExtendedPatternLayoutSerializer
             implements AbstractStringLayout.Serializer,
                     AbstractStringLayout.Serializer2,
                     LocationAware {
         private final PatternFormatter[] formatters;
         private final RegexReplacement replace;
 
-        private NewCustSerializer(PatternFormatter[] formatters, RegexReplacement replace) {
+        private ExtendedPatternLayoutSerializer(PatternFormatter[] formatters, RegexReplacement replace) {
             this.formatters = formatters;
             this.replace = replace;
         }
@@ -527,7 +547,8 @@ public class CustomLayout extends AbstractStringLayout {
                             buffer.indexOf(Arrays.toString((byte[]) param)),
                             buffer.indexOf(Arrays.toString((byte[]) param))
                                     + Arrays.toString((byte[]) param).length(),
-                            ArrayConverter.bytesToHexString((byte[]) param));
+                            ArrayConverter.bytesToHexString(
+                                    (byte[]) param, Builder.prettyPrinting, Builder.initNewLine));
                 }
             }
 
@@ -548,15 +569,14 @@ public class CustomLayout extends AbstractStringLayout {
             return false;
         }
 
+        @Override
         public String toString() {
-            StringBuilder builder = new StringBuilder();
-            builder.append(super.toString());
-            builder.append("[formatters=");
-            builder.append(Arrays.toString(this.formatters));
-            builder.append(", replace=");
-            builder.append(this.replace);
-            builder.append("]");
-            return builder.toString();
+            return super.toString()
+                    .concat("[formatters=")
+                    .concat(Arrays.toString(this.formatters))
+                    .concat(", replace=")
+                    .concat(this.replace.toString())
+                    .concat("]");
         }
     }
 }
