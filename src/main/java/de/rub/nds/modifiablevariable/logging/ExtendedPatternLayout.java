@@ -257,7 +257,6 @@ public class ExtendedPatternLayout extends AbstractStringLayout {
         @PluginBuilderAttribute private String header;
         @PluginBuilderAttribute private String footer;
 
-
         @PluginBuilderAttribute("initNewLine")
         private static boolean initNewLine;
 
@@ -440,7 +439,8 @@ public class ExtendedPatternLayout extends AbstractStringLayout {
                                     this.noConsoleNoAnsi);
                     PatternFormatter[] formatters =
                             (PatternFormatter[]) list.toArray(new PatternFormatter[0]);
-                    return new ExtendedPatternLayout.ExtendedPatternLayoutSerializer(formatters, this.replace);
+                    return new ExtendedPatternLayout.ExtendedPatternLayoutSerializer(
+                            formatters, this.replace);
                 } catch (RuntimeException var4) {
                     throw new IllegalArgumentException(
                             "Cannot parse pattern '" + this.pattern + "'", var4);
@@ -502,7 +502,8 @@ public class ExtendedPatternLayout extends AbstractStringLayout {
         private final PatternFormatter[] formatters;
         private final RegexReplacement replace;
 
-        private ExtendedPatternLayoutSerializer(PatternFormatter[] formatters, RegexReplacement replace) {
+        private ExtendedPatternLayoutSerializer(
+                PatternFormatter[] formatters, RegexReplacement replace) {
             this.formatters = formatters;
             this.replace = replace;
         }
