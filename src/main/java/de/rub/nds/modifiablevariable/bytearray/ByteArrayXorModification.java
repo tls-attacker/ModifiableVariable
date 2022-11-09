@@ -1,27 +1,25 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
-import java.util.Arrays;
-import java.util.Random;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.Arrays;
+import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = { "xor", "startPosition", "modificationFilter" })
+@XmlType(propOrder = {"xor", "startPosition", "modificationFilter"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ByteArrayXorModification extends VariableModification<byte[]> {
 
@@ -34,9 +32,7 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
 
     private int startPosition;
 
-    public ByteArrayXorModification() {
-
-    }
+    public ByteArrayXorModification() {}
 
     public ByteArrayXorModification(byte[] xor, int startPosition) {
         this.xor = xor;
@@ -58,9 +54,12 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
             // result = new byte[end];
             // System.arraycopy(input, 0, result, 0, input.length);
             LOGGER.debug(
-                String.format("Input {%s} of length %d cannot be xor-ed with {%s} of length %d with start position %d",
-                    ArrayConverter.bytesToHexString(input), input.length, ArrayConverter.bytesToHexString(xor),
-                    xor.length, startPosition));
+                    "Input {{}} of length {} cannot be xor-ed with {{}} of length {} with start position {}",
+                    input,
+                    input.length,
+                    xor,
+                    xor.length,
+                    startPosition);
             return input;
         }
         for (int i = 0; i < xor.length; ++i) {
@@ -138,8 +137,11 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
 
     @Override
     public String toString() {
-        return "ByteArrayXorModification{" + "xor=" + ArrayConverter.bytesToHexString(xor) + ", startPosition="
-            + startPosition + '}';
+        return "ByteArrayXorModification{"
+                + "xor="
+                + ArrayConverter.bytesToHexString(xor)
+                + ", startPosition="
+                + startPosition
+                + '}';
     }
-
 }
