@@ -77,6 +77,10 @@ public class Modifiable {
         return modifiableString;
     }
 
+    public static ModifiableString append(final String s) {
+        return getModifiableStringWithModification(StringModificationFactory.appendValue(s));
+    }
+
     public static ModifiableByteArray explicit(byte[] b) {
         return getModifiableByteArrayWithModification(
                 ByteArrayModificationFactory.explicitValue(b));
