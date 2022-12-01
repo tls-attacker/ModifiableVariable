@@ -40,6 +40,7 @@ import de.rub.nds.modifiablevariable.singlebyte.ByteSubtractModification;
 import de.rub.nds.modifiablevariable.singlebyte.ByteXorModification;
 import de.rub.nds.modifiablevariable.string.StringAppendValueModification;
 import de.rub.nds.modifiablevariable.string.StringExplicitValueModification;
+import de.rub.nds.modifiablevariable.string.StringPrependValueModification;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -144,6 +145,9 @@ public abstract class ModifiableVariable<E> implements Serializable {
                 @XmlElement(
                         type = ByteExplicitValueModification.class,
                         name = "ByteExplicitValueModification"),
+                @XmlElement(
+                        type = StringPrependValueModification.class,
+                        name = "StringPrependValueModification"),
                 @XmlElement(
                         type = StringAppendValueModification.class,
                         name = "StringAppendValueModification"),

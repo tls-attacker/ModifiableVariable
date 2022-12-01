@@ -77,6 +77,10 @@ public class Modifiable {
         return modifiableString;
     }
 
+    public static ModifiableString prepend(final String s) {
+        return getModifiableStringWithModification(StringModificationFactory.prependValue(s));
+    }
+
     public static ModifiableString append(final String s) {
         return getModifiableStringWithModification(StringModificationFactory.appendValue(s));
     }

@@ -15,6 +15,10 @@ public class StringModificationFactory {
 
     private static final int MAX_BYTE_LENGTH = 1000;
 
+    public static VariableModification<String> prependValue(final String value) {
+        return new StringPrependValueModification(value);
+    }
+
     public static VariableModification<String> appendValue(final String value) {
         return new StringAppendValueModification(value);
     }
