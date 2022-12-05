@@ -8,12 +8,11 @@
 package de.rub.nds.modifiablevariable.bool;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class BooleanExplicitValueModificationTest {
@@ -21,63 +20,58 @@ public class BooleanExplicitValueModificationTest {
     private BooleanExplicitValueModification b1;
     private BooleanExplicitValueModification b2;
     private BooleanExplicitValueModification b3;
-    private BooleanExplicitValueModification b4;
-    private Integer integer1 = 1;
 
     @BeforeEach
     public void setUp() {
         b1 = new BooleanExplicitValueModification(true);
         b2 = new BooleanExplicitValueModification(false);
         b3 = new BooleanExplicitValueModification(true);
-        b4 = new BooleanExplicitValueModification(false);
     }
 
     /** Test of modifyImplementationHook method, of class BooleanExplicitValueModification. */
     @Test
-    public void testModifyImplementationHook() {}
+    public void testModifyImplementationHook() {
+        assertTrue(b1.modifyImplementationHook(true));
+        assertTrue(b1.modifyImplementationHook(false));
+    }
 
-    /** Test of isExplicitValue method, of class BooleanExplicitValueModification. */
+    /** Test of getExplicitValue method, of class BooleanExplicitValueModification. */
     @Test
-    public void testIsExplicitValue() {
-        assertTrue(b1.isExplicitValue());
-        assertFalse(b2.isExplicitValue());
+    public void testGetExplicitValue() {
+        assertTrue(b1.getExplicitValue());
+        assertFalse(b2.getExplicitValue());
     }
 
     /** Test of setExplicitValue method, of class BooleanExplicitValueModification. */
     @Test
     public void testSetExplicitValue() {
-        b4.setExplicitValue(true);
-        assertEquals(b1, b4);
-        b4.setExplicitValue(false);
-        assertEquals(b2, b4);
+        b2.setExplicitValue(true);
+        assertTrue(b2.getExplicitValue());
     }
 
     /** Test of getModifiedCopy method, of class BooleanExplicitValueModification. */
     @Test
     public void testGetModifiedCopy() {
-        assertNotEquals(b4, b4.getModifiedCopy());
-        assertEquals(b1,b4.getModifiedCopy());
+        assertNotEquals(b1, b1.getModifiedCopy());
     }
 
     /** Test of hashCode method, of class BooleanExplicitValueModification. */
     @Test
     public void testHashCode() {
-        assertEquals(204,b1.hashCode());
-        assertEquals(203,b2.hashCode());
+        assertEquals(b3.hashCode(), b1.hashCode());
     }
 
     /** Test of equals method, of class BooleanExplicitValueModification. */
     @Test
     public void testEquals() {
-        assertTrue(b1.equals(b3));
-        assertFalse(b1.equals(b2));
+        assertEquals(b1, b3);
+        assertNotEquals(b1, b2);
     }
 
     /** Test of toString method, of class BooleanExplicitValueModification. */
     @Test
     public void testToString() {
         assertNotEquals(b1, b2);
-        assertNotEquals(b1, integer1);
         assertEquals(b1, b1);
         assertEquals(b1, b3);
     }
