@@ -1,12 +1,10 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.util;
 
 import de.rub.nds.modifiablevariable.VariableModification;
@@ -30,52 +28,66 @@ import java.math.BigInteger;
 @SuppressWarnings("unused")
 public class Modifiable {
 
-    private static ModifiableByteArray
-        getModifiableByteArrayWithModification(VariableModification<byte[]> modification) {
+    private static ModifiableByteArray getModifiableByteArrayWithModification(
+            VariableModification<byte[]> modification) {
         ModifiableByteArray modifiableByteArray = new ModifiableByteArray();
         modifiableByteArray.setModification(modification);
         return modifiableByteArray;
     }
 
-    private static ModifiableByte getModifiableByteWithModification(VariableModification<Byte> modification) {
+    private static ModifiableByte getModifiableByteWithModification(
+            VariableModification<Byte> modification) {
         ModifiableByte modifiableByte = new ModifiableByte();
         modifiableByte.setModification(modification);
         return modifiableByte;
     }
 
-    private static ModifiableInteger getModifiableIntegerWithModification(VariableModification<Integer> modification) {
+    private static ModifiableInteger getModifiableIntegerWithModification(
+            VariableModification<Integer> modification) {
         ModifiableInteger modifiableInteger = new ModifiableInteger();
         modifiableInteger.setModification(modification);
         return modifiableInteger;
     }
 
-    private static ModifiableBigInteger
-        getModifiableBigIntegerWithModification(VariableModification<BigInteger> modification) {
+    private static ModifiableBigInteger getModifiableBigIntegerWithModification(
+            VariableModification<BigInteger> modification) {
         ModifiableBigInteger modifiableBigInteger = new ModifiableBigInteger();
         modifiableBigInteger.setModification(modification);
         return modifiableBigInteger;
     }
 
-    private static ModifiableLong getModifiableLongWithModification(VariableModification<Long> modification) {
+    private static ModifiableLong getModifiableLongWithModification(
+            VariableModification<Long> modification) {
         ModifiableLong modifiableLong = new ModifiableLong();
         modifiableLong.setModification(modification);
         return modifiableLong;
     }
 
-    private static ModifiableBoolean getModifiableBooleanWithModification(VariableModification<Boolean> modification) {
+    private static ModifiableBoolean getModifiableBooleanWithModification(
+            VariableModification<Boolean> modification) {
         ModifiableBoolean modifiableBoolean = new ModifiableBoolean();
         modifiableBoolean.setModification(modification);
         return modifiableBoolean;
     }
 
-    private static ModifiableString getModifiableStringWithModification(VariableModification<String> modification) {
+    private static ModifiableString getModifiableStringWithModification(
+            VariableModification<String> modification) {
         ModifiableString modifiableString = new ModifiableString();
         modifiableString.setModification(modification);
         return modifiableString;
     }
 
+    public static ModifiableString prepend(final String s) {
+        return getModifiableStringWithModification(StringModificationFactory.prependValue(s));
+    }
+
+    public static ModifiableString append(final String s) {
+        return getModifiableStringWithModification(StringModificationFactory.appendValue(s));
+    }
+
     public static ModifiableByteArray explicit(byte[] b) {
-        return getModifiableByteArrayWithModification(ByteArrayModificationFactory.explicitValue(b));
+        return getModifiableByteArrayWithModification(
+                ByteArrayModificationFactory.explicitValue(b));
     }
 
     public static ModifiableByte explicit(Byte b) {
@@ -87,7 +99,8 @@ public class Modifiable {
     }
 
     public static ModifiableBigInteger explicit(BigInteger i) {
-        return getModifiableBigIntegerWithModification(BigIntegerModificationFactory.explicitValue(i));
+        return getModifiableBigIntegerWithModification(
+                BigIntegerModificationFactory.explicitValue(i));
     }
 
     public static ModifiableLong explicit(Long l) {
@@ -103,7 +116,8 @@ public class Modifiable {
     }
 
     public static ModifiableByteArray xor(byte[] b, int position) {
-        return getModifiableByteArrayWithModification(ByteArrayModificationFactory.xor(b, position));
+        return getModifiableByteArrayWithModification(
+                ByteArrayModificationFactory.xor(b, position));
     }
 
     public static ModifiableByte xor(Byte b) {
@@ -155,15 +169,18 @@ public class Modifiable {
     }
 
     public static ModifiableByteArray insert(byte[] b, int position) {
-        return getModifiableByteArrayWithModification(ByteArrayModificationFactory.insert(b, position));
+        return getModifiableByteArrayWithModification(
+                ByteArrayModificationFactory.insert(b, position));
     }
 
     public static ModifiableByteArray delete(int startPosition, int count) {
-        return getModifiableByteArrayWithModification(ByteArrayModificationFactory.delete(startPosition, count));
+        return getModifiableByteArrayWithModification(
+                ByteArrayModificationFactory.delete(startPosition, count));
     }
 
     public static ModifiableByteArray shuffle(byte[] shuffle) {
-        return getModifiableByteArrayWithModification(ByteArrayModificationFactory.shuffle(shuffle));
+        return getModifiableByteArrayWithModification(
+                ByteArrayModificationFactory.shuffle(shuffle));
     }
 
     public static ModifiableByteArray duplicate() {
@@ -193,5 +210,4 @@ public class Modifiable {
     public static ModifiableInteger shiftRight(Integer i) {
         return getModifiableIntegerWithModification(IntegerModificationFactory.shiftRight(i));
     }
-
 }
