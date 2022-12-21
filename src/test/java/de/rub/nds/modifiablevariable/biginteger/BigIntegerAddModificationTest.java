@@ -1,22 +1,18 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.biginteger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-
 import java.math.BigInteger;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class BigIntegerAddModificationTest {
 
@@ -26,65 +22,54 @@ public class BigIntegerAddModificationTest {
 
     private BigIntegerAddModification b3;
 
-    private Integer integer1;
-
     @BeforeEach
     public void setUp() {
         b1 = new BigIntegerAddModification(BigInteger.ONE);
         b2 = new BigIntegerAddModification(BigInteger.TEN);
         b3 = new BigIntegerAddModification(BigInteger.ONE);
-        integer1 = 1;
     }
 
-    /**
-     * Test of modifyImplementationHook method, of class BigIntegerAddModification.
-     */
-    @Disabled("Not yet implemented")
+    /** Test of modifyImplementationHook method, of class BigIntegerAddModification. */
     @Test
     public void testModifyImplementationHook() {
+        assertEquals(BigInteger.valueOf(11), b1.modifyImplementationHook(BigInteger.TEN));
+        assertEquals(BigInteger.valueOf(2), b3.modifyImplementationHook(BigInteger.ONE));
+        assertEquals(BigInteger.ONE, b1.modifyImplementationHook(null));
     }
 
-    /**
-     * Test of getSummand method, of class BigIntegerAddModification.
-     */
-    @Disabled("Not yet implemented")
+    /** Test of getSummand method, of class BigIntegerAddModification. */
     @Test
     public void testGetSummand() {
+        assertEquals(BigInteger.ONE, b1.getSummand());
+        assertEquals(BigInteger.TEN, b2.getSummand());
     }
 
-    /**
-     * Test of setSummand method, of class BigIntegerAddModification.
-     */
-    @Disabled("Not yet implemented")
+    /** Test of setSummand method, of class BigIntegerAddModification. */
     @Test
     public void testSetSummand() {
+        assertNotEquals(BigInteger.ONE, b2.getSummand());
+        b2.setSummand(BigInteger.ONE);
+        assertEquals(BigInteger.ONE, b2.getSummand());
     }
 
-    /**
-     * Test of getModifiedCopy method, of class BigIntegerAddModification.
-     */
-    @Disabled("Not yet implemented")
+    /** Test of getModifiedCopy method, of class BigIntegerAddModification. */
     @Test
     public void testGetModifiedCopy() {
+        assertNotEquals(b1, b1.getModifiedCopy());
     }
 
-    /**
-     * Test of hashCode method, of class BigIntegerAddModification.
-     */
-    @Disabled("Not yet implemented")
+    /** Test of hashCode method, of class BigIntegerAddModification. */
     @Test
     public void testHashCode() {
+        assertEquals(b1.hashCode(), b3.hashCode());
+        assertNotEquals(b1.hashCode(), b2.hashCode());
     }
 
-    /**
-     * Test of equals method, of class BigIntegerAddModification.
-     */
+    /** Test of equals method, of class BigIntegerAddModification. */
     @Test
     public void testEquals() {
         assertNotEquals(b1, b2);
-        assertNotEquals(b1, integer1);
         assertEquals(b1, b1);
         assertEquals(b1, b3);
     }
-
 }
