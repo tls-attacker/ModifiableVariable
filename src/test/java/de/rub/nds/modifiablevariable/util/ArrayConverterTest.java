@@ -328,6 +328,7 @@ public class ArrayConverterTest {
         }
     }
 
+    /** Test of indexOf method, of class ArrayConverter. */
     @Test
     public void testIndexOf() {
         byte[] outerArray = ArrayConverter.hexStringToByteArray("AABBCCDDAABBCCDD");
