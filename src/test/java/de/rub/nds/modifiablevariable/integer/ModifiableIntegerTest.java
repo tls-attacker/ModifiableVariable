@@ -7,11 +7,9 @@
  */
 package de.rub.nds.modifiablevariable.integer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class ModifiableIntegerTest {
@@ -29,49 +27,68 @@ public class ModifiableIntegerTest {
     }
 
     /** Test of createRandomModification method, of class ModifiableInteger. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testCreateRandomModification() {}
+    public void testCreateRandomModification() {
+        integer1.createRandomModification();
+        assertNotEquals(integer1.getValue(), integer2.getValue());
+    }
 
     /** Test of getAssertEquals method, of class ModifiableInteger. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testGetAssertEquals() {}
+    public void testGetAssertEquals() {
+        assertEquals(integer1.getAssertEquals(), integer2.getAssertEquals());
+    }
 
     /** Test of setAssertEquals method, of class ModifiableInteger. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testSetAssertEquals() {}
+    public void testSetAssertEquals() {
+        integer1.setAssertEquals(3);
+        assertNotEquals(integer1.getAssertEquals(), integer2.getAssertEquals());
+    }
 
     /** Test of isOriginalValueModified method, of class ModifiableInteger. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testIsOriginalValueModified() {}
+    public void testIsOriginalValueModified() {
+        integer1.createRandomModification();
+        assertTrue(integer1.isOriginalValueModified());
+        assertFalse(integer2.isOriginalValueModified());
+    }
 
     /** Test of getByteArray method, of class ModifiableInteger. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testGetByteArray() {}
+    public void testGetByteArray() {
+        assertArrayEquals(integer1.getByteArray(2), integer2.getByteArray(2));
+    }
 
     /** Test of validateAssertions method, of class ModifiableInteger. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testValidateAssertions() {}
+    public void testValidateAssertions() {
+        assertTrue(integer1.validateAssertions());
+        integer1.setOriginalValue(null);
+        assertTrue(integer1.validateAssertions());
+    }
 
     /** Test of getOriginalValue method, of class ModifiableInteger. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testGetOriginalValue() {}
+    public void testGetOriginalValue() {
+        integer1.createRandomModification();
+        assertEquals(integer1.getOriginalValue(), integer2.getOriginalValue());
+        assertNotEquals(integer1.getValue(), integer2.getValue());
+    }
 
     /** Test of setOriginalValue method, of class ModifiableInteger. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testSetOriginalValue() {}
+    public void testSetOriginalValue() {
+        integer2.setOriginalValue(3);
+        assertNotEquals(integer1.getOriginalValue(), integer2.getOriginalValue());
+    }
 
     /** Test of toString method, of class ModifiableInteger. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testToString() {}
+    public void testToString() {
+        assertEquals(integer1.toString(), integer2.toString());
+        assertNotEquals(integer1.getOriginalValue(), integer1.toString());
+    }
 
     /** Test of equals method, of class ModifiableInteger. */
     @Test
@@ -82,7 +99,10 @@ public class ModifiableIntegerTest {
     }
 
     /** Test of hashCode method, of class ModifiableInteger. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testHashCode() {}
+    public void testHashCode() {
+        assertEquals(integer1.hashCode(), integer2.hashCode());
+        integer1.setOriginalValue(4);
+        assertNotEquals(integer1.hashCode(), integer2.hashCode());
+    }
 }
