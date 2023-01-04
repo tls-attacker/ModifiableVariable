@@ -7,11 +7,9 @@
  */
 package de.rub.nds.modifiablevariable.bytearray;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class ByteArrayDeleteModificationTest {
@@ -32,39 +30,48 @@ public class ByteArrayDeleteModificationTest {
     }
 
     /** Test of modifyImplementationHook method, of class ByteArrayDeleteModification. */
-    @Disabled("Not yet implemented")
     @Test
     public void testModifyImplementationHook() {}
 
     /** Test of getStartPosition method, of class ByteArrayDeleteModification. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testGetStartPosition() {}
+    public void testGetStartPosition() {
+        assertEquals(b1.getStartPosition(), b3.getStartPosition());
+    }
 
     /** Test of setStartPosition method, of class ByteArrayDeleteModification. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testSetStartPosition() {}
+    public void testSetStartPosition() {
+        b1.setStartPosition(1);
+        assertNotEquals(b1.getStartPosition(), b3.getStartPosition());
+    }
 
     /** Test of getCount method, of class ByteArrayDeleteModification. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testGetCount() {}
+    public void testGetCount() {
+        assertEquals(b1.getCount(), b4.getCount());
+        assertNotEquals(b1.getCount(), b3.getCount());
+    }
 
     /** Test of setCount method, of class ByteArrayDeleteModification. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testSetCount() {}
+    public void testSetCount() {
+        b1.setCount(1);
+        assertNotEquals(b1.getCount(), b4.getCount());
+        assertEquals(b1.getCount(), b3.getCount());
+    }
 
     /** Test of getModifiedCopy method, of class ByteArrayDeleteModification. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testGetModifiedCopy() {}
+    public void testGetModifiedCopy() {
+        b1.getModifiedCopy();
+    }
 
     /** Test of hashCode method, of class ByteArrayDeleteModification. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testHashCode() {}
+    public void testHashCode() {
+        assertEquals(b1.hashCode(), b2.hashCode()); // ?
+    }
 
     /** Test of equals method, of class ByteArrayDeleteModification. */
     @Test
@@ -77,7 +84,6 @@ public class ByteArrayDeleteModificationTest {
     }
 
     /** Test of toString method, of class ByteArrayDeleteModification. */
-    @Disabled("Not yet implemented")
     @Test
     public void testToString() {}
 }
