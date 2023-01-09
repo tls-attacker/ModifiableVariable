@@ -1,12 +1,10 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.singlebyte;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,73 +27,47 @@ public class ModifiableByteTest {
         byte2.setOriginalValue((byte) 3);
     }
 
-    /**
-     * Test of createRandomModification method, of class ModifiableByte.
-     */
+    /** Test of createRandomModification method, of class ModifiableByte. */
     @Disabled("Not yet implemented")
     @Test
-    public void testCreateRandomModification() {
-    }
+    public void testCreateRandomModification() {}
 
-    /**
-     * Test of getAssertEquals method, of class ModifiableByte.
-     */
+    /** Test of getAssertEquals method, of class ModifiableByte. */
     @Disabled("Not yet implemented")
     @Test
-    public void testGetAssertEquals() {
-    }
+    public void testGetAssertEquals() {}
 
-    /**
-     * Test of setAssertEquals method, of class ModifiableByte.
-     */
+    /** Test of setAssertEquals method, of class ModifiableByte. */
     @Disabled("Not yet implemented")
     @Test
-    public void testSetAssertEquals() {
-    }
+    public void testSetAssertEquals() {}
 
-    /**
-     * Test of isOriginalValueModified method, of class ModifiableByte.
-     */
+    /** Test of isOriginalValueModified method, of class ModifiableByte. */
     @Disabled("Not yet implemented")
     @Test
-    public void testIsOriginalValueModified() {
-    }
+    public void testIsOriginalValueModified() {}
 
-    /**
-     * Test of validateAssertions method, of class ModifiableByte.
-     */
+    /** Test of validateAssertions method, of class ModifiableByte. */
     @Disabled("Not yet implemented")
     @Test
-    public void testValidateAssertions() {
-    }
+    public void testValidateAssertions() {}
 
-    /**
-     * Test of getOriginalValue method, of class ModifiableByte.
-     */
+    /** Test of getOriginalValue method, of class ModifiableByte. */
     @Disabled("Not yet implemented")
     @Test
-    public void testGetOriginalValue() {
-    }
+    public void testGetOriginalValue() {}
 
-    /**
-     * Test of setOriginalValue method, of class ModifiableByte.
-     */
+    /** Test of setOriginalValue method, of class ModifiableByte. */
     @Disabled("Not yet implemented")
     @Test
-    public void testSetOriginalValue() {
-    }
+    public void testSetOriginalValue() {}
 
-    /**
-     * Test of toString method, of class ModifiableByte.
-     */
+    /** Test of toString method, of class ModifiableByte. */
     @Disabled("Not yet implemented")
     @Test
-    public void testToString() {
-    }
+    public void testToString() {}
 
-    /**
-     * Test of equals method, of class ModifiableByte.
-     */
+    /** Test of equals method, of class ModifiableByte. */
     @Test
     public void testEquals() {
         assertEquals(byte1, byte2);
@@ -103,12 +75,8 @@ public class ModifiableByteTest {
         assertNotEquals(byte1, byte2);
     }
 
-    /**
-     * Test of hashCode method, of class ModifiableByte.
-     */
+    /** Test of hashCode method, of class ModifiableByte. */
     @Disabled("Not yet implemented")
     @Test
-    public void testHashCode() {
-    }
-
+    public void testHashCode() {}
 }

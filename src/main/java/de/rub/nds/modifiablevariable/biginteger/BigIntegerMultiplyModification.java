@@ -1,35 +1,31 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import java.math.BigInteger;
-import java.util.Objects;
-import java.util.Random;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
+import java.math.BigInteger;
+import java.util.Objects;
+import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = { "factor", "modificationFilter" })
+@XmlType(propOrder = {"factor", "modificationFilter"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BigIntegerMultiplyModification extends VariableModification<BigInteger> {
 
-    private final static int MAX_FACTOR_LENGTH = 8;
+    private static final int MAX_FACTOR_LENGTH = 8;
 
     private BigInteger factor;
 
-    public BigIntegerMultiplyModification() {
-
-    }
+    public BigIntegerMultiplyModification() {}
 
     public BigIntegerMultiplyModification(BigInteger bi) {
         this.factor = bi;
@@ -53,7 +49,8 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
 
     @Override
     public VariableModification<BigInteger> getModifiedCopy() {
-        return new BigIntegerMultiplyModification(factor.add(new BigInteger(MAX_FACTOR_LENGTH, new Random())));
+        return new BigIntegerMultiplyModification(
+                factor.add(new BigInteger(MAX_FACTOR_LENGTH, new Random())));
     }
 
     @Override

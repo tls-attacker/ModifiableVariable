@@ -1,12 +1,10 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.mlong;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,7 +26,6 @@ public class LongModificationTest {
         start.setOriginalValue(10L);
         expectedResult = null;
         result = null;
-
     }
 
     @Test
@@ -40,7 +37,6 @@ public class LongModificationTest {
         result = start.getValue();
         assertEquals(expectedResult, result);
         assertEquals(Long.valueOf(10L), start.getOriginalValue());
-
     }
 
     @Test
@@ -73,9 +69,7 @@ public class LongModificationTest {
         assertEquals(Long.valueOf(10L), start.getOriginalValue());
     }
 
-    /**
-     * Test of explicitValue from file method
-     */
+    /** Test of explicitValue from file method */
     @Test
     public void testExplicitValueFromFile() {
         VariableModification<Long> modifier = LongModificationFactory.explicitValueFromFile(0);
@@ -96,5 +90,4 @@ public class LongModificationTest {
         result = start.getValue();
         assertEquals(expectedResult, result);
     }
-
 }

@@ -1,12 +1,10 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.integer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,81 +28,52 @@ public class ModifiableIntegerTest {
         integer2.setOriginalValue(2);
     }
 
-    /**
-     * Test of createRandomModification method, of class ModifiableInteger.
-     */
+    /** Test of createRandomModification method, of class ModifiableInteger. */
     @Disabled("Not yet implemented")
     @Test
-    public void testCreateRandomModification() {
-    }
+    public void testCreateRandomModification() {}
 
-    /**
-     * Test of getAssertEquals method, of class ModifiableInteger.
-     */
+    /** Test of getAssertEquals method, of class ModifiableInteger. */
     @Disabled("Not yet implemented")
     @Test
-    public void testGetAssertEquals() {
-    }
+    public void testGetAssertEquals() {}
 
-    /**
-     * Test of setAssertEquals method, of class ModifiableInteger.
-     */
+    /** Test of setAssertEquals method, of class ModifiableInteger. */
     @Disabled("Not yet implemented")
     @Test
-    public void testSetAssertEquals() {
-    }
+    public void testSetAssertEquals() {}
 
-    /**
-     * Test of isOriginalValueModified method, of class ModifiableInteger.
-     */
+    /** Test of isOriginalValueModified method, of class ModifiableInteger. */
     @Disabled("Not yet implemented")
     @Test
-    public void testIsOriginalValueModified() {
-    }
+    public void testIsOriginalValueModified() {}
 
-    /**
-     * Test of getByteArray method, of class ModifiableInteger.
-     */
+    /** Test of getByteArray method, of class ModifiableInteger. */
     @Disabled("Not yet implemented")
     @Test
-    public void testGetByteArray() {
-    }
+    public void testGetByteArray() {}
 
-    /**
-     * Test of validateAssertions method, of class ModifiableInteger.
-     */
+    /** Test of validateAssertions method, of class ModifiableInteger. */
     @Disabled("Not yet implemented")
     @Test
-    public void testValidateAssertions() {
-    }
+    public void testValidateAssertions() {}
 
-    /**
-     * Test of getOriginalValue method, of class ModifiableInteger.
-     */
+    /** Test of getOriginalValue method, of class ModifiableInteger. */
     @Disabled("Not yet implemented")
     @Test
-    public void testGetOriginalValue() {
-    }
+    public void testGetOriginalValue() {}
 
-    /**
-     * Test of setOriginalValue method, of class ModifiableInteger.
-     */
+    /** Test of setOriginalValue method, of class ModifiableInteger. */
     @Disabled("Not yet implemented")
     @Test
-    public void testSetOriginalValue() {
-    }
+    public void testSetOriginalValue() {}
 
-    /**
-     * Test of toString method, of class ModifiableInteger.
-     */
+    /** Test of toString method, of class ModifiableInteger. */
     @Disabled("Not yet implemented")
     @Test
-    public void testToString() {
-    }
+    public void testToString() {}
 
-    /**
-     * Test of equals method, of class ModifiableInteger.
-     */
+    /** Test of equals method, of class ModifiableInteger. */
     @Test
     public void testEquals() {
         assertEquals(integer1, integer2);
@@ -112,12 +81,8 @@ public class ModifiableIntegerTest {
         assertNotEquals(integer1, integer2);
     }
 
-    /**
-     * Test of hashCode method, of class ModifiableInteger.
-     */
+    /** Test of hashCode method, of class ModifiableInteger. */
     @Disabled("Not yet implemented")
     @Test
-    public void testHashCode() {
-    }
-
+    public void testHashCode() {}
 }

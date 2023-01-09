@@ -1,12 +1,10 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable;
 
 import java.lang.annotation.ElementType;
@@ -14,16 +12,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
- * Annotation interface for modifiable variables.
- *
- */
+/** Annotation interface for modifiable variables. */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ModifiableVariableProperty {
 
     public enum Type {
-
         LENGTH,
         COUNT,
         PADDING,
@@ -45,7 +39,6 @@ public @interface ModifiableVariableProperty {
     }
 
     public enum Format {
-
         ASN1,
         PKCS1,
         NONE
@@ -54,5 +47,4 @@ public @interface ModifiableVariableProperty {
     Type type() default Type.NONE;
 
     Format format() default Format.NONE;
-
 }

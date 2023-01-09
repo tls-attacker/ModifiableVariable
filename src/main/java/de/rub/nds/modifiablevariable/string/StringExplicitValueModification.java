@@ -1,33 +1,28 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.string;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import java.util.Objects;
+import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
-import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.Objects;
 
-/**
- *
- */
+/** */
 @XmlRootElement
-@XmlType(propOrder = { "explicitValue", "modificationFilter" })
+@XmlType(propOrder = {"explicitValue", "modificationFilter"})
 public class StringExplicitValueModification extends VariableModification<String> {
 
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     private String explicitValue;
 
-    public StringExplicitValueModification() {
-    }
+    public StringExplicitValueModification() {}
 
     public StringExplicitValueModification(String explicitValue) {
         this.explicitValue = explicitValue;

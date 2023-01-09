@@ -1,12 +1,10 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.bool;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,57 +28,37 @@ public class ModifiableBooleanTest {
         boolean2.setOriginalValue(Boolean.TRUE);
     }
 
-    /**
-     * Test of getOriginalValue method, of class ModifiableBoolean.
-     */
+    /** Test of getOriginalValue method, of class ModifiableBoolean. */
     @Disabled("Not yet implemented")
     @Test
-    public void testGetOriginalValue() {
-    }
+    public void testGetOriginalValue() {}
 
-    /**
-     * Test of setOriginalValue method, of class ModifiableBoolean.
-     */
+    /** Test of setOriginalValue method, of class ModifiableBoolean. */
     @Disabled("Not yet implemented")
     @Test
-    public void testSetOriginalValue() {
-    }
+    public void testSetOriginalValue() {}
 
-    /**
-     * Test of createRandomModification method, of class ModifiableBoolean.
-     */
+    /** Test of createRandomModification method, of class ModifiableBoolean. */
     @Disabled("Not yet implemented")
     @Test
-    public void testCreateRandomModification() {
-    }
+    public void testCreateRandomModification() {}
 
-    /**
-     * Test of isOriginalValueModified method, of class ModifiableBoolean.
-     */
+    /** Test of isOriginalValueModified method, of class ModifiableBoolean. */
     @Disabled("Not yet implemented")
     @Test
-    public void testIsOriginalValueModified() {
-    }
+    public void testIsOriginalValueModified() {}
 
-    /**
-     * Test of validateAssertions method, of class ModifiableBoolean.
-     */
+    /** Test of validateAssertions method, of class ModifiableBoolean. */
     @Disabled("Not yet implemented")
     @Test
-    public void testValidateAssertions() {
-    }
+    public void testValidateAssertions() {}
 
-    /**
-     * Test of toString method, of class ModifiableBoolean.
-     */
+    /** Test of toString method, of class ModifiableBoolean. */
     @Disabled("Not yet implemented")
     @Test
-    public void testToString() {
-    }
+    public void testToString() {}
 
-    /**
-     * Test of equals method, of class ModifiableBoolean.
-     */
+    /** Test of equals method, of class ModifiableBoolean. */
     @Test
     public void testEquals() {
         assertEquals(boolean1, boolean2);
@@ -88,12 +66,8 @@ public class ModifiableBooleanTest {
         assertNotEquals(boolean1, boolean2);
     }
 
-    /**
-     * Test of hashCode method, of class ModifiableBoolean.
-     */
+    /** Test of hashCode method, of class ModifiableBoolean. */
     @Disabled("Not yet implemented")
     @Test
-    public void testHashCode() {
-    }
-
+    public void testHashCode() {}
 }

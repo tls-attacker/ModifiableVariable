@@ -1,31 +1,27 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.mlong;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import java.util.Objects;
-import java.util.Random;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
+import java.util.Objects;
+import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = { "xor", "modificationFilter" })
+@XmlType(propOrder = {"xor", "modificationFilter"})
 public class LongXorModification extends VariableModification<Long> {
 
     private static final int MAX_XOR_MODIFIER = 256;
 
     private Long xor;
 
-    public LongXorModification() {
-
-    }
+    public LongXorModification() {}
 
     public LongXorModification(Long bi) {
         this.xor = bi;

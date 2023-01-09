@@ -1,12 +1,10 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.integer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,9 +27,7 @@ public class IntegerModificationTest {
         result = null;
     }
 
-    /**
-     * Test of add method, of class IntegerModification.
-     */
+    /** Test of add method, of class IntegerModification. */
     @Test
     public void testAdd() {
         VariableModification<Integer> modifier = IntegerModificationFactory.add(1);
@@ -42,9 +38,7 @@ public class IntegerModificationTest {
         assertEquals(Integer.valueOf(10), start.getOriginalValue());
     }
 
-    /**
-     * Test of sub method, of class IntegerModification.
-     */
+    /** Test of sub method, of class IntegerModification. */
     @Test
     public void testSub() {
         VariableModification<Integer> modifier = IntegerModificationFactory.sub(1);
@@ -55,9 +49,7 @@ public class IntegerModificationTest {
         assertEquals(Integer.valueOf(10), start.getOriginalValue());
     }
 
-    /**
-     * Test of xor method, of class IntegerModification.
-     */
+    /** Test of xor method, of class IntegerModification. */
     @Test
     public void testXor() {
         VariableModification<Integer> modifier = IntegerModificationFactory.xor(2);
@@ -68,9 +60,7 @@ public class IntegerModificationTest {
         assertEquals(Integer.valueOf(10), start.getOriginalValue());
     }
 
-    /**
-     * Test of explicitValue method, of class IntegerModification.
-     */
+    /** Test of explicitValue method, of class IntegerModification. */
     @Test
     public void testExplicitValue() {
         VariableModification<Integer> modifier = IntegerModificationFactory.explicitValue(7);
@@ -101,12 +91,11 @@ public class IntegerModificationTest {
         assertEquals(Integer.valueOf(10), start.getOriginalValue());
     }
 
-    /**
-     * Test of explicitValue from file method, of class IntegerModification.
-     */
+    /** Test of explicitValue from file method, of class IntegerModification. */
     @Test
     public void testExplicitValueFromFile() {
-        VariableModification<Integer> modifier = IntegerModificationFactory.explicitValueFromFile(0);
+        VariableModification<Integer> modifier =
+                IntegerModificationFactory.explicitValueFromFile(0);
         start.setModification(modifier);
         expectedResult = -128;
         result = start.getValue();
@@ -124,5 +113,4 @@ public class IntegerModificationTest {
         result = start.getValue();
         assertEquals(expectedResult, result);
     }
-
 }

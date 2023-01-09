@@ -1,27 +1,23 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.string;
 
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
-import java.io.Serializable;
-import java.nio.charset.StandardCharsets;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 
-/**
- *
- */
+/** */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ModifiableString extends ModifiableVariable<String> implements Serializable {
@@ -29,8 +25,7 @@ public class ModifiableString extends ModifiableVariable<String> implements Seri
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     private String originalValue;
 
-    public ModifiableString() {
-    }
+    public ModifiableString() {}
 
     @Override
     protected void createRandomModification() {
@@ -101,5 +96,4 @@ public class ModifiableString extends ModifiableVariable<String> implements Seri
         result = 31 * result + (getValue() != null ? getValue().hashCode() : 0);
         return result;
     }
-
 }

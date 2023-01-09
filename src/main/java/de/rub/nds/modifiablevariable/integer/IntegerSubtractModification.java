@@ -1,31 +1,27 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.integer;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import java.util.Objects;
-import java.util.Random;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
+import java.util.Objects;
+import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = { "subtrahend", "modificationFilter" })
+@XmlType(propOrder = {"subtrahend", "modificationFilter"})
 public class IntegerSubtractModification extends VariableModification<Integer> {
 
     private static final int MAX_SUBTRACT_MODIFIER = 256;
 
     private Integer subtrahend;
 
-    public IntegerSubtractModification() {
-
-    }
+    public IntegerSubtractModification() {}
 
     public IntegerSubtractModification(Integer bi) {
         this.subtrahend = bi;
@@ -46,7 +42,8 @@ public class IntegerSubtractModification extends VariableModification<Integer> {
 
     @Override
     public VariableModification<Integer> getModifiedCopy() {
-        return new IntegerSubtractModification(subtrahend + new Random().nextInt(MAX_SUBTRACT_MODIFIER));
+        return new IntegerSubtractModification(
+                subtrahend + new Random().nextInt(MAX_SUBTRACT_MODIFIER));
     }
 
     @Override

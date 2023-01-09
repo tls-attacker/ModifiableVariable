@@ -1,25 +1,23 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import java.math.BigInteger;
-import java.util.Objects;
-import java.util.Random;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
+import java.math.BigInteger;
+import java.util.Objects;
+import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = { "explicitValue", "modificationFilter" })
+@XmlType(propOrder = {"explicitValue", "modificationFilter"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BigIntegerExplicitValueModification extends VariableModification<BigInteger> {
 
@@ -27,8 +25,7 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
 
     private BigInteger explicitValue;
 
-    public BigIntegerExplicitValueModification() {
-    }
+    public BigIntegerExplicitValueModification() {}
 
     public BigIntegerExplicitValueModification(BigInteger bi) {
         this.explicitValue = bi;
@@ -51,10 +48,11 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
     public VariableModification<BigInteger> getModifiedCopy() {
         Random r = new Random();
         if (r.nextBoolean()) {
-            return new BigIntegerExplicitValueModification(explicitValue.add(new BigInteger(MAX_EXPLICIT_LENGTH, r)));
+            return new BigIntegerExplicitValueModification(
+                    explicitValue.add(new BigInteger(MAX_EXPLICIT_LENGTH, r)));
         } else {
             return new BigIntegerExplicitValueModification(
-                explicitValue.subtract(new BigInteger(MAX_EXPLICIT_LENGTH, r)));
+                    explicitValue.subtract(new BigInteger(MAX_EXPLICIT_LENGTH, r)));
         }
     }
 
