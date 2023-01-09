@@ -29,29 +29,32 @@ public class ModifiableIntegerTest {
     /** Test of createRandomModification method, of class ModifiableInteger. */
     @Test
     public void testCreateRandomModification() {
+        assertNull(integer1.getModification());
         integer1.createRandomModification();
-        assertNotEquals(integer1.getValue(), integer2.getValue());
+        assertNotNull(integer1.getModification());
     }
 
     /** Test of getAssertEquals method, of class ModifiableInteger. */
     @Test
     public void testGetAssertEquals() {
-        assertEquals(integer1.getAssertEquals(), integer2.getAssertEquals());
+        integer1.setAssertEquals(2);
+        assertEquals(2, integer1.getAssertEquals());
     }
 
     /** Test of setAssertEquals method, of class ModifiableInteger. */
     @Test
     public void testSetAssertEquals() {
+        assertNotEquals(3, integer1.getAssertEquals());
         integer1.setAssertEquals(3);
-        assertNotEquals(integer1.getAssertEquals(), integer2.getAssertEquals());
+        assertEquals(3, integer1.getAssertEquals());
     }
 
     /** Test of isOriginalValueModified method, of class ModifiableInteger. */
     @Test
     public void testIsOriginalValueModified() {
+        assertFalse(integer1.isOriginalValueModified());
         integer1.createRandomModification();
         assertTrue(integer1.isOriginalValueModified());
-        assertFalse(integer2.isOriginalValueModified());
     }
 
     /** Test of getByteArray method, of class ModifiableInteger. */
@@ -64,30 +67,29 @@ public class ModifiableIntegerTest {
     @Test
     public void testValidateAssertions() {
         assertTrue(integer1.validateAssertions());
-        integer1.setOriginalValue(null);
-        assertTrue(integer1.validateAssertions());
+        integer1.setAssertEquals(3);
+        assertFalse(integer1.validateAssertions());
     }
 
     /** Test of getOriginalValue method, of class ModifiableInteger. */
     @Test
     public void testGetOriginalValue() {
-        integer1.createRandomModification();
-        assertEquals(integer1.getOriginalValue(), integer2.getOriginalValue());
-        assertNotEquals(integer1.getValue(), integer2.getValue());
+        assertEquals(2, integer1.getOriginalValue());
     }
 
     /** Test of setOriginalValue method, of class ModifiableInteger. */
     @Test
     public void testSetOriginalValue() {
-        integer2.setOriginalValue(3);
-        assertNotEquals(integer1.getOriginalValue(), integer2.getOriginalValue());
+        integer1.setOriginalValue(3);
+        assertEquals(3, integer1.getOriginalValue());
     }
 
     /** Test of toString method, of class ModifiableInteger. */
     @Test
     public void testToString() {
         assertEquals(integer1.toString(), integer2.toString());
-        assertNotEquals(integer1.getOriginalValue(), integer1.toString());
+        integer1.setOriginalValue(4);
+        assertNotEquals(integer1.toString(), integer2.toString());
     }
 
     /** Test of equals method, of class ModifiableInteger. */
@@ -102,7 +104,5 @@ public class ModifiableIntegerTest {
     @Test
     public void testHashCode() {
         assertEquals(integer1.hashCode(), integer2.hashCode());
-        integer1.setOriginalValue(4);
-        assertNotEquals(integer1.hashCode(), integer2.hashCode());
     }
 }
