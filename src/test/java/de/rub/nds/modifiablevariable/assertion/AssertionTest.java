@@ -1,12 +1,10 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.assertion;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -30,7 +28,7 @@ public class AssertionTest {
         mi = new ModifiableInteger();
         mi.setOriginalValue(10);
         mba = new ModifiableByteArray();
-        mba.setOriginalValue(new byte[] { 0, 1 });
+        mba.setOriginalValue(new byte[] {0, 1});
     }
 
     @Test
@@ -51,10 +49,9 @@ public class AssertionTest {
 
     @Test
     public void testAssertionByteArray() {
-        mba.setAssertEquals(new byte[] { 0, 1 });
+        mba.setAssertEquals(new byte[] {0, 1});
         assertTrue(mba.validateAssertions());
-        mba.setAssertEquals(new byte[] { 0, 0 });
+        mba.setAssertEquals(new byte[] {0, 0});
         assertFalse(mba.validateAssertions());
     }
-
 }

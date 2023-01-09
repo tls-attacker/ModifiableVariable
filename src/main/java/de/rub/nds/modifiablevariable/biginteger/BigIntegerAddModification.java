@@ -1,25 +1,23 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import java.math.BigInteger;
-import java.util.Objects;
-import java.util.Random;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
+import java.math.BigInteger;
+import java.util.Objects;
+import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = { "summand", "modificationFilter" })
+@XmlType(propOrder = {"summand", "modificationFilter"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BigIntegerAddModification extends VariableModification<BigInteger> {
 
@@ -27,9 +25,7 @@ public class BigIntegerAddModification extends VariableModification<BigInteger> 
 
     private BigInteger summand;
 
-    public BigIntegerAddModification() {
-
-    }
+    public BigIntegerAddModification() {}
 
     public BigIntegerAddModification(BigInteger bi) {
         this.summand = bi;
@@ -50,7 +46,8 @@ public class BigIntegerAddModification extends VariableModification<BigInteger> 
 
     @Override
     public VariableModification<BigInteger> getModifiedCopy() {
-        return new BigIntegerAddModification(summand.add(new BigInteger(MAX_ADD_LENGTH, new Random())));
+        return new BigIntegerAddModification(
+                summand.add(new BigInteger(MAX_ADD_LENGTH, new Random())));
     }
 
     @Override
@@ -77,5 +74,4 @@ public class BigIntegerAddModification extends VariableModification<BigInteger> 
         }
         return true;
     }
-
 }

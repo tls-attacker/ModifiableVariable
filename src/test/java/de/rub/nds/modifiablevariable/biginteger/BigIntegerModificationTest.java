@@ -1,21 +1,18 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.biginteger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import de.rub.nds.modifiablevariable.VariableModification;
+import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.math.BigInteger;
 
 public class BigIntegerModificationTest {
 
@@ -31,12 +28,11 @@ public class BigIntegerModificationTest {
         result = null;
     }
 
-    /**
-     * Test of add method, of class BigIntegerModificationFactory.
-     */
+    /** Test of add method, of class BigIntegerModificationFactory. */
     @Test
     public void testAdd() {
-        VariableModification<BigInteger> modifier = BigIntegerModificationFactory.add(BigInteger.ONE);
+        VariableModification<BigInteger> modifier =
+                BigIntegerModificationFactory.add(BigInteger.ONE);
         start.setModification(modifier);
         expectedResult = new BigInteger("11");
         result = start.getValue();
@@ -45,12 +41,11 @@ public class BigIntegerModificationTest {
         assertEquals(BigInteger.TEN, start.getOriginalValue());
     }
 
-    /**
-     * Test of sub method, of class BigIntegerModificationFactory.
-     */
+    /** Test of sub method, of class BigIntegerModificationFactory. */
     @Test
     public void testSub() {
-        VariableModification<BigInteger> modifier = BigIntegerModificationFactory.sub(BigInteger.ONE);
+        VariableModification<BigInteger> modifier =
+                BigIntegerModificationFactory.sub(BigInteger.ONE);
         start.setModification(modifier);
         expectedResult = new BigInteger("9");
         result = start.getValue();
@@ -59,12 +54,11 @@ public class BigIntegerModificationTest {
         assertEquals(BigInteger.TEN, start.getOriginalValue());
     }
 
-    /**
-     * Test of xor method, of class BigIntegerModificationFactory.
-     */
+    /** Test of xor method, of class BigIntegerModificationFactory. */
     @Test
     public void testXor() {
-        VariableModification<BigInteger> modifier = BigIntegerModificationFactory.xor(new BigInteger("2"));
+        VariableModification<BigInteger> modifier =
+                BigIntegerModificationFactory.xor(new BigInteger("2"));
         start.setModification(modifier);
         expectedResult = new BigInteger("8");
         result = start.getValue();
@@ -73,12 +67,11 @@ public class BigIntegerModificationTest {
         assertEquals(BigInteger.TEN, start.getOriginalValue());
     }
 
-    /**
-     * Test of explicitValue method, of class BigIntegerModificationFactory.
-     */
+    /** Test of explicitValue method, of class BigIntegerModificationFactory. */
     @Test
     public void testExplicitValue() {
-        VariableModification<BigInteger> modifier = BigIntegerModificationFactory.explicitValue(new BigInteger("7"));
+        VariableModification<BigInteger> modifier =
+                BigIntegerModificationFactory.explicitValue(new BigInteger("7"));
         start.setModification(modifier);
         expectedResult = new BigInteger("7");
         result = start.getValue();
@@ -87,13 +80,12 @@ public class BigIntegerModificationTest {
         assertEquals(BigInteger.TEN, start.getOriginalValue());
     }
 
-    /**
-     * Test of add method, of class BigIntegerModificationFactory.
-     */
+    /** Test of add method, of class BigIntegerModificationFactory. */
     @Test
     public void testIsOriginalValueModified() {
         assertFalse(start.isOriginalValueModified());
-        VariableModification<BigInteger> modifier = BigIntegerModificationFactory.add(BigInteger.ZERO);
+        VariableModification<BigInteger> modifier =
+                BigIntegerModificationFactory.add(BigInteger.ZERO);
         start.setModification(modifier);
         assertFalse(start.isOriginalValueModified());
         modifier = BigIntegerModificationFactory.add(BigInteger.ONE);
@@ -123,12 +115,11 @@ public class BigIntegerModificationTest {
         assertEquals(BigInteger.TEN, start.getOriginalValue());
     }
 
-    /**
-     * Test of explicitValue from file method
-     */
+    /** Test of explicitValue from file method */
     @Test
     public void testExplicitValueFromFile() {
-        VariableModification<BigInteger> modifier = BigIntegerModificationFactory.explicitValueFromFile(0);
+        VariableModification<BigInteger> modifier =
+                BigIntegerModificationFactory.explicitValueFromFile(0);
         start.setModification(modifier);
         expectedResult = BigInteger.valueOf(-128);
         result = start.getValue();

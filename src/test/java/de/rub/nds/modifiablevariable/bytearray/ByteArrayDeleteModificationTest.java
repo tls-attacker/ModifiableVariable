@@ -1,12 +1,10 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.bytearray;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,65 +31,42 @@ public class ByteArrayDeleteModificationTest {
         b5 = 10;
     }
 
-    /**
-     * Test of modifyImplementationHook method, of class ByteArrayDeleteModification.
-     */
+    /** Test of modifyImplementationHook method, of class ByteArrayDeleteModification. */
     @Disabled("Not yet implemented")
     @Test
-    public void testModifyImplementationHook() {
-    }
+    public void testModifyImplementationHook() {}
 
-    /**
-     * Test of getStartPosition method, of class ByteArrayDeleteModification.
-     */
+    /** Test of getStartPosition method, of class ByteArrayDeleteModification. */
     @Disabled("Not yet implemented")
     @Test
-    public void testGetStartPosition() {
-    }
+    public void testGetStartPosition() {}
 
-    /**
-     * Test of setStartPosition method, of class ByteArrayDeleteModification.
-     */
+    /** Test of setStartPosition method, of class ByteArrayDeleteModification. */
     @Disabled("Not yet implemented")
     @Test
-    public void testSetStartPosition() {
-    }
+    public void testSetStartPosition() {}
 
-    /**
-     * Test of getCount method, of class ByteArrayDeleteModification.
-     */
+    /** Test of getCount method, of class ByteArrayDeleteModification. */
     @Disabled("Not yet implemented")
     @Test
-    public void testGetCount() {
-    }
+    public void testGetCount() {}
 
-    /**
-     * Test of setCount method, of class ByteArrayDeleteModification.
-     */
+    /** Test of setCount method, of class ByteArrayDeleteModification. */
     @Disabled("Not yet implemented")
     @Test
-    public void testSetCount() {
-    }
+    public void testSetCount() {}
 
-    /**
-     * Test of getModifiedCopy method, of class ByteArrayDeleteModification.
-     */
+    /** Test of getModifiedCopy method, of class ByteArrayDeleteModification. */
     @Disabled("Not yet implemented")
     @Test
-    public void testGetModifiedCopy() {
-    }
+    public void testGetModifiedCopy() {}
 
-    /**
-     * Test of hashCode method, of class ByteArrayDeleteModification.
-     */
+    /** Test of hashCode method, of class ByteArrayDeleteModification. */
     @Disabled("Not yet implemented")
     @Test
-    public void testHashCode() {
-    }
+    public void testHashCode() {}
 
-    /**
-     * Test of equals method, of class ByteArrayDeleteModification.
-     */
+    /** Test of equals method, of class ByteArrayDeleteModification. */
     @Test
     public void testEquals() {
         assertEquals(b1, b1);
@@ -101,12 +76,8 @@ public class ByteArrayDeleteModificationTest {
         assertNotEquals(b1, b5);
     }
 
-    /**
-     * Test of toString method, of class ByteArrayDeleteModification.
-     */
+    /** Test of toString method, of class ByteArrayDeleteModification. */
     @Disabled("Not yet implemented")
     @Test
-    public void testToString() {
-    }
-
+    public void testToString() {}
 }
