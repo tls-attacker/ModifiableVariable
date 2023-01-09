@@ -23,7 +23,7 @@ public class ByteArrayDeleteModificationTest {
     @BeforeEach
     public void setUp() {
         b1 = new ByteArrayDeleteModification(0, 0);
-        b2 = b1;
+        b2 = new ByteArrayDeleteModification(0, 0);
         b3 = new ByteArrayDeleteModification(0, 1);
         b4 = new ByteArrayDeleteModification(1, 0);
         b5 = 10;
@@ -31,46 +31,52 @@ public class ByteArrayDeleteModificationTest {
 
     /** Test of modifyImplementationHook method, of class ByteArrayDeleteModification. */
     @Test
-    public void testModifyImplementationHook() {}
+    public void testModifyImplementationHook() {
+        assertArrayEquals(
+                new byte[] {1, 2, 3, 4}, b3.modifyImplementationHook(new byte[] {0, 1, 2, 3, 4}));
+    }
 
     /** Test of getStartPosition method, of class ByteArrayDeleteModification. */
     @Test
     public void testGetStartPosition() {
         assertEquals(b1.getStartPosition(), b3.getStartPosition());
+        assertNotEquals(b2.getStartPosition(), b4.getStartPosition());
     }
 
     /** Test of setStartPosition method, of class ByteArrayDeleteModification. */
     @Test
     public void testSetStartPosition() {
+        assertNotEquals(1, b1.getStartPosition());
         b1.setStartPosition(1);
-        assertNotEquals(b1.getStartPosition(), b3.getStartPosition());
+        assertEquals(1, b1.getStartPosition());
     }
 
     /** Test of getCount method, of class ByteArrayDeleteModification. */
     @Test
     public void testGetCount() {
-        assertEquals(b1.getCount(), b4.getCount());
-        assertNotEquals(b1.getCount(), b3.getCount());
+        assertEquals(0, b1.getCount());
+        b1.setCount(1);
+        assertNotEquals(0, b1.getCount());
     }
 
     /** Test of setCount method, of class ByteArrayDeleteModification. */
     @Test
     public void testSetCount() {
+        assertNotEquals(1, b1.getCount());
         b1.setCount(1);
-        assertNotEquals(b1.getCount(), b4.getCount());
-        assertEquals(b1.getCount(), b3.getCount());
+        assertEquals(1, b1.getCount());
     }
 
     /** Test of getModifiedCopy method, of class ByteArrayDeleteModification. */
     @Test
     public void testGetModifiedCopy() {
-        b1.getModifiedCopy();
+        assertNotEquals(b1, b1.getModifiedCopy());
     }
 
     /** Test of hashCode method, of class ByteArrayDeleteModification. */
     @Test
     public void testHashCode() {
-        assertEquals(b1.hashCode(), b2.hashCode()); // ?
+        assertEquals(b1.hashCode(), b2.hashCode());
     }
 
     /** Test of equals method, of class ByteArrayDeleteModification. */
@@ -85,5 +91,9 @@ public class ByteArrayDeleteModificationTest {
 
     /** Test of toString method, of class ByteArrayDeleteModification. */
     @Test
-    public void testToString() {}
+    public void testToString() {
+        assertEquals(b1.toString(), b2.toString());
+        b1.setCount(5);
+        assertNotEquals(b1.toString(), b2.toString());
+    }
 }
