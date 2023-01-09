@@ -1,37 +1,35 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
-import java.io.Serializable;
-import java.util.Arrays;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.io.Serializable;
+import java.util.Arrays;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class ModifiableByteArray extends ModifiableVariable<byte[]> implements Serializable {
 
-    public ModifiableByteArray() {
-    }
+    public ModifiableByteArray() {}
 
     private byte[] originalValue;
 
     @Override
     protected void createRandomModification() {
-        VariableModification<byte[]> vm = ByteArrayModificationFactory.createRandomModification(originalValue);
+        VariableModification<byte[]> vm =
+                ByteArrayModificationFactory.createRandomModification(originalValue);
         setModification(vm);
     }
 
@@ -84,7 +82,6 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> implements S
             result.append(ArrayConverter.bytesToHexString(this.getOriginalValue()));
         }
         return result.toString();
-
     }
 
     @Override

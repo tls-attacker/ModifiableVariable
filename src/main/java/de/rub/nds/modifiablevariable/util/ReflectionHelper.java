@@ -1,12 +1,10 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.util;
 
 import java.lang.reflect.Field;
@@ -19,28 +17,30 @@ import java.util.List;
 public class ReflectionHelper {
 
     /**
-     * Source: http://stackoverflow.com/questions/17451506/list-all-private-fields -of-a-java-object Retrieves all
-     * fields (all access levels) from all classes up the class hierarchy starting with {@code startClass} stopping with
-     * and not including {@code exclusiveParent}. Generally {@code Object.class} should be passed as
-     * {@code exclusiveParent}.
+     * Source: http://stackoverflow.com/questions/17451506/list-all-private-fields -of-a-java-object
+     * Retrieves all fields (all access levels) from all classes up the class hierarchy starting
+     * with {@code startClass} stopping with and not including {@code exclusiveParent}. Generally
+     * {@code Object.class} should be passed as {@code exclusiveParent}.
      *
-     * @param  startClass
-     *                         the class whose fields should be retrieved
-     * @param  exclusiveParent
-     *                         if not null, the base class of startClass whose fields should not be retrieved.
-     * @param  filterClass
-     *                         class that should be used as a type filter
-     * @return                 list of fields included in the class and its ancestors
+     * @param startClass the class whose fields should be retrieved
+     * @param exclusiveParent if not null, the base class of startClass whose fields should not be
+     *     retrieved.
+     * @param filterClass class that should be used as a type filter
+     * @return list of fields included in the class and its ancestors
      */
-    public static List<Field> getFieldsUpTo(Class<?> startClass, Class<?> exclusiveParent, Class<?> filterClass) {
+    public static List<Field> getFieldsUpTo(
+            Class<?> startClass, Class<?> exclusiveParent, Class<?> filterClass) {
         List<Field> currentClassFields;
 
-        currentClassFields = filterFieldList(Arrays.asList(startClass.getDeclaredFields()), filterClass);
+        currentClassFields =
+                filterFieldList(Arrays.asList(startClass.getDeclaredFields()), filterClass);
 
         Class<?> parentClass = startClass.getSuperclass();
 
-        if ((parentClass != null) && ((exclusiveParent == null) || !(parentClass.equals(exclusiveParent)))) {
-            List<Field> parentClassFields = getFieldsUpTo(parentClass, exclusiveParent, filterClass);
+        if ((parentClass != null)
+                && ((exclusiveParent == null) || !(parentClass.equals(exclusiveParent)))) {
+            List<Field> parentClassFields =
+                    getFieldsUpTo(parentClass, exclusiveParent, filterClass);
 
             currentClassFields.addAll(parentClassFields);
         }
@@ -48,9 +48,7 @@ public class ReflectionHelper {
         return currentClassFields;
     }
 
-    /**
-     * Takes a list of fields and returns only fields which are subclasses of the filterClass
-     */
+    /** Takes a list of fields and returns only fields which are subclasses of the filterClass */
     private static List<Field> filterFieldList(List<Field> fields, Class<?> filterClass) {
         List<Field> filteredFields = new LinkedList<>();
 
@@ -63,7 +61,8 @@ public class ReflectionHelper {
         return filteredFields;
     }
 
-    public static List<Object> getValuesFromFieldList(Object object, List<Field> fields) throws IllegalAccessException {
+    public static List<Object> getValuesFromFieldList(Object object, List<Field> fields)
+            throws IllegalAccessException {
         List<Object> list = new LinkedList<>();
 
         for (Field f : fields) {

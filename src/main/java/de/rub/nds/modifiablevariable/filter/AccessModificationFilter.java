@@ -1,12 +1,10 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.filter;
 
 import de.rub.nds.modifiablevariable.ModificationFilter;
@@ -17,9 +15,9 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 /**
  * Filters modification executions for specific accesses, starting with 1.
  *
- * For example, if one defines accessNumbers = {1,3} and executes four times getValue() function on a modifiable
- * variable, the modification is executed only during the second and fourth getValue() method invocation.
- *
+ * <p>For example, if one defines accessNumbers = {1,3} and executes four times getValue() function
+ * on a modifiable variable, the modification is executed only during the second and fourth
+ * getValue() method invocation.
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -27,9 +25,7 @@ public class AccessModificationFilter extends ModificationFilter {
 
     private int accessCounter;
 
-    /**
-     * accesses when the modification will be filtered (will not be executed)
-     */
+    /** accesses when the modification will be filtered (will not be executed) */
     private int[] accessNumbers;
 
     public AccessModificationFilter() {

@@ -1,30 +1,23 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.util;
 
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import java.lang.reflect.Field;
 
-/**
- * Represents an object with its modifiable variable field.
- *
- */
+/** Represents an object with its modifiable variable field. */
 public class ModifiableVariableField {
 
     private Object object;
 
     private Field field;
 
-    public ModifiableVariableField() {
-
-    }
+    public ModifiableVariableField() {}
 
     public ModifiableVariableField(Object o, Field f) {
         this.object = o;
@@ -47,9 +40,9 @@ public class ModifiableVariableField {
         this.field = field;
     }
 
-    public ModifiableVariable getModifiableVariable() throws IllegalArgumentException, IllegalAccessException {
+    public ModifiableVariable getModifiableVariable()
+            throws IllegalArgumentException, IllegalAccessException {
         field.setAccessible(true);
         return (ModifiableVariable) field.get(object);
     }
-
 }

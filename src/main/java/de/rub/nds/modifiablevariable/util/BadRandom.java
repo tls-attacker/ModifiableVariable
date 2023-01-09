@@ -1,12 +1,10 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.util;
 
 import java.security.Provider;
@@ -14,9 +12,7 @@ import java.security.SecureRandom;
 import java.security.SecureRandomSpi;
 import java.util.Random;
 
-/**
- *
- */
+/** */
 public class BadRandom extends SecureRandom {
 
     private Random random;
@@ -43,7 +39,6 @@ public class BadRandom extends SecureRandom {
     @Override
     public synchronized void nextBytes(byte[] bytes) {
         random.nextBytes(bytes);
-
     }
 
     @Override
@@ -95,5 +90,4 @@ public class BadRandom extends SecureRandom {
     public synchronized double nextGaussian() {
         return random.nextGaussian();
     }
-
 }

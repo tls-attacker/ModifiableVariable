@@ -1,25 +1,23 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import java.math.BigInteger;
-import java.util.Objects;
-import java.util.Random;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
+import java.math.BigInteger;
+import java.util.Objects;
+import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = { "xor", "modificationFilter" })
+@XmlType(propOrder = {"xor", "modificationFilter"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BigIntegerXorModification extends VariableModification<BigInteger> {
 
@@ -27,9 +25,7 @@ public class BigIntegerXorModification extends VariableModification<BigInteger> 
 
     private BigInteger xor;
 
-    public BigIntegerXorModification() {
-
-    }
+    public BigIntegerXorModification() {}
 
     public BigIntegerXorModification(BigInteger bi) {
         this.xor = bi;

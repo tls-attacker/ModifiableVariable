@@ -1,12 +1,10 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.singlebyte;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,9 +27,7 @@ public class ByteModificationTest {
         result = null;
     }
 
-    /**
-     * Test of add method, of class ByteModificationFactory.
-     */
+    /** Test of add method, of class ByteModificationFactory. */
     @Test
     public void testAdd() {
         VariableModification<Byte> modifier = ByteModificationFactory.add(Byte.valueOf("1"));
@@ -42,9 +38,7 @@ public class ByteModificationTest {
         assertEquals(Byte.valueOf("10"), start.getOriginalValue());
     }
 
-    /**
-     * Test of sub method, of class ByteModificationFactory.
-     */
+    /** Test of sub method, of class ByteModificationFactory. */
     @Test
     public void testSub() {
         VariableModification<Byte> modifier = ByteModificationFactory.sub(Byte.valueOf("1"));
@@ -55,9 +49,7 @@ public class ByteModificationTest {
         assertEquals(Byte.valueOf("10"), start.getOriginalValue());
     }
 
-    /**
-     * Test of xor method, of class ByteModificationFactory.
-     */
+    /** Test of xor method, of class ByteModificationFactory. */
     @Test
     public void testXor() {
         VariableModification<Byte> modifier = ByteModificationFactory.xor(Byte.valueOf("2"));
@@ -68,12 +60,11 @@ public class ByteModificationTest {
         assertEquals(Byte.valueOf("10"), start.getOriginalValue());
     }
 
-    /**
-     * Test of explicitValue method, of class ByteModificationFactory.
-     */
+    /** Test of explicitValue method, of class ByteModificationFactory. */
     @Test
     public void testExplicitValue() {
-        VariableModification<Byte> modifier = ByteModificationFactory.explicitValue(Byte.valueOf("7"));
+        VariableModification<Byte> modifier =
+                ByteModificationFactory.explicitValue(Byte.valueOf("7"));
         start.setModification(modifier);
         expectedResult = Byte.valueOf("7");
         result = start.getValue();
@@ -81,9 +72,7 @@ public class ByteModificationTest {
         assertEquals(Byte.valueOf("10"), start.getOriginalValue());
     }
 
-    /**
-     * Test of explicitValue from file method
-     */
+    /** Test of explicitValue from file method */
     @Test
     public void testExplicitValueFromFile() {
         VariableModification<Byte> modifier = ByteModificationFactory.explicitValueFromFile(0);
@@ -98,5 +87,4 @@ public class ByteModificationTest {
         result = start.getValue();
         assertEquals(expectedResult, result);
     }
-
 }
