@@ -70,7 +70,7 @@ public class ByteArrayDeleteModificationTest {
     /** Test of getModifiedCopy method, of class ByteArrayDeleteModification. */
     @Test
     public void testGetModifiedCopy() {
-        assertNotEquals(b1, b1.getModifiedCopy());
+        assertNotSame(b1, b1.getModifiedCopy());
     }
 
     /** Test of hashCode method, of class ByteArrayDeleteModification. */
