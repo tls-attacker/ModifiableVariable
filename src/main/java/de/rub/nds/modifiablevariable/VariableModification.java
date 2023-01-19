@@ -67,8 +67,10 @@ public abstract class VariableModification<E> {
                 }
             }
             String valueString;
-            if (value.getClass().getSimpleName().equals("byte[]")) {
+            if (value instanceof byte[]) {
                 valueString = ArrayConverter.bytesToHexString((byte[]) value);
+            } else if (value instanceof String) {
+                valueString = ArrayConverter.backslashEscapeString((String) value);
             } else {
                 valueString = value.toString();
             }
