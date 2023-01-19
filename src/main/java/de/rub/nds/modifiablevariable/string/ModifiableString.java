@@ -7,6 +7,8 @@
  */
 package de.rub.nds.modifiablevariable.string;
 
+import static de.rub.nds.modifiablevariable.util.ArrayConverter.backslashEscapeString;
+
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
@@ -73,7 +75,8 @@ public class ModifiableString extends ModifiableVariable<String> implements Seri
 
     @Override
     public String toString() {
-        return "ModifiableString{" + "originalValue=" + originalValue + '}';
+        return String.format(
+                "ModifiableString{originalValue=%s}", backslashEscapeString(originalValue));
     }
 
     @Override
