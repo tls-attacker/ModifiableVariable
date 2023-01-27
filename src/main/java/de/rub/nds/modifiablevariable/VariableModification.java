@@ -7,6 +7,8 @@
  */
 package de.rub.nds.modifiablevariable;
 
+import static de.rub.nds.modifiablevariable.util.StringUtil.backslashEscapeString;
+
 import de.rub.nds.modifiablevariable.filter.AccessModificationFilter;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -70,7 +72,7 @@ public abstract class VariableModification<E> {
             if (value instanceof byte[]) {
                 valueString = ArrayConverter.bytesToHexString((byte[]) value);
             } else if (value instanceof String) {
-                valueString = ArrayConverter.backslashEscapeString((String) value);
+                valueString = backslashEscapeString((String) value);
             } else {
                 valueString = value.toString();
             }
