@@ -12,6 +12,8 @@ public class StringUtil {
     // to be instantiated.
     private StringUtil() {}
 
+    static final int HI_SURROGATE_START = 0xD800;
+
     /**
      * Replace any non-printable (or non-ascii) characters other than space with their
      * backslash-escaped equivalents.
@@ -24,6 +26,7 @@ public class StringUtil {
         for (int i = 0; i < buffer.length(); i++) {
             final int codePoint = buffer.codePointAt(i);
             String replacement;
+            int numCodePoints = 1;
             switch (codePoint) {
                 case (int) '\r':
                     replacement = "\\r";
@@ -44,16 +47,28 @@ public class StringUtil {
                     replacement = "\\\\";
                     break;
                 default:
-                    if (codePoint < 0x20 || codePoint == 0x7F) {
-                        replacement = String.format("\\x%02X", codePoint);
-                    } else if (codePoint > 0x7F) {
+                    if (Character.isSupplementaryCodePoint(codePoint)) {
+                        // These characters consist of more than two bytes and
+                        // thus require UTF-16 surrogate pairs to display
+                        // properly.
+                        replacement =
+                                String.format(
+                                        "\\u%04X\\u%04X",
+                                        (int) Character.highSurrogate(codePoint),
+                                        (int) Character.lowSurrogate(codePoint));
+                        numCodePoints = 2;
+                    } else if (codePoint < 0x20 || codePoint > 0x7F) {
+                        // FIXME: This theoretically includes codePoints >=
+                        // Character.MAX_CODE_POINT. Unsure if this is actually
+                        // possible and if we need to handle that case in a
+                        // special way.
                         replacement = String.format("\\u%04X", codePoint);
                     } else {
                         continue;
                     }
             }
 
-            buffer.replace(i, i + 1, replacement);
+            buffer.replace(i, i + numCodePoints, replacement);
             i += replacement.length() - 1;
         }
 
