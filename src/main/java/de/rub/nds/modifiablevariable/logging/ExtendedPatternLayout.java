@@ -537,7 +537,7 @@ public class ExtendedPatternLayout extends AbstractStringLayout {
 
                 // Replace all ByteArrays with the String representation of the ByteArray calculated
                 // by the ArrayConverter.
-                if (bArrayClass == param.getClass()) {
+                if (param != null && bArrayClass == param.getClass()) {
                     buffer.replace(
                             buffer.indexOf(Arrays.toString((byte[]) param)),
                             buffer.indexOf(Arrays.toString((byte[]) param))
