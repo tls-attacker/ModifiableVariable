@@ -353,7 +353,6 @@ public class ExtendedPatternLayout extends AbstractStringLayout {
 
     private static class PatternSelectorSerializer
             implements AbstractStringLayout.Serializer,
-                    AbstractStringLayout.Serializer2,
                     LocationAware {
         private final PatternSelector patternSelector;
         private final RegexReplacement replace;
@@ -494,7 +493,6 @@ public class ExtendedPatternLayout extends AbstractStringLayout {
 
     private static class ExtendedPatternLayoutSerializer
             implements AbstractStringLayout.Serializer,
-                    AbstractStringLayout.Serializer2,
                     LocationAware {
         private final PatternFormatter[] formatters;
         private final RegexReplacement replace;

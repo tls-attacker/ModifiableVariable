@@ -43,7 +43,7 @@ public class BigIntegerModificationFactory {
     }
 
     public static BigIntegerShiftLeftModification shiftLeft(final String shift) {
-        return shiftLeft(new Integer(shift));
+        return shiftLeft(Integer.parseInt(shift));
     }
 
     public static BigIntegerShiftLeftModification shiftLeft(final Integer shift) {
@@ -51,7 +51,7 @@ public class BigIntegerModificationFactory {
     }
 
     public static BigIntegerShiftRightModification shiftRight(final String shift) {
-        return shiftRight(new Integer(shift));
+        return shiftRight(Integer.parseInt(shift));
     }
 
     public static BigIntegerShiftRightModification shiftRight(final Integer shift) {

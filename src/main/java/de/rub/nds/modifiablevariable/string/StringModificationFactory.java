@@ -28,7 +28,7 @@ public class StringModificationFactory {
     }
 
     public static VariableModification<String> createRandomModification() {
-        int i = RandomHelper.getRandom().nextInt(1000);
+        int i = RandomHelper.getRandom().nextInt(MAX_BYTE_LENGTH);
         byte[] randomBytes = new byte[i];
         RandomHelper.getRandom().nextBytes(randomBytes);
         return explicitValue(new String(randomBytes));

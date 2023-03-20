@@ -12,7 +12,6 @@ package de.rub.nds.modifiablevariable.string;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
-import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -24,7 +23,7 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ModifiableString extends ModifiableVariable<String> implements Serializable {
+public class ModifiableString extends ModifiableVariable<String> {
 
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     private String originalValue;
