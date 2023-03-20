@@ -1,12 +1,10 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.singlebyte;
 
 import de.rub.nds.modifiablevariable.FileConfigurationException;
@@ -89,7 +87,8 @@ public class ByteModificationFactory {
             }
             return modificationsFromFile;
         } catch (IOException ex) {
-            throw new FileConfigurationException("Modifiable variable file name could not have been found.", ex);
+            throw new FileConfigurationException(
+                    "Modifiable variable file name could not have been found.", ex);
         }
     }
 
@@ -119,7 +118,5 @@ public class ByteModificationFactory {
         }
     }
 
-    private ByteModificationFactory() {
-    }
-
+    private ByteModificationFactory() {}
 }

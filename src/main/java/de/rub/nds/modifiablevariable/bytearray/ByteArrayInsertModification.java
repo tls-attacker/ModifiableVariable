@@ -1,27 +1,25 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
-import java.util.Arrays;
-import java.util.Random;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.Arrays;
+import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = { "bytesToInsert", "startPosition", "modificationFilter" })
+@XmlType(propOrder = {"bytesToInsert", "startPosition", "modificationFilter"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ByteArrayInsertModification extends VariableModification<byte[]> {
 
@@ -34,9 +32,7 @@ public class ByteArrayInsertModification extends VariableModification<byte[]> {
 
     private int startPosition;
 
-    public ByteArrayInsertModification() {
-
-    }
+    public ByteArrayInsertModification() {}
 
     public ByteArrayInsertModification(byte[] bytesToInsert, int startPosition) {
         this.bytesToInsert = bytesToInsert;
@@ -48,18 +44,23 @@ public class ByteArrayInsertModification extends VariableModification<byte[]> {
         if (input == null) {
             input = new byte[0];
         }
-        
+
         int start = startPosition;
         if (start < 0) {
             start += input.length;
             if (start < 0) {
-                LOGGER.debug("Trying to insert from too negative Startposition. start = " + startPosition);
+                LOGGER.debug(
+                        "Trying to insert from too negative Startposition. start = "
+                                + startPosition);
                 return input;
             }
         }
         if (startPosition > input.length) {
             LOGGER.debug(
-                "Trying to insert behind the Array. ArraySize:" + input.length + " Insert Position:" + startPosition);
+                    "Trying to insert behind the Array. ArraySize:"
+                            + input.length
+                            + " Insert Position:"
+                            + startPosition);
             return input;
         }
         byte[] ret1 = Arrays.copyOf(input, start);
@@ -140,8 +141,11 @@ public class ByteArrayInsertModification extends VariableModification<byte[]> {
 
     @Override
     public String toString() {
-        return "ByteArrayInsertModification{" + "bytesToInsert=" + ArrayConverter.bytesToHexString(bytesToInsert)
-            + ", startPosition=" + startPosition + '}';
+        return "ByteArrayInsertModification{"
+                + "bytesToInsert="
+                + ArrayConverter.bytesToHexString(bytesToInsert)
+                + ", startPosition="
+                + startPosition
+                + '}';
     }
-
 }

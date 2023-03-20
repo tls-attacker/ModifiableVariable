@@ -1,24 +1,30 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
-import java.util.Arrays;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.Arrays;
 
 @XmlRootElement
-@XmlType(propOrder = { "prependPayload", "payload", "appendPayload", "insert", "insertPosition", "modificationFilter" })
+@XmlType(
+        propOrder = {
+            "prependPayload",
+            "payload",
+            "appendPayload",
+            "insert",
+            "insertPosition",
+            "modificationFilter"
+        })
 public class ByteArrayPayloadModification extends VariableModification<byte[]> {
 
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
@@ -34,9 +40,7 @@ public class ByteArrayPayloadModification extends VariableModification<byte[]> {
 
     private int insertPosition = 0;
 
-    public ByteArrayPayloadModification() {
-
-    }
+    public ByteArrayPayloadModification() {}
 
     public ByteArrayPayloadModification(byte[] payload) {
         this.payload = payload;
@@ -56,7 +60,8 @@ public class ByteArrayPayloadModification extends VariableModification<byte[]> {
             return completePayload;
         }
 
-        ByteArrayInsertModification insertMod = new ByteArrayInsertModification(completePayload, this.insertPosition);
+        ByteArrayInsertModification insertMod =
+                new ByteArrayInsertModification(completePayload, this.insertPosition);
         return insertMod.modify(input);
     }
 
@@ -162,10 +167,17 @@ public class ByteArrayPayloadModification extends VariableModification<byte[]> {
 
     @Override
     public String toString() {
-        return "ByteArrayPayloadModification{" + "prependPayload=" + ArrayConverter.bytesToHexString(prependPayload)
-            + ", payload=" + ArrayConverter.bytesToHexString(payload) + ", appendPayload="
-            + ArrayConverter.bytesToHexString(appendPayload) + ", insert=" + insert + ", insertPosition="
-            + insertPosition + '}';
+        return "ByteArrayPayloadModification{"
+                + "prependPayload="
+                + ArrayConverter.bytesToHexString(prependPayload)
+                + ", payload="
+                + ArrayConverter.bytesToHexString(payload)
+                + ", appendPayload="
+                + ArrayConverter.bytesToHexString(appendPayload)
+                + ", insert="
+                + insert
+                + ", insertPosition="
+                + insertPosition
+                + '}';
     }
-
 }

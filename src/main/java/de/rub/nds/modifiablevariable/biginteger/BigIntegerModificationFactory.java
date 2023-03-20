@@ -1,12 +1,10 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.FileConfigurationException;
@@ -95,28 +93,28 @@ public class BigIntegerModificationFactory {
     /*
      * Interactive modification
      */
-    private static BigIntegerInteractiveModification.InteractiveBigIntegerModification standardInteractiveModification =
-        new BigIntegerInteractiveModification.InteractiveBigIntegerModification() {
-            private BigInteger value;
+    private static BigIntegerInteractiveModification.InteractiveBigIntegerModification
+            standardInteractiveModification =
+                    new BigIntegerInteractiveModification.InteractiveBigIntegerModification() {
+                        private BigInteger value;
 
-            @Override
-            public BigInteger modify(BigInteger oldVal) {
-                if (value == null) {
-                    System.out.println("Enter new value for BigInt: ");
-                    value = new Scanner(System.in).nextBigInteger();
-                }
-                return value;
-
-            }
-        };
+                        @Override
+                        public BigInteger modify(BigInteger oldVal) {
+                            if (value == null) {
+                                System.out.println("Enter new value for BigInt: ");
+                                value = new Scanner(System.in).nextBigInteger();
+                            }
+                            return value;
+                        }
+                    };
 
     public static void setStandardInteractiveModification(
-        BigIntegerInteractiveModification.InteractiveBigIntegerModification modification) {
+            BigIntegerInteractiveModification.InteractiveBigIntegerModification modification) {
         standardInteractiveModification = modification;
     }
 
     protected static BigIntegerInteractiveModification.InteractiveBigIntegerModification
-        getStandardInteractiveModification() {
+            getStandardInteractiveModification() {
         return standardInteractiveModification;
     }
 
@@ -129,7 +127,8 @@ public class BigIntegerModificationFactory {
             if (modificationsFromFile == null) {
                 modificationsFromFile = new LinkedList<>();
                 ClassLoader classLoader = ByteArrayModificationFactory.class.getClassLoader();
-                InputStream is = classLoader.getResourceAsStream(IntegerModificationFactory.FILE_NAME);
+                InputStream is =
+                        classLoader.getResourceAsStream(IntegerModificationFactory.FILE_NAME);
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
                 String line;
                 while ((line = br.readLine()) != null) {
@@ -141,7 +140,8 @@ public class BigIntegerModificationFactory {
             }
             return modificationsFromFile;
         } catch (IOException ex) {
-            throw new FileConfigurationException("Modifiable variable file name could not have been found.", ex);
+            throw new FileConfigurationException(
+                    "Modifiable variable file name could not have been found.", ex);
         }
     }
 
@@ -179,6 +179,5 @@ public class BigIntegerModificationFactory {
         }
     }
 
-    private BigIntegerModificationFactory() {
-    }
+    private BigIntegerModificationFactory() {}
 }

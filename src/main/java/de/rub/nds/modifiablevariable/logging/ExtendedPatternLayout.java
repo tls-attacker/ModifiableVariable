@@ -1,7 +1,7 @@
 /*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
  * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
@@ -352,8 +352,7 @@ public class ExtendedPatternLayout extends AbstractStringLayout {
     }
 
     private static class PatternSelectorSerializer
-            implements AbstractStringLayout.Serializer,
-                    LocationAware {
+            implements AbstractStringLayout.Serializer, LocationAware {
         private final PatternSelector patternSelector;
         private final RegexReplacement replace;
 
@@ -492,8 +491,7 @@ public class ExtendedPatternLayout extends AbstractStringLayout {
     }
 
     private static class ExtendedPatternLayoutSerializer
-            implements AbstractStringLayout.Serializer,
-                    LocationAware {
+            implements AbstractStringLayout.Serializer, LocationAware {
         private final PatternFormatter[] formatters;
         private final RegexReplacement replace;
 

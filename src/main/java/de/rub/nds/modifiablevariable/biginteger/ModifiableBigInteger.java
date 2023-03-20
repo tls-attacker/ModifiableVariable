@@ -1,21 +1,19 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import java.math.BigInteger;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import java.math.BigInteger;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -25,7 +23,8 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
 
     @Override
     protected void createRandomModification() {
-        VariableModification<BigInteger> vm = BigIntegerModificationFactory.createRandomModification();
+        VariableModification<BigInteger> vm =
+                BigIntegerModificationFactory.createRandomModification();
         setModification(vm);
     }
 
