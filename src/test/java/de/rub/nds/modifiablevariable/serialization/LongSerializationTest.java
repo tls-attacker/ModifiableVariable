@@ -1,12 +1,10 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.serialization;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,17 +16,16 @@ import de.rub.nds.modifiablevariable.filter.ModificationFilterFactory;
 import de.rub.nds.modifiablevariable.mlong.LongAddModification;
 import de.rub.nds.modifiablevariable.mlong.LongModificationFactory;
 import de.rub.nds.modifiablevariable.mlong.ModifiableLong;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import java.io.StringReader;
 import java.io.StringWriter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class LongSerializationTest {
 
@@ -54,8 +51,11 @@ public class LongSerializationTest {
         result = null;
 
         writer = new StringWriter();
-        context = JAXBContext.newInstance(ModifiableLong.class, LongAddModification.class,
-            ByteArrayModificationFactory.class);
+        context =
+                JAXBContext.newInstance(
+                        ModifiableLong.class,
+                        LongAddModification.class,
+                        ByteArrayModificationFactory.class);
         m = context.createMarshaller();
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         um = context.createUnmarshaller();
@@ -75,7 +75,6 @@ public class LongSerializationTest {
         expectedResult = 10L;
         result = mv.getValue();
         assertEquals(expectedResult, result);
-
     }
 
     @Test
@@ -93,13 +92,12 @@ public class LongSerializationTest {
         expectedResult = 11L;
         result = mv.getValue();
         assertEquals(expectedResult, result);
-
     }
 
     @Test
     public void testSerializeDeserializeWithModificationFilter() throws Exception {
         VariableModification<Long> modifier = LongModificationFactory.add(1L);
-        int[] filtered = { 1, 3 };
+        int[] filtered = {1, 3};
         AccessModificationFilter filter = ModificationFilterFactory.access(filtered);
         modifier.setModificationFilter(filter);
         start.setModification(modifier);
@@ -114,7 +112,5 @@ public class LongSerializationTest {
         expectedResult = 10L;
         result = mv.getValue();
         assertEquals(expectedResult, result);
-
     }
-
 }

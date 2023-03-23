@@ -1,27 +1,25 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.bytearray;
 
 import static de.rub.nds.modifiablevariable.util.ArrayConverter.bytesToHexString;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import java.util.Arrays;
-import java.util.Random;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
+import java.util.Arrays;
+import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = { "count", "startPosition", "modificationFilter" })
+@XmlType(propOrder = {"count", "startPosition", "modificationFilter"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ByteArrayDeleteModification extends VariableModification<byte[]> {
 
@@ -31,9 +29,7 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
 
     private int startPosition;
 
-    public ByteArrayDeleteModification() {
-
-    }
+    public ByteArrayDeleteModification() {}
 
     public ByteArrayDeleteModification(int startPosition, int count) {
         this.startPosition = startPosition;
@@ -49,14 +45,18 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
         if (start < 0) {
             start += input.length;
             if (start < 0) {
-                LOGGER.debug("Trying to delete from too negative Startposition. start = " + (start - input.length));
+                LOGGER.debug(
+                        "Trying to delete from too negative Startposition. start = "
+                                + (start - input.length));
                 return input;
             }
         }
         final int endPosition = start + count;
         if ((endPosition) > input.length) {
-            LOGGER.debug(String.format("Bytes %d..%d cannot be deleted from {%s} of length %d", start, endPosition,
-                bytesToHexString(input), input.length));
+            LOGGER.debug(
+                    String.format(
+                            "Bytes %d..%d cannot be deleted from {%s} of length %d",
+                            start, endPosition, bytesToHexString(input), input.length));
             return input;
         }
         if (count <= 0) {
@@ -140,7 +140,11 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
 
     @Override
     public String toString() {
-        return "ByteArrayDeleteModification{" + "count=" + count + ", startPosition=" + startPosition + '}';
+        return "ByteArrayDeleteModification{"
+                + "count="
+                + count
+                + ", startPosition="
+                + startPosition
+                + '}';
     }
-
 }

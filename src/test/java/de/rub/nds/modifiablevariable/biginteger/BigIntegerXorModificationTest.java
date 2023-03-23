@@ -1,25 +1,21 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.biginteger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigInteger;
-
 /**
- *
  * @author captain
  */
 public class BigIntegerXorModificationTest {
@@ -37,49 +33,32 @@ public class BigIntegerXorModificationTest {
         integer1 = 1;
     }
 
-    /**
-     * Test of modifyImplementationHook method, of class BigIntegerXorModification.
-     */
+    /** Test of modifyImplementationHook method, of class BigIntegerXorModification. */
     @Disabled("Not yet implemented")
     @Test
-    public void testModifyImplementationHook() {
-    }
+    public void testModifyImplementationHook() {}
 
-    /**
-     * Test of getXor method, of class BigIntegerXorModification.
-     */
+    /** Test of getXor method, of class BigIntegerXorModification. */
     @Disabled("Not yet implemented")
     @Test
-    public void testGetXor() {
-    }
+    public void testGetXor() {}
 
-    /**
-     * Test of setXor method, of class BigIntegerXorModification.
-     */
+    /** Test of setXor method, of class BigIntegerXorModification. */
     @Disabled("Not yet implemented")
     @Test
-    public void testSetXor() {
-    }
+    public void testSetXor() {}
 
-    /**
-     * Test of getModifiedCopy method, of class BigIntegerXorModification.
-     */
+    /** Test of getModifiedCopy method, of class BigIntegerXorModification. */
     @Disabled("Not yet implemented")
     @Test
-    public void testGetModifiedCopy() {
-    }
+    public void testGetModifiedCopy() {}
 
-    /**
-     * Test of hashCode method, of class BigIntegerXorModification.
-     */
+    /** Test of hashCode method, of class BigIntegerXorModification. */
     @Disabled("Not yet implemented")
     @Test
-    public void testHashCode() {
-    }
+    public void testHashCode() {}
 
-    /**
-     * Test of equals method, of class BigIntegerXorModification.
-     */
+    /** Test of equals method, of class BigIntegerXorModification. */
     @Test
     public void testEquals() {
         assertNotEquals(b1, b2);
@@ -87,5 +66,4 @@ public class BigIntegerXorModificationTest {
         assertEquals(b1, b1);
         assertEquals(b1, b3);
     }
-
 }

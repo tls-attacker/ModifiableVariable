@@ -1,32 +1,29 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
-import java.util.Arrays;
-import java.util.Random;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.Arrays;
+import java.util.Random;
 
 /**
- * Shuffles the byte array, using a pre-defined array of array pointers (#shuffle). Array pointers are currently defined
- * as bytes, since we are modifying rather smaller arrays.
- *
+ * Shuffles the byte array, using a pre-defined array of array pointers (#shuffle). Array pointers
+ * are currently defined as bytes, since we are modifying rather smaller arrays.
  */
 @XmlRootElement
-@XmlType(propOrder = { "shuffle", "modificationFilter" })
+@XmlType(propOrder = {"shuffle", "modificationFilter"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ByteArrayShuffleModification extends VariableModification<byte[]> {
 
@@ -35,9 +32,7 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] shuffle;
 
-    public ByteArrayShuffleModification() {
-
-    }
+    public ByteArrayShuffleModification() {}
 
     public ByteArrayShuffleModification(byte[] shuffle) {
         this.shuffle = shuffle;
@@ -106,7 +101,9 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
 
     @Override
     public String toString() {
-        return "ByteArrayShuffleModification{" + "shuffle=" + ArrayConverter.bytesToHexString(shuffle) + '}';
+        return "ByteArrayShuffleModification{"
+                + "shuffle="
+                + ArrayConverter.bytesToHexString(shuffle)
+                + '}';
     }
-
 }

@@ -1,31 +1,27 @@
-/**
+/*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
  *
- * Licensed under Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0.txt
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-
 package de.rub.nds.modifiablevariable.integer;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import java.util.Objects;
-import java.util.Random;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
+import java.util.Objects;
+import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = { "explicitValue", "modificationFilter" })
+@XmlType(propOrder = {"explicitValue", "modificationFilter"})
 public class IntegerExplicitValueModification extends VariableModification<Integer> {
 
     private static final int MAX_VALUE_MODIFIER = 256;
 
     private Integer explicitValue;
 
-    public IntegerExplicitValueModification() {
-
-    }
+    public IntegerExplicitValueModification() {}
 
     public IntegerExplicitValueModification(Integer bi) {
         this.explicitValue = bi;
@@ -48,9 +44,11 @@ public class IntegerExplicitValueModification extends VariableModification<Integ
     public VariableModification<Integer> getModifiedCopy() {
         Random r = new Random();
         if (r.nextBoolean()) {
-            return new IntegerExplicitValueModification(explicitValue + r.nextInt(MAX_VALUE_MODIFIER));
+            return new IntegerExplicitValueModification(
+                    explicitValue + r.nextInt(MAX_VALUE_MODIFIER));
         } else {
-            return new IntegerExplicitValueModification(explicitValue - r.nextInt(MAX_VALUE_MODIFIER));
+            return new IntegerExplicitValueModification(
+                    explicitValue - r.nextInt(MAX_VALUE_MODIFIER));
         }
     }
 
