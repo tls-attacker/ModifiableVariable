@@ -8,6 +8,7 @@
 package de.rub.nds.modifiablevariable.util;
 
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+
 import org.apache.commons.text.StringEscapeUtils;
 
 /** */

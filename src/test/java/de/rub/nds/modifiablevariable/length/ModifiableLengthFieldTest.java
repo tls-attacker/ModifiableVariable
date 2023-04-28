@@ -10,6 +10,7 @@ package de.rub.nds.modifiablevariable.length;
 import static org.junit.jupiter.api.Assertions.*;
 
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

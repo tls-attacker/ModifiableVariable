@@ -8,6 +8,7 @@
 package de.rub.nds.modifiablevariable.util;
 
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
+
 import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.util.List;
