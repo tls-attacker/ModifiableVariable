@@ -8,6 +8,7 @@
 package de.rub.nds.modifiablevariable.filter;
 
 import de.rub.nds.modifiablevariable.ModificationFilter;
+
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;

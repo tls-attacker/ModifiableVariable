@@ -10,6 +10,7 @@ package de.rub.nds.modifiablevariable.singlebyte;
 import de.rub.nds.modifiablevariable.FileConfigurationException;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.RandomHelper;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
