@@ -10,6 +10,7 @@ package de.rub.nds.modifiablevariable.singlebyte;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.rub.nds.modifiablevariable.VariableModification;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -12,10 +12,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
-import java.math.BigInteger;
-import java.util.Random;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import java.math.BigInteger;
+import java.util.Random;
 
 public class ArrayConverterTest {
 

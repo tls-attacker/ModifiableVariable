@@ -23,6 +23,7 @@ import de.rub.nds.modifiablevariable.singlebyte.ByteModificationFactory;
 import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import de.rub.nds.modifiablevariable.string.StringModificationFactory;
+
 import java.math.BigInteger;
 
 @SuppressWarnings("unused")
