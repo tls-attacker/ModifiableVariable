@@ -9,7 +9,6 @@ package de.rub.nds.modifiablevariable.bool;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.RandomHelper;
-
 import java.util.Random;
 
 public class BooleanModificationFactory {

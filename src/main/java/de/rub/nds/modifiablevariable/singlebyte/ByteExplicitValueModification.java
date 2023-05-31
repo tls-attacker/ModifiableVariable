@@ -8,10 +8,8 @@
 package de.rub.nds.modifiablevariable.singlebyte;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
-
 import java.util.Objects;
 import java.util.Random;
 

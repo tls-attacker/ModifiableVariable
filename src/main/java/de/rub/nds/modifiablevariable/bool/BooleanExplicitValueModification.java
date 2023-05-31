@@ -8,7 +8,6 @@
 package de.rub.nds.modifiablevariable.bool;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 

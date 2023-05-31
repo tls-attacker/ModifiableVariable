@@ -14,19 +14,16 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.bytearray.*;
 import de.rub.nds.modifiablevariable.filter.AccessModificationFilter;
 import de.rub.nds.modifiablevariable.filter.ModificationFilterFactory;
-
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
-
+import java.io.StringReader;
+import java.io.StringWriter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.io.StringReader;
-import java.io.StringWriter;
 
 public class ByteArraySerializationTest {
 
