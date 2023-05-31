@@ -41,14 +41,12 @@ import de.rub.nds.modifiablevariable.singlebyte.ByteXorModification;
 import de.rub.nds.modifiablevariable.string.StringAppendValueModification;
 import de.rub.nds.modifiablevariable.string.StringExplicitValueModification;
 import de.rub.nds.modifiablevariable.string.StringPrependValueModification;
-
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElements;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
-
 import java.io.Serializable;
 import java.util.Objects;
 

@@ -8,7 +8,6 @@
 package de.rub.nds.modifiablevariable.util;
 
 import de.rub.nds.modifiablevariable.ModifiableVariable;
-
 import java.lang.reflect.Field;
 
 /** Represents an object with its modifiable variable field. */

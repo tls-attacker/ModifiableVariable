@@ -9,11 +9,9 @@ package de.rub.nds.modifiablevariable.string;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
-
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import java.util.Objects;
 
 /** Modification that appends a string to the original value. */

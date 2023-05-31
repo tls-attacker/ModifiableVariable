@@ -8,18 +8,15 @@
 package de.rub.nds.modifiablevariable.serialization;
 
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
-
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
-
+import java.io.StringWriter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import java.io.StringWriter;
 
 public class IntegerSerializationTest {
 
