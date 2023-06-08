@@ -435,4 +435,8 @@ public class ArrayConverter {
         }
         return -1;
     }
+
+    public static int byteToUnsignedInt(byte b) {
+        return b & 0xff;
+    }
 }
