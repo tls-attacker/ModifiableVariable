@@ -15,12 +15,11 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import java.io.Serializable;
 import java.util.Arrays;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public class ModifiableByteArray extends ModifiableVariable<byte[]> implements Serializable {
+public class ModifiableByteArray extends ModifiableVariable<byte[]> {
 
     public ModifiableByteArray() {}
 

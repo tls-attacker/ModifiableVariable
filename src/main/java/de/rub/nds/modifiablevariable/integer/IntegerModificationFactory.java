@@ -31,7 +31,7 @@ public class IntegerModificationFactory {
     public static final String FILE_NAME = "de/rub/nds/modifiablevariable/explicit/integer.vec";
 
     public static IntegerAddModification add(final String summand) {
-        return add(new Integer(summand));
+        return add(Integer.parseInt(summand));
     }
 
     public static IntegerAddModification add(final Integer summand) {
@@ -39,7 +39,7 @@ public class IntegerModificationFactory {
     }
 
     public static IntegerShiftLeftModification shiftLeft(final String shift) {
-        return shiftLeft(new Integer(shift));
+        return shiftLeft(Integer.parseInt(shift));
     }
 
     public static IntegerShiftLeftModification shiftLeft(final Integer shift) {
@@ -47,7 +47,7 @@ public class IntegerModificationFactory {
     }
 
     public static IntegerShiftRightModification shiftRight(final String shift) {
-        return shiftRight(new Integer(shift));
+        return shiftRight(Integer.parseInt(shift));
     }
 
     public static IntegerShiftRightModification shiftRight(final Integer shift) {
@@ -55,7 +55,7 @@ public class IntegerModificationFactory {
     }
 
     public static VariableModification<Integer> sub(final String subtrahend) {
-        return sub(new Integer(subtrahend));
+        return sub(Integer.parseInt(subtrahend));
     }
 
     public static VariableModification<Integer> sub(final Integer subtrahend) {
@@ -63,7 +63,7 @@ public class IntegerModificationFactory {
     }
 
     public static VariableModification<Integer> xor(final String xor) {
-        return xor(new Integer(xor));
+        return xor(Integer.parseInt(xor));
     }
 
     public static VariableModification<Integer> xor(final Integer xor) {
@@ -71,7 +71,7 @@ public class IntegerModificationFactory {
     }
 
     public static VariableModification<Integer> explicitValue(final String value) {
-        return explicitValue(new Integer(value));
+        return explicitValue(Integer.parseInt(value));
     }
 
     public static VariableModification<Integer> explicitValue(final Integer value) {

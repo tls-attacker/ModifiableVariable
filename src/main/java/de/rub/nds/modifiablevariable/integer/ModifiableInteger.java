@@ -13,11 +13,10 @@ import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import java.io.Serializable;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ModifiableInteger extends ModifiableVariable<Integer> implements Serializable {
+public class ModifiableInteger extends ModifiableVariable<Integer> {
 
     private Integer originalValue;
 

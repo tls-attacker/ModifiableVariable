@@ -12,11 +12,10 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import java.io.Serializable;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ModifiableByte extends ModifiableVariable<Byte> implements Serializable {
+public class ModifiableByte extends ModifiableVariable<Byte> {
 
     private Byte originalValue;
 

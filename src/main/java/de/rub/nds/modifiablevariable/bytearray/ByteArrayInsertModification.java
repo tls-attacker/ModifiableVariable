@@ -44,7 +44,7 @@ public class ByteArrayInsertModification extends VariableModification<byte[]> {
         if (input == null) {
             input = new byte[0];
         }
-        byte[] result = input.clone();
+
         int start = startPosition;
         if (start < 0) {
             start += input.length;

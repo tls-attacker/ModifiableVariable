@@ -13,12 +13,11 @@ import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import java.io.Serializable;
 import java.math.BigInteger;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ModifiableBigInteger extends ModifiableVariable<BigInteger> implements Serializable {
+public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
 
     private BigInteger originalValue;
 
