@@ -23,18 +23,18 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlRootElement
 @XmlType(propOrder = { "explicitValue", "modificationFilter" })
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ByteArrayExplicitValueModification extends VariableModification<byte[]> {
+public class ByteArrayDummyModification extends VariableModification<byte[]> {
 
     private static final int MAX_EXPLICIT_VALUE = 256;
 
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] explicitValue;
 
-    public ByteArrayExplicitValueModification() {
+    public ByteArrayDummyModification() {
 
     }
 
-    public ByteArrayExplicitValueModification(byte[] explicitValue) {
+    public ByteArrayDummyModification(byte[] explicitValue) {
         this.explicitValue = explicitValue;
     }
 
@@ -42,7 +42,8 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
     protected byte[] modifyImplementationHook(final byte[] input) {
         byte[] newCopy = explicitValue.clone();
         LOGGER.debug(ArrayConverter.bytesToHexString(newCopy) + ArrayConverter.bytesToHexString(input));
-        return newCopy;
+        // don't modify
+        return input;
     }
 
     public byte[] getExplicitValue() {
@@ -89,7 +90,7 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ByteArrayExplicitValueModification other = (ByteArrayExplicitValueModification) obj;
+        final ByteArrayDummyModification other = (ByteArrayDummyModification) obj;
         if (!Arrays.equals(this.explicitValue, other.explicitValue)) {
             return false;
         }
