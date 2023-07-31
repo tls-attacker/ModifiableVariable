@@ -1,12 +1,11 @@
 /**
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
  *
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.FileConfigurationException;
@@ -59,6 +58,10 @@ public class ByteArrayModificationFactory {
      */
     public static VariableModification<byte[]> xor(final byte[] xor, final int startPosition) {
         return new ByteArrayXorModification(xor, startPosition);
+    }
+
+    public static VariableModification<byte[]> dummy(final byte[] explicitDummy) {
+        return new ByteArrayDummyModification(explicitDummy);
     }
 
     /**

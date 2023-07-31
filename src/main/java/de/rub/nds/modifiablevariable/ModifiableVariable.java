@@ -1,12 +1,11 @@
 /**
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2022 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
+ * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, Hackmanit GmbH
  *
  * Licensed under Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0.txt
  */
-
 package de.rub.nds.modifiablevariable;
 
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerAddModification;
@@ -20,6 +19,7 @@ import de.rub.nds.modifiablevariable.biginteger.BigIntegerXorModification;
 import de.rub.nds.modifiablevariable.bool.BooleanExplicitValueModification;
 import de.rub.nds.modifiablevariable.bool.BooleanToggleModification;
 import de.rub.nds.modifiablevariable.bytearray.ByteArrayDeleteModification;
+import de.rub.nds.modifiablevariable.bytearray.ByteArrayDummyModification;
 import de.rub.nds.modifiablevariable.bytearray.ByteArrayDuplicateModification;
 import de.rub.nds.modifiablevariable.bytearray.ByteArrayExplicitValueModification;
 import de.rub.nds.modifiablevariable.bytearray.ByteArrayInsertModification;
@@ -80,6 +80,7 @@ public abstract class ModifiableVariable<E> implements Serializable {
         @XmlElement(type = ByteArrayPayloadModification.class, name = "ByteArrayPayloadModification"),
         @XmlElement(type = ByteArrayInsertModification.class, name = "ByteArrayInsertModification"),
         @XmlElement(type = ByteArrayExplicitValueModification.class, name = "ByteArrayExplicitValueModification"),
+        @XmlElement(type = ByteArrayDummyModification.class, name = "ByteArrayDummyModification"),
         @XmlElement(type = ByteArrayDuplicateModification.class, name = "ByteArrayDuplicateModification"),
         @XmlElement(type = ByteArrayDeleteModification.class, name = "ByteArrayDeleteModification"),
         @XmlElement(type = IntegerXorModification.class, name = "IntegerXorModification"),
