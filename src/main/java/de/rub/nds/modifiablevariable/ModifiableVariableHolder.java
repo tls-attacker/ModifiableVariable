@@ -14,9 +14,13 @@ import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @XmlType(name = "ModVarHolder")
 public abstract class ModifiableVariableHolder implements Serializable {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     /**
      * Lists all the modifiable variables declared in the class
@@ -60,5 +64,31 @@ public abstract class ModifiableVariableHolder implements Serializable {
         List<ModifiableVariableHolder> holders = getAllModifiableVariableHolders();
         int randomHolder = random.nextInt(holders.size());
         return holders.get(randomHolder);
+    }
+
+    public void reset() {
+        List<Field> fields = getAllModifiableVariableFields();
+        for (Field f : fields) {
+            f.setAccessible(true);
+
+            ModifiableVariable<?> mv = null;
+            try {
+                mv = (ModifiableVariable<?>) f.get(this);
+            } catch (IllegalArgumentException | IllegalAccessException ex) {
+                LOGGER.warn("Could not retrieve ModifiableVariables");
+                LOGGER.debug(ex);
+            }
+            if (mv != null) {
+                if (mv.getModification() != null || mv.isCreateRandomModification()) {
+                    mv.setOriginalValue(null);
+                } else {
+                    try {
+                        f.set(this, null);
+                    } catch (IllegalArgumentException | IllegalAccessException ex) {
+                        LOGGER.warn("Could not strip ModifiableVariable without Modification");
+                    }
+                }
+            }
+        }
     }
 }
