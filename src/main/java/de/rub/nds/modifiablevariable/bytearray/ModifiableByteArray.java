@@ -1,7 +1,7 @@
 /*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
+ * Ruhr University Bochum, Paderborn University, Technology Innovation Institute, and Hackmanit GmbH
  *
  * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
@@ -15,12 +15,11 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import java.io.Serializable;
 import java.util.Arrays;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public class ModifiableByteArray extends ModifiableVariable<byte[]> implements Serializable {
+public class ModifiableByteArray extends ModifiableVariable<byte[]> {
 
     public ModifiableByteArray() {}
 

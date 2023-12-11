@@ -1,7 +1,7 @@
 /*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
+ * Ruhr University Bochum, Paderborn University, Technology Innovation Institute, and Hackmanit GmbH
  *
  * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
@@ -35,7 +35,7 @@ public class ByteModificationFactory {
     public static final String FILE_NAME = "de/rub/nds/modifiablevariable/explicit/byte.vec";
 
     public static ByteAddModification add(final String summand) {
-        return add(new Byte(summand));
+        return add(Byte.parseByte(summand));
     }
 
     public static ByteAddModification add(final Byte summand) {
@@ -43,7 +43,7 @@ public class ByteModificationFactory {
     }
 
     public static VariableModification<Byte> sub(final String subtrahend) {
-        return sub(new Byte(subtrahend));
+        return sub(Byte.parseByte(subtrahend));
     }
 
     public static VariableModification<Byte> sub(final Byte subtrahend) {
@@ -51,7 +51,7 @@ public class ByteModificationFactory {
     }
 
     public static VariableModification<Byte> xor(final String xor) {
-        return xor(new Byte(xor));
+        return xor(Byte.parseByte(xor));
     }
 
     public static VariableModification<Byte> xor(final Byte xor) {
@@ -59,7 +59,7 @@ public class ByteModificationFactory {
     }
 
     public static VariableModification<Byte> explicitValue(final String value) {
-        return explicitValue(new Byte(value));
+        return explicitValue(Byte.parseByte(value));
     }
 
     public static VariableModification<Byte> explicitValue(final Byte value) {

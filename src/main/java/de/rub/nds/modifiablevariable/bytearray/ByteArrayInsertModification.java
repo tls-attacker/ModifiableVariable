@@ -1,7 +1,7 @@
 /*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
+ * Ruhr University Bochum, Paderborn University, Technology Innovation Institute, and Hackmanit GmbH
  *
  * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
@@ -44,7 +44,7 @@ public class ByteArrayInsertModification extends VariableModification<byte[]> {
         if (input == null) {
             input = new byte[0];
         }
-        byte[] result = input.clone();
+
         int start = startPosition;
         if (start < 0) {
             start += input.length;

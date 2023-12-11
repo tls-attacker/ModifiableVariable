@@ -1,7 +1,7 @@
 /*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
+ * Ruhr University Bochum, Paderborn University, Technology Innovation Institute, and Hackmanit GmbH
  *
  * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
@@ -28,7 +28,7 @@ public class LongModificationFactory {
     private static List<VariableModification<Long>> modificationsFromFile;
 
     public static LongAddModification add(final String summand) {
-        return add(new Long(summand));
+        return add(Long.parseLong(summand));
     }
 
     public static LongAddModification add(final Long summand) {
@@ -36,7 +36,7 @@ public class LongModificationFactory {
     }
 
     public static VariableModification<Long> sub(final String subtrahend) {
-        return sub(new Long(subtrahend));
+        return sub(Long.parseLong(subtrahend));
     }
 
     public static VariableModification<Long> sub(final Long subtrahend) {
@@ -44,7 +44,7 @@ public class LongModificationFactory {
     }
 
     public static VariableModification<Long> xor(final String xor) {
-        return xor(new Long(xor));
+        return xor(Long.parseLong(xor));
     }
 
     public static VariableModification<Long> xor(final Long xor) {
@@ -52,7 +52,7 @@ public class LongModificationFactory {
     }
 
     public static VariableModification<Long> explicitValue(final String value) {
-        return explicitValue(new Long(value));
+        return explicitValue(Long.parseLong(value));
     }
 
     public static VariableModification<Long> explicitValue(final Long value) {

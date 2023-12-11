@@ -1,7 +1,7 @@
 /*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
+ * Ruhr University Bochum, Paderborn University, Technology Innovation Institute, and Hackmanit GmbH
  *
  * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
@@ -28,7 +28,7 @@ public class StringModificationFactory {
     }
 
     public static VariableModification<String> createRandomModification() {
-        int i = RandomHelper.getRandom().nextInt(1000);
+        int i = RandomHelper.getRandom().nextInt(MAX_BYTE_LENGTH);
         byte[] randomBytes = new byte[i];
         RandomHelper.getRandom().nextBytes(randomBytes);
         return explicitValue(new String(randomBytes));

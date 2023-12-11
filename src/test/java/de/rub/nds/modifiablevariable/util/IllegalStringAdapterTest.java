@@ -1,7 +1,7 @@
 /*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
+ * Ruhr University Bochum, Paderborn University, Technology Innovation Institute, and Hackmanit GmbH
  *
  * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import org.apache.commons.text.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
@@ -34,10 +33,7 @@ public class IllegalStringAdapterTest {
                                 new String(data, StandardCharsets.ISO_8859_1)
                                         .getBytes(StandardCharsets.ISO_8859_1)));
         String marshal = instance.marshal(new String(data, StandardCharsets.ISO_8859_1));
-        LOGGER.info("Marshal: " + marshal);
         String unmarshal = instance.unmarshal(marshal);
-        LOGGER.info("Unescaped:" + StringEscapeUtils.unescapeXml(unmarshal));
-        LOGGER.info("Unmarshal: " + unmarshal);
         assertArrayEquals(data, unmarshal.getBytes(StandardCharsets.ISO_8859_1));
     }
 }
