@@ -4,7 +4,7 @@
     <parent>
         <groupId>de.rub.nds</groupId>
         <artifactId>protocol-toolkit-bom</artifactId>
-        <version>3.5.17</version>
+        <version>4.0.0</version>
     </parent>
 
     <artifactId>modifiable-variable</artifactId>
@@ -40,8 +40,8 @@
             <name>Robert Merget</name>
             <email>robert.merget@rub.de</email>
             <url>https://github.com/ic0ns/</url>
-            <organization>NDS</organization>
-            <organizationUrl>https://informatik.rub.de/nds/</organizationUrl>
+            <organization>TII</organization>
+            <organizationUrl>https://tii.ae</organizationUrl>
             <roles>
                 <role>Developer</role>
             </roles>
