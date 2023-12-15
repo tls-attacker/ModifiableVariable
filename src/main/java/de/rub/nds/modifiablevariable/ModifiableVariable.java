@@ -21,7 +21,6 @@ import de.rub.nds.modifiablevariable.bytearray.ByteArrayDeleteModification;
 import de.rub.nds.modifiablevariable.bytearray.ByteArrayDuplicateModification;
 import de.rub.nds.modifiablevariable.bytearray.ByteArrayExplicitValueModification;
 import de.rub.nds.modifiablevariable.bytearray.ByteArrayInsertModification;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayPayloadModification;
 import de.rub.nds.modifiablevariable.bytearray.ByteArrayShuffleModification;
 import de.rub.nds.modifiablevariable.bytearray.ByteArrayXorModification;
 import de.rub.nds.modifiablevariable.integer.IntegerAddModification;
@@ -100,9 +99,6 @@ public abstract class ModifiableVariable<E> implements Serializable {
                 @XmlElement(
                         type = ByteArrayShuffleModification.class,
                         name = "ByteArrayShuffleModification"),
-                @XmlElement(
-                        type = ByteArrayPayloadModification.class,
-                        name = "ByteArrayPayloadModification"),
                 @XmlElement(
                         type = ByteArrayInsertModification.class,
                         name = "ByteArrayInsertModification"),
