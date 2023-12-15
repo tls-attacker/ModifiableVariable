@@ -337,7 +337,7 @@ public class ArrayConverterTest {
         byte[] innerArray3 = ArrayConverter.hexStringToByteArray("FF");
 
         assertEquals(1, ArrayConverter.indexOf(outerArray, innerArray1));
-        assertEquals(-1, ArrayConverter.indexOf(outerArray, innerArray2));
-        assertEquals(-1, ArrayConverter.indexOf(outerArray, innerArray3));
+        assertEquals(null, ArrayConverter.indexOf(outerArray, innerArray2));
+        assertEquals(null, ArrayConverter.indexOf(outerArray, innerArray3));
     }
 }
