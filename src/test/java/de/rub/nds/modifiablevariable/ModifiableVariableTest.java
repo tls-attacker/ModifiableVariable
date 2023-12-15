@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
-import de.rub.nds.modifiablevariable.mlong.ModifiableLong;
+import de.rub.nds.modifiablevariable.longint.ModifiableLong;
 import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import java.math.BigInteger;
@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 
 public class ModifiableVariableTest {
 
-    private static final Logger LOGGER = LogManager.getLogger(ModifiableVariableTest.class);
+    private static final Logger LOGGER = LogManager.getLogger();
 
     @Test
     public void testRandomBigIntegerModification() {
