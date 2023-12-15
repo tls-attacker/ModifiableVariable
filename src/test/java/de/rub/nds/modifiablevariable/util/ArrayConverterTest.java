@@ -1,7 +1,7 @@
 /*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
+ * Ruhr University Bochum, Paderborn University, Technology Innovation Institute, and Hackmanit GmbH
  *
  * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
@@ -337,7 +337,7 @@ public class ArrayConverterTest {
         byte[] innerArray3 = ArrayConverter.hexStringToByteArray("FF");
 
         assertEquals(1, ArrayConverter.indexOf(outerArray, innerArray1));
-        assertEquals(-1, ArrayConverter.indexOf(outerArray, innerArray2));
-        assertEquals(-1, ArrayConverter.indexOf(outerArray, innerArray3));
+        assertEquals(null, ArrayConverter.indexOf(outerArray, innerArray2));
+        assertEquals(null, ArrayConverter.indexOf(outerArray, innerArray3));
     }
 }

@@ -1,7 +1,7 @@
 /*
  * ModifiableVariable - A Variable Concept for Runtime Modifications
  *
- * Copyright 2014-2023 Ruhr University Bochum, Paderborn University, and Hackmanit GmbH
+ * Ruhr University Bochum, Paderborn University, Technology Innovation Institute, and Hackmanit GmbH
  *
  * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
@@ -415,14 +415,14 @@ public class ArrayConverter {
     }
 
     /**
-     * Returns the starting index of the innerArray inside the outerArray if present. Returns -1 if
-     * the innerArray is not present in the outerArray
+     * Returns the starting index of the innerArray inside the outerArray if present. Returns null
+     * if the innerArray is not present in the outerArray
      *
      * @param outerArray Outer byte array to search for inner array
      * @param innerArray byte array searched for
-     * @return StartIndex of innerArray in outerArray or -1 if not present.
+     * @return StartIndex of innerArray in outerArray or null if not present.
      */
-    public static int indexOf(byte[] outerArray, byte[] innerArray) {
+    public static Integer indexOf(byte[] outerArray, byte[] innerArray) {
         for (int i = 0; i < outerArray.length - innerArray.length + 1; ++i) {
             boolean found = true;
             for (int j = 0; j < innerArray.length; ++j) {
@@ -433,7 +433,7 @@ public class ArrayConverter {
             }
             if (found) return i;
         }
-        return -1;
+        return null;
     }
 
     public static int byteToUnsignedInt(byte b) {

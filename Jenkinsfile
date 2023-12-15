@@ -48,7 +48,7 @@ pipeline {
         stage('Code Analysis') {
             when {
                 anyOf {
-                    branch 'master'
+                    branch 'main'
                     tag 'v*'
                     changeRequest()
                 }
@@ -70,7 +70,7 @@ pipeline {
         stage('Unit Tests') {
             when {
                 anyOf {
-                    branch 'master'
+                    branch 'main'
                     tag 'v*'
                     changeRequest()
                 }
@@ -92,7 +92,7 @@ pipeline {
         stage('Integration Tests') {
             when {
                 anyOf {
-                    branch 'master'
+                    branch 'main'
                     tag 'v*'
                     changeRequest()
                 }
@@ -117,7 +117,7 @@ pipeline {
         stage('Deploy to Internal Nexus Repository') {
             when {
                 anyOf {
-                    branch 'master'
+                    branch 'main'
                     tag 'v*'
                 }
             }
