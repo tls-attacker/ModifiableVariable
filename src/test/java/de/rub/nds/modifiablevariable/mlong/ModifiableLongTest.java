@@ -10,6 +10,7 @@ package de.rub.nds.modifiablevariable.mlong;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import de.rub.nds.modifiablevariable.longint.ModifiableLong;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
