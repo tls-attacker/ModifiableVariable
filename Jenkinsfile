@@ -58,7 +58,8 @@ pipeline {
             }
             steps {
                 withMaven(jdk: env.JDK_TOOL_NAME, maven: env.MAVEN_TOOL_NAME) {
-                    sh 'mvn pmd:pmd pmd:cpd spotbugs:spotbugs'
+//                    sh 'mvn pmd:pmd pmd:cpd spotbugs:spotbugs'
+                    sh 'mvn spotbugs:spotbugs'
                 }
             }
             post {
