@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.rub.nds</groupId>
     <artifactId>ModifiableVariable</artifactId>
-    <version>3.5.0-timing-SNAPSHOT</version>
+    <version>3.5.0-timing</version>
     <packaging>jar</packaging>
     
     <name>ModifiableVariable</name>
@@ -61,7 +61,8 @@
         <connection>scm:git:git://github.com/RUB-NDS/ModifiableVariable.git</connection>
         <developerConnection>scm:git:ssh://github.com/RUB-NDS/ModifiableVariable.git</developerConnection>
         <url>https://github.com/RUB-NDS/ModifiableVariable/tree/master</url>
-    </scm>
+      <tag>ModifiableVariable-3.5.0-timing</tag>
+  </scm>
     
     <dependencies>
         <dependency>
