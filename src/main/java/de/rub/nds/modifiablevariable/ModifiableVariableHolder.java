@@ -7,15 +7,19 @@
  */
 package de.rub.nds.modifiablevariable;
 
-import de.rub.nds.modifiablevariable.util.ReflectionHelper;
-import jakarta.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.ReflectionHelper;
+import jakarta.xml.bind.annotation.XmlType;
 
 @XmlType(name = "ModVarHolder")
 public abstract class ModifiableVariableHolder implements Serializable {
@@ -90,5 +94,76 @@ public abstract class ModifiableVariableHolder implements Serializable {
                 }
             }
         }
+    }
+
+    public String getExtendedString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append("{\n");
+        sb.append(getExtendedString(1));
+        sb.append("}\n");
+        return sb.toString();
+    }
+
+    protected String getExtendedString(int depth) {
+        StringBuilder stringBuilder = new StringBuilder();
+        List<Field> fields = ReflectionHelper.getFieldsUpTo(this.getClass(), null, null);
+        for (Field field : fields) {
+            field.setAccessible(true);
+            //skip static
+            if (Modifier.isStatic(field.getModifiers())) {
+                continue;
+            }
+            Object tempObject = null;
+            try {
+                tempObject = field.get(this);
+            } catch (IllegalArgumentException | IllegalAccessException ex) {
+                LOGGER.warn("Could not retrieve ModifiableVariables");
+                LOGGER.debug(ex);
+            }
+            if (tempObject != null) {
+                if(tempObject instanceof byte[])
+                {
+                    byte[] temp = (byte[])tempObject;
+                    for (int i = 0; i < depth; i++) {
+                        stringBuilder.append("\t");
+                    }
+                    stringBuilder.append(field.getName());
+                    stringBuilder.append(": ");
+                    stringBuilder.append(ArrayConverter.bytesToHexString(temp));
+                    stringBuilder.append("\n");
+                    
+                }
+                if (tempObject instanceof ModifiableVariableHolder) {
+                    for (int i = 0; i < depth; i++) {
+                        stringBuilder.append("\t");
+                    }
+                    stringBuilder.append(field.getName());
+                    stringBuilder.append(":");
+                    stringBuilder.append(tempObject.getClass().getSimpleName());
+                    stringBuilder.append("{\n");
+                    stringBuilder.append(((ModifiableVariableHolder)tempObject).getExtendedString(depth + 1));
+                    for (int i = 0; i < depth; i++) {
+                        stringBuilder.append("\t");
+                    }
+                    stringBuilder.append("}\n");
+                } else {
+                    for (int i = 0; i < depth; i++) {
+                        stringBuilder.append("\t");
+                    }
+                    stringBuilder.append(field.getName());
+                    stringBuilder.append(": ");
+                    stringBuilder.append(tempObject.toString());
+                    stringBuilder.append("\n");
+                }
+            } else {
+                for (int i = 0; i < depth; i++) {
+                    stringBuilder.append("\t");
+                }
+                stringBuilder.append(field.getName());
+                stringBuilder.append(": null\n");
+            }
+        }
+        return stringBuilder.toString();
     }
 }
