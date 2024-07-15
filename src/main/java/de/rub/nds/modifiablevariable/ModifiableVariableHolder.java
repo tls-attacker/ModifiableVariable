@@ -7,19 +7,17 @@
  */
 package de.rub.nds.modifiablevariable;
 
+import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.ReflectionHelper;
+import jakarta.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import de.rub.nds.modifiablevariable.util.ReflectionHelper;
-import jakarta.xml.bind.annotation.XmlType;
 
 @XmlType(name = "ModVarHolder")
 public abstract class ModifiableVariableHolder implements Serializable {
@@ -110,7 +108,7 @@ public abstract class ModifiableVariableHolder implements Serializable {
         List<Field> fields = ReflectionHelper.getFieldsUpTo(this.getClass(), null, null);
         for (Field field : fields) {
             field.setAccessible(true);
-            //skip static
+            // skip static
             if (Modifier.isStatic(field.getModifiers())) {
                 continue;
             }
@@ -122,9 +120,8 @@ public abstract class ModifiableVariableHolder implements Serializable {
                 LOGGER.debug(ex);
             }
             if (tempObject != null) {
-                if(tempObject instanceof byte[])
-                {
-                    byte[] temp = (byte[])tempObject;
+                if (tempObject instanceof byte[]) {
+                    byte[] temp = (byte[]) tempObject;
                     for (int i = 0; i < depth; i++) {
                         stringBuilder.append("\t");
                     }
@@ -132,7 +129,6 @@ public abstract class ModifiableVariableHolder implements Serializable {
                     stringBuilder.append(": ");
                     stringBuilder.append(ArrayConverter.bytesToHexString(temp));
                     stringBuilder.append("\n");
-                    
                 }
                 if (tempObject instanceof ModifiableVariableHolder) {
                     for (int i = 0; i < depth; i++) {
@@ -142,7 +138,8 @@ public abstract class ModifiableVariableHolder implements Serializable {
                     stringBuilder.append(":");
                     stringBuilder.append(tempObject.getClass().getSimpleName());
                     stringBuilder.append("{\n");
-                    stringBuilder.append(((ModifiableVariableHolder)tempObject).getExtendedString(depth + 1));
+                    stringBuilder.append(
+                            ((ModifiableVariableHolder) tempObject).getExtendedString(depth + 1));
                     for (int i = 0; i < depth; i++) {
                         stringBuilder.append("\t");
                     }
