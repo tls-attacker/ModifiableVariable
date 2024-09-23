@@ -529,20 +529,24 @@ public class ExtendedPatternLayout extends AbstractStringLayout {
             Class<byte[]> bArrayClass = byte[].class;
 
             // Iterate over each parameter of a {@Link LogEvent} to find all ByteArrays
-            for (Object param : event.getMessage().getParameters()) {
+            if (event.getMessage().getParameters() != null) {
+                for (Object param : event.getMessage().getParameters()) {
 
-                // Replace all ByteArrays with the String representation of the ByteArray calculated
-                // by the ArrayConverter.
-                if (param != null && bArrayClass == param.getClass()) {
-                    buffer.replace(
-                            buffer.indexOf(Arrays.toString((byte[]) param)),
-                            buffer.indexOf(Arrays.toString((byte[]) param))
-                                    + Arrays.toString((byte[]) param).length(),
-                            ArrayConverter.bytesToHexString(
-                                    (byte[]) param, Builder.prettyPrinting, Builder.initNewLine));
+                    // Replace all ByteArrays with the String representation of the ByteArray
+                    // calculated
+                    // by the ArrayConverter.
+                    if (param != null && bArrayClass == param.getClass()) {
+                        buffer.replace(
+                                buffer.indexOf(Arrays.toString((byte[]) param)),
+                                buffer.indexOf(Arrays.toString((byte[]) param))
+                                        + Arrays.toString((byte[]) param).length(),
+                                ArrayConverter.bytesToHexString(
+                                        (byte[]) param,
+                                        Builder.prettyPrinting,
+                                        Builder.initNewLine));
+                    }
                 }
             }
-
             return buffer;
         }
 
