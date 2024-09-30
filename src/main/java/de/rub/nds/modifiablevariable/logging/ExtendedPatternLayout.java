@@ -527,15 +527,17 @@ public class ExtendedPatternLayout extends AbstractStringLayout {
 
             // Added section to parse ByteArrays to the correct output format.
             Class<byte[]> bArrayClass = byte[].class;
+            if (event != null
+                    && event.getMessage() != null
+                    && event.getMessage().getParameters() != null) {
 
-            // Iterate over each parameter of a {@Link LogEvent} to find all ByteArrays
-            if (event.getMessage().getParameters() != null) {
+                // Iterate over each parameter of a {@Link LogEvent} to find all ByteArrays
                 for (Object param : event.getMessage().getParameters()) {
 
                     // Replace all ByteArrays with the String representation of the ByteArray
                     // calculated
                     // by the ArrayConverter.
-                    if (param != null && bArrayClass == param.getClass()) {
+                    if (param != null && bArrayClass.equals(param.getClass())) {
                         buffer.replace(
                                 buffer.indexOf(Arrays.toString((byte[]) param)),
                                 buffer.indexOf(Arrays.toString((byte[]) param))
