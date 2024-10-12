@@ -49,18 +49,12 @@ public class ByteArrayInsertModification extends VariableModification<byte[]> {
         if (start < 0) {
             start += input.length;
             if (start < 0) {
-                LOGGER.debug(
-                        "Trying to insert from too negative Startposition. start = "
-                                + startPosition);
+                LOGGER.debug("Trying to insert from too negative Startposition. start = {}", startPosition);
                 return input;
             }
         }
         if (startPosition > input.length) {
-            LOGGER.debug(
-                    "Trying to insert behind the Array. ArraySize:"
-                            + input.length
-                            + " Insert Position:"
-                            + startPosition);
+            LOGGER.debug("Trying to insert behind the Array. ArraySize:{} Insert Position:{}", input.length, startPosition);
             return input;
         }
         byte[] ret1 = Arrays.copyOf(input, start);
