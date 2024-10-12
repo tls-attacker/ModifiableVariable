@@ -71,9 +71,6 @@ public class IntegerExplicitValueModification extends VariableModification<Integ
             return false;
         }
         final IntegerExplicitValueModification other = (IntegerExplicitValueModification) obj;
-        if (!Objects.equals(this.explicitValue, other.explicitValue)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.explicitValue, other.explicitValue);
     }
 }

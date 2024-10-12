@@ -60,10 +60,7 @@ public class BooleanExplicitValueModification extends VariableModification<Boole
             return false;
         }
         final BooleanExplicitValueModification other = (BooleanExplicitValueModification) obj;
-        if (this.explicitValue != other.explicitValue) {
-            return false;
-        }
-        return true;
+        return this.explicitValue == other.explicitValue;
     }
 
     @Override

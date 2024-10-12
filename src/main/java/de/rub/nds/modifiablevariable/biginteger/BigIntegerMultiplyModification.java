@@ -72,9 +72,6 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
             return false;
         }
         final BigIntegerMultiplyModification other = (BigIntegerMultiplyModification) obj;
-        if (!Objects.equals(this.factor, other.factor)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.factor, other.factor);
     }
 }

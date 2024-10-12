@@ -73,9 +73,6 @@ public class ByteXorModification extends VariableModification<Byte> {
             return false;
         }
         final ByteXorModification other = (ByteXorModification) obj;
-        if (!Objects.equals(this.xor, other.xor)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.xor, other.xor);
     }
 }

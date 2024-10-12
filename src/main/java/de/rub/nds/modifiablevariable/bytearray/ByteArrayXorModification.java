@@ -129,10 +129,7 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
         if (this.startPosition != other.startPosition) {
             return false;
         }
-        if (!Arrays.equals(this.xor, other.xor)) {
-            return false;
-        }
-        return true;
+        return Arrays.equals(this.xor, other.xor);
     }
 
     @Override

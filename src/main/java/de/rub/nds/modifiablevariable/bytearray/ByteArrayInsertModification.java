@@ -133,10 +133,7 @@ public class ByteArrayInsertModification extends VariableModification<byte[]> {
         if (this.startPosition != other.startPosition) {
             return false;
         }
-        if (!Arrays.equals(this.bytesToInsert, other.bytesToInsert)) {
-            return false;
-        }
-        return true;
+        return Arrays.equals(this.bytesToInsert, other.bytesToInsert);
     }
 
     @Override

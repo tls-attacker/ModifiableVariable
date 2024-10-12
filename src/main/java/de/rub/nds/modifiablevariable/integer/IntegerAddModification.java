@@ -64,9 +64,6 @@ public class IntegerAddModification extends VariableModification<Integer> {
             return false;
         }
         final IntegerAddModification other = (IntegerAddModification) obj;
-        if (!Objects.equals(this.summand, other.summand)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.summand, other.summand);
     }
 }

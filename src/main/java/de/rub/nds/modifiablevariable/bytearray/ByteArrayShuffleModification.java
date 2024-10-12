@@ -93,10 +93,7 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
             return false;
         }
         final ByteArrayShuffleModification other = (ByteArrayShuffleModification) obj;
-        if (!Arrays.equals(this.shuffle, other.shuffle)) {
-            return false;
-        }
-        return true;
+        return Arrays.equals(this.shuffle, other.shuffle);
     }
 
     @Override

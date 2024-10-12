@@ -52,9 +52,7 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
     @Override
     public boolean validateAssertions() {
         if (assertEquals != null) {
-            if (assertEquals.compareTo(getValue()) != 0) {
-                return false;
-            }
+            return assertEquals.compareTo(getValue()) == 0;
         }
         return true;
     }

@@ -65,9 +65,6 @@ public class LongSubtractModification extends VariableModification<Long> {
             return false;
         }
         final LongSubtractModification other = (LongSubtractModification) obj;
-        if (!Objects.equals(this.subtrahend, other.subtrahend)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.subtrahend, other.subtrahend);
     }
 }

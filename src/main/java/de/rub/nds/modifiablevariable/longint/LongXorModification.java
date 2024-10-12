@@ -69,9 +69,6 @@ public class LongXorModification extends VariableModification<Long> {
             return false;
         }
         final LongXorModification other = (LongXorModification) obj;
-        if (!Objects.equals(this.xor, other.xor)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.xor, other.xor);
     }
 }

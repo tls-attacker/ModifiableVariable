@@ -69,9 +69,6 @@ public class IntegerXorModification extends VariableModification<Integer> {
             return false;
         }
         final IntegerXorModification other = (IntegerXorModification) obj;
-        if (!Objects.equals(this.xor, other.xor)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.xor, other.xor);
     }
 }

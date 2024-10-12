@@ -70,9 +70,6 @@ public class BigIntegerShiftLeftModification extends VariableModification<BigInt
             return false;
         }
         final BigIntegerShiftLeftModification other = (BigIntegerShiftLeftModification) obj;
-        if (this.shift != other.shift) {
-            return false;
-        }
-        return true;
+        return this.shift == other.shift;
     }
 }

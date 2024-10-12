@@ -71,9 +71,6 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
             return false;
         }
         final ByteExplicitValueModification other = (ByteExplicitValueModification) obj;
-        if (!Objects.equals(this.explicitValue, other.explicitValue)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.explicitValue, other.explicitValue);
     }
 }

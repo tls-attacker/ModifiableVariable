@@ -68,9 +68,6 @@ public class ByteSubtractModification extends VariableModification<Byte> {
             return false;
         }
         final ByteSubtractModification other = (ByteSubtractModification) obj;
-        if (!Objects.equals(this.subtrahend, other.subtrahend)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.subtrahend, other.subtrahend);
     }
 }

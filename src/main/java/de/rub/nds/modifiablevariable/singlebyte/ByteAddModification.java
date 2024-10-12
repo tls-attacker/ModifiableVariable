@@ -67,9 +67,6 @@ public class ByteAddModification extends VariableModification<Byte> {
             return false;
         }
         final ByteAddModification other = (ByteAddModification) obj;
-        if (!Objects.equals(this.summand, other.summand)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.summand, other.summand);
     }
 }

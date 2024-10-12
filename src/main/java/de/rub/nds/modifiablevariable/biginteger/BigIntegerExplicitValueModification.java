@@ -75,9 +75,6 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
             return false;
         }
         final BigIntegerExplicitValueModification other = (BigIntegerExplicitValueModification) obj;
-        if (!Objects.equals(this.explicitValue, other.explicitValue)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.explicitValue, other.explicitValue);
     }
 }

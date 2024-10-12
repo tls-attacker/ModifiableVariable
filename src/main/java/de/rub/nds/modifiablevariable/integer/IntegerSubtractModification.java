@@ -65,9 +65,6 @@ public class IntegerSubtractModification extends VariableModification<Integer> {
             return false;
         }
         final IntegerSubtractModification other = (IntegerSubtractModification) obj;
-        if (!Objects.equals(this.subtrahend, other.subtrahend)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.subtrahend, other.subtrahend);
     }
 }

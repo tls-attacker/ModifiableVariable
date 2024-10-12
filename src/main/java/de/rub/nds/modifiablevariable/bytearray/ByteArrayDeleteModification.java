@@ -132,10 +132,7 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
         if (this.count != other.count) {
             return false;
         }
-        if (this.startPosition != other.startPosition) {
-            return false;
-        }
-        return true;
+        return this.startPosition == other.startPosition;
     }
 
     @Override

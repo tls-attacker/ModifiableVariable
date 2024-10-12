@@ -75,9 +75,6 @@ public class IntegerShiftRightModification extends VariableModification<Integer>
             return false;
         }
         final IntegerShiftRightModification other = (IntegerShiftRightModification) obj;
-        if (this.shift != other.shift) {
-            return false;
-        }
-        return true;
+        return this.shift == other.shift;
     }
 }

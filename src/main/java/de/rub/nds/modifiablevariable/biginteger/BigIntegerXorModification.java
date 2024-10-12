@@ -71,9 +71,6 @@ public class BigIntegerXorModification extends VariableModification<BigInteger> 
             return false;
         }
         final BigIntegerXorModification other = (BigIntegerXorModification) obj;
-        if (!Objects.equals(this.xor, other.xor)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.xor, other.xor);
     }
 }

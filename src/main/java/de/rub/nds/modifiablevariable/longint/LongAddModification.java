@@ -64,9 +64,6 @@ public class LongAddModification extends VariableModification<Long> {
             return false;
         }
         final LongAddModification other = (LongAddModification) obj;
-        if (!Objects.equals(this.summand, other.summand)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.summand, other.summand);
     }
 }

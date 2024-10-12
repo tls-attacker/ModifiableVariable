@@ -41,7 +41,7 @@ public abstract class VariableModification<E> {
 
     public E modify(E input) {
         E modifiedValue = modifyImplementationHook(input);
-        if ((modificationFilter == null) || (modificationFilter.filterModification() == false)) {
+        if ((modificationFilter == null) || (!modificationFilter.filterModification())) {
             debug(modifiedValue);
             return modifiedValue;
         } else {

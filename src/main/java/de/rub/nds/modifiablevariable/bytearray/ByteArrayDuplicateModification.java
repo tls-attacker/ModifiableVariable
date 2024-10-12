@@ -48,10 +48,7 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        return true;
+        return getClass() == obj.getClass();
     }
 
     @Override

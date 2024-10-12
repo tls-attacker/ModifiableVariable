@@ -72,9 +72,6 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
             return false;
         }
         final BigIntegerSubtractModification other = (BigIntegerSubtractModification) obj;
-        if (!Objects.equals(this.subtrahend, other.subtrahend)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.subtrahend, other.subtrahend);
     }
 }

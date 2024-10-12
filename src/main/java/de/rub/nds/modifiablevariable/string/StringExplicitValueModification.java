@@ -65,9 +65,6 @@ public class StringExplicitValueModification extends VariableModification<String
             return false;
         }
         final StringExplicitValueModification other = (StringExplicitValueModification) obj;
-        if (!Objects.equals(this.explicitValue, other.explicitValue)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.explicitValue, other.explicitValue);
     }
 }

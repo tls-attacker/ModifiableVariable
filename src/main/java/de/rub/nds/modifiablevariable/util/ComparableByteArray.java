@@ -44,9 +44,6 @@ public class ComparableByteArray {
             return false;
         }
         final ComparableByteArray other = (ComparableByteArray) obj;
-        if (!Arrays.equals(this.array, other.array)) {
-            return false;
-        }
-        return true;
+        return Arrays.equals(this.array, other.array);
     }
 }
