@@ -55,11 +55,11 @@ public class StringInsertValueModification extends VariableModification<String> 
         return new StringBuilder(input).insert(start, insertValue).toString();
     }
 
-    public String getinsertValue() {
+    public String getInsertValue() {
         return this.insertValue;
     }
 
-    public void setinsertValue(final String insertValue) {
+    public void setInsertValue(final String insertValue) {
         this.insertValue = insertValue;
     }
 
@@ -117,6 +117,6 @@ public class StringInsertValueModification extends VariableModification<String> 
         if (this.startPosition != other.startPosition) {
             return false;
         }
-        return Objects.equals(this.insertValue, other.getinsertValue());
+        return Objects.equals(this.insertValue, other.getInsertValue());
     }
 }
