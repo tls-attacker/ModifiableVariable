@@ -51,7 +51,7 @@ public class StringExplicitValueModification extends VariableModification<String
         }
         Random r = new Random();
         int index = r.nextInt(explicitValue.length());
-        char randomChar = (char) r.nextInt(MAX_EXPLICIT_VALUE);;
+        char randomChar = (char) r.nextInt(MAX_EXPLICIT_VALUE);
         StringBuilder modifiedString = new StringBuilder(explicitValue);
         modifiedString.setCharAt(index, randomChar);
         return new StringExplicitValueModification(modifiedString.toString());

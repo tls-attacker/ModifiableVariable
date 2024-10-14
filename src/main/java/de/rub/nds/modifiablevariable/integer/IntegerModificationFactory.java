@@ -20,7 +20,10 @@ import java.util.Random;
 
 public class IntegerModificationFactory {
 
-    private static final int MODIFICATION_COUNT = 7;
+    private enum ModificationType {
+        ADD, SUBTRACT, XOR, EXPLICIT, SHIFT_LEFT, SHIFT_RIGHT, EXPLICIT_FROM_FILE
+    }
+    private static final int MODIFICATION_COUNT = ModificationType.values().length;
 
     private static final int MAX_MODIFICATION_VALUE = 32000;
 
@@ -106,34 +109,26 @@ public class IntegerModificationFactory {
 
     public static VariableModification<Integer> createRandomModification() {
         Random random = RandomHelper.getRandom();
-        int r = random.nextInt(MODIFICATION_COUNT);
+        ModificationType randomType = ModificationType.values()[random.nextInt(MODIFICATION_COUNT)];
         int modification = random.nextInt(MAX_MODIFICATION_VALUE);
         int shiftModification = random.nextInt(MAX_MODIFICATION_SHIFT_VALUE);
-        VariableModification<Integer> vm = null;
-        switch (r) {
-            case 0:
-                vm = new IntegerAddModification(modification);
-                return vm;
-            case 1:
-                vm = new IntegerSubtractModification(modification);
-                return vm;
-            case 2:
-                vm = new IntegerXorModification(modification);
-                return vm;
-            case 3:
-                vm = new IntegerExplicitValueModification(modification);
-                return vm;
-            case 4:
-                vm = new IntegerShiftLeftModification(shiftModification);
-                return vm;
-            case 5:
-                vm = new IntegerShiftRightModification(shiftModification);
-                return vm;
-            case 6:
-                vm = explicitValueFromFile(random.nextInt(MAX_MODIFICATION_VALUE));
-                return vm;
+        switch (randomType) {
+            case ADD:
+                return new IntegerAddModification(modification);
+            case SUBTRACT:
+                return new IntegerSubtractModification(modification);
+            case XOR:
+                return new IntegerXorModification(modification);
+            case EXPLICIT:
+                return new IntegerExplicitValueModification(modification);
+            case SHIFT_LEFT:
+                return new IntegerShiftLeftModification(shiftModification);
+            case SHIFT_RIGHT:
+                return new IntegerShiftRightModification(shiftModification);
+            case EXPLICIT_FROM_FILE:
+                return explicitValueFromFile(random.nextInt(MAX_MODIFICATION_VALUE));
             default:
-                return vm;
+                throw new IllegalStateException("Unexpected modification type: " + randomType);
         }
     }
 

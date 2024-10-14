@@ -13,19 +13,23 @@ import java.util.Random;
 
 public class BooleanModificationFactory {
 
-    private static final int MODIFICATION_COUNT = 3;
+    private enum ModificationType {
+        EXPLICIT_TRUE, EXPLICIT_FALSE, TOGGLE
+    }
+    private static final int MODIFICATION_COUNT = ModificationType.values().length;
 
     public static VariableModification<Boolean> createRandomModification() {
         Random random = RandomHelper.getRandom();
-        switch (random.nextInt(MODIFICATION_COUNT)) {
-            case 0:
+        ModificationType randomType = ModificationType.values()[random.nextInt(MODIFICATION_COUNT)];
+        switch (randomType) {
+            case EXPLICIT_TRUE:
                 return new BooleanExplicitValueModification(true);
-            case 1:
+            case EXPLICIT_FALSE:
                 return new BooleanExplicitValueModification(false);
-            case 2:
+            case TOGGLE:
                 return new BooleanToggleModification();
             default:
-                return null;
+                throw new IllegalStateException("Unexpected modification type: " + randomType);
         }
     }
 

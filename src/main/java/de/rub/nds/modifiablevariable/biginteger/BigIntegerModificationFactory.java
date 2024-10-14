@@ -24,7 +24,11 @@ import java.util.Scanner;
 
 public class BigIntegerModificationFactory {
 
-    private static final int MODIFICATION_COUNT = 7;
+    private enum ModificationType {
+        ADD, SUBTRACT, XOR, EXPLICIT, SHIFT_LEFT, SHIFT_RIGHT, EXPLICIT_FROM_FILE
+    }
+
+    private static final int MODIFICATION_COUNT = ModificationType.values().length;
 
     private static final int MAX_MODIFICATION_VALUE = 320000;
 
@@ -133,7 +137,7 @@ public class BigIntegerModificationFactory {
                 String line;
                 while ((line = br.readLine()) != null) {
                     String value = line.trim().split(" ")[0];
-                    if (!value.equals("")) {
+                    if (!value.isEmpty()) {
                         modificationsFromFile.add(explicitValue(value));
                     }
                 }
@@ -147,35 +151,26 @@ public class BigIntegerModificationFactory {
 
     public static VariableModification<BigInteger> createRandomModification() {
         Random random = RandomHelper.getRandom();
-        int r = random.nextInt(MODIFICATION_COUNT);
+        ModificationType randomType = ModificationType.values()[random.nextInt(MODIFICATION_COUNT)];
         BigInteger modification = BigInteger.valueOf(random.nextInt(MAX_MODIFICATION_VALUE));
         int shiftModification = random.nextInt(MAX_MODIFICATION_SHIFT_VALUE);
-        VariableModification<BigInteger> vm = null;
-        switch (r) {
-            case 0:
-                vm = new BigIntegerAddModification(modification);
-                return vm;
-            case 1:
-                vm = new BigIntegerSubtractModification(modification);
-                return vm;
-            case 2:
-                vm = new BigIntegerXorModification(modification);
-                return vm;
-            case 3:
-                vm = new BigIntegerExplicitValueModification(modification);
-                return vm;
-            case 4:
-                vm = new BigIntegerShiftLeftModification(shiftModification);
-                return vm;
-            case 5:
-                vm = new BigIntegerShiftRightModification(shiftModification);
-                return vm;
-            case 6:
-                vm = explicitValueFromFile(MAX_MODIFICATION_VALUE);
-                return vm;
-            default: // unreachable but included for checkstyle
-                vm = explicitValueFromFile(MAX_MODIFICATION_VALUE);
-                return vm;
+        switch (randomType) {
+            case ADD:
+                return new BigIntegerAddModification(modification);
+            case SUBTRACT:
+                return new BigIntegerSubtractModification(modification);
+            case XOR:
+                return new BigIntegerXorModification(modification);
+            case EXPLICIT:
+                return new BigIntegerExplicitValueModification(modification);
+            case SHIFT_LEFT:
+                return new BigIntegerShiftLeftModification(shiftModification);
+            case SHIFT_RIGHT:
+                return new BigIntegerShiftRightModification(shiftModification);
+            case EXPLICIT_FROM_FILE:
+                return explicitValueFromFile(MAX_MODIFICATION_VALUE);
+            default:
+                throw new IllegalStateException("Unexpected modification type: " + randomType);
         }
     }
 

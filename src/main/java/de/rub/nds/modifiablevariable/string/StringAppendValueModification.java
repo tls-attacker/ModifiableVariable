@@ -48,7 +48,7 @@ public class StringAppendValueModification extends VariableModification<String> 
     public VariableModification<String> getModifiedCopy() {
         Random r = new Random();
         int index = r.nextInt(appendValue.length());
-        char randomChar = (char) r.nextInt(MAX_EXPLICIT_VALUE);;
+        char randomChar = (char) r.nextInt(MAX_EXPLICIT_VALUE);
         StringBuilder modifiedString = new StringBuilder(appendValue);
         modifiedString.setCharAt(index, randomChar);
         return new StringAppendValueModification(modifiedString.toString());

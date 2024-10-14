@@ -21,7 +21,10 @@ import java.util.Random;
 
 public class LongModificationFactory {
 
-    private static final int MODIFICATION_COUNT = 5;
+    private enum ModificationType {
+        ADD, SUBTRACT, XOR, EXPLICIT, EXPLICIT_FROM_FILE
+    }
+    private static final int MODIFICATION_COUNT = ModificationType.values().length;
 
     private static final int MAX_MODIFICATION_VALUE = 32000;
 
@@ -88,27 +91,21 @@ public class LongModificationFactory {
 
     public static VariableModification<Long> createRandomModification() {
         Random random = RandomHelper.getRandom();
-        int r = random.nextInt(MODIFICATION_COUNT);
+        ModificationType randomType = ModificationType.values()[random.nextInt(MODIFICATION_COUNT)];
         long modification = random.nextInt(MAX_MODIFICATION_VALUE);
-        VariableModification<Long> vm = null;
-        switch (r) {
-            case 0:
-                vm = new LongAddModification(modification);
-                return vm;
-            case 1:
-                vm = new LongSubtractModification(modification);
-                return vm;
-            case 2:
-                vm = new LongXorModification(modification);
-                return vm;
-            case 3:
-                vm = new LongExplicitValueModification(modification);
-                return vm;
-            case 4:
-                vm = explicitValueFromFile(random.nextInt(MAX_MODIFICATION_VALUE));
-                return vm;
+        switch (randomType) {
+            case ADD:
+                return new LongAddModification(modification);
+            case SUBTRACT:
+                return new LongSubtractModification(modification);
+            case XOR:
+                return new LongXorModification(modification);
+            case EXPLICIT:
+                return new LongExplicitValueModification(modification);
+            case EXPLICIT_FROM_FILE:
+                return explicitValueFromFile(random.nextInt(MAX_MODIFICATION_VALUE));
             default:
-                return vm;
+                throw new IllegalStateException("Unexpected modification type: " + randomType);
         }
     }
 

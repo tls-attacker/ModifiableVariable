@@ -10,10 +10,20 @@ package de.rub.nds.modifiablevariable.string;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.RandomHelper;
 
+import java.util.Random;
+
 /** */
 public class StringModificationFactory {
 
-    private static final int MAX_BYTE_LENGTH = 1000;
+    private enum ModificationType {
+        APPEND, PREPEND, EXPLICIT
+    }
+    private static final int MODIFICATION_COUNT = ModificationType.values().length;
+
+    private static final int MAX_BYTE_LENGTH_INSERT = 200;
+
+    private static final int MAX_BYTE_LENGTH_EXPLICIT = 1000;
+
 
     public static VariableModification<String> prependValue(final String value) {
         return new StringPrependValueModification(value);
@@ -28,9 +38,33 @@ public class StringModificationFactory {
     }
 
     public static VariableModification<String> createRandomModification() {
-        int i = RandomHelper.getRandom().nextInt(MAX_BYTE_LENGTH);
-        byte[] randomBytes = new byte[i];
-        RandomHelper.getRandom().nextBytes(randomBytes);
-        return explicitValue(new String(randomBytes));
+        Random random = RandomHelper.getRandom();
+        ModificationType randomType = ModificationType.values()[random.nextInt(MODIFICATION_COUNT)];
+        int modificationArrayLength;
+        switch (randomType) {
+            case APPEND:
+                modificationArrayLength = random.nextInt(MAX_BYTE_LENGTH_INSERT);
+                if (modificationArrayLength == 0) {
+                    modificationArrayLength++;
+                }
+                byte[] bytesToAppend = new byte[modificationArrayLength];
+                random.nextBytes(bytesToAppend);
+                return new StringAppendValueModification(new String(bytesToAppend));
+            case PREPEND:
+                modificationArrayLength = random.nextInt(MAX_BYTE_LENGTH_INSERT);
+                if (modificationArrayLength == 0) {
+                    modificationArrayLength++;
+                }
+                byte[] bytesToPrepend = new byte[modificationArrayLength];
+                random.nextBytes(bytesToPrepend);
+                return new StringPrependValueModification(new String(bytesToPrepend));
+            case EXPLICIT:
+                modificationArrayLength = random.nextInt(MAX_BYTE_LENGTH_EXPLICIT);
+                byte[] explicitValue = new byte[modificationArrayLength];
+                random.nextBytes(explicitValue);
+                return new StringExplicitValueModification(new String(explicitValue));
+            default:
+                throw new IllegalStateException("Unexpected modification type: " + randomType);
+        }
     }
 }

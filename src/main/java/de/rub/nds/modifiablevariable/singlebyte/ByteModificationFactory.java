@@ -20,15 +20,10 @@ import java.util.Random;
 
 public class ByteModificationFactory {
 
-    private static final int BYTE_EXPLICIT_VALUE_MODIFICATION = 3;
-
-    private static final int BYTE_XOR_MODIFICATION = 2;
-
-    private static final int BYTE_SUBTRACT_MODIFICATION = 1;
-
-    private static final int BYTE_ADD_MODIFICATION = 0;
-
-    private static final int MODIFICATION_COUNT = 5;
+    private enum ModificationType {
+        ADD, SUBTRACT, XOR, EXPLICIT, EXPLICIT_FROM_FILE
+    }
+    private static final int MODIFICATION_COUNT = ModificationType.values().length;
 
     private static List<VariableModification<Byte>> modificationsFromFile;
 
@@ -94,27 +89,21 @@ public class ByteModificationFactory {
 
     public static VariableModification<Byte> createRandomModification() {
         Random random = RandomHelper.getRandom();
-        int r = random.nextInt(MODIFICATION_COUNT);
+        ModificationType randomType = ModificationType.values()[random.nextInt(MODIFICATION_COUNT)];
         byte modification = (byte) random.nextInt(Byte.MAX_VALUE);
-        VariableModification<Byte> vm = null;
-        switch (r) {
-            case BYTE_ADD_MODIFICATION:
-                vm = new ByteAddModification(modification);
-                return vm;
-            case BYTE_SUBTRACT_MODIFICATION:
-                vm = new ByteSubtractModification(modification);
-                return vm;
-            case BYTE_XOR_MODIFICATION:
-                vm = new ByteXorModification(modification);
-                return vm;
-            case BYTE_EXPLICIT_VALUE_MODIFICATION:
-                vm = new ByteExplicitValueModification(modification);
-                return vm;
-            case 4:
-                vm = explicitValueFromFile(random.nextInt(Byte.MAX_VALUE));
-                return vm;
+        switch (randomType) {
+            case ADD:
+                return new ByteAddModification(modification);
+            case SUBTRACT:
+                return new ByteSubtractModification(modification);
+            case XOR:
+                return new ByteXorModification(modification);
+            case EXPLICIT:
+                return new ByteExplicitValueModification(modification);
+            case EXPLICIT_FROM_FILE:
+                return explicitValueFromFile(random.nextInt(Byte.MAX_VALUE));
             default:
-                return vm;
+                throw new IllegalStateException("Unexpected modification type: " + randomType);
         }
     }
 

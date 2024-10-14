@@ -48,7 +48,7 @@ public class StringPrependValueModification extends VariableModification<String>
     public VariableModification<String> getModifiedCopy() {
         Random r = new Random();
         int index = r.nextInt(prependValue.length());
-        char randomChar = (char) r.nextInt(MAX_EXPLICIT_VALUE);;
+        char randomChar = (char) r.nextInt(MAX_EXPLICIT_VALUE);
         StringBuilder modifiedString = new StringBuilder(prependValue);
         modifiedString.setCharAt(index, randomChar);
         return new StringPrependValueModification(modifiedString.toString());
