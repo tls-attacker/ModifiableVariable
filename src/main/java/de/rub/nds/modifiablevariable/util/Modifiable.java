@@ -114,6 +114,10 @@ public class Modifiable {
     public static ModifiableString explicit(String s) {
         return getModifiableStringWithModification(StringModificationFactory.explicitValue(s));
     }
+    public static ModifiableString insert(String s, int position) {
+        return getModifiableStringWithModification(StringModificationFactory.insertValue(s, position));
+    }
+
 
     public static ModifiableByteArray xor(byte[] b, int position) {
         return getModifiableByteArrayWithModification(

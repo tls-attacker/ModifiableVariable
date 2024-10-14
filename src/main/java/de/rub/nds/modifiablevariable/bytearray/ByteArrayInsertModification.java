@@ -53,13 +53,13 @@ public class ByteArrayInsertModification extends VariableModification<byte[]> {
                 return input;
             }
         }
-        if (startPosition > input.length) {
+        if (start > input.length) {
             LOGGER.debug("Trying to insert behind the Array. ArraySize:{} Insert Position:{}", input.length, startPosition);
             return input;
         }
         byte[] ret1 = Arrays.copyOf(input, start);
         byte[] ret3 = null;
-        if ((start) < input.length) {
+        if (start < input.length) {
             ret3 = Arrays.copyOfRange(input, start, input.length);
         }
         return ArrayConverter.concatenate(ret1, bytesToInsert, ret3);
