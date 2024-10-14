@@ -13,11 +13,14 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Objects;
+import java.util.Random;
 
 /** Modification that appends a string to the original value. */
 @XmlRootElement
 @XmlType(propOrder = {"appendValue", "modificationFilter"})
 public class StringAppendValueModification extends VariableModification<String> {
+
+    private static final int MAX_EXPLICIT_VALUE = 256;
 
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     private String appendValue;
@@ -43,7 +46,12 @@ public class StringAppendValueModification extends VariableModification<String> 
 
     @Override
     public VariableModification<String> getModifiedCopy() {
-        return new StringAppendValueModification(appendValue);
+        Random r = new Random();
+        int index = r.nextInt(appendValue.length());
+        char randomChar = (char) r.nextInt(MAX_EXPLICIT_VALUE);;
+        StringBuilder modifiedString = new StringBuilder(appendValue);
+        modifiedString.setCharAt(index, randomChar);
+        return new StringAppendValueModification(modifiedString.toString());
     }
 
     @Override
