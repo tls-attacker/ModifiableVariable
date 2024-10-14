@@ -71,7 +71,7 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
         int index = r.nextInt(shuffle.length);
         byte[] newValue = Arrays.copyOf(shuffle, shuffle.length);
         newValue[index] = (byte) r.nextInt(MAX_MODIFIER_VALUE);
-        return new ByteArrayShuffleModification(shuffle);
+        return new ByteArrayShuffleModification(newValue);
     }
 
     @Override
