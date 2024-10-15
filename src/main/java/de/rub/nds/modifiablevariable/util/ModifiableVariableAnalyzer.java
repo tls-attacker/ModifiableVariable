@@ -97,8 +97,9 @@ public class ModifiableVariableAnalyzer {
                 Object possibleHolder = f.get(object);
                 if (possibleHolder != null && holdsVariable != null) {
                     if (possibleHolder instanceof List) {
-                        holders.addAll(
-                                getAllModifiableVariableHoldersFromList((List) possibleHolder));
+                        @SuppressWarnings("unchecked")
+                        List<Object> castedList = List.class.cast(possibleHolder);
+                        holders.addAll(getAllModifiableVariableHoldersFromList(castedList));
                     } else if (possibleHolder.getClass().isArray()) {
                         holders.addAll(
                                 getAllModifiableVariableHoldersFromArray(
