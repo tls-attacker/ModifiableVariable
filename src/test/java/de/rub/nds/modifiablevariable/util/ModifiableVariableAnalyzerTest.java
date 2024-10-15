@@ -110,17 +110,32 @@ public class ModifiableVariableAnalyzerTest {
     }
 
     private static class SimpleClassWithModVariables {
+        @SuppressWarnings("unused")
         Integer x;
+
+        @SuppressWarnings("unused")
         ModifiableBigInteger bi;
+
+        @SuppressWarnings("unused")
         ModifiableByteArray array;
+
+        @SuppressWarnings("unused")
         ModifiableInteger i;
+
         @HoldsModifiableVariable SimpleClassWithModVariables test;
     }
 
     private static class SimpleClassWithModVariablesList {
+        @SuppressWarnings("unused")
         Integer x;
+
+        @SuppressWarnings("unused")
         ModifiableBigInteger bi;
+
+        @SuppressWarnings("unused")
         ModifiableByteArray array;
+
+        @SuppressWarnings("unused")
         ModifiableInteger i;
 
         @HoldsModifiableVariable SimpleClassWithModVariables test;
