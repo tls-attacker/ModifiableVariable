@@ -40,9 +40,9 @@ public class ModifiableVariableField {
         this.field = field;
     }
 
-    public ModifiableVariable getModifiableVariable()
+    public ModifiableVariable<?> getModifiableVariable()
             throws IllegalArgumentException, IllegalAccessException {
         field.setAccessible(true);
-        return (ModifiableVariable) field.get(object);
+        return (ModifiableVariable<?>) field.get(object);
     }
 }
