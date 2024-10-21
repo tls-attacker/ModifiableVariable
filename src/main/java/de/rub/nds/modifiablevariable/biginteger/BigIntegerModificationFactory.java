@@ -102,7 +102,12 @@ public class BigIntegerModificationFactory {
                         public BigInteger modify(BigInteger oldVal) {
                             if (value == null) {
                                 System.out.println("Enter new value for BigInt: ");
-                                value = new Scanner(System.in).nextBigInteger();
+                                Scanner scanner = new Scanner(System.in);
+                                try {
+                                    value = scanner.nextBigInteger();
+                                } finally {
+                                    scanner.close();
+                                }
                             }
                             return value;
                         }
