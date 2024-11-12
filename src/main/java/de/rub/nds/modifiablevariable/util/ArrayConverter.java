@@ -119,10 +119,10 @@ public class ArrayConverter {
      * @return long
      */
     public static long bytesToLong(byte[] value) {
-        int result = 0;
+        long result = 0;
         int shift = 0;
         for (int i = value.length - 1; i >= 0; i--) {
-            result += (value[i] & 0xFF) << shift;
+            result += ((long) (value[i] & 0xFF)) << shift;
             shift += 8;
         }
         return result;
@@ -188,8 +188,7 @@ public class ArrayConverter {
      */
     public static String bytesToRawHexString(byte[] array) {
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < array.length; i++) {
-            byte b = array[i];
+        for (byte b : array) {
             result.append(String.format("%02X", b));
         }
         return result.toString();
