@@ -50,8 +50,8 @@ public class ByteAddModification extends VariableModification<Byte> {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 17 * hash + Objects.hashCode(this.summand);
+        int hash = 7;
+        hash = 11 * hash + Objects.hashCode(this.summand);
         return hash;
     }
 

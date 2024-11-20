@@ -69,8 +69,8 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 53 * hash + Arrays.hashCode(this.explicitValue);
+        int hash = 7;
+        hash = 82 * hash + Arrays.hashCode(this.explicitValue);
         return hash;
     }
 

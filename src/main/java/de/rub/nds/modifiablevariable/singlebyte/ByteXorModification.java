@@ -57,7 +57,7 @@ public class ByteXorModification extends VariableModification<Byte> {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.xor);
+        hash = 14 * hash + Objects.hashCode(this.xor);
         return hash;
     }
 

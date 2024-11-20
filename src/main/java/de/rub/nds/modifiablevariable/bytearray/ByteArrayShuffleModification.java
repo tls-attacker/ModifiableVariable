@@ -76,8 +76,8 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 71 * hash + Arrays.hashCode(this.shuffle);
+        int hash = 7;
+        hash = 84 * hash + Arrays.hashCode(this.shuffle);
         return hash;
     }
 

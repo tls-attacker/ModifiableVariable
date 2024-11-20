@@ -54,7 +54,7 @@ public class BigIntegerShiftLeftModification extends VariableModification<BigInt
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + this.shift;
+        hash = 54 * hash + this.shift;
         return hash;
     }
 

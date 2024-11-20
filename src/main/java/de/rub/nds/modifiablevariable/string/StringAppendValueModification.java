@@ -56,8 +56,8 @@ public class StringAppendValueModification extends VariableModification<String> 
 
     @Override
     public int hashCode() {
-        int hash = 4;
-        hash = 83 * hash + Objects.hashCode(this.appendValue);
+        int hash = 7;
+        hash = 61 * hash + Objects.hashCode(this.appendValue);
         return hash;
     }
 

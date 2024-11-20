@@ -55,7 +55,7 @@ public class IntegerExplicitValueModification extends VariableModification<Integ
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.explicitValue);
+        hash = 32 * hash + Objects.hashCode(this.explicitValue);
         return hash;
     }
 

@@ -107,8 +107,8 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + this.count;
-        hash = 89 * hash + this.startPosition;
+        hash = 81 * hash + this.count;
+        hash = 81 * hash + this.startPosition;
         return hash;
     }
 

@@ -96,9 +96,9 @@ public class StringInsertValueModification extends VariableModification<String> 
 
     @Override
     public int hashCode() {
-        int hash = 4;
-        hash = 83 * hash + Objects.hashCode(this.insertValue);
-        hash = 83 * hash + this.startPosition;
+        int hash = 7;
+        hash = 63 * hash + Objects.hashCode(this.insertValue);
+        hash = 63 * hash + this.startPosition;
         return hash;
     }
 

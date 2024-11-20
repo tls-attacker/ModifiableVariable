@@ -55,7 +55,7 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 79 * hash + Objects.hashCode(this.explicitValue);
+        hash = 12 * hash + Objects.hashCode(this.explicitValue);
         return hash;
     }
 

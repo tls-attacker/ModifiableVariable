@@ -109,8 +109,8 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + Arrays.hashCode(this.xor);
-        hash = 97 * hash + this.startPosition;
+        hash = 85 * hash + Arrays.hashCode(this.xor);
+        hash = 85 * hash + this.startPosition;
         return hash;
     }
 

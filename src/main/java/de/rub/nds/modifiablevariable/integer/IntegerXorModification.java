@@ -52,8 +52,8 @@ public class IntegerXorModification extends VariableModification<Integer> {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + Objects.hashCode(this.xor);
+        int hash = 7;
+        hash = 36 * hash + Objects.hashCode(this.xor);
         return hash;
     }
 
