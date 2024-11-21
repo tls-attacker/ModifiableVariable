@@ -71,6 +71,18 @@ public class LongModificationTest {
         assertEquals(Long.valueOf(10L), start.getOriginalValue());
     }
 
+    @Test
+    public void testInsertValue() {
+        // expect: ...xx111xxxxxxxxxxxx
+        VariableModification<Long> modifier = LongModificationFactory.insertValue(7L, 12);
+        start.setModification(modifier);
+        int mask = ((1 << 3) - 1) << 12;
+        expectedResult = 7L;
+        result = (start.getValue() & mask) >> 12;
+        assertEquals(expectedResult, result);
+        assertEquals(Long.valueOf(10), start.getOriginalValue());
+    }
+
     /** Test of explicitValue from file method */
     @Test
     public void testExplicitValueFromFile() {
