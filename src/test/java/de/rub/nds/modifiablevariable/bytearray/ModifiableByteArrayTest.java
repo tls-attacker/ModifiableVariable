@@ -242,13 +242,14 @@ public class ModifiableByteArrayTest {
     @Test
     public void testInsertBytes() {
         LOGGER.info("testInsertBytes");
-        // Insert negative position, insert 0 bytes, insert too far
+        // Insert at too negative position, prepend bytes
         assumeTrue(modification1.length < originalValue.length);
         LOGGER.debug("Inserting negative Position");
         VariableModification<byte[]> modifier =
                 ByteArrayModificationFactory.insertValue(modification1, -2 * originalValue.length);
         start.setModification(modifier);
-        assertArrayEquals(start.getValue(), originalValue);
+        byte[] expResult = ArrayConverter.concatenate(modification1, originalValue);
+        assertArrayEquals(start.getValue(), expResult);
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
         LOGGER.debug("Inserting empty Array");
@@ -257,12 +258,14 @@ public class ModifiableByteArrayTest {
         start.setModification(modifier);
         assertArrayEquals(originalValue, start.getValue());
 
+        // Insert at too positive position, append bytes
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
         LOGGER.debug("Inserting to big Start position");
         modifier = ByteArrayModificationFactory.insertValue(modification1, originalValue.length * 2);
         start.setModification(modifier);
-        assertArrayEquals(originalValue, start.getValue());
+        expResult = ArrayConverter.concatenate(originalValue, modification1);
+        assertArrayEquals(expResult, start.getValue());
     }
 
     /** Test of add method, of class BigIntegerModificationFactory. */

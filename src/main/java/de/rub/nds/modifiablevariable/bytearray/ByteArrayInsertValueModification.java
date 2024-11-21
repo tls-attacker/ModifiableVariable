@@ -47,10 +47,7 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
 
         int start = startPosition;
         if (start < 0) {
-            start += input.length;
-            if (start < 0) {
-                start = 0;
-            }
+            start = 0;
         }
         if (start > input.length) {
             start = input.length;

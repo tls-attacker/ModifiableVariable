@@ -86,7 +86,7 @@ public class LongModificationTest {
         result = start.getValue();
         assertEquals(expectedResult, result);
 
-        modifier = LongModificationFactory.explicitValueFromFile(26);
+        modifier = LongModificationFactory.explicitValueFromFile(27);
         start.setModification(modifier);
         expectedResult = 2147483647L;
         result = start.getValue();

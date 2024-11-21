@@ -131,7 +131,7 @@ public class BigIntegerModificationTest {
         result = start.getValue();
         assertEquals(expectedResult, result);
 
-        modifier = BigIntegerModificationFactory.explicitValueFromFile(26);
+        modifier = BigIntegerModificationFactory.explicitValueFromFile(27);
         start.setModification(modifier);
         expectedResult = BigInteger.valueOf(2147483647);
         result = start.getValue();

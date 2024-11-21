@@ -18,7 +18,7 @@ import java.util.Random;
 
 /** Modification that appends a string to the original value. */
 @XmlRootElement
-@XmlType(propOrder = {"insertValue", "modificationFilter"})
+@XmlType(propOrder = {"insertValue", "startPosition", "modificationFilter"})
 public class StringInsertValueModification extends VariableModification<String> {
 
     private static final int MAX_EXPLICIT_VALUE = 256;
