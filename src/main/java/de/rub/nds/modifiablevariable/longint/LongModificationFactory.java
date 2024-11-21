@@ -22,13 +22,19 @@ import java.util.Random;
 public class LongModificationFactory {
 
     private enum ModificationType {
-        ADD, SUBTRACT, MULTIPLY, XOR, EXPLICIT,
+        ADD,
+        SUBTRACT,
+        MULTIPLY,
+        XOR,
+        EXPLICIT,
         SHIFT_LEFT,
-        SHIFT_RIGHT, EXPLICIT_FROM_FILE,
+        SHIFT_RIGHT,
+        EXPLICIT_FROM_FILE,
         APPEND,
         INSERT,
         PREPEND
     }
+
     private static final int MODIFICATION_COUNT = ModificationType.values().length;
 
     private static final int MAX_MODIFICATION_VALUE = 32000;
@@ -109,14 +115,12 @@ public class LongModificationFactory {
         return new LongShiftRightModification(shift);
     }
 
-
     public static synchronized List<VariableModification<Long>> modificationsFromFile() {
         try {
             if (modificationsFromFile == null) {
                 modificationsFromFile = new LinkedList<>();
                 ClassLoader classLoader = IntegerModificationFactory.class.getClassLoader();
-                InputStream is =
-                        classLoader.getResourceAsStream(FILE_NAME);
+                InputStream is = classLoader.getResourceAsStream(FILE_NAME);
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
                 String line;
                 while ((line = br.readLine()) != null) {
@@ -135,7 +139,7 @@ public class LongModificationFactory {
         Random random = RandomHelper.getRandom();
         ModificationType randomType = ModificationType.values()[random.nextInt(MODIFICATION_COUNT)];
         long modification = random.nextInt(MAX_MODIFICATION_VALUE);
-        long insert_modification = random.nextInt( MAX_MODIFICATION_INSERT_VALUE);
+        long insert_modification = random.nextInt(MAX_MODIFICATION_INSERT_VALUE);
         int shiftModification = random.nextInt(MAX_MODIFICATION_SHIFT_VALUE);
         switch (randomType) {
             case ADD:
@@ -143,7 +147,8 @@ public class LongModificationFactory {
             case SUBTRACT:
                 return new LongSubtractModification(modification);
             case MULTIPLY:
-                return new LongMultiplyModification((long)random.nextInt(MAX_MODIFICATION_MULTIPLY_VALUE));
+                return new LongMultiplyModification(
+                        (long) random.nextInt(MAX_MODIFICATION_MULTIPLY_VALUE));
             case XOR:
                 return new LongXorModification(modification);
             case EXPLICIT:
@@ -157,7 +162,9 @@ public class LongModificationFactory {
             case APPEND:
                 return new LongAppendValueModification(insert_modification);
             case INSERT:
-                return new LongInsertValueModification(insert_modification, random.nextInt(MAX_MODIFICATION_INSERT_POSITION_VALUE));
+                return new LongInsertValueModification(
+                        insert_modification,
+                        random.nextInt(MAX_MODIFICATION_INSERT_POSITION_VALUE));
             case PREPEND:
                 return new LongPrependValueModification(insert_modification);
             default:

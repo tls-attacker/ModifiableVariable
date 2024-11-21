@@ -13,11 +13,11 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import java.util.Arrays;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.util.Arrays;
 
 public class ModifiableByteArrayTest {
 
@@ -249,7 +249,11 @@ public class ModifiableByteArrayTest {
         VariableModification<byte[]> modifier =
                 ByteArrayModificationFactory.insertValue(modification1, -2 * originalValue.length);
         start.setModification(modifier);
-        byte[] expResult = ArrayConverter.concatenate(Arrays.copyOf(originalValue, 1), modification1, Arrays.copyOfRange(originalValue, 1, originalValue.length));
+        byte[] expResult =
+                ArrayConverter.concatenate(
+                        Arrays.copyOf(originalValue, 1),
+                        modification1,
+                        Arrays.copyOfRange(originalValue, 1, originalValue.length));
         assertArrayEquals(start.getValue(), expResult);
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
@@ -263,9 +267,15 @@ public class ModifiableByteArrayTest {
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
         LOGGER.debug("Inserting at too large position");
-        modifier = ByteArrayModificationFactory.insertValue(modification1, originalValue.length * 2);
+        modifier =
+                ByteArrayModificationFactory.insertValue(modification1, originalValue.length * 2);
         start.setModification(modifier);
-        expResult = ArrayConverter.concatenate(Arrays.copyOf(originalValue, originalValue.length - 1), modification1, Arrays.copyOfRange(originalValue, originalValue.length -1, originalValue.length));
+        expResult =
+                ArrayConverter.concatenate(
+                        Arrays.copyOf(originalValue, originalValue.length - 1),
+                        modification1,
+                        Arrays.copyOfRange(
+                                originalValue, originalValue.length - 1, originalValue.length));
         assertArrayEquals(expResult, start.getValue());
     }
 

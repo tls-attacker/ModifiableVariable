@@ -85,7 +85,8 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
 
     @Override
     public String toString() {
-        return String.format("ByteArrayInsertModification{bytesToPrepend=%s}",
-            ArrayConverter.bytesToHexString(bytesToPrepend));
+        return String.format(
+                "ByteArrayInsertModification{bytesToPrepend=%s}",
+                ArrayConverter.bytesToHexString(bytesToPrepend));
     }
 }

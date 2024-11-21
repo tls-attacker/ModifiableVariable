@@ -48,8 +48,8 @@ public class IntegerInsertValueModification extends VariableModification<Integer
 
         int mask = ((1 << insertPosition) - 1);
 
-        return (((input >> insertPosition) << insertValueLength) | insertValue)
-                << insertPosition | (mask & input);
+        return (((input >> insertPosition) << insertValueLength) | insertValue) << insertPosition
+                | (mask & input);
     }
 
     public Integer getInsertValue() {

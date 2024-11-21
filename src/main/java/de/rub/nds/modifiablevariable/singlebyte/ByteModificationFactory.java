@@ -21,8 +21,13 @@ import java.util.Random;
 public class ByteModificationFactory {
 
     private enum ModificationType {
-        ADD, SUBTRACT, XOR, EXPLICIT, EXPLICIT_FROM_FILE
+        ADD,
+        SUBTRACT,
+        XOR,
+        EXPLICIT,
+        EXPLICIT_FROM_FILE
     }
+
     private static final int MODIFICATION_COUNT = ModificationType.values().length;
 
     private static List<VariableModification<Byte>> modificationsFromFile;

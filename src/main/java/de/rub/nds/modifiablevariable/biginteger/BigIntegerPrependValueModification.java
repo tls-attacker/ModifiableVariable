@@ -49,7 +49,8 @@ public class BigIntegerPrependValueModification extends VariableModification<Big
 
     @Override
     public VariableModification<BigInteger> getModifiedCopy() {
-        return new BigIntegerPrependValueModification(prependValue.add(new BigInteger(MAX_PREPEND_LENGTH, new Random())));
+        return new BigIntegerPrependValueModification(
+                prependValue.add(new BigInteger(MAX_PREPEND_LENGTH, new Random())));
     }
 
     @Override

@@ -12,7 +12,6 @@ import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import java.util.Objects;
 import java.util.Random;
 
@@ -40,7 +39,7 @@ public class StringInsertValueModification extends VariableModification<String> 
     @Override
     protected String modifyImplementationHook(final String input) {
         // Wrap around and also allow to insert at the end of the original value
-        int insertPosition = startPosition  % (input.length() + 1);
+        int insertPosition = startPosition % (input.length() + 1);
         if (startPosition < 0) {
             insertPosition += input.length();
         }

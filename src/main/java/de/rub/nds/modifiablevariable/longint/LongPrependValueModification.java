@@ -45,7 +45,8 @@ public class LongPrependValueModification extends VariableModification<Long> {
 
     @Override
     public VariableModification<Long> getModifiedCopy() {
-        return new LongPrependValueModification(prependValue + new Random().nextInt(MAX_VALUE_MODIFIER));
+        return new LongPrependValueModification(
+                prependValue + new Random().nextInt(MAX_VALUE_MODIFIER));
     }
 
     @Override

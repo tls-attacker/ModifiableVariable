@@ -14,8 +14,11 @@ import java.util.Random;
 public class BooleanModificationFactory {
 
     private enum ModificationType {
-        EXPLICIT_TRUE, EXPLICIT_FALSE, TOGGLE
+        EXPLICIT_TRUE,
+        EXPLICIT_FALSE,
+        TOGGLE
     }
+
     private static final int MODIFICATION_COUNT = ModificationType.values().length;
 
     public static VariableModification<Boolean> createRandomModification() {

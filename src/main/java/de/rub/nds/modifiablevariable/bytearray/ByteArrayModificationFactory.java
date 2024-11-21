@@ -22,8 +22,17 @@ import java.util.Random;
 public class ByteArrayModificationFactory {
 
     private enum ModificationType {
-        XOR, APPEND, INSERT, PREPEND, DELETE, EXPLICIT, DUPLICATE, EXPLICIT_FROM_FILE, SHUFFLE
+        XOR,
+        APPEND,
+        INSERT,
+        PREPEND,
+        DELETE,
+        EXPLICIT,
+        DUPLICATE,
+        EXPLICIT_FROM_FILE,
+        SHUFFLE
     }
+
     private static final int MODIFICATION_COUNT = ModificationType.values().length;
 
     private static final int MAX_BYTE_ARRAY_LENGTH = 200;
@@ -57,13 +66,11 @@ public class ByteArrayModificationFactory {
         return new ByteArrayInsertValueModification(bytesToInsert, startPosition);
     }
 
-    public static VariableModification<byte[]> appendValue(
-        final byte[] bytesToAppend) {
+    public static VariableModification<byte[]> appendValue(final byte[] bytesToAppend) {
         return new ByteArrayAppendValueModification(bytesToAppend);
     }
 
-    public static VariableModification<byte[]> prependValue(
-        final byte[] bytesToPrepend) {
+    public static VariableModification<byte[]> prependValue(final byte[] bytesToPrepend) {
         return new ByteArrayPrependValueModification(bytesToPrepend);
     }
 
@@ -156,7 +163,8 @@ public class ByteArrayModificationFactory {
             case INSERT:
                 byte[] bytesToInsert = new byte[modificationArrayLength];
                 random.nextBytes(bytesToInsert);
-                return new ByteArrayInsertValueModification(bytesToInsert, random.nextInt(modifiedArrayLength));
+                return new ByteArrayInsertValueModification(
+                        bytesToInsert, random.nextInt(modifiedArrayLength));
             case PREPEND:
                 byte[] bytesToPrepend = new byte[modificationArrayLength];
                 random.nextBytes(bytesToPrepend);

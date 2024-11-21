@@ -32,7 +32,8 @@ public class IntegerAppendValueModification extends VariableModification<Integer
         if (input == null) {
             input = 0;
         }
-        return (input << (Integer.SIZE - Integer.numberOfLeadingZeros((appendValue)))) | appendValue;
+        return (input << (Integer.SIZE - Integer.numberOfLeadingZeros((appendValue))))
+                | appendValue;
     }
 
     public Integer getAppendValue() {
@@ -46,7 +47,7 @@ public class IntegerAppendValueModification extends VariableModification<Integer
     @Override
     public VariableModification<Integer> getModifiedCopy() {
         return new IntegerAppendValueModification(
-            appendValue + new Random().nextInt(MAX_VALUE_MODIFIER));
+                appendValue + new Random().nextInt(MAX_VALUE_MODIFIER));
     }
 
     @Override

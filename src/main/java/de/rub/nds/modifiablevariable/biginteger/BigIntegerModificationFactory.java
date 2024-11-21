@@ -10,7 +10,6 @@ package de.rub.nds.modifiablevariable.biginteger;
 import de.rub.nds.modifiablevariable.FileConfigurationException;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.bytearray.ByteArrayModificationFactory;
-import de.rub.nds.modifiablevariable.integer.IntegerModificationFactory;
 import de.rub.nds.modifiablevariable.longint.LongModificationFactory;
 import de.rub.nds.modifiablevariable.util.RandomHelper;
 import java.io.BufferedReader;
@@ -168,8 +167,7 @@ public class BigIntegerModificationFactory {
             if (modificationsFromFile == null) {
                 modificationsFromFile = new LinkedList<>();
                 ClassLoader classLoader = ByteArrayModificationFactory.class.getClassLoader();
-                InputStream is =
-                        classLoader.getResourceAsStream(LongModificationFactory.FILE_NAME);
+                InputStream is = classLoader.getResourceAsStream(LongModificationFactory.FILE_NAME);
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
                 String line;
                 while ((line = br.readLine()) != null) {

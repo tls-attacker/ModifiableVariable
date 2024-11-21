@@ -8,7 +8,6 @@
 package de.rub.nds.modifiablevariable.longint;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.integer.IntegerInsertValueModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
@@ -47,7 +46,8 @@ public class LongInsertValueModification extends VariableModification<Long> {
 
         long mask = ((1L << insertPosition) - 1);
 
-        return (((input >> insertPosition) << insertValueLength) | insertValue) << insertPosition | (mask & input);
+        return (((input >> insertPosition) << insertValueLength) | insertValue) << insertPosition
+                | (mask & input);
     }
 
     public Long getInsertValue() {
@@ -72,7 +72,7 @@ public class LongInsertValueModification extends VariableModification<Long> {
 
         if (r.nextBoolean()) {
             return new LongInsertValueModification(
-                insertValue + r.nextInt(MAX_VALUE_MODIFIER), startPosition);
+                    insertValue + r.nextInt(MAX_VALUE_MODIFIER), startPosition);
         } else {
             int modifier = r.nextInt(MAX_POSITION_MODIFIER);
             if (r.nextBoolean()) {

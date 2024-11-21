@@ -9,15 +9,18 @@ package de.rub.nds.modifiablevariable.string;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.RandomHelper;
-
 import java.util.Random;
 
 /** */
 public class StringModificationFactory {
 
     private enum ModificationType {
-        APPEND, PREPEND, EXPLICIT, INSERT
+        APPEND,
+        PREPEND,
+        EXPLICIT,
+        INSERT
     }
+
     private static final int MODIFICATION_COUNT = ModificationType.values().length;
 
     private static final int MAX_BYTE_LENGTH_INSERT = 200;
@@ -25,7 +28,6 @@ public class StringModificationFactory {
     private static final int MAX_BYTE_LENGTH_EXPLICIT = 1000;
 
     private static final int MODIFIED_STRING_LENGTH_ESTIMATION = 50;
-
 
     public static VariableModification<String> prependValue(final String value) {
         return new StringPrependValueModification(value);

@@ -49,7 +49,8 @@ public class BigIntegerAppendValueModification extends VariableModification<BigI
 
     @Override
     public VariableModification<BigInteger> getModifiedCopy() {
-        return new BigIntegerAppendValueModification(appendValue.add(new BigInteger(MAX_APPEND_LENGTH, new Random())));
+        return new BigIntegerAppendValueModification(
+                appendValue.add(new BigInteger(MAX_APPEND_LENGTH, new Random())));
     }
 
     @Override

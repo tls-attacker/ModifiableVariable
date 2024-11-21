@@ -44,8 +44,7 @@ public class IntegerMultiplyModification extends VariableModification<Integer> {
     public VariableModification<Integer> getModifiedCopy() {
         Random r = new Random();
 
-        return new IntegerMultiplyModification(
-            factor + r.nextInt(MAX_FACTOR_MODIFIER));
+        return new IntegerMultiplyModification(factor + r.nextInt(MAX_FACTOR_MODIFIER));
     }
 
     @Override

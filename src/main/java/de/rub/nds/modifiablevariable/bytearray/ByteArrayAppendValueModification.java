@@ -85,7 +85,8 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
 
     @Override
     public String toString() {
-        return String.format("ByteArrayInsertModification{bytesToAppend=%s}",
-            ArrayConverter.bytesToHexString(bytesToAppend));
+        return String.format(
+                "ByteArrayInsertModification{bytesToAppend=%s}",
+                ArrayConverter.bytesToHexString(bytesToAppend));
     }
 }

@@ -45,13 +45,20 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
         if (start < 0) {
             start += input.length;
             if (start < 0) {
-                LOGGER.debug("Trying to delete from too negative Startposition. start = {}", start - input.length);
+                LOGGER.debug(
+                        "Trying to delete from too negative Startposition. start = {}",
+                        start - input.length);
                 return input;
             }
         }
         final int endPosition = start + count;
         if ((endPosition) > input.length) {
-            LOGGER.debug("Bytes {}..{} cannot be deleted from {{}} of length {}", start, endPosition, bytesToHexString(input), input.length);
+            LOGGER.debug(
+                    "Bytes {}..{} cannot be deleted from {{}} of length {}",
+                    start,
+                    endPosition,
+                    bytesToHexString(input),
+                    input.length);
             return input;
         }
         if (count <= 0) {

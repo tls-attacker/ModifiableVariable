@@ -47,7 +47,7 @@ public class IntegerPrependValueModification extends VariableModification<Intege
     @Override
     public VariableModification<Integer> getModifiedCopy() {
         return new IntegerPrependValueModification(
-            prependValue + new Random().nextInt(MAX_VALUE_MODIFIER));
+                prependValue + new Random().nextInt(MAX_VALUE_MODIFIER));
     }
 
     @Override
