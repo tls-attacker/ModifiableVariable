@@ -54,7 +54,7 @@ public class ByteArraySerializationTest {
                         ModifiableByteArray.class,
                         ByteArrayDeleteModification.class,
                         ByteArrayExplicitValueModification.class,
-                        ByteArrayInsertModification.class,
+                        ByteArrayInsertValueModification.class,
                         ByteArrayXorModification.class);
         m = context.createMarshaller();
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -81,7 +81,7 @@ public class ByteArraySerializationTest {
     @Test
     public void testSerializeDeserializeWithModification() throws Exception {
         VariableModification<byte[]> modifier =
-                ByteArrayModificationFactory.insert(new byte[] {1, 2}, 0);
+                ByteArrayModificationFactory.insertValue(new byte[] {1, 2}, 0);
 
         start.setModification(modifier);
         m.marshal(start, writer);

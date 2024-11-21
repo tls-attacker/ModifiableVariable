@@ -23,8 +23,8 @@ public class LongSubtractModification extends VariableModification<Long> {
 
     public LongSubtractModification() {}
 
-    public LongSubtractModification(Long bi) {
-        this.subtrahend = bi;
+    public LongSubtractModification(Long subtrahend) {
+        this.subtrahend = subtrahend;
     }
 
     @Override

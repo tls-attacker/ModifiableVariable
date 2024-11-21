@@ -21,20 +21,20 @@ import java.util.Random;
 @XmlRootElement
 @XmlType(propOrder = {"bytesToInsert", "startPosition", "modificationFilter"})
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ByteArrayInsertModification extends VariableModification<byte[]> {
+public class ByteArrayInsertValueModification extends VariableModification<byte[]> {
 
     private static final int MAX_EXPLICIT_VALUE = 256;
 
-    private static final int MAX_INSERT_MODIFIER = 32;
+    private static final int MAX_POSITION_MODIFIER = 32;
 
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] bytesToInsert;
 
     private int startPosition;
 
-    public ByteArrayInsertModification() {}
+    public ByteArrayInsertValueModification() {}
 
-    public ByteArrayInsertModification(byte[] bytesToInsert, int startPosition) {
+    public ByteArrayInsertValueModification(byte[] bytesToInsert, int startPosition) {
         this.bytesToInsert = bytesToInsert;
         this.startPosition = startPosition;
     }
@@ -49,13 +49,11 @@ public class ByteArrayInsertModification extends VariableModification<byte[]> {
         if (start < 0) {
             start += input.length;
             if (start < 0) {
-                LOGGER.debug("Trying to insert from too negative Startposition. start = {}", startPosition);
-                return input;
+                start = 0;
             }
         }
         if (start > input.length) {
-            LOGGER.debug("Trying to insert behind the Array. ArraySize:{} Insert Position:{}", input.length, startPosition);
-            return input;
+            start = input.length;
         }
         byte[] ret1 = Arrays.copyOf(input, start);
         byte[] ret3 = null;
@@ -89,10 +87,10 @@ public class ByteArrayInsertModification extends VariableModification<byte[]> {
             int index = r.nextInt(bytesToInsert.length);
             byte[] newValue = Arrays.copyOf(bytesToInsert, bytesToInsert.length);
             newValue[index] = (byte) r.nextInt(MAX_EXPLICIT_VALUE);
-            return new ByteArrayInsertModification(newValue, startPosition);
+            return new ByteArrayInsertValueModification(newValue, startPosition);
         } else {
             byte[] newValue = Arrays.copyOf(bytesToInsert, bytesToInsert.length);
-            int modifier = r.nextInt(MAX_INSERT_MODIFIER);
+            int modifier = r.nextInt(MAX_POSITION_MODIFIER);
             if (r.nextBoolean()) {
                 modifier *= -1;
             }
@@ -100,7 +98,7 @@ public class ByteArrayInsertModification extends VariableModification<byte[]> {
             if (modifier <= 0) {
                 modifier = 1;
             }
-            return new ByteArrayInsertModification(newValue, modifier);
+            return new ByteArrayInsertValueModification(newValue, modifier);
         }
     }
 
@@ -123,7 +121,7 @@ public class ByteArrayInsertModification extends VariableModification<byte[]> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ByteArrayInsertModification other = (ByteArrayInsertModification) obj;
+        final ByteArrayInsertValueModification other = (ByteArrayInsertValueModification) obj;
         if (this.startPosition != other.startPosition) {
             return false;
         }

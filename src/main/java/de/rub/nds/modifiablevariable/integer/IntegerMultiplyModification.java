@@ -14,46 +14,44 @@ import java.util.Objects;
 import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = {"xor", "modificationFilter"})
-public class IntegerXorModification extends VariableModification<Integer> {
+@XmlType(propOrder = {"factor", "modificationFilter"})
+public class IntegerMultiplyModification extends VariableModification<Integer> {
 
-    private static final int MAX_VALUE_MODIFIER = 256;
+    private static final int MAX_FACTOR_MODIFIER = 256;
 
-    private Integer xor;
+    private Integer factor;
 
-    public IntegerXorModification() {}
+    public IntegerMultiplyModification() {}
 
-    public IntegerXorModification(Integer xor) {
-        this.xor = xor;
+    public IntegerMultiplyModification(Integer factor) {
+        this.factor = factor;
     }
 
     @Override
-    protected Integer modifyImplementationHook(final Integer input) {
-        return (input == null) ? xor : input ^ xor;
+    protected Integer modifyImplementationHook(Integer input) {
+        return (input == null) ? 0 : input * factor;
     }
 
-    public Integer getXor() {
-        return xor;
+    public Integer getFactor() {
+        return factor;
     }
 
-    public void setXor(Integer xor) {
-        this.xor = xor;
+    public void setFactor(Integer factor) {
+        this.factor = factor;
     }
 
     @Override
     public VariableModification<Integer> getModifiedCopy() {
         Random r = new Random();
-        if (r.nextBoolean()) {
-            return new IntegerSubtractModification(xor + new Random().nextInt(MAX_VALUE_MODIFIER));
-        } else {
-            return new IntegerSubtractModification(xor - new Random().nextInt(MAX_VALUE_MODIFIER));
-        }
+
+        return new IntegerMultiplyModification(
+            factor + r.nextInt(MAX_FACTOR_MODIFIER));
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 36 * hash + Objects.hashCode(this.xor);
+        hash = 40 * hash + Objects.hashCode(this.factor);
         return hash;
     }
 
@@ -68,7 +66,7 @@ public class IntegerXorModification extends VariableModification<Integer> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final IntegerXorModification other = (IntegerXorModification) obj;
-        return Objects.equals(this.xor, other.xor);
+        final IntegerMultiplyModification other = (IntegerMultiplyModification) obj;
+        return Objects.equals(this.factor, other.factor);
     }
 }

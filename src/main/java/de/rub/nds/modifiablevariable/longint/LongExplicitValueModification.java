@@ -23,8 +23,8 @@ public class LongExplicitValueModification extends VariableModification<Long> {
 
     public LongExplicitValueModification() {}
 
-    public LongExplicitValueModification(Long bi) {
-        this.explicitValue = bi;
+    public LongExplicitValueModification(Long explicitValue) {
+        this.explicitValue = explicitValue;
     }
 
     @Override

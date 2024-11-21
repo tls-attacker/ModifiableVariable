@@ -14,41 +14,46 @@ import java.util.Objects;
 import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = {"summand", "modificationFilter"})
-public class IntegerAddModification extends VariableModification<Integer> {
+@XmlType(propOrder = {"prependValue", "modificationFilter"})
+public class IntegerPrependValueModification extends VariableModification<Integer> {
 
-    private static final int MAX_ADD_MODIFIER = 256;
+    private static final int MAX_VALUE_MODIFIER = 256;
 
-    private Integer summand;
+    private Integer prependValue;
 
-    public IntegerAddModification() {}
+    public IntegerPrependValueModification() {}
 
-    public IntegerAddModification(Integer summand) {
-        this.summand = summand;
+    public IntegerPrependValueModification(Integer prependValue) {
+        this.prependValue = prependValue;
     }
 
     @Override
     protected Integer modifyImplementationHook(Integer input) {
-        return (input == null) ? summand : input + summand;
+        if (input == null) {
+            input = 0;
+        }
+
+        return (prependValue << (Integer.SIZE - Integer.numberOfLeadingZeros((input)))) + input;
     }
 
-    public Integer getSummand() {
-        return summand;
+    public Integer getPrependValue() {
+        return prependValue;
     }
 
-    public void setSummand(Integer summand) {
-        this.summand = summand;
+    public void setPrependValue(Integer prependValue) {
+        this.prependValue = prependValue;
     }
 
     @Override
     public VariableModification<Integer> getModifiedCopy() {
-        return new IntegerAddModification(summand + new Random().nextInt(MAX_ADD_MODIFIER));
+        return new IntegerPrependValueModification(
+            prependValue + new Random().nextInt(MAX_VALUE_MODIFIER));
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + Objects.hashCode(this.summand);
+        hash = 39 * hash + Objects.hashCode(this.prependValue);
         return hash;
     }
 
@@ -63,7 +68,7 @@ public class IntegerAddModification extends VariableModification<Integer> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final IntegerAddModification other = (IntegerAddModification) obj;
-        return Objects.equals(this.summand, other.summand);
+        final IntegerPrependValueModification other = (IntegerPrependValueModification) obj;
+        return Objects.equals(this.prependValue, other.prependValue);
     }
 }

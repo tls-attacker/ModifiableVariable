@@ -14,46 +14,45 @@ import java.util.Objects;
 import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = {"xor", "modificationFilter"})
-public class IntegerXorModification extends VariableModification<Integer> {
+@XmlType(propOrder = {"appendValue", "modificationFilter"})
+public class IntegerAppendValueModification extends VariableModification<Integer> {
 
     private static final int MAX_VALUE_MODIFIER = 256;
 
-    private Integer xor;
+    private Integer appendValue;
 
-    public IntegerXorModification() {}
+    public IntegerAppendValueModification() {}
 
-    public IntegerXorModification(Integer xor) {
-        this.xor = xor;
+    public IntegerAppendValueModification(Integer appendValue) {
+        this.appendValue = appendValue;
     }
 
     @Override
-    protected Integer modifyImplementationHook(final Integer input) {
-        return (input == null) ? xor : input ^ xor;
+    protected Integer modifyImplementationHook(Integer input) {
+        if (input == null) {
+            input = 0;
+        }
+        return (input << (Integer.SIZE - Integer.numberOfLeadingZeros((appendValue)))) + appendValue;
     }
 
-    public Integer getXor() {
-        return xor;
+    public Integer getAppendValue() {
+        return appendValue;
     }
 
-    public void setXor(Integer xor) {
-        this.xor = xor;
+    public void setAppendValue(Integer appendValue) {
+        this.appendValue = appendValue;
     }
 
     @Override
     public VariableModification<Integer> getModifiedCopy() {
-        Random r = new Random();
-        if (r.nextBoolean()) {
-            return new IntegerSubtractModification(xor + new Random().nextInt(MAX_VALUE_MODIFIER));
-        } else {
-            return new IntegerSubtractModification(xor - new Random().nextInt(MAX_VALUE_MODIFIER));
-        }
+        return new IntegerAppendValueModification(
+            appendValue + new Random().nextInt(MAX_VALUE_MODIFIER));
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 36 * hash + Objects.hashCode(this.xor);
+        hash = 38 * hash + Objects.hashCode(this.appendValue);
         return hash;
     }
 
@@ -68,7 +67,7 @@ public class IntegerXorModification extends VariableModification<Integer> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final IntegerXorModification other = (IntegerXorModification) obj;
-        return Objects.equals(this.xor, other.xor);
+        final IntegerAppendValueModification other = (IntegerAppendValueModification) obj;
+        return Objects.equals(this.appendValue, other.appendValue);
     }
 }

@@ -14,46 +14,54 @@ import java.util.Objects;
 import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = {"xor", "modificationFilter"})
-public class LongXorModification extends VariableModification<Long> {
+@XmlType(propOrder = {"shift", "modificationFilter"})
+public class LongShiftRightModification extends VariableModification<Long> {
 
-    private static final int MAX_XOR_MODIFIER = 256;
+    private static final int MAX_SHIFT_MODIFIER = 64;
 
-    private Long xor;
+    private int shift;
 
-    public LongXorModification() {}
+    public LongShiftRightModification() {}
 
-    public LongXorModification(Long xor) {
-        this.xor = xor;
+    public LongShiftRightModification(int shift) {
+        this.shift = shift;
     }
 
     @Override
     protected Long modifyImplementationHook(final Long input) {
-        return (input == null) ? xor : input ^ xor;
+        return (input == null) ? 0L : input >> shift % MAX_SHIFT_MODIFIER;
     }
 
-    public Long getXor() {
-        return xor;
+    public int getShift() {
+        return shift;
     }
 
-    public void setXor(Long xor) {
-        this.xor = xor;
+    public void setShift(int shift) {
+        this.shift = shift;
     }
 
     @Override
     public VariableModification<Long> getModifiedCopy() {
         Random r = new Random();
+        int newShift;
         if (r.nextBoolean()) {
-            return new LongXorModification(xor + r.nextInt(MAX_XOR_MODIFIER));
+            newShift = shift + r.nextInt(MAX_SHIFT_MODIFIER);
         } else {
-            return new LongXorModification(xor - r.nextInt(MAX_XOR_MODIFIER));
+            newShift = shift - r.nextInt(MAX_SHIFT_MODIFIER);
         }
+        if (newShift < 0) {
+            newShift = MAX_SHIFT_MODIFIER - 1;
+        } else if (newShift > MAX_SHIFT_MODIFIER - 1) {
+            newShift = 0;
+        }
+
+        return new LongShiftRightModification(newShift);
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 44 * hash + Objects.hashCode(this.xor);
+        hash = 50 * hash + Objects.hashCode(this.shift);
         return hash;
     }
 
@@ -68,7 +76,7 @@ public class LongXorModification extends VariableModification<Long> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final LongXorModification other = (LongXorModification) obj;
-        return Objects.equals(this.xor, other.xor);
+        final LongShiftRightModification other = (LongShiftRightModification) obj;
+        return Objects.equals(this.shift, other.shift);
     }
 }

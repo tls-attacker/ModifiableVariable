@@ -77,8 +77,45 @@ public class Modifiable {
         return modifiableString;
     }
 
+    public static ModifiableBigInteger prepend(BigInteger i) {
+        return getModifiableBigIntegerWithModification(
+            BigIntegerModificationFactory.prependValue(i));
+    }
+
+    public static ModifiableByteArray prepend(byte[] b) {
+        return getModifiableByteArrayWithModification(
+            ByteArrayModificationFactory.prependValue(b));
+    }
+
+    public static ModifiableInteger prepend(Integer i) {
+        return getModifiableIntegerWithModification(IntegerModificationFactory.prependValue(i));
+    }
+
+    public static ModifiableLong prepend(Long l) {
+        return getModifiableLongWithModification(LongModificationFactory.prependValue(l));
+    }
+
     public static ModifiableString prepend(final String s) {
         return getModifiableStringWithModification(StringModificationFactory.prependValue(s));
+    }
+
+
+    public static ModifiableBigInteger append(BigInteger i) {
+        return getModifiableBigIntegerWithModification(
+            BigIntegerModificationFactory.appendValue(i));
+    }
+
+    public static ModifiableByteArray append(byte[] b) {
+        return getModifiableByteArrayWithModification(
+            ByteArrayModificationFactory.appendValue(b));
+    }
+
+    public static ModifiableInteger append(Integer i) {
+        return getModifiableIntegerWithModification(IntegerModificationFactory.appendValue(i));
+    }
+
+    public static ModifiableLong append(Long l) {
+        return getModifiableLongWithModification(LongModificationFactory.appendValue(l));
     }
 
     public static ModifiableString append(final String s) {
@@ -114,6 +151,26 @@ public class Modifiable {
     public static ModifiableString explicit(String s) {
         return getModifiableStringWithModification(StringModificationFactory.explicitValue(s));
     }
+
+
+    public static ModifiableBigInteger insert(BigInteger i, int position) {
+        return getModifiableBigIntegerWithModification(
+            BigIntegerModificationFactory.insertValue(i, position));
+    }
+
+    public static ModifiableByteArray insert(byte[] b, int position) {
+        return getModifiableByteArrayWithModification(
+            ByteArrayModificationFactory.insertValue(b, position));
+    }
+
+    public static ModifiableInteger insert(Integer i, int position) {
+        return getModifiableIntegerWithModification(IntegerModificationFactory.insertValue(i, position));
+    }
+
+    public static ModifiableLong insert(Long l, int position) {
+        return getModifiableLongWithModification(LongModificationFactory.insertValue(l, position));
+    }
+
     public static ModifiableString insert(String s, int position) {
         return getModifiableStringWithModification(StringModificationFactory.insertValue(s, position));
     }
@@ -172,10 +229,6 @@ public class Modifiable {
         return getModifiableLongWithModification(LongModificationFactory.sub(l));
     }
 
-    public static ModifiableByteArray insert(byte[] b, int position) {
-        return getModifiableByteArrayWithModification(
-                ByteArrayModificationFactory.insert(b, position));
-    }
 
     public static ModifiableByteArray delete(int startPosition, int count) {
         return getModifiableByteArrayWithModification(
@@ -203,6 +256,10 @@ public class Modifiable {
         return getModifiableIntegerWithModification(IntegerModificationFactory.shiftLeft(i));
     }
 
+    public static ModifiableLong shiftLeftLong(Integer i) {
+        return getModifiableLongWithModification(LongModificationFactory.shiftLeft(i));
+    }
+
     public static ModifiableBigInteger shiftRightBigInteger(Integer i) {
         return getModifiableBigIntegerWithModification(BigIntegerModificationFactory.shiftRight(i));
     }
@@ -211,7 +268,20 @@ public class Modifiable {
         return getModifiableBigIntegerWithModification(BigIntegerModificationFactory.multiply(i));
     }
 
+
+    public static ModifiableInteger multiply(Integer i) {
+        return getModifiableIntegerWithModification(IntegerModificationFactory.multiply(i));
+    }
+
+    public static ModifiableLong multiply(Long l) {
+        return getModifiableLongWithModification(LongModificationFactory.multiply(l));
+    }
+
     public static ModifiableInteger shiftRight(Integer i) {
         return getModifiableIntegerWithModification(IntegerModificationFactory.shiftRight(i));
+    }
+
+    public static ModifiableLong shiftRightLong(Integer i) {
+        return getModifiableLongWithModification(LongModificationFactory.shiftRight(i));
     }
 }

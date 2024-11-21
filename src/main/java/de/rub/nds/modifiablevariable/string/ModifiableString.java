@@ -30,7 +30,7 @@ public class ModifiableString extends ModifiableVariable<String> {
 
     @Override
     protected void createRandomModification() {
-        VariableModification<String> vm = StringModificationFactory.createRandomModification();
+        VariableModification<String> vm = StringModificationFactory.createRandomModification(null);
         setModification(vm);
     }
 

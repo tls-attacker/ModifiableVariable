@@ -123,7 +123,7 @@ public class ModifiableByteArrayTest {
         }
 
         VariableModification<byte[]> modifier =
-                ByteArrayModificationFactory.insert(modification1, 0);
+                ByteArrayModificationFactory.insertValue(modification1, 0);
         start.setModification(modifier);
 
         LOGGER.debug("Expected: {}", expResult);
@@ -146,7 +146,7 @@ public class ModifiableByteArrayTest {
         }
 
         VariableModification<byte[]> modifier =
-                ByteArrayModificationFactory.insert(modification1, originalValue.length);
+                ByteArrayModificationFactory.insertValue(modification1, originalValue.length);
         start.setModification(modifier);
 
         LOGGER.debug("Expected: {}", expResult);
@@ -246,21 +246,21 @@ public class ModifiableByteArrayTest {
         assumeTrue(modification1.length < originalValue.length);
         LOGGER.debug("Inserting negative Position");
         VariableModification<byte[]> modifier =
-                ByteArrayModificationFactory.insert(modification1, -2 * originalValue.length);
+                ByteArrayModificationFactory.insertValue(modification1, -2 * originalValue.length);
         start.setModification(modifier);
         assertArrayEquals(start.getValue(), originalValue);
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
         LOGGER.debug("Inserting empty Array");
         byte[] emptyArray = new byte[0];
-        modifier = ByteArrayModificationFactory.insert(emptyArray, 0);
+        modifier = ByteArrayModificationFactory.insertValue(emptyArray, 0);
         start.setModification(modifier);
         assertArrayEquals(originalValue, start.getValue());
 
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
         LOGGER.debug("Inserting to big Start position");
-        modifier = ByteArrayModificationFactory.insert(modification1, originalValue.length * 2);
+        modifier = ByteArrayModificationFactory.insertValue(modification1, originalValue.length * 2);
         start.setModification(modifier);
         assertArrayEquals(originalValue, start.getValue());
     }

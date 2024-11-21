@@ -23,8 +23,8 @@ public class IntegerSubtractModification extends VariableModification<Integer> {
 
     public IntegerSubtractModification() {}
 
-    public IntegerSubtractModification(Integer bi) {
-        this.subtrahend = bi;
+    public IntegerSubtractModification(Integer subtrahend) {
+        this.subtrahend = subtrahend;
     }
 
     @Override

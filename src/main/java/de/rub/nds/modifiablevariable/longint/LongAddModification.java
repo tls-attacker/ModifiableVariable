@@ -23,8 +23,8 @@ public class LongAddModification extends VariableModification<Long> {
 
     public LongAddModification() {}
 
-    public LongAddModification(Long bi) {
-        this.summand = bi;
+    public LongAddModification(Long summand) {
+        this.summand = summand;
     }
 
     @Override

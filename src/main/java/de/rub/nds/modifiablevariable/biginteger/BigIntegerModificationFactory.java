@@ -11,6 +11,7 @@ import de.rub.nds.modifiablevariable.FileConfigurationException;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.bytearray.ByteArrayModificationFactory;
 import de.rub.nds.modifiablevariable.integer.IntegerModificationFactory;
+import de.rub.nds.modifiablevariable.longint.LongModificationFactory;
 import de.rub.nds.modifiablevariable.util.RandomHelper;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,14 +26,32 @@ import java.util.Scanner;
 public class BigIntegerModificationFactory {
 
     private enum ModificationType {
-        ADD, SUBTRACT, XOR, EXPLICIT, SHIFT_LEFT, SHIFT_RIGHT, EXPLICIT_FROM_FILE
+        ADD,
+        SUBTRACT,
+        MULTIPLY,
+        XOR,
+        EXPLICIT,
+        SHIFT_LEFT,
+        SHIFT_RIGHT,
+        EXPLICIT_FROM_FILE,
+        APPEND,
+        INSERT,
+        PREPEND
     }
 
     private static final int MODIFICATION_COUNT = ModificationType.values().length;
 
     private static final int MAX_MODIFICATION_VALUE = 320000;
 
+    private static final int MAX_FILE_ENTRIES = 200;
+
     private static final int MAX_MODIFICATION_SHIFT_VALUE = 50;
+
+    private static final int MAX_MODIFICATION_MULTIPLY_VALUE = 256;
+
+    private static final int MAX_MODIFICATION_INSERT_VALUE = 256;
+
+    private static final int MAX_MODIFICATION_INSERT_POSITION_VALUE = 50;
 
     private static List<VariableModification<BigInteger>> modificationsFromFile;
 
@@ -94,6 +113,19 @@ public class BigIntegerModificationFactory {
         return modifications.get(pos);
     }
 
+    public static VariableModification<BigInteger> appendValue(final BigInteger value) {
+        return new BigIntegerAppendValueModification(value);
+    }
+
+    public static VariableModification<BigInteger> insertValue(
+            final BigInteger value, final int startPosition) {
+        return new BigIntegerInsertValueModification(value, startPosition);
+    }
+
+    public static VariableModification<BigInteger> prependValue(final BigInteger value) {
+        return new BigIntegerPrependValueModification(value);
+    }
+
     /*
      * Interactive modification
      */
@@ -137,7 +169,7 @@ public class BigIntegerModificationFactory {
                 modificationsFromFile = new LinkedList<>();
                 ClassLoader classLoader = ByteArrayModificationFactory.class.getClassLoader();
                 InputStream is =
-                        classLoader.getResourceAsStream(IntegerModificationFactory.FILE_NAME);
+                        classLoader.getResourceAsStream(LongModificationFactory.FILE_NAME);
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
                 String line;
                 while ((line = br.readLine()) != null) {
@@ -158,12 +190,17 @@ public class BigIntegerModificationFactory {
         Random random = RandomHelper.getRandom();
         ModificationType randomType = ModificationType.values()[random.nextInt(MODIFICATION_COUNT)];
         BigInteger modification = BigInteger.valueOf(random.nextInt(MAX_MODIFICATION_VALUE));
+        BigInteger insert_modification =
+                BigInteger.valueOf(random.nextInt(MAX_MODIFICATION_INSERT_VALUE));
         int shiftModification = random.nextInt(MAX_MODIFICATION_SHIFT_VALUE);
         switch (randomType) {
             case ADD:
                 return new BigIntegerAddModification(modification);
             case SUBTRACT:
                 return new BigIntegerSubtractModification(modification);
+            case MULTIPLY:
+                return new BigIntegerMultiplyModification(
+                        BigInteger.valueOf(random.nextInt(MAX_MODIFICATION_MULTIPLY_VALUE)));
             case XOR:
                 return new BigIntegerXorModification(modification);
             case EXPLICIT:
@@ -173,7 +210,15 @@ public class BigIntegerModificationFactory {
             case SHIFT_RIGHT:
                 return new BigIntegerShiftRightModification(shiftModification);
             case EXPLICIT_FROM_FILE:
-                return explicitValueFromFile(MAX_MODIFICATION_VALUE);
+                return explicitValueFromFile(MAX_FILE_ENTRIES);
+            case APPEND:
+                return new BigIntegerAppendValueModification(insert_modification);
+            case INSERT:
+                return new BigIntegerInsertValueModification(
+                        insert_modification,
+                        random.nextInt(MAX_MODIFICATION_INSERT_POSITION_VALUE));
+            case PREPEND:
+                return new BigIntegerPrependValueModification(insert_modification);
             default:
                 throw new IllegalStateException("Unexpected modification type: " + randomType);
         }

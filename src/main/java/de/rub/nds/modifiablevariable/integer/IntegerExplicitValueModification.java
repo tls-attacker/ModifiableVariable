@@ -23,8 +23,8 @@ public class IntegerExplicitValueModification extends VariableModification<Integ
 
     public IntegerExplicitValueModification() {}
 
-    public IntegerExplicitValueModification(Integer bi) {
-        this.explicitValue = bi;
+    public IntegerExplicitValueModification(Integer explicitValue) {
+        this.explicitValue = explicitValue;
     }
 
     @Override

@@ -17,43 +17,45 @@ import java.util.Objects;
 import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = {"factor", "modificationFilter"})
+@XmlType(propOrder = {"prependValue", "modificationFilter"})
 @XmlAccessorType(XmlAccessType.FIELD)
-public class BigIntegerMultiplyModification extends VariableModification<BigInteger> {
+public class BigIntegerPrependValueModification extends VariableModification<BigInteger> {
 
-    private static final int MAX_FACTOR_LENGTH = 8;
+    private static final int MAX_PREPEND_LENGTH = 8;
 
-    private BigInteger factor;
+    private BigInteger prependValue;
 
-    public BigIntegerMultiplyModification() {}
+    public BigIntegerPrependValueModification() {}
 
-    public BigIntegerMultiplyModification(BigInteger bi) {
-        this.factor = bi;
+    public BigIntegerPrependValueModification(BigInteger bi) {
+        this.prependValue = bi;
     }
 
     @Override
     protected BigInteger modifyImplementationHook(BigInteger input) {
-        return (input == null) ? BigInteger.ZERO: input.multiply(factor);
+        if (input == null) {
+            input = BigInteger.ZERO;
+        }
+        return prependValue.shiftLeft(input.bitLength()).add(input);
     }
 
-    public BigInteger getFactor() {
-        return factor;
+    public BigInteger getPrependValue() {
+        return prependValue;
     }
 
-    public void setFactor(BigInteger factor) {
-        this.factor = factor;
+    public void setPrependValue(BigInteger prependValue) {
+        this.prependValue = prependValue;
     }
 
     @Override
     public VariableModification<BigInteger> getModifiedCopy() {
-        return new BigIntegerMultiplyModification(
-                factor.add(new BigInteger(MAX_FACTOR_LENGTH, new Random())));
+        return new BigIntegerPrependValueModification(prependValue.add(new BigInteger(MAX_PREPEND_LENGTH, new Random())));
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.factor);
+        hash = 60 * hash + Objects.hashCode(this.prependValue);
         return hash;
     }
 
@@ -68,7 +70,7 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final BigIntegerMultiplyModification other = (BigIntegerMultiplyModification) obj;
-        return Objects.equals(this.factor, other.factor);
+        final BigIntegerPrependValueModification other = (BigIntegerPrependValueModification) obj;
+        return Objects.equals(this.prependValue, other.prependValue);
     }
 }

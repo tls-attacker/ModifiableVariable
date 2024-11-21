@@ -14,46 +14,41 @@ import java.util.Objects;
 import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = {"xor", "modificationFilter"})
-public class LongXorModification extends VariableModification<Long> {
+@XmlType(propOrder = {"factor", "modificationFilter"})
+public class LongMultiplyModification extends VariableModification<Long> {
 
-    private static final int MAX_XOR_MODIFIER = 256;
+    private static final int MAX_FACTOR_MODIFIER = 256;
 
-    private Long xor;
+    private Long factor;
 
-    public LongXorModification() {}
+    public LongMultiplyModification() {}
 
-    public LongXorModification(Long xor) {
-        this.xor = xor;
+    public LongMultiplyModification(Long factor) {
+        this.factor = factor;
     }
 
     @Override
     protected Long modifyImplementationHook(final Long input) {
-        return (input == null) ? xor : input ^ xor;
+        return (input == null) ? 0L : input * factor;
     }
 
-    public Long getXor() {
-        return xor;
+    public Long getFactor() {
+        return factor;
     }
 
-    public void setXor(Long xor) {
-        this.xor = xor;
+    public void setFactor(Long factor) {
+        this.factor = factor;
     }
 
     @Override
     public VariableModification<Long> getModifiedCopy() {
-        Random r = new Random();
-        if (r.nextBoolean()) {
-            return new LongXorModification(xor + r.nextInt(MAX_XOR_MODIFIER));
-        } else {
-            return new LongXorModification(xor - r.nextInt(MAX_XOR_MODIFIER));
-        }
+        return new LongMultiplyModification(factor + new Random().nextInt(MAX_FACTOR_MODIFIER));
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 44 * hash + Objects.hashCode(this.xor);
+        hash = 48 * hash + Objects.hashCode(this.factor);
         return hash;
     }
 
@@ -68,7 +63,7 @@ public class LongXorModification extends VariableModification<Long> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final LongXorModification other = (LongXorModification) obj;
-        return Objects.equals(this.xor, other.xor);
+        final LongMultiplyModification other = (LongMultiplyModification) obj;
+        return Objects.equals(this.factor, other.factor);
     }
 }

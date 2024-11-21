@@ -22,13 +22,13 @@ import java.util.Random;
 public class ByteArrayModificationFactory {
 
     private enum ModificationType {
-        XOR, INSERT, DELETE, EXPLICIT, DUPLICATE, EXPLICIT_FROM_FILE, SHUFFLE
+        XOR, APPEND, INSERT, PREPEND, DELETE, EXPLICIT, DUPLICATE, EXPLICIT_FROM_FILE, SHUFFLE
     }
     private static final int MODIFICATION_COUNT = ModificationType.values().length;
 
-    private static final int MAX_CONFIG_PARAMETER = 200;
+    private static final int MAX_BYTE_ARRAY_LENGTH = 200;
 
-    private static final int EXPLICIT_VALUE_RANDOM = 1000;
+    private static final int MAX_FILE_ENTRIES = 1000;
 
     private static final int MODIFIED_ARRAY_LENGTH_ESTIMATION = 50;
 
@@ -48,13 +48,23 @@ public class ByteArrayModificationFactory {
     /**
      * *
      *
-     * @param bytesToInsert bytes to xor
+     * @param bytesToInsert bytes to insert
      * @param startPosition negative numbers mean that the position is taken from the end
      * @return variable modification
      */
-    public static VariableModification<byte[]> insert(
+    public static VariableModification<byte[]> insertValue(
             final byte[] bytesToInsert, final int startPosition) {
-        return new ByteArrayInsertModification(bytesToInsert, startPosition);
+        return new ByteArrayInsertValueModification(bytesToInsert, startPosition);
+    }
+
+    public static VariableModification<byte[]> appendValue(
+        final byte[] bytesToAppend) {
+        return new ByteArrayAppendValueModification(bytesToAppend);
+    }
+
+    public static VariableModification<byte[]> prependValue(
+        final byte[] bytesToPrepend) {
+        return new ByteArrayPrependValueModification(bytesToPrepend);
     }
 
     /**
@@ -132,44 +142,40 @@ public class ByteArrayModificationFactory {
                 randomType = ModificationType.EXPLICIT;
             }
         }
+        modificationArrayLength = random.nextInt(MAX_BYTE_ARRAY_LENGTH - 1) + 1;
         switch (randomType) {
             case XOR:
-                modificationArrayLength = random.nextInt(modifiedArrayLength);
-                if (modificationArrayLength == 0) {
-                    modificationArrayLength++;
-                }
                 byte[] xor = new byte[modificationArrayLength];
                 random.nextBytes(xor);
                 startPosition = random.nextInt(modifiedArrayLength - modificationArrayLength);
                 return new ByteArrayXorModification(xor, startPosition);
+            case APPEND:
+                byte[] bytesToAppend = new byte[modificationArrayLength];
+                random.nextBytes(bytesToAppend);
+                return new ByteArrayAppendValueModification(bytesToAppend);
             case INSERT:
-                modificationArrayLength = random.nextInt(MAX_CONFIG_PARAMETER);
-                if (modificationArrayLength == 0) {
-                    modificationArrayLength++;
-                }
                 byte[] bytesToInsert = new byte[modificationArrayLength];
                 random.nextBytes(bytesToInsert);
-                int insertPosition = random.nextInt(modifiedArrayLength);
-                return new ByteArrayInsertModification(bytesToInsert, insertPosition);
+                return new ByteArrayInsertValueModification(bytesToInsert, random.nextInt(modifiedArrayLength));
+            case PREPEND:
+                byte[] bytesToPrepend = new byte[modificationArrayLength];
+                random.nextBytes(bytesToPrepend);
+                return new ByteArrayPrependValueModification(bytesToPrepend);
             case DELETE:
                 startPosition = random.nextInt(modifiedArrayLength - 1);
                 int count = random.nextInt(modifiedArrayLength - startPosition);
                 count++;
                 return new ByteArrayDeleteModification(startPosition, count);
             case EXPLICIT:
-                modificationArrayLength = random.nextInt(MAX_CONFIG_PARAMETER);
-                if (modificationArrayLength == 0) {
-                    modificationArrayLength++;
-                }
                 byte[] explicitValue = new byte[modificationArrayLength];
                 random.nextBytes(explicitValue);
                 return new ByteArrayExplicitValueModification(explicitValue);
             case DUPLICATE:
                 return new ByteArrayDuplicateModification();
             case EXPLICIT_FROM_FILE:
-                return explicitValueFromFile(random.nextInt(EXPLICIT_VALUE_RANDOM));
+                return explicitValueFromFile(random.nextInt(MAX_FILE_ENTRIES));
             case SHUFFLE:
-                int shuffleSize = random.nextInt(MAX_CONFIG_PARAMETER);
+                int shuffleSize = random.nextInt(MAX_BYTE_ARRAY_LENGTH);
                 byte[] shuffle = new byte[shuffleSize];
                 random.nextBytes(shuffle);
                 return new ByteArrayShuffleModification(shuffle);
