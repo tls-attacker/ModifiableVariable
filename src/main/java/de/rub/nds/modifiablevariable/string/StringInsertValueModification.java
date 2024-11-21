@@ -39,20 +39,13 @@ public class StringInsertValueModification extends VariableModification<String> 
 
     @Override
     protected String modifyImplementationHook(final String input) {
-        int start = startPosition;
-        if (start < 0) {
-            start += input.length();
-            if (start < 0) {
-                LOGGER.debug("Trying to insert from too negative start position. start = {}", startPosition);
-                return input;
-            }
-        }
-        if (start > input.length()) {
-            LOGGER.debug("Trying to insert behind the string. String Length:{} Insert Position:{}", input.length(), startPosition);
-            return input;
+        // Wrap around and also allow to insert at the end of the original value
+        int insertPosition = startPosition  % (input.length() + 1);
+        if (startPosition < 0) {
+            insertPosition += input.length();
         }
 
-        return new StringBuilder(input).insert(start, insertValue).toString();
+        return new StringBuilder(input).insert(insertPosition, insertValue).toString();
     }
 
     public String getInsertValue() {

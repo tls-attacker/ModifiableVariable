@@ -45,17 +45,16 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
             input = new byte[0];
         }
 
-        int start = startPosition;
-        if (start < 0) {
-            start = 0;
+        // Wrap around and also allow to insert at the end of the original value
+        int insertPosition = startPosition % (input.length + 1);
+        if (startPosition < 0) {
+            insertPosition += input.length;
         }
-        if (start > input.length) {
-            start = input.length;
-        }
-        byte[] ret1 = Arrays.copyOf(input, start);
+
+        byte[] ret1 = Arrays.copyOf(input, insertPosition);
         byte[] ret3 = null;
-        if (start < input.length) {
-            ret3 = Arrays.copyOfRange(input, start, input.length);
+        if (insertPosition < input.length) {
+            ret3 = Arrays.copyOfRange(input, insertPosition, input.length);
         }
         return ArrayConverter.concatenate(ret1, bytesToInsert, ret3);
     }

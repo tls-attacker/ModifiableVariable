@@ -32,7 +32,7 @@ public class LongAppendValueModification extends VariableModification<Long> {
         if (input == null) {
             input = 0L;
         }
-        return (input << (Long.SIZE - Long.numberOfLeadingZeros((appendValue)))) + appendValue;
+        return (input << (Long.SIZE - Long.numberOfLeadingZeros((appendValue)))) | appendValue;
     }
 
     public Long getAppendValue() {

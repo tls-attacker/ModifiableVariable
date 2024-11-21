@@ -17,6 +17,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.util.Arrays;
 
 public class ModifiableByteArrayTest {
 
@@ -242,13 +243,13 @@ public class ModifiableByteArrayTest {
     @Test
     public void testInsertBytes() {
         LOGGER.info("testInsertBytes");
-        // Insert at too negative position, prepend bytes
+        // Insert at negative position -> wrap around
         assumeTrue(modification1.length < originalValue.length);
-        LOGGER.debug("Inserting negative Position");
+        LOGGER.debug("Inserting negative at position");
         VariableModification<byte[]> modifier =
                 ByteArrayModificationFactory.insertValue(modification1, -2 * originalValue.length);
         start.setModification(modifier);
-        byte[] expResult = ArrayConverter.concatenate(modification1, originalValue);
+        byte[] expResult = ArrayConverter.concatenate(Arrays.copyOf(originalValue, 1), modification1, Arrays.copyOfRange(originalValue, 1, originalValue.length));
         assertArrayEquals(start.getValue(), expResult);
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
@@ -258,13 +259,13 @@ public class ModifiableByteArrayTest {
         start.setModification(modifier);
         assertArrayEquals(originalValue, start.getValue());
 
-        // Insert at too positive position, append bytes
+        // Insert at too positive position -> wrap around
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
-        LOGGER.debug("Inserting to big Start position");
+        LOGGER.debug("Inserting at too large position");
         modifier = ByteArrayModificationFactory.insertValue(modification1, originalValue.length * 2);
         start.setModification(modifier);
-        expResult = ArrayConverter.concatenate(originalValue, modification1);
+        expResult = ArrayConverter.concatenate(Arrays.copyOf(originalValue, originalValue.length - 1), modification1, Arrays.copyOfRange(originalValue, originalValue.length -1, originalValue.length));
         assertArrayEquals(expResult, start.getValue());
     }
 

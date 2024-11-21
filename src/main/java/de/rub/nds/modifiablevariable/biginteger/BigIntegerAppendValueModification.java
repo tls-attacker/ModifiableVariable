@@ -36,7 +36,7 @@ public class BigIntegerAppendValueModification extends VariableModification<BigI
         if (input == null) {
             input = BigInteger.ZERO;
         }
-        return input.shiftLeft(appendValue.bitLength()).add(appendValue);
+        return input.shiftLeft(appendValue.bitLength()).or(appendValue);
     }
 
     public BigInteger getAppendValue() {

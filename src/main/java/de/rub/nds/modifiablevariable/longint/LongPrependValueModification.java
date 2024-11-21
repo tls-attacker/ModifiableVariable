@@ -32,7 +32,7 @@ public class LongPrependValueModification extends VariableModification<Long> {
         if (input == null) {
             input = 0L;
         }
-        return (prependValue << (Long.SIZE - Long.numberOfLeadingZeros((input)))) + input;
+        return (prependValue << (Long.SIZE - Long.numberOfLeadingZeros((input)))) | input;
     }
 
     public Long getPrependValue() {

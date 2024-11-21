@@ -8,11 +8,8 @@
 package de.rub.nds.modifiablevariable.integer;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayInsertValueModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
-import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 
@@ -40,17 +37,19 @@ public class IntegerInsertValueModification extends VariableModification<Integer
         if (input == null) {
             input = 0;
         }
-        int originalValueLength = Integer.SIZE - Integer.numberOfLeadingZeros((input));
+
         int insertValueLength = Integer.SIZE - Integer.numberOfLeadingZeros((insertValue));
-        int insertPosition = startPosition;
-        if (startPosition > originalValueLength) {
-            insertPosition = originalValueLength;
-        } else if (startPosition < 0) {
-            insertPosition = 0;
+
+        // Wrap around integer size
+        int insertPosition = startPosition % Integer.SIZE;
+        if (startPosition < 0) {
+            insertPosition += Integer.SIZE - 1;
         }
+
         int mask = ((1 << insertPosition) - 1);
 
-        return (((input >> insertPosition) << insertValueLength) + insertValue) << insertPosition + (mask & input);
+        return (((input >> insertPosition) << insertValueLength) | insertValue)
+                << insertPosition | (mask & input);
     }
 
     public Integer getInsertValue() {
@@ -75,7 +74,7 @@ public class IntegerInsertValueModification extends VariableModification<Integer
 
         if (r.nextBoolean()) {
             return new IntegerInsertValueModification(
-                insertValue + r.nextInt(MAX_VALUE_MODIFIER), startPosition);
+                    insertValue + r.nextInt(MAX_VALUE_MODIFIER), startPosition);
         } else {
             int modifier = r.nextInt(MAX_POSITION_MODIFIER);
             if (r.nextBoolean()) {

@@ -39,21 +39,23 @@ public class BigIntegerInsertValueModification extends VariableModification<BigI
         if (input == null) {
             input = BigInteger.ZERO;
         }
+
         int originalValueLength = input.bitLength();
         int insertValueLength = insertValue.bitLength();
-        int insertPosition = startPosition;
-        if (startPosition > originalValueLength) {
-            insertPosition = originalValueLength;
-        } else if (startPosition < 0) {
-            insertPosition = 0;
+
+        // Wrap around and also allow to insert at the end of the original value
+        int insertPosition = startPosition % (originalValueLength + 1);
+        if (startPosition < 0) {
+            insertPosition += originalValueLength;
         }
+
         BigInteger mask = BigInteger.valueOf((1L << insertPosition) - 1);
 
         return input.shiftRight(insertPosition)
                 .shiftLeft(insertValueLength)
-                .and(insertValue)
+                .or(insertValue)
                 .shiftLeft(insertPosition)
-                .add(mask.and(input));
+                .or(mask.and(input));
     }
 
     public BigInteger getInsertValue() {

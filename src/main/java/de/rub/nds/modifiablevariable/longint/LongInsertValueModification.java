@@ -36,17 +36,18 @@ public class LongInsertValueModification extends VariableModification<Long> {
         if (input == null) {
             input = 0L;
         }
-        int originalValueLength = Long.SIZE - Long.numberOfLeadingZeros((input));
+
         int insertValueLength = Long.SIZE - Long.numberOfLeadingZeros((insertValue));
-        int insertPosition = startPosition;
-        if (startPosition > originalValueLength) {
-            insertPosition = originalValueLength;
-        } else if (startPosition < 0) {
-            insertPosition = 0;
+
+        // Wrap around long size
+        int insertPosition = startPosition % Long.SIZE;
+        if (startPosition < 0) {
+            insertPosition += Long.SIZE - 1;
         }
+
         long mask = ((1L << insertPosition) - 1);
 
-        return (((input >> insertPosition) << insertValueLength) + insertValue) << insertPosition + (mask & input);
+        return (((input >> insertPosition) << insertValueLength) | insertValue) << insertPosition | (mask & input);
     }
 
     public Long getInsertValue() {

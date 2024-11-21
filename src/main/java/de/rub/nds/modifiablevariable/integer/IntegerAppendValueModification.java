@@ -32,7 +32,7 @@ public class IntegerAppendValueModification extends VariableModification<Integer
         if (input == null) {
             input = 0;
         }
-        return (input << (Integer.SIZE - Integer.numberOfLeadingZeros((appendValue)))) + appendValue;
+        return (input << (Integer.SIZE - Integer.numberOfLeadingZeros((appendValue)))) | appendValue;
     }
 
     public Integer getAppendValue() {

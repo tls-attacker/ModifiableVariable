@@ -33,7 +33,7 @@ public class IntegerPrependValueModification extends VariableModification<Intege
             input = 0;
         }
 
-        return (prependValue << (Integer.SIZE - Integer.numberOfLeadingZeros((input)))) + input;
+        return (prependValue << (Integer.SIZE - Integer.numberOfLeadingZeros((input)))) | input;
     }
 
     public Integer getPrependValue() {

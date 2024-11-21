@@ -36,7 +36,7 @@ public class BigIntegerPrependValueModification extends VariableModification<Big
         if (input == null) {
             input = BigInteger.ZERO;
         }
-        return prependValue.shiftLeft(input.bitLength()).add(input);
+        return prependValue.shiftLeft(input.bitLength()).or(input);
     }
 
     public BigInteger getPrependValue() {
