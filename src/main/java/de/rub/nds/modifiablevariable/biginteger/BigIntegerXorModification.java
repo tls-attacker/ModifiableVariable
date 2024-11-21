@@ -55,7 +55,7 @@ public class BigIntegerXorModification extends VariableModification<BigInteger> 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 57 * hash + Objects.hashCode(this.xor);
+        hash = 31 * hash + xor.hashCode();
         return hash;
     }
 

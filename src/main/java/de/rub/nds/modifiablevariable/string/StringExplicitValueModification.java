@@ -60,7 +60,7 @@ public class StringExplicitValueModification extends VariableModification<String
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 62 * hash + Objects.hashCode(this.explicitValue);
+        hash = 31 * hash + explicitValue.hashCode();
         return hash;
     }
 

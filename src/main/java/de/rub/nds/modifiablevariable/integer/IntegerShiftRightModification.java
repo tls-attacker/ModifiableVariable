@@ -59,7 +59,7 @@ public class IntegerShiftRightModification extends VariableModification<Integer>
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 34 * hash + this.shift;
+        hash = 31 * hash + shift;
         return hash;
     }
 

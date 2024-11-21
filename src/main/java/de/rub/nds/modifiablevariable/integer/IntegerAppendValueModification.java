@@ -53,7 +53,7 @@ public class IntegerAppendValueModification extends VariableModification<Integer
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 38 * hash + Objects.hashCode(this.appendValue);
+        hash = 31 * hash + appendValue;
         return hash;
     }
 

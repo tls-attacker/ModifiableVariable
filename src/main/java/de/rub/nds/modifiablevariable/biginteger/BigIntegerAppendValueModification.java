@@ -56,7 +56,7 @@ public class BigIntegerAppendValueModification extends VariableModification<BigI
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.appendValue);
+        hash = 31 * hash + appendValue.hashCode();
         return hash;
     }
 

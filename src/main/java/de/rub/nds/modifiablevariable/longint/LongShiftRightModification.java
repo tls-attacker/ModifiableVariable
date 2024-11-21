@@ -61,7 +61,7 @@ public class LongShiftRightModification extends VariableModification<Long> {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 50 * hash + Objects.hashCode(this.shift);
+        hash = 31 * hash + shift;
         return hash;
     }
 

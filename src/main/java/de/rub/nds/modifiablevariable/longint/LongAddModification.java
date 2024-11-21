@@ -48,7 +48,7 @@ public class LongAddModification extends VariableModification<Long> {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 41 * hash + Objects.hashCode(this.summand);
+        hash = 31 * hash + summand.hashCode();
         return hash;
     }
 

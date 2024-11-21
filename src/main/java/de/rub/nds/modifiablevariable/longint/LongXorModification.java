@@ -53,7 +53,7 @@ public class LongXorModification extends VariableModification<Long> {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 44 * hash + Objects.hashCode(this.xor);
+        hash = 31 * hash + xor.hashCode();
         return hash;
     }
 

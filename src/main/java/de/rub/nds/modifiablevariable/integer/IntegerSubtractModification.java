@@ -49,7 +49,7 @@ public class IntegerSubtractModification extends VariableModification<Integer> {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 35 * hash + Objects.hashCode(this.subtrahend);
+        hash = 31 * hash + subtrahend;
         return hash;
     }
 

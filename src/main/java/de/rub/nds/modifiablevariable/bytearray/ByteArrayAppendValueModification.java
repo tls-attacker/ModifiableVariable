@@ -64,7 +64,7 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 86 * hash + Arrays.hashCode(this.bytesToAppend);
+        hash = 31 * hash + Arrays.hashCode(bytesToAppend);
         return hash;
     }
 

@@ -48,7 +48,7 @@ public class IntegerAddModification extends VariableModification<Integer> {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + Objects.hashCode(this.summand);
+        hash = 31 * hash + summand;
         return hash;
     }
 

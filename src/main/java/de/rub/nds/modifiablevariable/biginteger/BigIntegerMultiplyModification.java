@@ -53,7 +53,7 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.factor);
+        hash = 31 * hash + factor.hashCode();
         return hash;
     }
 

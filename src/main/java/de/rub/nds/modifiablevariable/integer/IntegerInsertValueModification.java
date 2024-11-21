@@ -91,8 +91,8 @@ public class IntegerInsertValueModification extends VariableModification<Integer
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.insertValue);
-        hash = 37 * hash + this.startPosition;
+        hash = 31 * hash + insertValue;
+        hash = 31 * hash + startPosition;
         return hash;
     }
 

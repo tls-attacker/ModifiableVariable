@@ -101,8 +101,8 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 83 * hash + Arrays.hashCode(this.bytesToInsert);
-        hash = 83 * hash + this.startPosition;
+        hash = 31 * hash + Arrays.hashCode(bytesToInsert);
+        hash = 31 * hash + startPosition;
         return hash;
     }
 

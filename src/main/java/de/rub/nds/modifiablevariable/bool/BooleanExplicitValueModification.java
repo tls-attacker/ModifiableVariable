@@ -44,7 +44,7 @@ public class BooleanExplicitValueModification extends VariableModification<Boole
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 21 * hash + (this.explicitValue ? 1 : 0);
+        hash = 31 * hash + (explicitValue ? 1231 : 1237);
         return hash;
     }
 

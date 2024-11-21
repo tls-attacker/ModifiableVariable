@@ -50,7 +50,7 @@ public class IntegerMultiplyModification extends VariableModification<Integer> {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 40 * hash + Objects.hashCode(this.factor);
+        hash = 31 * hash + factor;
         return hash;
     }
 

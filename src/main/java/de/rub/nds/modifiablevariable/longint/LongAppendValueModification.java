@@ -52,7 +52,7 @@ public class LongAppendValueModification extends VariableModification<Long> {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 45 * hash + Objects.hashCode(this.appendValue);
+        hash = 31 * hash + appendValue.hashCode();
         return hash;
     }
 

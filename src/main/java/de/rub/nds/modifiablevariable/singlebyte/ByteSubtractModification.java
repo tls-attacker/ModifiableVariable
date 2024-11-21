@@ -52,7 +52,7 @@ public class ByteSubtractModification extends VariableModification<Byte> {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 13 * hash + Objects.hashCode(this.subtrahend);
+        hash = 31 * hash + subtrahend;
         return hash;
     }
 

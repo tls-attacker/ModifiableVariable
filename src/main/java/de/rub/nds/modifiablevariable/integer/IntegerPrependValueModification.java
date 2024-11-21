@@ -53,7 +53,7 @@ public class IntegerPrependValueModification extends VariableModification<Intege
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 39 * hash + Objects.hashCode(this.prependValue);
+        hash = 31 * hash + prependValue;
         return hash;
     }
 

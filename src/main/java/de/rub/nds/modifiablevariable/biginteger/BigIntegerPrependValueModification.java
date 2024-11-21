@@ -56,7 +56,7 @@ public class BigIntegerPrependValueModification extends VariableModification<Big
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 60 * hash + Objects.hashCode(this.prependValue);
+        hash = 31 * hash + prependValue.hashCode();
         return hash;
     }
 

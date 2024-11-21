@@ -150,7 +150,7 @@ public abstract class ModifiableVariableHolder implements Serializable {
                     }
                     stringBuilder.append(field.getName());
                     stringBuilder.append(": ");
-                    stringBuilder.append(tempObject.toString());
+                    stringBuilder.append(tempObject);
                     stringBuilder.append("\n");
                 }
             } else {

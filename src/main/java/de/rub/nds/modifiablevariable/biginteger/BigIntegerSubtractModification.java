@@ -56,7 +56,7 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 56 * hash + Objects.hashCode(this.subtrahend);
+        hash = 31 * hash + subtrahend.hashCode();
         return hash;
     }
 

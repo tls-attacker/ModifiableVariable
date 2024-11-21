@@ -64,7 +64,7 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 87 * hash + Arrays.hashCode(this.bytesToPrepend);
+        hash = 31 * hash + Arrays.hashCode(bytesToPrepend);
         return hash;
     }
 
