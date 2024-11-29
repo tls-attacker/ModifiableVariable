@@ -13,7 +13,11 @@ import java.math.BigInteger;
 import java.util.List;
 
 /** A utility class to handle arrays and array conversions */
-public class ArrayConverter {
+public final class ArrayConverter {
+
+    private ArrayConverter() {
+        super();
+    }
 
     /**
      * Takes a long value and converts it to 8 bytes (needed for example to convert SQN numbers in
@@ -31,7 +35,7 @@ public class ArrayConverter {
         result[4] = (byte) (l >>> 24);
         result[5] = (byte) (l >>> 16);
         result[6] = (byte) (l >>> 8);
-        result[7] = (byte) (l);
+        result[7] = (byte) l;
         return result;
     }
 
@@ -46,7 +50,7 @@ public class ArrayConverter {
         result[0] = (byte) (l >>> 24);
         result[1] = (byte) (l >>> 16);
         result[2] = (byte) (l >>> 8);
-        result[3] = (byte) (l);
+        result[3] = (byte) l;
         return result;
     }
 
@@ -64,7 +68,7 @@ public class ArrayConverter {
         }
         byte[] result = new byte[size];
         int shift = 0;
-        int finalPosition = ((size > Integer.BYTES) ? (size - Integer.BYTES) : 0);
+        int finalPosition = size > Integer.BYTES ? size - Integer.BYTES : 0;
         for (int i = size - 1; i >= finalPosition; i--) {
             result[i] = (byte) (value >>> shift);
             shift += 8;
@@ -87,7 +91,7 @@ public class ArrayConverter {
         }
         byte[] result = new byte[size];
         int shift = 0;
-        int finalPosition = ((size > Long.BYTES) ? (size - Long.BYTES) : 0);
+        int finalPosition = size > Long.BYTES ? size - Long.BYTES : 0;
         for (int i = size - 1; i >= finalPosition; i--) {
             result[i] = (byte) (value >>> shift);
             shift += 8;
@@ -122,7 +126,7 @@ public class ArrayConverter {
         long result = 0;
         int shift = 0;
         for (int i = value.length - 1; i >= 0; i--) {
-            result += ((long) (value[i] & 0xFF)) << shift;
+            result += (long) (value[i] & 0xFF) << shift;
             shift += 8;
         }
         return result;
@@ -132,7 +136,7 @@ public class ArrayConverter {
         if (array == null) {
             array = new byte[0];
         }
-        boolean usePrettyPrinting = (array.length > 15);
+        boolean usePrettyPrinting = array.length > 15;
         return bytesToHexString(array, usePrettyPrinting);
     }
 
@@ -151,10 +155,10 @@ public class ArrayConverter {
         }
         for (int i = 0; i < array.length; i++) {
             if (i != 0) {
-                if (usePrettyPrinting && (i % 16 == 0)) {
+                if (usePrettyPrinting && i % 16 == 0) {
                     result.append("\n");
                 } else {
-                    if (usePrettyPrinting && (i % 8 == 0)) {
+                    if (usePrettyPrinting && i % 8 == 0) {
                         result.append(" ");
                     }
                     result.append(" ");
@@ -195,39 +199,39 @@ public class ArrayConverter {
     }
 
     @SafeVarargs
-    public static <T> T[] concatenate(final T[]... arrays) {
+    public static <T> T[] concatenate(T[]... arrays) {
         if (arrays == null || arrays.length == 0) {
             throw new IllegalArgumentException(
                     "The minimal number of parameters for this function is one");
         }
         int length = 0;
-        for (final T[] a : arrays) {
+        for (T[] a : arrays) {
             length += a.length;
         }
         @SuppressWarnings("unchecked")
         T[] result = (T[]) Array.newInstance(arrays[0].getClass().getComponentType(), length);
         int currentOffset = 0;
-        for (final T[] a : arrays) {
+        for (T[] a : arrays) {
             System.arraycopy(a, 0, result, currentOffset, a.length);
             currentOffset += a.length;
         }
         return result;
     }
 
-    public static byte[] concatenate(final byte[]... arrays) {
+    public static byte[] concatenate(byte[]... arrays) {
         if (arrays == null || arrays.length == 0) {
             throw new IllegalArgumentException(
                     "The minimal number of parameters for this function is one");
         }
         int length = 0;
-        for (final byte[] a : arrays) {
+        for (byte[] a : arrays) {
             if (a != null) {
                 length += a.length;
             }
         }
         byte[] result = new byte[length];
         int currentOffset = 0;
-        for (final byte[] a : arrays) {
+        for (byte[] a : arrays) {
             if (a != null) {
                 System.arraycopy(a, 0, result, currentOffset, a.length);
                 currentOffset += a.length;
@@ -236,8 +240,7 @@ public class ArrayConverter {
         return result;
     }
 
-    public static byte[] concatenate(
-            final byte[] array1, final byte[] array2, int numberOfArray2Bytes) {
+    public static byte[] concatenate(byte[] array1, byte[] array2, int numberOfArray2Bytes) {
         int length = array1.length + numberOfArray2Bytes;
         byte[] result = new byte[length];
         System.arraycopy(array1, 0, result, 0, array1.length);
@@ -245,7 +248,7 @@ public class ArrayConverter {
         return result;
     }
 
-    public static void makeArrayNonZero(final byte[] array) {
+    public static void makeArrayNonZero(byte[] array) {
         for (int i = 0; i < array.length; i++) {
             if (array[i] == 0) {
                 array[i] = 1;
@@ -331,7 +334,7 @@ public class ArrayConverter {
      * @return byte array
      */
     public static byte[] hexStringToByteArray(String input) {
-        if ((input == null) || (input.length() % 2 != 0)) {
+        if (input == null || input.length() % 2 != 0) {
             throw new IllegalArgumentException(
                     "The input must not be null and "
                             + "shall have an even number of hexadecimal characters. Found: "

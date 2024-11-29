@@ -25,15 +25,18 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
 
     private BigInteger factor;
 
-    public BigIntegerMultiplyModification() {}
+    public BigIntegerMultiplyModification() {
+        super();
+    }
 
-    public BigIntegerMultiplyModification(BigInteger bi) {
-        this.factor = bi;
+    public BigIntegerMultiplyModification(BigInteger factor) {
+        super();
+        this.factor = factor;
     }
 
     @Override
     protected BigInteger modifyImplementationHook(BigInteger input) {
-        return (input == null) ? BigInteger.ZERO : input.multiply(factor);
+        return input == null ? BigInteger.ZERO : input.multiply(factor);
     }
 
     public BigInteger getFactor() {
@@ -48,6 +51,11 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
     public VariableModification<BigInteger> getModifiedCopy() {
         return new BigIntegerMultiplyModification(
                 factor.add(new BigInteger(MAX_FACTOR_LENGTH, new Random())));
+    }
+
+    @Override
+    public VariableModification<BigInteger> createCopy() {
+        return new BigIntegerMultiplyModification(factor);
     }
 
     @Override
@@ -68,7 +76,7 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final BigIntegerMultiplyModification other = (BigIntegerMultiplyModification) obj;
-        return Objects.equals(this.factor, other.factor);
+        BigIntegerMultiplyModification other = (BigIntegerMultiplyModification) obj;
+        return Objects.equals(factor, other.factor);
     }
 }

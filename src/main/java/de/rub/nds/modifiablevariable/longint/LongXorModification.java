@@ -21,15 +21,18 @@ public class LongXorModification extends VariableModification<Long> {
 
     private Long xor;
 
-    public LongXorModification() {}
+    public LongXorModification() {
+        super();
+    }
 
     public LongXorModification(Long xor) {
+        super();
         this.xor = xor;
     }
 
     @Override
-    protected Long modifyImplementationHook(final Long input) {
-        return (input == null) ? xor : input ^ xor;
+    protected Long modifyImplementationHook(Long input) {
+        return input == null ? xor : input ^ xor;
     }
 
     public Long getXor() {
@@ -51,6 +54,11 @@ public class LongXorModification extends VariableModification<Long> {
     }
 
     @Override
+    public VariableModification<Long> createCopy() {
+        return new LongXorModification(xor);
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + xor.hashCode();
@@ -68,7 +76,7 @@ public class LongXorModification extends VariableModification<Long> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final LongXorModification other = (LongXorModification) obj;
-        return Objects.equals(this.xor, other.xor);
+        LongXorModification other = (LongXorModification) obj;
+        return Objects.equals(xor, other.xor);
     }
 }

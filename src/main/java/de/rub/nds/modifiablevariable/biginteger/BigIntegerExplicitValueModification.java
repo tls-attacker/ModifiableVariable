@@ -25,14 +25,17 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
 
     private BigInteger explicitValue;
 
-    public BigIntegerExplicitValueModification() {}
+    public BigIntegerExplicitValueModification() {
+        super();
+    }
 
-    public BigIntegerExplicitValueModification(BigInteger bi) {
-        this.explicitValue = bi;
+    public BigIntegerExplicitValueModification(BigInteger explicitValue) {
+        super();
+        this.explicitValue = explicitValue;
     }
 
     @Override
-    protected BigInteger modifyImplementationHook(final BigInteger input) {
+    protected BigInteger modifyImplementationHook(BigInteger input) {
         return explicitValue;
     }
 
@@ -57,6 +60,11 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
     }
 
     @Override
+    public VariableModification<BigInteger> createCopy() {
+        return new BigIntegerExplicitValueModification(explicitValue);
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + explicitValue.hashCode();
@@ -74,7 +82,7 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final BigIntegerExplicitValueModification other = (BigIntegerExplicitValueModification) obj;
-        return Objects.equals(this.explicitValue, other.explicitValue);
+        BigIntegerExplicitValueModification other = (BigIntegerExplicitValueModification) obj;
+        return Objects.equals(explicitValue, other.explicitValue);
     }
 }

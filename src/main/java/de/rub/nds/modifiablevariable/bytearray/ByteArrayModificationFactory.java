@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-public class ByteArrayModificationFactory {
+public final class ByteArrayModificationFactory {
 
     private enum ModificationType {
         XOR,
@@ -50,7 +50,7 @@ public class ByteArrayModificationFactory {
      * @param startPosition negative numbers mean that the position is taken from the end
      * @return variable modification
      */
-    public static VariableModification<byte[]> xor(final byte[] xor, final int startPosition) {
+    public static VariableModification<byte[]> xor(byte[] xor, int startPosition) {
         return new ByteArrayXorModification(xor, startPosition);
     }
 
@@ -62,15 +62,15 @@ public class ByteArrayModificationFactory {
      * @return variable modification
      */
     public static VariableModification<byte[]> insertValue(
-            final byte[] bytesToInsert, final int startPosition) {
+            byte[] bytesToInsert, int startPosition) {
         return new ByteArrayInsertValueModification(bytesToInsert, startPosition);
     }
 
-    public static VariableModification<byte[]> appendValue(final byte[] bytesToAppend) {
+    public static VariableModification<byte[]> appendValue(byte[] bytesToAppend) {
         return new ByteArrayAppendValueModification(bytesToAppend);
     }
 
-    public static VariableModification<byte[]> prependValue(final byte[] bytesToPrepend) {
+    public static VariableModification<byte[]> prependValue(byte[] bytesToPrepend) {
         return new ByteArrayPrependValueModification(bytesToPrepend);
     }
 
@@ -81,7 +81,7 @@ public class ByteArrayModificationFactory {
      * @param count number of bytes to be deleted
      * @return variable modification
      */
-    public static VariableModification<byte[]> delete(final int startPosition, final int count) {
+    public static VariableModification<byte[]> delete(int startPosition, int count) {
         return new ByteArrayDeleteModification(startPosition, count);
     }
 
@@ -94,7 +94,7 @@ public class ByteArrayModificationFactory {
         return new ByteArrayDuplicateModification();
     }
 
-    public static VariableModification<byte[]> explicitValue(final byte[] explicitValue) {
+    public static VariableModification<byte[]> explicitValue(byte[] explicitValue) {
         return new ByteArrayExplicitValueModification(explicitValue);
     }
 
@@ -110,7 +110,7 @@ public class ByteArrayModificationFactory {
      * @param shuffle positions that define shuffling
      * @return shuffling variable modification
      */
-    public static VariableModification<byte[]> shuffle(final byte[] shuffle) {
+    public static VariableModification<byte[]> shuffle(byte[] shuffle) {
         return new ByteArrayShuffleModification(shuffle);
     }
 
@@ -192,5 +192,7 @@ public class ByteArrayModificationFactory {
         }
     }
 
-    private ByteArrayModificationFactory() {}
+    private ByteArrayModificationFactory() {
+        super();
+    }
 }

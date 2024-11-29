@@ -12,10 +12,12 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = {"modificationFilter"})
+@XmlType(propOrder = "modificationFilter")
 public class BooleanToggleModification extends VariableModification<Boolean> {
 
-    public BooleanToggleModification() {}
+    public BooleanToggleModification() {
+        super();
+    }
 
     @Override
     protected Boolean modifyImplementationHook(Boolean input) {
@@ -31,9 +33,13 @@ public class BooleanToggleModification extends VariableModification<Boolean> {
     }
 
     @Override
+    public VariableModification<Boolean> createCopy() {
+        return new BooleanToggleModification();
+    }
+
+    @Override
     public int hashCode() {
-        int hash = 7;
-        return hash;
+        return 7;
     }
 
     @Override

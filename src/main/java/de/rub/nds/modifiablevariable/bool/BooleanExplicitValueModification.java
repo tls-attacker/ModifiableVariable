@@ -17,14 +17,17 @@ public class BooleanExplicitValueModification extends VariableModification<Boole
 
     private boolean explicitValue;
 
-    public BooleanExplicitValueModification() {}
+    public BooleanExplicitValueModification() {
+        super();
+    }
 
     public BooleanExplicitValueModification(boolean explicitValue) {
+        super();
         this.explicitValue = explicitValue;
     }
 
     @Override
-    protected Boolean modifyImplementationHook(final Boolean input) {
+    protected Boolean modifyImplementationHook(Boolean input) {
         return explicitValue;
     }
 
@@ -39,6 +42,11 @@ public class BooleanExplicitValueModification extends VariableModification<Boole
     @Override
     public VariableModification<Boolean> getModifiedCopy() {
         return new BooleanExplicitValueModification(!explicitValue);
+    }
+
+    @Override
+    public VariableModification<Boolean> createCopy() {
+        return new BooleanExplicitValueModification(explicitValue);
     }
 
     @Override
@@ -59,8 +67,8 @@ public class BooleanExplicitValueModification extends VariableModification<Boole
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final BooleanExplicitValueModification other = (BooleanExplicitValueModification) obj;
-        return this.explicitValue == other.explicitValue;
+        BooleanExplicitValueModification other = (BooleanExplicitValueModification) obj;
+        return explicitValue == other.explicitValue;
     }
 
     @Override

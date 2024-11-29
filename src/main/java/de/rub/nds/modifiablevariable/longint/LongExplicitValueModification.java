@@ -21,14 +21,17 @@ public class LongExplicitValueModification extends VariableModification<Long> {
 
     private Long explicitValue;
 
-    public LongExplicitValueModification() {}
+    public LongExplicitValueModification() {
+        super();
+    }
 
     public LongExplicitValueModification(Long explicitValue) {
+        super();
         this.explicitValue = explicitValue;
     }
 
     @Override
-    protected Long modifyImplementationHook(final Long input) {
+    protected Long modifyImplementationHook(Long input) {
         return explicitValue;
     }
 
@@ -53,6 +56,11 @@ public class LongExplicitValueModification extends VariableModification<Long> {
     }
 
     @Override
+    public VariableModification<Long> createCopy() {
+        return new LongExplicitValueModification(explicitValue);
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + explicitValue.hashCode();
@@ -70,7 +78,7 @@ public class LongExplicitValueModification extends VariableModification<Long> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final LongExplicitValueModification other = (LongExplicitValueModification) obj;
-        return Objects.equals(this.explicitValue, other.explicitValue);
+        LongExplicitValueModification other = (LongExplicitValueModification) obj;
+        return Objects.equals(explicitValue, other.explicitValue);
     }
 }

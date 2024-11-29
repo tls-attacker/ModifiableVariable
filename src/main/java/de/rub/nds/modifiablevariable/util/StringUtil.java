@@ -7,10 +7,12 @@
  */
 package de.rub.nds.modifiablevariable.util;
 
-public class StringUtil {
+public final class StringUtil {
     // Private constructor, because this is a utility class that is not meant
     // to be instantiated.
-    private StringUtil() {}
+    private StringUtil() {
+        super();
+    }
 
     static final int HI_SURROGATE_START = 0xD800;
 
@@ -21,10 +23,10 @@ public class StringUtil {
      * @param value string that may contain non-printable or non-ascii chars
      * @return string with non-printable or non-ascii characters replaced
      */
-    public static String backslashEscapeString(final String value) {
-        final StringBuffer buffer = new StringBuffer(value);
+    public static String backslashEscapeString(String value) {
+        StringBuffer buffer = new StringBuffer(value);
         for (int i = 0; i < buffer.length(); i++) {
-            final int codePoint = buffer.codePointAt(i);
+            int codePoint = buffer.codePointAt(i);
             String replacement;
             int numCodePoints = 1;
             switch (codePoint) {

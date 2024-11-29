@@ -25,22 +25,25 @@ public class StringPrependValueModification extends VariableModification<String>
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     private String prependValue;
 
-    public StringPrependValueModification() {}
+    public StringPrependValueModification() {
+        super();
+    }
 
-    public StringPrependValueModification(final String prependValue) {
+    public StringPrependValueModification(String prependValue) {
+        super();
         this.prependValue = prependValue;
     }
 
     @Override
-    protected String modifyImplementationHook(final String input) {
-        return this.prependValue + input;
+    protected String modifyImplementationHook(String input) {
+        return prependValue + input;
     }
 
     public String getPrependValue() {
-        return this.prependValue;
+        return prependValue;
     }
 
-    public void setPrependValue(final String prependValue) {
+    public void setPrependValue(String prependValue) {
         this.prependValue = prependValue;
     }
 
@@ -52,6 +55,11 @@ public class StringPrependValueModification extends VariableModification<String>
         StringBuilder modifiedString = new StringBuilder(prependValue);
         modifiedString.setCharAt(index, randomChar);
         return new StringPrependValueModification(modifiedString.toString());
+    }
+
+    @Override
+    public VariableModification<String> createCopy() {
+        return new StringPrependValueModification(prependValue);
     }
 
     @Override
@@ -72,7 +80,7 @@ public class StringPrependValueModification extends VariableModification<String>
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final StringPrependValueModification other = (StringPrependValueModification) obj;
-        return Objects.equals(this.prependValue, other.getPrependValue());
+        StringPrependValueModification other = (StringPrependValueModification) obj;
+        return Objects.equals(prependValue, other.prependValue);
     }
 }

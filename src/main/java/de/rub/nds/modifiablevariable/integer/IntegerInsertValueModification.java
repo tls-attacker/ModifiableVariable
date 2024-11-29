@@ -25,9 +25,12 @@ public class IntegerInsertValueModification extends VariableModification<Integer
 
     private int startPosition;
 
-    public IntegerInsertValueModification() {}
+    public IntegerInsertValueModification() {
+        super();
+    }
 
     public IntegerInsertValueModification(Integer insertValue, int startPosition) {
+        super();
         this.insertValue = insertValue;
         this.startPosition = startPosition;
     }
@@ -38,7 +41,7 @@ public class IntegerInsertValueModification extends VariableModification<Integer
             input = 0;
         }
 
-        int insertValueLength = Integer.SIZE - Integer.numberOfLeadingZeros((insertValue));
+        int insertValueLength = Integer.SIZE - Integer.numberOfLeadingZeros(insertValue);
 
         // Wrap around integer size
         int insertPosition = startPosition % Integer.SIZE;
@@ -46,10 +49,10 @@ public class IntegerInsertValueModification extends VariableModification<Integer
             insertPosition += Integer.SIZE - 1;
         }
 
-        int mask = ((1 << insertPosition) - 1);
+        int mask = (1 << insertPosition) - 1;
 
-        return (((input >> insertPosition) << insertValueLength) | insertValue) << insertPosition
-                | (mask & input);
+        return (input >> insertPosition << insertValueLength | insertValue) << insertPosition
+                | mask & input;
     }
 
     public Integer getInsertValue() {
@@ -89,6 +92,11 @@ public class IntegerInsertValueModification extends VariableModification<Integer
     }
 
     @Override
+    public VariableModification<Integer> createCopy() {
+        return new IntegerInsertValueModification(insertValue, startPosition);
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + insertValue;
@@ -107,10 +115,10 @@ public class IntegerInsertValueModification extends VariableModification<Integer
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final IntegerInsertValueModification other = (IntegerInsertValueModification) obj;
-        if (this.startPosition != other.startPosition) {
+        IntegerInsertValueModification other = (IntegerInsertValueModification) obj;
+        if (startPosition != other.startPosition) {
             return false;
         }
-        return Objects.equals(this.insertValue, other.insertValue);
+        return Objects.equals(insertValue, other.insertValue);
     }
 }

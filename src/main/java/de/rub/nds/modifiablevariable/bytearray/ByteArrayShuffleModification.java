@@ -32,14 +32,17 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] shuffle;
 
-    public ByteArrayShuffleModification() {}
+    public ByteArrayShuffleModification() {
+        super();
+    }
 
     public ByteArrayShuffleModification(byte[] shuffle) {
+        super();
         this.shuffle = shuffle;
     }
 
     @Override
-    protected byte[] modifyImplementationHook(final byte[] input) {
+    protected byte[] modifyImplementationHook(byte[] input) {
         if (input == null) {
             return input;
         }
@@ -75,6 +78,11 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
     }
 
     @Override
+    public VariableModification<byte[]> createCopy() {
+        return new ByteArrayShuffleModification(shuffle != null ? shuffle.clone() : null);
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + Arrays.hashCode(shuffle);
@@ -92,8 +100,8 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ByteArrayShuffleModification other = (ByteArrayShuffleModification) obj;
-        return Arrays.equals(this.shuffle, other.shuffle);
+        ByteArrayShuffleModification other = (ByteArrayShuffleModification) obj;
+        return Arrays.equals(shuffle, other.shuffle);
     }
 
     @Override

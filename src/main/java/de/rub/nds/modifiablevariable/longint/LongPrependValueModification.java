@@ -21,9 +21,12 @@ public class LongPrependValueModification extends VariableModification<Long> {
 
     private Long prependValue;
 
-    public LongPrependValueModification() {}
+    public LongPrependValueModification() {
+        super();
+    }
 
     public LongPrependValueModification(Long prependValue) {
+        super();
         this.prependValue = prependValue;
     }
 
@@ -32,7 +35,7 @@ public class LongPrependValueModification extends VariableModification<Long> {
         if (input == null) {
             input = 0L;
         }
-        return (prependValue << (Long.SIZE - Long.numberOfLeadingZeros((input)))) | input;
+        return prependValue << Long.SIZE - Long.numberOfLeadingZeros(input) | input;
     }
 
     public Long getPrependValue() {
@@ -47,6 +50,11 @@ public class LongPrependValueModification extends VariableModification<Long> {
     public VariableModification<Long> getModifiedCopy() {
         return new LongPrependValueModification(
                 prependValue + new Random().nextInt(MAX_VALUE_MODIFIER));
+    }
+
+    @Override
+    public VariableModification<Long> createCopy() {
+        return new LongPrependValueModification(prependValue);
     }
 
     @Override
@@ -67,7 +75,7 @@ public class LongPrependValueModification extends VariableModification<Long> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final LongPrependValueModification other = (LongPrependValueModification) obj;
-        return Objects.equals(this.prependValue, other.prependValue);
+        LongPrependValueModification other = (LongPrependValueModification) obj;
+        return Objects.equals(prependValue, other.prependValue);
     }
 }

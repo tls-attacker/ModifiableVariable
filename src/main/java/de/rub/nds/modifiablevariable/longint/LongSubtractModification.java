@@ -21,15 +21,18 @@ public class LongSubtractModification extends VariableModification<Long> {
 
     private Long subtrahend;
 
-    public LongSubtractModification() {}
+    public LongSubtractModification() {
+        super();
+    }
 
     public LongSubtractModification(Long subtrahend) {
+        super();
         this.subtrahend = subtrahend;
     }
 
     @Override
-    protected Long modifyImplementationHook(final Long input) {
-        return (input == null) ? -subtrahend : input - subtrahend;
+    protected Long modifyImplementationHook(Long input) {
+        return input == null ? -subtrahend : input - subtrahend;
     }
 
     public Long getSubtrahend() {
@@ -44,6 +47,11 @@ public class LongSubtractModification extends VariableModification<Long> {
     public VariableModification<Long> getModifiedCopy() {
         return new LongSubtractModification(
                 subtrahend + new Random().nextInt(MAX_SUBTRACT_MODIFIER));
+    }
+
+    @Override
+    public VariableModification<Long> createCopy() {
+        return new LongSubtractModification(subtrahend);
     }
 
     @Override
@@ -64,7 +72,7 @@ public class LongSubtractModification extends VariableModification<Long> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final LongSubtractModification other = (LongSubtractModification) obj;
-        return Objects.equals(this.subtrahend, other.subtrahend);
+        LongSubtractModification other = (LongSubtractModification) obj;
+        return Objects.equals(subtrahend, other.subtrahend);
     }
 }

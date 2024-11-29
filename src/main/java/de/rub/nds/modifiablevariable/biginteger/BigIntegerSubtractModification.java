@@ -25,10 +25,13 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
 
     private BigInteger subtrahend;
 
-    public BigIntegerSubtractModification() {}
+    public BigIntegerSubtractModification() {
+        super();
+    }
 
-    public BigIntegerSubtractModification(BigInteger bi) {
-        this.subtrahend = bi;
+    public BigIntegerSubtractModification(BigInteger subtrahend) {
+        super();
+        this.subtrahend = subtrahend;
     }
 
     @Override
@@ -54,6 +57,11 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
     }
 
     @Override
+    public VariableModification<BigInteger> createCopy() {
+        return new BigIntegerSubtractModification(subtrahend);
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + subtrahend.hashCode();
@@ -71,7 +79,7 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final BigIntegerSubtractModification other = (BigIntegerSubtractModification) obj;
-        return Objects.equals(this.subtrahend, other.subtrahend);
+        BigIntegerSubtractModification other = (BigIntegerSubtractModification) obj;
+        return Objects.equals(subtrahend, other.subtrahend);
     }
 }

@@ -21,11 +21,27 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
 
     private BigInteger originalValue;
 
+    public ModifiableBigInteger() {
+        super();
+    }
+
+    public ModifiableBigInteger(ModifiableBigInteger other) {
+        super(other);
+        if (other != null) {
+            originalValue = other.originalValue;
+        }
+    }
+
     @Override
     protected void createRandomModification() {
         VariableModification<BigInteger> vm =
                 BigIntegerModificationFactory.createRandomModification();
         setModification(vm);
+    }
+
+    @Override
+    public ModifiableBigInteger createCopy() {
+        return new ModifiableBigInteger(this);
     }
 
     public BigInteger getAssertEquals() {
@@ -38,7 +54,7 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
 
     @Override
     public boolean isOriginalValueModified() {
-        return getOriginalValue() != null && (getOriginalValue().compareTo(getValue()) != 0);
+        return originalValue != null && originalValue.compareTo(getValue()) != 0;
     }
 
     public byte[] getByteArray() {
@@ -73,15 +89,15 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof ModifiableBigInteger)) {
+        if (!(obj instanceof ModifiableBigInteger)) {
             return false;
         }
 
-        ModifiableBigInteger that = (ModifiableBigInteger) o;
+        ModifiableBigInteger that = (ModifiableBigInteger) obj;
 
         return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }

@@ -18,14 +18,17 @@ public class BadRandom extends SecureRandom {
     private Random random;
 
     public BadRandom() {
+        super();
         random = new Random(0);
     }
 
     public BadRandom(Random random, byte[] seed) {
+        super();
         this.random = random;
     }
 
     public BadRandom(Random random, SecureRandomSpi secureRandomSpi, Provider provider) {
+        super();
         this.random = random;
     }
 
@@ -62,8 +65,8 @@ public class BadRandom extends SecureRandom {
     }
 
     @Override
-    public int nextInt(int n) {
-        return random.nextInt(n);
+    public int nextInt(int bound) {
+        return random.nextInt(bound);
     }
 
     @Override

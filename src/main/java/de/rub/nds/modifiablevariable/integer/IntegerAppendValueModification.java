@@ -21,9 +21,12 @@ public class IntegerAppendValueModification extends VariableModification<Integer
 
     private Integer appendValue;
 
-    public IntegerAppendValueModification() {}
+    public IntegerAppendValueModification() {
+        super();
+    }
 
     public IntegerAppendValueModification(Integer appendValue) {
+        super();
         this.appendValue = appendValue;
     }
 
@@ -32,8 +35,7 @@ public class IntegerAppendValueModification extends VariableModification<Integer
         if (input == null) {
             input = 0;
         }
-        return (input << (Integer.SIZE - Integer.numberOfLeadingZeros((appendValue))))
-                | appendValue;
+        return input << Integer.SIZE - Integer.numberOfLeadingZeros(appendValue) | appendValue;
     }
 
     public Integer getAppendValue() {
@@ -48,6 +50,11 @@ public class IntegerAppendValueModification extends VariableModification<Integer
     public VariableModification<Integer> getModifiedCopy() {
         return new IntegerAppendValueModification(
                 appendValue + new Random().nextInt(MAX_VALUE_MODIFIER));
+    }
+
+    @Override
+    public VariableModification<Integer> createCopy() {
+        return new IntegerAppendValueModification(appendValue);
     }
 
     @Override
@@ -68,7 +75,7 @@ public class IntegerAppendValueModification extends VariableModification<Integer
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final IntegerAppendValueModification other = (IntegerAppendValueModification) obj;
-        return Objects.equals(this.appendValue, other.appendValue);
+        IntegerAppendValueModification other = (IntegerAppendValueModification) obj;
+        return Objects.equals(appendValue, other.appendValue);
     }
 }

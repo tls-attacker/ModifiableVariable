@@ -21,15 +21,31 @@ import java.util.Arrays;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class ModifiableByteArray extends ModifiableVariable<byte[]> {
 
-    public ModifiableByteArray() {}
-
     private byte[] originalValue;
+
+    public ModifiableByteArray() {
+        super();
+    }
+
+    @SuppressWarnings("IncompleteCopyConstructor")
+    public ModifiableByteArray(ModifiableByteArray other) {
+        super(other);
+        if (other != null) {
+            originalValue = other.originalValue != null ? other.originalValue.clone() : null;
+            assertEquals = other.assertEquals != null ? other.assertEquals.clone() : null;
+        }
+    }
 
     @Override
     protected void createRandomModification() {
         VariableModification<byte[]> vm =
                 ByteArrayModificationFactory.createRandomModification(originalValue);
         setModification(vm);
+    }
+
+    @Override
+    public ModifiableByteArray createCopy() {
+        return new ModifiableByteArray(this);
     }
 
     @Override
@@ -71,28 +87,28 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        if (this.isOriginalValueModified()) {
+        if (isOriginalValueModified()) {
             result.append("Actual byte value is: ");
             result.append(ArrayConverter.bytesToHexString(this));
             result.append("\nOriginal value was: ");
-            result.append(ArrayConverter.bytesToHexString(this.getOriginalValue()));
+            result.append(ArrayConverter.bytesToHexString(getOriginalValue()));
         } else {
             result.append("Original byte value is: ");
-            result.append(ArrayConverter.bytesToHexString(this.getOriginalValue()));
+            result.append(ArrayConverter.bytesToHexString(getOriginalValue()));
         }
         return result.toString();
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof ModifiableByteArray)) {
+        if (!(obj instanceof ModifiableByteArray)) {
             return false;
         }
 
-        ModifiableByteArray that = (ModifiableByteArray) o;
+        ModifiableByteArray that = (ModifiableByteArray) obj;
 
         return Arrays.equals(getValue(), that.getValue());
     }

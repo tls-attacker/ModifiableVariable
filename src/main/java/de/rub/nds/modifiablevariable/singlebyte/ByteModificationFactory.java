@@ -18,7 +18,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-public class ByteModificationFactory {
+public final class ByteModificationFactory {
 
     private enum ModificationType {
         ADD,
@@ -34,35 +34,35 @@ public class ByteModificationFactory {
 
     public static final String FILE_NAME = "de/rub/nds/modifiablevariable/explicit/byte.vec";
 
-    public static ByteAddModification add(final String summand) {
+    public static ByteAddModification add(String summand) {
         return add(Byte.parseByte(summand));
     }
 
-    public static ByteAddModification add(final Byte summand) {
+    public static ByteAddModification add(Byte summand) {
         return new ByteAddModification(summand);
     }
 
-    public static VariableModification<Byte> sub(final String subtrahend) {
+    public static VariableModification<Byte> sub(String subtrahend) {
         return sub(Byte.parseByte(subtrahend));
     }
 
-    public static VariableModification<Byte> sub(final Byte subtrahend) {
+    public static VariableModification<Byte> sub(Byte subtrahend) {
         return new ByteSubtractModification(subtrahend);
     }
 
-    public static VariableModification<Byte> xor(final String xor) {
+    public static VariableModification<Byte> xor(String xor) {
         return xor(Byte.parseByte(xor));
     }
 
-    public static VariableModification<Byte> xor(final Byte xor) {
+    public static VariableModification<Byte> xor(Byte xor) {
         return new ByteXorModification(xor);
     }
 
-    public static VariableModification<Byte> explicitValue(final String value) {
+    public static VariableModification<Byte> explicitValue(String value) {
         return explicitValue(Byte.parseByte(value));
     }
 
-    public static VariableModification<Byte> explicitValue(final Byte value) {
+    public static VariableModification<Byte> explicitValue(Byte value) {
         return new ByteExplicitValueModification(value);
     }
 
@@ -112,5 +112,7 @@ public class ByteModificationFactory {
         }
     }
 
-    private ByteModificationFactory() {}
+    private ByteModificationFactory() {
+        super();
+    }
 }

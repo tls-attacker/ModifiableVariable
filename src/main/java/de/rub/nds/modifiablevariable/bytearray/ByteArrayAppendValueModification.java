@@ -28,9 +28,12 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] bytesToAppend;
 
-    public ByteArrayAppendValueModification() {}
+    public ByteArrayAppendValueModification() {
+        super();
+    }
 
     public ByteArrayAppendValueModification(byte[] bytesToAppend) {
+        super();
         this.bytesToAppend = bytesToAppend;
     }
 
@@ -62,6 +65,12 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
     }
 
     @Override
+    public VariableModification<byte[]> createCopy() {
+        return new ByteArrayAppendValueModification(
+                bytesToAppend != null ? bytesToAppend.clone() : null);
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + Arrays.hashCode(bytesToAppend);
@@ -79,8 +88,8 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ByteArrayAppendValueModification other = (ByteArrayAppendValueModification) obj;
-        return Arrays.equals(this.bytesToAppend, other.bytesToAppend);
+        ByteArrayAppendValueModification other = (ByteArrayAppendValueModification) obj;
+        return Arrays.equals(bytesToAppend, other.bytesToAppend);
     }
 
     @Override

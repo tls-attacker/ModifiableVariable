@@ -25,9 +25,12 @@ public class StringExplicitValueModification extends VariableModification<String
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     private String explicitValue;
 
-    public StringExplicitValueModification() {}
+    public StringExplicitValueModification() {
+        super();
+    }
 
     public StringExplicitValueModification(String explicitValue) {
+        super();
         this.explicitValue = explicitValue;
     }
 
@@ -58,6 +61,11 @@ public class StringExplicitValueModification extends VariableModification<String
     }
 
     @Override
+    public VariableModification<String> createCopy() {
+        return new StringExplicitValueModification(explicitValue);
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + explicitValue.hashCode();
@@ -75,7 +83,7 @@ public class StringExplicitValueModification extends VariableModification<String
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final StringExplicitValueModification other = (StringExplicitValueModification) obj;
-        return Objects.equals(this.explicitValue, other.explicitValue);
+        StringExplicitValueModification other = (StringExplicitValueModification) obj;
+        return Objects.equals(explicitValue, other.explicitValue);
     }
 }

@@ -26,7 +26,11 @@ import de.rub.nds.modifiablevariable.string.StringModificationFactory;
 import java.math.BigInteger;
 
 @SuppressWarnings("unused")
-public class Modifiable {
+public final class Modifiable {
+
+    private Modifiable() {
+        super();
+    }
 
     private static ModifiableByteArray getModifiableByteArrayWithModification(
             VariableModification<byte[]> modification) {
@@ -94,7 +98,7 @@ public class Modifiable {
         return getModifiableLongWithModification(LongModificationFactory.prependValue(l));
     }
 
-    public static ModifiableString prepend(final String s) {
+    public static ModifiableString prepend(String s) {
         return getModifiableStringWithModification(StringModificationFactory.prependValue(s));
     }
 
@@ -115,7 +119,7 @@ public class Modifiable {
         return getModifiableLongWithModification(LongModificationFactory.appendValue(l));
     }
 
-    public static ModifiableString append(final String s) {
+    public static ModifiableString append(String s) {
         return getModifiableStringWithModification(StringModificationFactory.appendValue(s));
     }
 

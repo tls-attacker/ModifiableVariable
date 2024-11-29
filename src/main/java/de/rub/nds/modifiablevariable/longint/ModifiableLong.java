@@ -20,10 +20,26 @@ public class ModifiableLong extends ModifiableVariable<Long> {
 
     private Long originalValue;
 
+    public ModifiableLong() {
+        super();
+    }
+
+    public ModifiableLong(ModifiableLong other) {
+        super(other);
+        if (other != null) {
+            originalValue = other.originalValue;
+        }
+    }
+
     @Override
     protected void createRandomModification() {
         VariableModification<Long> vm = LongModificationFactory.createRandomModification();
         setModification(vm);
+    }
+
+    @Override
+    public ModifiableLong createCopy() {
+        return new ModifiableLong(this);
     }
 
     public Long getAssertEquals() {
@@ -70,15 +86,15 @@ public class ModifiableLong extends ModifiableVariable<Long> {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof ModifiableLong)) {
+        if (!(obj instanceof ModifiableLong)) {
             return false;
         }
 
-        ModifiableLong that = (ModifiableLong) o;
+        ModifiableLong that = (ModifiableLong) obj;
 
         return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }

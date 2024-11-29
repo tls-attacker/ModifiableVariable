@@ -11,7 +11,11 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.RandomHelper;
 import java.util.Random;
 
-public class BooleanModificationFactory {
+public final class BooleanModificationFactory {
+
+    private BooleanModificationFactory() {
+        super();
+    }
 
     private enum ModificationType {
         EXPLICIT_TRUE,
@@ -40,7 +44,7 @@ public class BooleanModificationFactory {
         return new BooleanToggleModification();
     }
 
-    public static VariableModification<Boolean> explicitValue(final boolean explicitValue) {
+    public static VariableModification<Boolean> explicitValue(boolean explicitValue) {
         return new BooleanExplicitValueModification(explicitValue);
     }
 }

@@ -21,15 +21,18 @@ public class LongAddModification extends VariableModification<Long> {
 
     private Long summand;
 
-    public LongAddModification() {}
+    public LongAddModification() {
+        super();
+    }
 
     public LongAddModification(Long summand) {
+        super();
         this.summand = summand;
     }
 
     @Override
-    protected Long modifyImplementationHook(final Long input) {
-        return (input == null) ? summand : input + summand;
+    protected Long modifyImplementationHook(Long input) {
+        return input == null ? summand : input + summand;
     }
 
     public Long getSummand() {
@@ -43,6 +46,11 @@ public class LongAddModification extends VariableModification<Long> {
     @Override
     public VariableModification<Long> getModifiedCopy() {
         return new LongAddModification(summand + new Random().nextInt(MAX_ADD_MODIFIER));
+    }
+
+    @Override
+    public VariableModification<Long> createCopy() {
+        return new LongAddModification(summand);
     }
 
     @Override
@@ -63,7 +71,7 @@ public class LongAddModification extends VariableModification<Long> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final LongAddModification other = (LongAddModification) obj;
-        return Objects.equals(this.summand, other.summand);
+        LongAddModification other = (LongAddModification) obj;
+        return Objects.equals(summand, other.summand);
     }
 }

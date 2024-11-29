@@ -21,15 +21,18 @@ public class LongShiftLeftModification extends VariableModification<Long> {
 
     private int shift;
 
-    public LongShiftLeftModification() {}
+    public LongShiftLeftModification() {
+        super();
+    }
 
     public LongShiftLeftModification(int shift) {
+        super();
         this.shift = shift;
     }
 
     @Override
-    protected Long modifyImplementationHook(final Long input) {
-        return (input == null) ? 0L : input << shift % MAX_SHIFT_MODIFIER;
+    protected Long modifyImplementationHook(Long input) {
+        return input == null ? 0L : input << shift % MAX_SHIFT_MODIFIER;
     }
 
     public int getShift() {
@@ -59,6 +62,11 @@ public class LongShiftLeftModification extends VariableModification<Long> {
     }
 
     @Override
+    public VariableModification<Long> createCopy() {
+        return new LongShiftLeftModification(shift);
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + shift;
@@ -76,7 +84,7 @@ public class LongShiftLeftModification extends VariableModification<Long> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final LongShiftLeftModification other = (LongShiftLeftModification) obj;
-        return Objects.equals(this.shift, other.shift);
+        LongShiftLeftModification other = (LongShiftLeftModification) obj;
+        return Objects.equals(shift, other.shift);
     }
 }

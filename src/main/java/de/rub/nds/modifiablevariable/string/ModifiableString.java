@@ -26,12 +26,26 @@ public class ModifiableString extends ModifiableVariable<String> {
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     private String originalValue;
 
-    public ModifiableString() {}
+    public ModifiableString() {
+        super();
+    }
+
+    public ModifiableString(ModifiableString other) {
+        super(other);
+        if (other != null) {
+            originalValue = other.originalValue;
+        }
+    }
 
     @Override
     protected void createRandomModification() {
         VariableModification<String> vm = StringModificationFactory.createRandomModification(null);
         setModification(vm);
+    }
+
+    @Override
+    public ModifiableString createCopy() {
+        return new ModifiableString(this);
     }
 
     public String getAssertEquals() {
@@ -79,15 +93,15 @@ public class ModifiableString extends ModifiableVariable<String> {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof ModifiableString)) {
+        if (!(obj instanceof ModifiableString)) {
             return false;
         }
 
-        ModifiableString that = (ModifiableString) o;
+        ModifiableString that = (ModifiableString) obj;
 
         return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }

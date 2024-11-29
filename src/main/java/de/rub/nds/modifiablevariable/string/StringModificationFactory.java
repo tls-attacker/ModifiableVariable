@@ -12,7 +12,11 @@ import de.rub.nds.modifiablevariable.util.RandomHelper;
 import java.util.Random;
 
 /** */
-public class StringModificationFactory {
+public final class StringModificationFactory {
+
+    private StringModificationFactory() {
+        super();
+    }
 
     private enum ModificationType {
         APPEND,
@@ -29,19 +33,19 @@ public class StringModificationFactory {
 
     private static final int MODIFIED_STRING_LENGTH_ESTIMATION = 50;
 
-    public static VariableModification<String> prependValue(final String value) {
+    public static VariableModification<String> prependValue(String value) {
         return new StringPrependValueModification(value);
     }
 
-    public static VariableModification<String> appendValue(final String value) {
+    public static VariableModification<String> appendValue(String value) {
         return new StringAppendValueModification(value);
     }
 
-    public static VariableModification<String> explicitValue(final String value) {
+    public static VariableModification<String> explicitValue(String value) {
         return new StringExplicitValueModification(value);
     }
 
-    public static VariableModification<String> insertValue(final String value, final int position) {
+    public static VariableModification<String> insertValue(String value, int position) {
         return new StringInsertValueModification(value, position);
     }
 

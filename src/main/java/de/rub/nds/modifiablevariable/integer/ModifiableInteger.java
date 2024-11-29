@@ -20,10 +20,26 @@ public class ModifiableInteger extends ModifiableVariable<Integer> {
 
     private Integer originalValue;
 
+    public ModifiableInteger() {
+        super();
+    }
+
+    public ModifiableInteger(ModifiableInteger other) {
+        super(other);
+        if (other != null) {
+            originalValue = other.originalValue;
+        }
+    }
+
     @Override
     protected void createRandomModification() {
         VariableModification<Integer> vm = IntegerModificationFactory.createRandomModification();
         setModification(vm);
+    }
+
+    @Override
+    public ModifiableInteger createCopy() {
+        return new ModifiableInteger(this);
     }
 
     public Integer getAssertEquals() {
@@ -70,15 +86,15 @@ public class ModifiableInteger extends ModifiableVariable<Integer> {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof ModifiableInteger)) {
+        if (!(obj instanceof ModifiableInteger)) {
             return false;
         }
 
-        ModifiableInteger that = (ModifiableInteger) o;
+        ModifiableInteger that = (ModifiableInteger) obj;
 
         return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }

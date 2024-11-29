@@ -16,7 +16,7 @@ import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import java.math.BigInteger;
 
-public class ModifiableVariableFactory {
+public final class ModifiableVariableFactory {
 
     public static ModifiableBigInteger createBigIntegerModifiableVariable() {
         return new ModifiableBigInteger();
@@ -94,5 +94,7 @@ public class ModifiableVariableFactory {
         return mv;
     }
 
-    private ModifiableVariableFactory() {}
+    private ModifiableVariableFactory() {
+        super();
+    }
 }

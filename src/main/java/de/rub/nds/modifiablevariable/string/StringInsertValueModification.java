@@ -29,15 +29,18 @@ public class StringInsertValueModification extends VariableModification<String> 
 
     private int startPosition;
 
-    public StringInsertValueModification() {}
+    public StringInsertValueModification() {
+        super();
+    }
 
-    public StringInsertValueModification(final String insertValue, int startPosition) {
+    public StringInsertValueModification(String insertValue, int startPosition) {
+        super();
         this.insertValue = insertValue;
         this.startPosition = startPosition;
     }
 
     @Override
-    protected String modifyImplementationHook(final String input) {
+    protected String modifyImplementationHook(String input) {
         // Wrap around and also allow to insert at the end of the original value
         int insertPosition = startPosition % (input.length() + 1);
         if (startPosition < 0) {
@@ -48,10 +51,10 @@ public class StringInsertValueModification extends VariableModification<String> 
     }
 
     public String getInsertValue() {
-        return this.insertValue;
+        return insertValue;
     }
 
-    public void setInsertValue(final String insertValue) {
+    public void setInsertValue(String insertValue) {
         this.insertValue = insertValue;
     }
 
@@ -87,6 +90,11 @@ public class StringInsertValueModification extends VariableModification<String> 
     }
 
     @Override
+    public VariableModification<String> createCopy() {
+        return new StringInsertValueModification(insertValue, startPosition);
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + insertValue.hashCode();
@@ -105,10 +113,10 @@ public class StringInsertValueModification extends VariableModification<String> 
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final StringInsertValueModification other = (StringInsertValueModification) obj;
-        if (this.startPosition != other.startPosition) {
+        StringInsertValueModification other = (StringInsertValueModification) obj;
+        if (startPosition != other.startPosition) {
             return false;
         }
-        return Objects.equals(this.insertValue, other.getInsertValue());
+        return Objects.equals(insertValue, other.insertValue);
     }
 }

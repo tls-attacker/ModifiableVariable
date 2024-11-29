@@ -25,10 +25,13 @@ public class BigIntegerPrependValueModification extends VariableModification<Big
 
     private BigInteger prependValue;
 
-    public BigIntegerPrependValueModification() {}
+    public BigIntegerPrependValueModification() {
+        super();
+    }
 
-    public BigIntegerPrependValueModification(BigInteger bi) {
-        this.prependValue = bi;
+    public BigIntegerPrependValueModification(BigInteger prependValue) {
+        super();
+        this.prependValue = prependValue;
     }
 
     @Override
@@ -54,6 +57,11 @@ public class BigIntegerPrependValueModification extends VariableModification<Big
     }
 
     @Override
+    public VariableModification<BigInteger> createCopy() {
+        return new BigIntegerPrependValueModification(prependValue);
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + prependValue.hashCode();
@@ -71,7 +79,7 @@ public class BigIntegerPrependValueModification extends VariableModification<Big
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final BigIntegerPrependValueModification other = (BigIntegerPrependValueModification) obj;
-        return Objects.equals(this.prependValue, other.prependValue);
+        BigIntegerPrependValueModification other = (BigIntegerPrependValueModification) obj;
+        return Objects.equals(prependValue, other.prependValue);
     }
 }

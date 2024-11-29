@@ -24,9 +24,12 @@ public class BigIntegerShiftRightModification extends VariableModification<BigIn
 
     private int shift;
 
-    public BigIntegerShiftRightModification() {}
+    public BigIntegerShiftRightModification() {
+        super();
+    }
 
     public BigIntegerShiftRightModification(int shift) {
+        super();
         this.shift = shift;
     }
 
@@ -52,6 +55,11 @@ public class BigIntegerShiftRightModification extends VariableModification<BigIn
     }
 
     @Override
+    public VariableModification<BigInteger> createCopy() {
+        return new BigIntegerShiftRightModification(shift);
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + shift;
@@ -69,7 +77,7 @@ public class BigIntegerShiftRightModification extends VariableModification<BigIn
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final BigIntegerShiftRightModification other = (BigIntegerShiftRightModification) obj;
-        return this.shift == other.shift;
+        BigIntegerShiftRightModification other = (BigIntegerShiftRightModification) obj;
+        return shift == other.shift;
     }
 }

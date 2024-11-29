@@ -32,16 +32,12 @@ public abstract class VariableModification<E> {
      * ModificationFilter is responsible for validating if the modification can be executed.
      */
     @XmlElements(
-            value = {
-                @XmlElement(
-                        type = AccessModificationFilter.class,
-                        name = "AccessModificationFilter")
-            })
-    private ModificationFilter modificationFilter = null;
+            @XmlElement(type = AccessModificationFilter.class, name = "AccessModificationFilter"))
+    private ModificationFilter modificationFilter;
 
     public E modify(E input) {
         E modifiedValue = modifyImplementationHook(input);
-        if ((modificationFilter == null) || (!modificationFilter.filterModification())) {
+        if (modificationFilter == null || !modificationFilter.filterModification()) {
             debug(modifiedValue);
             return modifiedValue;
         } else {
@@ -53,8 +49,10 @@ public abstract class VariableModification<E> {
 
     public abstract VariableModification<E> getModifiedCopy();
 
+    public abstract VariableModification<E> createCopy();
+
     /**
-     * Debugging modified variables. Getting stack trace can be time consuming, thus we use
+     * Debugging modified variables. Getting stack trace can be time-consuming, thus we use
      * isDebugEnabled() function
      *
      * @param value variable modification that is going to be debugged
@@ -78,7 +76,7 @@ public abstract class VariableModification<E> {
             }
             LOGGER.debug(
                     "Using {} in function:\n  {}\n  New value: {}",
-                    this.getClass().getSimpleName(),
+                    getClass().getSimpleName(),
                     stack[index],
                     valueString);
         }

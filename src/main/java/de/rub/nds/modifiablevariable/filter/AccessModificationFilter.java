@@ -29,10 +29,12 @@ public class AccessModificationFilter extends ModificationFilter {
     private int[] accessNumbers;
 
     public AccessModificationFilter() {
+        super();
         accessCounter = 1;
     }
 
-    public AccessModificationFilter(final int[] accessNumbers) {
+    public AccessModificationFilter(int[] accessNumbers) {
+        super();
         accessCounter = 1;
         this.accessNumbers = accessNumbers;
     }
@@ -44,7 +46,7 @@ public class AccessModificationFilter extends ModificationFilter {
         return filter;
     }
 
-    private boolean contains(int[] numbers, int number) {
+    private static boolean contains(int[] numbers, int number) {
         for (int i : numbers) {
             if (i == number) {
                 return true;

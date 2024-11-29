@@ -21,9 +21,12 @@ public class LongAppendValueModification extends VariableModification<Long> {
 
     private Long appendValue;
 
-    public LongAppendValueModification() {}
+    public LongAppendValueModification() {
+        super();
+    }
 
     public LongAppendValueModification(Long appendValue) {
+        super();
         this.appendValue = appendValue;
     }
 
@@ -32,7 +35,7 @@ public class LongAppendValueModification extends VariableModification<Long> {
         if (input == null) {
             input = 0L;
         }
-        return (input << (Long.SIZE - Long.numberOfLeadingZeros((appendValue)))) | appendValue;
+        return input << Long.SIZE - Long.numberOfLeadingZeros(appendValue) | appendValue;
     }
 
     public Long getAppendValue() {
@@ -47,6 +50,11 @@ public class LongAppendValueModification extends VariableModification<Long> {
     public VariableModification<Long> getModifiedCopy() {
         return new LongAppendValueModification(
                 appendValue + new Random().nextInt(MAX_VALUE_MODIFIER));
+    }
+
+    @Override
+    public VariableModification<Long> createCopy() {
+        return new LongAppendValueModification(appendValue);
     }
 
     @Override
@@ -67,7 +75,7 @@ public class LongAppendValueModification extends VariableModification<Long> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final LongAppendValueModification other = (LongAppendValueModification) obj;
-        return Objects.equals(this.appendValue, other.appendValue);
+        LongAppendValueModification other = (LongAppendValueModification) obj;
+        return Objects.equals(appendValue, other.appendValue);
     }
 }

@@ -29,9 +29,12 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
 
     private int startPosition;
 
-    public ByteArrayDeleteModification() {}
+    public ByteArrayDeleteModification() {
+        super();
+    }
 
     public ByteArrayDeleteModification(int startPosition, int count) {
+        super();
         this.startPosition = startPosition;
         this.count = count;
     }
@@ -51,8 +54,8 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
                 return input;
             }
         }
-        final int endPosition = start + count;
-        if ((endPosition) > input.length) {
+        int endPosition = start + count;
+        if (endPosition > input.length) {
             LOGGER.debug(
                     "Bytes {}..{} cannot be deleted from {{}} of length {}",
                     start,
@@ -67,7 +70,7 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
         }
         byte[] ret1 = Arrays.copyOf(input, start);
         byte[] ret2 = null;
-        if ((endPosition) < input.length) {
+        if (endPosition < input.length) {
             ret2 = Arrays.copyOfRange(input, endPosition, input.length);
         }
         return ArrayConverter.concatenate(ret1, ret2);
@@ -112,6 +115,11 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
     }
 
     @Override
+    public VariableModification<byte[]> createCopy() {
+        return new ByteArrayDeleteModification(startPosition, count);
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + count;
@@ -130,11 +138,11 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ByteArrayDeleteModification other = (ByteArrayDeleteModification) obj;
-        if (this.count != other.count) {
+        ByteArrayDeleteModification other = (ByteArrayDeleteModification) obj;
+        if (count != other.count) {
             return false;
         }
-        return this.startPosition == other.startPosition;
+        return startPosition == other.startPosition;
     }
 
     @Override

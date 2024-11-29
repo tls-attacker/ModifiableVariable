@@ -21,15 +21,18 @@ public class LongMultiplyModification extends VariableModification<Long> {
 
     private Long factor;
 
-    public LongMultiplyModification() {}
+    public LongMultiplyModification() {
+        super();
+    }
 
     public LongMultiplyModification(Long factor) {
+        super();
         this.factor = factor;
     }
 
     @Override
-    protected Long modifyImplementationHook(final Long input) {
-        return (input == null) ? 0L : input * factor;
+    protected Long modifyImplementationHook(Long input) {
+        return input == null ? 0L : input * factor;
     }
 
     public Long getFactor() {
@@ -43,6 +46,11 @@ public class LongMultiplyModification extends VariableModification<Long> {
     @Override
     public VariableModification<Long> getModifiedCopy() {
         return new LongMultiplyModification(factor + new Random().nextInt(MAX_FACTOR_MODIFIER));
+    }
+
+    @Override
+    public VariableModification<Long> createCopy() {
+        return new LongMultiplyModification(factor);
     }
 
     @Override
@@ -63,7 +71,7 @@ public class LongMultiplyModification extends VariableModification<Long> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final LongMultiplyModification other = (LongMultiplyModification) obj;
-        return Objects.equals(this.factor, other.factor);
+        LongMultiplyModification other = (LongMultiplyModification) obj;
+        return Objects.equals(factor, other.factor);
     }
 }

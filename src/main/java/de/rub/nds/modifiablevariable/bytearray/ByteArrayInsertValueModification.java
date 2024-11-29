@@ -32,9 +32,12 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
 
     private int startPosition;
 
-    public ByteArrayInsertValueModification() {}
+    public ByteArrayInsertValueModification() {
+        super();
+    }
 
     public ByteArrayInsertValueModification(byte[] bytesToInsert, int startPosition) {
+        super();
         this.bytesToInsert = bytesToInsert;
         this.startPosition = startPosition;
     }
@@ -99,6 +102,12 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
     }
 
     @Override
+    public VariableModification<byte[]> createCopy() {
+        return new ByteArrayInsertValueModification(
+                bytesToInsert != null ? bytesToInsert.clone() : null, startPosition);
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + Arrays.hashCode(bytesToInsert);
@@ -117,11 +126,11 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ByteArrayInsertValueModification other = (ByteArrayInsertValueModification) obj;
-        if (this.startPosition != other.startPosition) {
+        ByteArrayInsertValueModification other = (ByteArrayInsertValueModification) obj;
+        if (startPosition != other.startPosition) {
             return false;
         }
-        return Arrays.equals(this.bytesToInsert, other.bytesToInsert);
+        return Arrays.equals(bytesToInsert, other.bytesToInsert);
     }
 
     @Override

@@ -19,10 +19,26 @@ public class ModifiableByte extends ModifiableVariable<Byte> {
 
     private Byte originalValue;
 
+    public ModifiableByte() {
+        super();
+    }
+
+    public ModifiableByte(ModifiableByte other) {
+        super(other);
+        if (other != null) {
+            originalValue = other.originalValue;
+        }
+    }
+
     @Override
     protected void createRandomModification() {
         VariableModification<Byte> vm = ByteModificationFactory.createRandomModification();
         setModification(vm);
+    }
+
+    @Override
+    public ModifiableByte createCopy() {
+        return new ModifiableByte(this);
     }
 
     public Byte getAssertEquals() {
@@ -65,15 +81,15 @@ public class ModifiableByte extends ModifiableVariable<Byte> {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof ModifiableByte)) {
+        if (!(obj instanceof ModifiableByte)) {
             return false;
         }
 
-        ModifiableByte that = (ModifiableByte) o;
+        ModifiableByte that = (ModifiableByte) obj;
 
         return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }

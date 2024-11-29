@@ -21,14 +21,17 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
 
     private Byte explicitValue;
 
-    public ByteExplicitValueModification() {}
+    public ByteExplicitValueModification() {
+        super();
+    }
 
-    public ByteExplicitValueModification(Byte bi) {
-        this.explicitValue = bi;
+    public ByteExplicitValueModification(Byte explicitValue) {
+        super();
+        this.explicitValue = explicitValue;
     }
 
     @Override
-    protected Byte modifyImplementationHook(final Byte input) {
+    protected Byte modifyImplementationHook(Byte input) {
         return explicitValue;
     }
 
@@ -53,6 +56,11 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
     }
 
     @Override
+    public VariableModification<Byte> createCopy() {
+        return new ByteAddModification(explicitValue);
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + explicitValue;
@@ -70,7 +78,7 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ByteExplicitValueModification other = (ByteExplicitValueModification) obj;
-        return Objects.equals(this.explicitValue, other.explicitValue);
+        ByteExplicitValueModification other = (ByteExplicitValueModification) obj;
+        return Objects.equals(explicitValue, other.explicitValue);
     }
 }

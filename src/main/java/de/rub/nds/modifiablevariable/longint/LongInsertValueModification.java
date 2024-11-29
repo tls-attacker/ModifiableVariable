@@ -23,9 +23,12 @@ public class LongInsertValueModification extends VariableModification<Long> {
     private Long insertValue;
     private int startPosition;
 
-    public LongInsertValueModification() {}
+    public LongInsertValueModification() {
+        super();
+    }
 
     public LongInsertValueModification(Long insertValue, int startPosition) {
+        super();
         this.insertValue = insertValue;
         this.startPosition = startPosition;
     }
@@ -36,7 +39,7 @@ public class LongInsertValueModification extends VariableModification<Long> {
             input = 0L;
         }
 
-        int insertValueLength = Long.SIZE - Long.numberOfLeadingZeros((insertValue));
+        int insertValueLength = Long.SIZE - Long.numberOfLeadingZeros(insertValue);
 
         // Wrap around long size
         int insertPosition = startPosition % Long.SIZE;
@@ -44,10 +47,10 @@ public class LongInsertValueModification extends VariableModification<Long> {
             insertPosition += Long.SIZE - 1;
         }
 
-        long mask = ((1L << insertPosition) - 1);
+        long mask = (1L << insertPosition) - 1;
 
-        return (((input >> insertPosition) << insertValueLength) | insertValue) << insertPosition
-                | (mask & input);
+        return (input >> insertPosition << insertValueLength | insertValue) << insertPosition
+                | mask & input;
     }
 
     public Long getInsertValue() {
@@ -87,6 +90,11 @@ public class LongInsertValueModification extends VariableModification<Long> {
     }
 
     @Override
+    public VariableModification<Long> createCopy() {
+        return new LongInsertValueModification(insertValue, startPosition);
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + insertValue.hashCode();
@@ -105,10 +113,10 @@ public class LongInsertValueModification extends VariableModification<Long> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final LongInsertValueModification other = (LongInsertValueModification) obj;
-        if (this.startPosition != other.startPosition) {
+        LongInsertValueModification other = (LongInsertValueModification) obj;
+        if (startPosition != other.startPosition) {
             return false;
         }
-        return Objects.equals(this.insertValue, other.insertValue);
+        return Objects.equals(insertValue, other.insertValue);
     }
 }

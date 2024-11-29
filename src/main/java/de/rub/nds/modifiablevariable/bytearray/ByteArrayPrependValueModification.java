@@ -28,9 +28,12 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] bytesToPrepend;
 
-    public ByteArrayPrependValueModification() {}
+    public ByteArrayPrependValueModification() {
+        super();
+    }
 
     public ByteArrayPrependValueModification(byte[] bytesToPrepend) {
+        super();
         this.bytesToPrepend = bytesToPrepend;
     }
 
@@ -62,6 +65,12 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
     }
 
     @Override
+    public VariableModification<byte[]> createCopy() {
+        return new ByteArrayPrependValueModification(
+                bytesToPrepend != null ? bytesToPrepend.clone() : null);
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + Arrays.hashCode(bytesToPrepend);
@@ -79,8 +88,8 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ByteArrayPrependValueModification other = (ByteArrayPrependValueModification) obj;
-        return Arrays.equals(this.bytesToPrepend, other.bytesToPrepend);
+        ByteArrayPrependValueModification other = (ByteArrayPrependValueModification) obj;
+        return Arrays.equals(bytesToPrepend, other.bytesToPrepend);
     }
 
     @Override

@@ -21,9 +21,12 @@ public class IntegerPrependValueModification extends VariableModification<Intege
 
     private Integer prependValue;
 
-    public IntegerPrependValueModification() {}
+    public IntegerPrependValueModification() {
+        super();
+    }
 
     public IntegerPrependValueModification(Integer prependValue) {
+        super();
         this.prependValue = prependValue;
     }
 
@@ -33,7 +36,7 @@ public class IntegerPrependValueModification extends VariableModification<Intege
             input = 0;
         }
 
-        return (prependValue << (Integer.SIZE - Integer.numberOfLeadingZeros((input)))) | input;
+        return prependValue << Integer.SIZE - Integer.numberOfLeadingZeros(input) | input;
     }
 
     public Integer getPrependValue() {
@@ -48,6 +51,11 @@ public class IntegerPrependValueModification extends VariableModification<Intege
     public VariableModification<Integer> getModifiedCopy() {
         return new IntegerPrependValueModification(
                 prependValue + new Random().nextInt(MAX_VALUE_MODIFIER));
+    }
+
+    @Override
+    public VariableModification<Integer> createCopy() {
+        return new IntegerPrependValueModification(prependValue);
     }
 
     @Override
@@ -68,7 +76,7 @@ public class IntegerPrependValueModification extends VariableModification<Intege
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final IntegerPrependValueModification other = (IntegerPrependValueModification) obj;
-        return Objects.equals(this.prependValue, other.prependValue);
+        IntegerPrependValueModification other = (IntegerPrependValueModification) obj;
+        return Objects.equals(prependValue, other.prependValue);
     }
 }

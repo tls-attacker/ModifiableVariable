@@ -21,14 +21,17 @@ public class IntegerExplicitValueModification extends VariableModification<Integ
 
     private Integer explicitValue;
 
-    public IntegerExplicitValueModification() {}
+    public IntegerExplicitValueModification() {
+        super();
+    }
 
     public IntegerExplicitValueModification(Integer explicitValue) {
+        super();
         this.explicitValue = explicitValue;
     }
 
     @Override
-    protected Integer modifyImplementationHook(final Integer input) {
+    protected Integer modifyImplementationHook(Integer input) {
         return explicitValue;
     }
 
@@ -53,6 +56,11 @@ public class IntegerExplicitValueModification extends VariableModification<Integ
     }
 
     @Override
+    public VariableModification<Integer> createCopy() {
+        return new IntegerExplicitValueModification(explicitValue);
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + explicitValue;
@@ -70,7 +78,7 @@ public class IntegerExplicitValueModification extends VariableModification<Integ
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final IntegerExplicitValueModification other = (IntegerExplicitValueModification) obj;
-        return Objects.equals(this.explicitValue, other.explicitValue);
+        IntegerExplicitValueModification other = (IntegerExplicitValueModification) obj;
+        return Objects.equals(explicitValue, other.explicitValue);
     }
 }

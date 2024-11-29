@@ -25,22 +25,25 @@ public class StringAppendValueModification extends VariableModification<String> 
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     private String appendValue;
 
-    public StringAppendValueModification() {}
+    public StringAppendValueModification() {
+        super();
+    }
 
-    public StringAppendValueModification(final String appendValue) {
+    public StringAppendValueModification(String appendValue) {
+        super();
         this.appendValue = appendValue;
     }
 
     @Override
-    protected String modifyImplementationHook(final String input) {
-        return input + this.appendValue;
+    protected String modifyImplementationHook(String input) {
+        return input + appendValue;
     }
 
     public String getAppendValue() {
-        return this.appendValue;
+        return appendValue;
     }
 
-    public void setAppendValue(final String appendValue) {
+    public void setAppendValue(String appendValue) {
         this.appendValue = appendValue;
     }
 
@@ -52,6 +55,11 @@ public class StringAppendValueModification extends VariableModification<String> 
         StringBuilder modifiedString = new StringBuilder(appendValue);
         modifiedString.setCharAt(index, randomChar);
         return new StringAppendValueModification(modifiedString.toString());
+    }
+
+    @Override
+    public VariableModification<String> createCopy() {
+        return new StringAppendValueModification(appendValue);
     }
 
     @Override
@@ -72,7 +80,7 @@ public class StringAppendValueModification extends VariableModification<String> 
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final StringAppendValueModification other = (StringAppendValueModification) obj;
-        return Objects.equals(this.appendValue, other.getAppendValue());
+        StringAppendValueModification other = (StringAppendValueModification) obj;
+        return Objects.equals(appendValue, other.appendValue);
     }
 }

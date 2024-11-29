@@ -27,10 +27,13 @@ public class BigIntegerInsertValueModification extends VariableModification<BigI
     private BigInteger insertValue;
     private int startPosition;
 
-    public BigIntegerInsertValueModification() {}
+    public BigIntegerInsertValueModification() {
+        super();
+    }
 
-    public BigIntegerInsertValueModification(BigInteger bi, int startPosition) {
-        this.insertValue = bi;
+    public BigIntegerInsertValueModification(BigInteger insertValue, int startPosition) {
+        super();
+        this.insertValue = insertValue;
         this.startPosition = startPosition;
     }
 
@@ -95,6 +98,11 @@ public class BigIntegerInsertValueModification extends VariableModification<BigI
     }
 
     @Override
+    public VariableModification<BigInteger> createCopy() {
+        return new BigIntegerInsertValueModification(insertValue, startPosition);
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + insertValue.hashCode();
@@ -113,10 +121,10 @@ public class BigIntegerInsertValueModification extends VariableModification<BigI
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final BigIntegerInsertValueModification other = (BigIntegerInsertValueModification) obj;
-        if (this.startPosition != other.startPosition) {
+        BigIntegerInsertValueModification other = (BigIntegerInsertValueModification) obj;
+        if (startPosition != other.startPosition) {
             return false;
         }
-        return Objects.equals(this.insertValue, other.insertValue);
+        return Objects.equals(insertValue, other.insertValue);
     }
 }

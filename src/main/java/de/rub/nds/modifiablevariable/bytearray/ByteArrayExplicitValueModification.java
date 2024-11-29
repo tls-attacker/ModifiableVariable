@@ -28,14 +28,17 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] explicitValue;
 
-    public ByteArrayExplicitValueModification() {}
+    public ByteArrayExplicitValueModification() {
+        super();
+    }
 
     public ByteArrayExplicitValueModification(byte[] explicitValue) {
+        super();
         this.explicitValue = explicitValue;
     }
 
     @Override
-    protected byte[] modifyImplementationHook(final byte[] input) {
+    protected byte[] modifyImplementationHook(byte[] input) {
         return explicitValue.clone();
     }
 
@@ -68,6 +71,12 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
     }
 
     @Override
+    public VariableModification<byte[]> createCopy() {
+        return new ByteArrayExplicitValueModification(
+                explicitValue != null ? explicitValue.clone() : null);
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + Arrays.hashCode(explicitValue);
@@ -85,7 +94,7 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ByteArrayExplicitValueModification other = (ByteArrayExplicitValueModification) obj;
-        return Arrays.equals(this.explicitValue, other.explicitValue);
+        ByteArrayExplicitValueModification other = (ByteArrayExplicitValueModification) obj;
+        return Arrays.equals(explicitValue, other.explicitValue);
     }
 }

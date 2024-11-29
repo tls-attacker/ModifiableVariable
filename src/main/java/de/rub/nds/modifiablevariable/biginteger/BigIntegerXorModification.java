@@ -25,10 +25,13 @@ public class BigIntegerXorModification extends VariableModification<BigInteger> 
 
     private BigInteger xor;
 
-    public BigIntegerXorModification() {}
+    public BigIntegerXorModification() {
+        super();
+    }
 
-    public BigIntegerXorModification(BigInteger bi) {
-        this.xor = bi;
+    public BigIntegerXorModification(BigInteger xor) {
+        super();
+        this.xor = xor;
     }
 
     @Override
@@ -53,6 +56,11 @@ public class BigIntegerXorModification extends VariableModification<BigInteger> 
     }
 
     @Override
+    public VariableModification<BigInteger> createCopy() {
+        return new BigIntegerXorModification(xor);
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + xor.hashCode();
@@ -70,7 +78,7 @@ public class BigIntegerXorModification extends VariableModification<BigInteger> 
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final BigIntegerXorModification other = (BigIntegerXorModification) obj;
-        return Objects.equals(this.xor, other.xor);
+        BigIntegerXorModification other = (BigIntegerXorModification) obj;
+        return Objects.equals(xor, other.xor);
     }
 }

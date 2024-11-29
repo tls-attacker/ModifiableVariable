@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-public class LongModificationFactory {
+public final class LongModificationFactory {
 
     private enum ModificationType {
         ADD,
@@ -53,35 +53,35 @@ public class LongModificationFactory {
 
     public static final String FILE_NAME = "de/rub/nds/modifiablevariable/explicit/long.vec";
 
-    public static LongAddModification add(final String summand) {
+    public static LongAddModification add(String summand) {
         return add(Long.parseLong(summand));
     }
 
-    public static LongAddModification add(final Long summand) {
+    public static LongAddModification add(Long summand) {
         return new LongAddModification(summand);
     }
 
-    public static VariableModification<Long> sub(final String subtrahend) {
+    public static VariableModification<Long> sub(String subtrahend) {
         return sub(Long.parseLong(subtrahend));
     }
 
-    public static VariableModification<Long> sub(final Long subtrahend) {
+    public static VariableModification<Long> sub(Long subtrahend) {
         return new LongSubtractModification(subtrahend);
     }
 
-    public static VariableModification<Long> xor(final String xor) {
+    public static VariableModification<Long> xor(String xor) {
         return xor(Long.parseLong(xor));
     }
 
-    public static VariableModification<Long> xor(final Long xor) {
+    public static VariableModification<Long> xor(Long xor) {
         return new LongXorModification(xor);
     }
 
-    public static VariableModification<Long> explicitValue(final String value) {
+    public static VariableModification<Long> explicitValue(String value) {
         return explicitValue(Long.parseLong(value));
     }
 
-    public static VariableModification<Long> explicitValue(final Long value) {
+    public static VariableModification<Long> explicitValue(Long value) {
         return new LongExplicitValueModification(value);
     }
 
@@ -91,27 +91,27 @@ public class LongModificationFactory {
         return modifications.get(pos);
     }
 
-    public static VariableModification<Long> appendValue(final Long value) {
+    public static VariableModification<Long> appendValue(Long value) {
         return new LongAppendValueModification(value);
     }
 
-    public static VariableModification<Long> insertValue(final Long value, final int position) {
+    public static VariableModification<Long> insertValue(Long value, int position) {
         return new LongInsertValueModification(value, position);
     }
 
-    public static VariableModification<Long> prependValue(final Long value) {
+    public static VariableModification<Long> prependValue(Long value) {
         return new LongPrependValueModification(value);
     }
 
-    public static VariableModification<Long> multiply(final Long factor) {
+    public static VariableModification<Long> multiply(Long factor) {
         return new LongMultiplyModification(factor);
     }
 
-    public static VariableModification<Long> shiftLeft(final int shift) {
+    public static VariableModification<Long> shiftLeft(int shift) {
         return new LongShiftLeftModification(shift);
     }
 
-    public static VariableModification<Long> shiftRight(final int shift) {
+    public static VariableModification<Long> shiftRight(int shift) {
         return new LongShiftRightModification(shift);
     }
 
@@ -172,5 +172,7 @@ public class LongModificationFactory {
         }
     }
 
-    private LongModificationFactory() {}
+    private LongModificationFactory() {
+        super();
+    }
 }

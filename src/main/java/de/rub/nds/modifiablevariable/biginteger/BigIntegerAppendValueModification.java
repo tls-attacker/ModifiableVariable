@@ -25,10 +25,13 @@ public class BigIntegerAppendValueModification extends VariableModification<BigI
 
     private BigInteger appendValue;
 
-    public BigIntegerAppendValueModification() {}
+    public BigIntegerAppendValueModification() {
+        super();
+    }
 
-    public BigIntegerAppendValueModification(BigInteger bi) {
-        this.appendValue = bi;
+    public BigIntegerAppendValueModification(BigInteger appendValue) {
+        super();
+        this.appendValue = appendValue;
     }
 
     @Override
@@ -54,6 +57,11 @@ public class BigIntegerAppendValueModification extends VariableModification<BigI
     }
 
     @Override
+    public VariableModification<BigInteger> createCopy() {
+        return new BigIntegerAppendValueModification(appendValue);
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + appendValue.hashCode();
@@ -71,7 +79,7 @@ public class BigIntegerAppendValueModification extends VariableModification<BigI
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final BigIntegerAppendValueModification other = (BigIntegerAppendValueModification) obj;
-        return Objects.equals(this.appendValue, other.appendValue);
+        BigIntegerAppendValueModification other = (BigIntegerAppendValueModification) obj;
+        return Objects.equals(appendValue, other.appendValue);
     }
 }

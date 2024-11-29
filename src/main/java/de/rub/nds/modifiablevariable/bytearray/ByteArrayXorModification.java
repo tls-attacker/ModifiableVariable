@@ -32,9 +32,12 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
 
     private int startPosition;
 
-    public ByteArrayXorModification() {}
+    public ByteArrayXorModification() {
+        super();
+    }
 
     public ByteArrayXorModification(byte[] xor, int startPosition) {
+        super();
         this.xor = xor;
         this.startPosition = startPosition;
     }
@@ -49,7 +52,7 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
         if (start < 0) {
             start += input.length;
         }
-        final int end = start + xor.length;
+        int end = start + xor.length;
         if (end > result.length) {
             // result = new byte[end];
             // System.arraycopy(input, 0, result, 0, input.length);
@@ -107,6 +110,11 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
     }
 
     @Override
+    public VariableModification<byte[]> createCopy() {
+        return new ByteArrayXorModification(xor != null ? xor.clone() : null, startPosition);
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + Arrays.hashCode(xor);
@@ -125,11 +133,11 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ByteArrayXorModification other = (ByteArrayXorModification) obj;
-        if (this.startPosition != other.startPosition) {
+        ByteArrayXorModification other = (ByteArrayXorModification) obj;
+        if (startPosition != other.startPosition) {
             return false;
         }
-        return Arrays.equals(this.xor, other.xor);
+        return Arrays.equals(xor, other.xor);
     }
 
     @Override

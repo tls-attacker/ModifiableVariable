@@ -21,15 +21,18 @@ public class IntegerXorModification extends VariableModification<Integer> {
 
     private Integer xor;
 
-    public IntegerXorModification() {}
+    public IntegerXorModification() {
+        super();
+    }
 
     public IntegerXorModification(Integer xor) {
+        super();
         this.xor = xor;
     }
 
     @Override
-    protected Integer modifyImplementationHook(final Integer input) {
-        return (input == null) ? xor : input ^ xor;
+    protected Integer modifyImplementationHook(Integer input) {
+        return input == null ? xor : input ^ xor;
     }
 
     public Integer getXor() {
@@ -44,10 +47,15 @@ public class IntegerXorModification extends VariableModification<Integer> {
     public VariableModification<Integer> getModifiedCopy() {
         Random r = new Random();
         if (r.nextBoolean()) {
-            return new IntegerSubtractModification(xor + new Random().nextInt(MAX_VALUE_MODIFIER));
+            return new IntegerXorModification(xor + new Random().nextInt(MAX_VALUE_MODIFIER));
         } else {
-            return new IntegerSubtractModification(xor - new Random().nextInt(MAX_VALUE_MODIFIER));
+            return new IntegerXorModification(xor - new Random().nextInt(MAX_VALUE_MODIFIER));
         }
+    }
+
+    @Override
+    public VariableModification<Integer> createCopy() {
+        return new IntegerXorModification(xor);
     }
 
     @Override
@@ -68,7 +76,7 @@ public class IntegerXorModification extends VariableModification<Integer> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final IntegerXorModification other = (IntegerXorModification) obj;
-        return Objects.equals(this.xor, other.xor);
+        IntegerXorModification other = (IntegerXorModification) obj;
+        return Objects.equals(xor, other.xor);
     }
 }
