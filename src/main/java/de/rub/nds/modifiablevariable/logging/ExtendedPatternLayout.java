@@ -399,9 +399,12 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
 
         @Override
         public String toString() {
-            return String.format(
-                    "%s[patternSelector=%s, replace=%s]",
-                    super.toString(), patternSelector.toString(), replace.toString());
+            return super.toString()
+                    + "[patternSelector="
+                    + patternSelector.toString()
+                    + ", replace="
+                    + replace.toString()
+                    + "]";
         }
     }
 

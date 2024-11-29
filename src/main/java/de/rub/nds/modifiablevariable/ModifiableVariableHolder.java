@@ -95,7 +95,7 @@ public abstract class ModifiableVariableHolder implements Serializable {
     }
 
     public String getExtendedString() {
-        return String.format("%s{\n%s}\n", getClass().getSimpleName(), getExtendedString(1));
+        return getClass().getSimpleName() + "{\n" + getExtendedString(1) + "}\n";
     }
 
     protected String getExtendedString(int depth) {
