@@ -27,9 +27,7 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
 
     public ModifiableBigInteger(ModifiableBigInteger other) {
         super(other);
-        if (other != null) {
-            originalValue = other.originalValue;
-        }
+        originalValue = other.originalValue;
     }
 
     @Override

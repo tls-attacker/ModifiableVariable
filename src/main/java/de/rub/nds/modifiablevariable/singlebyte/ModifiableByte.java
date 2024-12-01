@@ -25,9 +25,7 @@ public class ModifiableByte extends ModifiableVariable<Byte> {
 
     public ModifiableByte(ModifiableByte other) {
         super(other);
-        if (other != null) {
-            originalValue = other.originalValue;
-        }
+        originalValue = other.originalValue;
     }
 
     @Override

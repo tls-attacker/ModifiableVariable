@@ -26,9 +26,7 @@ public class ModifiableLong extends ModifiableVariable<Long> {
 
     public ModifiableLong(ModifiableLong other) {
         super(other);
-        if (other != null) {
-            originalValue = other.originalValue;
-        }
+        originalValue = other.originalValue;
     }
 
     @Override

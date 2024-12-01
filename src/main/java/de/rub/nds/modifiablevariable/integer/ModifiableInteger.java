@@ -26,9 +26,7 @@ public class ModifiableInteger extends ModifiableVariable<Integer> {
 
     public ModifiableInteger(ModifiableInteger other) {
         super(other);
-        if (other != null) {
-            originalValue = other.originalValue;
-        }
+        originalValue = other.originalValue;
     }
 
     @Override

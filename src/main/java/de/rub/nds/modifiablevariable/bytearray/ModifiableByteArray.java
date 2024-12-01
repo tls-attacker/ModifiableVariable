@@ -30,10 +30,8 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
     @SuppressWarnings("IncompleteCopyConstructor")
     public ModifiableByteArray(ModifiableByteArray other) {
         super(other);
-        if (other != null) {
-            originalValue = other.originalValue != null ? other.originalValue.clone() : null;
-            assertEquals = other.assertEquals != null ? other.assertEquals.clone() : null;
-        }
+        originalValue = other.originalValue != null ? other.originalValue.clone() : null;
+        assertEquals = other.assertEquals != null ? other.assertEquals.clone() : null;
     }
 
     @Override

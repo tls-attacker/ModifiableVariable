@@ -30,9 +30,7 @@ public class ModifiableBoolean extends ModifiableVariable<Boolean> {
 
     public ModifiableBoolean(ModifiableBoolean other) {
         super(other);
-        if (other != null) {
-            originalValue = other.originalValue;
-        }
+        originalValue = other.originalValue;
     }
 
     @Override

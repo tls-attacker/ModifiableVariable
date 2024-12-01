@@ -32,9 +32,7 @@ public class ModifiableString extends ModifiableVariable<String> {
 
     public ModifiableString(ModifiableString other) {
         super(other);
-        if (other != null) {
-            originalValue = other.originalValue;
-        }
+        originalValue = other.originalValue;
     }
 
     @Override

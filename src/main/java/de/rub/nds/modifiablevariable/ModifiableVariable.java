@@ -163,12 +163,10 @@ public abstract class ModifiableVariable<E> implements Serializable {
 
     protected ModifiableVariable(ModifiableVariable<E> other) {
         super();
-        if (other != null) {
-            createRandomModification = other.createRandomModification;
-            modification = other.modification != null ? other.modification.createCopy() : null;
-            // Warning: Make sure to copy assertEquals in subclass correctly
-            assertEquals = other.assertEquals;
-        }
+        createRandomModification = other.createRandomModification;
+        modification = other.modification != null ? other.modification.createCopy() : null;
+        // Warning: Make sure to copy assertEquals in subclass correctly
+        assertEquals = other.assertEquals;
     }
 
     public void setModification(VariableModification<E> modification) {
