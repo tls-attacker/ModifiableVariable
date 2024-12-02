@@ -57,7 +57,7 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
 
     @Override
     public VariableModification<Byte> createCopy() {
-        return new ByteAddModification(explicitValue);
+        return new ByteExplicitValueModification(explicitValue);
     }
 
     @Override
