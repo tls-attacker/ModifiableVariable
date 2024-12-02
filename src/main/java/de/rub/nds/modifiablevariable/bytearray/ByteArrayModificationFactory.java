@@ -15,7 +15,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -117,15 +117,18 @@ public final class ByteArrayModificationFactory {
     public static synchronized List<VariableModification<byte[]>> modificationsFromFile() {
         try {
             if (modificationsFromFile == null) {
-                modificationsFromFile = new LinkedList<>();
+                modificationsFromFile = new ArrayList<>();
                 ClassLoader classLoader = ByteArrayModificationFactory.class.getClassLoader();
                 InputStream is = classLoader.getResourceAsStream(FILE_NAME);
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
                 String line;
+                int index = 0;
                 while ((line = br.readLine()) != null) {
                     line = line.replaceAll("\\s+", "");
                     byte[] value = ArrayConverter.hexStringToByteArray(line);
-                    modificationsFromFile.add(explicitValue(value));
+                    modificationsFromFile.add(
+                            new ByteArrayExplicitValueFromFileModification(index, value));
+                    index++;
                 }
             }
             return modificationsFromFile;

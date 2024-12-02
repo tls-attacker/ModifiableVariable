@@ -15,7 +15,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -118,14 +118,18 @@ public final class LongModificationFactory {
     public static synchronized List<VariableModification<Long>> modificationsFromFile() {
         try {
             if (modificationsFromFile == null) {
-                modificationsFromFile = new LinkedList<>();
+                modificationsFromFile = new ArrayList<>();
                 ClassLoader classLoader = IntegerModificationFactory.class.getClassLoader();
                 InputStream is = classLoader.getResourceAsStream(FILE_NAME);
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
                 String line;
+                int index = 0;
                 while ((line = br.readLine()) != null) {
                     String value = line.trim().split(" ")[0];
-                    modificationsFromFile.add(explicitValue(value));
+                    modificationsFromFile.add(
+                            new LongExplicitValueFromFileModification(
+                                    index, Long.parseLong(value)));
+                    index++;
                 }
             }
             return modificationsFromFile;

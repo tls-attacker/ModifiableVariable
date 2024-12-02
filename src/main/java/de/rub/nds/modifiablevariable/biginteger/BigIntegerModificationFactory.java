@@ -17,10 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public final class BigIntegerModificationFactory {
 
@@ -162,15 +159,19 @@ public final class BigIntegerModificationFactory {
     public static synchronized List<VariableModification<BigInteger>> modificationsFromFile() {
         try {
             if (modificationsFromFile == null) {
-                modificationsFromFile = new LinkedList<>();
+                modificationsFromFile = new ArrayList<>();
                 ClassLoader classLoader = ByteArrayModificationFactory.class.getClassLoader();
                 InputStream is = classLoader.getResourceAsStream(LongModificationFactory.FILE_NAME);
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
                 String line;
+                int index = 0;
                 while ((line = br.readLine()) != null) {
                     String value = line.trim().split(" ")[0];
                     if (!value.isEmpty()) {
-                        modificationsFromFile.add(explicitValue(value));
+                        modificationsFromFile.add(
+                                new BigIntegerExplicitValueFromFileModification(
+                                        index, new BigInteger(value)));
+                        index++;
                     }
                 }
             }

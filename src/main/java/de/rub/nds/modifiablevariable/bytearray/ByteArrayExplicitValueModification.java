@@ -26,7 +26,7 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
     private static final int MAX_EXPLICIT_VALUE = 256;
 
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
-    private byte[] explicitValue;
+    protected byte[] explicitValue;
 
     public ByteArrayExplicitValueModification() {
         super();

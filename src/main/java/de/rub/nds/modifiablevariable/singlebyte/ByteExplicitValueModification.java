@@ -19,7 +19,7 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
 
     private static final int MAX_EXPLICIT_MODIFIER = 16;
 
-    private Byte explicitValue;
+    protected Byte explicitValue;
 
     public ByteExplicitValueModification() {
         super();

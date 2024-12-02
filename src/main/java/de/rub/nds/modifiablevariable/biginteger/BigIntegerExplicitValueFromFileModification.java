@@ -14,59 +14,42 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.math.BigInteger;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = {"explicitValue", "modificationFilter"})
+@XmlType(propOrder = {"index", "explicitValue", "modificationFilter"})
 @XmlAccessorType(XmlAccessType.FIELD)
-public class BigIntegerExplicitValueModification extends VariableModification<BigInteger> {
+public class BigIntegerExplicitValueFromFileModification
+        extends BigIntegerExplicitValueModification {
+    private int index;
 
-    private static final int MAX_EXPLICIT_LENGTH = 8;
-
-    protected BigInteger explicitValue;
-
-    public BigIntegerExplicitValueModification() {
+    public BigIntegerExplicitValueFromFileModification() {
         super();
     }
 
-    public BigIntegerExplicitValueModification(BigInteger explicitValue) {
-        super();
-        this.explicitValue = explicitValue;
+    public BigIntegerExplicitValueFromFileModification(int index, BigInteger explicitValue) {
+        super(explicitValue);
+        this.index = index;
     }
 
-    @Override
-    protected BigInteger modifyImplementationHook(BigInteger input) {
-        return explicitValue;
-    }
-
-    public BigInteger getExplicitValue() {
-        return explicitValue;
-    }
-
-    public void setExplicitValue(BigInteger explicitValue) {
-        this.explicitValue = explicitValue;
+    public int getIndex() {
+        return index;
     }
 
     @Override
     public VariableModification<BigInteger> getModifiedCopy() {
-        Random r = new Random();
-        if (r.nextBoolean()) {
-            return new BigIntegerExplicitValueModification(
-                    explicitValue.add(new BigInteger(MAX_EXPLICIT_LENGTH, r)));
-        } else {
-            return new BigIntegerExplicitValueModification(
-                    explicitValue.subtract(new BigInteger(MAX_EXPLICIT_LENGTH, r)));
-        }
+        throw new UnsupportedOperationException(
+                "Cannot set modify Value of BigIntegerExplicitValueFromFileModification");
     }
 
     @Override
     public VariableModification<BigInteger> createCopy() {
-        return new BigIntegerExplicitValueModification(explicitValue);
+        return new BigIntegerExplicitValueFromFileModification(index, explicitValue);
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
+        hash = 31 * hash + index;
         hash = 31 * hash + explicitValue.hashCode();
         return hash;
     }
@@ -82,7 +65,11 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
         if (getClass() != obj.getClass()) {
             return false;
         }
-        BigIntegerExplicitValueModification other = (BigIntegerExplicitValueModification) obj;
+        BigIntegerExplicitValueFromFileModification other =
+                (BigIntegerExplicitValueFromFileModification) obj;
+        if (index != other.index) {
+            return false;
+        }
         return Objects.equals(explicitValue, other.explicitValue);
     }
 }

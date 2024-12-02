@@ -19,7 +19,7 @@ public class IntegerExplicitValueModification extends VariableModification<Integ
 
     private static final int MAX_VALUE_MODIFIER = 256;
 
-    private Integer explicitValue;
+    protected Integer explicitValue;
 
     public IntegerExplicitValueModification() {
         super();

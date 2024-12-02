@@ -19,7 +19,7 @@ public class LongExplicitValueModification extends VariableModification<Long> {
 
     private static final int MAX_EXPLICIT_MODIFIER = 256;
 
-    private Long explicitValue;
+    protected Long explicitValue;
 
     public LongExplicitValueModification() {
         super();
