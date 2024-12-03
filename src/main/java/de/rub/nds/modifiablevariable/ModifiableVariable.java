@@ -13,10 +13,7 @@ import de.rub.nds.modifiablevariable.bool.BooleanToggleModification;
 import de.rub.nds.modifiablevariable.bytearray.*;
 import de.rub.nds.modifiablevariable.integer.*;
 import de.rub.nds.modifiablevariable.longint.*;
-import de.rub.nds.modifiablevariable.singlebyte.ByteAddModification;
-import de.rub.nds.modifiablevariable.singlebyte.ByteExplicitValueModification;
-import de.rub.nds.modifiablevariable.singlebyte.ByteSubtractModification;
-import de.rub.nds.modifiablevariable.singlebyte.ByteXorModification;
+import de.rub.nds.modifiablevariable.singlebyte.*;
 import de.rub.nds.modifiablevariable.string.StringAppendValueModification;
 import de.rub.nds.modifiablevariable.string.StringExplicitValueModification;
 import de.rub.nds.modifiablevariable.string.StringInsertValueModification;
@@ -54,6 +51,9 @@ public abstract class ModifiableVariable<E> implements Serializable {
                 type = BigIntegerShiftLeftModification.class,
                 name = "BigIntegerShiftLeftModification"),
         @XmlElement(
+                type = BigIntegerExplicitValueFromFileModification.class,
+                name = "BigIntegerExplicitValueFromFileModification"),
+        @XmlElement(
                 type = BigIntegerExplicitValueModification.class,
                 name = "BigIntegerExplicitValueModification"),
         @XmlElement(type = BigIntegerAddModification.class, name = "BigIntegerAddModification"),
@@ -90,6 +90,9 @@ public abstract class ModifiableVariable<E> implements Serializable {
                 type = ByteArrayPrependValueModification.class,
                 name = "ByteArrayPrependValueModification"),
         @XmlElement(
+                type = ByteArrayExplicitValueFromFileModification.class,
+                name = "ByteArrayExplicitValueFromFileModification"),
+        @XmlElement(
                 type = ByteArrayExplicitValueModification.class,
                 name = "ByteArrayExplicitValueModification"),
         @XmlElement(
@@ -106,6 +109,9 @@ public abstract class ModifiableVariable<E> implements Serializable {
                 type = IntegerShiftLeftModification.class,
                 name = "IntegerShiftLeftModification"),
         @XmlElement(
+                type = IntegerExplicitValueFromFileModification.class,
+                name = "IntegerExplicitValueFromFileModification"),
+        @XmlElement(
                 type = IntegerExplicitValueModification.class,
                 name = "IntegerExplicitValueModification"),
         @XmlElement(type = IntegerAddModification.class, name = "IntegerAddModification"),
@@ -121,6 +127,9 @@ public abstract class ModifiableVariable<E> implements Serializable {
         @XmlElement(type = LongXorModification.class, name = "LongXorModification"),
         @XmlElement(type = LongSubtractModification.class, name = "LongSubtractModification"),
         @XmlElement(
+                type = LongExplicitValueFromFileModification.class,
+                name = "LongExplicitValueFromFileModification"),
+        @XmlElement(
                 type = LongExplicitValueModification.class,
                 name = "LongExplicitValueModification"),
         @XmlElement(type = LongAppendValueModification.class, name = "LongAppendValueModification"),
@@ -135,6 +144,9 @@ public abstract class ModifiableVariable<E> implements Serializable {
         @XmlElement(type = ByteXorModification.class, name = "ByteXorModification"),
         @XmlElement(type = ByteSubtractModification.class, name = "ByteSubtractModification"),
         @XmlElement(type = ByteAddModification.class, name = "ByteAddModification"),
+        @XmlElement(
+                type = ByteExplicitValueFromFileModification.class,
+                name = "ByteExplicitValueFromFileModification"),
         @XmlElement(
                 type = ByteExplicitValueModification.class,
                 name = "ByteExplicitValueModification"),
