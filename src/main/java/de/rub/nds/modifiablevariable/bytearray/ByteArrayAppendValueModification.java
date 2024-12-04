@@ -37,6 +37,16 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
         this.bytesToAppend = bytesToAppend;
     }
 
+    public ByteArrayAppendValueModification(ByteArrayAppendValueModification other) {
+        super(other);
+        bytesToAppend = other.bytesToAppend != null ? other.bytesToAppend.clone() : null;
+    }
+
+    @Override
+    public ByteArrayAppendValueModification createCopy() {
+        return new ByteArrayAppendValueModification(this);
+    }
+
     @Override
     protected byte[] modifyImplementationHook(byte[] input) {
         if (input == null) {
@@ -62,12 +72,6 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
         byte[] newValue = Arrays.copyOf(bytesToAppend, bytesToAppend.length);
         newValue[index] = (byte) r.nextInt(MAX_EXPLICIT_VALUE);
         return new ByteArrayAppendValueModification(newValue);
-    }
-
-    @Override
-    public VariableModification<byte[]> createCopy() {
-        return new ByteArrayAppendValueModification(
-                bytesToAppend != null ? bytesToAppend.clone() : null);
     }
 
     @Override

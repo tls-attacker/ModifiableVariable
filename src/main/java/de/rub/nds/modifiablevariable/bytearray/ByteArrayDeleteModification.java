@@ -39,6 +39,17 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
         this.count = count;
     }
 
+    public ByteArrayDeleteModification(ByteArrayDeleteModification other) {
+        super(other);
+        count = other.count;
+        startPosition = other.startPosition;
+    }
+
+    @Override
+    public ByteArrayDeleteModification createCopy() {
+        return new ByteArrayDeleteModification(this);
+    }
+
     @Override
     protected byte[] modifyImplementationHook(byte[] input) {
         if (input == null) {
@@ -112,11 +123,6 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
             }
             return new ByteArrayDeleteModification(startPosition, modifier);
         }
-    }
-
-    @Override
-    public VariableModification<byte[]> createCopy() {
-        return new ByteArrayDeleteModification(startPosition, count);
     }
 
     @Override

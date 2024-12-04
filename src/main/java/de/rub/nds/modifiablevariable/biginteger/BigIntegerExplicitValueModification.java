@@ -34,6 +34,16 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
         this.explicitValue = explicitValue;
     }
 
+    public BigIntegerExplicitValueModification(BigIntegerExplicitValueModification other) {
+        super(other);
+        explicitValue = other.explicitValue;
+    }
+
+    @Override
+    public BigIntegerExplicitValueModification createCopy() {
+        return new BigIntegerExplicitValueModification(this);
+    }
+
     @Override
     protected BigInteger modifyImplementationHook(BigInteger input) {
         return explicitValue;
@@ -57,11 +67,6 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
             return new BigIntegerExplicitValueModification(
                     explicitValue.subtract(new BigInteger(MAX_EXPLICIT_LENGTH, r)));
         }
-    }
-
-    @Override
-    public VariableModification<BigInteger> createCopy() {
-        return new BigIntegerExplicitValueModification(explicitValue);
     }
 
     @Override

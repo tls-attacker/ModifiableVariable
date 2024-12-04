@@ -30,6 +30,16 @@ public class IntegerPrependValueModification extends VariableModification<Intege
         this.prependValue = prependValue;
     }
 
+    public IntegerPrependValueModification(IntegerPrependValueModification other) {
+        super(other);
+        prependValue = other.prependValue;
+    }
+
+    @Override
+    public IntegerPrependValueModification createCopy() {
+        return new IntegerPrependValueModification(this);
+    }
+
     @Override
     protected Integer modifyImplementationHook(Integer input) {
         if (input == null) {
@@ -51,11 +61,6 @@ public class IntegerPrependValueModification extends VariableModification<Intege
     public VariableModification<Integer> getModifiedCopy() {
         return new IntegerPrependValueModification(
                 prependValue + new Random().nextInt(MAX_VALUE_MODIFIER));
-    }
-
-    @Override
-    public VariableModification<Integer> createCopy() {
-        return new IntegerPrependValueModification(prependValue);
     }
 
     @Override

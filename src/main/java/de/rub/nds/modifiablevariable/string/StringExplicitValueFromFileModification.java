@@ -5,7 +5,7 @@
  *
  * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-package de.rub.nds.modifiablevariable.integer;
+package de.rub.nds.modifiablevariable.string;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -17,27 +17,26 @@ import java.util.Objects;
 @XmlRootElement
 @XmlType(propOrder = "index")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class IntegerExplicitValueFromFileModification extends IntegerExplicitValueModification {
+public class StringExplicitValueFromFileModification extends StringExplicitValueModification {
     private int index;
 
-    public IntegerExplicitValueFromFileModification() {
+    public StringExplicitValueFromFileModification() {
         super();
     }
 
-    public IntegerExplicitValueFromFileModification(int index, Integer explicitValue) {
+    public StringExplicitValueFromFileModification(int index, String explicitValue) {
         super(explicitValue);
         this.index = index;
     }
 
-    public IntegerExplicitValueFromFileModification(
-            IntegerExplicitValueFromFileModification other) {
+    public StringExplicitValueFromFileModification(StringExplicitValueFromFileModification other) {
         super(other);
         index = other.index;
     }
 
     @Override
-    public IntegerExplicitValueFromFileModification createCopy() {
-        return new IntegerExplicitValueFromFileModification(this);
+    public StringExplicitValueFromFileModification createCopy() {
+        return new StringExplicitValueFromFileModification(this);
     }
 
     public int getIndex() {
@@ -45,9 +44,9 @@ public class IntegerExplicitValueFromFileModification extends IntegerExplicitVal
     }
 
     @Override
-    public VariableModification<Integer> getModifiedCopy() {
+    public VariableModification<String> getModifiedCopy() {
         throw new UnsupportedOperationException(
-                "Cannot set modify Value of IntegerExplicitValueFromFileModification");
+                "Cannot set modify Value of StringExplicitValueFromFileModification");
     }
 
     @Override
@@ -69,8 +68,8 @@ public class IntegerExplicitValueFromFileModification extends IntegerExplicitVal
         if (getClass() != obj.getClass()) {
             return false;
         }
-        IntegerExplicitValueFromFileModification other =
-                (IntegerExplicitValueFromFileModification) obj;
+        StringExplicitValueFromFileModification other =
+                (StringExplicitValueFromFileModification) obj;
         if (index != other.index) {
             return false;
         }

@@ -30,6 +30,16 @@ public class LongShiftLeftModification extends VariableModification<Long> {
         this.shift = shift;
     }
 
+    public LongShiftLeftModification(LongShiftLeftModification other) {
+        super(other);
+        shift = other.shift;
+    }
+
+    @Override
+    public LongShiftLeftModification createCopy() {
+        return new LongShiftLeftModification(this);
+    }
+
     @Override
     protected Long modifyImplementationHook(Long input) {
         return input == null ? 0L : input << shift % MAX_SHIFT_MODIFIER;
@@ -59,11 +69,6 @@ public class LongShiftLeftModification extends VariableModification<Long> {
         }
 
         return new LongShiftLeftModification(newShift);
-    }
-
-    @Override
-    public VariableModification<Long> createCopy() {
-        return new LongShiftLeftModification(shift);
     }
 
     @Override

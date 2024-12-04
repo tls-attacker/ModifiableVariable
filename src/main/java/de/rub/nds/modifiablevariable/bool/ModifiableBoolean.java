@@ -34,6 +34,11 @@ public class ModifiableBoolean extends ModifiableVariable<Boolean> {
     }
 
     @Override
+    public ModifiableBoolean createCopy() {
+        return new ModifiableBoolean(this);
+    }
+
+    @Override
     public Boolean getOriginalValue() {
         return originalValue;
     }
@@ -47,11 +52,6 @@ public class ModifiableBoolean extends ModifiableVariable<Boolean> {
     protected void createRandomModification() {
         VariableModification<Boolean> vm = BooleanModificationFactory.createRandomModification();
         setModification(vm);
-    }
-
-    @Override
-    public ModifiableBoolean createCopy() {
-        return new ModifiableBoolean(this);
     }
 
     @Override

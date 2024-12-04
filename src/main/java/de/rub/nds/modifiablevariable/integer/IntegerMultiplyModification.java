@@ -30,6 +30,16 @@ public class IntegerMultiplyModification extends VariableModification<Integer> {
         this.factor = factor;
     }
 
+    public IntegerMultiplyModification(IntegerMultiplyModification other) {
+        super(other);
+        factor = other.factor;
+    }
+
+    @Override
+    public IntegerMultiplyModification createCopy() {
+        return new IntegerMultiplyModification(this);
+    }
+
     @Override
     protected Integer modifyImplementationHook(Integer input) {
         return input == null ? 0 : input * factor;
@@ -48,11 +58,6 @@ public class IntegerMultiplyModification extends VariableModification<Integer> {
         Random r = new Random();
 
         return new IntegerMultiplyModification(factor + r.nextInt(MAX_FACTOR_MODIFIER));
-    }
-
-    @Override
-    public VariableModification<Integer> createCopy() {
-        return new IntegerMultiplyModification(factor);
     }
 
     @Override

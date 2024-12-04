@@ -27,7 +27,6 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
         super();
     }
 
-    @SuppressWarnings("IncompleteCopyConstructor")
     public ModifiableByteArray(ModifiableByteArray other) {
         super(other);
         originalValue = other.originalValue != null ? other.originalValue.clone() : null;
@@ -35,15 +34,15 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
     }
 
     @Override
+    public ModifiableByteArray createCopy() {
+        return new ModifiableByteArray(this);
+    }
+
+    @Override
     protected void createRandomModification() {
         VariableModification<byte[]> vm =
                 ByteArrayModificationFactory.createRandomModification(originalValue);
         setModification(vm);
-    }
-
-    @Override
-    public ModifiableByteArray createCopy() {
-        return new ModifiableByteArray(this);
     }
 
     @Override

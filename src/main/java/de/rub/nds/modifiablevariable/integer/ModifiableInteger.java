@@ -30,14 +30,14 @@ public class ModifiableInteger extends ModifiableVariable<Integer> {
     }
 
     @Override
-    protected void createRandomModification() {
-        VariableModification<Integer> vm = IntegerModificationFactory.createRandomModification();
-        setModification(vm);
+    public ModifiableInteger createCopy() {
+        return new ModifiableInteger(this);
     }
 
     @Override
-    public ModifiableInteger createCopy() {
-        return new ModifiableInteger(this);
+    protected void createRandomModification() {
+        VariableModification<Integer> vm = IntegerModificationFactory.createRandomModification();
+        setModification(vm);
     }
 
     public Integer getAssertEquals() {

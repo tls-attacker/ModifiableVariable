@@ -15,7 +15,7 @@ import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
 
 @XmlRootElement
-@XmlType(propOrder = {"index", "explicitValue", "modificationFilter"})
+@XmlType(propOrder = "index")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class LongExplicitValueFromFileModification extends LongExplicitValueModification {
     private int index;
@@ -29,6 +29,16 @@ public class LongExplicitValueFromFileModification extends LongExplicitValueModi
         this.index = index;
     }
 
+    public LongExplicitValueFromFileModification(LongExplicitValueFromFileModification other) {
+        super(other);
+        index = other.index;
+    }
+
+    @Override
+    public LongExplicitValueFromFileModification createCopy() {
+        return new LongExplicitValueFromFileModification(this);
+    }
+
     public int getIndex() {
         return index;
     }
@@ -37,11 +47,6 @@ public class LongExplicitValueFromFileModification extends LongExplicitValueModi
     public VariableModification<Long> getModifiedCopy() {
         throw new UnsupportedOperationException(
                 "Cannot set modify Value of LongExplicitValueFromFileModification");
-    }
-
-    @Override
-    public VariableModification<Long> createCopy() {
-        return new LongExplicitValueFromFileModification(index, explicitValue);
     }
 
     @Override

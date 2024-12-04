@@ -202,6 +202,12 @@ public abstract class ModifiableVariable<E> implements Serializable {
         return getOriginalValue();
     }
 
+    public void reduceToOriginalValue(boolean evenWithNullOriginalValue) {
+        if (evenWithNullOriginalValue || getOriginalValue() != null) {
+            setOriginalValue(getValue());
+        }
+    }
+
     public abstract E getOriginalValue();
 
     public abstract void setOriginalValue(E originalValue);

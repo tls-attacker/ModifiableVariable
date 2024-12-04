@@ -33,6 +33,16 @@ public class BigIntegerShiftRightModification extends VariableModification<BigIn
         this.shift = shift;
     }
 
+    public BigIntegerShiftRightModification(BigIntegerShiftRightModification other) {
+        super(other);
+        shift = other.shift;
+    }
+
+    @Override
+    public BigIntegerShiftRightModification createCopy() {
+        return new BigIntegerShiftRightModification(this);
+    }
+
     @Override
     protected BigInteger modifyImplementationHook(BigInteger input) {
         if (input == null) {
@@ -52,11 +62,6 @@ public class BigIntegerShiftRightModification extends VariableModification<BigIn
     @Override
     public VariableModification<BigInteger> getModifiedCopy() {
         return new BigIntegerShiftRightModification(shift + new Random().nextInt(MAX_SHIFT_LENGTH));
-    }
-
-    @Override
-    public VariableModification<BigInteger> createCopy() {
-        return new BigIntegerShiftRightModification(shift);
     }
 
     @Override

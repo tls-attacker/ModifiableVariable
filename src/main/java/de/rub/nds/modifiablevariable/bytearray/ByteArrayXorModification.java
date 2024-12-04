@@ -42,6 +42,17 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
         this.startPosition = startPosition;
     }
 
+    public ByteArrayXorModification(ByteArrayXorModification other) {
+        super(other);
+        xor = other.xor != null ? other.xor.clone() : null;
+        startPosition = other.startPosition;
+    }
+
+    @Override
+    public ByteArrayXorModification createCopy() {
+        return new ByteArrayXorModification(this);
+    }
+
     @Override
     protected byte[] modifyImplementationHook(byte[] input) {
         if (input == null) {
@@ -107,11 +118,6 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
             }
             return new ByteArrayXorModification(newValue, modifier);
         }
-    }
-
-    @Override
-    public VariableModification<byte[]> createCopy() {
-        return new ByteArrayXorModification(xor != null ? xor.clone() : null, startPosition);
     }
 
     @Override

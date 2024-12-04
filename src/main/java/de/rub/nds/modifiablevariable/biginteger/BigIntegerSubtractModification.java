@@ -34,6 +34,16 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
         this.subtrahend = subtrahend;
     }
 
+    public BigIntegerSubtractModification(BigIntegerSubtractModification other) {
+        super(other);
+        subtrahend = other.subtrahend;
+    }
+
+    @Override
+    public BigIntegerSubtractModification createCopy() {
+        return new BigIntegerSubtractModification(this);
+    }
+
     @Override
     protected BigInteger modifyImplementationHook(BigInteger input) {
         if (input == null) {
@@ -54,11 +64,6 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
     public VariableModification<BigInteger> getModifiedCopy() {
         return new BigIntegerSubtractModification(
                 subtrahend.add(new BigInteger(MAX_SUBTRACT_LENGTH, new Random())));
-    }
-
-    @Override
-    public VariableModification<BigInteger> createCopy() {
-        return new BigIntegerSubtractModification(subtrahend);
     }
 
     @Override

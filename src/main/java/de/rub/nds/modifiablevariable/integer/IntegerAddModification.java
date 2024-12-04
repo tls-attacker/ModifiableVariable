@@ -30,6 +30,16 @@ public class IntegerAddModification extends VariableModification<Integer> {
         this.summand = summand;
     }
 
+    public IntegerAddModification(IntegerAddModification other) {
+        super(other);
+        summand = other.summand;
+    }
+
+    @Override
+    public IntegerAddModification createCopy() {
+        return new IntegerAddModification(this);
+    }
+
     @Override
     protected Integer modifyImplementationHook(Integer input) {
         return input == null ? summand : input + summand;
@@ -46,11 +56,6 @@ public class IntegerAddModification extends VariableModification<Integer> {
     @Override
     public VariableModification<Integer> getModifiedCopy() {
         return new IntegerAddModification(summand + new Random().nextInt(MAX_ADD_MODIFIER));
-    }
-
-    @Override
-    public VariableModification<Integer> createCopy() {
-        return new IntegerAddModification(summand);
     }
 
     @Override

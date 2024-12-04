@@ -15,7 +15,7 @@ import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
 
 @XmlRootElement
-@XmlType(propOrder = {"index", "explicitValue", "modificationFilter"})
+@XmlType(propOrder = "index")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ByteExplicitValueFromFileModification extends ByteExplicitValueModification {
     private int index;
@@ -29,6 +29,16 @@ public class ByteExplicitValueFromFileModification extends ByteExplicitValueModi
         this.index = index;
     }
 
+    public ByteExplicitValueFromFileModification(ByteExplicitValueFromFileModification other) {
+        super(other);
+        index = other.index;
+    }
+
+    @Override
+    public ByteExplicitValueFromFileModification createCopy() {
+        return new ByteExplicitValueFromFileModification(this);
+    }
+
     public int getIndex() {
         return index;
     }
@@ -37,11 +47,6 @@ public class ByteExplicitValueFromFileModification extends ByteExplicitValueModi
     public VariableModification<Byte> getModifiedCopy() {
         throw new UnsupportedOperationException(
                 "Cannot set modify Value of ByteExplicitValueFromFileModification");
-    }
-
-    @Override
-    public VariableModification<Byte> createCopy() {
-        return new ByteExplicitValueFromFileModification(index, explicitValue);
     }
 
     @Override

@@ -5,7 +5,7 @@
  *
  * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-package de.rub.nds.modifiablevariable.string;
+package de.rub.nds.modifiablevariable.path;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
@@ -18,35 +18,41 @@ import java.util.Random;
 /** Modification that appends a string to the original value. */
 @XmlRootElement
 @XmlType(propOrder = {"appendValue", "modificationFilter"})
-public class StringAppendValueModification extends VariableModification<String> {
+public class PathAppendValueModification extends VariableModification<String> {
 
     private static final int MAX_EXPLICIT_VALUE = 256;
 
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     private String appendValue;
 
-    public StringAppendValueModification() {
+    public PathAppendValueModification() {
         super();
     }
 
-    public StringAppendValueModification(String appendValue) {
+    public PathAppendValueModification(String appendValue) {
         super();
         this.appendValue = appendValue;
     }
 
-    public StringAppendValueModification(StringAppendValueModification other) {
+    public PathAppendValueModification(PathAppendValueModification other) {
         super(other);
         appendValue = other.appendValue;
     }
 
     @Override
-    public StringAppendValueModification createCopy() {
-        return new StringAppendValueModification(this);
+    public PathAppendValueModification createCopy() {
+        return new PathAppendValueModification(this);
     }
 
     @Override
     protected String modifyImplementationHook(String input) {
-        return input != null ? input + appendValue : appendValue;
+        if (input == null) {
+            return null;
+        }
+        if (input.endsWith("/")) {
+            return input + appendValue + "/";
+        }
+        return input + "/" + appendValue;
     }
 
     public String getAppendValue() {
@@ -64,7 +70,7 @@ public class StringAppendValueModification extends VariableModification<String> 
         char randomChar = (char) r.nextInt(MAX_EXPLICIT_VALUE);
         StringBuilder modifiedString = new StringBuilder(appendValue);
         modifiedString.setCharAt(index, randomChar);
-        return new StringAppendValueModification(modifiedString.toString());
+        return new PathAppendValueModification(modifiedString.toString());
     }
 
     @Override
@@ -85,7 +91,7 @@ public class StringAppendValueModification extends VariableModification<String> 
         if (getClass() != obj.getClass()) {
             return false;
         }
-        StringAppendValueModification other = (StringAppendValueModification) obj;
+        PathAppendValueModification other = (PathAppendValueModification) obj;
         return Objects.equals(appendValue, other.appendValue);
     }
 }

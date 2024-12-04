@@ -34,6 +34,16 @@ public class BigIntegerAddModification extends VariableModification<BigInteger> 
         this.summand = summand;
     }
 
+    public BigIntegerAddModification(BigIntegerAddModification other) {
+        super(other);
+        summand = other.summand;
+    }
+
+    @Override
+    public BigIntegerAddModification createCopy() {
+        return new BigIntegerAddModification(this);
+    }
+
     @Override
     protected BigInteger modifyImplementationHook(BigInteger input) {
         return input == null ? summand : input.add(summand);
@@ -51,11 +61,6 @@ public class BigIntegerAddModification extends VariableModification<BigInteger> 
     public VariableModification<BigInteger> getModifiedCopy() {
         return new BigIntegerAddModification(
                 summand.add(new BigInteger(MAX_ADD_LENGTH, new Random())));
-    }
-
-    @Override
-    public VariableModification<BigInteger> createCopy() {
-        return new BigIntegerAddModification(summand);
     }
 
     @Override

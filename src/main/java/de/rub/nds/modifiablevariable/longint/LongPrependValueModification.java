@@ -30,6 +30,16 @@ public class LongPrependValueModification extends VariableModification<Long> {
         this.prependValue = prependValue;
     }
 
+    public LongPrependValueModification(LongPrependValueModification other) {
+        super(other);
+        prependValue = other.prependValue;
+    }
+
+    @Override
+    public LongPrependValueModification createCopy() {
+        return new LongPrependValueModification(this);
+    }
+
     @Override
     protected Long modifyImplementationHook(Long input) {
         if (input == null) {
@@ -50,11 +60,6 @@ public class LongPrependValueModification extends VariableModification<Long> {
     public VariableModification<Long> getModifiedCopy() {
         return new LongPrependValueModification(
                 prependValue + new Random().nextInt(MAX_VALUE_MODIFIER));
-    }
-
-    @Override
-    public VariableModification<Long> createCopy() {
-        return new LongPrependValueModification(prependValue);
     }
 
     @Override

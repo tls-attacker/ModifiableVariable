@@ -24,7 +24,7 @@ import java.nio.charset.StandardCharsets;
 public class ModifiableString extends ModifiableVariable<String> {
 
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
-    private String originalValue;
+    protected String originalValue;
 
     public ModifiableString() {
         super();
@@ -36,14 +36,14 @@ public class ModifiableString extends ModifiableVariable<String> {
     }
 
     @Override
-    protected void createRandomModification() {
-        VariableModification<String> vm = StringModificationFactory.createRandomModification(null);
-        setModification(vm);
+    public ModifiableString createCopy() {
+        return new ModifiableString(this);
     }
 
     @Override
-    public ModifiableString createCopy() {
-        return new ModifiableString(this);
+    protected void createRandomModification() {
+        VariableModification<String> vm = StringModificationFactory.createRandomModification(null);
+        setModification(vm);
     }
 
     public String getAssertEquals() {

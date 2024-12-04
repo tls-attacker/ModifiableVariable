@@ -30,6 +30,16 @@ public class IntegerExplicitValueModification extends VariableModification<Integ
         this.explicitValue = explicitValue;
     }
 
+    public IntegerExplicitValueModification(IntegerExplicitValueModification other) {
+        super(other);
+        explicitValue = other.explicitValue;
+    }
+
+    @Override
+    public IntegerExplicitValueModification createCopy() {
+        return new IntegerExplicitValueModification(this);
+    }
+
     @Override
     protected Integer modifyImplementationHook(Integer input) {
         return explicitValue;
@@ -53,11 +63,6 @@ public class IntegerExplicitValueModification extends VariableModification<Integ
             return new IntegerExplicitValueModification(
                     explicitValue - r.nextInt(MAX_VALUE_MODIFIER));
         }
-    }
-
-    @Override
-    public VariableModification<Integer> createCopy() {
-        return new IntegerExplicitValueModification(explicitValue);
     }
 
     @Override

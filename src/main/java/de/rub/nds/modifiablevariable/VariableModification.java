@@ -35,6 +35,18 @@ public abstract class VariableModification<E> {
             @XmlElement(type = AccessModificationFilter.class, name = "AccessModificationFilter"))
     private ModificationFilter modificationFilter;
 
+    protected VariableModification() {
+        super();
+    }
+
+    protected VariableModification(VariableModification<E> other) {
+        super();
+        modificationFilter =
+                other.modificationFilter != null ? other.modificationFilter.createCopy() : null;
+    }
+
+    public abstract VariableModification<E> createCopy();
+
     public E modify(E input) {
         E modifiedValue = modifyImplementationHook(input);
         if (modificationFilter == null || !modificationFilter.filterModification()) {
@@ -48,8 +60,6 @@ public abstract class VariableModification<E> {
     protected abstract E modifyImplementationHook(E input);
 
     public abstract VariableModification<E> getModifiedCopy();
-
-    public abstract VariableModification<E> createCopy();
 
     /**
      * Debugging modified variables. Getting stack trace can be time-consuming, thus we use

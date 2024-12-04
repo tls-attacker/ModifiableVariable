@@ -18,5 +18,15 @@ import jakarta.xml.bind.annotation.XmlSeeAlso;
 @XmlSeeAlso(AccessModificationFilter.class)
 public abstract class ModificationFilter {
 
+    protected ModificationFilter() {
+        super();
+    }
+
+    protected ModificationFilter(ModificationFilter other) {
+        super();
+    }
+
+    public abstract ModificationFilter createCopy();
+
     public abstract boolean filterModification();
 }

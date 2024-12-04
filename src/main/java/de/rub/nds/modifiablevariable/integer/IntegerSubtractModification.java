@@ -30,6 +30,16 @@ public class IntegerSubtractModification extends VariableModification<Integer> {
         this.subtrahend = subtrahend;
     }
 
+    public IntegerSubtractModification(IntegerSubtractModification other) {
+        super(other);
+        subtrahend = other.subtrahend;
+    }
+
+    @Override
+    public IntegerSubtractModification createCopy() {
+        return new IntegerSubtractModification(this);
+    }
+
     @Override
     protected Integer modifyImplementationHook(Integer input) {
         return input == null ? -subtrahend : input - subtrahend;
@@ -47,11 +57,6 @@ public class IntegerSubtractModification extends VariableModification<Integer> {
     public VariableModification<Integer> getModifiedCopy() {
         return new IntegerSubtractModification(
                 subtrahend + new Random().nextInt(MAX_SUBTRACT_MODIFIER));
-    }
-
-    @Override
-    public VariableModification<Integer> createCopy() {
-        return new IntegerSubtractModification(subtrahend);
     }
 
     @Override

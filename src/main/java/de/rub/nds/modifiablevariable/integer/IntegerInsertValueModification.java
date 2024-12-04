@@ -35,6 +35,17 @@ public class IntegerInsertValueModification extends VariableModification<Integer
         this.startPosition = startPosition;
     }
 
+    public IntegerInsertValueModification(IntegerInsertValueModification other) {
+        super(other);
+        insertValue = other.insertValue;
+        startPosition = other.startPosition;
+    }
+
+    @Override
+    public IntegerInsertValueModification createCopy() {
+        return new IntegerInsertValueModification(this);
+    }
+
     @Override
     protected Integer modifyImplementationHook(Integer input) {
         if (input == null) {
@@ -89,11 +100,6 @@ public class IntegerInsertValueModification extends VariableModification<Integer
             }
             return new IntegerInsertValueModification(insertValue, modifier);
         }
-    }
-
-    @Override
-    public VariableModification<Integer> createCopy() {
-        return new IntegerInsertValueModification(insertValue, startPosition);
     }
 
     @Override

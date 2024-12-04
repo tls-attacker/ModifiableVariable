@@ -34,6 +34,16 @@ public class BigIntegerAppendValueModification extends VariableModification<BigI
         this.appendValue = appendValue;
     }
 
+    public BigIntegerAppendValueModification(BigIntegerAppendValueModification other) {
+        super(other);
+        appendValue = other.appendValue;
+    }
+
+    @Override
+    public BigIntegerAppendValueModification createCopy() {
+        return new BigIntegerAppendValueModification(this);
+    }
+
     @Override
     protected BigInteger modifyImplementationHook(BigInteger input) {
         if (input == null) {
@@ -54,11 +64,6 @@ public class BigIntegerAppendValueModification extends VariableModification<BigI
     public VariableModification<BigInteger> getModifiedCopy() {
         return new BigIntegerAppendValueModification(
                 appendValue.add(new BigInteger(MAX_APPEND_LENGTH, new Random())));
-    }
-
-    @Override
-    public VariableModification<BigInteger> createCopy() {
-        return new BigIntegerAppendValueModification(appendValue);
     }
 
     @Override

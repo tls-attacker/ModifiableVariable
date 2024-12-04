@@ -34,6 +34,16 @@ public class BigIntegerXorModification extends VariableModification<BigInteger> 
         this.xor = xor;
     }
 
+    public BigIntegerXorModification(BigIntegerXorModification other) {
+        super(other);
+        xor = other.xor;
+    }
+
+    @Override
+    public BigIntegerXorModification createCopy() {
+        return new BigIntegerXorModification(this);
+    }
+
     @Override
     protected BigInteger modifyImplementationHook(BigInteger input) {
         if (input == null) {
@@ -53,11 +63,6 @@ public class BigIntegerXorModification extends VariableModification<BigInteger> 
     @Override
     public VariableModification<BigInteger> getModifiedCopy() {
         return new BigIntegerXorModification(xor.add(new BigInteger(MAX_XOR_LENGTH, new Random())));
-    }
-
-    @Override
-    public VariableModification<BigInteger> createCopy() {
-        return new BigIntegerXorModification(xor);
     }
 
     @Override

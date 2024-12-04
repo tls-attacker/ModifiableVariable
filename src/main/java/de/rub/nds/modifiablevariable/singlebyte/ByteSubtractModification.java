@@ -30,6 +30,16 @@ public class ByteSubtractModification extends VariableModification<Byte> {
         this.subtrahend = subtrahend;
     }
 
+    public ByteSubtractModification(ByteSubtractModification other) {
+        super(other);
+        subtrahend = other.subtrahend;
+    }
+
+    @Override
+    public ByteSubtractModification createCopy() {
+        return new ByteSubtractModification(this);
+    }
+
     @Override
     protected Byte modifyImplementationHook(Byte input) {
         if (input == null) {
@@ -50,11 +60,6 @@ public class ByteSubtractModification extends VariableModification<Byte> {
     public VariableModification<Byte> getModifiedCopy() {
         return new ByteSubtractModification(
                 (byte) (subtrahend + new Random().nextInt(MAX_SUBTRACT_MODIFIER)));
-    }
-
-    @Override
-    public VariableModification<Byte> createCopy() {
-        return new ByteSubtractModification(subtrahend);
     }
 
     @Override

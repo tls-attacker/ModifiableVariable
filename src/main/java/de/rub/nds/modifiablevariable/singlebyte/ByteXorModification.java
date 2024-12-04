@@ -31,6 +31,16 @@ public class ByteXorModification extends VariableModification<Byte> {
         this.xor = xor;
     }
 
+    public ByteXorModification(ByteXorModification other) {
+        super(other);
+        xor = other.xor;
+    }
+
+    @Override
+    public ByteXorModification createCopy() {
+        return new ByteXorModification(this);
+    }
+
     @Override
     protected Byte modifyImplementationHook(Byte input) {
         if (input == null) {
@@ -55,11 +65,6 @@ public class ByteXorModification extends VariableModification<Byte> {
         } else {
             return new ByteXorModification((byte) (xor - r.nextInt(MAX_XOR_MODIFIER)));
         }
-    }
-
-    @Override
-    public VariableModification<Byte> createCopy() {
-        return new ByteXorModification(xor);
     }
 
     @Override

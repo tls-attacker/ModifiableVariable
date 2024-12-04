@@ -34,6 +34,16 @@ public class BigIntegerPrependValueModification extends VariableModification<Big
         this.prependValue = prependValue;
     }
 
+    public BigIntegerPrependValueModification(BigIntegerPrependValueModification other) {
+        super(other);
+        prependValue = other.prependValue;
+    }
+
+    @Override
+    public BigIntegerPrependValueModification createCopy() {
+        return new BigIntegerPrependValueModification(this);
+    }
+
     @Override
     protected BigInteger modifyImplementationHook(BigInteger input) {
         if (input == null) {
@@ -54,11 +64,6 @@ public class BigIntegerPrependValueModification extends VariableModification<Big
     public VariableModification<BigInteger> getModifiedCopy() {
         return new BigIntegerPrependValueModification(
                 prependValue.add(new BigInteger(MAX_PREPEND_LENGTH, new Random())));
-    }
-
-    @Override
-    public VariableModification<BigInteger> createCopy() {
-        return new BigIntegerPrependValueModification(prependValue);
     }
 
     @Override

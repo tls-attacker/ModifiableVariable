@@ -30,6 +30,16 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
         this.explicitValue = explicitValue;
     }
 
+    public ByteExplicitValueModification(ByteExplicitValueModification other) {
+        super(other);
+        explicitValue = other.explicitValue;
+    }
+
+    @Override
+    public ByteExplicitValueModification createCopy() {
+        return new ByteExplicitValueModification(this);
+    }
+
     @Override
     protected Byte modifyImplementationHook(Byte input) {
         return explicitValue;
@@ -53,11 +63,6 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
             return new ByteExplicitValueModification(
                     (byte) (explicitValue - r.nextInt(MAX_EXPLICIT_MODIFIER)));
         }
-    }
-
-    @Override
-    public VariableModification<Byte> createCopy() {
-        return new ByteExplicitValueModification(explicitValue);
     }
 
     @Override

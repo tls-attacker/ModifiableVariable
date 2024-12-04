@@ -42,6 +42,17 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
         this.startPosition = startPosition;
     }
 
+    public ByteArrayInsertValueModification(ByteArrayInsertValueModification other) {
+        super(other);
+        bytesToInsert = other.bytesToInsert != null ? other.bytesToInsert.clone() : null;
+        startPosition = other.startPosition;
+    }
+
+    @Override
+    public ByteArrayInsertValueModification createCopy() {
+        return new ByteArrayInsertValueModification(this);
+    }
+
     @Override
     protected byte[] modifyImplementationHook(byte[] input) {
         if (input == null) {
@@ -99,12 +110,6 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
             }
             return new ByteArrayInsertValueModification(newValue, modifier);
         }
-    }
-
-    @Override
-    public VariableModification<byte[]> createCopy() {
-        return new ByteArrayInsertValueModification(
-                bytesToInsert != null ? bytesToInsert.clone() : null, startPosition);
     }
 
     @Override

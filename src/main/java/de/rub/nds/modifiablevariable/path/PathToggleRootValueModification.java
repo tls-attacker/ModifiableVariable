@@ -5,40 +5,44 @@
  *
  * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-package de.rub.nds.modifiablevariable.bool;
+package de.rub.nds.modifiablevariable.path;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
+/** Modification that appends a string to the original value. */
 @XmlRootElement
-@XmlType(propOrder = "modificationFilter")
-public class BooleanToggleModification extends VariableModification<Boolean> {
+@XmlType(propOrder = {"modificationFilter"})
+public class PathToggleRootValueModification extends VariableModification<String> {
 
-    public BooleanToggleModification() {
+    public PathToggleRootValueModification() {
         super();
     }
 
-    public BooleanToggleModification(BooleanToggleModification other) {
+    public PathToggleRootValueModification(PathToggleRootValueModification other) {
         super(other);
     }
 
     @Override
-    public BooleanToggleModification createCopy() {
-        return new BooleanToggleModification(this);
+    public PathToggleRootValueModification createCopy() {
+        return new PathToggleRootValueModification(this);
     }
 
     @Override
-    protected Boolean modifyImplementationHook(Boolean input) {
+    protected String modifyImplementationHook(String input) {
         if (input == null) {
-            input = Boolean.FALSE;
+            return null;
         }
-        return !input;
+        if (!input.isEmpty() && input.charAt(0) == '/') {
+            return input.substring(1);
+        }
+        return "/" + input;
     }
 
     @Override
-    public VariableModification<Boolean> getModifiedCopy() {
-        return new BooleanToggleModification();
+    public VariableModification<String> getModifiedCopy() {
+        return new PathToggleRootValueModification();
     }
 
     @Override
@@ -55,10 +59,5 @@ public class BooleanToggleModification extends VariableModification<Boolean> {
             return false;
         }
         return getClass() == obj.getClass();
-    }
-
-    @Override
-    public String toString() {
-        return "BooleanToggleModification{" + '}';
     }
 }

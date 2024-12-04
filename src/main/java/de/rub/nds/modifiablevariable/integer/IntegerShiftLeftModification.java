@@ -29,6 +29,16 @@ public class IntegerShiftLeftModification extends VariableModification<Integer> 
         this.shift = shift;
     }
 
+    public IntegerShiftLeftModification(IntegerShiftLeftModification other) {
+        super(other);
+        shift = other.shift;
+    }
+
+    @Override
+    public IntegerShiftLeftModification createCopy() {
+        return new IntegerShiftLeftModification(this);
+    }
+
     @Override
     protected Integer modifyImplementationHook(Integer input) {
         return input == null ? 0 : input << shift % MAX_SHIFT_MODIFIER;
@@ -57,11 +67,6 @@ public class IntegerShiftLeftModification extends VariableModification<Integer> 
             newShift = 0;
         }
         return new IntegerShiftLeftModification(newShift);
-    }
-
-    @Override
-    public VariableModification<Integer> createCopy() {
-        return new IntegerShiftLeftModification(shift);
     }
 
     @Override

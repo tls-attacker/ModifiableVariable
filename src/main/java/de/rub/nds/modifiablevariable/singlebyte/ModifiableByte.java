@@ -29,14 +29,14 @@ public class ModifiableByte extends ModifiableVariable<Byte> {
     }
 
     @Override
-    protected void createRandomModification() {
-        VariableModification<Byte> vm = ByteModificationFactory.createRandomModification();
-        setModification(vm);
+    public ModifiableByte createCopy() {
+        return new ModifiableByte(this);
     }
 
     @Override
-    public ModifiableByte createCopy() {
-        return new ModifiableByte(this);
+    protected void createRandomModification() {
+        VariableModification<Byte> vm = ByteModificationFactory.createRandomModification();
+        setModification(vm);
     }
 
     public Byte getAssertEquals() {

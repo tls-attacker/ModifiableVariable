@@ -37,6 +37,16 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
         this.explicitValue = explicitValue;
     }
 
+    public ByteArrayExplicitValueModification(ByteArrayExplicitValueModification other) {
+        super(other);
+        explicitValue = other.explicitValue != null ? other.explicitValue.clone() : null;
+    }
+
+    @Override
+    public ByteArrayExplicitValueModification createCopy() {
+        return new ByteArrayExplicitValueModification(this);
+    }
+
     @Override
     protected byte[] modifyImplementationHook(byte[] input) {
         return explicitValue.clone();
@@ -68,12 +78,6 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
         byte[] newValue = Arrays.copyOf(explicitValue, explicitValue.length);
         newValue[index] = (byte) r.nextInt(MAX_EXPLICIT_VALUE);
         return new ByteArrayExplicitValueModification(newValue);
-    }
-
-    @Override
-    public VariableModification<byte[]> createCopy() {
-        return new ByteArrayExplicitValueModification(
-                explicitValue != null ? explicitValue.clone() : null);
     }
 
     @Override

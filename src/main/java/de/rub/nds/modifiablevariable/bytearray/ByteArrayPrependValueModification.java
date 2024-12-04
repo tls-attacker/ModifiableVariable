@@ -37,6 +37,16 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
         this.bytesToPrepend = bytesToPrepend;
     }
 
+    public ByteArrayPrependValueModification(ByteArrayPrependValueModification other) {
+        super(other);
+        bytesToPrepend = other.bytesToPrepend != null ? other.bytesToPrepend.clone() : null;
+    }
+
+    @Override
+    public ByteArrayPrependValueModification createCopy() {
+        return new ByteArrayPrependValueModification(this);
+    }
+
     @Override
     protected byte[] modifyImplementationHook(byte[] input) {
         if (input == null) {
@@ -62,12 +72,6 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
         byte[] newValue = Arrays.copyOf(bytesToPrepend, bytesToPrepend.length);
         newValue[index] = (byte) r.nextInt(MAX_EXPLICIT_VALUE);
         return new ByteArrayPrependValueModification(newValue);
-    }
-
-    @Override
-    public VariableModification<byte[]> createCopy() {
-        return new ByteArrayPrependValueModification(
-                bytesToPrepend != null ? bytesToPrepend.clone() : null);
     }
 
     @Override

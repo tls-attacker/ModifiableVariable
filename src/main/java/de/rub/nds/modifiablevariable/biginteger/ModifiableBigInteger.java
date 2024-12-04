@@ -31,15 +31,15 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
     }
 
     @Override
+    public ModifiableBigInteger createCopy() {
+        return new ModifiableBigInteger(this);
+    }
+
+    @Override
     protected void createRandomModification() {
         VariableModification<BigInteger> vm =
                 BigIntegerModificationFactory.createRandomModification();
         setModification(vm);
-    }
-
-    @Override
-    public ModifiableBigInteger createCopy() {
-        return new ModifiableBigInteger(this);
     }
 
     public BigInteger getAssertEquals() {

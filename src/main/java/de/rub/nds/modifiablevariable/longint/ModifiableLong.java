@@ -30,14 +30,14 @@ public class ModifiableLong extends ModifiableVariable<Long> {
     }
 
     @Override
-    protected void createRandomModification() {
-        VariableModification<Long> vm = LongModificationFactory.createRandomModification();
-        setModification(vm);
+    public ModifiableLong createCopy() {
+        return new ModifiableLong(this);
     }
 
     @Override
-    public ModifiableLong createCopy() {
-        return new ModifiableLong(this);
+    protected void createRandomModification() {
+        VariableModification<Long> vm = LongModificationFactory.createRandomModification();
+        setModification(vm);
     }
 
     public Long getAssertEquals() {

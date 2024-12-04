@@ -37,6 +37,17 @@ public class BigIntegerInsertValueModification extends VariableModification<BigI
         this.startPosition = startPosition;
     }
 
+    public BigIntegerInsertValueModification(BigIntegerInsertValueModification other) {
+        super(other);
+        insertValue = other.insertValue;
+        startPosition = other.startPosition;
+    }
+
+    @Override
+    public BigIntegerInsertValueModification createCopy() {
+        return new BigIntegerInsertValueModification(this);
+    }
+
     @Override
     protected BigInteger modifyImplementationHook(BigInteger input) {
         if (input == null) {
@@ -95,11 +106,6 @@ public class BigIntegerInsertValueModification extends VariableModification<BigI
             }
             return new BigIntegerInsertValueModification(insertValue, modifier);
         }
-    }
-
-    @Override
-    public VariableModification<BigInteger> createCopy() {
-        return new BigIntegerInsertValueModification(insertValue, startPosition);
     }
 
     @Override

@@ -34,9 +34,19 @@ public class StringPrependValueModification extends VariableModification<String>
         this.prependValue = prependValue;
     }
 
+    public StringPrependValueModification(StringPrependValueModification other) {
+        super(other);
+        prependValue = other.prependValue;
+    }
+
+    @Override
+    public StringPrependValueModification createCopy() {
+        return new StringPrependValueModification(this);
+    }
+
     @Override
     protected String modifyImplementationHook(String input) {
-        return prependValue + input;
+        return input != null ? prependValue + input : prependValue;
     }
 
     public String getPrependValue() {
@@ -55,11 +65,6 @@ public class StringPrependValueModification extends VariableModification<String>
         StringBuilder modifiedString = new StringBuilder(prependValue);
         modifiedString.setCharAt(index, randomChar);
         return new StringPrependValueModification(modifiedString.toString());
-    }
-
-    @Override
-    public VariableModification<String> createCopy() {
-        return new StringPrependValueModification(prependValue);
     }
 
     @Override

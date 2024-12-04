@@ -30,6 +30,16 @@ public class LongMultiplyModification extends VariableModification<Long> {
         this.factor = factor;
     }
 
+    public LongMultiplyModification(LongMultiplyModification other) {
+        super(other);
+        factor = other.factor;
+    }
+
+    @Override
+    public LongMultiplyModification createCopy() {
+        return new LongMultiplyModification(this);
+    }
+
     @Override
     protected Long modifyImplementationHook(Long input) {
         return input == null ? 0L : input * factor;
@@ -46,11 +56,6 @@ public class LongMultiplyModification extends VariableModification<Long> {
     @Override
     public VariableModification<Long> getModifiedCopy() {
         return new LongMultiplyModification(factor + new Random().nextInt(MAX_FACTOR_MODIFIER));
-    }
-
-    @Override
-    public VariableModification<Long> createCopy() {
-        return new LongMultiplyModification(factor);
     }
 
     @Override

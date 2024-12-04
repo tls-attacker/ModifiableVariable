@@ -1,0 +1,88 @@
+/*
+ * ModifiableVariable - A Variable Concept for Runtime Modifications
+ *
+ * Ruhr University Bochum, Paderborn University, Technology Innovation Institute, and Hackmanit GmbH
+ *
+ * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
+ */
+package de.rub.nds.modifiablevariable.path;
+
+import de.rub.nds.modifiablevariable.VariableModification;
+import de.rub.nds.modifiablevariable.util.RandomHelper;
+import java.util.Random;
+
+/** */
+public final class PathModificationFactory {
+
+    private PathModificationFactory() {
+        super();
+    }
+
+    private enum ModificationType {
+        APPEND,
+        PREPEND,
+        INSERT
+    }
+
+    private static final int MODIFICATION_COUNT = ModificationType.values().length;
+
+    private static final int MAX_BYTE_LENGTH_INSERT = 200;
+
+    private static final int MODIFIED_STRING_LENGTH_ESTIMATION = 50;
+
+    public static VariableModification<String> prependValue(String value) {
+        return new PathPrependValueModification(value);
+    }
+
+    public static VariableModification<String> appendValue(String value) {
+        return new PathAppendValueModification(value);
+    }
+
+    public static VariableModification<String> insertValue(String value, int position) {
+        return new PathInsertValueModification(value, position);
+    }
+
+    public static VariableModification<String> createRandomModification(String originalValue) {
+        Random random = RandomHelper.getRandom();
+        ModificationType randomType = ModificationType.values()[random.nextInt(MODIFICATION_COUNT)];
+        int modificationArrayLength;
+        int modifiedArrayLength;
+        if (originalValue == null) {
+            modifiedArrayLength = MODIFIED_STRING_LENGTH_ESTIMATION;
+        } else {
+            modifiedArrayLength = originalValue.length();
+            if (modifiedArrayLength == 0 || modifiedArrayLength == 1) {
+                randomType = ModificationType.APPEND;
+            }
+        }
+        switch (randomType) {
+            case APPEND:
+                modificationArrayLength = random.nextInt(MAX_BYTE_LENGTH_INSERT);
+                if (modificationArrayLength == 0) {
+                    modificationArrayLength++;
+                }
+                byte[] bytesToAppend = new byte[modificationArrayLength];
+                random.nextBytes(bytesToAppend);
+                return new PathAppendValueModification(new String(bytesToAppend));
+            case PREPEND:
+                modificationArrayLength = random.nextInt(MAX_BYTE_LENGTH_INSERT);
+                if (modificationArrayLength == 0) {
+                    modificationArrayLength++;
+                }
+                byte[] bytesToPrepend = new byte[modificationArrayLength];
+                random.nextBytes(bytesToPrepend);
+                return new PathPrependValueModification(new String(bytesToPrepend));
+            case INSERT:
+                modificationArrayLength = random.nextInt(MAX_BYTE_LENGTH_INSERT);
+                if (modificationArrayLength == 0) {
+                    modificationArrayLength++;
+                }
+                byte[] bytesToInsert = new byte[modificationArrayLength];
+                random.nextBytes(bytesToInsert);
+                int insertPosition = random.nextInt(modifiedArrayLength);
+                return new PathInsertValueModification(new String(bytesToInsert), insertPosition);
+            default:
+                throw new IllegalStateException("Unexpected modification type: " + randomType);
+        }
+    }
+}

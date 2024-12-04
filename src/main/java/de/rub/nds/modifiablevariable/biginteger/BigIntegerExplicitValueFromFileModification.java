@@ -16,7 +16,7 @@ import java.math.BigInteger;
 import java.util.Objects;
 
 @XmlRootElement
-@XmlType(propOrder = {"index", "explicitValue", "modificationFilter"})
+@XmlType(propOrder = "index")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BigIntegerExplicitValueFromFileModification
         extends BigIntegerExplicitValueModification {
@@ -31,6 +31,17 @@ public class BigIntegerExplicitValueFromFileModification
         this.index = index;
     }
 
+    public BigIntegerExplicitValueFromFileModification(
+            BigIntegerExplicitValueFromFileModification other) {
+        super(other);
+        index = other.index;
+    }
+
+    @Override
+    public BigIntegerExplicitValueFromFileModification createCopy() {
+        return new BigIntegerExplicitValueFromFileModification(this);
+    }
+
     public int getIndex() {
         return index;
     }
@@ -39,11 +50,6 @@ public class BigIntegerExplicitValueFromFileModification
     public VariableModification<BigInteger> getModifiedCopy() {
         throw new UnsupportedOperationException(
                 "Cannot set modify Value of BigIntegerExplicitValueFromFileModification");
-    }
-
-    @Override
-    public VariableModification<BigInteger> createCopy() {
-        return new BigIntegerExplicitValueFromFileModification(index, explicitValue);
     }
 
     @Override

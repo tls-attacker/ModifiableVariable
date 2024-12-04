@@ -23,7 +23,7 @@ public class StringExplicitValueModification extends VariableModification<String
     private static final int MAX_EXPLICIT_VALUE = 256;
 
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
-    private String explicitValue;
+    protected String explicitValue;
 
     public StringExplicitValueModification() {
         super();
@@ -32,6 +32,16 @@ public class StringExplicitValueModification extends VariableModification<String
     public StringExplicitValueModification(String explicitValue) {
         super();
         this.explicitValue = explicitValue;
+    }
+
+    public StringExplicitValueModification(StringExplicitValueModification other) {
+        super(other);
+        explicitValue = other.explicitValue;
+    }
+
+    @Override
+    public StringExplicitValueModification createCopy() {
+        return new StringExplicitValueModification(this);
     }
 
     @Override
@@ -58,11 +68,6 @@ public class StringExplicitValueModification extends VariableModification<String
         StringBuilder modifiedString = new StringBuilder(explicitValue);
         modifiedString.setCharAt(index, randomChar);
         return new StringExplicitValueModification(modifiedString.toString());
-    }
-
-    @Override
-    public VariableModification<String> createCopy() {
-        return new StringExplicitValueModification(explicitValue);
     }
 
     @Override

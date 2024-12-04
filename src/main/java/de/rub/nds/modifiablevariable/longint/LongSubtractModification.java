@@ -30,6 +30,16 @@ public class LongSubtractModification extends VariableModification<Long> {
         this.subtrahend = subtrahend;
     }
 
+    public LongSubtractModification(LongSubtractModification other) {
+        super(other);
+        subtrahend = other.subtrahend;
+    }
+
+    @Override
+    public LongSubtractModification createCopy() {
+        return new LongSubtractModification(this);
+    }
+
     @Override
     protected Long modifyImplementationHook(Long input) {
         return input == null ? -subtrahend : input - subtrahend;
@@ -47,11 +57,6 @@ public class LongSubtractModification extends VariableModification<Long> {
     public VariableModification<Long> getModifiedCopy() {
         return new LongSubtractModification(
                 subtrahend + new Random().nextInt(MAX_SUBTRACT_MODIFIER));
-    }
-
-    @Override
-    public VariableModification<Long> createCopy() {
-        return new LongSubtractModification(subtrahend);
     }
 
     @Override

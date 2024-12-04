@@ -30,6 +30,16 @@ public class LongXorModification extends VariableModification<Long> {
         this.xor = xor;
     }
 
+    public LongXorModification(LongXorModification other) {
+        super(other);
+        xor = other.xor;
+    }
+
+    @Override
+    public LongXorModification createCopy() {
+        return new LongXorModification(this);
+    }
+
     @Override
     protected Long modifyImplementationHook(Long input) {
         return input == null ? xor : input ^ xor;
@@ -51,11 +61,6 @@ public class LongXorModification extends VariableModification<Long> {
         } else {
             return new LongXorModification(xor - r.nextInt(MAX_XOR_MODIFIER));
         }
-    }
-
-    @Override
-    public VariableModification<Long> createCopy() {
-        return new LongXorModification(xor);
     }
 
     @Override

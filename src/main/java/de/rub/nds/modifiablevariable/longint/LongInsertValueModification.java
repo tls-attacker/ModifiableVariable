@@ -33,6 +33,17 @@ public class LongInsertValueModification extends VariableModification<Long> {
         this.startPosition = startPosition;
     }
 
+    public LongInsertValueModification(LongInsertValueModification other) {
+        super(other);
+        insertValue = other.insertValue;
+        startPosition = other.startPosition;
+    }
+
+    @Override
+    public LongInsertValueModification createCopy() {
+        return new LongInsertValueModification(this);
+    }
+
     @Override
     protected Long modifyImplementationHook(Long input) {
         if (input == null) {
@@ -87,11 +98,6 @@ public class LongInsertValueModification extends VariableModification<Long> {
             }
             return new LongInsertValueModification(insertValue, modifier);
         }
-    }
-
-    @Override
-    public VariableModification<Long> createCopy() {
-        return new LongInsertValueModification(insertValue, startPosition);
     }
 
     @Override

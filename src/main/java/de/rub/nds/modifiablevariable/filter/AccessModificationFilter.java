@@ -39,6 +39,17 @@ public class AccessModificationFilter extends ModificationFilter {
         this.accessNumbers = accessNumbers;
     }
 
+    public AccessModificationFilter(AccessModificationFilter other) {
+        super(other);
+        accessCounter = other.accessCounter;
+        accessNumbers = other.accessNumbers != null ? other.accessNumbers.clone() : null;
+    }
+
+    @Override
+    public AccessModificationFilter createCopy() {
+        return new AccessModificationFilter(this);
+    }
+
     @Override
     public boolean filterModification() {
         boolean filter = contains(accessNumbers, accessCounter);

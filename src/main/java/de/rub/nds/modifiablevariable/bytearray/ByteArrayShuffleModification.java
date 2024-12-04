@@ -41,6 +41,16 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
         this.shuffle = shuffle;
     }
 
+    public ByteArrayShuffleModification(ByteArrayShuffleModification other) {
+        super(other);
+        shuffle = other.shuffle != null ? other.shuffle.clone() : null;
+    }
+
+    @Override
+    public ByteArrayShuffleModification createCopy() {
+        return new ByteArrayShuffleModification(this);
+    }
+
     @Override
     protected byte[] modifyImplementationHook(byte[] input) {
         if (input == null) {
@@ -75,11 +85,6 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
         byte[] newValue = Arrays.copyOf(shuffle, shuffle.length);
         newValue[index] = (byte) r.nextInt(MAX_MODIFIER_VALUE);
         return new ByteArrayShuffleModification(newValue);
-    }
-
-    @Override
-    public VariableModification<byte[]> createCopy() {
-        return new ByteArrayShuffleModification(shuffle != null ? shuffle.clone() : null);
     }
 
     @Override

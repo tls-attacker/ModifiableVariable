@@ -23,6 +23,15 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
         super();
     }
 
+    public ByteArrayDuplicateModification(ByteArrayDuplicateModification other) {
+        super(other);
+    }
+
+    @Override
+    public ByteArrayDuplicateModification createCopy() {
+        return new ByteArrayDuplicateModification(this);
+    }
+
     @Override
     protected byte[] modifyImplementationHook(byte[] input) {
         if (input == null) {
@@ -33,11 +42,6 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
 
     @Override
     public VariableModification<byte[]> getModifiedCopy() {
-        return new ByteArrayDuplicateModification();
-    }
-
-    @Override
-    public VariableModification<byte[]> createCopy() {
         return new ByteArrayDuplicateModification();
     }
 

@@ -5,7 +5,7 @@
  *
  * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-package de.rub.nds.modifiablevariable.string;
+package de.rub.nds.modifiablevariable.path;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
@@ -18,7 +18,7 @@ import java.util.Random;
 /** Modification that appends a string to the original value. */
 @XmlRootElement
 @XmlType(propOrder = {"insertValue", "startPosition", "modificationFilter"})
-public class StringInsertValueModification extends VariableModification<String> {
+public class PathInsertValueModification extends VariableModification<String> {
 
     private static final int MAX_EXPLICIT_VALUE = 256;
 
@@ -29,25 +29,25 @@ public class StringInsertValueModification extends VariableModification<String> 
 
     private int startPosition;
 
-    public StringInsertValueModification() {
+    public PathInsertValueModification() {
         super();
     }
 
-    public StringInsertValueModification(String insertValue, int startPosition) {
+    public PathInsertValueModification(String insertValue, int startPosition) {
         super();
         this.insertValue = insertValue;
         this.startPosition = startPosition;
     }
 
-    public StringInsertValueModification(StringInsertValueModification other) {
+    public PathInsertValueModification(PathInsertValueModification other) {
         super(other);
         insertValue = other.insertValue;
         startPosition = other.startPosition;
     }
 
     @Override
-    public StringInsertValueModification createCopy() {
-        return new StringInsertValueModification(this);
+    public PathInsertValueModification createCopy() {
+        return new PathInsertValueModification(this);
     }
 
     @Override
@@ -55,13 +55,40 @@ public class StringInsertValueModification extends VariableModification<String> 
         if (input == null) {
             return null;
         }
+
+        if (input.isEmpty()) {
+            return insertValue;
+        }
+        String[] pathParts = input.split("/");
+        boolean leadingSlash = pathParts[0].isEmpty();
+
         // Wrap around and also allow to insert at the end of the original value
-        int insertPosition = startPosition % (input.length() + 1);
-        if (startPosition < 0) {
-            insertPosition += input.length();
+        int insertPosition;
+        if (leadingSlash) {
+            // If the path starts with a slash, skip the first empty path part.
+            insertPosition = startPosition % pathParts.length;
+            if (startPosition < 0) {
+                insertPosition += pathParts.length - 1;
+            }
+            insertPosition++;
+        } else {
+            insertPosition = startPosition % (pathParts.length + 1);
+            if (startPosition < 0) {
+                insertPosition += pathParts.length;
+            }
         }
 
-        return new StringBuilder(input).insert(insertPosition, insertValue).toString();
+        if (insertPosition == 0 && leadingSlash) {
+            pathParts[insertPosition] = "/" + insertValue;
+        } else if (insertPosition == pathParts.length) {
+            pathParts[insertPosition - 1] = pathParts[insertPosition - 1] + "/" + insertValue;
+        } else {
+            pathParts[insertPosition] = insertValue + "/" + pathParts[insertPosition];
+        }
+        if (input.endsWith("/")) {
+            pathParts[pathParts.length - 1] += "/";
+        }
+        return String.join("/", pathParts);
     }
 
     public String getInsertValue() {
@@ -89,7 +116,7 @@ public class StringInsertValueModification extends VariableModification<String> 
             char randomChar = (char) r.nextInt(MAX_EXPLICIT_VALUE);
             StringBuilder modifiedString = new StringBuilder(insertValue);
             modifiedString.setCharAt(index, randomChar);
-            return new StringInsertValueModification(modifiedString.toString(), startPosition);
+            return new PathInsertValueModification(modifiedString.toString(), startPosition);
         } else {
             int modifier = r.nextInt(MAX_INSERT_MODIFIER);
             if (r.nextBoolean()) {
@@ -99,7 +126,7 @@ public class StringInsertValueModification extends VariableModification<String> 
             if (modifier <= 0) {
                 modifier = 1;
             }
-            return new StringInsertValueModification(insertValue, modifier);
+            return new PathInsertValueModification(insertValue, modifier);
         }
     }
 
@@ -122,7 +149,7 @@ public class StringInsertValueModification extends VariableModification<String> 
         if (getClass() != obj.getClass()) {
             return false;
         }
-        StringInsertValueModification other = (StringInsertValueModification) obj;
+        PathInsertValueModification other = (PathInsertValueModification) obj;
         if (startPosition != other.startPosition) {
             return false;
         }

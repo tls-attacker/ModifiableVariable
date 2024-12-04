@@ -30,6 +30,16 @@ public class IntegerXorModification extends VariableModification<Integer> {
         this.xor = xor;
     }
 
+    public IntegerXorModification(IntegerXorModification other) {
+        super(other);
+        xor = other.xor;
+    }
+
+    @Override
+    public IntegerXorModification createCopy() {
+        return new IntegerXorModification(this);
+    }
+
     @Override
     protected Integer modifyImplementationHook(Integer input) {
         return input == null ? xor : input ^ xor;
@@ -51,11 +61,6 @@ public class IntegerXorModification extends VariableModification<Integer> {
         } else {
             return new IntegerXorModification(xor - new Random().nextInt(MAX_VALUE_MODIFIER));
         }
-    }
-
-    @Override
-    public VariableModification<Integer> createCopy() {
-        return new IntegerXorModification(xor);
     }
 
     @Override

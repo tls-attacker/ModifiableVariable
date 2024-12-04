@@ -30,6 +30,16 @@ public class LongExplicitValueModification extends VariableModification<Long> {
         this.explicitValue = explicitValue;
     }
 
+    public LongExplicitValueModification(LongExplicitValueModification other) {
+        super(other);
+        explicitValue = other.explicitValue;
+    }
+
+    @Override
+    public LongExplicitValueModification createCopy() {
+        return new LongExplicitValueModification(this);
+    }
+
     @Override
     protected Long modifyImplementationHook(Long input) {
         return explicitValue;
@@ -53,11 +63,6 @@ public class LongExplicitValueModification extends VariableModification<Long> {
             return new LongExplicitValueModification(
                     explicitValue - r.nextInt(MAX_EXPLICIT_MODIFIER));
         }
-    }
-
-    @Override
-    public VariableModification<Long> createCopy() {
-        return new LongExplicitValueModification(explicitValue);
     }
 
     @Override

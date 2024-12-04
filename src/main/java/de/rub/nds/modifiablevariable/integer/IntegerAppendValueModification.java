@@ -30,6 +30,16 @@ public class IntegerAppendValueModification extends VariableModification<Integer
         this.appendValue = appendValue;
     }
 
+    public IntegerAppendValueModification(IntegerAppendValueModification other) {
+        super(other);
+        appendValue = other.appendValue;
+    }
+
+    @Override
+    public IntegerAppendValueModification createCopy() {
+        return new IntegerAppendValueModification(this);
+    }
+
     @Override
     protected Integer modifyImplementationHook(Integer input) {
         if (input == null) {
@@ -50,11 +60,6 @@ public class IntegerAppendValueModification extends VariableModification<Integer
     public VariableModification<Integer> getModifiedCopy() {
         return new IntegerAppendValueModification(
                 appendValue + new Random().nextInt(MAX_VALUE_MODIFIER));
-    }
-
-    @Override
-    public VariableModification<Integer> createCopy() {
-        return new IntegerAppendValueModification(appendValue);
     }
 
     @Override

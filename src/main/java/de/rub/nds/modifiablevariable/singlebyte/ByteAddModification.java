@@ -30,6 +30,16 @@ public class ByteAddModification extends VariableModification<Byte> {
         this.summand = summand;
     }
 
+    public ByteAddModification(ByteAddModification other) {
+        super(other);
+        summand = other.summand;
+    }
+
+    @Override
+    public ByteAddModification createCopy() {
+        return new ByteAddModification(this);
+    }
+
     @Override
     protected Byte modifyImplementationHook(Byte input) {
         if (input == null) {
@@ -49,11 +59,6 @@ public class ByteAddModification extends VariableModification<Byte> {
     @Override
     public VariableModification<Byte> getModifiedCopy() {
         return new ByteAddModification((byte) (summand + new Random().nextInt(MAX_ADD_MODIFIER)));
-    }
-
-    @Override
-    public VariableModification<Byte> createCopy() {
-        return new ByteAddModification(summand);
     }
 
     @Override
