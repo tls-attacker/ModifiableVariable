@@ -155,8 +155,8 @@ public abstract class ModifiableVariable<E> implements Serializable {
                 type = StringAppendValueModification.class,
                 name = "StringAppendValueModification"),
         @XmlElement(
-            type = StringExplicitValueFromFileModification.class,
-            name = "StringExplicitValueFromFileModification"),
+                type = StringExplicitValueFromFileModification.class,
+                name = "StringExplicitValueFromFileModification"),
         @XmlElement(
                 type = StringExplicitValueModification.class,
                 name = "StringExplicitValueModification"),
