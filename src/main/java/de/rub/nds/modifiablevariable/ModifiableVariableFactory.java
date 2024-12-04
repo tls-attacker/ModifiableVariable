@@ -12,6 +12,7 @@ import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
 import de.rub.nds.modifiablevariable.longint.ModifiableLong;
+import de.rub.nds.modifiablevariable.path.ModifiablePath;
 import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import java.math.BigInteger;
@@ -36,6 +37,18 @@ public final class ModifiableVariableFactory {
 
     public static ModifiableLong createLongModifiableVariable() {
         return new ModifiableLong();
+    }
+
+    public static ModifiableBoolean createBooleanModifiableVariable() {
+        return new ModifiableBoolean();
+    }
+
+    public static ModifiableString createStringModifiableVariable() {
+        return new ModifiableString();
+    }
+
+    public static ModifiablePath createPathModifiableVariable() {
+        return new ModifiablePath();
     }
 
     public static ModifiableBigInteger safelySetValue(ModifiableBigInteger mv, BigInteger value) {
@@ -89,6 +102,14 @@ public final class ModifiableVariableFactory {
     public static ModifiableBoolean safelySetValue(ModifiableBoolean mv, Boolean value) {
         if (mv == null) {
             mv = new ModifiableBoolean();
+        }
+        mv.setOriginalValue(value);
+        return mv;
+    }
+
+    public static ModifiablePath safelySetValue(ModifiablePath mv, String value) {
+        if (mv == null) {
+            mv = new ModifiablePath();
         }
         mv.setOriginalValue(value);
         return mv;

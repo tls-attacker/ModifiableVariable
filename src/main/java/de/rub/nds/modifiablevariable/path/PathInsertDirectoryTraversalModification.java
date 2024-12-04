@@ -18,7 +18,7 @@ import java.util.Random;
 /** Modification that appends a string to the original value. */
 @XmlRootElement
 @XmlType(propOrder = {"insertValue", "count", "startPosition", "modificationFilter"})
-public class PathInsertDirectoryTraversalValueModification extends VariableModification<String> {
+public class PathInsertDirectoryTraversalModification extends VariableModification<String> {
 
     private static final int MAX_INSERT_MODIFIER = 32;
 
@@ -28,19 +28,19 @@ public class PathInsertDirectoryTraversalValueModification extends VariableModif
     private int count;
     private int startPosition;
 
-    public PathInsertDirectoryTraversalValueModification() {
+    public PathInsertDirectoryTraversalModification() {
         super();
     }
 
-    public PathInsertDirectoryTraversalValueModification(int count, int startPosition) {
+    public PathInsertDirectoryTraversalModification(int count, int startPosition) {
         super();
         this.count = count;
         this.startPosition = startPosition;
         updateInsertValue();
     }
 
-    public PathInsertDirectoryTraversalValueModification(
-            PathInsertDirectoryTraversalValueModification other) {
+    public PathInsertDirectoryTraversalModification(
+            PathInsertDirectoryTraversalModification other) {
         super(other);
         insertValue = other.insertValue;
         count = other.count;
@@ -48,8 +48,8 @@ public class PathInsertDirectoryTraversalValueModification extends VariableModif
     }
 
     @Override
-    public PathInsertDirectoryTraversalValueModification createCopy() {
-        return new PathInsertDirectoryTraversalValueModification(this);
+    public PathInsertDirectoryTraversalModification createCopy() {
+        return new PathInsertDirectoryTraversalModification(this);
     }
 
     private void updateInsertValue() {
@@ -134,7 +134,7 @@ public class PathInsertDirectoryTraversalValueModification extends VariableModif
             if (modifier <= 0) {
                 modifier = 1;
             }
-            return new PathInsertDirectoryTraversalValueModification(modifier, startPosition);
+            return new PathInsertDirectoryTraversalModification(modifier, startPosition);
         } else {
             int modifier = r.nextInt(MAX_INSERT_MODIFIER);
             if (r.nextBoolean()) {
@@ -144,7 +144,7 @@ public class PathInsertDirectoryTraversalValueModification extends VariableModif
             if (modifier <= 0) {
                 modifier = 1;
             }
-            return new PathInsertDirectoryTraversalValueModification(count, modifier);
+            return new PathInsertDirectoryTraversalModification(count, modifier);
         }
     }
 
@@ -167,8 +167,8 @@ public class PathInsertDirectoryTraversalValueModification extends VariableModif
         if (getClass() != obj.getClass()) {
             return false;
         }
-        PathInsertDirectoryTraversalValueModification other =
-                (PathInsertDirectoryTraversalValueModification) obj;
+        PathInsertDirectoryTraversalModification other =
+                (PathInsertDirectoryTraversalModification) obj;
         if (startPosition != other.startPosition) {
             return false;
         }

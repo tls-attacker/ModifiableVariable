@@ -21,14 +21,18 @@ public final class PathModificationFactory {
     private enum ModificationType {
         APPEND,
         PREPEND,
-        INSERT
+        INSERT,
+        INSERT_DIRECTORY_TRAVERSAL,
+        TOGGLE_ROOT,
     }
 
     private static final int MODIFICATION_COUNT = ModificationType.values().length;
 
     private static final int MAX_BYTE_LENGTH_INSERT = 200;
 
-    private static final int MODIFIED_STRING_LENGTH_ESTIMATION = 50;
+    private static final int NUMBER_OF_PATH_PARTS_ESTIMATION = 50;
+
+    private static final int MAX_NUMBER_OF_DIRECTORY_TRAVERSAL_INSERT = 10;
 
     public static VariableModification<String> prependValue(String value) {
         return new PathPrependValueModification(value);
@@ -42,45 +46,71 @@ public final class PathModificationFactory {
         return new PathInsertValueModification(value, position);
     }
 
+    public static VariableModification<String> insertDirectoryTraversal(int count, int position) {
+        return new PathInsertDirectoryTraversalModification(count, position);
+    }
+
+    public static VariableModification<String> toggleRoot() {
+        return new PathToggleRootModification();
+    }
+
     public static VariableModification<String> createRandomModification(String originalValue) {
         Random random = RandomHelper.getRandom();
         ModificationType randomType = ModificationType.values()[random.nextInt(MODIFICATION_COUNT)];
-        int modificationArrayLength;
-        int modifiedArrayLength;
+        int modificationStringLength;
+        int numberOfPathParts;
         if (originalValue == null) {
-            modifiedArrayLength = MODIFIED_STRING_LENGTH_ESTIMATION;
+            numberOfPathParts = NUMBER_OF_PATH_PARTS_ESTIMATION;
         } else {
-            modifiedArrayLength = originalValue.length();
-            if (modifiedArrayLength == 0 || modifiedArrayLength == 1) {
-                randomType = ModificationType.APPEND;
+            String[] pathParts = originalValue.split("/");
+            if (pathParts.length == 0) {
+                if (randomType == ModificationType.INSERT) {
+                    randomType = ModificationType.APPEND;
+                }
+                numberOfPathParts = 0;
+            } else {
+                if (pathParts[0].isEmpty()) {
+                    numberOfPathParts = originalValue.split("/").length - 1;
+                } else {
+                    numberOfPathParts = originalValue.split("/").length;
+                }
             }
         }
+        int insertPosition;
         switch (randomType) {
             case APPEND:
-                modificationArrayLength = random.nextInt(MAX_BYTE_LENGTH_INSERT);
-                if (modificationArrayLength == 0) {
-                    modificationArrayLength++;
+                modificationStringLength = random.nextInt(MAX_BYTE_LENGTH_INSERT);
+                if (modificationStringLength == 0) {
+                    modificationStringLength++;
                 }
-                byte[] bytesToAppend = new byte[modificationArrayLength];
+                byte[] bytesToAppend = new byte[modificationStringLength];
                 random.nextBytes(bytesToAppend);
                 return new PathAppendValueModification(new String(bytesToAppend));
             case PREPEND:
-                modificationArrayLength = random.nextInt(MAX_BYTE_LENGTH_INSERT);
-                if (modificationArrayLength == 0) {
-                    modificationArrayLength++;
+                modificationStringLength = random.nextInt(MAX_BYTE_LENGTH_INSERT);
+                if (modificationStringLength == 0) {
+                    modificationStringLength++;
                 }
-                byte[] bytesToPrepend = new byte[modificationArrayLength];
+                byte[] bytesToPrepend = new byte[modificationStringLength];
                 random.nextBytes(bytesToPrepend);
                 return new PathPrependValueModification(new String(bytesToPrepend));
             case INSERT:
-                modificationArrayLength = random.nextInt(MAX_BYTE_LENGTH_INSERT);
-                if (modificationArrayLength == 0) {
-                    modificationArrayLength++;
+                modificationStringLength = random.nextInt(MAX_BYTE_LENGTH_INSERT);
+                if (modificationStringLength == 0) {
+                    modificationStringLength++;
                 }
-                byte[] bytesToInsert = new byte[modificationArrayLength];
+                byte[] bytesToInsert = new byte[modificationStringLength];
                 random.nextBytes(bytesToInsert);
-                int insertPosition = random.nextInt(modifiedArrayLength);
+                insertPosition = random.nextInt(numberOfPathParts);
                 return new PathInsertValueModification(new String(bytesToInsert), insertPosition);
+            case INSERT_DIRECTORY_TRAVERSAL:
+                int numberOfDirectoryTraversal =
+                        random.nextInt(MAX_NUMBER_OF_DIRECTORY_TRAVERSAL_INSERT);
+                insertPosition = random.nextInt(numberOfPathParts);
+                return new PathInsertDirectoryTraversalModification(
+                        numberOfDirectoryTraversal, insertPosition);
+            case TOGGLE_ROOT:
+                return new PathToggleRootModification();
             default:
                 throw new IllegalStateException("Unexpected modification type: " + randomType);
         }

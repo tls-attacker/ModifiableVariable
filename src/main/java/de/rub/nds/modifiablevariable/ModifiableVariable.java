@@ -13,11 +13,9 @@ import de.rub.nds.modifiablevariable.bool.BooleanToggleModification;
 import de.rub.nds.modifiablevariable.bytearray.*;
 import de.rub.nds.modifiablevariable.integer.*;
 import de.rub.nds.modifiablevariable.longint.*;
+import de.rub.nds.modifiablevariable.path.*;
 import de.rub.nds.modifiablevariable.singlebyte.*;
-import de.rub.nds.modifiablevariable.string.StringAppendValueModification;
-import de.rub.nds.modifiablevariable.string.StringExplicitValueModification;
-import de.rub.nds.modifiablevariable.string.StringInsertValueModification;
-import de.rub.nds.modifiablevariable.string.StringPrependValueModification;
+import de.rub.nds.modifiablevariable.string.*;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -157,13 +155,27 @@ public abstract class ModifiableVariable<E> implements Serializable {
                 type = StringAppendValueModification.class,
                 name = "StringAppendValueModification"),
         @XmlElement(
+            type = StringExplicitValueFromFileModification.class,
+            name = "StringExplicitValueFromFileModification"),
+        @XmlElement(
                 type = StringExplicitValueModification.class,
                 name = "StringExplicitValueModification"),
         @XmlElement(
                 type = StringInsertValueModification.class,
-                name = "StringInsertValueModification")
+                name = "StringInsertValueModification"),
+        @XmlElement(type = PathAppendValueModification.class, name = "PathAppendValueModification"),
+        @XmlElement(
+                type = PathInsertDirectoryTraversalModification.class,
+                name = "PathInsertDirectoryTraversalValueModification"),
+        @XmlElement(type = PathInsertValueModification.class, name = "PathInsertValueModification"),
+        @XmlElement(
+                type = PathPrependValueModification.class,
+                name = "PathPrependValueModification"),
+        @XmlElement(
+                type = PathToggleRootModification.class,
+                name = "PathToggleRootValueModification"),
     })
-    private VariableModification<E> modification = null;
+    private VariableModification<E> modification;
 
     private Boolean createRandomModification;
 

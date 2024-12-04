@@ -10,8 +10,7 @@ package de.rub.nds.modifiablevariable.util;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerModificationFactory;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
-import de.rub.nds.modifiablevariable.bool.BooleanExplicitValueModification;
-import de.rub.nds.modifiablevariable.bool.BooleanToggleModification;
+import de.rub.nds.modifiablevariable.bool.BooleanModificationFactory;
 import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
 import de.rub.nds.modifiablevariable.bytearray.ByteArrayModificationFactory;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
@@ -19,6 +18,8 @@ import de.rub.nds.modifiablevariable.integer.IntegerModificationFactory;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
 import de.rub.nds.modifiablevariable.longint.LongModificationFactory;
 import de.rub.nds.modifiablevariable.longint.ModifiableLong;
+import de.rub.nds.modifiablevariable.path.ModifiablePath;
+import de.rub.nds.modifiablevariable.path.PathModificationFactory;
 import de.rub.nds.modifiablevariable.singlebyte.ByteModificationFactory;
 import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
@@ -81,6 +82,13 @@ public final class Modifiable {
         return modifiableString;
     }
 
+    private static ModifiablePath getModifiablePathWithModification(
+            VariableModification<String> modification) {
+        ModifiablePath modifiablePath = new ModifiablePath();
+        modifiablePath.setModification(modification);
+        return modifiablePath;
+    }
+
     public static ModifiableBigInteger prepend(BigInteger i) {
         return getModifiableBigIntegerWithModification(
                 BigIntegerModificationFactory.prependValue(i));
@@ -102,6 +110,10 @@ public final class Modifiable {
         return getModifiableStringWithModification(StringModificationFactory.prependValue(s));
     }
 
+    public static ModifiablePath prependPath(String s) {
+        return getModifiablePathWithModification(PathModificationFactory.prependValue(s));
+    }
+
     public static ModifiableBigInteger append(BigInteger i) {
         return getModifiableBigIntegerWithModification(
                 BigIntegerModificationFactory.appendValue(i));
@@ -121,6 +133,10 @@ public final class Modifiable {
 
     public static ModifiableString append(String s) {
         return getModifiableStringWithModification(StringModificationFactory.appendValue(s));
+    }
+
+    public static ModifiablePath appendPath(String s) {
+        return getModifiablePathWithModification(PathModificationFactory.appendValue(s));
     }
 
     public static ModifiableByteArray explicit(byte[] b) {
@@ -146,7 +162,7 @@ public final class Modifiable {
     }
 
     public static ModifiableBoolean explicit(Boolean b) {
-        return getModifiableBooleanWithModification(new BooleanExplicitValueModification(b));
+        return getModifiableBooleanWithModification(BooleanModificationFactory.explicitValue(b));
     }
 
     public static ModifiableString explicit(String s) {
@@ -175,6 +191,15 @@ public final class Modifiable {
     public static ModifiableString insert(String s, int position) {
         return getModifiableStringWithModification(
                 StringModificationFactory.insertValue(s, position));
+    }
+
+    public static ModifiablePath insertPath(String s, int position) {
+        return getModifiablePathWithModification(PathModificationFactory.insertValue(s, position));
+    }
+
+    public static ModifiablePath insertDirectoryTraversal(int count, int position) {
+        return getModifiablePathWithModification(
+                PathModificationFactory.insertDirectoryTraversal(count, position));
     }
 
     public static ModifiableByteArray xor(byte[] b, int position) {
@@ -245,7 +270,11 @@ public final class Modifiable {
     }
 
     public static ModifiableBoolean toggle() {
-        return getModifiableBooleanWithModification(new BooleanToggleModification());
+        return getModifiableBooleanWithModification(BooleanModificationFactory.toggle());
+    }
+
+    public static ModifiablePath toggleRoot() {
+        return getModifiablePathWithModification(PathModificationFactory.toggleRoot());
     }
 
     public static ModifiableBigInteger shiftLeftBigInteger(Integer i) {

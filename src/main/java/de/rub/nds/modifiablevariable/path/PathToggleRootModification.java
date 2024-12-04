@@ -14,19 +14,19 @@ import jakarta.xml.bind.annotation.XmlType;
 /** Modification that appends a string to the original value. */
 @XmlRootElement
 @XmlType(propOrder = {"modificationFilter"})
-public class PathToggleRootValueModification extends VariableModification<String> {
+public class PathToggleRootModification extends VariableModification<String> {
 
-    public PathToggleRootValueModification() {
+    public PathToggleRootModification() {
         super();
     }
 
-    public PathToggleRootValueModification(PathToggleRootValueModification other) {
+    public PathToggleRootModification(PathToggleRootModification other) {
         super(other);
     }
 
     @Override
-    public PathToggleRootValueModification createCopy() {
-        return new PathToggleRootValueModification(this);
+    public PathToggleRootModification createCopy() {
+        return new PathToggleRootModification(this);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class PathToggleRootValueModification extends VariableModification<String
 
     @Override
     public VariableModification<String> getModifiedCopy() {
-        return new PathToggleRootValueModification();
+        return new PathToggleRootModification();
     }
 
     @Override
