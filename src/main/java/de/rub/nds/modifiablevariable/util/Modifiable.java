@@ -202,6 +202,11 @@ public final class Modifiable {
                 PathModificationFactory.insertDirectoryTraversal(count, position));
     }
 
+    public static ModifiablePath insertDirectorySeperator(int count, int position) {
+        return getModifiablePathWithModification(
+                PathModificationFactory.insertDirectorySeperator(count, position));
+    }
+
     public static ModifiableByteArray xor(byte[] b, int position) {
         return getModifiableByteArrayWithModification(
                 ByteArrayModificationFactory.xor(b, position));

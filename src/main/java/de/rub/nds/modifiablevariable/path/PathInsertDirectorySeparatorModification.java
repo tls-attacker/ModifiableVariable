@@ -18,7 +18,7 @@ import java.util.Random;
 /** Modification that appends a string to the original value. */
 @XmlRootElement
 @XmlType(propOrder = {"insertValue", "count", "startPosition", "modificationFilter"})
-public class PathInsertDirectoryTraversalModification extends VariableModification<String> {
+public class PathInsertDirectorySeparatorModification extends VariableModification<String> {
 
     private static final int MAX_INSERT_MODIFIER = 32;
 
@@ -28,19 +28,19 @@ public class PathInsertDirectoryTraversalModification extends VariableModificati
     private int count;
     private int startPosition;
 
-    public PathInsertDirectoryTraversalModification() {
+    public PathInsertDirectorySeparatorModification() {
         super();
     }
 
-    public PathInsertDirectoryTraversalModification(int count, int startPosition) {
+    public PathInsertDirectorySeparatorModification(int count, int startPosition) {
         super();
         this.count = count;
         this.startPosition = startPosition;
         updateInsertValue();
     }
 
-    public PathInsertDirectoryTraversalModification(
-            PathInsertDirectoryTraversalModification other) {
+    public PathInsertDirectorySeparatorModification(
+            PathInsertDirectorySeparatorModification other) {
         super(other);
         insertValue = other.insertValue;
         count = other.count;
@@ -48,19 +48,12 @@ public class PathInsertDirectoryTraversalModification extends VariableModificati
     }
 
     @Override
-    public PathInsertDirectoryTraversalModification createCopy() {
-        return new PathInsertDirectoryTraversalModification(this);
+    public PathInsertDirectorySeparatorModification createCopy() {
+        return new PathInsertDirectorySeparatorModification(this);
     }
 
     private void updateInsertValue() {
-        StringBuilder builder = new StringBuilder(count * 3 - 1);
-        for (int i = 0; i < count; i++) {
-            builder.append("..");
-            if (i < count - 1) {
-                builder.append("/");
-            }
-        }
-        insertValue = builder.toString();
+        insertValue = "/".repeat(Math.max(0, count));
     }
 
     @Override
@@ -98,7 +91,7 @@ public class PathInsertDirectoryTraversalModification extends VariableModificati
             if (modifier <= 0) {
                 modifier = 1;
             }
-            return new PathInsertDirectoryTraversalModification(modifier, startPosition);
+            return new PathInsertDirectorySeparatorModification(modifier, startPosition);
         } else {
             int modifier = r.nextInt(MAX_INSERT_MODIFIER);
             if (r.nextBoolean()) {
@@ -108,7 +101,7 @@ public class PathInsertDirectoryTraversalModification extends VariableModificati
             if (modifier <= 0) {
                 modifier = 1;
             }
-            return new PathInsertDirectoryTraversalModification(count, modifier);
+            return new PathInsertDirectorySeparatorModification(count, modifier);
         }
     }
 
@@ -131,8 +124,8 @@ public class PathInsertDirectoryTraversalModification extends VariableModificati
         if (getClass() != obj.getClass()) {
             return false;
         }
-        PathInsertDirectoryTraversalModification other =
-                (PathInsertDirectoryTraversalModification) obj;
+        PathInsertDirectorySeparatorModification other =
+                (PathInsertDirectorySeparatorModification) obj;
         if (startPosition != other.startPosition) {
             return false;
         }

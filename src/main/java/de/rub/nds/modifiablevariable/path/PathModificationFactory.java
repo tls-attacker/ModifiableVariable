@@ -23,6 +23,7 @@ public final class PathModificationFactory {
         PREPEND,
         INSERT,
         INSERT_DIRECTORY_TRAVERSAL,
+        INSERT_DIRECTORY_SEPERATOR,
         TOGGLE_ROOT,
     }
 
@@ -33,6 +34,7 @@ public final class PathModificationFactory {
     private static final int NUMBER_OF_PATH_PARTS_ESTIMATION = 50;
 
     private static final int MAX_NUMBER_OF_DIRECTORY_TRAVERSAL_INSERT = 10;
+    private static final int MAX_NUMBER_OF_DIRECTORY_SEPERATOR_INSERT = 10;
 
     public static VariableModification<String> prependValue(String value) {
         return new PathPrependValueModification(value);
@@ -48,6 +50,10 @@ public final class PathModificationFactory {
 
     public static VariableModification<String> insertDirectoryTraversal(int count, int position) {
         return new PathInsertDirectoryTraversalModification(count, position);
+    }
+
+    public static VariableModification<String> insertDirectorySeperator(int count, int position) {
+        return new PathInsertDirectorySeparatorModification(count, position);
     }
 
     public static VariableModification<String> toggleRoot() {
@@ -109,6 +115,12 @@ public final class PathModificationFactory {
                 insertPosition = random.nextInt(numberOfPathParts);
                 return new PathInsertDirectoryTraversalModification(
                         numberOfDirectoryTraversal, insertPosition);
+            case INSERT_DIRECTORY_SEPERATOR:
+                int numberOfDirectorySeperator =
+                        random.nextInt(MAX_NUMBER_OF_DIRECTORY_SEPERATOR_INSERT);
+                insertPosition = random.nextInt(numberOfPathParts);
+                return new PathInsertDirectorySeparatorModification(
+                        numberOfDirectorySeperator, insertPosition);
             case TOGGLE_ROOT:
                 return new PathToggleRootModification();
             default:
