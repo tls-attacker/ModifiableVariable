@@ -40,6 +40,10 @@ public final class PathModificationFactory {
         return new PathPrependValueModification(value);
     }
 
+    public static VariableModification<String> explicitValue(String value) {
+        return new PathExplicitValueModification(value);
+    }
+
     public static VariableModification<String> appendValue(String value) {
         return new PathAppendValueModification(value);
     }
