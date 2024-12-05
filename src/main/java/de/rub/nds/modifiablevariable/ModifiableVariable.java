@@ -9,7 +9,6 @@ package de.rub.nds.modifiablevariable;
 
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerAddModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerExplicitValueModification;
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerInteractiveModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerMultiplyModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerShiftLeftModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerShiftRightModification;
@@ -81,9 +80,6 @@ public abstract class ModifiableVariable<E> implements Serializable {
                 @XmlElement(
                         type = BigIntegerAddModification.class,
                         name = "BigIntegerAddModification"),
-                @XmlElement(
-                        type = BigIntegerInteractiveModification.class,
-                        name = "BigIntegerInteractiveModification"),
                 @XmlElement(
                         type = BigIntegerMultiplyModification.class,
                         name = "BigIntegerMultiplyModification"),
