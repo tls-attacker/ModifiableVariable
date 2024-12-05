@@ -53,6 +53,10 @@ public class PathInsertDirectoryTraversalModification extends VariableModificati
     }
 
     private void updateInsertValue() {
+        if (count <= 0) {
+            insertValue = "";
+            return;
+        }
         StringBuilder builder = new StringBuilder(count * 3 - 1);
         for (int i = 0; i < count; i++) {
             builder.append("..");
