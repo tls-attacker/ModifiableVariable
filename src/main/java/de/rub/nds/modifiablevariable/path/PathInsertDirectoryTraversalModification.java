@@ -15,7 +15,7 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Objects;
 import java.util.Random;
 
-/** Modification that appends a string to the original value. */
+/** Modification that directory traversal path parts the original value. */
 @XmlRootElement
 @XmlType(propOrder = {"insertValue", "count", "startPosition", "modificationFilter"})
 public class PathInsertDirectoryTraversalModification extends VariableModification<String> {

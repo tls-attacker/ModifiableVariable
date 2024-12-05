@@ -15,7 +15,7 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Objects;
 import java.util.Random;
 
-/** Modification that appends a string to the original value. */
+/** Modification that inserts path parts to the original value. */
 @XmlRootElement
 @XmlType(propOrder = {"insertValue", "startPosition", "modificationFilter"})
 public class PathInsertValueModification extends VariableModification<String> {
