@@ -25,10 +25,23 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
 
     private BigInteger subtrahend;
 
-    public BigIntegerSubtractModification() {}
+    public BigIntegerSubtractModification() {
+        super();
+    }
 
-    public BigIntegerSubtractModification(BigInteger bi) {
-        this.subtrahend = bi;
+    public BigIntegerSubtractModification(BigInteger subtrahend) {
+        super();
+        this.subtrahend = subtrahend;
+    }
+
+    public BigIntegerSubtractModification(BigIntegerSubtractModification other) {
+        super(other);
+        subtrahend = other.subtrahend;
+    }
+
+    @Override
+    public BigIntegerSubtractModification createCopy() {
+        return new BigIntegerSubtractModification(this);
     }
 
     @Override
@@ -55,8 +68,8 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 61 * hash + Objects.hashCode(this.subtrahend);
+        int hash = 7;
+        hash = 31 * hash + subtrahend.hashCode();
         return hash;
     }
 
@@ -71,10 +84,12 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final BigIntegerSubtractModification other = (BigIntegerSubtractModification) obj;
-        if (!Objects.equals(this.subtrahend, other.subtrahend)) {
-            return false;
-        }
-        return true;
+        BigIntegerSubtractModification other = (BigIntegerSubtractModification) obj;
+        return Objects.equals(subtrahend, other.subtrahend);
+    }
+
+    @Override
+    public String toString() {
+        return "BigIntegerSubtractModification{" + "subtrahend=" + subtrahend + '}';
     }
 }

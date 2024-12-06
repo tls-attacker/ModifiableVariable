@@ -18,6 +18,7 @@ public class BadFixedRandom extends Random {
     byte retVal;
 
     public BadFixedRandom(byte retVal) {
+        super();
         this.retVal = retVal;
     }
 

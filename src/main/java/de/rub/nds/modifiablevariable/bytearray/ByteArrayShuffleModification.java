@@ -32,14 +32,27 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] shuffle;
 
-    public ByteArrayShuffleModification() {}
+    public ByteArrayShuffleModification() {
+        super();
+    }
 
     public ByteArrayShuffleModification(byte[] shuffle) {
+        super();
         this.shuffle = shuffle;
     }
 
+    public ByteArrayShuffleModification(ByteArrayShuffleModification other) {
+        super(other);
+        shuffle = other.shuffle != null ? other.shuffle.clone() : null;
+    }
+
     @Override
-    protected byte[] modifyImplementationHook(final byte[] input) {
+    public ByteArrayShuffleModification createCopy() {
+        return new ByteArrayShuffleModification(this);
+    }
+
+    @Override
+    protected byte[] modifyImplementationHook(byte[] input) {
         if (input == null) {
             return input;
         }
@@ -71,13 +84,13 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
         int index = r.nextInt(shuffle.length);
         byte[] newValue = Arrays.copyOf(shuffle, shuffle.length);
         newValue[index] = (byte) r.nextInt(MAX_MODIFIER_VALUE);
-        return new ByteArrayShuffleModification(shuffle);
+        return new ByteArrayShuffleModification(newValue);
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 71 * hash + Arrays.hashCode(this.shuffle);
+        int hash = 7;
+        hash = 31 * hash + Arrays.hashCode(shuffle);
         return hash;
     }
 
@@ -92,11 +105,8 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ByteArrayShuffleModification other = (ByteArrayShuffleModification) obj;
-        if (!Arrays.equals(this.shuffle, other.shuffle)) {
-            return false;
-        }
-        return true;
+        ByteArrayShuffleModification other = (ByteArrayShuffleModification) obj;
+        return Arrays.equals(shuffle, other.shuffle);
     }
 
     @Override

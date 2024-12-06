@@ -9,9 +9,13 @@ nbproject/
 nbactions.xml.project
 nbactions.xml
 
-# IntelliJ
-.idea/
+### IntelliJ IDEA ###
+.idea/*
+!.idea/inspectionProfiles
+!.idea/runConfigurations
+*.iws
 *.iml
+*.ipr
 
 # VS Code
 .vscode/

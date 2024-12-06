@@ -19,16 +19,29 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
 
     private static final int MAX_EXPLICIT_MODIFIER = 16;
 
-    private Byte explicitValue;
+    protected Byte explicitValue;
 
-    public ByteExplicitValueModification() {}
+    public ByteExplicitValueModification() {
+        super();
+    }
 
-    public ByteExplicitValueModification(Byte bi) {
-        this.explicitValue = bi;
+    public ByteExplicitValueModification(Byte explicitValue) {
+        super();
+        this.explicitValue = explicitValue;
+    }
+
+    public ByteExplicitValueModification(ByteExplicitValueModification other) {
+        super(other);
+        explicitValue = other.explicitValue;
     }
 
     @Override
-    protected Byte modifyImplementationHook(final Byte input) {
+    public ByteExplicitValueModification createCopy() {
+        return new ByteExplicitValueModification(this);
+    }
+
+    @Override
+    protected Byte modifyImplementationHook(Byte input) {
         return explicitValue;
     }
 
@@ -55,7 +68,7 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 79 * hash + Objects.hashCode(this.explicitValue);
+        hash = 31 * hash + explicitValue;
         return hash;
     }
 
@@ -70,10 +83,12 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ByteExplicitValueModification other = (ByteExplicitValueModification) obj;
-        if (!Objects.equals(this.explicitValue, other.explicitValue)) {
-            return false;
-        }
-        return true;
+        ByteExplicitValueModification other = (ByteExplicitValueModification) obj;
+        return Objects.equals(explicitValue, other.explicitValue);
+    }
+
+    @Override
+    public String toString() {
+        return "ByteExplicitValueModification{" + "explicitValue=" + explicitValue + '}';
     }
 }

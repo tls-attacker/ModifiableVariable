@@ -11,21 +11,32 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.RandomHelper;
 import java.util.Random;
 
-public class BooleanModificationFactory {
+public final class BooleanModificationFactory {
 
-    private static final int MODIFICATION_COUNT = 3;
+    private BooleanModificationFactory() {
+        super();
+    }
+
+    private enum ModificationType {
+        EXPLICIT_TRUE,
+        EXPLICIT_FALSE,
+        TOGGLE
+    }
+
+    private static final int MODIFICATION_COUNT = ModificationType.values().length;
 
     public static VariableModification<Boolean> createRandomModification() {
         Random random = RandomHelper.getRandom();
-        switch (random.nextInt(MODIFICATION_COUNT)) {
-            case 0:
+        ModificationType randomType = ModificationType.values()[random.nextInt(MODIFICATION_COUNT)];
+        switch (randomType) {
+            case EXPLICIT_TRUE:
                 return new BooleanExplicitValueModification(true);
-            case 1:
+            case EXPLICIT_FALSE:
                 return new BooleanExplicitValueModification(false);
-            case 2:
+            case TOGGLE:
                 return new BooleanToggleModification();
             default:
-                return null;
+                throw new IllegalStateException("Unexpected modification type: " + randomType);
         }
     }
 
@@ -33,7 +44,7 @@ public class BooleanModificationFactory {
         return new BooleanToggleModification();
     }
 
-    public static VariableModification<Boolean> explicitValue(final boolean explicitValue) {
+    public static VariableModification<Boolean> explicitValue(boolean explicitValue) {
         return new BooleanExplicitValueModification(explicitValue);
     }
 }

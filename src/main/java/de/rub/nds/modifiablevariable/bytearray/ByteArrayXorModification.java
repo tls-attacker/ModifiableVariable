@@ -32,11 +32,25 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
 
     private int startPosition;
 
-    public ByteArrayXorModification() {}
+    public ByteArrayXorModification() {
+        super();
+    }
 
     public ByteArrayXorModification(byte[] xor, int startPosition) {
+        super();
         this.xor = xor;
         this.startPosition = startPosition;
+    }
+
+    public ByteArrayXorModification(ByteArrayXorModification other) {
+        super(other);
+        xor = other.xor != null ? other.xor.clone() : null;
+        startPosition = other.startPosition;
+    }
+
+    @Override
+    public ByteArrayXorModification createCopy() {
+        return new ByteArrayXorModification(this);
     }
 
     @Override
@@ -49,7 +63,7 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
         if (start < 0) {
             start += input.length;
         }
-        final int end = start + xor.length;
+        int end = start + xor.length;
         if (end > result.length) {
             // result = new byte[end];
             // System.arraycopy(input, 0, result, 0, input.length);
@@ -109,8 +123,8 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + Arrays.hashCode(this.xor);
-        hash = 97 * hash + this.startPosition;
+        hash = 31 * hash + Arrays.hashCode(xor);
+        hash = 31 * hash + startPosition;
         return hash;
     }
 
@@ -125,14 +139,11 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ByteArrayXorModification other = (ByteArrayXorModification) obj;
-        if (this.startPosition != other.startPosition) {
+        ByteArrayXorModification other = (ByteArrayXorModification) obj;
+        if (startPosition != other.startPosition) {
             return false;
         }
-        if (!Arrays.equals(this.xor, other.xor)) {
-            return false;
-        }
-        return true;
+        return Arrays.equals(xor, other.xor);
     }
 
     @Override

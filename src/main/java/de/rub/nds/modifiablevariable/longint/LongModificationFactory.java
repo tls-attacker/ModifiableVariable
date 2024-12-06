@@ -15,47 +15,73 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class LongModificationFactory {
+public final class LongModificationFactory {
 
-    private static final int MODIFICATION_COUNT = 5;
+    private enum ModificationType {
+        ADD,
+        SUBTRACT,
+        MULTIPLY,
+        XOR,
+        EXPLICIT,
+        SHIFT_LEFT,
+        SHIFT_RIGHT,
+        EXPLICIT_FROM_FILE,
+        APPEND,
+        INSERT,
+        PREPEND
+    }
+
+    private static final int MODIFICATION_COUNT = ModificationType.values().length;
 
     private static final int MAX_MODIFICATION_VALUE = 32000;
 
+    private static final int MAX_FILE_ENTRIES = 200;
+
+    private static final int MAX_MODIFICATION_SHIFT_VALUE = 40;
+
+    private static final int MAX_MODIFICATION_MULTIPLY_VALUE = 256;
+
+    private static final int MAX_MODIFICATION_INSERT_VALUE = 256;
+
+    private static final int MAX_MODIFICATION_INSERT_POSITION_VALUE = 64;
+
     private static List<VariableModification<Long>> modificationsFromFile;
 
-    public static LongAddModification add(final String summand) {
+    public static final String FILE_NAME = "de/rub/nds/modifiablevariable/explicit/long.vec";
+
+    public static LongAddModification add(String summand) {
         return add(Long.parseLong(summand));
     }
 
-    public static LongAddModification add(final Long summand) {
+    public static LongAddModification add(Long summand) {
         return new LongAddModification(summand);
     }
 
-    public static VariableModification<Long> sub(final String subtrahend) {
+    public static VariableModification<Long> sub(String subtrahend) {
         return sub(Long.parseLong(subtrahend));
     }
 
-    public static VariableModification<Long> sub(final Long subtrahend) {
+    public static VariableModification<Long> sub(Long subtrahend) {
         return new LongSubtractModification(subtrahend);
     }
 
-    public static VariableModification<Long> xor(final String xor) {
+    public static VariableModification<Long> xor(String xor) {
         return xor(Long.parseLong(xor));
     }
 
-    public static VariableModification<Long> xor(final Long xor) {
+    public static VariableModification<Long> xor(Long xor) {
         return new LongXorModification(xor);
     }
 
-    public static VariableModification<Long> explicitValue(final String value) {
+    public static VariableModification<Long> explicitValue(String value) {
         return explicitValue(Long.parseLong(value));
     }
 
-    public static VariableModification<Long> explicitValue(final Long value) {
+    public static VariableModification<Long> explicitValue(Long value) {
         return new LongExplicitValueModification(value);
     }
 
@@ -65,18 +91,45 @@ public class LongModificationFactory {
         return modifications.get(pos);
     }
 
+    public static VariableModification<Long> appendValue(Long value) {
+        return new LongAppendValueModification(value);
+    }
+
+    public static VariableModification<Long> insertValue(Long value, int position) {
+        return new LongInsertValueModification(value, position);
+    }
+
+    public static VariableModification<Long> prependValue(Long value) {
+        return new LongPrependValueModification(value);
+    }
+
+    public static VariableModification<Long> multiply(Long factor) {
+        return new LongMultiplyModification(factor);
+    }
+
+    public static VariableModification<Long> shiftLeft(int shift) {
+        return new LongShiftLeftModification(shift);
+    }
+
+    public static VariableModification<Long> shiftRight(int shift) {
+        return new LongShiftRightModification(shift);
+    }
+
     public static synchronized List<VariableModification<Long>> modificationsFromFile() {
         try {
             if (modificationsFromFile == null) {
-                modificationsFromFile = new LinkedList<>();
+                modificationsFromFile = new ArrayList<>();
                 ClassLoader classLoader = IntegerModificationFactory.class.getClassLoader();
-                InputStream is =
-                        classLoader.getResourceAsStream(IntegerModificationFactory.FILE_NAME);
+                InputStream is = classLoader.getResourceAsStream(FILE_NAME);
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
                 String line;
+                int index = 0;
                 while ((line = br.readLine()) != null) {
                     String value = line.trim().split(" ")[0];
-                    modificationsFromFile.add(explicitValue(value));
+                    modificationsFromFile.add(
+                            new LongExplicitValueFromFileModification(
+                                    index, Long.parseLong(value)));
+                    index++;
                 }
             }
             return modificationsFromFile;
@@ -88,29 +141,42 @@ public class LongModificationFactory {
 
     public static VariableModification<Long> createRandomModification() {
         Random random = RandomHelper.getRandom();
-        int r = random.nextInt(MODIFICATION_COUNT);
+        ModificationType randomType = ModificationType.values()[random.nextInt(MODIFICATION_COUNT)];
         long modification = random.nextInt(MAX_MODIFICATION_VALUE);
-        VariableModification<Long> vm = null;
-        switch (r) {
-            case 0:
-                vm = new LongAddModification(modification);
-                return vm;
-            case 1:
-                vm = new LongSubtractModification(modification);
-                return vm;
-            case 2:
-                vm = new LongXorModification(modification);
-                return vm;
-            case 3:
-                vm = new LongExplicitValueModification(modification);
-                return vm;
-            case 4:
-                vm = explicitValueFromFile(random.nextInt(MAX_MODIFICATION_VALUE));
-                return vm;
+        long insert_modification = random.nextInt(MAX_MODIFICATION_INSERT_VALUE);
+        int shiftModification = random.nextInt(MAX_MODIFICATION_SHIFT_VALUE);
+        switch (randomType) {
+            case ADD:
+                return new LongAddModification(modification);
+            case SUBTRACT:
+                return new LongSubtractModification(modification);
+            case MULTIPLY:
+                return new LongMultiplyModification(
+                        (long) random.nextInt(MAX_MODIFICATION_MULTIPLY_VALUE));
+            case XOR:
+                return new LongXorModification(modification);
+            case EXPLICIT:
+                return new LongExplicitValueModification(modification);
+            case SHIFT_LEFT:
+                return new LongShiftLeftModification(shiftModification);
+            case SHIFT_RIGHT:
+                return new LongShiftRightModification(shiftModification);
+            case EXPLICIT_FROM_FILE:
+                return explicitValueFromFile(random.nextInt(MAX_FILE_ENTRIES));
+            case APPEND:
+                return new LongAppendValueModification(insert_modification);
+            case INSERT:
+                return new LongInsertValueModification(
+                        insert_modification,
+                        random.nextInt(MAX_MODIFICATION_INSERT_POSITION_VALUE));
+            case PREPEND:
+                return new LongPrependValueModification(insert_modification);
             default:
-                return vm;
+                throw new IllegalStateException("Unexpected modification type: " + randomType);
         }
     }
 
-    private LongModificationFactory() {}
+    private LongModificationFactory() {
+        super();
+    }
 }

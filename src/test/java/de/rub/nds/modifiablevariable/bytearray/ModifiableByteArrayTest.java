@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import java.util.Arrays;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +21,7 @@ import org.junit.jupiter.api.Test;
 
 public class ModifiableByteArrayTest {
 
-    private static final Logger LOGGER = LogManager.getLogger(ModifiableByteArray.class);
+    private static final Logger LOGGER = LogManager.getLogger();
 
     private ModifiableByteArray start;
 
@@ -123,7 +124,7 @@ public class ModifiableByteArrayTest {
         }
 
         VariableModification<byte[]> modifier =
-                ByteArrayModificationFactory.insert(modification1, 0);
+                ByteArrayModificationFactory.insertValue(modification1, 0);
         start.setModification(modifier);
 
         LOGGER.debug("Expected: {}", expResult);
@@ -146,7 +147,7 @@ public class ModifiableByteArrayTest {
         }
 
         VariableModification<byte[]> modifier =
-                ByteArrayModificationFactory.insert(modification1, originalValue.length);
+                ByteArrayModificationFactory.insertValue(modification1, originalValue.length);
         start.setModification(modifier);
 
         LOGGER.debug("Expected: {}", expResult);
@@ -242,27 +243,40 @@ public class ModifiableByteArrayTest {
     @Test
     public void testInsertBytes() {
         LOGGER.info("testInsertBytes");
-        // Insert negative position, insert 0 bytes, insert too far
+        // Insert at negative position -> wrap around
         assumeTrue(modification1.length < originalValue.length);
-        LOGGER.debug("Inserting negative Position");
+        LOGGER.debug("Inserting negative at position");
         VariableModification<byte[]> modifier =
-                ByteArrayModificationFactory.insert(modification1, -2 * originalValue.length);
+                ByteArrayModificationFactory.insertValue(modification1, -2 * originalValue.length);
         start.setModification(modifier);
-        assertArrayEquals(start.getValue(), originalValue);
+        byte[] expResult =
+                ArrayConverter.concatenate(
+                        Arrays.copyOf(originalValue, 1),
+                        modification1,
+                        Arrays.copyOfRange(originalValue, 1, originalValue.length));
+        assertArrayEquals(start.getValue(), expResult);
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
         LOGGER.debug("Inserting empty Array");
         byte[] emptyArray = new byte[0];
-        modifier = ByteArrayModificationFactory.insert(emptyArray, 0);
+        modifier = ByteArrayModificationFactory.insertValue(emptyArray, 0);
         start.setModification(modifier);
         assertArrayEquals(originalValue, start.getValue());
 
+        // Insert at too positive position -> wrap around
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
-        LOGGER.debug("Inserting to big Start position");
-        modifier = ByteArrayModificationFactory.insert(modification1, originalValue.length * 2);
+        LOGGER.debug("Inserting at too large position");
+        modifier =
+                ByteArrayModificationFactory.insertValue(modification1, originalValue.length * 2);
         start.setModification(modifier);
-        assertArrayEquals(originalValue, start.getValue());
+        expResult =
+                ArrayConverter.concatenate(
+                        Arrays.copyOf(originalValue, originalValue.length - 1),
+                        modification1,
+                        Arrays.copyOfRange(
+                                originalValue, originalValue.length - 1, originalValue.length));
+        assertArrayEquals(expResult, start.getValue());
     }
 
     /** Test of add method, of class BigIntegerModificationFactory. */
@@ -343,15 +357,7 @@ public class ModifiableByteArrayTest {
         toTest =
                 ModifiableVariableFactory.safelySetValue(
                         toTest, new byte[] {0x00, 0x11, 0x22, 0x33, 0x44});
-        assertEquals("Original byte value is: 00 11 22 33 44", toTest.toString());
-
-        VariableModification<byte[]> modification =
-                new ByteArrayExplicitValueModification(
-                        new byte[] {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08});
-        toTest.setModification(modification);
-        assertEquals(
-                "Actual byte value is: 00 01 02 03 04 05 06 07 08\nOriginal value was: 00 11 22 33 44",
-                toTest.toString());
+        assertEquals("ModifiableByteArray{originalValue=00 11 22 33 44}", toTest.toString());
     }
 
     @Test

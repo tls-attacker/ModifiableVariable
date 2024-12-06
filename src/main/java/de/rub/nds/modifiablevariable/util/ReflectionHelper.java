@@ -14,10 +14,15 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ReflectionHelper {
+public final class ReflectionHelper {
+
+    private ReflectionHelper() {
+        super();
+    }
 
     /**
-     * Source: http://stackoverflow.com/questions/17451506/list-all-private-fields -of-a-java-object
+     * Source: <a
+     * href="http://stackoverflow.com/questions/17451506/list-all-private-fields-of-a-java-object">...</a>
      * Retrieves all fields (all access levels) from all classes up the class hierarchy starting
      * with {@code startClass} stopping with and not including {@code exclusiveParent}. Generally
      * {@code Object.class} should be passed as {@code exclusiveParent}.
@@ -37,8 +42,7 @@ public class ReflectionHelper {
 
         Class<?> parentClass = startClass.getSuperclass();
 
-        if ((parentClass != null)
-                && ((exclusiveParent == null) || !(parentClass.equals(exclusiveParent)))) {
+        if (parentClass != null && !parentClass.equals(exclusiveParent)) {
             List<Field> parentClassFields =
                     getFieldsUpTo(parentClass, exclusiveParent, filterClass);
 
@@ -52,9 +56,9 @@ public class ReflectionHelper {
     private static List<Field> filterFieldList(List<Field> fields, Class<?> filterClass) {
         List<Field> filteredFields = new LinkedList<>();
 
-        for (Field f : fields) {
-            if ((filterClass == null) || filterClass.isAssignableFrom(f.getType())) {
-                filteredFields.add(f);
+        for (Field field : fields) {
+            if (filterClass == null || filterClass.isAssignableFrom(field.getType())) {
+                filteredFields.add(field);
             }
         }
 
@@ -65,9 +69,9 @@ public class ReflectionHelper {
             throws IllegalAccessException {
         List<Object> list = new LinkedList<>();
 
-        for (Field f : fields) {
-            f.setAccessible(true);
-            list.add(f.get(object));
+        for (Field field : fields) {
+            field.setAccessible(true);
+            list.add(field.get(object));
         }
 
         return list;

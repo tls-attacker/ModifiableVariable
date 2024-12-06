@@ -20,11 +20,14 @@ public class ModifiableVariableListHolder {
 
     private List<Field> fields;
 
-    public ModifiableVariableListHolder() {}
+    public ModifiableVariableListHolder() {
+        super();
+    }
 
-    public ModifiableVariableListHolder(Object o, List<Field> f) {
-        this.object = o;
-        this.fields = f;
+    public ModifiableVariableListHolder(Object o, List<Field> fields) {
+        super();
+        object = o;
+        this.fields = fields;
     }
 
     public Object getObject() {
