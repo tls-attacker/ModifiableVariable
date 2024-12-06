@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 
 public class ModifiableByteArrayTest {
 
-    private static final Logger LOGGER = LogManager.getLogger(ModifiableByteArray.class);
+    private static final Logger LOGGER = LogManager.getLogger();
 
     private ModifiableByteArray start;
 
