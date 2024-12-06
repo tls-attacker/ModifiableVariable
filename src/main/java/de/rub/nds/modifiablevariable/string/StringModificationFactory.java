@@ -22,7 +22,8 @@ public final class StringModificationFactory {
         APPEND,
         PREPEND,
         EXPLICIT,
-        INSERT
+        INSERT,
+        DELETE
     }
 
     private static final int MODIFICATION_COUNT = ModificationType.values().length;
@@ -47,6 +48,10 @@ public final class StringModificationFactory {
 
     public static VariableModification<String> insertValue(String value, int position) {
         return new StringInsertValueModification(value, position);
+    }
+
+    public static VariableModification<String> delete(int startPosition, int count) {
+        return new StringDeleteModification(startPosition, count);
     }
 
     public static VariableModification<String> createRandomModification(String originalValue) {
@@ -93,6 +98,11 @@ public final class StringModificationFactory {
                 random.nextBytes(bytesToInsert);
                 int insertPosition = random.nextInt(modifiedArrayLength);
                 return new StringInsertValueModification(new String(bytesToInsert), insertPosition);
+            case DELETE:
+                int startPosition = random.nextInt(modifiedArrayLength - 1);
+                int count = random.nextInt(modifiedArrayLength - startPosition);
+                count++;
+                return new StringDeleteModification(startPosition, count);
             default:
                 throw new IllegalStateException("Unexpected modification type: " + randomType);
         }

@@ -59,4 +59,23 @@ public final class PathUtil {
         }
         return insertPosition;
     }
+
+    public static int getPathPartPosition(
+            int startPosition, boolean leadingSlash, String[] pathParts) {
+        int pathPartPosition;
+        if (leadingSlash) {
+            // If the path starts with a slash, skip the first empty path part.
+            pathPartPosition = startPosition % (pathParts.length - 1);
+            if (startPosition < 0) {
+                pathPartPosition += pathParts.length - 2;
+            }
+            pathPartPosition++;
+        } else {
+            pathPartPosition = startPosition % pathParts.length;
+            if (startPosition < 0) {
+                pathPartPosition += pathParts.length - 1;
+            }
+        }
+        return pathPartPosition;
+    }
 }

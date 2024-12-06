@@ -8,6 +8,7 @@
 package de.rub.nds.modifiablevariable.path;
 
 import de.rub.nds.modifiablevariable.VariableModification;
+import de.rub.nds.modifiablevariable.string.StringDeleteModification;
 import de.rub.nds.modifiablevariable.util.RandomHelper;
 import java.util.Random;
 
@@ -22,9 +23,10 @@ public final class PathModificationFactory {
         APPEND,
         PREPEND,
         INSERT,
+        DELETE,
         INSERT_DIRECTORY_TRAVERSAL,
         INSERT_DIRECTORY_SEPERATOR,
-        TOGGLE_ROOT,
+        TOGGLE_ROOT
     }
 
     private static final int MODIFICATION_COUNT = ModificationType.values().length;
@@ -52,6 +54,10 @@ public final class PathModificationFactory {
         return new PathInsertValueModification(value, position);
     }
 
+    public static VariableModification<String> delete(int position, int count) {
+        return new PathDeleteModification(position, count);
+    }
+
     public static VariableModification<String> insertDirectoryTraversal(int count, int position) {
         return new PathInsertDirectoryTraversalModification(count, position);
     }
@@ -74,7 +80,8 @@ public final class PathModificationFactory {
         } else {
             String[] pathParts = originalValue.split("/");
             if (pathParts.length == 0) {
-                if (randomType == ModificationType.INSERT) {
+                if (randomType == ModificationType.INSERT
+                        || randomType == ModificationType.DELETE) {
                     randomType = ModificationType.APPEND;
                 }
                 numberOfPathParts = 0;
@@ -127,6 +134,11 @@ public final class PathModificationFactory {
                         numberOfDirectorySeperator, insertPosition);
             case TOGGLE_ROOT:
                 return new PathToggleRootModification();
+            case DELETE:
+                int startPosition = random.nextInt(numberOfPathParts - 1);
+                int count = random.nextInt(numberOfPathParts - startPosition);
+                count++;
+                return new StringDeleteModification(startPosition, count);
             default:
                 throw new IllegalStateException("Unexpected modification type: " + randomType);
         }

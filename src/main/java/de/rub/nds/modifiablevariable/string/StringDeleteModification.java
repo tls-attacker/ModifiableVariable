@@ -5,21 +5,18 @@
  *
  * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-package de.rub.nds.modifiablevariable.bytearray;
+package de.rub.nds.modifiablevariable.string;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
-import java.util.Arrays;
+import java.util.Objects;
 import java.util.Random;
 
+/** Modification that deletes part of a string from the original value. */
 @XmlRootElement
 @XmlType(propOrder = {"count", "startPosition", "modificationFilter"})
-@XmlAccessorType(XmlAccessType.FIELD)
-public class ByteArrayDeleteModification extends VariableModification<byte[]> {
+public class StringDeleteModification extends VariableModification<String> {
 
     private static final int MAX_MODIFIER_LENGTH = 32;
 
@@ -27,59 +24,46 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
 
     private int startPosition;
 
-    public ByteArrayDeleteModification() {
+    public StringDeleteModification() {
         super();
     }
 
-    public ByteArrayDeleteModification(int startPosition, int count) {
+    public StringDeleteModification(int startPosition, int count) {
         super();
         this.startPosition = startPosition;
         this.count = count;
     }
 
-    public ByteArrayDeleteModification(ByteArrayDeleteModification other) {
+    public StringDeleteModification(StringDeleteModification other) {
         super(other);
         count = other.count;
         startPosition = other.startPosition;
     }
 
     @Override
-    public ByteArrayDeleteModification createCopy() {
-        return new ByteArrayDeleteModification(this);
+    public StringDeleteModification createCopy() {
+        return new StringDeleteModification(this);
     }
 
     @Override
-    protected byte[] modifyImplementationHook(byte[] input) {
+    protected String modifyImplementationHook(String input) {
         if (input == null) {
-            input = new byte[0];
+            return null;
         }
 
         // Wrap around and also allow to delete at the end of the original value
-        int deleteStartPosition = startPosition % input.length;
+        int deleteStartPosition = startPosition % input.length();
         if (startPosition < 0) {
-            deleteStartPosition += input.length - 1;
+            deleteStartPosition += input.length() - 1;
         }
 
-        // If the end position overflows, it is fixed at the end of the byte array
+        // If the end position overflows, it is fixed at the end of the string
         int deleteEndPosition = deleteStartPosition + Math.max(0, count);
-        if (deleteEndPosition > input.length) {
-            deleteEndPosition = input.length;
+        if (deleteEndPosition > input.length()) {
+            deleteEndPosition = input.length();
         }
 
-        byte[] ret1 = Arrays.copyOf(input, deleteStartPosition);
-        byte[] ret2 = null;
-        if (deleteEndPosition < input.length) {
-            ret2 = Arrays.copyOfRange(input, deleteEndPosition, input.length);
-        }
-        return ArrayConverter.concatenate(ret1, ret2);
-    }
-
-    public int getStartPosition() {
-        return startPosition;
-    }
-
-    public void setStartPosition(int startPosition) {
-        this.startPosition = startPosition;
+        return new StringBuilder(input).delete(deleteStartPosition, deleteEndPosition).toString();
     }
 
     public int getCount() {
@@ -90,25 +74,38 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
         this.count = count;
     }
 
+    public int getStartPosition() {
+        return startPosition;
+    }
+
+    public void setStartPosition(int startPosition) {
+        this.startPosition = startPosition;
+    }
+
     @Override
-    public VariableModification<byte[]> getModifiedCopy() {
+    public VariableModification<String> getModifiedCopy() {
         Random r = new Random();
-        int modifier = r.nextInt(MAX_MODIFIER_LENGTH);
+
         if (r.nextBoolean()) {
-            modifier *= -1;
-        }
-        if (r.nextBoolean()) {
-            modifier = startPosition + modifier;
-            if (modifier <= 0) {
-                modifier = 0;
+            int modifier = r.nextInt(MAX_MODIFIER_LENGTH);
+            if (r.nextBoolean()) {
+                modifier *= -1;
             }
-            return new ByteArrayDeleteModification(modifier, count);
-        } else {
-            modifier = startPosition + count;
+            modifier = count + modifier;
             if (modifier <= 0) {
                 modifier = 1;
             }
-            return new ByteArrayDeleteModification(startPosition, modifier);
+            return new StringDeleteModification(modifier, startPosition);
+        } else {
+            int modifier = r.nextInt(MAX_MODIFIER_LENGTH);
+            if (r.nextBoolean()) {
+                modifier *= -1;
+            }
+            modifier = startPosition + modifier;
+            if (modifier <= 0) {
+                modifier = 1;
+            }
+            return new StringDeleteModification(count, modifier);
         }
     }
 
@@ -131,16 +128,16 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        ByteArrayDeleteModification other = (ByteArrayDeleteModification) obj;
-        if (count != other.count) {
+        StringDeleteModification other = (StringDeleteModification) obj;
+        if (startPosition != other.startPosition) {
             return false;
         }
-        return startPosition == other.startPosition;
+        return Objects.equals(count, other.count);
     }
 
     @Override
     public String toString() {
-        return "ByteArrayDeleteModification{"
+        return "StringDeleteModification{"
                 + "count="
                 + count
                 + ", startPosition="

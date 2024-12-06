@@ -163,6 +163,7 @@ public abstract class ModifiableVariable<E> implements Serializable {
         @XmlElement(
                 type = StringInsertValueModification.class,
                 name = "StringInsertValueModification"),
+        @XmlElement(type = StringDeleteModification.class, name = "StringDeleteModification"),
         @XmlElement(
                 type = PathExplicitValueFromFileModification.class,
                 name = "PathExplicitValueFromFileModification"),
@@ -173,6 +174,7 @@ public abstract class ModifiableVariable<E> implements Serializable {
         @XmlElement(
                 type = PathInsertDirectorySeparatorModification.class,
                 name = "PathInsertDirectorySeparatorModification"),
+        @XmlElement(type = PathDeleteModification.class, name = "PathDeleteModification"),
         @XmlElement(
                 type = PathInsertDirectoryTraversalModification.class,
                 name = "PathInsertDirectoryTraversalValueModification"),
