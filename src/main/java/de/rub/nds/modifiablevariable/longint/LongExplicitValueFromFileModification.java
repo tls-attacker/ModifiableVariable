@@ -74,4 +74,14 @@ public class LongExplicitValueFromFileModification extends LongExplicitValueModi
         }
         return Objects.equals(explicitValue, other.explicitValue);
     }
+
+    @Override
+    public String toString() {
+        return "LongExplicitValueFromFileModification{"
+                + "index="
+                + index
+                + ", explicitValue="
+                + explicitValue
+                + '}';
+    }
 }

@@ -90,4 +90,9 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
         BigIntegerExplicitValueModification other = (BigIntegerExplicitValueModification) obj;
         return Objects.equals(explicitValue, other.explicitValue);
     }
+
+    @Override
+    public String toString() {
+        return "BigIntegerExplicitValueModification{" + "explicitValue=" + explicitValue + '}';
+    }
 }

@@ -24,6 +24,9 @@ public final class StringUtil {
      * @return string with non-printable or non-ascii characters replaced
      */
     public static String backslashEscapeString(String value) {
+        if (value == null) {
+            return null;
+        }
         StringBuffer buffer = new StringBuffer(value);
         for (int i = 0; i < buffer.length(); i++) {
             int codePoint = buffer.codePointAt(i);

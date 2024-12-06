@@ -87,4 +87,9 @@ public class BigIntegerPrependValueModification extends VariableModification<Big
         BigIntegerPrependValueModification other = (BigIntegerPrependValueModification) obj;
         return Objects.equals(prependValue, other.prependValue);
     }
+
+    @Override
+    public String toString() {
+        return "BigIntegerPrependValueModification{" + "prependValue=" + prependValue + '}';
+    }
 }

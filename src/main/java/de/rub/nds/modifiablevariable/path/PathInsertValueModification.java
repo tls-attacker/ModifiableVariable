@@ -7,6 +7,8 @@
  */
 package de.rub.nds.modifiablevariable.path;
 
+import static de.rub.nds.modifiablevariable.util.StringUtil.backslashEscapeString;
+
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -118,5 +120,16 @@ public class PathInsertValueModification extends VariableModification<String> {
             return false;
         }
         return Objects.equals(insertValue, other.insertValue);
+    }
+
+    @Override
+    public String toString() {
+        return "PathInsertValueModification{"
+                + "insertValue='"
+                + backslashEscapeString(insertValue)
+                + '\''
+                + ", startPosition="
+                + startPosition
+                + '}';
     }
 }

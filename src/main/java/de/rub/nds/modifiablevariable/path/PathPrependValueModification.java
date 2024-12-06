@@ -7,6 +7,8 @@
  */
 package de.rub.nds.modifiablevariable.path;
 
+import static de.rub.nds.modifiablevariable.util.StringUtil.backslashEscapeString;
+
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -93,5 +95,14 @@ public class PathPrependValueModification extends VariableModification<String> {
         }
         PathPrependValueModification other = (PathPrependValueModification) obj;
         return Objects.equals(prependValue, other.prependValue);
+    }
+
+    @Override
+    public String toString() {
+        return "PathPrependValueModification{"
+                + "prependValue='"
+                + backslashEscapeString(prependValue)
+                + '\''
+                + '}';
     }
 }

@@ -85,4 +85,9 @@ public class BigIntegerShiftLeftModification extends VariableModification<BigInt
         BigIntegerShiftLeftModification other = (BigIntegerShiftLeftModification) obj;
         return shift == other.shift;
     }
+
+    @Override
+    public String toString() {
+        return "BigIntegerShiftLeftModification{" + "shift=" + shift + '}';
+    }
 }

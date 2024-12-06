@@ -86,4 +86,9 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
         ByteExplicitValueModification other = (ByteExplicitValueModification) obj;
         return Objects.equals(explicitValue, other.explicitValue);
     }
+
+    @Override
+    public String toString() {
+        return "ByteExplicitValueModification{" + "explicitValue=" + explicitValue + '}';
+    }
 }

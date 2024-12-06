@@ -84,4 +84,9 @@ public class LongXorModification extends VariableModification<Long> {
         LongXorModification other = (LongXorModification) obj;
         return Objects.equals(xor, other.xor);
     }
+
+    @Override
+    public String toString() {
+        return "LongXorModification{" + "xor=" + xor + '}';
+    }
 }

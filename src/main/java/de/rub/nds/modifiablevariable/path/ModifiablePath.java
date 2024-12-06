@@ -40,7 +40,11 @@ public class ModifiablePath extends ModifiableString {
 
     @Override
     public String toString() {
-        return "ModifiablePath{originalValue=" + backslashEscapeString(originalValue) + "}";
+        return "ModifiablePath{"
+                + "originalValue='"
+                + backslashEscapeString(originalValue)
+                + '\''
+                + '}';
     }
 
     @Override

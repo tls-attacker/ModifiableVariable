@@ -80,4 +80,9 @@ public class LongSubtractModification extends VariableModification<Long> {
         LongSubtractModification other = (LongSubtractModification) obj;
         return Objects.equals(subtrahend, other.subtrahend);
     }
+
+    @Override
+    public String toString() {
+        return "LongSubtractModification{" + "subtrahend=" + subtrahend + '}';
+    }
 }

@@ -83,4 +83,9 @@ public class IntegerAppendValueModification extends VariableModification<Integer
         IntegerAppendValueModification other = (IntegerAppendValueModification) obj;
         return Objects.equals(appendValue, other.appendValue);
     }
+
+    @Override
+    public String toString() {
+        return "IntegerAppendValueModification{" + "appendValue=" + appendValue + '}';
+    }
 }

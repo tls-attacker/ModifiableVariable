@@ -133,4 +133,14 @@ public class BigIntegerInsertValueModification extends VariableModification<BigI
         }
         return Objects.equals(insertValue, other.insertValue);
     }
+
+    @Override
+    public String toString() {
+        return "BigIntegerInsertValueModification{"
+                + "insertValue="
+                + insertValue
+                + ", startPosition="
+                + startPosition
+                + '}';
+    }
 }

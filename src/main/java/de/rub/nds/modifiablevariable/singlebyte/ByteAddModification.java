@@ -82,4 +82,9 @@ public class ByteAddModification extends VariableModification<Byte> {
         ByteAddModification other = (ByteAddModification) obj;
         return Objects.equals(summand, other.summand);
     }
+
+    @Override
+    public String toString() {
+        return "ByteAddModification{" + "summand=" + summand + '}';
+    }
 }

@@ -7,6 +7,8 @@
  */
 package de.rub.nds.modifiablevariable.string;
 
+import static de.rub.nds.modifiablevariable.util.StringUtil.backslashEscapeString;
+
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -74,5 +76,16 @@ public class StringExplicitValueFromFileModification extends StringExplicitValue
             return false;
         }
         return Objects.equals(explicitValue, other.explicitValue);
+    }
+
+    @Override
+    public String toString() {
+        return "StringExplicitValueFromFileModification{"
+                + "index="
+                + index
+                + ", explicitValue='"
+                + backslashEscapeString(explicitValue)
+                + '\''
+                + '}';
     }
 }

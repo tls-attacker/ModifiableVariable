@@ -80,4 +80,9 @@ public class IntegerSubtractModification extends VariableModification<Integer> {
         IntegerSubtractModification other = (IntegerSubtractModification) obj;
         return Objects.equals(subtrahend, other.subtrahend);
     }
+
+    @Override
+    public String toString() {
+        return "IntegerSubtractModification{" + "subtrahend=" + subtrahend + '}';
+    }
 }

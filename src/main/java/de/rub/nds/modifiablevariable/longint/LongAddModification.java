@@ -79,4 +79,9 @@ public class LongAddModification extends VariableModification<Long> {
         LongAddModification other = (LongAddModification) obj;
         return Objects.equals(summand, other.summand);
     }
+
+    @Override
+    public String toString() {
+        return "LongAddModification{" + "summand=" + summand + '}';
+    }
 }

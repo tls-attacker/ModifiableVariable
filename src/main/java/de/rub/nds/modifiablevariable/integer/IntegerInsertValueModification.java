@@ -127,4 +127,14 @@ public class IntegerInsertValueModification extends VariableModification<Integer
         }
         return Objects.equals(insertValue, other.insertValue);
     }
+
+    @Override
+    public String toString() {
+        return "IntegerInsertValueModification{"
+                + "insertValue="
+                + insertValue
+                + ", startPosition="
+                + startPosition
+                + '}';
+    }
 }

@@ -8,6 +8,7 @@
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
+import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -75,5 +76,15 @@ public class ByteArrayExplicitValueFromFileModification extends ByteArrayExplici
             return false;
         }
         return Arrays.equals(explicitValue, other.explicitValue);
+    }
+
+    @Override
+    public String toString() {
+        return "ByteArrayExplicitValueFromFileModification{"
+                + "index="
+                + index
+                + ", explicitValue="
+                + ArrayConverter.bytesToHexString(explicitValue)
+                + '}';
     }
 }

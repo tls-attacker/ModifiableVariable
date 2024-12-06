@@ -86,4 +86,9 @@ public class LongExplicitValueModification extends VariableModification<Long> {
         LongExplicitValueModification other = (LongExplicitValueModification) obj;
         return Objects.equals(explicitValue, other.explicitValue);
     }
+
+    @Override
+    public String toString() {
+        return "LongExplicitValueModification{" + "explicitValue=" + explicitValue + '}';
+    }
 }

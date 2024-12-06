@@ -87,4 +87,9 @@ public class BigIntegerAppendValueModification extends VariableModification<BigI
         BigIntegerAppendValueModification other = (BigIntegerAppendValueModification) obj;
         return Objects.equals(appendValue, other.appendValue);
     }
+
+    @Override
+    public String toString() {
+        return "BigIntegerAppendValueModification{" + "appendValue=" + appendValue + '}';
+    }
 }

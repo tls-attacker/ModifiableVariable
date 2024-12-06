@@ -83,4 +83,9 @@ public class ByteSubtractModification extends VariableModification<Byte> {
         ByteSubtractModification other = (ByteSubtractModification) obj;
         return Objects.equals(subtrahend, other.subtrahend);
     }
+
+    @Override
+    public String toString() {
+        return "ByteSubtractModification{" + "subtrahend=" + subtrahend + '}';
+    }
 }

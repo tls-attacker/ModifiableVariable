@@ -86,7 +86,11 @@ public class ModifiableString extends ModifiableVariable<String> {
 
     @Override
     public String toString() {
-        return "ModifiableString{originalValue=" + backslashEscapeString(originalValue) + "}";
+        return "ModifiableString{"
+                + "originalValue='"
+                + backslashEscapeString(originalValue)
+                + '\''
+                + '}';
     }
 
     @Override

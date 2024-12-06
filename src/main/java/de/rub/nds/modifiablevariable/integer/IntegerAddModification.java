@@ -79,4 +79,9 @@ public class IntegerAddModification extends VariableModification<Integer> {
         IntegerAddModification other = (IntegerAddModification) obj;
         return Objects.equals(summand, other.summand);
     }
+
+    @Override
+    public String toString() {
+        return "IntegerAddModification{" + "summand=" + summand + '}';
+    }
 }

@@ -83,4 +83,9 @@ public class LongPrependValueModification extends VariableModification<Long> {
         LongPrependValueModification other = (LongPrependValueModification) obj;
         return Objects.equals(prependValue, other.prependValue);
     }
+
+    @Override
+    public String toString() {
+        return "LongPrependValueModification{" + "prependValue=" + prependValue + '}';
+    }
 }

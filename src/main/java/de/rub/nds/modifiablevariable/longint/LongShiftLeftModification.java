@@ -92,4 +92,9 @@ public class LongShiftLeftModification extends VariableModification<Long> {
         LongShiftLeftModification other = (LongShiftLeftModification) obj;
         return Objects.equals(shift, other.shift);
     }
+
+    @Override
+    public String toString() {
+        return "LongShiftLeftModification{" + "shift=" + shift + '}';
+    }
 }

@@ -84,4 +84,9 @@ public class BigIntegerAddModification extends VariableModification<BigInteger> 
         BigIntegerAddModification other = (BigIntegerAddModification) obj;
         return Objects.equals(summand, other.summand);
     }
+
+    @Override
+    public String toString() {
+        return "BigIntegerAddModification{" + "summand=" + summand + '}';
+    }
 }

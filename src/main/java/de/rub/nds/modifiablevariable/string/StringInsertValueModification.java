@@ -7,6 +7,8 @@
  */
 package de.rub.nds.modifiablevariable.string;
 
+import static de.rub.nds.modifiablevariable.util.StringUtil.backslashEscapeString;
+
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -127,5 +129,16 @@ public class StringInsertValueModification extends VariableModification<String> 
             return false;
         }
         return Objects.equals(insertValue, other.insertValue);
+    }
+
+    @Override
+    public String toString() {
+        return "StringInsertValueModification{"
+                + "insertValue='"
+                + backslashEscapeString(insertValue)
+                + '\''
+                + ", startPosition="
+                + startPosition
+                + '}';
     }
 }

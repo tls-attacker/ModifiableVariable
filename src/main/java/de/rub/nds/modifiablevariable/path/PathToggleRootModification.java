@@ -60,4 +60,9 @@ public class PathToggleRootModification extends VariableModification<String> {
         }
         return getClass() == obj.getClass();
     }
+
+    @Override
+    public String toString() {
+        return "PathToggleRootModification{}";
+    }
 }

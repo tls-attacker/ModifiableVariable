@@ -81,4 +81,9 @@ public class IntegerMultiplyModification extends VariableModification<Integer> {
         IntegerMultiplyModification other = (IntegerMultiplyModification) obj;
         return Objects.equals(factor, other.factor);
     }
+
+    @Override
+    public String toString() {
+        return "IntegerMultiplyModification{" + "factor=" + factor + '}';
+    }
 }

@@ -76,4 +76,14 @@ public class IntegerExplicitValueFromFileModification extends IntegerExplicitVal
         }
         return Objects.equals(explicitValue, other.explicitValue);
     }
+
+    @Override
+    public String toString() {
+        return "IntegerExplicitValueFromFileModification{"
+                + "index="
+                + index
+                + ", explicitValue="
+                + explicitValue
+                + '}';
+    }
 }

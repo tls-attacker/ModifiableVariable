@@ -90,4 +90,9 @@ public class IntegerShiftRightModification extends VariableModification<Integer>
         IntegerShiftRightModification other = (IntegerShiftRightModification) obj;
         return shift == other.shift;
     }
+
+    @Override
+    public String toString() {
+        return "IntegerShiftRightModification{" + "shift=" + shift + '}';
+    }
 }

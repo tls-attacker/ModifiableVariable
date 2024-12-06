@@ -84,4 +84,9 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
         BigIntegerMultiplyModification other = (BigIntegerMultiplyModification) obj;
         return Objects.equals(factor, other.factor);
     }
+
+    @Override
+    public String toString() {
+        return "BigIntegerMultiplyModification{" + "factor=" + factor + '}';
+    }
 }

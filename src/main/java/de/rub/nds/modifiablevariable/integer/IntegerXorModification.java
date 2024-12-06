@@ -84,4 +84,9 @@ public class IntegerXorModification extends VariableModification<Integer> {
         IntegerXorModification other = (IntegerXorModification) obj;
         return Objects.equals(xor, other.xor);
     }
+
+    @Override
+    public String toString() {
+        return "IntegerXorModification{" + "xor=" + xor + '}';
+    }
 }

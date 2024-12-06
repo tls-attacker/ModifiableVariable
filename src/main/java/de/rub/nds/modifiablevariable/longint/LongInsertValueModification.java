@@ -125,4 +125,14 @@ public class LongInsertValueModification extends VariableModification<Long> {
         }
         return Objects.equals(insertValue, other.insertValue);
     }
+
+    @Override
+    public String toString() {
+        return "LongInsertValueModification{"
+                + "insertValue="
+                + insertValue
+                + ", startPosition="
+                + startPosition
+                + '}';
+    }
 }

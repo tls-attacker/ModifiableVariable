@@ -82,21 +82,6 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
     }
 
     @Override
-    public String toString() {
-        StringBuilder result = new StringBuilder();
-        if (isOriginalValueModified()) {
-            result.append("Actual byte value is: ");
-            result.append(ArrayConverter.bytesToHexString(this));
-            result.append("\nOriginal value was: ");
-            result.append(ArrayConverter.bytesToHexString(getOriginalValue()));
-        } else {
-            result.append("Original byte value is: ");
-            result.append(ArrayConverter.bytesToHexString(getOriginalValue()));
-        }
-        return result.toString();
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -115,5 +100,13 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
         int result = 17;
         result = 31 * result + Arrays.hashCode(getValue());
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "ModifiableByteArray{"
+                + "originalValue="
+                + ArrayConverter.bytesToHexString(originalValue)
+                + '}';
     }
 }

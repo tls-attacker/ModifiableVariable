@@ -79,4 +79,9 @@ public class LongMultiplyModification extends VariableModification<Long> {
         LongMultiplyModification other = (LongMultiplyModification) obj;
         return Objects.equals(factor, other.factor);
     }
+
+    @Override
+    public String toString() {
+        return "LongMultiplyModification{" + "factor=" + factor + '}';
+    }
 }

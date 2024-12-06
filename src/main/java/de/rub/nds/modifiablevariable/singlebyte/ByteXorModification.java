@@ -88,4 +88,9 @@ public class ByteXorModification extends VariableModification<Byte> {
         ByteXorModification other = (ByteXorModification) obj;
         return Objects.equals(xor, other.xor);
     }
+
+    @Override
+    public String toString() {
+        return "ByteXorModification{" + "xor=" + xor + '}';
+    }
 }

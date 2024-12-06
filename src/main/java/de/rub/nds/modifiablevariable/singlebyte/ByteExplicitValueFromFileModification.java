@@ -74,4 +74,14 @@ public class ByteExplicitValueFromFileModification extends ByteExplicitValueModi
         }
         return Objects.equals(explicitValue, other.explicitValue);
     }
+
+    @Override
+    public String toString() {
+        return "ByteExplicitValueFromFileModification{"
+                + "index="
+                + index
+                + ", explicitValue="
+                + explicitValue
+                + '}';
+    }
 }

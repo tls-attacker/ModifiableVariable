@@ -131,4 +131,17 @@ public class PathInsertDirectorySeparatorModification extends VariableModificati
         }
         return Objects.equals(count, other.count);
     }
+
+    @Override
+    public String toString() {
+        return "PathInsertDirectorySeparatorModification{"
+                + "insertValue='"
+                + insertValue
+                + '\''
+                + ", count="
+                + count
+                + ", startPosition="
+                + startPosition
+                + '}';
+    }
 }

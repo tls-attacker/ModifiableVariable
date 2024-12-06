@@ -83,4 +83,9 @@ public class LongAppendValueModification extends VariableModification<Long> {
         LongAppendValueModification other = (LongAppendValueModification) obj;
         return Objects.equals(appendValue, other.appendValue);
     }
+
+    @Override
+    public String toString() {
+        return "LongAppendValueModification{" + "appendValue=" + appendValue + '}';
+    }
 }

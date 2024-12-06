@@ -84,4 +84,9 @@ public class IntegerPrependValueModification extends VariableModification<Intege
         IntegerPrependValueModification other = (IntegerPrependValueModification) obj;
         return Objects.equals(prependValue, other.prependValue);
     }
+
+    @Override
+    public String toString() {
+        return "IntegerPrependValueModification{" + "prependValue=" + prependValue + '}';
+    }
 }

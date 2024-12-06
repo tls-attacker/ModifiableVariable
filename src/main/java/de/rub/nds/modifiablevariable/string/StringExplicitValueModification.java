@@ -7,6 +7,8 @@
  */
 package de.rub.nds.modifiablevariable.string;
 
+import static de.rub.nds.modifiablevariable.util.StringUtil.backslashEscapeString;
+
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -90,5 +92,14 @@ public class StringExplicitValueModification extends VariableModification<String
         }
         StringExplicitValueModification other = (StringExplicitValueModification) obj;
         return Objects.equals(explicitValue, other.explicitValue);
+    }
+
+    @Override
+    public String toString() {
+        return "StringExplicitValueModification{"
+                + "explicitValue='"
+                + backslashEscapeString(explicitValue)
+                + '\''
+                + '}';
     }
 }

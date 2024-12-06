@@ -7,6 +7,8 @@
  */
 package de.rub.nds.modifiablevariable.string;
 
+import static de.rub.nds.modifiablevariable.util.StringUtil.backslashEscapeString;
+
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -87,5 +89,14 @@ public class StringPrependValueModification extends VariableModification<String>
         }
         StringPrependValueModification other = (StringPrependValueModification) obj;
         return Objects.equals(prependValue, other.prependValue);
+    }
+
+    @Override
+    public String toString() {
+        return "StringPrependValueModification{"
+                + "prependValue='"
+                + backslashEscapeString(prependValue)
+                + '\''
+                + '}';
     }
 }

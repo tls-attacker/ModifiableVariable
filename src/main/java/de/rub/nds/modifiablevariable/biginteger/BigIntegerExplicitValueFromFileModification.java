@@ -78,4 +78,14 @@ public class BigIntegerExplicitValueFromFileModification
         }
         return Objects.equals(explicitValue, other.explicitValue);
     }
+
+    @Override
+    public String toString() {
+        return "BigIntegerExplicitValueFromFileModification{"
+                + "index="
+                + index
+                + ", explicitValue="
+                + explicitValue
+                + '}';
+    }
 }

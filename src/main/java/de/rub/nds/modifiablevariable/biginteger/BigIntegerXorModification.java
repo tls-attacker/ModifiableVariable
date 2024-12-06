@@ -86,4 +86,9 @@ public class BigIntegerXorModification extends VariableModification<BigInteger> 
         BigIntegerXorModification other = (BigIntegerXorModification) obj;
         return Objects.equals(xor, other.xor);
     }
+
+    @Override
+    public String toString() {
+        return "BigIntegerXorModification{" + "xor=" + xor + '}';
+    }
 }

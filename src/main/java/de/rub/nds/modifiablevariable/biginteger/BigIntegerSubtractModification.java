@@ -87,4 +87,9 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
         BigIntegerSubtractModification other = (BigIntegerSubtractModification) obj;
         return Objects.equals(subtrahend, other.subtrahend);
     }
+
+    @Override
+    public String toString() {
+        return "BigIntegerSubtractModification{" + "subtrahend=" + subtrahend + '}';
+    }
 }

@@ -86,4 +86,9 @@ public class IntegerExplicitValueModification extends VariableModification<Integ
         IntegerExplicitValueModification other = (IntegerExplicitValueModification) obj;
         return Objects.equals(explicitValue, other.explicitValue);
     }
+
+    @Override
+    public String toString() {
+        return "IntegerExplicitValueModification{" + "explicitValue=" + explicitValue + '}';
+    }
 }

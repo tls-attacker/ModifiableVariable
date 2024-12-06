@@ -142,4 +142,17 @@ public class PathInsertDirectoryTraversalModification extends VariableModificati
         }
         return Objects.equals(count, other.count);
     }
+
+    @Override
+    public String toString() {
+        return "PathInsertDirectoryTraversalModification{"
+                + "insertValue='"
+                + insertValue
+                + '\''
+                + ", count="
+                + count
+                + ", startPosition="
+                + startPosition
+                + '}';
+    }
 }
