@@ -27,9 +27,9 @@ public final class StringUtil {
         if (value == null) {
             return null;
         }
-        StringBuffer buffer = new StringBuffer(value);
-        for (int i = 0; i < buffer.length(); i++) {
-            int codePoint = buffer.codePointAt(i);
+        StringBuilder builder = new StringBuilder(value);
+        for (int i = 0; i < builder.length(); i++) {
+            int codePoint = builder.codePointAt(i);
             String replacement;
             int numCodePoints = 1;
             switch (codePoint) {
@@ -73,10 +73,10 @@ public final class StringUtil {
                     }
             }
 
-            buffer.replace(i, i + numCodePoints, replacement);
+            builder.replace(i, i + numCodePoints, replacement);
             i += replacement.length() - 1;
         }
 
-        return buffer.toString();
+        return builder.toString();
     }
 }

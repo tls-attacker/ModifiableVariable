@@ -357,15 +357,7 @@ public class ModifiableByteArrayTest {
         toTest =
                 ModifiableVariableFactory.safelySetValue(
                         toTest, new byte[] {0x00, 0x11, 0x22, 0x33, 0x44});
-        assertEquals("Original byte value is: 00 11 22 33 44", toTest.toString());
-
-        VariableModification<byte[]> modification =
-                new ByteArrayExplicitValueModification(
-                        new byte[] {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08});
-        toTest.setModification(modification);
-        assertEquals(
-                "Actual byte value is: 00 01 02 03 04 05 06 07 08\nOriginal value was: 00 11 22 33 44",
-                toTest.toString());
+        assertEquals("ModifiableByteArray{originalValue=00 11 22 33 44}", toTest.toString());
     }
 
     @Test

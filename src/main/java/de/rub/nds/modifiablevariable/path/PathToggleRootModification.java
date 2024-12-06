@@ -13,7 +13,7 @@ import jakarta.xml.bind.annotation.XmlType;
 
 /** Modification that toggle the root slash of the original value. */
 @XmlRootElement
-@XmlType(propOrder = {"modificationFilter"})
+@XmlType(propOrder = "modificationFilter")
 public class PathToggleRootModification extends VariableModification<String> {
 
     public PathToggleRootModification() {
