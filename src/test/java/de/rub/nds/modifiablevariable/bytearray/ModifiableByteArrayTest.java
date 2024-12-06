@@ -201,6 +201,8 @@ public class ModifiableByteArrayTest {
         LOGGER.debug("Testing Delete all Bytes");
         int len = originalValue.length;
         byte[] expResult = new byte[0];
+        byte[] expResult2 = {(byte) 0, (byte) 1, (byte) 2, (byte) 3, (byte) 4, (byte) 5};
+        byte[] expResult3 = {(byte) 2, (byte) 3, (byte) 4, (byte) 5, (byte) 6};
 
         VariableModification<byte[]> modifier = ByteArrayModificationFactory.delete(0, len);
         start.setModification(modifier);
@@ -212,7 +214,7 @@ public class ModifiableByteArrayTest {
         modifier = ByteArrayModificationFactory.delete(0, len + 1);
         start.setModification(modifier);
 
-        assertArrayEquals(start.getValue(), originalValue);
+        assertArrayEquals(start.getValue(), expResult);
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
         LOGGER.debug("Testing Delete negative amount");
@@ -228,15 +230,15 @@ public class ModifiableByteArrayTest {
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
         LOGGER.debug("Testing Delete from negative Start position");
-        modifier = ByteArrayModificationFactory.delete(len * -2, modification1.length);
+        modifier = ByteArrayModificationFactory.delete(len * -2, 1);
         start.setModification(modifier);
-        assertArrayEquals(start.getValue(), originalValue);
+        assertArrayEquals(start.getValue(), expResult2);
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
         LOGGER.debug("Testing Delete from to big Start Position");
-        modifier = ByteArrayModificationFactory.delete(len * 2, modification1.length);
+        modifier = ByteArrayModificationFactory.delete(len * 2, 2);
         start.setModification(modifier);
-        assertArrayEquals(start.getValue(), originalValue);
+        assertArrayEquals(start.getValue(), expResult3);
     }
 
     /** Test of setInsertBytes method, of class ModifiableByteArray. */
