@@ -54,7 +54,7 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
     @Override
     protected byte[] modifyImplementationHook(byte[] input) {
         if (input == null) {
-            return input;
+            return null;
         }
         byte[] result = input.clone();
         int size = input.length;

@@ -59,25 +59,23 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
             input = new byte[0];
         }
         byte[] result = input.clone();
-        int start = startPosition;
-        if (start < 0) {
-            start += input.length;
+
+        // Wrap around and also allow to xor at the end of the original value
+        int xorPosition = startPosition % input.length;
+        if (startPosition < 0) {
+            xorPosition += input.length - 1;
         }
-        int end = start + xor.length;
-        if (end > result.length) {
-            // result = new byte[end];
-            // System.arraycopy(input, 0, result, 0, input.length);
-            LOGGER.debug(
-                    "Input {{}} of length {} cannot be xor-ed with {{}} of length {} with start position {}",
-                    input,
-                    input.length,
-                    xor,
-                    xor.length,
-                    startPosition);
-            return input;
+        int endPosition = xorPosition + xor.length;
+        if (endPosition > result.length) {
+            // Fix the end position to the length of the original value
+            // This may not match the expected behavior of a user
+            // But for fuzzing purpose, that's fine
+            // Todo: Add an option that expands the byte array instead
+            endPosition = result.length;
         }
-        for (int i = 0; i < xor.length; ++i) {
-            result[start + i] = (byte) (input[start + i] ^ xor[i]);
+
+        for (int i = 0; i < endPosition - xorPosition; ++i) {
+            result[xorPosition + i] = (byte) (input[xorPosition + i] ^ xor[i]);
         }
         return result;
     }

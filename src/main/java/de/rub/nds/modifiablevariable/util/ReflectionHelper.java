@@ -77,39 +77,6 @@ public final class ReflectionHelper {
         return list;
     }
 
-    // /**
-    // *
-    // * @param object
-    // * @param field
-    // * @return
-    // * @throws IllegalAccessException
-    // * @throws java.lang.reflect.InvocationTargetException
-    // */
-    // public static Object getFieldValue(Object object, Field field) throws
-    // IllegalAccessException, IllegalArgumentException,
-    // InvocationTargetException {
-    // Method[] methods = object.getClass().getMethods();
-    // for (Method method : methods) {
-    // String name = method.getName();
-    // if (name.equalsIgnoreCase("get" + field.getName())) {
-    // return method.invoke(object);
-    // }
-    // }
-    // return null;
-    // }
-    //
-    // public static void setFieldValue(Object object, Field field, Object
-    // value) throws
-    // IllegalAccessException, IllegalArgumentException,
-    // InvocationTargetException {
-    // Method[] methods = object.getClass().getMethods();
-    // for (Method method : methods) {
-    // String name = method.getName();
-    // if (name.equalsIgnoreCase("set" + field.getName())) {
-    // method.invoke(object, value);
-    // }
-    // }
-    // }
     public static Type[] getParameterizedTypes(Object object) {
         Type superclassType = object.getClass().getGenericSuperclass();
 

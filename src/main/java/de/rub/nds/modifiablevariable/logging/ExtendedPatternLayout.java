@@ -171,7 +171,7 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
 
     public static PatternParser createPatternParser(Configuration config) {
         if (config == null) {
-            return new PatternParser(config, "Converter", LogEventPatternConverter.class);
+            return new PatternParser(null, "Converter", LogEventPatternConverter.class);
         } else {
             PatternParser parser = config.getComponent("Converter");
             if (parser == null) {

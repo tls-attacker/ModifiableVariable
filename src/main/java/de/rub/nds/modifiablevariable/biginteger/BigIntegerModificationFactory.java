@@ -147,7 +147,7 @@ public final class BigIntegerModificationFactory {
         standardInteractiveModification = modification;
     }
 
-    protected static BigIntegerInteractiveModification.InteractiveBigIntegerModification
+    static BigIntegerInteractiveModification.InteractiveBigIntegerModification
             getStandardInteractiveModification() {
         return standardInteractiveModification;
     }

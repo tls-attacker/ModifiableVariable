@@ -15,7 +15,7 @@ import java.util.Random;
  */
 public class BadFixedRandom extends Random {
 
-    byte retVal;
+    private final byte retVal;
 
     public BadFixedRandom(byte retVal) {
         super();

@@ -79,9 +79,13 @@ public class ModifiableByteArrayTest {
 
         assertArrayEquals(expResult, start.getValue());
 
+        byte[] expResult2 = originalValue.clone();
+        for (int i = 0; i < originalValue.length; i++) {
+            expResult2[i] = (byte) (originalValue[i] ^ modification2[i]);
+        }
         VariableModification<byte[]> modifier2 = ByteArrayModificationFactory.xor(modification2, 0);
         start.setModification(modifier2);
-        assertArrayEquals(originalValue, start.getValue());
+        assertArrayEquals(expResult2, start.getValue());
     }
 
     /** Test of setXorLastBytes method, of class ModifiableByteArray. */
@@ -103,10 +107,15 @@ public class ModifiableByteArrayTest {
         LOGGER.debug("Computed: {}", () -> ArrayConverter.bytesToHexString(start.getValue()));
         assertArrayEquals(expResult, start.getValue());
 
+        byte[] expResult2 = originalValue.clone();
+        for (int i = 0; i < 2; i++) {
+            expResult2[first + i] = (byte) (originalValue[first + i] ^ modification2[i]);
+        }
+
         VariableModification<byte[]> modifier2 =
                 ByteArrayModificationFactory.xor(modification2, first);
         start.setModification(modifier2);
-        assertArrayEquals(originalValue, start.getValue());
+        assertArrayEquals(expResult2, start.getValue());
     }
 
     /** Test of setPrependBytes method, of class ModifiableByteArray. */
@@ -359,7 +368,9 @@ public class ModifiableByteArrayTest {
         toTest =
                 ModifiableVariableFactory.safelySetValue(
                         toTest, new byte[] {0x00, 0x11, 0x22, 0x33, 0x44});
-        assertEquals("ModifiableByteArray{originalValue=00 11 22 33 44}", toTest.toString());
+        assertEquals(
+                "ModifiableByteArray{originalValue=00 11 22 33 44, modification=null}",
+                toTest.toString());
     }
 
     @Test
