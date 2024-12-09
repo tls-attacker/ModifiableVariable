@@ -20,6 +20,20 @@ public class ModifiableInteger extends ModifiableVariable<Integer> {
 
     private Integer originalValue;
 
+    public ModifiableInteger() {
+        super();
+    }
+
+    public ModifiableInteger(ModifiableInteger other) {
+        super(other);
+        originalValue = other.originalValue;
+    }
+
+    @Override
+    public ModifiableInteger createCopy() {
+        return new ModifiableInteger(this);
+    }
+
     @Override
     protected void createRandomModification() {
         VariableModification<Integer> vm = IntegerModificationFactory.createRandomModification();
@@ -66,19 +80,19 @@ public class ModifiableInteger extends ModifiableVariable<Integer> {
 
     @Override
     public String toString() {
-        return "ModifiableInteger{" + "originalValue=" + originalValue + '}';
+        return "ModifiableInteger{" + "originalValue=" + originalValue + innerToString() + '}';
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof ModifiableInteger)) {
+        if (!(obj instanceof ModifiableInteger)) {
             return false;
         }
 
-        ModifiableInteger that = (ModifiableInteger) o;
+        ModifiableInteger that = (ModifiableInteger) obj;
 
         return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }

@@ -22,10 +22,23 @@ public class ByteXorModification extends VariableModification<Byte> {
 
     private Byte xor;
 
-    public ByteXorModification() {}
+    public ByteXorModification() {
+        super();
+    }
 
-    public ByteXorModification(Byte bi) {
-        this.xor = bi;
+    public ByteXorModification(Byte xor) {
+        super();
+        this.xor = xor;
+    }
+
+    public ByteXorModification(ByteXorModification other) {
+        super(other);
+        xor = other.xor;
+    }
+
+    @Override
+    public ByteXorModification createCopy() {
+        return new ByteXorModification(this);
     }
 
     @Override
@@ -57,7 +70,7 @@ public class ByteXorModification extends VariableModification<Byte> {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.xor);
+        hash = 31 * hash + xor;
         return hash;
     }
 
@@ -72,10 +85,12 @@ public class ByteXorModification extends VariableModification<Byte> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ByteXorModification other = (ByteXorModification) obj;
-        if (!Objects.equals(this.xor, other.xor)) {
-            return false;
-        }
-        return true;
+        ByteXorModification other = (ByteXorModification) obj;
+        return Objects.equals(xor, other.xor);
+    }
+
+    @Override
+    public String toString() {
+        return "ByteXorModification{" + "xor=" + xor + '}';
     }
 }

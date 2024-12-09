@@ -15,11 +15,22 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = {"modificationFilter"})
+@XmlType(propOrder = "modificationFilter")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ByteArrayDuplicateModification extends VariableModification<byte[]> {
 
-    public ByteArrayDuplicateModification() {}
+    public ByteArrayDuplicateModification() {
+        super();
+    }
+
+    public ByteArrayDuplicateModification(ByteArrayDuplicateModification other) {
+        super(other);
+    }
+
+    @Override
+    public ByteArrayDuplicateModification createCopy() {
+        return new ByteArrayDuplicateModification(this);
+    }
 
     @Override
     protected byte[] modifyImplementationHook(byte[] input) {
@@ -36,8 +47,7 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        return hash;
+        return 7;
     }
 
     @Override
@@ -48,10 +58,7 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        return true;
+        return getClass() == obj.getClass();
     }
 
     @Override

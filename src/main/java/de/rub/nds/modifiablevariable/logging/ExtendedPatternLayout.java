@@ -39,7 +39,7 @@ import org.apache.logging.log4j.util.Strings;
         category = "Core",
         elementType = "layout",
         printObject = true)
-public class ExtendedPatternLayout extends AbstractStringLayout {
+public final class ExtendedPatternLayout extends AbstractStringLayout {
     public static final String DEFAULT_CONVERSION_PATTERN = "%m%n";
     public static final String TTCC_CONVERSION_PATTERN = "%r [%t] %p %c %notEmpty{%x }- %m%n";
     public static final String SIMPLE_CONVERSION_PATTERN = "%d [%t] %p %c - %m%n";
@@ -80,9 +80,9 @@ public class ExtendedPatternLayout extends AbstractStringLayout {
                         .setNoConsoleNoAnsi(noConsoleNoAnsi)
                         .setPattern(footerPattern)
                         .build());
-        this.conversionPattern = eventPattern;
+        conversionPattern = eventPattern;
         this.patternSelector = patternSelector;
-        this.eventSerializer =
+        eventSerializer =
                 newSerializerBuilder()
                         .setConfiguration(config)
                         .setReplace(replace)
@@ -101,8 +101,8 @@ public class ExtendedPatternLayout extends AbstractStringLayout {
 
     @Override
     public boolean requiresLocation() {
-        return this.eventSerializer instanceof LocationAware
-                && ((LocationAware) this.eventSerializer).requiresLocation();
+        return eventSerializer instanceof LocationAware
+                && ((LocationAware) eventSerializer).requiresLocation();
     }
 
     /**
@@ -129,7 +129,7 @@ public class ExtendedPatternLayout extends AbstractStringLayout {
     }
 
     public String getConversionPattern() {
-        return this.conversionPattern;
+        return conversionPattern;
     }
 
     @Override
@@ -137,32 +137,32 @@ public class ExtendedPatternLayout extends AbstractStringLayout {
         Map<String, String> result = new HashMap<>();
         result.put("structured", "false");
         result.put("formatType", "conversion");
-        result.put("format", this.conversionPattern);
+        result.put("format", conversionPattern);
         return result;
     }
 
     @Override
     public String toSerializable(LogEvent event) {
-        return this.eventSerializer.toSerializable(event);
+        return eventSerializer.toSerializable(event);
     }
 
     public void serialize(LogEvent event, StringBuilder stringBuilder) {
-        this.eventSerializer.toSerializable(event, stringBuilder);
+        eventSerializer.toSerializable(event, stringBuilder);
     }
 
     @Override
     public void encode(LogEvent event, ByteBufferDestination destination) {
-        if (this.eventSerializer == null) {
+        if (eventSerializer == null) {
             super.encode(event, destination);
         } else {
-            StringBuilder text = this.toText(this.eventSerializer, event, getStringBuilder());
-            Encoder<StringBuilder> encoder = this.getStringBuilderEncoder();
+            StringBuilder text = toText(eventSerializer, event, getStringBuilder());
+            Encoder<StringBuilder> encoder = getStringBuilderEncoder();
             encoder.encode(text, destination);
             trimToMaxSize(text);
         }
     }
 
-    private StringBuilder toText(
+    private static StringBuilder toText(
             AbstractStringLayout.Serializer2 serializer,
             LogEvent event,
             StringBuilder destination) {
@@ -171,7 +171,7 @@ public class ExtendedPatternLayout extends AbstractStringLayout {
 
     public static PatternParser createPatternParser(Configuration config) {
         if (config == null) {
-            return new PatternParser(config, "Converter", LogEventPatternConverter.class);
+            return new PatternParser(null, "Converter", LogEventPatternConverter.class);
         } else {
             PatternParser parser = config.getComponent("Converter");
             if (parser == null) {
@@ -186,9 +186,7 @@ public class ExtendedPatternLayout extends AbstractStringLayout {
 
     @Override
     public String toString() {
-        return this.patternSelector == null
-                ? this.conversionPattern
-                : this.patternSelector.toString();
+        return patternSelector == null ? conversionPattern : patternSelector.toString();
     }
 
     /**
@@ -234,10 +232,10 @@ public class ExtendedPatternLayout extends AbstractStringLayout {
     }
 
     public AbstractStringLayout.Serializer getEventSerializer() {
-        return this.eventSerializer;
+        return eventSerializer;
     }
 
-    public static class Builder
+    public static final class Builder
             implements org.apache.logging.log4j.core.util.Builder<ExtendedPatternLayout> {
         @PluginBuilderAttribute private String pattern;
 
@@ -263,13 +261,14 @@ public class ExtendedPatternLayout extends AbstractStringLayout {
         private static boolean prettyPrinting;
 
         private Builder() {
-            this.pattern = "%m%n";
-            this.charset = Charset.defaultCharset();
-            this.alwaysWriteExceptions = true;
-            this.disableAnsi = !this.useAnsiEscapeCodes();
+            super();
+            pattern = "%m%n";
+            charset = Charset.defaultCharset();
+            alwaysWriteExceptions = true;
+            disableAnsi = !useAnsiEscapeCodes();
         }
 
-        private boolean useAnsiEscapeCodes() {
+        private static boolean useAnsiEscapeCodes() {
             PropertiesUtil propertiesUtil = PropertiesUtil.getProperties();
             boolean isPlatformSupportsAnsi = !propertiesUtil.isOsWindows();
             boolean isJansiRequested = !propertiesUtil.getBooleanProperty("log4j.skipJansi", true);
@@ -333,78 +332,79 @@ public class ExtendedPatternLayout extends AbstractStringLayout {
 
         @Override
         public ExtendedPatternLayout build() {
-            if (this.configuration == null) {
-                this.configuration = new DefaultConfiguration();
+            if (configuration == null) {
+                configuration = new DefaultConfiguration();
             }
 
             return new ExtendedPatternLayout(
-                    this.configuration,
-                    this.regexReplacement,
-                    this.pattern,
-                    this.patternSelector,
-                    this.charset,
-                    this.alwaysWriteExceptions,
-                    this.disableAnsi,
-                    this.noConsoleNoAnsi,
-                    this.header,
-                    this.footer);
+                    configuration,
+                    regexReplacement,
+                    pattern,
+                    patternSelector,
+                    charset,
+                    alwaysWriteExceptions,
+                    disableAnsi,
+                    noConsoleNoAnsi,
+                    header,
+                    footer);
         }
     }
 
-    private static class PatternSelectorSerializer
+    private static final class PatternSelectorSerializer
             implements AbstractStringLayout.Serializer, LocationAware {
         private final PatternSelector patternSelector;
         private final RegexReplacement replace;
 
         private PatternSelectorSerializer(
                 PatternSelector patternSelector, RegexReplacement replace) {
+            super();
             this.patternSelector = patternSelector;
             this.replace = replace;
         }
 
         @Override
         public String toSerializable(LogEvent event) {
-            StringBuilder sb = AbstractStringLayout.getStringBuilder();
+            StringBuilder sb = getStringBuilder();
 
             String var3;
             try {
-                var3 = this.toSerializable(event, sb).toString();
+                var3 = toSerializable(event, sb).toString();
             } finally {
-                AbstractStringLayout.trimToMaxSize(sb);
+                trimToMaxSize(sb);
             }
 
             return var3;
         }
 
         @Override
-        public StringBuilder toSerializable(LogEvent event, StringBuilder buffer) {
-            PatternFormatter[] formatters = this.patternSelector.getFormatters(event);
-            Arrays.stream(formatters).forEachOrdered(formatter -> formatter.format(event, buffer));
+        public StringBuilder toSerializable(LogEvent event, StringBuilder builder) {
+            PatternFormatter[] formatters = patternSelector.getFormatters(event);
+            Arrays.stream(formatters).forEachOrdered(formatter -> formatter.format(event, builder));
 
-            if (this.replace != null) {
-                String str = buffer.toString();
-                str = this.replace.format(str);
-                buffer.setLength(0);
-                buffer.append(str);
+            if (replace != null) {
+                String str = builder.toString();
+                str = replace.format(str);
+                builder.setLength(0);
+                builder.append(str);
             }
 
-            return buffer;
+            return builder;
         }
 
         @Override
         public boolean requiresLocation() {
-            return this.patternSelector instanceof LocationAware
-                    && ((LocationAware) this.patternSelector).requiresLocation();
+            return patternSelector instanceof LocationAware
+                    && ((LocationAware) patternSelector).requiresLocation();
         }
 
         @Override
         public String toString() {
             return super.toString()
-                    .concat("[patternSelector=")
-                    .concat(this.patternSelector.toString())
-                    .concat(", replace=")
-                    .concat(this.replace.toString())
-                    .concat("]");
+                    + "[patternSelector="
+                    + patternSelector.toString()
+                    + ", replace="
+                    + replace.toString()
+                    + "]";
         }
     }
 
@@ -421,28 +421,27 @@ public class ExtendedPatternLayout extends AbstractStringLayout {
 
         @Override
         public AbstractStringLayout.Serializer build() {
-            if (Strings.isEmpty(this.pattern) && Strings.isEmpty(this.defaultPattern)) {
+            if (Strings.isEmpty(pattern) && Strings.isEmpty(defaultPattern)) {
                 return null;
-            } else if (this.patternSelector == null) {
+            } else if (patternSelector == null) {
                 try {
-                    PatternParser parser =
-                            ExtendedPatternLayout.createPatternParser(this.configuration);
+                    PatternParser parser = createPatternParser(configuration);
                     List<PatternFormatter> list =
                             parser.parse(
-                                    this.pattern == null ? this.defaultPattern : this.pattern,
-                                    this.alwaysWriteExceptions,
-                                    this.disableAnsi,
-                                    this.noConsoleNoAnsi);
+                                    pattern == null ? defaultPattern : pattern,
+                                    alwaysWriteExceptions,
+                                    disableAnsi,
+                                    noConsoleNoAnsi);
                     PatternFormatter[] formatters = list.toArray(new PatternFormatter[0]);
                     return new ExtendedPatternLayout.ExtendedPatternLayoutSerializer(
-                            formatters, this.replace);
+                            formatters, replace);
                 } catch (RuntimeException var4) {
                     throw new IllegalArgumentException(
-                            "Cannot parse pattern '" + this.pattern + "'", var4);
+                            "Cannot parse pattern '" + pattern + "'", var4);
                 }
             } else {
                 return new ExtendedPatternLayout.PatternSelectorSerializer(
-                        this.patternSelector, this.replace);
+                        patternSelector, replace);
             }
         }
 
@@ -490,39 +489,40 @@ public class ExtendedPatternLayout extends AbstractStringLayout {
         }
     }
 
-    private static class ExtendedPatternLayoutSerializer
+    private static final class ExtendedPatternLayoutSerializer
             implements AbstractStringLayout.Serializer, LocationAware {
         private final PatternFormatter[] formatters;
         private final RegexReplacement replace;
 
         private ExtendedPatternLayoutSerializer(
                 PatternFormatter[] formatters, RegexReplacement replace) {
+            super();
             this.formatters = formatters;
             this.replace = replace;
         }
 
         @Override
         public String toSerializable(LogEvent event) {
-            StringBuilder sb = AbstractStringLayout.getStringBuilder();
+            StringBuilder sb = getStringBuilder();
             String var3;
             try {
-                var3 = this.toSerializable(event, sb).toString();
+                var3 = toSerializable(event, sb).toString();
             } finally {
-                AbstractStringLayout.trimToMaxSize(sb);
+                trimToMaxSize(sb);
             }
 
             return var3;
         }
 
         @Override
-        public StringBuilder toSerializable(LogEvent event, StringBuilder buffer) {
-            Arrays.stream(formatters).forEachOrdered(formatter -> formatter.format(event, buffer));
+        public StringBuilder toSerializable(LogEvent event, StringBuilder builder) {
+            Arrays.stream(formatters).forEachOrdered(formatter -> formatter.format(event, builder));
 
-            if (this.replace != null) {
-                String str = buffer.toString();
-                str = this.replace.format(str);
-                buffer.setLength(0);
-                buffer.append(str);
+            if (replace != null) {
+                String str = builder.toString();
+                str = replace.format(str);
+                builder.setLength(0);
+                builder.append(str);
             }
 
             // Added section to parse ByteArrays to the correct output format.
@@ -538,9 +538,9 @@ public class ExtendedPatternLayout extends AbstractStringLayout {
                     // calculated
                     // by the ArrayConverter.
                     if (param != null && bArrayClass.equals(param.getClass())) {
-                        buffer.replace(
-                                buffer.indexOf(Arrays.toString((byte[]) param)),
-                                buffer.indexOf(Arrays.toString((byte[]) param))
+                        builder.replace(
+                                builder.indexOf(Arrays.toString((byte[]) param)),
+                                builder.indexOf(Arrays.toString((byte[]) param))
                                         + Arrays.toString((byte[]) param).length(),
                                 ArrayConverter.bytesToHexString(
                                         (byte[]) param,
@@ -549,21 +549,21 @@ public class ExtendedPatternLayout extends AbstractStringLayout {
                     }
                 }
             }
-            return buffer;
+            return builder;
         }
 
         public boolean requiresLocation() {
-            return Arrays.stream(this.formatters).anyMatch(PatternFormatter::requiresLocation);
+            return Arrays.stream(formatters).anyMatch(PatternFormatter::requiresLocation);
         }
 
         @Override
         public String toString() {
             return super.toString()
-                    .concat("[formatters=")
-                    .concat(Arrays.toString(this.formatters))
-                    .concat(", replace=")
-                    .concat(this.replace.toString())
-                    .concat("]");
+                    + "[formatters="
+                    + Arrays.toString(formatters)
+                    + ", replace="
+                    + replace.toString()
+                    + "]";
         }
     }
 }

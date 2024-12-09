@@ -15,8 +15,18 @@ import jakarta.xml.bind.annotation.XmlSeeAlso;
  * data. For example, only the first data access returns a modified value. This can be achieved
  * using a ModificationFilter object.
  */
-@XmlSeeAlso({AccessModificationFilter.class})
+@XmlSeeAlso(AccessModificationFilter.class)
 public abstract class ModificationFilter {
+
+    protected ModificationFilter() {
+        super();
+    }
+
+    protected ModificationFilter(ModificationFilter other) {
+        super();
+    }
+
+    public abstract ModificationFilter createCopy();
 
     public abstract boolean filterModification();
 }

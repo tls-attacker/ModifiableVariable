@@ -21,15 +21,28 @@ public class IntegerAddModification extends VariableModification<Integer> {
 
     private Integer summand;
 
-    public IntegerAddModification() {}
+    public IntegerAddModification() {
+        super();
+    }
 
-    public IntegerAddModification(Integer bi) {
-        this.summand = bi;
+    public IntegerAddModification(Integer summand) {
+        super();
+        this.summand = summand;
+    }
+
+    public IntegerAddModification(IntegerAddModification other) {
+        super(other);
+        summand = other.summand;
+    }
+
+    @Override
+    public IntegerAddModification createCopy() {
+        return new IntegerAddModification(this);
     }
 
     @Override
     protected Integer modifyImplementationHook(Integer input) {
-        return (input == null) ? summand : input + summand;
+        return input == null ? summand : input + summand;
     }
 
     public Integer getSummand() {
@@ -47,8 +60,8 @@ public class IntegerAddModification extends VariableModification<Integer> {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 23 * hash + Objects.hashCode(this.summand);
+        int hash = 7;
+        hash = 31 * hash + summand;
         return hash;
     }
 
@@ -63,10 +76,12 @@ public class IntegerAddModification extends VariableModification<Integer> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final IntegerAddModification other = (IntegerAddModification) obj;
-        if (!Objects.equals(this.summand, other.summand)) {
-            return false;
-        }
-        return true;
+        IntegerAddModification other = (IntegerAddModification) obj;
+        return Objects.equals(summand, other.summand);
+    }
+
+    @Override
+    public String toString() {
+        return "IntegerAddModification{" + "summand=" + summand + '}';
     }
 }

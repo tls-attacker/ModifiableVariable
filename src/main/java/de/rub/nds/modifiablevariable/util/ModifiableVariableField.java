@@ -17,11 +17,14 @@ public class ModifiableVariableField {
 
     private Field field;
 
-    public ModifiableVariableField() {}
+    public ModifiableVariableField() {
+        super();
+    }
 
-    public ModifiableVariableField(Object o, Field f) {
-        this.object = o;
-        this.field = f;
+    public ModifiableVariableField(Object o, Field field) {
+        super();
+        object = o;
+        this.field = field;
     }
 
     public Object getObject() {

@@ -19,6 +19,20 @@ public class ModifiableByte extends ModifiableVariable<Byte> {
 
     private Byte originalValue;
 
+    public ModifiableByte() {
+        super();
+    }
+
+    public ModifiableByte(ModifiableByte other) {
+        super(other);
+        originalValue = other.originalValue;
+    }
+
+    @Override
+    public ModifiableByte createCopy() {
+        return new ModifiableByte(this);
+    }
+
     @Override
     protected void createRandomModification() {
         VariableModification<Byte> vm = ByteModificationFactory.createRandomModification();
@@ -61,19 +75,19 @@ public class ModifiableByte extends ModifiableVariable<Byte> {
 
     @Override
     public String toString() {
-        return "ModifiableByte{" + "originalValue=" + originalValue + '}';
+        return "ModifiableByte{" + "originalValue=" + originalValue + innerToString() + '}';
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof ModifiableByte)) {
+        if (!(obj instanceof ModifiableByte)) {
             return false;
         }
 
-        ModifiableByte that = (ModifiableByte) o;
+        ModifiableByte that = (ModifiableByte) obj;
 
         return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }
