@@ -90,6 +90,7 @@ public class ModifiableString extends ModifiableVariable<String> {
                 + "originalValue='"
                 + backslashEscapeString(originalValue)
                 + '\''
+                + innerToString()
                 + '}';
     }
 

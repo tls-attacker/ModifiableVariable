@@ -80,7 +80,7 @@ public class ModifiableLong extends ModifiableVariable<Long> {
 
     @Override
     public String toString() {
-        return "ModifiableLong{" + "originalValue=" + originalValue + '}';
+        return "ModifiableLong{" + "originalValue=" + originalValue + innerToString() + '}';
     }
 
     @Override

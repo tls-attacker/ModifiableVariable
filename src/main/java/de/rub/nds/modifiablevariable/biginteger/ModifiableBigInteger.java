@@ -83,7 +83,7 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
 
     @Override
     public String toString() {
-        return "ModifiableBigInteger{" + "originalValue=" + originalValue + '}';
+        return "ModifiableBigInteger{" + "originalValue=" + originalValue + innerToString() + '}';
     }
 
     @Override

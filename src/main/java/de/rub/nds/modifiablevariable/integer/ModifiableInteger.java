@@ -80,7 +80,7 @@ public class ModifiableInteger extends ModifiableVariable<Integer> {
 
     @Override
     public String toString() {
-        return "ModifiableInteger{" + "originalValue=" + originalValue + '}';
+        return "ModifiableInteger{" + "originalValue=" + originalValue + innerToString() + '}';
     }
 
     @Override

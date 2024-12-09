@@ -47,7 +47,7 @@ public class ModifiableLengthField extends ModifiableInteger {
 
     @Override
     public String toString() {
-        return "ModifiableLengthField{" + "ref=" + ref + "} " + super.toString();
+        return "ModifiableLengthField{" + "ref=" + ref + super.toString() + "} ";
     }
 
     @Override

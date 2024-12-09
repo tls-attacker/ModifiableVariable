@@ -75,7 +75,7 @@ public class ModifiableByte extends ModifiableVariable<Byte> {
 
     @Override
     public String toString() {
-        return "ModifiableByte{" + "originalValue=" + originalValue + '}';
+        return "ModifiableByte{" + "originalValue=" + originalValue + innerToString() + '}';
     }
 
     @Override

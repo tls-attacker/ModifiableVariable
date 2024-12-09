@@ -69,7 +69,7 @@ public class ModifiableBoolean extends ModifiableVariable<Boolean> {
 
     @Override
     public String toString() {
-        return "ModifiableBoolean{" + "originalValue=" + originalValue + '}';
+        return "ModifiableBoolean{" + "originalValue=" + originalValue + innerToString() + '}';
     }
 
     @Override

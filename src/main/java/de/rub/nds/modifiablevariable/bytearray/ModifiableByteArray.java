@@ -107,6 +107,7 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
         return "ModifiableByteArray{"
                 + "originalValue="
                 + ArrayConverter.bytesToHexString(originalValue)
+                + innerToString()
                 + '}';
     }
 }

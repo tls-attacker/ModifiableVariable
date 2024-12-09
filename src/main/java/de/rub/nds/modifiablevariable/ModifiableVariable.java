@@ -254,4 +254,18 @@ public abstract class ModifiableVariable<E> implements Serializable {
     public Boolean isCreateRandomModification() {
         return Objects.requireNonNullElse(createRandomModification, false);
     }
+
+    public String innerToString() {
+        StringBuilder result = new StringBuilder();
+        result.append(", modification=").append(modification);
+
+        if (createRandomModification != null) {
+            result.append(", createRandomModification=").append(createRandomModification);
+        }
+        if (assertEquals != null) {
+            result.append(", assertEquals=").append(assertEquals);
+        }
+
+        return result.toString();
+    }
 }

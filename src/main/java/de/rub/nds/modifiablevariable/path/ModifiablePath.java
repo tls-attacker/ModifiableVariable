@@ -44,6 +44,7 @@ public class ModifiablePath extends ModifiableString {
                 + "originalValue='"
                 + backslashEscapeString(originalValue)
                 + '\''
+                + innerToString()
                 + '}';
     }
 
