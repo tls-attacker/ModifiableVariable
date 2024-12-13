@@ -243,6 +243,14 @@ public final class Modifiable {
         return getModifiableLongWithModification(LongModificationFactory.xor(xor));
     }
 
+    public static ModifiableInteger swapEndianIntger() {
+        return getModifiableIntegerWithModification(IntegerModificationFactory.swapEndian());
+    }
+
+    public static ModifiableLong swapEndianLong() {
+        return getModifiableLongWithModification(LongModificationFactory.swapEndian());
+    }
+
     public static ModifiableByte add(Byte summand) {
         return getModifiableByteWithModification(ByteModificationFactory.add(summand));
     }

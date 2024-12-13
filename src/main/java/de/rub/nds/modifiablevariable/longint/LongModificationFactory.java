@@ -26,6 +26,7 @@ public final class LongModificationFactory {
         SUBTRACT,
         MULTIPLY,
         XOR,
+        SWAP_ENDIAN,
         EXPLICIT,
         SHIFT_LEFT,
         SHIFT_RIGHT,
@@ -75,6 +76,10 @@ public final class LongModificationFactory {
 
     public static VariableModification<Long> xor(Long xor) {
         return new LongXorModification(xor);
+    }
+
+    public static VariableModification<Long> swapEndian() {
+        return new LongSwapEndianModification();
     }
 
     public static VariableModification<Long> explicitValue(String value) {
@@ -155,6 +160,8 @@ public final class LongModificationFactory {
                         (long) random.nextInt(MAX_MODIFICATION_MULTIPLY_VALUE));
             case XOR:
                 return new LongXorModification(modification);
+            case SWAP_ENDIAN:
+                return new LongSwapEndianModification();
             case EXPLICIT:
                 return new LongExplicitValueModification(modification);
             case SHIFT_LEFT:

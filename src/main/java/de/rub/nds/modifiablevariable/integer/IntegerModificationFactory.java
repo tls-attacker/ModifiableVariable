@@ -25,6 +25,7 @@ public final class IntegerModificationFactory {
         SUBTRACT,
         MULTIPLY,
         XOR,
+        SWAP_ENDIAN,
         EXPLICIT,
         SHIFT_LEFT,
         SHIFT_RIGHT,
@@ -90,6 +91,10 @@ public final class IntegerModificationFactory {
 
     public static VariableModification<Integer> xor(Integer xor) {
         return new IntegerXorModification(xor);
+    }
+
+    public static VariableModification<Integer> swapEndian() {
+        return new IntegerSwapEndianModification();
     }
 
     public static VariableModification<Integer> explicitValue(String value) {
@@ -162,6 +167,8 @@ public final class IntegerModificationFactory {
                         random.nextInt(MAX_MODIFICATION_MULTIPLY_VALUE));
             case XOR:
                 return new IntegerXorModification(modification);
+            case SWAP_ENDIAN:
+                return new IntegerSwapEndianModification();
             case EXPLICIT:
                 return new IntegerExplicitValueModification(modification);
             case SHIFT_LEFT:

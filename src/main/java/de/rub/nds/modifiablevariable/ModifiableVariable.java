@@ -97,6 +97,9 @@ public abstract class ModifiableVariable<E> implements Serializable {
                 type = ByteArrayDuplicateModification.class,
                 name = "ByteArrayDuplicateModification"),
         @XmlElement(type = ByteArrayDeleteModification.class, name = "ByteArrayDeleteModification"),
+        @XmlElement(
+                type = IntegerSwapEndianModification.class,
+                name = "IntegerSwapEndianModification"),
         @XmlElement(type = IntegerXorModification.class, name = "IntegerXorModification"),
         @XmlElement(type = IntegerSubtractModification.class, name = "IntegerSubtractModification"),
         @XmlElement(type = IntegerMultiplyModification.class, name = "IntegerMultiplyModification"),
@@ -123,6 +126,7 @@ public abstract class ModifiableVariable<E> implements Serializable {
                 type = IntegerPrependValueModification.class,
                 name = "IntegerPrependValueModification"),
         @XmlElement(type = LongXorModification.class, name = "LongXorModification"),
+        @XmlElement(type = LongSwapEndianModification.class, name = "LongSwapEndianModification"),
         @XmlElement(type = LongSubtractModification.class, name = "LongSubtractModification"),
         @XmlElement(
                 type = LongExplicitValueFromFileModification.class,
