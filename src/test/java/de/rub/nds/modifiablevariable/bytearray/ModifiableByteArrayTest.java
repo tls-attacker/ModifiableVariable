@@ -368,9 +368,7 @@ public class ModifiableByteArrayTest {
         toTest =
                 ModifiableVariableFactory.safelySetValue(
                         toTest, new byte[] {0x00, 0x11, 0x22, 0x33, 0x44});
-        assertEquals(
-                "ModifiableByteArray{originalValue=00 11 22 33 44, modification=null}",
-                toTest.toString());
+        assertEquals("ModifiableByteArray{originalValue=00 11 22 33 44}", toTest.toString());
     }
 
     @Test

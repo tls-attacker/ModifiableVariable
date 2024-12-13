@@ -16,14 +16,11 @@ import de.rub.nds.modifiablevariable.longint.*;
 import de.rub.nds.modifiablevariable.path.*;
 import de.rub.nds.modifiablevariable.singlebyte.*;
 import de.rub.nds.modifiablevariable.string.*;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlElements;
-import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.*;
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * The base abstract class for modifiable variables, including the getValue function.The class needs
@@ -37,6 +34,7 @@ import java.util.Objects;
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class ModifiableVariable<E> implements Serializable {
 
+    @XmlElementWrapper
     @XmlElements({
         @XmlElement(type = BigIntegerXorModification.class, name = "BigIntegerXorModification"),
         @XmlElement(
@@ -190,7 +188,7 @@ public abstract class ModifiableVariable<E> implements Serializable {
                 type = PathToggleRootModification.class,
                 name = "PathToggleRootValueModification"),
     })
-    private VariableModification<E> modification;
+    private LinkedList<VariableModification<E>> modifications;
 
     private Boolean createRandomModification;
 
@@ -202,19 +200,52 @@ public abstract class ModifiableVariable<E> implements Serializable {
 
     protected ModifiableVariable(ModifiableVariable<E> other) {
         super();
+        if (other.modifications != null) {
+            modifications = new LinkedList<>();
+            for (VariableModification<E> item : other.modifications) {
+                modifications.add(item != null ? item.createCopy() : null);
+            }
+        }
         createRandomModification = other.createRandomModification;
-        modification = other.modification != null ? other.modification.createCopy() : null;
         // Warning: Make sure to copy assertEquals in subclass correctly
         assertEquals = other.assertEquals;
     }
 
+    /** Set a single modification, all previously set modifications are removed */
     public void setModification(VariableModification<E> modification) {
-        this.modification = modification;
+        if (modification != null) {
+            modifications = new LinkedList<>();
+            modifications.add(modification);
+        } else {
+            modifications = null;
+        }
     }
 
-    @XmlTransient
+    /** Adds a modification to this modifiable variable */
+    public void addModification(VariableModification<E> modification) {
+        if (modification != null) {
+            if (modifications == null) {
+                modifications = new LinkedList<>();
+            }
+            modifications.add(modification);
+        }
+    }
+
+    /**
+     * Returns the first modification that was set for this modifiable variable, if one exists.
+     *
+     * <p>Use {@code getModifications()} to get all modifications
+     */
     public VariableModification<E> getModification() {
-        return modification;
+        if (modifications == null || modifications.isEmpty()) {
+            return null;
+        }
+        return modifications.getFirst();
+    }
+
+    /** Returns all modifications that are set for this modifiable variable */
+    public LinkedList<VariableModification<E>> getModifications() {
+        return modifications;
     }
 
     public E getValue() {
@@ -223,10 +254,17 @@ public abstract class ModifiableVariable<E> implements Serializable {
             createRandomModification = false;
         }
 
-        if (modification != null) {
-            return modification.modify(getOriginalValue());
+        return getModifiedValue();
+    }
+
+    private E getModifiedValue() {
+        E resultValue = getOriginalValue();
+        if (modifications != null) {
+            for (VariableModification<E> modification : modifications) {
+                resultValue = modification.modify(resultValue);
+            }
         }
-        return getOriginalValue();
+        return resultValue;
     }
 
     /**
@@ -237,9 +275,9 @@ public abstract class ModifiableVariable<E> implements Serializable {
      */
     public void reduceToOriginalValue(boolean evenWithNullOriginalValue) {
         if (evenWithNullOriginalValue || getOriginalValue() != null) {
-            if (modification != null) {
-                setOriginalValue(modification.modify(getOriginalValue()));
-                modification = null;
+            if (modifications != null) {
+                setOriginalValue(getModifiedValue());
+                modifications = null;
             }
         }
     }
@@ -270,7 +308,14 @@ public abstract class ModifiableVariable<E> implements Serializable {
 
     public String innerToString() {
         StringBuilder result = new StringBuilder();
-        result.append(", modification=").append(modification);
+        if (modifications != null) {
+            result.append(", modifications=[")
+                    .append(
+                            modifications.stream()
+                                    .map(Object::toString)
+                                    .collect(Collectors.joining(", ")))
+                    .append("]");
+        }
 
         if (createRandomModification != null) {
             result.append(", createRandomModification=").append(createRandomModification);
