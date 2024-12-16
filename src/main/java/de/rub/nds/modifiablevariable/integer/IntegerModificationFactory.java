@@ -105,10 +105,9 @@ public final class IntegerModificationFactory {
         return new IntegerExplicitValueModification(value);
     }
 
-    public static VariableModification<Integer> explicitValueFromFile(int value) {
+    public static VariableModification<Integer> explicitValueFromFile(int pos) {
         List<VariableModification<Integer>> modifications = modificationsFromFile();
-        int pos = value % modifications.size();
-        return modifications.get(pos);
+        return modifications.get(pos % modifications.size());
     }
 
     public static VariableModification<Integer> appendValue(Integer value) {

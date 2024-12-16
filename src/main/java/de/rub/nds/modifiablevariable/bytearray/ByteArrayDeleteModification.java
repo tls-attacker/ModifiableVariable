@@ -53,6 +53,9 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
         if (input == null) {
             input = new byte[0];
         }
+        if (input.length == 0) {
+            return input;
+        }
 
         // Wrap around and also allow to delete at the end of the original value
         int deleteStartPosition = startPosition % input.length;

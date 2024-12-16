@@ -100,8 +100,7 @@ public final class ByteArrayModificationFactory {
 
     public static VariableModification<byte[]> explicitValueFromFile(int value) {
         List<VariableModification<byte[]>> modifications = modificationsFromFile();
-        int pos = value % modifications.size();
-        return modifications.get(pos);
+        return modifications.get(value % modifications.size());
     }
 
     /**

@@ -66,10 +66,9 @@ public final class ByteModificationFactory {
         return new ByteExplicitValueModification(value);
     }
 
-    public static VariableModification<Byte> explicitValueFromFile(int value) {
+    public static VariableModification<Byte> explicitValueFromFile(int pos) {
         List<VariableModification<Byte>> modifications = modificationsFromFile();
-        int pos = value % modifications.size();
-        return modifications.get(pos);
+        return modifications.get(pos % modifications.size());
     }
 
     public static synchronized List<VariableModification<Byte>> modificationsFromFile() {

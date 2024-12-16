@@ -90,10 +90,9 @@ public final class LongModificationFactory {
         return new LongExplicitValueModification(value);
     }
 
-    public static VariableModification<Long> explicitValueFromFile(int value) {
+    public static VariableModification<Long> explicitValueFromFile(int pos) {
         List<VariableModification<Long>> modifications = modificationsFromFile();
-        int pos = value % modifications.size();
-        return modifications.get(pos);
+        return modifications.get(pos % modifications.size());
     }
 
     public static VariableModification<Long> appendValue(Long value) {

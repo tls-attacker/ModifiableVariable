@@ -58,6 +58,9 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
         if (input == null) {
             input = new byte[0];
         }
+        if (input.length == 0) {
+            return input;
+        }
         byte[] result = input.clone();
 
         // Wrap around and also allow to xor at the end of the original value

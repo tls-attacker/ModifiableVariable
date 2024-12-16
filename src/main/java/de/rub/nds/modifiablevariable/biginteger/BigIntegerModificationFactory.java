@@ -103,10 +103,9 @@ public final class BigIntegerModificationFactory {
         return new BigIntegerExplicitValueModification(value);
     }
 
-    public static VariableModification<BigInteger> explicitValueFromFile(int value) {
+    public static VariableModification<BigInteger> explicitValueFromFile(int pos) {
         List<VariableModification<BigInteger>> modifications = modificationsFromFile();
-        int pos = value % modifications.size();
-        return modifications.get(pos);
+        return modifications.get(pos % modifications.size());
     }
 
     public static VariableModification<BigInteger> appendValue(BigInteger value) {

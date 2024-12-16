@@ -50,6 +50,9 @@ public class StringDeleteModification extends VariableModification<String> {
         if (input == null) {
             return null;
         }
+        if (input.isEmpty()) {
+            return input;
+        }
 
         // Wrap around and also allow to delete at the end of the original value
         int deleteStartPosition = startPosition % input.length();
