@@ -25,18 +25,28 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
 
     private BigInteger factor;
 
-    public BigIntegerMultiplyModification() {}
+    public BigIntegerMultiplyModification() {
+        super();
+    }
 
-    public BigIntegerMultiplyModification(BigInteger bi) {
-        this.factor = bi;
+    public BigIntegerMultiplyModification(BigInteger factor) {
+        super();
+        this.factor = factor;
+    }
+
+    public BigIntegerMultiplyModification(BigIntegerMultiplyModification other) {
+        super(other);
+        factor = other.factor;
+    }
+
+    @Override
+    public BigIntegerMultiplyModification createCopy() {
+        return new BigIntegerMultiplyModification(this);
     }
 
     @Override
     protected BigInteger modifyImplementationHook(BigInteger input) {
-        if (input == null) {
-            input = BigInteger.ZERO;
-        }
-        return input.multiply(factor);
+        return input == null ? BigInteger.ZERO : input.multiply(factor);
     }
 
     public BigInteger getFactor() {
@@ -55,8 +65,8 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 61 * hash + Objects.hashCode(this.factor);
+        int hash = 7;
+        hash = 31 * hash + factor.hashCode();
         return hash;
     }
 
@@ -71,10 +81,12 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final BigIntegerMultiplyModification other = (BigIntegerMultiplyModification) obj;
-        if (!Objects.equals(this.factor, other.factor)) {
-            return false;
-        }
-        return true;
+        BigIntegerMultiplyModification other = (BigIntegerMultiplyModification) obj;
+        return Objects.equals(factor, other.factor);
+    }
+
+    @Override
+    public String toString() {
+        return "BigIntegerMultiplyModification{" + "factor=" + factor + '}';
     }
 }
