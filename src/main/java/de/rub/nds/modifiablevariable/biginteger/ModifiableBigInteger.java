@@ -25,6 +25,11 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
         super();
     }
 
+    public ModifiableBigInteger(BigInteger originalValue) {
+        super();
+        this.originalValue = originalValue;
+    }
+
     public ModifiableBigInteger(ModifiableBigInteger other) {
         super(other);
         originalValue = other.originalValue;

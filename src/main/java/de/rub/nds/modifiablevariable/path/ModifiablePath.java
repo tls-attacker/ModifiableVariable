@@ -23,6 +23,10 @@ public class ModifiablePath extends ModifiableString {
         super();
     }
 
+    public ModifiablePath(String originalValue) {
+        super(originalValue);
+    }
+
     public ModifiablePath(ModifiablePath other) {
         super(other);
     }

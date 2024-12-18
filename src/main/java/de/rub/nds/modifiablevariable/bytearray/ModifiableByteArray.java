@@ -27,6 +27,11 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
         super();
     }
 
+    public ModifiableByteArray(byte[] originalValue) {
+        super();
+        this.originalValue = originalValue;
+    }
+
     public ModifiableByteArray(ModifiableByteArray other) {
         super(other);
         originalValue = other.originalValue != null ? other.originalValue.clone() : null;

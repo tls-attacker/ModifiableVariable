@@ -23,6 +23,11 @@ public class ModifiableByte extends ModifiableVariable<Byte> {
         super();
     }
 
+    public ModifiableByte(Byte originalValue) {
+        super();
+        this.originalValue = originalValue;
+    }
+
     public ModifiableByte(ModifiableByte other) {
         super(other);
         originalValue = other.originalValue;

@@ -24,6 +24,11 @@ public class ModifiableInteger extends ModifiableVariable<Integer> {
         super();
     }
 
+    public ModifiableInteger(Integer originalValue) {
+        super();
+        this.originalValue = originalValue;
+    }
+
     public ModifiableInteger(ModifiableInteger other) {
         super(other);
         originalValue = other.originalValue;

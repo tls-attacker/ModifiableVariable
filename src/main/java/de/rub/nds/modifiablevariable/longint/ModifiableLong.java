@@ -24,6 +24,11 @@ public class ModifiableLong extends ModifiableVariable<Long> {
         super();
     }
 
+    public ModifiableLong(Long originalValue) {
+        super();
+        this.originalValue = originalValue;
+    }
+
     public ModifiableLong(ModifiableLong other) {
         super(other);
         originalValue = other.originalValue;

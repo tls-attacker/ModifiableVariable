@@ -30,6 +30,11 @@ public class ModifiableString extends ModifiableVariable<String> {
         super();
     }
 
+    public ModifiableString(String originalValue) {
+        super();
+        this.originalValue = originalValue;
+    }
+
     public ModifiableString(ModifiableString other) {
         super(other);
         originalValue = other.originalValue;
