@@ -24,13 +24,30 @@ import java.nio.charset.StandardCharsets;
 public class ModifiableString extends ModifiableVariable<String> {
 
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
-    private String originalValue;
+    protected String originalValue;
 
-    public ModifiableString() {}
+    public ModifiableString() {
+        super();
+    }
+
+    public ModifiableString(String originalValue) {
+        super();
+        this.originalValue = originalValue;
+    }
+
+    public ModifiableString(ModifiableString other) {
+        super(other);
+        originalValue = other.originalValue;
+    }
+
+    @Override
+    public ModifiableString createCopy() {
+        return new ModifiableString(this);
+    }
 
     @Override
     protected void createRandomModification() {
-        VariableModification<String> vm = StringModificationFactory.createRandomModification();
+        VariableModification<String> vm = StringModificationFactory.createRandomModification(null);
         setModification(vm);
     }
 
@@ -74,20 +91,24 @@ public class ModifiableString extends ModifiableVariable<String> {
 
     @Override
     public String toString() {
-        return String.format(
-                "ModifiableString{originalValue=%s}", backslashEscapeString(originalValue));
+        return "ModifiableString{"
+                + "originalValue='"
+                + backslashEscapeString(originalValue)
+                + '\''
+                + innerToString()
+                + '}';
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof ModifiableString)) {
+        if (!(obj instanceof ModifiableString)) {
             return false;
         }
 
-        ModifiableString that = (ModifiableString) o;
+        ModifiableString that = (ModifiableString) obj;
 
         return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }

@@ -21,6 +21,25 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
 
     private BigInteger originalValue;
 
+    public ModifiableBigInteger() {
+        super();
+    }
+
+    public ModifiableBigInteger(BigInteger originalValue) {
+        super();
+        this.originalValue = originalValue;
+    }
+
+    public ModifiableBigInteger(ModifiableBigInteger other) {
+        super(other);
+        originalValue = other.originalValue;
+    }
+
+    @Override
+    public ModifiableBigInteger createCopy() {
+        return new ModifiableBigInteger(this);
+    }
+
     @Override
     protected void createRandomModification() {
         VariableModification<BigInteger> vm =
@@ -38,7 +57,7 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
 
     @Override
     public boolean isOriginalValueModified() {
-        return getOriginalValue() != null && (getOriginalValue().compareTo(getValue()) != 0);
+        return originalValue != null && originalValue.compareTo(getValue()) != 0;
     }
 
     public byte[] getByteArray() {
@@ -52,9 +71,7 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
     @Override
     public boolean validateAssertions() {
         if (assertEquals != null) {
-            if (assertEquals.compareTo(getValue()) != 0) {
-                return false;
-            }
+            return assertEquals.compareTo(getValue()) == 0;
         }
         return true;
     }
@@ -71,19 +88,19 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
 
     @Override
     public String toString() {
-        return "ModifiableBigInteger{" + "originalValue=" + originalValue + '}';
+        return "ModifiableBigInteger{" + "originalValue=" + originalValue + innerToString() + '}';
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof ModifiableBigInteger)) {
+        if (!(obj instanceof ModifiableBigInteger)) {
             return false;
         }
 
-        ModifiableBigInteger that = (ModifiableBigInteger) o;
+        ModifiableBigInteger that = (ModifiableBigInteger) obj;
 
         return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }
