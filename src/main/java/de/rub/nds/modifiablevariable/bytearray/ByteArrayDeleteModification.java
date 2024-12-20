@@ -7,8 +7,6 @@
  */
 package de.rub.nds.modifiablevariable.bytearray;
 
-import static de.rub.nds.modifiablevariable.util.ArrayConverter.bytesToHexString;
-
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -29,11 +27,25 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
 
     private int startPosition;
 
-    public ByteArrayDeleteModification() {}
+    public ByteArrayDeleteModification() {
+        super();
+    }
 
     public ByteArrayDeleteModification(int startPosition, int count) {
+        super();
         this.startPosition = startPosition;
         this.count = count;
+    }
+
+    public ByteArrayDeleteModification(ByteArrayDeleteModification other) {
+        super(other);
+        count = other.count;
+        startPosition = other.startPosition;
+    }
+
+    @Override
+    public ByteArrayDeleteModification createCopy() {
+        return new ByteArrayDeleteModification(this);
     }
 
     @Override
@@ -41,32 +53,26 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
         if (input == null) {
             input = new byte[0];
         }
-        int start = startPosition;
-        if (start < 0) {
-            start += input.length;
-            if (start < 0) {
-                LOGGER.debug(
-                        "Trying to delete from too negative Startposition. start = "
-                                + (start - input.length));
-                return input;
-            }
-        }
-        final int endPosition = start + count;
-        if ((endPosition) > input.length) {
-            LOGGER.debug(
-                    String.format(
-                            "Bytes %d..%d cannot be deleted from {%s} of length %d",
-                            start, endPosition, bytesToHexString(input), input.length));
+        if (input.length == 0) {
             return input;
         }
-        if (count <= 0) {
-            LOGGER.debug("You must delete at least one byte. count = " + count);
-            return input;
+
+        // Wrap around and also allow to delete at the end of the original value
+        int deleteStartPosition = startPosition % input.length;
+        if (startPosition < 0) {
+            deleteStartPosition += input.length - 1;
         }
-        byte[] ret1 = Arrays.copyOf(input, start);
+
+        // If the end position overflows, it is fixed at the end of the byte array
+        int deleteEndPosition = deleteStartPosition + Math.max(0, count);
+        if (deleteEndPosition > input.length) {
+            deleteEndPosition = input.length;
+        }
+
+        byte[] ret1 = Arrays.copyOf(input, deleteStartPosition);
         byte[] ret2 = null;
-        if ((endPosition) < input.length) {
-            ret2 = Arrays.copyOfRange(input, endPosition, input.length);
+        if (deleteEndPosition < input.length) {
+            ret2 = Arrays.copyOfRange(input, deleteEndPosition, input.length);
         }
         return ArrayConverter.concatenate(ret1, ret2);
     }
@@ -112,8 +118,8 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + this.count;
-        hash = 89 * hash + this.startPosition;
+        hash = 31 * hash + count;
+        hash = 31 * hash + startPosition;
         return hash;
     }
 
@@ -128,14 +134,11 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ByteArrayDeleteModification other = (ByteArrayDeleteModification) obj;
-        if (this.count != other.count) {
+        ByteArrayDeleteModification other = (ByteArrayDeleteModification) obj;
+        if (count != other.count) {
             return false;
         }
-        if (this.startPosition != other.startPosition) {
-            return false;
-        }
-        return true;
+        return startPosition == other.startPosition;
     }
 
     @Override

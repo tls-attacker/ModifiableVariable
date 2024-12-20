@@ -7,11 +7,13 @@
  */
 package de.rub.nds.modifiablevariable.filter;
 
-public class ModificationFilterFactory {
+public final class ModificationFilterFactory {
 
-    public static AccessModificationFilter access(final int[] accessNumbers) {
+    public static AccessModificationFilter access(int[] accessNumbers) {
         return new AccessModificationFilter(accessNumbers);
     }
 
-    private ModificationFilterFactory() {}
+    private ModificationFilterFactory() {
+        super();
+    }
 }

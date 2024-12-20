@@ -21,10 +21,23 @@ public class ByteAddModification extends VariableModification<Byte> {
 
     private Byte summand;
 
-    public ByteAddModification() {}
+    public ByteAddModification() {
+        super();
+    }
 
-    public ByteAddModification(Byte bi) {
-        this.summand = bi;
+    public ByteAddModification(Byte summand) {
+        super();
+        this.summand = summand;
+    }
+
+    public ByteAddModification(ByteAddModification other) {
+        super(other);
+        summand = other.summand;
+    }
+
+    @Override
+    public ByteAddModification createCopy() {
+        return new ByteAddModification(this);
     }
 
     @Override
@@ -50,8 +63,8 @@ public class ByteAddModification extends VariableModification<Byte> {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 17 * hash + Objects.hashCode(this.summand);
+        int hash = 7;
+        hash = 31 * hash + summand;
         return hash;
     }
 
@@ -66,10 +79,12 @@ public class ByteAddModification extends VariableModification<Byte> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ByteAddModification other = (ByteAddModification) obj;
-        if (!Objects.equals(this.summand, other.summand)) {
-            return false;
-        }
-        return true;
+        ByteAddModification other = (ByteAddModification) obj;
+        return Objects.equals(summand, other.summand);
+    }
+
+    @Override
+    public String toString() {
+        return "ByteAddModification{" + "summand=" + summand + '}';
     }
 }

@@ -19,10 +19,23 @@ public class ModifiableBoolean extends ModifiableVariable<Boolean> {
 
     private Boolean originalValue;
 
-    public ModifiableBoolean() {}
+    public ModifiableBoolean() {
+        super();
+    }
 
     public ModifiableBoolean(Boolean originalValue) {
+        super();
         this.originalValue = originalValue;
+    }
+
+    public ModifiableBoolean(ModifiableBoolean other) {
+        super(other);
+        originalValue = other.originalValue;
+    }
+
+    @Override
+    public ModifiableBoolean createCopy() {
+        return new ModifiableBoolean(this);
     }
 
     @Override
@@ -36,41 +49,39 @@ public class ModifiableBoolean extends ModifiableVariable<Boolean> {
     }
 
     @Override
-    protected void createRandomModification() {
+    public void setRandomModification() {
         VariableModification<Boolean> vm = BooleanModificationFactory.createRandomModification();
         setModification(vm);
     }
 
     @Override
     public boolean isOriginalValueModified() {
-        return getOriginalValue() != null && (getOriginalValue().compareTo(getValue()) != 0);
+        return originalValue != null && originalValue.compareTo(getValue()) != 0;
     }
 
     @Override
     public boolean validateAssertions() {
         if (assertEquals != null) {
-            if (assertEquals.compareTo(getValue()) != 0) {
-                return false;
-            }
+            return assertEquals.compareTo(getValue()) == 0;
         }
         return true;
     }
 
     @Override
     public String toString() {
-        return "ModifiableBoolean{" + "originalValue=" + originalValue + '}';
+        return "ModifiableBoolean{" + "originalValue=" + originalValue + innerToString() + '}';
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof ModifiableBoolean)) {
+        if (!(obj instanceof ModifiableBoolean)) {
             return false;
         }
 
-        ModifiableBoolean that = (ModifiableBoolean) o;
+        ModifiableBoolean that = (ModifiableBoolean) obj;
 
         return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }

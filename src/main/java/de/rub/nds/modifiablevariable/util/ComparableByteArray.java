@@ -14,6 +14,7 @@ public class ComparableByteArray {
     private byte[] array;
 
     public ComparableByteArray(byte[] array) {
+        super();
         this.array = array;
     }
 
@@ -28,7 +29,7 @@ public class ComparableByteArray {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 83 * hash + Arrays.hashCode(this.array);
+        hash = 83 * hash + Arrays.hashCode(array);
         return hash;
     }
 
@@ -43,10 +44,7 @@ public class ComparableByteArray {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ComparableByteArray other = (ComparableByteArray) obj;
-        if (!Arrays.equals(this.array, other.array)) {
-            return false;
-        }
-        return true;
+        ComparableByteArray other = (ComparableByteArray) obj;
+        return Arrays.equals(array, other.array);
     }
 }

@@ -72,6 +72,18 @@ public class IntegerModificationTest {
     }
 
     @Test
+    public void testInsertValue() {
+        // expect: ...xx111xxxxxxxxxx
+        VariableModification<Integer> modifier = IntegerModificationFactory.insertValue(7, 10);
+        start.setModification(modifier);
+        int mask = ((1 << 3) - 1) << 10;
+        expectedResult = 7;
+        result = (start.getValue() & mask) >> 10;
+        assertEquals(expectedResult, result);
+        assertEquals(Integer.valueOf(10), start.getOriginalValue());
+    }
+
+    @Test
     public void testShiftLeft() {
         VariableModification<Integer> modifier = IntegerModificationFactory.shiftLeft(2);
         start.setModification(modifier);

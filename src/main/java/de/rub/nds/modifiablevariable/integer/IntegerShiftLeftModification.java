@@ -20,15 +20,28 @@ public class IntegerShiftLeftModification extends VariableModification<Integer> 
 
     private int shift;
 
-    public IntegerShiftLeftModification() {}
+    public IntegerShiftLeftModification() {
+        super();
+    }
 
     public IntegerShiftLeftModification(int shift) {
+        super();
         this.shift = shift;
+    }
+
+    public IntegerShiftLeftModification(IntegerShiftLeftModification other) {
+        super(other);
+        shift = other.shift;
+    }
+
+    @Override
+    public IntegerShiftLeftModification createCopy() {
+        return new IntegerShiftLeftModification(this);
     }
 
     @Override
     protected Integer modifyImplementationHook(Integer input) {
-        return (input == null) ? 0 : input << shift;
+        return input == null ? 0 : input << shift % MAX_SHIFT_MODIFIER;
     }
 
     public int getShift() {
@@ -59,7 +72,7 @@ public class IntegerShiftLeftModification extends VariableModification<Integer> 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 73 * hash + this.shift;
+        hash = 31 * hash + shift;
         return hash;
     }
 
@@ -74,10 +87,12 @@ public class IntegerShiftLeftModification extends VariableModification<Integer> 
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final IntegerShiftLeftModification other = (IntegerShiftLeftModification) obj;
-        if (this.shift != other.shift) {
-            return false;
-        }
-        return true;
+        IntegerShiftLeftModification other = (IntegerShiftLeftModification) obj;
+        return shift == other.shift;
+    }
+
+    @Override
+    public String toString() {
+        return "IntegerShiftLeftModification{" + "shift=" + shift + '}';
     }
 }
