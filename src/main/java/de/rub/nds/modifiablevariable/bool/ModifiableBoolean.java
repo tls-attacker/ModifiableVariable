@@ -49,7 +49,7 @@ public class ModifiableBoolean extends ModifiableVariable<Boolean> {
     }
 
     @Override
-    protected void createRandomModification() {
+    public void setRandomModification() {
         VariableModification<Boolean> vm = BooleanModificationFactory.createRandomModification();
         setModification(vm);
     }

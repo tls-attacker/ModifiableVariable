@@ -250,7 +250,7 @@ public abstract class ModifiableVariable<E> implements Serializable {
 
     public E getValue() {
         if (Objects.equals(createRandomModification, Boolean.TRUE)) {
-            createRandomModification();
+            setRandomModification();
             createRandomModification = false;
         }
 
@@ -286,9 +286,10 @@ public abstract class ModifiableVariable<E> implements Serializable {
 
     public abstract void setOriginalValue(E originalValue);
 
-    protected abstract void createRandomModification();
+    /** Set a single random modification, all previously set modifications are removed */
+    public abstract void setRandomModification();
 
-    protected abstract ModifiableVariable<E> createCopy();
+    public abstract ModifiableVariable<E> createCopy();
 
     public void createRandomModificationAtRuntime() {
         createRandomModification = true;

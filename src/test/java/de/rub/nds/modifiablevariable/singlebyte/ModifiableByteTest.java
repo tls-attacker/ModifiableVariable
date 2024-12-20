@@ -30,7 +30,7 @@ public class ModifiableByteTest {
     /** Test of createRandomModification method, of class ModifiableByte. */
     @Disabled("Not yet implemented")
     @Test
-    public void testCreateRandomModification() {}
+    public void testSetRandomModification() {}
 
     /** Test of getAssertEquals method, of class ModifiableByte. */
     @Disabled("Not yet implemented")

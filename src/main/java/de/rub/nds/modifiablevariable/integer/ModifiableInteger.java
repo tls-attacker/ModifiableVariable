@@ -40,7 +40,7 @@ public class ModifiableInteger extends ModifiableVariable<Integer> {
     }
 
     @Override
-    protected void createRandomModification() {
+    public void setRandomModification() {
         VariableModification<Integer> vm = IntegerModificationFactory.createRandomModification();
         setModification(vm);
     }

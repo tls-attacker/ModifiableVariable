@@ -41,7 +41,7 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
     }
 
     @Override
-    protected void createRandomModification() {
+    public void setRandomModification() {
         VariableModification<BigInteger> vm =
                 BigIntegerModificationFactory.createRandomModification();
         setModification(vm);

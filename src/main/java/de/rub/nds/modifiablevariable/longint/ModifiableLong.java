@@ -40,7 +40,7 @@ public class ModifiableLong extends ModifiableVariable<Long> {
     }
 
     @Override
-    protected void createRandomModification() {
+    public void setRandomModification() {
         VariableModification<Long> vm = LongModificationFactory.createRandomModification();
         setModification(vm);
     }

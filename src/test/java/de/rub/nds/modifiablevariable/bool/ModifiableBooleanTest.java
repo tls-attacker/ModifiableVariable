@@ -41,7 +41,7 @@ public class ModifiableBooleanTest {
     /** Test of createRandomModification method, of class ModifiableBoolean. */
     @Disabled("Not yet implemented")
     @Test
-    public void testCreateRandomModification() {}
+    public void testSetRandomModification() {}
 
     /** Test of isOriginalValueModified method, of class ModifiableBoolean. */
     @Disabled("Not yet implemented")

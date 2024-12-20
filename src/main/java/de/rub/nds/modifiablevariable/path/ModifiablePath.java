@@ -37,7 +37,7 @@ public class ModifiablePath extends ModifiableString {
     }
 
     @Override
-    protected void createRandomModification() {
+    public void setRandomModification() {
         VariableModification<String> vm = PathModificationFactory.createRandomModification(null);
         setModification(vm);
     }

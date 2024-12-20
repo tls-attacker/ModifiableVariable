@@ -44,7 +44,7 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
     }
 
     @Override
-    protected void createRandomModification() {
+    public void setRandomModification() {
         VariableModification<byte[]> vm =
                 ByteArrayModificationFactory.createRandomModification(originalValue);
         setModification(vm);

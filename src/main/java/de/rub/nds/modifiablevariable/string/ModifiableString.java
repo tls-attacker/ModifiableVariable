@@ -46,7 +46,7 @@ public class ModifiableString extends ModifiableVariable<String> {
     }
 
     @Override
-    protected void createRandomModification() {
+    public void setRandomModification() {
         VariableModification<String> vm = StringModificationFactory.createRandomModification(null);
         setModification(vm);
     }

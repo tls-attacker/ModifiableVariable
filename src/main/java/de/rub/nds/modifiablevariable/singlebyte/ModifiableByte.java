@@ -39,7 +39,7 @@ public class ModifiableByte extends ModifiableVariable<Byte> {
     }
 
     @Override
-    protected void createRandomModification() {
+    public void setRandomModification() {
         VariableModification<Byte> vm = ByteModificationFactory.createRandomModification();
         setModification(vm);
     }

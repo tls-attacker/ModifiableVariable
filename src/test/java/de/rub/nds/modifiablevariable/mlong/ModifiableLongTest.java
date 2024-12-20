@@ -32,7 +32,7 @@ public class ModifiableLongTest {
     /** Test of createRandomModification method, of class ModifiableLong. */
     @Disabled("Not yet implemented")
     @Test
-    public void testCreateRandomModification() {}
+    public void testSetRandomModification() {}
 
     /** Test of getAssertEquals method, of class ModifiableLong. */
     @Disabled("Not yet implemented")
