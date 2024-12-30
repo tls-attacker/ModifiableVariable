@@ -77,11 +77,11 @@ public final class ArrayConverter {
                 | (long) (bytes[7] & 0xFF);
     }
 
-    public static long fourBytesToInt(byte[] bytes) {
-        return (long) (bytes[4] & 0xFF) << 24
-                | (long) (bytes[5] & 0xFF) << 16
-                | (long) (bytes[6] & 0xFF) << 8
-                | (long) (bytes[7] & 0xFF);
+    public static int fourBytesToInt(byte[] bytes) {
+        return (bytes[4] & 0xFF) << 24
+                | (bytes[5] & 0xFF) << 16
+                | (bytes[6] & 0xFF) << 8
+                | bytes[7] & 0xFF;
     }
 
     /**
