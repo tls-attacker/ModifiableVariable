@@ -23,35 +23,65 @@ public final class ArrayConverter {
      * Takes a long value and converts it to 8 bytes (needed for example to convert SQN numbers in
      * TLS records)
      *
-     * @param l long value
+     * @param value long value
      * @return long represented by 8 bytes
      */
-    public static byte[] longToUint64Bytes(long l) {
+    public static byte[] longToEightBytes(long value) {
         byte[] result = new byte[8];
-        result[0] = (byte) (l >>> 56);
-        result[1] = (byte) (l >>> 48);
-        result[2] = (byte) (l >>> 40);
-        result[3] = (byte) (l >>> 32);
-        result[4] = (byte) (l >>> 24);
-        result[5] = (byte) (l >>> 16);
-        result[6] = (byte) (l >>> 8);
-        result[7] = (byte) l;
+        result[0] = (byte) (value >>> 56);
+        result[1] = (byte) (value >>> 48);
+        result[2] = (byte) (value >>> 40);
+        result[3] = (byte) (value >>> 32);
+        result[4] = (byte) (value >>> 24);
+        result[5] = (byte) (value >>> 16);
+        result[6] = (byte) (value >>> 8);
+        result[7] = (byte) value;
         return result;
     }
 
+    /** Note: This will truncate the long */
+    public static byte[] longToSixBytes(long value) {
+        byte[] output = new byte[6];
+        output[0] = (byte) (value >>> 40);
+        output[1] = (byte) (value >>> 32);
+        output[2] = (byte) (value >>> 24);
+        output[3] = (byte) (value >>> 16);
+        output[4] = (byte) (value >>> 8);
+        output[5] = (byte) value;
+        return output;
+    }
+
     /**
-     * Takes a long value and converts it to 4 bytes
+     * Takes an int value and converts it to 4 bytes
      *
-     * @param l long value
-     * @return long represented by 4 bytes
+     * @param value int value
+     * @return int represented by 4 bytes
      */
-    public static byte[] longToUint32Bytes(long l) {
+    public static byte[] intToFourBytes(int value) {
         byte[] result = new byte[4];
-        result[0] = (byte) (l >>> 24);
-        result[1] = (byte) (l >>> 16);
-        result[2] = (byte) (l >>> 8);
-        result[3] = (byte) l;
+        result[0] = (byte) (value >>> 24);
+        result[1] = (byte) (value >>> 16);
+        result[2] = (byte) (value >>> 8);
+        result[3] = (byte) value;
         return result;
+    }
+
+    public static long eigthBytesToLong(byte[] bytes) {
+        return (long) (bytes[0] & 0xFF) << 56
+                | (long) (bytes[1] & 0xFF) << 48
+                | (long) (bytes[2] & 0xFF) << 40
+                | (long) (bytes[3] & 0xFF) << 32
+                | (long) (bytes[4] & 0xFF) << 24
+                | (long) (bytes[5] & 0xFF) << 16
+                | (long) (bytes[6] & 0xFF) << 8
+                | (long) (bytes[7] & 0xFF);
+    }
+
+    public static long fourBytesToInt(byte[] bytes) {
+        return (long) (bytes[4] & 0xFF) << 24
+                | (long) (bytes[5] & 0xFF) << 16
+                | (long) (bytes[6] & 0xFF) << 8
+                | (long) (bytes[7] & 0xFF);
     }
 
     /**
@@ -383,19 +413,6 @@ public final class ArrayConverter {
         if (remainingBits > 0) {
             output[output.length - 1 - i] = input.shiftRight(i * 8).byteValue();
         }
-        return output;
-    }
-
-    public static byte[] longToUint48Bytes(long input) {
-        byte[] output = new byte[6];
-
-        output[0] = (byte) (input >>> 40);
-        output[1] = (byte) (input >>> 32);
-        output[2] = (byte) (input >>> 24);
-        output[3] = (byte) (input >>> 16);
-        output[4] = (byte) (input >>> 8);
-        output[5] = (byte) input;
-
         return output;
     }
 
