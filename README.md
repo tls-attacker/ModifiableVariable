@@ -116,15 +116,17 @@ The result of the serialized modifiable byte array looks as follows:
 </modifiableByteArray>
 ```
 
-If you would use modification from the previous example, the result would look as follows:
+If you were to use the modification from the previous example, the result would look as follows:
 
 ```xml
 <modifiableByteArray>
     <originalValue>01 02 03</originalValue>
-    <ByteArrayInsertModification>
-        <bytesToInsert>02 03</bytesToInsert>
-        <startPosition>1</startPosition>
-    </ByteArrayInsertModification>
+    <modifications>
+        <ByteArrayInsertModification>
+            <bytesToInsert>02 03</bytesToInsert>
+            <startPosition>1</startPosition>
+        </ByteArrayInsertModification>
+    </modifications>
 </modifiableByteArray>
 ```
 
