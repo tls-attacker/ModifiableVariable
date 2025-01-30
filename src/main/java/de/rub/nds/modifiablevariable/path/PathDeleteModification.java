@@ -56,6 +56,13 @@ public class PathDeleteModification extends VariableModification<String> {
             return input;
         }
         String[] pathParts = input.split("/");
+        if (pathParts.length == 0) {
+            // It is just a single slash
+            if (count == 0) {
+                return input;
+            }
+            return "";
+        }
         boolean leadingSlash = pathParts[0].isEmpty();
 
         // Wrap around and also allow to delete at the end of the original value

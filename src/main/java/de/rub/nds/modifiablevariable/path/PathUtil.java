@@ -23,6 +23,10 @@ public final class PathUtil {
             return insertValue;
         }
         String[] pathParts = input.split("/");
+        if (pathParts.length == 0) {
+            // It is just a single slash
+            pathParts = new String[] {""};
+        }
         boolean leadingSlash = pathParts[0].isEmpty();
 
         // Wrap around and also allow to insert at the end of the original value
