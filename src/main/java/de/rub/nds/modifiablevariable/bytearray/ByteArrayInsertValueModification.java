@@ -70,7 +70,7 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
             byte[] ret2 = Arrays.copyOfRange(input, insertPosition, input.length);
             return ArrayConverter.concatenate(ret1, bytesToInsert, ret2);
         }
-        return ret1;
+        return ArrayConverter.concatenate(ret1, bytesToInsert);
     }
 
     public byte[] getBytesToInsert() {
