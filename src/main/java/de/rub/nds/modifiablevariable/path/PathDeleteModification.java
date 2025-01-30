@@ -68,11 +68,14 @@ public class PathDeleteModification extends VariableModification<String> {
         }
 
         String[] partsBefore = Arrays.copyOf(pathParts, deleteStartPosition);
-        String[] partsAfter = null;
+        String[] resultParts;
         if (deleteEndPosition < pathParts.length) {
-            partsAfter = Arrays.copyOfRange(pathParts, deleteEndPosition, pathParts.length);
+            String[] partsAfter =
+                    Arrays.copyOfRange(pathParts, deleteEndPosition, pathParts.length);
+            resultParts = ArrayConverter.concatenate(partsBefore, partsAfter);
+        } else {
+            resultParts = partsBefore;
         }
-        String[] resultParts = ArrayConverter.concatenate(partsBefore, partsAfter);
 
         if (input.endsWith("/") && resultParts.length > 0) {
             resultParts[resultParts.length - 1] += "/";

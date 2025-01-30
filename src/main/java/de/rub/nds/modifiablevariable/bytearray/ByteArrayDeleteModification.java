@@ -70,11 +70,11 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
         }
 
         byte[] ret1 = Arrays.copyOf(input, deleteStartPosition);
-        byte[] ret2 = null;
         if (deleteEndPosition < input.length) {
-            ret2 = Arrays.copyOfRange(input, deleteEndPosition, input.length);
+            byte[] ret2 = Arrays.copyOfRange(input, deleteEndPosition, input.length);
+            return ArrayConverter.concatenate(ret1, ret2);
         }
-        return ArrayConverter.concatenate(ret1, ret2);
+        return ret1;
     }
 
     public int getStartPosition() {

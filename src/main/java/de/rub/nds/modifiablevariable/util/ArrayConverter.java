@@ -236,14 +236,18 @@ public final class ArrayConverter {
         }
         int length = 0;
         for (T[] a : arrays) {
-            length += a.length;
+            if (a != null) {
+                length += a.length;
+            }
         }
         @SuppressWarnings("unchecked")
         T[] result = (T[]) Array.newInstance(arrays[0].getClass().getComponentType(), length);
         int currentOffset = 0;
         for (T[] a : arrays) {
-            System.arraycopy(a, 0, result, currentOffset, a.length);
-            currentOffset += a.length;
+            if (a != null) {
+                System.arraycopy(a, 0, result, currentOffset, a.length);
+                currentOffset += a.length;
+            }
         }
         return result;
     }
