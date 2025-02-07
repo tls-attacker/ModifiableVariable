@@ -191,15 +191,6 @@ public abstract class ModifiableVariable<E> implements Serializable {
 
     private Boolean createRandomModification;
 
-    // @XmlElements({
-    //     @XmlElement(type = byte[].class),
-    //     @XmlElement(type = String.class),
-    //     @XmlElement(type = Boolean.class),
-    //     @XmlElement(type = Byte.class),
-    //     @XmlElement(type = Integer.class),
-    //     @XmlElement(type = Long.class),
-    //     @XmlElement(type = BigInteger.class)
-    // })
     protected E assertEquals;
 
     protected ModifiableVariable() {
