@@ -18,7 +18,6 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Arrays;
 
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.PROPERTY)
 public class ModifiableByteArray extends ModifiableVariable<byte[]> {
 
     private byte[] originalValue;
