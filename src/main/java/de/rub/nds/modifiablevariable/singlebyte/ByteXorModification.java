@@ -8,14 +8,11 @@
 package de.rub.nds.modifiablevariable.singlebyte;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 import java.util.Random;
 
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 public class ByteXorModification extends VariableModification<Byte> {
 
     private static final int MAX_XOR_MODIFIER = 16;

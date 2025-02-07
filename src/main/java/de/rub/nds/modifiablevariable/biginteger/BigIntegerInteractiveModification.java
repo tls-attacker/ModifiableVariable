@@ -8,8 +8,6 @@
 package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
@@ -17,7 +15,6 @@ import java.math.BigInteger;
 
 @XmlRootElement
 @XmlType(propOrder = "modificationFilter")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class BigIntegerInteractiveModification extends VariableModification<BigInteger> {
 
     @XmlTransient private final InteractiveBigIntegerModification modification;

@@ -8,8 +8,6 @@
 package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.math.BigInteger;
@@ -18,7 +16,6 @@ import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"explicitValue", "modificationFilter"})
-@XmlAccessorType(XmlAccessType.FIELD)
 public class BigIntegerExplicitValueModification extends VariableModification<BigInteger> {
 
     private static final int MAX_EXPLICIT_LENGTH = 8;

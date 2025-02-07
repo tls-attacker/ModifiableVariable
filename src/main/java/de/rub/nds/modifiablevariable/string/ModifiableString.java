@@ -20,10 +20,9 @@ import java.nio.charset.StandardCharsets;
 
 /** */
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class ModifiableString extends ModifiableVariable<String> {
 
-    @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     protected String originalValue;
 
     public ModifiableString() {
@@ -51,6 +50,7 @@ public class ModifiableString extends ModifiableVariable<String> {
         setModification(vm);
     }
 
+    @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     public String getAssertEquals() {
         return assertEquals;
     }
@@ -80,6 +80,7 @@ public class ModifiableString extends ModifiableVariable<String> {
     }
 
     @Override
+    @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     public String getOriginalValue() {
         return originalValue;
     }

@@ -23,13 +23,12 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * The base abstract class for modifiable variables, including the getValue function.The class needs
- * to be defined transient to allow propOrder definition in subclasses, see: <a
- * href="http://blog.bdoughan.com/2011/06/ignoring-inheritance-with-xmltransient.html">...</a>
+ * The base abstract class for modifiable variables, including the getValue function. The class
+ * needs to be defined transient to allow propOrder definition in subclasses, see: <a
+ * href="http://blog.bdoughan.com/2011/06/ignoring-inheritance-with-xmltransient.html">docs</a>
  *
  * @param <E>
  */
-@XmlRootElement
 @XmlTransient
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class ModifiableVariable<E> implements Serializable {
@@ -192,6 +191,15 @@ public abstract class ModifiableVariable<E> implements Serializable {
 
     private Boolean createRandomModification;
 
+    // @XmlElements({
+    //     @XmlElement(type = byte[].class),
+    //     @XmlElement(type = String.class),
+    //     @XmlElement(type = Boolean.class),
+    //     @XmlElement(type = Byte.class),
+    //     @XmlElement(type = Integer.class),
+    //     @XmlElement(type = Long.class),
+    //     @XmlElement(type = BigInteger.class)
+    // })
     protected E assertEquals;
 
     protected ModifiableVariable() {
@@ -236,6 +244,7 @@ public abstract class ModifiableVariable<E> implements Serializable {
      *
      * <p>Use {@code getModifications()} to get all modifications
      */
+    @XmlTransient
     public VariableModification<E> getModification() {
         if (modifications == null || modifications.isEmpty()) {
             return null;

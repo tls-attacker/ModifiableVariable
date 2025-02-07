@@ -10,8 +10,6 @@ package de.rub.nds.modifiablevariable.bytearray;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -24,7 +22,6 @@ import java.util.Random;
  */
 @XmlRootElement
 @XmlType(propOrder = {"shuffle", "modificationFilter"})
-@XmlAccessorType(XmlAccessType.FIELD)
 public class ByteArrayShuffleModification extends VariableModification<byte[]> {
 
     private static final int MAX_MODIFIER_VALUE = 256;

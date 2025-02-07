@@ -7,13 +7,14 @@
  */
 package de.rub.nds.modifiablevariable.serialization;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.bytearray.*;
 import de.rub.nds.modifiablevariable.filter.AccessModificationFilter;
 import de.rub.nds.modifiablevariable.filter.ModificationFilterFactory;
+import de.rub.nds.modifiablevariable.string.ModifiableString;
+import de.rub.nds.modifiablevariable.string.StringModificationFactory;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -25,13 +26,13 @@ import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ByteArraySerializationTest {
+public class StringSerializationTest {
 
-    private static final Logger LOGGER = LogManager.getLogger(ByteArraySerializationTest.class);
+    private static final Logger LOGGER = LogManager.getLogger();
 
-    private ModifiableByteArray start;
+    private ModifiableString start;
 
-    private byte[] expectedResult, result;
+    private String expectedResult, result;
 
     private StringWriter writer;
 
@@ -43,19 +44,12 @@ public class ByteArraySerializationTest {
 
     @BeforeEach
     public void setUp() throws JAXBException {
-        start = new ModifiableByteArray();
-        start.setOriginalValue(new byte[] {(byte) 0xff, 1, 2, 3});
+        start = new ModifiableString("Hello from Test ❤️\\ \u0000 \u0001 \u0006");
         expectedResult = null;
         result = null;
 
         writer = new StringWriter();
-        context =
-                JAXBContext.newInstance(
-                        ModifiableByteArray.class,
-                        ByteArrayDeleteModification.class,
-                        ByteArrayExplicitValueModification.class,
-                        ByteArrayInsertValueModification.class,
-                        ByteArrayXorModification.class);
+        context = JAXBContext.newInstance(ModifiableString.class);
         m = context.createMarshaller();
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         um = context.createUnmarshaller();
@@ -64,25 +58,24 @@ public class ByteArraySerializationTest {
     @Test
     public void testSerializeDeserializeSimple() throws Exception {
         start.setModification(null);
-        start.setAssertEquals(new byte[] {(byte) 0xff, 5, 44, 3});
+        start.setAssertEquals("Hello from Test 2 \\ \u0000 \u0001 \u0006");
         m.marshal(start, writer);
 
         String xmlString = writer.toString();
         LOGGER.debug(xmlString);
 
         um = context.createUnmarshaller();
-        ModifiableByteArray mba = (ModifiableByteArray) um.unmarshal(new StringReader(xmlString));
+        ModifiableString unmarshalled =
+                (ModifiableString) um.unmarshal(new StringReader(xmlString));
 
-        expectedResult = new byte[] {(byte) 0xff, 1, 2, 3};
-        result = mba.getValue();
-        assertArrayEquals(expectedResult, result);
-        assertNotSame(expectedResult, result);
+        expectedResult = "Hello from Test ❤️\\ \u0000 \u0001 \u0006";
+        result = unmarshalled.getValue();
+        assertEquals(expectedResult, result);
     }
 
     @Test
     public void testSerializeDeserializeWithModification() throws Exception {
-        VariableModification<byte[]> modifier =
-                ByteArrayModificationFactory.insertValue(new byte[] {1, 2}, 0);
+        VariableModification<String> modifier = StringModificationFactory.insertValue("Uff! ", 0);
         start.setModification(modifier);
         m.marshal(start, writer);
 
@@ -90,17 +83,17 @@ public class ByteArraySerializationTest {
         LOGGER.debug(xmlString);
 
         um = context.createUnmarshaller();
-        ModifiableByteArray mba = (ModifiableByteArray) um.unmarshal(new StringReader(xmlString));
+        ModifiableString unmarshalled =
+                (ModifiableString) um.unmarshal(new StringReader(xmlString));
 
-        expectedResult = new byte[] {1, 2, (byte) 0xff, 1, 2, 3};
-        result = mba.getValue();
-        assertArrayEquals(expectedResult, result);
-        assertNotSame(expectedResult, result);
+        expectedResult = "Uff! Hello from Test ❤️\\ \u0000 \u0001 \u0006";
+        result = unmarshalled.getValue();
+        assertEquals(expectedResult, result);
     }
 
     @Test
     public void testSerializeDeserializeWithModificationFilter() throws Exception {
-        VariableModification<byte[]> modifier = ByteArrayModificationFactory.delete(1, 1);
+        VariableModification<String> modifier = StringModificationFactory.delete(1, 1);
         int[] filtered = {1, 3};
         AccessModificationFilter filter = ModificationFilterFactory.access(filtered);
         modifier.setModificationFilter(filter);
@@ -111,12 +104,12 @@ public class ByteArraySerializationTest {
         LOGGER.debug(xmlString);
 
         um = context.createUnmarshaller();
-        ModifiableByteArray mv = (ModifiableByteArray) um.unmarshal(new StringReader(xmlString));
+        ModifiableString unmarshalled =
+                (ModifiableString) um.unmarshal(new StringReader(xmlString));
 
         // it happens nothing, because the modification is filtered
-        expectedResult = new byte[] {(byte) 0xff, 1, 2, 3};
-        result = mv.getValue();
-        assertArrayEquals(expectedResult, result);
-        assertNotSame(expectedResult, result);
+        expectedResult = "Hello from Test ❤️\\ \u0000 \u0001 \u0006";
+        result = unmarshalled.getValue();
+        assertEquals(expectedResult, result);
     }
 }

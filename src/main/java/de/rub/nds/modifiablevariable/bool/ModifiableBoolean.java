@@ -9,12 +9,9 @@ package de.rub.nds.modifiablevariable.bool;
 
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 public class ModifiableBoolean extends ModifiableVariable<Boolean> {
 
     private Boolean originalValue;
