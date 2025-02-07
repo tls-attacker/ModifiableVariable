@@ -116,7 +116,7 @@
                             <spacesPerTab>4</spacesPerTab>
                         </indent>
                         <googleJavaFormat>
-                            <version>1.20.0</version>
+                            <version>1.25.2</version>
                             <style>AOSP</style>
                         </googleJavaFormat>
                         <licenseHeader>
@@ -156,6 +156,9 @@
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
+                    <compilerArgs>
+                        <compilerArg>-proc:full</compilerArg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
             <!-- Execute unit tests -->
