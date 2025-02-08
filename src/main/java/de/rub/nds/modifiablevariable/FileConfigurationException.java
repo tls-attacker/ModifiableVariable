@@ -9,7 +9,9 @@ package de.rub.nds.modifiablevariable;
 
 public class FileConfigurationException extends RuntimeException {
 
-    public FileConfigurationException() {}
+    public FileConfigurationException() {
+        super();
+    }
 
     public FileConfigurationException(Exception ex) {
         super(ex);

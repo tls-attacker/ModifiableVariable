@@ -19,16 +19,29 @@ public class LongExplicitValueModification extends VariableModification<Long> {
 
     private static final int MAX_EXPLICIT_MODIFIER = 256;
 
-    private Long explicitValue;
+    protected Long explicitValue;
 
-    public LongExplicitValueModification() {}
+    public LongExplicitValueModification() {
+        super();
+    }
 
-    public LongExplicitValueModification(Long bi) {
-        this.explicitValue = bi;
+    public LongExplicitValueModification(Long explicitValue) {
+        super();
+        this.explicitValue = explicitValue;
+    }
+
+    public LongExplicitValueModification(LongExplicitValueModification other) {
+        super(other);
+        explicitValue = other.explicitValue;
     }
 
     @Override
-    protected Long modifyImplementationHook(final Long input) {
+    public LongExplicitValueModification createCopy() {
+        return new LongExplicitValueModification(this);
+    }
+
+    @Override
+    protected Long modifyImplementationHook(Long input) {
         return explicitValue;
     }
 
@@ -54,8 +67,8 @@ public class LongExplicitValueModification extends VariableModification<Long> {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 43 * hash + Objects.hashCode(this.explicitValue);
+        int hash = 7;
+        hash = 31 * hash + explicitValue.hashCode();
         return hash;
     }
 
@@ -70,10 +83,12 @@ public class LongExplicitValueModification extends VariableModification<Long> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final LongExplicitValueModification other = (LongExplicitValueModification) obj;
-        if (!Objects.equals(this.explicitValue, other.explicitValue)) {
-            return false;
-        }
-        return true;
+        LongExplicitValueModification other = (LongExplicitValueModification) obj;
+        return Objects.equals(explicitValue, other.explicitValue);
+    }
+
+    @Override
+    public String toString() {
+        return "LongExplicitValueModification{" + "explicitValue=" + explicitValue + '}';
     }
 }

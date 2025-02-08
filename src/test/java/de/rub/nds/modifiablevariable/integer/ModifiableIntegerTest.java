@@ -28,9 +28,9 @@ public class ModifiableIntegerTest {
 
     /** Test of createRandomModification method, of class ModifiableInteger. */
     @Test
-    public void testCreateRandomModification() {
+    public void testSetRandomModification() {
         assertNull(integer1.getModification());
-        integer1.createRandomModification();
+        integer1.setRandomModification();
         assertNotNull(integer1.getModification());
     }
 
@@ -53,7 +53,7 @@ public class ModifiableIntegerTest {
     @Test
     public void testIsOriginalValueModified() {
         assertFalse(integer1.isOriginalValueModified());
-        integer1.createRandomModification();
+        integer1.setRandomModification();
         assertTrue(integer1.isOriginalValueModified());
     }
 

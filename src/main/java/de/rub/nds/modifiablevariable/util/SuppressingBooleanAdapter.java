@@ -15,7 +15,7 @@ public abstract class SuppressingBooleanAdapter extends XmlAdapter<String, Boole
     public abstract Boolean getValueToSuppress();
 
     @Override
-    public Boolean unmarshal(String v) throws Exception {
+    public Boolean unmarshal(String v) {
         if (v == null) {
             return getValueToSuppress();
         } else {
@@ -24,7 +24,7 @@ public abstract class SuppressingBooleanAdapter extends XmlAdapter<String, Boole
     }
 
     @Override
-    public String marshal(Boolean v) throws Exception {
+    public String marshal(Boolean v) {
         if (Objects.equals(v, getValueToSuppress()) || v == null) {
             return null;
         }

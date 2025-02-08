@@ -15,12 +15,10 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElements;
-import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@XmlRootElement
 @XmlTransient
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class VariableModification<E> {
@@ -32,16 +30,24 @@ public abstract class VariableModification<E> {
      * ModificationFilter is responsible for validating if the modification can be executed.
      */
     @XmlElements(
-            value = {
-                @XmlElement(
-                        type = AccessModificationFilter.class,
-                        name = "AccessModificationFilter")
-            })
-    private ModificationFilter modificationFilter = null;
+            @XmlElement(type = AccessModificationFilter.class, name = "AccessModificationFilter"))
+    private ModificationFilter modificationFilter;
+
+    protected VariableModification() {
+        super();
+    }
+
+    protected VariableModification(VariableModification<E> other) {
+        super();
+        modificationFilter =
+                other.modificationFilter != null ? other.modificationFilter.createCopy() : null;
+    }
+
+    public abstract VariableModification<E> createCopy();
 
     public E modify(E input) {
         E modifiedValue = modifyImplementationHook(input);
-        if ((modificationFilter == null) || (modificationFilter.filterModification() == false)) {
+        if (modificationFilter == null || !modificationFilter.filterModification()) {
             debug(modifiedValue);
             return modifiedValue;
         } else {
@@ -54,7 +60,7 @@ public abstract class VariableModification<E> {
     public abstract VariableModification<E> getModifiedCopy();
 
     /**
-     * Debugging modified variables. Getting stack trace can be time consuming, thus we use
+     * Debugging modified variables. Getting stack trace can be time-consuming, thus we use
      * isDebugEnabled() function
      *
      * @param value variable modification that is going to be debugged
@@ -78,7 +84,7 @@ public abstract class VariableModification<E> {
             }
             LOGGER.debug(
                     "Using {} in function:\n  {}\n  New value: {}",
-                    this.getClass().getSimpleName(),
+                    getClass().getSimpleName(),
                     stack[index],
                     valueString);
         }

@@ -8,8 +8,6 @@
 package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.math.BigInteger;
@@ -17,17 +15,29 @@ import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"shift", "modificationFilter"})
-@XmlAccessorType(XmlAccessType.FIELD)
 public class BigIntegerShiftLeftModification extends VariableModification<BigInteger> {
 
     private static final int MAX_SHIFT_LENGTH = 32;
 
     private int shift;
 
-    public BigIntegerShiftLeftModification() {}
+    public BigIntegerShiftLeftModification() {
+        super();
+    }
 
     public BigIntegerShiftLeftModification(int shift) {
+        super();
         this.shift = shift;
+    }
+
+    public BigIntegerShiftLeftModification(BigIntegerShiftLeftModification other) {
+        super(other);
+        shift = other.shift;
+    }
+
+    @Override
+    public BigIntegerShiftLeftModification createCopy() {
+        return new BigIntegerShiftLeftModification(this);
     }
 
     @Override
@@ -54,7 +64,7 @@ public class BigIntegerShiftLeftModification extends VariableModification<BigInt
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + this.shift;
+        hash = 31 * hash + shift;
         return hash;
     }
 
@@ -69,10 +79,12 @@ public class BigIntegerShiftLeftModification extends VariableModification<BigInt
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final BigIntegerShiftLeftModification other = (BigIntegerShiftLeftModification) obj;
-        if (this.shift != other.shift) {
-            return false;
-        }
-        return true;
+        BigIntegerShiftLeftModification other = (BigIntegerShiftLeftModification) obj;
+        return shift == other.shift;
+    }
+
+    @Override
+    public String toString() {
+        return "BigIntegerShiftLeftModification{" + "shift=" + shift + '}';
     }
 }

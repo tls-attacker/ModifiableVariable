@@ -21,10 +21,23 @@ public class ByteSubtractModification extends VariableModification<Byte> {
 
     private Byte subtrahend;
 
-    public ByteSubtractModification() {}
+    public ByteSubtractModification() {
+        super();
+    }
 
-    public ByteSubtractModification(Byte bi) {
-        this.subtrahend = bi;
+    public ByteSubtractModification(Byte subtrahend) {
+        super();
+        this.subtrahend = subtrahend;
+    }
+
+    public ByteSubtractModification(ByteSubtractModification other) {
+        super(other);
+        subtrahend = other.subtrahend;
+    }
+
+    @Override
+    public ByteSubtractModification createCopy() {
+        return new ByteSubtractModification(this);
     }
 
     @Override
@@ -45,14 +58,14 @@ public class ByteSubtractModification extends VariableModification<Byte> {
 
     @Override
     public VariableModification<Byte> getModifiedCopy() {
-        return new ByteAddModification(
+        return new ByteSubtractModification(
                 (byte) (subtrahend + new Random().nextInt(MAX_SUBTRACT_MODIFIER)));
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 71 * hash + Objects.hashCode(this.subtrahend);
+        int hash = 7;
+        hash = 31 * hash + subtrahend;
         return hash;
     }
 
@@ -67,10 +80,12 @@ public class ByteSubtractModification extends VariableModification<Byte> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ByteSubtractModification other = (ByteSubtractModification) obj;
-        if (!Objects.equals(this.subtrahend, other.subtrahend)) {
-            return false;
-        }
-        return true;
+        ByteSubtractModification other = (ByteSubtractModification) obj;
+        return Objects.equals(subtrahend, other.subtrahend);
+    }
+
+    @Override
+    public String toString() {
+        return "ByteSubtractModification{" + "subtrahend=" + subtrahend + '}';
     }
 }

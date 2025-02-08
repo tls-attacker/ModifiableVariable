@@ -8,31 +8,30 @@
 package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
 import java.math.BigInteger;
 
 @XmlRootElement
-@XmlType(propOrder = {"modificationFilter"})
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(propOrder = "modificationFilter")
 public class BigIntegerInteractiveModification extends VariableModification<BigInteger> {
 
-    @XmlTransient private InteractiveBigIntegerModification modification;
+    @XmlTransient private final InteractiveBigIntegerModification modification;
 
     protected BigIntegerInteractiveModification() {
-        this.modification = BigIntegerModificationFactory.getStandardInteractiveModification();
+        super();
+        modification = BigIntegerModificationFactory.getStandardInteractiveModification();
     }
 
     protected BigIntegerInteractiveModification(InteractiveBigIntegerModification modification) {
+        super();
         this.modification = modification;
     }
 
     @Override
-    protected BigInteger modifyImplementationHook(final BigInteger input) {
-        return this.modification.modify(input);
+    protected BigInteger modifyImplementationHook(BigInteger input) {
+        return modification.modify(input);
     }
 
     public interface InteractiveBigIntegerModification {
@@ -42,6 +41,12 @@ public class BigIntegerInteractiveModification extends VariableModification<BigI
 
     @Override
     public VariableModification<BigInteger> getModifiedCopy() {
+        throw new UnsupportedOperationException(
+                "This method is not supported for interactive modifications");
+    }
+
+    @Override
+    public VariableModification<BigInteger> createCopy() {
         throw new UnsupportedOperationException(
                 "This method is not supported for interactive modifications");
     }

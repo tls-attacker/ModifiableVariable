@@ -10,18 +10,34 @@ package de.rub.nds.modifiablevariable.longint;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 public class ModifiableLong extends ModifiableVariable<Long> {
 
     private Long originalValue;
 
+    public ModifiableLong() {
+        super();
+    }
+
+    public ModifiableLong(Long originalValue) {
+        super();
+        this.originalValue = originalValue;
+    }
+
+    public ModifiableLong(ModifiableLong other) {
+        super(other);
+        originalValue = other.originalValue;
+    }
+
     @Override
-    protected void createRandomModification() {
+    public ModifiableLong createCopy() {
+        return new ModifiableLong(this);
+    }
+
+    @Override
+    public void setRandomModification() {
         VariableModification<Long> vm = LongModificationFactory.createRandomModification();
         setModification(vm);
     }
@@ -66,19 +82,19 @@ public class ModifiableLong extends ModifiableVariable<Long> {
 
     @Override
     public String toString() {
-        return "ModifiableLong{" + "originalValue=" + originalValue + '}';
+        return "ModifiableLong{" + "originalValue=" + originalValue + innerToString() + '}';
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof ModifiableLong)) {
+        if (!(obj instanceof ModifiableLong)) {
             return false;
         }
 
-        ModifiableLong that = (ModifiableLong) o;
+        ModifiableLong that = (ModifiableLong) obj;
 
         return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }

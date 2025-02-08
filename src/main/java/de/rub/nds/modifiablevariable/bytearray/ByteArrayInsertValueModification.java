@@ -10,8 +10,6 @@ package de.rub.nds.modifiablevariable.bytearray;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -20,23 +18,36 @@ import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"bytesToInsert", "startPosition", "modificationFilter"})
-@XmlAccessorType(XmlAccessType.FIELD)
-public class ByteArrayInsertModification extends VariableModification<byte[]> {
+public class ByteArrayInsertValueModification extends VariableModification<byte[]> {
 
     private static final int MAX_EXPLICIT_VALUE = 256;
 
-    private static final int MAX_INSERT_MODIFIER = 32;
+    private static final int MAX_POSITION_MODIFIER = 32;
 
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] bytesToInsert;
 
     private int startPosition;
 
-    public ByteArrayInsertModification() {}
+    public ByteArrayInsertValueModification() {
+        super();
+    }
 
-    public ByteArrayInsertModification(byte[] bytesToInsert, int startPosition) {
+    public ByteArrayInsertValueModification(byte[] bytesToInsert, int startPosition) {
+        super();
         this.bytesToInsert = bytesToInsert;
         this.startPosition = startPosition;
+    }
+
+    public ByteArrayInsertValueModification(ByteArrayInsertValueModification other) {
+        super(other);
+        bytesToInsert = other.bytesToInsert != null ? other.bytesToInsert.clone() : null;
+        startPosition = other.startPosition;
+    }
+
+    @Override
+    public ByteArrayInsertValueModification createCopy() {
+        return new ByteArrayInsertValueModification(this);
     }
 
     @Override
@@ -45,30 +56,18 @@ public class ByteArrayInsertModification extends VariableModification<byte[]> {
             input = new byte[0];
         }
 
-        int start = startPosition;
-        if (start < 0) {
-            start += input.length;
-            if (start < 0) {
-                LOGGER.debug(
-                        "Trying to insert from too negative Startposition. start = "
-                                + startPosition);
-                return input;
-            }
+        // Wrap around and also allow to insert at the end of the original value
+        int insertPosition = startPosition % (input.length + 1);
+        if (startPosition < 0) {
+            insertPosition += input.length;
         }
-        if (startPosition > input.length) {
-            LOGGER.debug(
-                    "Trying to insert behind the Array. ArraySize:"
-                            + input.length
-                            + " Insert Position:"
-                            + startPosition);
-            return input;
+
+        byte[] ret1 = Arrays.copyOf(input, insertPosition);
+        if (insertPosition < input.length) {
+            byte[] ret2 = Arrays.copyOfRange(input, insertPosition, input.length);
+            return ArrayConverter.concatenate(ret1, bytesToInsert, ret2);
         }
-        byte[] ret1 = Arrays.copyOf(input, start);
-        byte[] ret3 = null;
-        if ((start) < input.length) {
-            ret3 = Arrays.copyOfRange(input, start, input.length);
-        }
-        return ArrayConverter.concatenate(ret1, bytesToInsert, ret3);
+        return ArrayConverter.concatenate(ret1, bytesToInsert);
     }
 
     public byte[] getBytesToInsert() {
@@ -95,10 +94,10 @@ public class ByteArrayInsertModification extends VariableModification<byte[]> {
             int index = r.nextInt(bytesToInsert.length);
             byte[] newValue = Arrays.copyOf(bytesToInsert, bytesToInsert.length);
             newValue[index] = (byte) r.nextInt(MAX_EXPLICIT_VALUE);
-            return new ByteArrayInsertModification(newValue, startPosition);
+            return new ByteArrayInsertValueModification(newValue, startPosition);
         } else {
             byte[] newValue = Arrays.copyOf(bytesToInsert, bytesToInsert.length);
-            int modifier = r.nextInt(MAX_INSERT_MODIFIER);
+            int modifier = r.nextInt(MAX_POSITION_MODIFIER);
             if (r.nextBoolean()) {
                 modifier *= -1;
             }
@@ -106,15 +105,15 @@ public class ByteArrayInsertModification extends VariableModification<byte[]> {
             if (modifier <= 0) {
                 modifier = 1;
             }
-            return new ByteArrayInsertModification(newValue, modifier);
+            return new ByteArrayInsertValueModification(newValue, modifier);
         }
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + Arrays.hashCode(this.bytesToInsert);
-        hash = 59 * hash + this.startPosition;
+        hash = 31 * hash + Arrays.hashCode(bytesToInsert);
+        hash = 31 * hash + startPosition;
         return hash;
     }
 
@@ -129,14 +128,11 @@ public class ByteArrayInsertModification extends VariableModification<byte[]> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ByteArrayInsertModification other = (ByteArrayInsertModification) obj;
-        if (this.startPosition != other.startPosition) {
+        ByteArrayInsertValueModification other = (ByteArrayInsertValueModification) obj;
+        if (startPosition != other.startPosition) {
             return false;
         }
-        if (!Arrays.equals(this.bytesToInsert, other.bytesToInsert)) {
-            return false;
-        }
-        return true;
+        return Arrays.equals(bytesToInsert, other.bytesToInsert);
     }
 
     @Override

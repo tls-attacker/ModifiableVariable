@@ -8,8 +8,6 @@
 package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.math.BigInteger;
@@ -17,17 +15,29 @@ import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"shift", "modificationFilter"})
-@XmlAccessorType(XmlAccessType.FIELD)
 public class BigIntegerShiftRightModification extends VariableModification<BigInteger> {
 
     private static final int MAX_SHIFT_LENGTH = 32;
 
     private int shift;
 
-    public BigIntegerShiftRightModification() {}
+    public BigIntegerShiftRightModification() {
+        super();
+    }
 
     public BigIntegerShiftRightModification(int shift) {
+        super();
         this.shift = shift;
+    }
+
+    public BigIntegerShiftRightModification(BigIntegerShiftRightModification other) {
+        super(other);
+        shift = other.shift;
+    }
+
+    @Override
+    public BigIntegerShiftRightModification createCopy() {
+        return new BigIntegerShiftRightModification(this);
     }
 
     @Override
@@ -54,7 +64,7 @@ public class BigIntegerShiftRightModification extends VariableModification<BigIn
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + this.shift;
+        hash = 31 * hash + shift;
         return hash;
     }
 
@@ -69,10 +79,12 @@ public class BigIntegerShiftRightModification extends VariableModification<BigIn
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final BigIntegerShiftRightModification other = (BigIntegerShiftRightModification) obj;
-        if (this.shift != other.shift) {
-            return false;
-        }
-        return true;
+        BigIntegerShiftRightModification other = (BigIntegerShiftRightModification) obj;
+        return shift == other.shift;
+    }
+
+    @Override
+    public String toString() {
+        return "BigIntegerShiftRightModification{" + "shift=" + shift + '}';
     }
 }
