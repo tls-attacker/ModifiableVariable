@@ -14,7 +14,7 @@ Maven by running:
 $ sudo apt-get install maven
 ```
 
-ModifiableVariable currently needs Java JDK 11 to run. If you have the correct Java version you can install
+ModifiableVariable currently needs Java JDK 21 to run. If you have the correct Java version you can install
 ModifiableVariable as follows.
 
 ```bash
@@ -30,7 +30,7 @@ If you want to use this project as a dependency, you do not have to compile it y
 <dependency>
     <groupId>de.rub.nds</groupId>
     <artifactId>modifiable-variable</artifactId>
-    <version>4.0.0</version>
+    <version>5.0.0</version>
 </dependency>
 ```
 
