@@ -51,6 +51,18 @@ public final class ArrayConverter {
         return output;
     }
 
+    public static byte[] longToUint64Bytes(long value) {
+        return longToEightBytes(value);
+    }
+
+    public static byte[] longToUint48Bytes(long value) {
+        return longToSixBytes(value);
+    }
+
+    public static byte[] longToUint32Bytes(long value) {
+        return intToFourBytes((int) value);
+    }
+
     /**
      * Takes an int value and converts it to 4 bytes
      *
