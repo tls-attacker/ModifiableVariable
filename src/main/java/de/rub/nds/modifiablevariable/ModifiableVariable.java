@@ -20,7 +20,6 @@ import jakarta.xml.bind.annotation.*;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -236,7 +235,6 @@ public abstract class ModifiableVariable<E> implements Serializable {
             this.modifications = null;
         }
     }
-
 
     /** Adds a modification to this modifiable variable */
     public void addModification(VariableModification<E> modification) {

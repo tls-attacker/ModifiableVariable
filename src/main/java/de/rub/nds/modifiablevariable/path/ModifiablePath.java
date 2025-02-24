@@ -9,7 +9,6 @@ package de.rub.nds.modifiablevariable.path;
 
 import static de.rub.nds.modifiablevariable.util.StringUtil.backslashEscapeString;
 
-import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
