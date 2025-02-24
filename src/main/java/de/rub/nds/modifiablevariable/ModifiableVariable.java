@@ -19,6 +19,7 @@ import de.rub.nds.modifiablevariable.string.*;
 import jakarta.xml.bind.annotation.*;
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -216,6 +217,26 @@ public abstract class ModifiableVariable<E> implements Serializable {
             modifications = null;
         }
     }
+
+    /** Sets multiple modifications, all previously set modifications are removed */
+    public void setModifications(List<VariableModification<E>> modifications) {
+        if (modifications != null) {
+            this.modifications = new LinkedList<>(modifications);
+        } else {
+            this.modifications = null;
+        }
+    }
+
+    /** Sets multiple modifications, all previously set modifications are removed */
+    @SafeVarargs
+    public final void setModifications(VariableModification<E>... modifications) {
+        if (modifications != null) {
+            this.modifications = new LinkedList<>(List.of(modifications));
+        } else {
+            this.modifications = null;
+        }
+    }
+
 
     /** Adds a modification to this modifiable variable */
     public void addModification(VariableModification<E> modification) {
