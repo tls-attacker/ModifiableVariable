@@ -252,7 +252,7 @@ public abstract class ModifiableVariable<E> implements Serializable {
      * <p>Use {@code getModifications()} to get all modifications
      */
     @XmlTransient
-    public VariableModification<E> getModification() {
+    public VariableModification<E> getFirstModification() {
         if (modifications == null || modifications.isEmpty()) {
             return null;
         }
