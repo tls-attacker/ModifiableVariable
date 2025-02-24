@@ -26,7 +26,7 @@ public final class ArrayConverter {
      * @param value long value
      * @return long represented by 8 bytes
      */
-    public static byte[] longToEightBytes(long value) {
+    public static byte[] longToUint64Bytes(long value) {
         byte[] result = new byte[8];
         result[0] = (byte) (value >>> 56);
         result[1] = (byte) (value >>> 48);
@@ -40,7 +40,7 @@ public final class ArrayConverter {
     }
 
     /** Note: This will truncate the long */
-    public static byte[] longToSixBytes(long value) {
+    public static byte[] longToUint48Bytes(long value) {
         byte[] output = new byte[6];
         output[0] = (byte) (value >>> 40);
         output[1] = (byte) (value >>> 32);
@@ -51,25 +51,13 @@ public final class ArrayConverter {
         return output;
     }
 
-    public static byte[] longToUint64Bytes(long value) {
-        return longToEightBytes(value);
-    }
-
-    public static byte[] longToUint48Bytes(long value) {
-        return longToSixBytes(value);
-    }
-
-    public static byte[] longToUint32Bytes(long value) {
-        return intToFourBytes((int) value);
-    }
-
     /**
      * Takes an int value and converts it to 4 bytes
      *
      * @param value int value
      * @return int represented by 4 bytes
      */
-    public static byte[] intToFourBytes(int value) {
+    public static byte[] longToUint32Bytes(long value) {
         byte[] result = new byte[4];
         result[0] = (byte) (value >>> 24);
         result[1] = (byte) (value >>> 16);
@@ -78,7 +66,7 @@ public final class ArrayConverter {
         return result;
     }
 
-    public static long eigthBytesToLong(byte[] bytes) {
+    public static long uInt64BytesToLong(byte[] bytes) {
         return (long) (bytes[0] & 0xFF) << 56
                 | (long) (bytes[1] & 0xFF) << 48
                 | (long) (bytes[2] & 0xFF) << 40
@@ -89,8 +77,8 @@ public final class ArrayConverter {
                 | (long) (bytes[7] & 0xFF);
     }
 
-    public static int fourBytesToInt(byte[] bytes) {
-        return (bytes[0] & 0xFF) << 24
+    public static long uInt32BytesToLong(byte[] bytes) {
+        return (long) (bytes[0] & 0xFF) << 24
                 | (bytes[1] & 0xFF) << 16
                 | (bytes[2] & 0xFF) << 8
                 | bytes[3] & 0xFF;

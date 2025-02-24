@@ -225,18 +225,22 @@ public class ArrayConverterTest {
     }
 
     @Test
-    public void testLongToSixBytes() {
+    public void testLongToUint48Bytes() {
         long testValue = 0x0000123456789ABCL;
         byte[] expectedResult = ArrayConverter.hexStringToByteArray("123456789ABC");
 
         assertArrayEquals(
-                expectedResult, ArrayConverter.longToSixBytes(testValue), "Assert correct output");
+                expectedResult,
+                ArrayConverter.longToUint48Bytes(testValue),
+                "Assert correct output");
 
         testValue = 0x0000000000000001L;
         expectedResult = ArrayConverter.hexStringToByteArray("000000000001");
 
         assertArrayEquals(
-                expectedResult, ArrayConverter.longToSixBytes(testValue), "Assert correct output");
+                expectedResult,
+                ArrayConverter.longToUint48Bytes(testValue),
+                "Assert correct output");
     }
 
     /**

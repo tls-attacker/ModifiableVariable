@@ -65,7 +65,6 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
             // Fix the end position to the length of the original value
             // This may not match the expected behavior of a user
             // But for fuzzing purpose, that's fine
-            // Todo: Add an option that expands the byte array instead
             endPosition = result.length;
         }
 
