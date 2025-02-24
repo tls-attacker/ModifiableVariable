@@ -68,7 +68,7 @@ public class LongExplicitValueModification extends VariableModification<Long> {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + explicitValue.hashCode();
+        hash = 31 * hash + Objects.hashCode(explicitValue);;
         return hash;
     }
 

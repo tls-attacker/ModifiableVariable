@@ -50,7 +50,7 @@ public class LongExplicitValueFromFileModification extends LongExplicitValueModi
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + index;
-        hash = 31 * hash + explicitValue.hashCode();
+        hash = 31 * hash + Objects.hashCode(explicitValue);;
         return hash;
     }
 

@@ -103,7 +103,7 @@ public class LongInsertValueModification extends VariableModification<Long> {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + insertValue.hashCode();
+        hash = 31 * hash + Objects.hashCode(insertValue);;
         hash = 31 * hash + startPosition;
         return hash;
     }

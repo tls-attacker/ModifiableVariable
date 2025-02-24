@@ -63,7 +63,7 @@ public class BigIntegerAddModification extends VariableModification<BigInteger> 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + summand.hashCode();
+        hash = 31 * hash + Objects.hashCode(summand);;
         return hash;
     }
 

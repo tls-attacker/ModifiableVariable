@@ -72,7 +72,7 @@ public class StringPrependValueModification extends VariableModification<String>
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + prependValue.hashCode();
+        hash = 31 * hash + Objects.hashCode(prependValue);;
         return hash;
     }
 
