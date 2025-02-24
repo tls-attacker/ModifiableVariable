@@ -288,7 +288,7 @@ public abstract class ModifiableVariable<E> implements Serializable {
         return assertEquals != null;
     }
 
-    public String innerToString() {
+    protected String innerToString() {
         StringBuilder result = new StringBuilder();
         if (modifications != null) {
             result.append(", modifications=[")
