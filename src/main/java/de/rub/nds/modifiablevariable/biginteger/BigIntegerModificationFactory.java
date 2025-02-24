@@ -121,40 +121,6 @@ public final class BigIntegerModificationFactory {
         return new BigIntegerPrependValueModification(value);
     }
 
-    /*
-     * Interactive modification
-     */
-    private static BigIntegerInteractiveModification.InteractiveBigIntegerModification
-            standardInteractiveModification =
-                    new BigIntegerInteractiveModification.InteractiveBigIntegerModification() {
-                        private BigInteger value;
-
-                        @Override
-                        public BigInteger modify(BigInteger oldVal) {
-                            if (value == null) {
-                                System.out.println("Enter new value for BigInt: ");
-                                try (Scanner scanner = new Scanner(System.in)) {
-                                    value = scanner.nextBigInteger();
-                                }
-                            }
-                            return value;
-                        }
-                    };
-
-    public static void setStandardInteractiveModification(
-            BigIntegerInteractiveModification.InteractiveBigIntegerModification modification) {
-        standardInteractiveModification = modification;
-    }
-
-    static BigIntegerInteractiveModification.InteractiveBigIntegerModification
-            getStandardInteractiveModification() {
-        return standardInteractiveModification;
-    }
-
-    public static VariableModification<BigInteger> interactive() {
-        return new BigIntegerInteractiveModification();
-    }
-
     public static synchronized List<VariableModification<BigInteger>> modificationsFromFile() {
         try {
             if (modificationsFromFile == null) {

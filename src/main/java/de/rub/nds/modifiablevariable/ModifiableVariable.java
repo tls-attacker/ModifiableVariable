@@ -53,9 +53,6 @@ public abstract class ModifiableVariable<E> implements Serializable {
                 name = "BigIntegerExplicitValueModification"),
         @XmlElement(type = BigIntegerAddModification.class, name = "BigIntegerAddModification"),
         @XmlElement(
-                type = BigIntegerInteractiveModification.class,
-                name = "BigIntegerInteractiveModification"),
-        @XmlElement(
                 type = BigIntegerMultiplyModification.class,
                 name = "BigIntegerMultiplyModification"),
         @XmlElement(
