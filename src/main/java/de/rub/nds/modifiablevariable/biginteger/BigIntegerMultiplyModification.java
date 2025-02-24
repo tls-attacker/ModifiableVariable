@@ -12,7 +12,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.math.BigInteger;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"factor", "modificationFilter"})
@@ -52,12 +51,6 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
 
     public void setFactor(BigInteger factor) {
         this.factor = factor;
-    }
-
-    @Override
-    public VariableModification<BigInteger> getModifiedCopy() {
-        return new BigIntegerMultiplyModification(
-                factor.add(new BigInteger(MAX_FACTOR_LENGTH, new Random())));
     }
 
     @Override

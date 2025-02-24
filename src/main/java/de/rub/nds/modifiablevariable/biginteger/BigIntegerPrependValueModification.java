@@ -12,7 +12,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.math.BigInteger;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"prependValue", "modificationFilter"})
@@ -55,12 +54,6 @@ public class BigIntegerPrependValueModification extends VariableModification<Big
 
     public void setPrependValue(BigInteger prependValue) {
         this.prependValue = prependValue;
-    }
-
-    @Override
-    public VariableModification<BigInteger> getModifiedCopy() {
-        return new BigIntegerPrependValueModification(
-                prependValue.add(new BigInteger(MAX_PREPEND_LENGTH, new Random())));
     }
 
     @Override

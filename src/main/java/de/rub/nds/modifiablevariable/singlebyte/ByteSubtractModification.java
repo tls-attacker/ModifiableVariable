@@ -11,7 +11,6 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"subtrahend", "modificationFilter"})
@@ -54,12 +53,6 @@ public class ByteSubtractModification extends VariableModification<Byte> {
 
     public void setSubtrahend(Byte subtrahend) {
         this.subtrahend = subtrahend;
-    }
-
-    @Override
-    public VariableModification<Byte> getModifiedCopy() {
-        return new ByteSubtractModification(
-                (byte) (subtrahend + new Random().nextInt(MAX_SUBTRACT_MODIFIER)));
     }
 
     @Override

@@ -7,7 +7,6 @@
  */
 package de.rub.nds.modifiablevariable.biginteger;
 
-import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.math.BigInteger;
@@ -41,12 +40,6 @@ public class BigIntegerExplicitValueFromFileModification
 
     public int getIndex() {
         return index;
-    }
-
-    @Override
-    public VariableModification<BigInteger> getModifiedCopy() {
-        throw new UnsupportedOperationException(
-                "Cannot set modify Value of BigIntegerExplicitValueFromFileModification");
     }
 
     @Override

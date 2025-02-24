@@ -13,7 +13,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.Random;
 
 /** Modification that deletes path parts from the original value. */
 @XmlRootElement
@@ -104,33 +103,6 @@ public class PathDeleteModification extends VariableModification<String> {
 
     public void setStartPosition(int startPosition) {
         this.startPosition = startPosition;
-    }
-
-    @Override
-    public VariableModification<String> getModifiedCopy() {
-        Random r = new Random();
-
-        if (r.nextBoolean()) {
-            int modifier = r.nextInt(MAX_MODIFIER_LENGTH);
-            if (r.nextBoolean()) {
-                modifier *= -1;
-            }
-            modifier = count + modifier;
-            if (modifier <= 0) {
-                modifier = 1;
-            }
-            return new PathDeleteModification(modifier, startPosition);
-        } else {
-            int modifier = r.nextInt(MAX_MODIFIER_LENGTH);
-            if (r.nextBoolean()) {
-                modifier *= -1;
-            }
-            modifier = startPosition + modifier;
-            if (modifier <= 0) {
-                modifier = 1;
-            }
-            return new PathDeleteModification(count, modifier);
-        }
     }
 
     @Override

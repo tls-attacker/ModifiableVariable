@@ -11,7 +11,6 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"shift", "modificationFilter"})
@@ -51,24 +50,6 @@ public class LongShiftRightModification extends VariableModification<Long> {
 
     public void setShift(int shift) {
         this.shift = shift;
-    }
-
-    @Override
-    public VariableModification<Long> getModifiedCopy() {
-        Random r = new Random();
-        int newShift;
-        if (r.nextBoolean()) {
-            newShift = shift + r.nextInt(MAX_SHIFT_MODIFIER);
-        } else {
-            newShift = shift - r.nextInt(MAX_SHIFT_MODIFIER);
-        }
-        if (newShift < 0) {
-            newShift = MAX_SHIFT_MODIFIER - 1;
-        } else if (newShift > MAX_SHIFT_MODIFIER - 1) {
-            newShift = 0;
-        }
-
-        return new LongShiftRightModification(newShift);
     }
 
     @Override

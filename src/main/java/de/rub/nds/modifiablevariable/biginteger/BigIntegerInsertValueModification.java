@@ -12,7 +12,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.math.BigInteger;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"insertValue", "startPosition", "modificationFilter"})
@@ -83,26 +82,6 @@ public class BigIntegerInsertValueModification extends VariableModification<BigI
 
     public void setStartPosition(int startPosition) {
         this.startPosition = startPosition;
-    }
-
-    @Override
-    public VariableModification<BigInteger> getModifiedCopy() {
-        Random r = new Random();
-
-        if (r.nextBoolean()) {
-            return new BigIntegerInsertValueModification(
-                    insertValue.add(new BigInteger(MAX_INSERT_LENGTH, r)), startPosition);
-        } else {
-            int modifier = r.nextInt(MAX_POSITION_MODIFIER);
-            if (r.nextBoolean()) {
-                modifier *= -1;
-            }
-            modifier = startPosition + modifier;
-            if (modifier <= 0) {
-                modifier = 1;
-            }
-            return new BigIntegerInsertValueModification(insertValue, modifier);
-        }
     }
 
     @Override

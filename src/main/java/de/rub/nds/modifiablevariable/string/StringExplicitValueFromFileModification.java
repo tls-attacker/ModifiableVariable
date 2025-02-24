@@ -9,7 +9,6 @@ package de.rub.nds.modifiablevariable.string;
 
 import static de.rub.nds.modifiablevariable.util.StringUtil.backslashEscapeString;
 
-import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
@@ -40,12 +39,6 @@ public class StringExplicitValueFromFileModification extends StringExplicitValue
 
     public int getIndex() {
         return index;
-    }
-
-    @Override
-    public VariableModification<String> getModifiedCopy() {
-        throw new UnsupportedOperationException(
-                "Cannot set modify Value of StringExplicitValueFromFileModification");
     }
 
     @Override

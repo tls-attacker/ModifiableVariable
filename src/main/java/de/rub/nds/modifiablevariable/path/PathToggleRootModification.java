@@ -41,11 +41,6 @@ public class PathToggleRootModification extends VariableModification<String> {
     }
 
     @Override
-    public VariableModification<String> getModifiedCopy() {
-        return new PathToggleRootModification();
-    }
-
-    @Override
     public int hashCode() {
         return 7;
     }

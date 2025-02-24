@@ -11,7 +11,6 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"factor", "modificationFilter"})
@@ -51,11 +50,6 @@ public class LongMultiplyModification extends VariableModification<Long> {
 
     public void setFactor(Long factor) {
         this.factor = factor;
-    }
-
-    @Override
-    public VariableModification<Long> getModifiedCopy() {
-        return new LongMultiplyModification(factor + new Random().nextInt(MAX_FACTOR_MODIFIER));
     }
 
     @Override

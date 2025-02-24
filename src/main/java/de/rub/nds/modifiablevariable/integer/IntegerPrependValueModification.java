@@ -11,7 +11,6 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"prependValue", "modificationFilter"})
@@ -55,12 +54,6 @@ public class IntegerPrependValueModification extends VariableModification<Intege
 
     public void setPrependValue(Integer prependValue) {
         this.prependValue = prependValue;
-    }
-
-    @Override
-    public VariableModification<Integer> getModifiedCopy() {
-        return new IntegerPrependValueModification(
-                prependValue + new Random().nextInt(MAX_VALUE_MODIFIER));
     }
 
     @Override

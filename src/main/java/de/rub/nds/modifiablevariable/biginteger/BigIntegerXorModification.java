@@ -12,7 +12,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.math.BigInteger;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"xor", "modificationFilter"})
@@ -55,11 +54,6 @@ public class BigIntegerXorModification extends VariableModification<BigInteger> 
 
     public void setXor(BigInteger xor) {
         this.xor = xor;
-    }
-
-    @Override
-    public VariableModification<BigInteger> getModifiedCopy() {
-        return new BigIntegerXorModification(xor.add(new BigInteger(MAX_XOR_LENGTH, new Random())));
     }
 
     @Override

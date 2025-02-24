@@ -13,7 +13,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Objects;
-import java.util.Random;
 
 /** Modification that directory traversal path parts the original value. */
 @XmlRootElement
@@ -87,33 +86,6 @@ public class PathInsertDirectoryTraversalModification extends VariableModificati
 
     public void setStartPosition(int startPosition) {
         this.startPosition = startPosition;
-    }
-
-    @Override
-    public VariableModification<String> getModifiedCopy() {
-        Random r = new Random();
-
-        if (r.nextBoolean()) {
-            int modifier = r.nextInt(MAX_INSERT_MODIFIER);
-            if (r.nextBoolean()) {
-                modifier *= -1;
-            }
-            modifier = count + modifier;
-            if (modifier <= 0) {
-                modifier = 1;
-            }
-            return new PathInsertDirectoryTraversalModification(modifier, startPosition);
-        } else {
-            int modifier = r.nextInt(MAX_INSERT_MODIFIER);
-            if (r.nextBoolean()) {
-                modifier *= -1;
-            }
-            modifier = startPosition + modifier;
-            if (modifier <= 0) {
-                modifier = 1;
-            }
-            return new PathInsertDirectoryTraversalModification(count, modifier);
-        }
     }
 
     @Override

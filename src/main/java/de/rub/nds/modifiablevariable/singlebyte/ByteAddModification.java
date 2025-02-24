@@ -11,7 +11,6 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"summand", "modificationFilter"})
@@ -54,11 +53,6 @@ public class ByteAddModification extends VariableModification<Byte> {
 
     public void setSummand(Byte summand) {
         this.summand = summand;
-    }
-
-    @Override
-    public VariableModification<Byte> getModifiedCopy() {
-        return new ByteAddModification((byte) (summand + new Random().nextInt(MAX_ADD_MODIFIER)));
     }
 
     @Override

@@ -14,7 +14,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Arrays;
-import java.util.Random;
 
 /**
  * Shuffles the byte array, using a pre-defined array of array pointers (#shuffle). Array pointers
@@ -82,15 +81,6 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
 
     public void setShuffle(byte[] shuffle) {
         this.shuffle = shuffle;
-    }
-
-    @Override
-    public VariableModification<byte[]> getModifiedCopy() {
-        Random r = new Random();
-        int index = r.nextInt(shuffle.length);
-        byte[] newValue = Arrays.copyOf(shuffle, shuffle.length);
-        newValue[index] = (byte) r.nextInt(MAX_MODIFIER_VALUE);
-        return new ByteArrayShuffleModification(newValue);
     }
 
     @Override

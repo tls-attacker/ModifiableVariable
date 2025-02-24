@@ -40,12 +40,6 @@ public class BigIntegerInteractiveModification extends VariableModification<BigI
     }
 
     @Override
-    public VariableModification<BigInteger> getModifiedCopy() {
-        throw new UnsupportedOperationException(
-                "This method is not supported for interactive modifications");
-    }
-
-    @Override
     public VariableModification<BigInteger> createCopy() {
         throw new UnsupportedOperationException(
                 "This method is not supported for interactive modifications");

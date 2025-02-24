@@ -11,7 +11,6 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.math.BigInteger;
-import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"shift", "modificationFilter"})
@@ -54,11 +53,6 @@ public class BigIntegerShiftLeftModification extends VariableModification<BigInt
 
     public void setShift(int shift) {
         this.shift = shift;
-    }
-
-    @Override
-    public VariableModification<BigInteger> getModifiedCopy() {
-        return new BigIntegerShiftLeftModification(shift + new Random().nextInt(MAX_SHIFT_LENGTH));
     }
 
     @Override

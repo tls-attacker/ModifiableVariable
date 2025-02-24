@@ -7,7 +7,6 @@
  */
 package de.rub.nds.modifiablevariable.bytearray;
 
-import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
@@ -40,12 +39,6 @@ public class ByteArrayExplicitValueFromFileModification extends ByteArrayExplici
 
     public int getIndex() {
         return index;
-    }
-
-    @Override
-    public VariableModification<byte[]> getModifiedCopy() {
-        throw new UnsupportedOperationException(
-                "Cannot set modify Value of ByteArrayExplicitValueFromFileModification");
     }
 
     @Override

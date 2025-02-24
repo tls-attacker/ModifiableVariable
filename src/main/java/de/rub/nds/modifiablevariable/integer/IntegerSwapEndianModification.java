@@ -37,11 +37,6 @@ public class IntegerSwapEndianModification extends VariableModification<Integer>
     }
 
     @Override
-    public VariableModification<Integer> getModifiedCopy() {
-        return new IntegerSwapEndianModification();
-    }
-
-    @Override
     public int hashCode() {
         return 7;
     }

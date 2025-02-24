@@ -15,7 +15,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Objects;
-import java.util.Random;
 
 /** */
 @XmlRootElement
@@ -57,19 +56,6 @@ public class StringExplicitValueModification extends VariableModification<String
 
     public void setExplicitValue(String explicitValue) {
         this.explicitValue = explicitValue;
-    }
-
-    @Override
-    public VariableModification<String> getModifiedCopy() {
-        if (explicitValue.isEmpty()) {
-            return this;
-        }
-        Random r = new Random();
-        int index = r.nextInt(explicitValue.length());
-        char randomChar = (char) r.nextInt(MAX_EXPLICIT_VALUE);
-        StringBuilder modifiedString = new StringBuilder(explicitValue);
-        modifiedString.setCharAt(index, randomChar);
-        return new StringExplicitValueModification(modifiedString.toString());
     }
 
     @Override

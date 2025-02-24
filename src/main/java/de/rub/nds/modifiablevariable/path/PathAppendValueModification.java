@@ -15,7 +15,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Objects;
-import java.util.Random;
 
 /** Modification that appends a path parts to the original value. */
 @XmlRootElement
@@ -63,16 +62,6 @@ public class PathAppendValueModification extends VariableModification<String> {
 
     public void setAppendValue(String appendValue) {
         this.appendValue = appendValue;
-    }
-
-    @Override
-    public VariableModification<String> getModifiedCopy() {
-        Random r = new Random();
-        int index = r.nextInt(appendValue.length());
-        char randomChar = (char) r.nextInt(MAX_EXPLICIT_VALUE);
-        StringBuilder modifiedString = new StringBuilder(appendValue);
-        modifiedString.setCharAt(index, randomChar);
-        return new PathAppendValueModification(modifiedString.toString());
     }
 
     @Override

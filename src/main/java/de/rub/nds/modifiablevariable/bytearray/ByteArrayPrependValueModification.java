@@ -14,7 +14,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Arrays;
-import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"bytesToPrepend", "modificationFilter"})
@@ -59,16 +58,6 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
 
     public void setBytesToPrepend(byte[] bytesToPrepend) {
         this.bytesToPrepend = bytesToPrepend;
-    }
-
-    @Override
-    public VariableModification<byte[]> getModifiedCopy() {
-        Random r = new Random();
-
-        int index = r.nextInt(bytesToPrepend.length);
-        byte[] newValue = Arrays.copyOf(bytesToPrepend, bytesToPrepend.length);
-        newValue[index] = (byte) r.nextInt(MAX_EXPLICIT_VALUE);
-        return new ByteArrayPrependValueModification(newValue);
     }
 
     @Override

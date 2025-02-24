@@ -50,11 +50,6 @@ public class BooleanExplicitValueModification extends VariableModification<Boole
     }
 
     @Override
-    public VariableModification<Boolean> getModifiedCopy() {
-        return new BooleanExplicitValueModification(!explicitValue);
-    }
-
-    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + (explicitValue ? 1231 : 1237);

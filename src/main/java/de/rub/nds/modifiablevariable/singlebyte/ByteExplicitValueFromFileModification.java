@@ -7,7 +7,6 @@
  */
 package de.rub.nds.modifiablevariable.singlebyte;
 
-import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
@@ -38,12 +37,6 @@ public class ByteExplicitValueFromFileModification extends ByteExplicitValueModi
 
     public int getIndex() {
         return index;
-    }
-
-    @Override
-    public VariableModification<Byte> getModifiedCopy() {
-        throw new UnsupportedOperationException(
-                "Cannot set modify Value of ByteExplicitValueFromFileModification");
     }
 
     @Override

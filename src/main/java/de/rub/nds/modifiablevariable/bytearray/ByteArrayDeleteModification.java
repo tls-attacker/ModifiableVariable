@@ -12,7 +12,6 @@ import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.util.Arrays;
-import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"count", "startPosition", "modificationFilter"})
@@ -88,28 +87,6 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
 
     public void setCount(int count) {
         this.count = count;
-    }
-
-    @Override
-    public VariableModification<byte[]> getModifiedCopy() {
-        Random r = new Random();
-        int modifier = r.nextInt(MAX_MODIFIER_LENGTH);
-        if (r.nextBoolean()) {
-            modifier *= -1;
-        }
-        if (r.nextBoolean()) {
-            modifier = startPosition + modifier;
-            if (modifier <= 0) {
-                modifier = 0;
-            }
-            return new ByteArrayDeleteModification(modifier, count);
-        } else {
-            modifier = startPosition + count;
-            if (modifier <= 0) {
-                modifier = 1;
-            }
-            return new ByteArrayDeleteModification(startPosition, modifier);
-        }
     }
 
     @Override

@@ -12,7 +12,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.math.BigInteger;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"summand", "modificationFilter"})
@@ -52,12 +51,6 @@ public class BigIntegerAddModification extends VariableModification<BigInteger> 
 
     public void setSummand(BigInteger summand) {
         this.summand = summand;
-    }
-
-    @Override
-    public VariableModification<BigInteger> getModifiedCopy() {
-        return new BigIntegerAddModification(
-                summand.add(new BigInteger(MAX_ADD_LENGTH, new Random())));
     }
 
     @Override

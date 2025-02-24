@@ -12,7 +12,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.math.BigInteger;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"subtrahend", "modificationFilter"})
@@ -55,12 +54,6 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
 
     public void setSubtrahend(BigInteger subtrahend) {
         this.subtrahend = subtrahend;
-    }
-
-    @Override
-    public VariableModification<BigInteger> getModifiedCopy() {
-        return new BigIntegerSubtractModification(
-                subtrahend.add(new BigInteger(MAX_SUBTRACT_LENGTH, new Random())));
     }
 
     @Override

@@ -38,11 +38,6 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
     }
 
     @Override
-    public VariableModification<byte[]> getModifiedCopy() {
-        return new ByteArrayDuplicateModification();
-    }
-
-    @Override
     public int hashCode() {
         return 7;
     }

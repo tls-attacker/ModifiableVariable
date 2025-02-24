@@ -14,7 +14,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Arrays;
-import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"bytesToAppend", "modificationFilter"})
@@ -59,16 +58,6 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
 
     public void setBytesToAppend(byte[] bytesToAppend) {
         this.bytesToAppend = bytesToAppend;
-    }
-
-    @Override
-    public VariableModification<byte[]> getModifiedCopy() {
-        Random r = new Random();
-
-        int index = r.nextInt(bytesToAppend.length);
-        byte[] newValue = Arrays.copyOf(bytesToAppend, bytesToAppend.length);
-        newValue[index] = (byte) r.nextInt(MAX_EXPLICIT_VALUE);
-        return new ByteArrayAppendValueModification(newValue);
     }
 
     @Override

@@ -12,7 +12,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.math.BigInteger;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"explicitValue", "modificationFilter"})
@@ -52,18 +51,6 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
 
     public void setExplicitValue(BigInteger explicitValue) {
         this.explicitValue = explicitValue;
-    }
-
-    @Override
-    public VariableModification<BigInteger> getModifiedCopy() {
-        Random r = new Random();
-        if (r.nextBoolean()) {
-            return new BigIntegerExplicitValueModification(
-                    explicitValue.add(new BigInteger(MAX_EXPLICIT_LENGTH, r)));
-        } else {
-            return new BigIntegerExplicitValueModification(
-                    explicitValue.subtract(new BigInteger(MAX_EXPLICIT_LENGTH, r)));
-        }
     }
 
     @Override

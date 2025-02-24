@@ -11,7 +11,6 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"xor", "modificationFilter"})
@@ -51,16 +50,6 @@ public class IntegerXorModification extends VariableModification<Integer> {
 
     public void setXor(Integer xor) {
         this.xor = xor;
-    }
-
-    @Override
-    public VariableModification<Integer> getModifiedCopy() {
-        Random r = new Random();
-        if (r.nextBoolean()) {
-            return new IntegerXorModification(xor + new Random().nextInt(MAX_VALUE_MODIFIER));
-        } else {
-            return new IntegerXorModification(xor - new Random().nextInt(MAX_VALUE_MODIFIER));
-        }
     }
 
     @Override

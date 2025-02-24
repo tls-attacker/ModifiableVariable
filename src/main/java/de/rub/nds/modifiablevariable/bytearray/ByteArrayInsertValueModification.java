@@ -14,7 +14,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Arrays;
-import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"bytesToInsert", "startPosition", "modificationFilter"})
@@ -84,29 +83,6 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
 
     public void setStartPosition(int startPosition) {
         this.startPosition = startPosition;
-    }
-
-    @Override
-    public VariableModification<byte[]> getModifiedCopy() {
-        Random r = new Random();
-
-        if (r.nextBoolean()) {
-            int index = r.nextInt(bytesToInsert.length);
-            byte[] newValue = Arrays.copyOf(bytesToInsert, bytesToInsert.length);
-            newValue[index] = (byte) r.nextInt(MAX_EXPLICIT_VALUE);
-            return new ByteArrayInsertValueModification(newValue, startPosition);
-        } else {
-            byte[] newValue = Arrays.copyOf(bytesToInsert, bytesToInsert.length);
-            int modifier = r.nextInt(MAX_POSITION_MODIFIER);
-            if (r.nextBoolean()) {
-                modifier *= -1;
-            }
-            modifier = startPosition + modifier;
-            if (modifier <= 0) {
-                modifier = 1;
-            }
-            return new ByteArrayInsertValueModification(newValue, modifier);
-        }
     }
 
     @Override

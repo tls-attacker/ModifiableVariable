@@ -11,7 +11,6 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"explicitValue", "modificationFilter"})
@@ -51,18 +50,6 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
 
     public void setExplicitValue(Byte explicitValue) {
         this.explicitValue = explicitValue;
-    }
-
-    @Override
-    public VariableModification<Byte> getModifiedCopy() {
-        Random r = new Random();
-        if (r.nextBoolean()) {
-            return new ByteExplicitValueModification(
-                    (byte) (explicitValue + r.nextInt(MAX_EXPLICIT_MODIFIER)));
-        } else {
-            return new ByteExplicitValueModification(
-                    (byte) (explicitValue - r.nextInt(MAX_EXPLICIT_MODIFIER)));
-        }
     }
 
     @Override

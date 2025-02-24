@@ -37,11 +37,6 @@ public class LongSwapEndianModification extends VariableModification<Long> {
     }
 
     @Override
-    public VariableModification<Long> getModifiedCopy() {
-        return new LongSwapEndianModification();
-    }
-
-    @Override
     public int hashCode() {
         return 7;
     }

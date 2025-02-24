@@ -11,7 +11,6 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"insertValue", "startPosition", "modificationFilter"})
@@ -80,26 +79,6 @@ public class IntegerInsertValueModification extends VariableModification<Integer
 
     public void setStartPosition(int startPosition) {
         this.startPosition = startPosition;
-    }
-
-    @Override
-    public VariableModification<Integer> getModifiedCopy() {
-        Random r = new Random();
-
-        if (r.nextBoolean()) {
-            return new IntegerInsertValueModification(
-                    insertValue + r.nextInt(MAX_VALUE_MODIFIER), startPosition);
-        } else {
-            int modifier = r.nextInt(MAX_POSITION_MODIFIER);
-            if (r.nextBoolean()) {
-                modifier *= -1;
-            }
-            modifier = startPosition + modifier;
-            if (modifier <= 0) {
-                modifier = 1;
-            }
-            return new IntegerInsertValueModification(insertValue, modifier);
-        }
     }
 
     @Override

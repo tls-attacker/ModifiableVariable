@@ -15,7 +15,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Objects;
-import java.util.Random;
 
 /** Modification that prepends a string to the original value. */
 @XmlRootElement
@@ -57,16 +56,6 @@ public class StringPrependValueModification extends VariableModification<String>
 
     public void setPrependValue(String prependValue) {
         this.prependValue = prependValue;
-    }
-
-    @Override
-    public VariableModification<String> getModifiedCopy() {
-        Random r = new Random();
-        int index = r.nextInt(prependValue.length());
-        char randomChar = (char) r.nextInt(MAX_EXPLICIT_VALUE);
-        StringBuilder modifiedString = new StringBuilder(prependValue);
-        modifiedString.setCharAt(index, randomChar);
-        return new StringPrependValueModification(modifiedString.toString());
     }
 
     @Override

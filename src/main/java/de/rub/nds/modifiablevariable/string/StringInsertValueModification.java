@@ -15,7 +15,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Objects;
-import java.util.Random;
 
 /** Modification that inserts a string to the original value. */
 @XmlRootElement
@@ -80,29 +79,6 @@ public class StringInsertValueModification extends VariableModification<String> 
 
     public void setStartPosition(int startPosition) {
         this.startPosition = startPosition;
-    }
-
-    @Override
-    public VariableModification<String> getModifiedCopy() {
-        Random r = new Random();
-
-        if (r.nextBoolean()) {
-            int index = r.nextInt(insertValue.length());
-            char randomChar = (char) r.nextInt(MAX_EXPLICIT_VALUE);
-            StringBuilder modifiedString = new StringBuilder(insertValue);
-            modifiedString.setCharAt(index, randomChar);
-            return new StringInsertValueModification(modifiedString.toString(), startPosition);
-        } else {
-            int modifier = r.nextInt(MAX_INSERT_MODIFIER);
-            if (r.nextBoolean()) {
-                modifier *= -1;
-            }
-            modifier = startPosition + modifier;
-            if (modifier <= 0) {
-                modifier = 1;
-            }
-            return new StringInsertValueModification(insertValue, modifier);
-        }
     }
 
     @Override

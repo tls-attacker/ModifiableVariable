@@ -10,7 +10,6 @@ package de.rub.nds.modifiablevariable.singlebyte;
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
 public class ByteXorModification extends VariableModification<Byte> {
@@ -52,16 +51,6 @@ public class ByteXorModification extends VariableModification<Byte> {
 
     public void setXor(Byte xor) {
         this.xor = xor;
-    }
-
-    @Override
-    public VariableModification<Byte> getModifiedCopy() {
-        Random r = new Random();
-        if (r.nextBoolean()) {
-            return new ByteXorModification((byte) (xor + r.nextInt(MAX_XOR_MODIFIER)));
-        } else {
-            return new ByteXorModification((byte) (xor - r.nextInt(MAX_XOR_MODIFIER)));
-        }
     }
 
     @Override

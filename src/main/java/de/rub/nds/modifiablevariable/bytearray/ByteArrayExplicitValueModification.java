@@ -14,7 +14,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Arrays;
-import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"explicitValue", "modificationFilter"})
@@ -63,18 +62,6 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
                 + "explicitValue="
                 + ArrayConverter.bytesToHexString(explicitValue)
                 + '}';
-    }
-
-    @Override
-    public VariableModification<byte[]> getModifiedCopy() {
-        Random r = new Random();
-        if (explicitValue.length == 0) {
-            return this;
-        }
-        int index = r.nextInt(explicitValue.length);
-        byte[] newValue = Arrays.copyOf(explicitValue, explicitValue.length);
-        newValue[index] = (byte) r.nextInt(MAX_EXPLICIT_VALUE);
-        return new ByteArrayExplicitValueModification(newValue);
     }
 
     @Override

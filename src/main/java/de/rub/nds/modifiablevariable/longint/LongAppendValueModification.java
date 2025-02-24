@@ -11,7 +11,6 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
 @XmlType(propOrder = {"appendValue", "modificationFilter"})
@@ -54,12 +53,6 @@ public class LongAppendValueModification extends VariableModification<Long> {
 
     public void setAppendValue(Long appendValue) {
         this.appendValue = appendValue;
-    }
-
-    @Override
-    public VariableModification<Long> getModifiedCopy() {
-        return new LongAppendValueModification(
-                appendValue + new Random().nextInt(MAX_VALUE_MODIFIER));
     }
 
     @Override

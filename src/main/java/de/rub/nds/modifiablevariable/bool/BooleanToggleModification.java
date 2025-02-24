@@ -37,11 +37,6 @@ public class BooleanToggleModification extends VariableModification<Boolean> {
     }
 
     @Override
-    public VariableModification<Boolean> getModifiedCopy() {
-        return new BooleanToggleModification();
-    }
-
-    @Override
     public int hashCode() {
         return 7;
     }

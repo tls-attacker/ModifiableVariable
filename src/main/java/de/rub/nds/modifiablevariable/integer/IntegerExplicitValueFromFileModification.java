@@ -7,7 +7,6 @@
  */
 package de.rub.nds.modifiablevariable.integer;
 
-import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
@@ -39,12 +38,6 @@ public class IntegerExplicitValueFromFileModification extends IntegerExplicitVal
 
     public int getIndex() {
         return index;
-    }
-
-    @Override
-    public VariableModification<Integer> getModifiedCopy() {
-        throw new UnsupportedOperationException(
-                "Cannot set modify Value of IntegerExplicitValueFromFileModification");
     }
 
     @Override
