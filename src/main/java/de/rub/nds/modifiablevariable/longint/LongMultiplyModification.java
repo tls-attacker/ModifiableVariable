@@ -61,7 +61,7 @@ public class LongMultiplyModification extends VariableModification<Long> {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + Objects.hashCode(factor);;
+        hash = 31 * hash + Objects.hashCode(factor);
         return hash;
     }
 

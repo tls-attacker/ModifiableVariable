@@ -78,7 +78,7 @@ public class PathPrependValueModification extends VariableModification<String> {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + Objects.hashCode(prependValue);;
+        hash = 31 * hash + Objects.hashCode(prependValue);
         return hash;
     }
 

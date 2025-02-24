@@ -74,7 +74,7 @@ public class PathExplicitValueModification extends VariableModification<String> 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + Objects.hashCode(explicitValue);;
+        hash = 31 * hash + Objects.hashCode(explicitValue);
         return hash;
     }
 

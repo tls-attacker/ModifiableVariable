@@ -108,7 +108,7 @@ public class BigIntegerInsertValueModification extends VariableModification<BigI
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + Objects.hashCode(insertValue);;
+        hash = 31 * hash + Objects.hashCode(insertValue);
         hash = 31 * hash + startPosition;
         return hash;
     }

@@ -62,7 +62,7 @@ public class LongSubtractModification extends VariableModification<Long> {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + Objects.hashCode(subtrahend);;
+        hash = 31 * hash + Objects.hashCode(subtrahend);
         return hash;
     }
 

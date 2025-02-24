@@ -53,7 +53,7 @@ public class BigIntegerExplicitValueFromFileModification
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + index;
-        hash = 31 * hash + Objects.hashCode(explicitValue);;
+        hash = 31 * hash + Objects.hashCode(explicitValue);
         return hash;
     }
 
