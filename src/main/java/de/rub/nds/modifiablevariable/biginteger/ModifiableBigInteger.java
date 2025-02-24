@@ -37,13 +37,6 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
         return new ModifiableBigInteger(this);
     }
 
-    @Override
-    public void setRandomModification() {
-        VariableModification<BigInteger> vm =
-                BigIntegerModificationFactory.createRandomModification();
-        setModification(vm);
-    }
-
     public BigInteger getAssertEquals() {
         return assertEquals;
     }

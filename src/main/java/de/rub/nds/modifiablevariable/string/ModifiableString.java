@@ -44,12 +44,6 @@ public class ModifiableString extends ModifiableVariable<String> {
         return new ModifiableString(this);
     }
 
-    @Override
-    public void setRandomModification() {
-        VariableModification<String> vm = StringModificationFactory.createRandomModification(null);
-        setModification(vm);
-    }
-
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     public String getAssertEquals() {
         return assertEquals;

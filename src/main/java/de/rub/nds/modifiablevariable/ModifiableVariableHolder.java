@@ -81,7 +81,7 @@ public abstract class ModifiableVariableHolder implements Serializable {
                 LOGGER.debug(ex);
             }
             if (mv != null) {
-                if (mv.getModification() != null || mv.isCreateRandomModification()) {
+                if (mv.getModification() != null) {
                     mv.setOriginalValue(null);
                 } else {
                     try {

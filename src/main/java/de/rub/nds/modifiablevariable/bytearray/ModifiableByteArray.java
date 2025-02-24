@@ -44,13 +44,6 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
     }
 
     @Override
-    public void setRandomModification() {
-        VariableModification<byte[]> vm =
-                ByteArrayModificationFactory.createRandomModification(originalValue);
-        setModification(vm);
-    }
-
-    @Override
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     public byte[] getOriginalValue() {
         return originalValue;

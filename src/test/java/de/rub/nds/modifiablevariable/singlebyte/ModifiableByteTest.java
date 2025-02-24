@@ -27,11 +27,6 @@ public class ModifiableByteTest {
         byte2.setOriginalValue((byte) 3);
     }
 
-    /** Test of createRandomModification method, of class ModifiableByte. */
-    @Disabled("Not yet implemented")
-    @Test
-    public void testSetRandomModification() {}
-
     /** Test of getAssertEquals method, of class ModifiableByte. */
     @Disabled("Not yet implemented")
     @Test

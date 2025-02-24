@@ -189,8 +189,6 @@ public abstract class ModifiableVariable<E> implements Serializable {
     })
     private LinkedList<VariableModification<E>> modifications;
 
-    private Boolean createRandomModification;
-
     protected E assertEquals;
 
     protected ModifiableVariable() {
@@ -205,7 +203,6 @@ public abstract class ModifiableVariable<E> implements Serializable {
                 modifications.add(item != null ? item.createCopy() : null);
             }
         }
-        createRandomModification = other.createRandomModification;
         // Warning: Make sure to copy assertEquals in subclass correctly
         assertEquals = other.assertEquals;
     }
@@ -249,11 +246,6 @@ public abstract class ModifiableVariable<E> implements Serializable {
     }
 
     public E getValue() {
-        if (Objects.equals(createRandomModification, Boolean.TRUE)) {
-            setRandomModification();
-            createRandomModification = false;
-        }
-
         return getModifiedValue();
     }
 
@@ -286,14 +278,7 @@ public abstract class ModifiableVariable<E> implements Serializable {
 
     public abstract void setOriginalValue(E originalValue);
 
-    /** Set a single random modification, all previously set modifications are removed */
-    public abstract void setRandomModification();
-
     public abstract ModifiableVariable<E> createCopy();
-
-    public void createRandomModificationAtRuntime() {
-        createRandomModification = true;
-    }
 
     public abstract boolean isOriginalValueModified();
 
@@ -301,10 +286,6 @@ public abstract class ModifiableVariable<E> implements Serializable {
 
     public boolean containsAssertion() {
         return assertEquals != null;
-    }
-
-    public Boolean isCreateRandomModification() {
-        return Objects.requireNonNullElse(createRandomModification, false);
     }
 
     public String innerToString() {
@@ -318,9 +299,6 @@ public abstract class ModifiableVariable<E> implements Serializable {
                     .append("]");
         }
 
-        if (createRandomModification != null) {
-            result.append(", createRandomModification=").append(createRandomModification);
-        }
         if (assertEquals != null) {
             result.append(", assertEquals=").append(assertEquals);
         }

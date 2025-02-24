@@ -36,12 +36,6 @@ public class ModifiableLong extends ModifiableVariable<Long> {
         return new ModifiableLong(this);
     }
 
-    @Override
-    public void setRandomModification() {
-        VariableModification<Long> vm = LongModificationFactory.createRandomModification();
-        setModification(vm);
-    }
-
     public Long getAssertEquals() {
         return assertEquals;
     }

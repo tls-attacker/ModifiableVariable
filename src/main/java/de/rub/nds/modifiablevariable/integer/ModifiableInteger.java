@@ -36,12 +36,6 @@ public class ModifiableInteger extends ModifiableVariable<Integer> {
         return new ModifiableInteger(this);
     }
 
-    @Override
-    public void setRandomModification() {
-        VariableModification<Integer> vm = IntegerModificationFactory.createRandomModification();
-        setModification(vm);
-    }
-
     public Integer getAssertEquals() {
         return assertEquals;
     }

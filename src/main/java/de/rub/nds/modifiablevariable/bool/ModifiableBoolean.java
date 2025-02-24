@@ -46,12 +46,6 @@ public class ModifiableBoolean extends ModifiableVariable<Boolean> {
     }
 
     @Override
-    public void setRandomModification() {
-        VariableModification<Boolean> vm = BooleanModificationFactory.createRandomModification();
-        setModification(vm);
-    }
-
-    @Override
     public boolean isOriginalValueModified() {
         return originalValue != null && originalValue.compareTo(getValue()) != 0;
     }

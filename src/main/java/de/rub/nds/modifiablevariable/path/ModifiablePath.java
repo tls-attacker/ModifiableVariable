@@ -37,12 +37,6 @@ public class ModifiablePath extends ModifiableString {
     }
 
     @Override
-    public void setRandomModification() {
-        VariableModification<String> vm = PathModificationFactory.createRandomModification(null);
-        setModification(vm);
-    }
-
-    @Override
     public String toString() {
         return "ModifiablePath{"
                 + "originalValue='"

@@ -26,14 +26,6 @@ public class ModifiableIntegerTest {
         integer2.setOriginalValue(2);
     }
 
-    /** Test of createRandomModification method, of class ModifiableInteger. */
-    @Test
-    public void testSetRandomModification() {
-        assertNull(integer1.getModification());
-        integer1.setRandomModification();
-        assertNotNull(integer1.getModification());
-    }
-
     /** Test of getAssertEquals method, of class ModifiableInteger. */
     @Test
     public void testGetAssertEquals() {
@@ -47,14 +39,6 @@ public class ModifiableIntegerTest {
         assertNotEquals(3, integer1.getAssertEquals());
         integer1.setAssertEquals(3);
         assertEquals(3, integer1.getAssertEquals());
-    }
-
-    /** Test of isOriginalValueModified method, of class ModifiableInteger. */
-    @Test
-    public void testIsOriginalValueModified() {
-        assertFalse(integer1.isOriginalValueModified());
-        integer1.setRandomModification();
-        assertTrue(integer1.isOriginalValueModified());
     }
 
     /** Test of getByteArray method, of class ModifiableInteger. */

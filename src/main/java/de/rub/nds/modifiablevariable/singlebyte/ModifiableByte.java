@@ -35,12 +35,6 @@ public class ModifiableByte extends ModifiableVariable<Byte> {
         return new ModifiableByte(this);
     }
 
-    @Override
-    public void setRandomModification() {
-        VariableModification<Byte> vm = ByteModificationFactory.createRandomModification();
-        setModification(vm);
-    }
-
     public Byte getAssertEquals() {
         return assertEquals;
     }
