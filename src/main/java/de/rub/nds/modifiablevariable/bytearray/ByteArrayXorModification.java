@@ -19,10 +19,6 @@ import java.util.Arrays;
 @XmlType(propOrder = {"xor", "startPosition", "modificationFilter"})
 public class ByteArrayXorModification extends VariableModification<byte[]> {
 
-    private static final int MAX_MODIFIER_VALUE = 256;
-
-    private static final int MAX_XOR_MODIFIER = 32;
-
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] xor;
 

@@ -14,8 +14,6 @@ public final class StringUtil {
         super();
     }
 
-    static final int HI_SURROGATE_START = 0xD800;
-
     /**
      * Replace any non-printable (or non-ascii) characters other than space with their
      * backslash-escaped equivalents.

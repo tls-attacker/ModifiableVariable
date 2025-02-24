@@ -16,8 +16,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"explicitValue", "modificationFilter"})
 public class ByteExplicitValueModification extends VariableModification<Byte> {
 
-    private static final int MAX_EXPLICIT_MODIFIER = 16;
-
     protected Byte explicitValue;
 
     public ByteExplicitValueModification() {

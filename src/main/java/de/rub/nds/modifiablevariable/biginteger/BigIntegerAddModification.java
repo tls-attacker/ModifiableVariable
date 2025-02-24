@@ -17,8 +17,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"summand", "modificationFilter"})
 public class BigIntegerAddModification extends VariableModification<BigInteger> {
 
-    private static final int MAX_ADD_LENGTH = 8;
-
     private BigInteger summand;
 
     public BigIntegerAddModification() {

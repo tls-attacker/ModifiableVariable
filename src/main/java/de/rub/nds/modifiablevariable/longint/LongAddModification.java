@@ -16,8 +16,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"summand", "modificationFilter"})
 public class LongAddModification extends VariableModification<Long> {
 
-    private static final int MAX_ADD_MODIFIER = 32;
-
     private Long summand;
 
     public LongAddModification() {

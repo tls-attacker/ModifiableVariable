@@ -16,8 +16,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"subtrahend", "modificationFilter"})
 public class ByteSubtractModification extends VariableModification<Byte> {
 
-    private static final int MAX_SUBTRACT_MODIFIER = 16;
-
     private Byte subtrahend;
 
     public ByteSubtractModification() {

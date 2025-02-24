@@ -17,8 +17,6 @@ import java.util.Arrays;
 @XmlType(propOrder = {"count", "startPosition", "modificationFilter"})
 public class ByteArrayDeleteModification extends VariableModification<byte[]> {
 
-    private static final int MAX_MODIFIER_LENGTH = 32;
-
     private int count;
 
     private int startPosition;

@@ -17,9 +17,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"insertValue", "startPosition", "modificationFilter"})
 public class BigIntegerInsertValueModification extends VariableModification<BigInteger> {
 
-    private static final int MAX_INSERT_LENGTH = 8;
-    private static final int MAX_POSITION_MODIFIER = 32;
-
     private BigInteger insertValue;
     private int startPosition;
 

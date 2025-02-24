@@ -16,8 +16,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"prependValue", "modificationFilter"})
 public class LongPrependValueModification extends VariableModification<Long> {
 
-    private static final int MAX_VALUE_MODIFIER = 256;
-
     private Long prependValue;
 
     public LongPrependValueModification() {

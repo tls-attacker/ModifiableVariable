@@ -17,8 +17,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"appendValue", "modificationFilter"})
 public class BigIntegerAppendValueModification extends VariableModification<BigInteger> {
 
-    private static final int MAX_APPEND_LENGTH = 8;
-
     private BigInteger appendValue;
 
     public BigIntegerAppendValueModification() {

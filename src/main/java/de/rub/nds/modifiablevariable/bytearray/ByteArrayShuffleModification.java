@@ -23,8 +23,6 @@ import java.util.Arrays;
 @XmlType(propOrder = {"shuffle", "modificationFilter"})
 public class ByteArrayShuffleModification extends VariableModification<byte[]> {
 
-    private static final int MAX_MODIFIER_VALUE = 256;
-
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] shuffle;
 

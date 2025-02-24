@@ -17,8 +17,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"prependValue", "modificationFilter"})
 public class BigIntegerPrependValueModification extends VariableModification<BigInteger> {
 
-    private static final int MAX_PREPEND_LENGTH = 8;
-
     private BigInteger prependValue;
 
     public BigIntegerPrependValueModification() {

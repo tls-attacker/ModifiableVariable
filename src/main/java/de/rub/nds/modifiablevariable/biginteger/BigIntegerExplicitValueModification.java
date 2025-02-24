@@ -17,8 +17,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"explicitValue", "modificationFilter"})
 public class BigIntegerExplicitValueModification extends VariableModification<BigInteger> {
 
-    private static final int MAX_EXPLICIT_LENGTH = 8;
-
     protected BigInteger explicitValue;
 
     public BigIntegerExplicitValueModification() {

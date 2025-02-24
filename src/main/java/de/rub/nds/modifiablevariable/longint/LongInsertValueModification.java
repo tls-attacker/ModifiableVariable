@@ -16,9 +16,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"insertValue", "startPosition", "modificationFilter"})
 public class LongInsertValueModification extends VariableModification<Long> {
 
-    private static final int MAX_VALUE_MODIFIER = 256;
-    private static final int MAX_POSITION_MODIFIER = 32;
-
     private Long insertValue;
     private int startPosition;
 

@@ -16,8 +16,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"xor", "modificationFilter"})
 public class LongXorModification extends VariableModification<Long> {
 
-    private static final int MAX_XOR_MODIFIER = 256;
-
     private Long xor;
 
     public LongXorModification() {

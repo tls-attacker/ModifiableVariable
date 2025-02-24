@@ -19,8 +19,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"insertValue", "count", "startPosition", "modificationFilter"})
 public class PathInsertDirectorySeparatorModification extends VariableModification<String> {
 
-    private static final int MAX_INSERT_MODIFIER = 32;
-
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     private String insertValue;
 

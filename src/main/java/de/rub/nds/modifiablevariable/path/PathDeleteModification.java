@@ -19,8 +19,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"count", "startPosition", "modificationFilter"})
 public class PathDeleteModification extends VariableModification<String> {
 
-    private static final int MAX_MODIFIER_LENGTH = 32;
-
     private int count;
 
     private int startPosition;

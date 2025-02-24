@@ -21,6 +21,7 @@ import java.util.Random;
 
 public final class LongModificationFactory {
 
+    @SuppressWarnings("unused")
     private enum ModificationType {
         ADD,
         SUBTRACT,

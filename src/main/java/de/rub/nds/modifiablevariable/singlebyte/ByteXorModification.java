@@ -14,8 +14,6 @@ import java.util.Objects;
 @XmlRootElement
 public class ByteXorModification extends VariableModification<Byte> {
 
-    private static final int MAX_XOR_MODIFIER = 16;
-
     private Byte xor;
 
     public ByteXorModification() {

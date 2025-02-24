@@ -16,8 +16,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"factor", "modificationFilter"})
 public class IntegerMultiplyModification extends VariableModification<Integer> {
 
-    private static final int MAX_FACTOR_MODIFIER = 256;
-
     private Integer factor;
 
     public IntegerMultiplyModification() {

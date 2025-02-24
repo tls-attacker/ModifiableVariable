@@ -16,8 +16,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"subtrahend", "modificationFilter"})
 public class IntegerSubtractModification extends VariableModification<Integer> {
 
-    private static final int MAX_SUBTRACT_MODIFIER = 256;
-
     private Integer subtrahend;
 
     public IntegerSubtractModification() {

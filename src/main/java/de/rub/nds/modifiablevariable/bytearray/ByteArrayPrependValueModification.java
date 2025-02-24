@@ -19,8 +19,6 @@ import java.util.Arrays;
 @XmlType(propOrder = {"bytesToPrepend", "modificationFilter"})
 public class ByteArrayPrependValueModification extends VariableModification<byte[]> {
 
-    private static final int MAX_EXPLICIT_VALUE = 256;
-
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] bytesToPrepend;
 

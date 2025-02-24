@@ -21,8 +21,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"prependValue", "modificationFilter"})
 public class PathPrependValueModification extends VariableModification<String> {
 
-    private static final int MAX_EXPLICIT_VALUE = 256;
-
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     private String prependValue;
 

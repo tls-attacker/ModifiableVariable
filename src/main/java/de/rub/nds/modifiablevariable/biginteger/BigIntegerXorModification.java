@@ -17,8 +17,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"xor", "modificationFilter"})
 public class BigIntegerXorModification extends VariableModification<BigInteger> {
 
-    private static final int MAX_XOR_LENGTH = 8;
-
     private BigInteger xor;
 
     public BigIntegerXorModification() {

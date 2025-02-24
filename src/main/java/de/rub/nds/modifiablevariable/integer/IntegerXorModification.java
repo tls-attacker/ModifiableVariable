@@ -16,8 +16,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"xor", "modificationFilter"})
 public class IntegerXorModification extends VariableModification<Integer> {
 
-    private static final int MAX_VALUE_MODIFIER = 256;
-
     private Integer xor;
 
     public IntegerXorModification() {

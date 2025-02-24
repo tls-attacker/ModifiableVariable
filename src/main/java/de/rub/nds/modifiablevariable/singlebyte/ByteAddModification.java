@@ -16,8 +16,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"summand", "modificationFilter"})
 public class ByteAddModification extends VariableModification<Byte> {
 
-    private static final int MAX_ADD_MODIFIER = 16;
-
     private Byte summand;
 
     public ByteAddModification() {

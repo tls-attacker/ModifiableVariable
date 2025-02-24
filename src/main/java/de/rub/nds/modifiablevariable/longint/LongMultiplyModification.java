@@ -16,8 +16,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"factor", "modificationFilter"})
 public class LongMultiplyModification extends VariableModification<Long> {
 
-    private static final int MAX_FACTOR_MODIFIER = 256;
-
     private Long factor;
 
     public LongMultiplyModification() {

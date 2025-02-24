@@ -16,8 +16,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"appendValue", "modificationFilter"})
 public class LongAppendValueModification extends VariableModification<Long> {
 
-    private static final int MAX_VALUE_MODIFIER = 256;
-
     private Long appendValue;
 
     public LongAppendValueModification() {

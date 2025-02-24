@@ -21,8 +21,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"appendValue", "modificationFilter"})
 public class StringAppendValueModification extends VariableModification<String> {
 
-    private static final int MAX_EXPLICIT_VALUE = 256;
-
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     private String appendValue;
 

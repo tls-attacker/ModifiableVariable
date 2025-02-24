@@ -17,8 +17,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"factor", "modificationFilter"})
 public class BigIntegerMultiplyModification extends VariableModification<BigInteger> {
 
-    private static final int MAX_FACTOR_LENGTH = 8;
-
     private BigInteger factor;
 
     public BigIntegerMultiplyModification() {

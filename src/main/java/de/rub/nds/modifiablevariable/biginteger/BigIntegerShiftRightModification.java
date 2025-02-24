@@ -16,8 +16,6 @@ import java.math.BigInteger;
 @XmlType(propOrder = {"shift", "modificationFilter"})
 public class BigIntegerShiftRightModification extends VariableModification<BigInteger> {
 
-    private static final int MAX_SHIFT_LENGTH = 32;
-
     private int shift;
 
     public BigIntegerShiftRightModification() {

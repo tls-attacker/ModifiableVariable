@@ -16,8 +16,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"explicitValue", "modificationFilter"})
 public class LongExplicitValueModification extends VariableModification<Long> {
 
-    private static final int MAX_EXPLICIT_MODIFIER = 256;
-
     protected Long explicitValue;
 
     public LongExplicitValueModification() {

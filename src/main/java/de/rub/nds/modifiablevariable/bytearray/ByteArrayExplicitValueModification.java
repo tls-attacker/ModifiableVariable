@@ -19,8 +19,6 @@ import java.util.Arrays;
 @XmlType(propOrder = {"explicitValue", "modificationFilter"})
 public class ByteArrayExplicitValueModification extends VariableModification<byte[]> {
 
-    private static final int MAX_EXPLICIT_VALUE = 256;
-
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     protected byte[] explicitValue;
 

@@ -20,8 +20,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"explicitValue", "modificationFilter"})
 public class PathExplicitValueModification extends VariableModification<String> {
 
-    private static final int MAX_EXPLICIT_VALUE = 256;
-
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     protected String explicitValue;
 

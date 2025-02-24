@@ -16,8 +16,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"subtrahend", "modificationFilter"})
 public class LongSubtractModification extends VariableModification<Long> {
 
-    private static final int MAX_SUBTRACT_MODIFIER = 256;
-
     private Long subtrahend;
 
     public LongSubtractModification() {
