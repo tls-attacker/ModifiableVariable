@@ -275,21 +275,6 @@ public abstract class ModifiableVariable<E> implements Serializable {
         return resultValue;
     }
 
-    /**
-     * Sets the original value to the value changed by the modification. The modification is then
-     * set to null, to reduce the modifiable variable to the original value.
-     *
-     * <p>createRandomModification is ignored
-     */
-    public void reduceToOriginalValue(boolean evenWithNullOriginalValue) {
-        if (evenWithNullOriginalValue || getOriginalValue() != null) {
-            if (modifications != null) {
-                setOriginalValue(getModifiedValue());
-                modifications = null;
-            }
-        }
-    }
-
     public abstract E getOriginalValue();
 
     public abstract void setOriginalValue(E originalValue);
