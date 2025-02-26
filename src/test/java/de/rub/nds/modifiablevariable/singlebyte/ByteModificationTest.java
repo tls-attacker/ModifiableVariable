@@ -71,20 +71,4 @@ public class ByteModificationTest {
         assertEquals(expectedResult, result);
         assertEquals(Byte.valueOf("10"), start.getOriginalValue());
     }
-
-    /** Test of explicitValue from file method */
-    @Test
-    public void testExplicitValueFromFile() {
-        VariableModification<Byte> modifier = ByteModificationFactory.explicitValueFromFile(0);
-        start.setModification(modifier);
-        expectedResult = -128;
-        result = start.getValue();
-        assertEquals(expectedResult, result);
-
-        modifier = ByteModificationFactory.explicitValueFromFile(1);
-        start.setModification(modifier);
-        expectedResult = -1;
-        result = start.getValue();
-        assertEquals(expectedResult, result);
-    }
 }

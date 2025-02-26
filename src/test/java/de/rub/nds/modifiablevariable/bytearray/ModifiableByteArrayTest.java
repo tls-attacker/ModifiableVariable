@@ -318,29 +318,6 @@ public class ModifiableByteArrayTest {
         assertArrayEquals(expResult, start.getValue());
     }
 
-    /** Test of explicitValue from file method */
-    @Test
-    public void testExplicitValueFromFile() {
-        VariableModification<byte[]> modifier =
-                ByteArrayModificationFactory.explicitValueFromFile(0);
-        start.setModification(modifier);
-        byte[] expectedResult = new byte[0];
-        byte[] result = start.getValue();
-        assertArrayEquals(expectedResult, result);
-
-        modifier = ByteArrayModificationFactory.explicitValueFromFile(1);
-        start.setModification(modifier);
-        expectedResult = new byte[] {0x00};
-        result = start.getValue();
-        assertArrayEquals(expectedResult, result);
-
-        modifier = ByteArrayModificationFactory.explicitValueFromFile(17);
-        start.setModification(modifier);
-        expectedResult = new byte[] {(byte) 0xFF};
-        result = start.getValue();
-        assertArrayEquals(expectedResult, result);
-    }
-
     /** Test Shuffle */
     @Test
     public void testShuffle() {
