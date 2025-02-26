@@ -55,14 +55,13 @@ public abstract class VariableModification<E> {
                     index = i + 1;
                 }
             }
-            String valueString;
             if (value == null) {
                 LOGGER.debug(
                         "Using {} in function:\n  {}\n  New value is unset",
                         getClass().getSimpleName(),
                         stack[index]);
             } else {
-                valueString =
+                String valueString =
                         switch (value) {
                             case byte[] bytes -> ArrayConverter.bytesToHexString(bytes);
                             case String s -> backslashEscapeString(s);
