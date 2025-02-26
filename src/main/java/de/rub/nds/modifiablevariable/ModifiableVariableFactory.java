@@ -59,65 +59,11 @@ public final class ModifiableVariableFactory {
         return mv;
     }
 
-    /**
-     * Returns only a ModifiableBigInteger with the value, if the given mv is null or the original
-     * value of the mv is null
-     */
-    public static ModifiableBigInteger softlySetValue(ModifiableBigInteger mv, BigInteger value) {
-        if (mv == null) {
-            return new ModifiableBigInteger(value);
-        } else if (mv.getOriginalValue() == null) {
-            mv.setOriginalValue(value);
-        }
-        return mv;
-    }
-
-    /**
-     * Returns only a ModifiableBigInteger with the value, if the given mv is null or the original
-     * value of the mv is null or alwaysSet is true
-     */
-    public static ModifiableBigInteger softlySetValue(
-            ModifiableBigInteger mv, BigInteger value, boolean alwaysSet) {
-        if (mv == null) {
-            return new ModifiableBigInteger(value);
-        } else if (alwaysSet || mv.getOriginalValue() == null) {
-            mv.setOriginalValue(value);
-        }
-        return mv;
-    }
-
     public static ModifiableString safelySetValue(ModifiableString mv, String value) {
         if (mv == null) {
             return new ModifiableString(value);
         }
         mv.setOriginalValue(value);
-        return mv;
-    }
-
-    /**
-     * Returns only a ModifiableString with the value, if the given mv is null or the original value
-     * of the mv is null
-     */
-    public static ModifiableString softlySetValue(ModifiableString mv, String value) {
-        if (mv == null) {
-            return new ModifiableString(value);
-        } else if (mv.getOriginalValue() == null) {
-            mv.setOriginalValue(value);
-        }
-        return mv;
-    }
-
-    /**
-     * Returns only a ModifiableString with the value, if the given mv is null or the original value
-     * of the mv is null or alwaysSet is true
-     */
-    public static ModifiableString softlySetValue(
-            ModifiableString mv, String value, boolean alwaysSet) {
-        if (mv == null) {
-            return new ModifiableString(value);
-        } else if (alwaysSet || mv.getOriginalValue() == null) {
-            mv.setOriginalValue(value);
-        }
         return mv;
     }
 
@@ -129,64 +75,11 @@ public final class ModifiableVariableFactory {
         return mv;
     }
 
-    /**
-     * Returns only a ModifiableInteger with the value, if the given mv is null or the original
-     * value of the mv is null
-     */
-    public static ModifiableInteger softlySetValue(ModifiableInteger mv, Integer value) {
-        if (mv == null) {
-            return new ModifiableInteger(value);
-        } else if (mv.getOriginalValue() == null) {
-            mv.setOriginalValue(value);
-        }
-        return mv;
-    }
-
-    /**
-     * Returns only a ModifiableInteger with the value, if the given mv is null or the original
-     * value of the mv is null or alwaysSet is true
-     */
-    public static ModifiableInteger softlySetValue(
-            ModifiableInteger mv, Integer value, boolean alwaysSet) {
-        if (mv == null) {
-            return new ModifiableInteger(value);
-        } else if (alwaysSet || mv.getOriginalValue() == null) {
-            mv.setOriginalValue(value);
-        }
-        return mv;
-    }
-
     public static ModifiableByte safelySetValue(ModifiableByte mv, Byte value) {
         if (mv == null) {
             return new ModifiableByte(value);
         }
         mv.setOriginalValue(value);
-        return mv;
-    }
-
-    /**
-     * Returns only a ModifiableByte with the value, if the given mv is null or the original value
-     * of the mv is null
-     */
-    public static ModifiableByte softlySetValue(ModifiableByte mv, Byte value) {
-        if (mv == null) {
-            return new ModifiableByte(value);
-        } else if (mv.getOriginalValue() == null) {
-            mv.setOriginalValue(value);
-        }
-        return mv;
-    }
-
-    /**
-     * Returns only a ModifiableByte with the value, if the given mv is null or the original value
-     * of the mv is null or alwaysSet is true
-     */
-    public static ModifiableByte softlySetValue(ModifiableByte mv, Byte value, boolean alwaysSet) {
-        if (mv == null) {
-            return new ModifiableByte(value);
-        } else if (alwaysSet || mv.getOriginalValue() == null) {
-            mv.setOriginalValue(value);
-        }
         return mv;
     }
 
@@ -198,64 +91,11 @@ public final class ModifiableVariableFactory {
         return mv;
     }
 
-    /**
-     * Returns only a ModifiableByteArray with the value, if the given mv is null or the original
-     * value of the mv is null
-     */
-    public static ModifiableByteArray softlySetValue(ModifiableByteArray mv, byte[] value) {
-        if (mv == null) {
-            return new ModifiableByteArray(value);
-        } else if (mv.getOriginalValue() == null) {
-            mv.setOriginalValue(value);
-        }
-        return mv;
-    }
-
-    /**
-     * Returns only a ModifiableByteArray with the value, if the given mv is null or the original
-     * value of the mv is null or alwaysSet is true
-     */
-    public static ModifiableByteArray softlySetValue(
-            ModifiableByteArray mv, byte[] value, boolean alwaysSet) {
-        if (mv == null) {
-            return new ModifiableByteArray(value);
-        } else if (alwaysSet || mv.getOriginalValue() == null) {
-            mv.setOriginalValue(value);
-        }
-        return mv;
-    }
-
     public static ModifiableLong safelySetValue(ModifiableLong mv, Long value) {
         if (mv == null) {
             return new ModifiableLong(value);
         }
         mv.setOriginalValue(value);
-        return mv;
-    }
-
-    /**
-     * Returns only a ModifiableLong with the value, if the given mv is null or the original value
-     * of the mv is null
-     */
-    public static ModifiableLong softlySetValue(ModifiableLong mv, Long value) {
-        if (mv == null) {
-            return new ModifiableLong(value);
-        } else if (mv.getOriginalValue() == null) {
-            mv.setOriginalValue(value);
-        }
-        return mv;
-    }
-
-    /**
-     * Returns only a ModifiableLong with the value, if the given mv is null or the original value
-     * of the mv is null or alwaysSet is true
-     */
-    public static ModifiableLong softlySetValue(ModifiableLong mv, Long value, boolean alwaysSet) {
-        if (mv == null) {
-            return new ModifiableLong(value);
-        } else if (alwaysSet || mv.getOriginalValue() == null) {
-            mv.setOriginalValue(value);
-        }
         return mv;
     }
 
@@ -267,65 +107,11 @@ public final class ModifiableVariableFactory {
         return mv;
     }
 
-    /**
-     * Returns only a ModifiableBoolean with the value, if the given mv is null or the original
-     * value of the mv is null
-     */
-    public static ModifiableBoolean softlySetValue(ModifiableBoolean mv, Boolean value) {
-        if (mv == null) {
-            return new ModifiableBoolean(value);
-        } else if (mv.getOriginalValue() == null) {
-            mv.setOriginalValue(value);
-        }
-        return mv;
-    }
-
-    /**
-     * Returns only a ModifiableBoolean with the value, if the given mv is null or the original
-     * value of the mv is null or alwaysSet is true
-     */
-    public static ModifiableBoolean softlySetValue(
-            ModifiableBoolean mv, Boolean value, boolean alwaysSet) {
-        if (mv == null) {
-            return new ModifiableBoolean(value);
-        } else if (alwaysSet || mv.getOriginalValue() == null) {
-            mv.setOriginalValue(value);
-        }
-        return mv;
-    }
-
     public static ModifiablePath safelySetValue(ModifiablePath mv, String value) {
         if (mv == null) {
             return new ModifiablePath(value);
         }
         mv.setOriginalValue(value);
-        return mv;
-    }
-
-    /**
-     * Returns only a ModifiablePath with the value, if the given mv is null or the original value
-     * of the mv is null
-     */
-    public static ModifiablePath softlySetValue(ModifiablePath mv, String value) {
-        if (mv == null) {
-            return new ModifiablePath(value);
-        } else if (mv.getOriginalValue() == null) {
-            mv.setOriginalValue(value);
-        }
-        return mv;
-    }
-
-    /**
-     * Returns only a ModifiablePath with the value, if the given mv is null or the original value
-     * of the mv is null or alwaysSet is true
-     */
-    public static ModifiablePath softlySetValue(
-            ModifiablePath mv, String value, boolean alwaysSet) {
-        if (mv == null) {
-            return new ModifiablePath(value);
-        } else if (alwaysSet || mv.getOriginalValue() == null) {
-            mv.setOriginalValue(value);
-        }
         return mv;
     }
 
