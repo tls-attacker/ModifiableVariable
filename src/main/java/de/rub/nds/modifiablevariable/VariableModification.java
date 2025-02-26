@@ -56,18 +56,24 @@ public abstract class VariableModification<E> {
                 }
             }
             String valueString;
-            if (value instanceof byte[]) {
-                valueString = ArrayConverter.bytesToHexString((byte[]) value);
-            } else if (value instanceof String) {
-                valueString = backslashEscapeString((String) value);
+            if (value == null) {
+                LOGGER.debug(
+                        "Using {} in function:\n  {}\n  New value is unset",
+                        getClass().getSimpleName(),
+                        stack[index]);
             } else {
-                valueString = value.toString();
+                valueString =
+                        switch (value) {
+                            case byte[] bytes -> ArrayConverter.bytesToHexString(bytes);
+                            case String s -> backslashEscapeString(s);
+                            default -> value.toString();
+                        };
+                LOGGER.debug(
+                        "Using {} in function:\n  {}\n  New value: {}",
+                        getClass().getSimpleName(),
+                        stack[index],
+                        valueString);
             }
-            LOGGER.debug(
-                    "Using {} in function:\n  {}\n  New value: {}",
-                    getClass().getSimpleName(),
-                    stack[index],
-                    valueString);
         }
     }
 }
