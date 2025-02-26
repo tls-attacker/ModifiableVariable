@@ -15,7 +15,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Objects;
 
-/** */
 @XmlRootElement
 public class StringExplicitValueModification extends VariableModification<String> {
 

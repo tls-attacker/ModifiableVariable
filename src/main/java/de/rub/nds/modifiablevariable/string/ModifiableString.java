@@ -17,7 +17,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.nio.charset.StandardCharsets;
 
-/** */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class ModifiableString extends ModifiableVariable<String> {

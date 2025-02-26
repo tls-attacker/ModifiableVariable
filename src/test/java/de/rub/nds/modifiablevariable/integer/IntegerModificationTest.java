@@ -72,18 +72,6 @@ public class IntegerModificationTest {
     }
 
     @Test
-    public void testInsertValue() {
-        // expect: ...xx111xxxxxxxxxx
-        VariableModification<Integer> modifier = IntegerModificationFactory.insertValue(7, 10);
-        start.setModification(modifier);
-        int mask = ((1 << 3) - 1) << 10;
-        expectedResult = 7;
-        result = (start.getValue() & mask) >> 10;
-        assertEquals(expectedResult, result);
-        assertEquals(Integer.valueOf(10), start.getOriginalValue());
-    }
-
-    @Test
     public void testShiftLeft() {
         VariableModification<Integer> modifier = IntegerModificationFactory.shiftLeft(2);
         start.setModification(modifier);
@@ -101,28 +89,5 @@ public class IntegerModificationTest {
         result = start.getValue();
         assertEquals(expectedResult, result);
         assertEquals(Integer.valueOf(10), start.getOriginalValue());
-    }
-
-    /** Test of explicitValue from file method, of class IntegerModification. */
-    @Test
-    public void testExplicitValueFromFile() {
-        VariableModification<Integer> modifier =
-                IntegerModificationFactory.explicitValueFromFile(0);
-        start.setModification(modifier);
-        expectedResult = -128;
-        result = start.getValue();
-        assertEquals(expectedResult, result);
-
-        modifier = IntegerModificationFactory.explicitValueFromFile(1);
-        start.setModification(modifier);
-        expectedResult = -1;
-        result = start.getValue();
-        assertEquals(expectedResult, result);
-
-        modifier = IntegerModificationFactory.explicitValueFromFile(26);
-        start.setModification(modifier);
-        expectedResult = 2147483647;
-        result = start.getValue();
-        assertEquals(expectedResult, result);
     }
 }

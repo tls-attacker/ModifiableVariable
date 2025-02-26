@@ -80,27 +80,6 @@ public class BigIntegerModificationTest {
         assertEquals(BigInteger.TEN, start.getOriginalValue());
     }
 
-    @Test
-    public void testInsertValue() {
-        // expect: 111xxxx
-        VariableModification<BigInteger> modifier =
-                BigIntegerModificationFactory.insertValue(BigInteger.valueOf(7), 4);
-        start.setModification(modifier);
-        BigInteger mask = BigInteger.valueOf((1L << 3) - 1).shiftLeft(4);
-        expectedResult = BigInteger.valueOf(7);
-        result = start.getValue().and(mask).shiftRight(4);
-        assertEquals(expectedResult, result);
-        assertEquals(BigInteger.valueOf(10), start.getOriginalValue());
-
-        // expect: x111xxx
-        modifier = BigIntegerModificationFactory.insertValue(BigInteger.valueOf(7), 3);
-        start.setModification(modifier);
-        mask = BigInteger.valueOf((1L << 3) - 1).shiftLeft(3);
-        expectedResult = BigInteger.valueOf(7);
-        result = start.getValue().and(mask).shiftRight(3);
-        assertEquals(expectedResult, result);
-    }
-
     /** Test of add method, of class BigIntegerModificationFactory. */
     @Test
     public void testIsOriginalValueModified() {
@@ -134,28 +113,5 @@ public class BigIntegerModificationTest {
         assertEquals(expectedResult, result);
         assertNotSame(expectedResult, result);
         assertEquals(BigInteger.TEN, start.getOriginalValue());
-    }
-
-    /** Test of explicitValue from file method */
-    @Test
-    public void testExplicitValueFromFile() {
-        VariableModification<BigInteger> modifier =
-                BigIntegerModificationFactory.explicitValueFromFile(0);
-        start.setModification(modifier);
-        expectedResult = BigInteger.valueOf(-128);
-        result = start.getValue();
-        assertEquals(expectedResult, result);
-
-        modifier = BigIntegerModificationFactory.explicitValueFromFile(1);
-        start.setModification(modifier);
-        expectedResult = BigInteger.valueOf(-1);
-        result = start.getValue();
-        assertEquals(expectedResult, result);
-
-        modifier = BigIntegerModificationFactory.explicitValueFromFile(27);
-        start.setModification(modifier);
-        expectedResult = BigInteger.valueOf(2147483647);
-        result = start.getValue();
-        assertEquals(expectedResult, result);
     }
 }

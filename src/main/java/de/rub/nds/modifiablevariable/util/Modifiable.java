@@ -18,8 +18,6 @@ import de.rub.nds.modifiablevariable.integer.IntegerModificationFactory;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
 import de.rub.nds.modifiablevariable.longint.LongModificationFactory;
 import de.rub.nds.modifiablevariable.longint.ModifiableLong;
-import de.rub.nds.modifiablevariable.path.ModifiablePath;
-import de.rub.nds.modifiablevariable.path.PathModificationFactory;
 import de.rub.nds.modifiablevariable.singlebyte.ByteModificationFactory;
 import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
@@ -82,31 +80,9 @@ public final class Modifiable {
         return modifiableString;
     }
 
-    private static ModifiablePath getModifiablePathWithModification(
-            VariableModification<String> modification) {
-        ModifiablePath modifiablePath = new ModifiablePath();
-        modifiablePath.setModification(modification);
-        return modifiablePath;
-    }
-
-    public static ModifiableBigInteger prepend(BigInteger perpendValue) {
-        return getModifiableBigIntegerWithModification(
-                BigIntegerModificationFactory.prependValue(perpendValue));
-    }
-
     public static ModifiableByteArray prepend(byte[] perpendValue) {
         return getModifiableByteArrayWithModification(
                 ByteArrayModificationFactory.prependValue(perpendValue));
-    }
-
-    public static ModifiableInteger prepend(Integer perpendValue) {
-        return getModifiableIntegerWithModification(
-                IntegerModificationFactory.prependValue(perpendValue));
-    }
-
-    public static ModifiableLong prepend(Long perpendValue) {
-        return getModifiableLongWithModification(
-                LongModificationFactory.prependValue(perpendValue));
     }
 
     public static ModifiableString prepend(String perpendValue) {
@@ -114,37 +90,14 @@ public final class Modifiable {
                 StringModificationFactory.prependValue(perpendValue));
     }
 
-    public static ModifiablePath prependPath(String perpendValue) {
-        return getModifiablePathWithModification(
-                PathModificationFactory.prependValue(perpendValue));
-    }
-
-    public static ModifiableBigInteger append(BigInteger appendValue) {
-        return getModifiableBigIntegerWithModification(
-                BigIntegerModificationFactory.appendValue(appendValue));
-    }
-
     public static ModifiableByteArray append(byte[] appendValue) {
         return getModifiableByteArrayWithModification(
                 ByteArrayModificationFactory.appendValue(appendValue));
     }
 
-    public static ModifiableInteger append(Integer appendValue) {
-        return getModifiableIntegerWithModification(
-                IntegerModificationFactory.appendValue(appendValue));
-    }
-
-    public static ModifiableLong append(Long appendValue) {
-        return getModifiableLongWithModification(LongModificationFactory.appendValue(appendValue));
-    }
-
     public static ModifiableString append(String appendValue) {
         return getModifiableStringWithModification(
                 StringModificationFactory.appendValue(appendValue));
-    }
-
-    public static ModifiablePath appendPath(String appendValue) {
-        return getModifiablePathWithModification(PathModificationFactory.appendValue(appendValue));
     }
 
     public static ModifiableByteArray explicit(byte[] explicitValue) {
@@ -182,44 +135,14 @@ public final class Modifiable {
                 StringModificationFactory.explicitValue(explicitValue));
     }
 
-    public static ModifiableBigInteger insert(BigInteger insertValue, int position) {
-        return getModifiableBigIntegerWithModification(
-                BigIntegerModificationFactory.insertValue(insertValue, position));
-    }
-
     public static ModifiableByteArray insert(byte[] insertValue, int position) {
         return getModifiableByteArrayWithModification(
                 ByteArrayModificationFactory.insertValue(insertValue, position));
     }
 
-    public static ModifiableInteger insert(Integer insertValue, int position) {
-        return getModifiableIntegerWithModification(
-                IntegerModificationFactory.insertValue(insertValue, position));
-    }
-
-    public static ModifiableLong insert(Long insertValue, int position) {
-        return getModifiableLongWithModification(
-                LongModificationFactory.insertValue(insertValue, position));
-    }
-
     public static ModifiableString insert(String insertValue, int position) {
         return getModifiableStringWithModification(
                 StringModificationFactory.insertValue(insertValue, position));
-    }
-
-    public static ModifiablePath insertPath(String insertValue, int position) {
-        return getModifiablePathWithModification(
-                PathModificationFactory.insertValue(insertValue, position));
-    }
-
-    public static ModifiablePath insertDirectoryTraversal(int count, int position) {
-        return getModifiablePathWithModification(
-                PathModificationFactory.insertDirectoryTraversal(count, position));
-    }
-
-    public static ModifiablePath insertDirectorySeperator(int count, int position) {
-        return getModifiablePathWithModification(
-                PathModificationFactory.insertDirectorySeperator(count, position));
     }
 
     public static ModifiableByteArray xor(byte[] xor, int position) {
@@ -300,10 +223,6 @@ public final class Modifiable {
 
     public static ModifiableBoolean toggle() {
         return getModifiableBooleanWithModification(BooleanModificationFactory.toggle());
-    }
-
-    public static ModifiablePath toggleRoot() {
-        return getModifiablePathWithModification(PathModificationFactory.toggleRoot());
     }
 
     public static ModifiableBigInteger shiftLeftBigInteger(Integer shift) {

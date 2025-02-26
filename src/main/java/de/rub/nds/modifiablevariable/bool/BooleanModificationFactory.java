@@ -8,36 +8,11 @@
 package de.rub.nds.modifiablevariable.bool;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.util.RandomHelper;
-import java.util.Random;
 
 public final class BooleanModificationFactory {
 
     private BooleanModificationFactory() {
         super();
-    }
-
-    private enum ModificationType {
-        EXPLICIT_TRUE,
-        EXPLICIT_FALSE,
-        TOGGLE
-    }
-
-    private static final int MODIFICATION_COUNT = ModificationType.values().length;
-
-    public static VariableModification<Boolean> createRandomModification() {
-        Random random = RandomHelper.getRandom();
-        ModificationType randomType = ModificationType.values()[random.nextInt(MODIFICATION_COUNT)];
-        switch (randomType) {
-            case EXPLICIT_TRUE:
-                return new BooleanExplicitValueModification(true);
-            case EXPLICIT_FALSE:
-                return new BooleanExplicitValueModification(false);
-            case TOGGLE:
-                return new BooleanToggleModification();
-            default:
-                throw new IllegalStateException("Unexpected modification type: " + randomType);
-        }
     }
 
     public static VariableModification<Boolean> toggle() {
