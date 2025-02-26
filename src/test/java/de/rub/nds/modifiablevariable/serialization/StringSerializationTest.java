@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
+import de.rub.nds.modifiablevariable.string.StringInsertValueModification;
 import de.rub.nds.modifiablevariable.string.StringModificationFactory;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -46,7 +47,9 @@ public class StringSerializationTest {
         result = null;
 
         writer = new StringWriter();
-        context = JAXBContext.newInstance(ModifiableString.class);
+        context =
+                JAXBContext.newInstance(
+                        ModifiableString.class, StringInsertValueModification.class);
         m = context.createMarshaller();
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         um = context.createUnmarshaller();

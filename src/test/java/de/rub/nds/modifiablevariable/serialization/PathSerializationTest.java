@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.path.ModifiablePath;
+import de.rub.nds.modifiablevariable.path.PathInsertValueModification;
 import de.rub.nds.modifiablevariable.path.PathModificationFactory;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -46,7 +47,7 @@ public class PathSerializationTest {
         result = null;
 
         writer = new StringWriter();
-        context = JAXBContext.newInstance(ModifiablePath.class);
+        context = JAXBContext.newInstance(ModifiablePath.class, PathInsertValueModification.class);
         m = context.createMarshaller();
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         um = context.createUnmarshaller();
