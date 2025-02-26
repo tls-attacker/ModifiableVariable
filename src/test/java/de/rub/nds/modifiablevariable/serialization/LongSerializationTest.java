@@ -11,8 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.bytearray.ByteArrayModificationFactory;
-import de.rub.nds.modifiablevariable.filter.AccessModificationFilter;
-import de.rub.nds.modifiablevariable.filter.ModificationFilterFactory;
 import de.rub.nds.modifiablevariable.longint.LongAddModification;
 import de.rub.nds.modifiablevariable.longint.LongModificationFactory;
 import de.rub.nds.modifiablevariable.longint.ModifiableLong;
@@ -90,26 +88,6 @@ public class LongSerializationTest {
         ModifiableLong mv = (ModifiableLong) um.unmarshal(new StringReader(xmlString));
 
         expectedResult = 11L;
-        result = mv.getValue();
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    public void testSerializeDeserializeWithModificationFilter() throws Exception {
-        VariableModification<Long> modifier = LongModificationFactory.add(1L);
-        int[] filtered = {1, 3};
-        AccessModificationFilter filter = ModificationFilterFactory.access(filtered);
-        modifier.setModificationFilter(filter);
-        start.setModification(modifier);
-        m.marshal(start, writer);
-
-        String xmlString = writer.toString();
-        LOGGER.debug(xmlString);
-
-        um = context.createUnmarshaller();
-        ModifiableLong mv = (ModifiableLong) um.unmarshal(new StringReader(xmlString));
-
-        expectedResult = 10L;
         result = mv.getValue();
         assertEquals(expectedResult, result);
     }

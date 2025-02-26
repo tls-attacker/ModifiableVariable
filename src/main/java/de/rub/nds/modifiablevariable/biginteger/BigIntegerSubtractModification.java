@@ -9,12 +9,10 @@ package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import java.math.BigInteger;
 import java.util.Objects;
 
 @XmlRootElement
-@XmlType(propOrder = {"subtrahend", "modificationFilter"})
 public class BigIntegerSubtractModification extends VariableModification<BigInteger> {
 
     private BigInteger subtrahend;

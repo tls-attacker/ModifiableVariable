@@ -9,11 +9,9 @@ package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import java.util.Arrays;
 
 @XmlRootElement
-@XmlType(propOrder = "index")
 public class ByteArrayExplicitValueFromFileModification extends ByteArrayExplicitValueModification {
     private int index;
 

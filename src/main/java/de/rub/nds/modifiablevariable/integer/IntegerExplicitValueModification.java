@@ -9,11 +9,9 @@ package de.rub.nds.modifiablevariable.integer;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
 
 @XmlRootElement
-@XmlType(propOrder = {"explicitValue", "modificationFilter"})
 public class IntegerExplicitValueModification extends VariableModification<Integer> {
 
     protected Integer explicitValue;

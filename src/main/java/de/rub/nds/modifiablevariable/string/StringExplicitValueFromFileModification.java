@@ -10,11 +10,9 @@ package de.rub.nds.modifiablevariable.string;
 import static de.rub.nds.modifiablevariable.util.StringUtil.backslashEscapeString;
 
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
 
 @XmlRootElement
-@XmlType(propOrder = "index")
 public class StringExplicitValueFromFileModification extends StringExplicitValueModification {
     private int index;
 

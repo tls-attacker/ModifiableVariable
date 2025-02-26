@@ -11,8 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.bytearray.*;
-import de.rub.nds.modifiablevariable.filter.AccessModificationFilter;
-import de.rub.nds.modifiablevariable.filter.ModificationFilterFactory;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import de.rub.nds.modifiablevariable.string.StringModificationFactory;
 import jakarta.xml.bind.JAXBContext;
@@ -87,28 +85,6 @@ public class StringSerializationTest {
                 (ModifiableString) um.unmarshal(new StringReader(xmlString));
 
         expectedResult = "Uff! Hello from Test ❤️\\ \u0000 \u0001 \u0006";
-        result = unmarshalled.getValue();
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    public void testSerializeDeserializeWithModificationFilter() throws Exception {
-        VariableModification<String> modifier = StringModificationFactory.delete(1, 1);
-        int[] filtered = {1, 3};
-        AccessModificationFilter filter = ModificationFilterFactory.access(filtered);
-        modifier.setModificationFilter(filter);
-        start.setModification(modifier);
-        m.marshal(start, writer);
-
-        String xmlString = writer.toString();
-        LOGGER.debug(xmlString);
-
-        um = context.createUnmarshaller();
-        ModifiableString unmarshalled =
-                (ModifiableString) um.unmarshal(new StringReader(xmlString));
-
-        // it happens nothing, because the modification is filtered
-        expectedResult = "Hello from Test ❤️\\ \u0000 \u0001 \u0006";
         result = unmarshalled.getValue();
         assertEquals(expectedResult, result);
     }

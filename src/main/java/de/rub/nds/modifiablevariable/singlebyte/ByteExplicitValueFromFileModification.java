@@ -8,11 +8,9 @@
 package de.rub.nds.modifiablevariable.singlebyte;
 
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
 
 @XmlRootElement
-@XmlType(propOrder = "index")
 public class ByteExplicitValueFromFileModification extends ByteExplicitValueModification {
     private int index;
 

@@ -9,11 +9,9 @@ package de.rub.nds.modifiablevariable.integer;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
 
 @XmlRootElement
-@XmlType(propOrder = {"subtrahend", "modificationFilter"})
 public class IntegerSubtractModification extends VariableModification<Integer> {
 
     private Integer subtrahend;

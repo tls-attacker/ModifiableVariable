@@ -8,12 +8,10 @@
 package de.rub.nds.modifiablevariable.biginteger;
 
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import java.math.BigInteger;
 import java.util.Objects;
 
 @XmlRootElement
-@XmlType(propOrder = "index")
 public class BigIntegerExplicitValueFromFileModification
         extends BigIntegerExplicitValueModification {
     private int index;

@@ -11,12 +11,10 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Arrays;
 
 @XmlRootElement
-@XmlType(propOrder = {"xor", "startPosition", "modificationFilter"})
 public class ByteArrayXorModification extends VariableModification<byte[]> {
 
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)

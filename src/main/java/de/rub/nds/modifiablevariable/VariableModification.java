@@ -9,12 +9,9 @@ package de.rub.nds.modifiablevariable;
 
 import static de.rub.nds.modifiablevariable.util.StringUtil.backslashEscapeString;
 
-import de.rub.nds.modifiablevariable.filter.AccessModificationFilter;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlElements;
 import jakarta.xml.bind.annotation.XmlTransient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,34 +22,20 @@ public abstract class VariableModification<E> {
 
     protected static final Logger LOGGER = LogManager.getLogger(VariableModification.class);
 
-    /**
-     * In specific cases it is possible to filter out some modifications based on given rules.
-     * ModificationFilter is responsible for validating if the modification can be executed.
-     */
-    @XmlElements(
-            @XmlElement(type = AccessModificationFilter.class, name = "AccessModificationFilter"))
-    private ModificationFilter modificationFilter;
-
     protected VariableModification() {
         super();
     }
 
     protected VariableModification(VariableModification<E> other) {
         super();
-        modificationFilter =
-                other.modificationFilter != null ? other.modificationFilter.createCopy() : null;
     }
 
     public abstract VariableModification<E> createCopy();
 
     public E modify(E input) {
         E modifiedValue = modifyImplementationHook(input);
-        if (modificationFilter == null || !modificationFilter.filterModification()) {
-            debug(modifiedValue);
-            return modifiedValue;
-        } else {
-            return input;
-        }
+        debug(modifiedValue);
+        return modifiedValue;
     }
 
     protected abstract E modifyImplementationHook(E input);
@@ -86,13 +69,5 @@ public abstract class VariableModification<E> {
                     stack[index],
                     valueString);
         }
-    }
-
-    public ModificationFilter getModificationFilter() {
-        return modificationFilter;
-    }
-
-    public void setModificationFilter(ModificationFilter modificationFilter) {
-        this.modificationFilter = modificationFilter;
     }
 }

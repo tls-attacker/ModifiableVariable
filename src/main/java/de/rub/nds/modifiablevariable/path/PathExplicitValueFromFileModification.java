@@ -10,11 +10,9 @@ package de.rub.nds.modifiablevariable.path;
 import static de.rub.nds.modifiablevariable.util.StringUtil.backslashEscapeString;
 
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
 
 @XmlRootElement
-@XmlType(propOrder = "index")
 public class PathExplicitValueFromFileModification extends PathExplicitValueModification {
     private int index;
 

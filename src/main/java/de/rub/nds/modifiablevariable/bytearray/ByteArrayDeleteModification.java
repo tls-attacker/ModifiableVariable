@@ -10,11 +10,9 @@ package de.rub.nds.modifiablevariable.bytearray;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import java.util.Arrays;
 
 @XmlRootElement
-@XmlType(propOrder = {"count", "startPosition", "modificationFilter"})
 public class ByteArrayDeleteModification extends VariableModification<byte[]> {
 
     private int count;

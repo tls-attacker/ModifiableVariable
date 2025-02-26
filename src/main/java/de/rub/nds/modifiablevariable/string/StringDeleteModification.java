@@ -9,12 +9,10 @@ package de.rub.nds.modifiablevariable.string;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
 
 /** Modification that deletes part of a string from the original value. */
 @XmlRootElement
-@XmlType(propOrder = {"count", "startPosition", "modificationFilter"})
 public class StringDeleteModification extends VariableModification<String> {
 
     private int count;

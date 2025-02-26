@@ -9,10 +9,8 @@ package de.rub.nds.modifiablevariable.integer;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = {"shift", "modificationFilter"})
 public class IntegerShiftRightModification extends VariableModification<Integer> {
 
     private static final int MAX_SHIFT_MODIFIER = 32;

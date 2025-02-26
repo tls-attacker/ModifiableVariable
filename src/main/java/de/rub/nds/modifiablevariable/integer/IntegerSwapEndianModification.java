@@ -9,10 +9,8 @@ package de.rub.nds.modifiablevariable.integer;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = "modificationFilter")
 public class IntegerSwapEndianModification extends VariableModification<Integer> {
 
     public IntegerSwapEndianModification() {

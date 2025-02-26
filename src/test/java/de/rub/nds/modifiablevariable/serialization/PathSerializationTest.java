@@ -10,8 +10,6 @@ package de.rub.nds.modifiablevariable.serialization;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.filter.AccessModificationFilter;
-import de.rub.nds.modifiablevariable.filter.ModificationFilterFactory;
 import de.rub.nds.modifiablevariable.path.ModifiablePath;
 import de.rub.nds.modifiablevariable.path.PathModificationFactory;
 import jakarta.xml.bind.JAXBContext;
@@ -84,27 +82,6 @@ public class PathSerializationTest {
         ModifiablePath unmarshalled = (ModifiablePath) um.unmarshal(new StringReader(xmlString));
 
         expectedResult = "Uff! /Hello from Test ❤️\\ \u0000 \u0001 \u0006";
-        result = unmarshalled.getValue();
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    public void testSerializeDeserializeWithModificationFilter() throws Exception {
-        VariableModification<String> modifier = PathModificationFactory.delete(1, 1);
-        int[] filtered = {1, 3};
-        AccessModificationFilter filter = ModificationFilterFactory.access(filtered);
-        modifier.setModificationFilter(filter);
-        start.setModification(modifier);
-        m.marshal(start, writer);
-
-        String xmlString = writer.toString();
-        LOGGER.debug(xmlString);
-
-        um = context.createUnmarshaller();
-        ModifiablePath unmarshalled = (ModifiablePath) um.unmarshal(new StringReader(xmlString));
-
-        // it happens nothing, because the modification is filtered
-        expectedResult = "Hello from Test ❤️\\ \u0000 \u0001 \u0006";
         result = unmarshalled.getValue();
         assertEquals(expectedResult, result);
     }

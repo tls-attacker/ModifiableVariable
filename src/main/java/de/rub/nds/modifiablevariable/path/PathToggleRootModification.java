@@ -9,11 +9,9 @@ package de.rub.nds.modifiablevariable.path;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 
 /** Modification that toggle the root slash of the original value. */
 @XmlRootElement
-@XmlType(propOrder = "modificationFilter")
 public class PathToggleRootModification extends VariableModification<String> {
 
     public PathToggleRootModification() {

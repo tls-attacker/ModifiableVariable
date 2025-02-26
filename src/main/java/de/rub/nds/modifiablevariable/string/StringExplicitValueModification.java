@@ -12,13 +12,11 @@ import static de.rub.nds.modifiablevariable.util.StringUtil.backslashEscapeStrin
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Objects;
 
 /** */
 @XmlRootElement
-@XmlType(propOrder = {"explicitValue", "modificationFilter"})
 public class StringExplicitValueModification extends VariableModification<String> {
 
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)

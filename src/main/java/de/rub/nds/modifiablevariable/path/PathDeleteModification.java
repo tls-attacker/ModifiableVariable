@@ -10,13 +10,11 @@ package de.rub.nds.modifiablevariable.path;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import java.util.Arrays;
 import java.util.Objects;
 
 /** Modification that deletes path parts from the original value. */
 @XmlRootElement
-@XmlType(propOrder = {"count", "startPosition", "modificationFilter"})
 public class PathDeleteModification extends VariableModification<String> {
 
     private int count;
