@@ -67,11 +67,9 @@ public class ModifiableBoolean extends ModifiableVariable<Boolean> {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof ModifiableBoolean)) {
+        if (!(obj instanceof ModifiableBoolean that)) {
             return false;
         }
-
-        ModifiableBoolean that = (ModifiableBoolean) obj;
 
         return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }

@@ -115,8 +115,7 @@ public abstract class ModifiableVariableHolder implements Serializable {
                 LOGGER.debug(ex);
             }
             if (tempObject != null) {
-                if (tempObject instanceof byte[]) {
-                    byte[] temp = (byte[]) tempObject;
+                if (tempObject instanceof byte[] temp) {
                     stringBuilder.append("\t".repeat(Math.max(0, depth)));
                     stringBuilder.append(field.getName());
                     stringBuilder.append(": ");

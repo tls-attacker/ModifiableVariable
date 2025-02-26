@@ -85,11 +85,9 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof ModifiableBigInteger)) {
+        if (!(obj instanceof ModifiableBigInteger that)) {
             return false;
         }
-
-        ModifiableBigInteger that = (ModifiableBigInteger) obj;
 
         return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }

@@ -83,11 +83,9 @@ public class ModifiableLong extends ModifiableVariable<Long> {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof ModifiableLong)) {
+        if (!(obj instanceof ModifiableLong that)) {
             return false;
         }
-
-        ModifiableLong that = (ModifiableLong) obj;
 
         return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }

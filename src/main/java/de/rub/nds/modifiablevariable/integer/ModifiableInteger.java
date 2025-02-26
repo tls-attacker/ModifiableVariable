@@ -83,11 +83,9 @@ public class ModifiableInteger extends ModifiableVariable<Integer> {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof ModifiableInteger)) {
+        if (!(obj instanceof ModifiableInteger that)) {
             return false;
         }
-
-        ModifiableInteger that = (ModifiableInteger) obj;
 
         return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }

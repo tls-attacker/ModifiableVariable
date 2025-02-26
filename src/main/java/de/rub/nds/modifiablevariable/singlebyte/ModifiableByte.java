@@ -78,11 +78,9 @@ public class ModifiableByte extends ModifiableVariable<Byte> {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof ModifiableByte)) {
+        if (!(obj instanceof ModifiableByte that)) {
             return false;
         }
-
-        ModifiableByte that = (ModifiableByte) obj;
 
         return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }

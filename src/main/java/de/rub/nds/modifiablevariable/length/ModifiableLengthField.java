@@ -55,11 +55,9 @@ public class ModifiableLengthField extends ModifiableInteger {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof ModifiableLengthField)) {
+        if (!(obj instanceof ModifiableLengthField that)) {
             return false;
         }
-
-        ModifiableLengthField that = (ModifiableLengthField) obj;
 
         return ref != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }

@@ -98,11 +98,9 @@ public class ModifiableString extends ModifiableVariable<String> {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof ModifiableString)) {
+        if (!(obj instanceof ModifiableString that)) {
             return false;
         }
-
-        ModifiableString that = (ModifiableString) obj;
 
         return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }

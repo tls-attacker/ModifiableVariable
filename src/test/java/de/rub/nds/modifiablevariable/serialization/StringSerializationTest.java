@@ -10,7 +10,6 @@ package de.rub.nds.modifiablevariable.serialization;
 import static org.junit.jupiter.api.Assertions.*;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.bytearray.*;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import de.rub.nds.modifiablevariable.string.StringModificationFactory;
 import jakarta.xml.bind.JAXBContext;

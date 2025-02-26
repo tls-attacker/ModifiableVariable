@@ -83,11 +83,9 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof ModifiableByteArray)) {
+        if (!(obj instanceof ModifiableByteArray that)) {
             return false;
         }
-
-        ModifiableByteArray that = (ModifiableByteArray) obj;
 
         return Arrays.equals(getValue(), that.getValue());
     }

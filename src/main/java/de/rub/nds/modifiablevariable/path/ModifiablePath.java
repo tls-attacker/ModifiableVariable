@@ -50,11 +50,9 @@ public class ModifiablePath extends ModifiableString {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof ModifiablePath)) {
+        if (!(obj instanceof ModifiablePath that)) {
             return false;
         }
-
-        ModifiablePath that = (ModifiablePath) obj;
 
         return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }
