@@ -8,24 +8,32 @@
 package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.ModifiableVariable;
-import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.math.BigInteger;
 
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
 
     private BigInteger originalValue;
 
+    public ModifiableBigInteger() {
+        super();
+    }
+
+    public ModifiableBigInteger(BigInteger originalValue) {
+        super();
+        this.originalValue = originalValue;
+    }
+
+    public ModifiableBigInteger(ModifiableBigInteger other) {
+        super(other);
+        originalValue = other.originalValue;
+    }
+
     @Override
-    protected void createRandomModification() {
-        VariableModification<BigInteger> vm =
-                BigIntegerModificationFactory.createRandomModification();
-        setModification(vm);
+    public ModifiableBigInteger createCopy() {
+        return new ModifiableBigInteger(this);
     }
 
     public BigInteger getAssertEquals() {
@@ -38,7 +46,7 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
 
     @Override
     public boolean isOriginalValueModified() {
-        return getOriginalValue() != null && (getOriginalValue().compareTo(getValue()) != 0);
+        return originalValue != null && originalValue.compareTo(getValue()) != 0;
     }
 
     public byte[] getByteArray() {
@@ -52,9 +60,7 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
     @Override
     public boolean validateAssertions() {
         if (assertEquals != null) {
-            if (assertEquals.compareTo(getValue()) != 0) {
-                return false;
-            }
+            return assertEquals.compareTo(getValue()) == 0;
         }
         return true;
     }
@@ -71,19 +77,17 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
 
     @Override
     public String toString() {
-        return "ModifiableBigInteger{" + "originalValue=" + originalValue + '}';
+        return "ModifiableBigInteger{" + "originalValue=" + originalValue + innerToString() + '}';
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof ModifiableBigInteger)) {
+        if (!(obj instanceof ModifiableBigInteger that)) {
             return false;
         }
-
-        ModifiableBigInteger that = (ModifiableBigInteger) o;
 
         return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }

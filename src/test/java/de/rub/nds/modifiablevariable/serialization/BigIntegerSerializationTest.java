@@ -12,12 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerAddModification;
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerInteractiveModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerModificationFactory;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import de.rub.nds.modifiablevariable.bytearray.ByteArrayModificationFactory;
-import de.rub.nds.modifiablevariable.filter.AccessModificationFilter;
-import de.rub.nds.modifiablevariable.filter.ModificationFilterFactory;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -58,19 +55,15 @@ public class BigIntegerSerializationTest {
                 JAXBContext.newInstance(
                         ModifiableBigInteger.class,
                         BigIntegerAddModification.class,
-                        ByteArrayModificationFactory.class,
-                        BigIntegerInteractiveModification.class);
+                        ByteArrayModificationFactory.class);
         m = context.createMarshaller();
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         um = context.createUnmarshaller();
-
-        BigIntegerModificationFactory.setStandardInteractiveModification(
-                oldVal -> new BigInteger("12"));
     }
 
     @Test
     public void testSerializeDeserializeSimple() throws Exception {
-        start.setModification(null);
+        start.clearModifications();
         m.marshal(start, writer);
 
         String xmlString = writer.toString();
@@ -89,7 +82,7 @@ public class BigIntegerSerializationTest {
     public void testSerializeDeserializeWithModification() throws Exception {
         VariableModification<BigInteger> modifier =
                 BigIntegerModificationFactory.add(BigInteger.ONE);
-        start.setModification(modifier);
+        start.setModifications(modifier);
         m.marshal(start, writer);
 
         String xmlString = writer.toString();
@@ -99,46 +92,6 @@ public class BigIntegerSerializationTest {
         ModifiableBigInteger mv = (ModifiableBigInteger) um.unmarshal(new StringReader(xmlString));
 
         expectedResult = new BigInteger("11");
-        result = mv.getValue();
-        assertEquals(expectedResult, result);
-        assertNotSame(expectedResult, result);
-    }
-
-    @Test
-    public void testSerializationWithInteractiveMod() throws Exception {
-        VariableModification<BigInteger> mod = BigIntegerModificationFactory.interactive();
-        start.setModification(mod);
-        m.marshal(start, writer);
-
-        String xmlString = writer.toString();
-        LOGGER.debug(xmlString);
-
-        um = context.createUnmarshaller();
-        ModifiableBigInteger mv = (ModifiableBigInteger) um.unmarshal(new StringReader(xmlString));
-
-        expectedResult = new BigInteger("12");
-        result = mv.getValue();
-        assertEquals(expectedResult, result);
-        assertNotSame(expectedResult, result);
-    }
-
-    @Test
-    public void testSerializeDeserializeWithModificationFilter() throws Exception {
-        VariableModification<BigInteger> modifier =
-                BigIntegerModificationFactory.add(BigInteger.ONE);
-        int[] filtered = {1, 3};
-        AccessModificationFilter filter = ModificationFilterFactory.access(filtered);
-        modifier.setModificationFilter(filter);
-        start.setModification(modifier);
-        m.marshal(start, writer);
-
-        String xmlString = writer.toString();
-        LOGGER.debug(xmlString);
-
-        um = context.createUnmarshaller();
-        ModifiableBigInteger mv = (ModifiableBigInteger) um.unmarshal(new StringReader(xmlString));
-
-        expectedResult = new BigInteger("10");
         result = mv.getValue();
         assertEquals(expectedResult, result);
         assertNotSame(expectedResult, result);

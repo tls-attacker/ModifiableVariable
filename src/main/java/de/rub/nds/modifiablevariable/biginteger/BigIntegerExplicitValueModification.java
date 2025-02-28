@@ -8,31 +8,36 @@
 package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import java.math.BigInteger;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = {"explicitValue", "modificationFilter"})
-@XmlAccessorType(XmlAccessType.FIELD)
 public class BigIntegerExplicitValueModification extends VariableModification<BigInteger> {
 
-    private static final int MAX_EXPLICIT_LENGTH = 8;
+    protected BigInteger explicitValue;
 
-    private BigInteger explicitValue;
+    public BigIntegerExplicitValueModification() {
+        super();
+    }
 
-    public BigIntegerExplicitValueModification() {}
+    public BigIntegerExplicitValueModification(BigInteger explicitValue) {
+        super();
+        this.explicitValue = explicitValue;
+    }
 
-    public BigIntegerExplicitValueModification(BigInteger bi) {
-        this.explicitValue = bi;
+    public BigIntegerExplicitValueModification(BigIntegerExplicitValueModification other) {
+        super(other);
+        explicitValue = other.explicitValue;
     }
 
     @Override
-    protected BigInteger modifyImplementationHook(final BigInteger input) {
+    public BigIntegerExplicitValueModification createCopy() {
+        return new BigIntegerExplicitValueModification(this);
+    }
+
+    @Override
+    protected BigInteger modifyImplementationHook(BigInteger input) {
         return explicitValue;
     }
 
@@ -45,21 +50,9 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
     }
 
     @Override
-    public VariableModification<BigInteger> getModifiedCopy() {
-        Random r = new Random();
-        if (r.nextBoolean()) {
-            return new BigIntegerExplicitValueModification(
-                    explicitValue.add(new BigInteger(MAX_EXPLICIT_LENGTH, r)));
-        } else {
-            return new BigIntegerExplicitValueModification(
-                    explicitValue.subtract(new BigInteger(MAX_EXPLICIT_LENGTH, r)));
-        }
-    }
-
-    @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 41 * hash + Objects.hashCode(this.explicitValue);
+        int hash = 7;
+        hash = 31 * hash + Objects.hashCode(explicitValue);
         return hash;
     }
 
@@ -74,10 +67,12 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final BigIntegerExplicitValueModification other = (BigIntegerExplicitValueModification) obj;
-        if (!Objects.equals(this.explicitValue, other.explicitValue)) {
-            return false;
-        }
-        return true;
+        BigIntegerExplicitValueModification other = (BigIntegerExplicitValueModification) obj;
+        return Objects.equals(explicitValue, other.explicitValue);
+    }
+
+    @Override
+    public String toString() {
+        return "BigIntegerExplicitValueModification{" + "explicitValue=" + explicitValue + '}';
     }
 }

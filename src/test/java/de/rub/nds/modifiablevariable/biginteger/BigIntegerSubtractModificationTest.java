@@ -45,11 +45,6 @@ public class BigIntegerSubtractModificationTest {
     @Test
     public void testSetSubtrahend() {}
 
-    /** Test of getModifiedCopy method, of class BigIntegerSubtractModification. */
-    @Disabled("Not yet implemented")
-    @Test
-    public void testGetModifiedCopy() {}
-
     /** Test of hashCode method, of class BigIntegerSubtractModification. */
     @Disabled("Not yet implemented")
     @Test

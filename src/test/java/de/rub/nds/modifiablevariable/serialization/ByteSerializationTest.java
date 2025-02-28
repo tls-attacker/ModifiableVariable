@@ -49,7 +49,7 @@ public class ByteSerializationTest {
 
     @Test
     public void testSerializeDeserializeSimple() throws Exception {
-        start.setModification(null);
+        start.clearModifications();
         m.marshal(start, writer);
 
         String xmlString = writer.toString();

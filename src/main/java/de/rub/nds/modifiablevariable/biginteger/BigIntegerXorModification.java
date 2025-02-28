@@ -8,27 +8,32 @@
 package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import java.math.BigInteger;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = {"xor", "modificationFilter"})
-@XmlAccessorType(XmlAccessType.FIELD)
 public class BigIntegerXorModification extends VariableModification<BigInteger> {
-
-    private static final int MAX_XOR_LENGTH = 8;
 
     private BigInteger xor;
 
-    public BigIntegerXorModification() {}
+    public BigIntegerXorModification() {
+        super();
+    }
 
-    public BigIntegerXorModification(BigInteger bi) {
-        this.xor = bi;
+    public BigIntegerXorModification(BigInteger xor) {
+        super();
+        this.xor = xor;
+    }
+
+    public BigIntegerXorModification(BigIntegerXorModification other) {
+        super(other);
+        xor = other.xor;
+    }
+
+    @Override
+    public BigIntegerXorModification createCopy() {
+        return new BigIntegerXorModification(this);
     }
 
     @Override
@@ -48,14 +53,9 @@ public class BigIntegerXorModification extends VariableModification<BigInteger> 
     }
 
     @Override
-    public VariableModification<BigInteger> getModifiedCopy() {
-        return new BigIntegerXorModification(xor.add(new BigInteger(MAX_XOR_LENGTH, new Random())));
-    }
-
-    @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.xor);
+        hash = 31 * hash + Objects.hashCode(xor);
         return hash;
     }
 
@@ -70,10 +70,12 @@ public class BigIntegerXorModification extends VariableModification<BigInteger> 
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final BigIntegerXorModification other = (BigIntegerXorModification) obj;
-        if (!Objects.equals(this.xor, other.xor)) {
-            return false;
-        }
-        return true;
+        BigIntegerXorModification other = (BigIntegerXorModification) obj;
+        return Objects.equals(xor, other.xor);
+    }
+
+    @Override
+    public String toString() {
+        return "BigIntegerXorModification{" + "xor=" + xor + '}';
     }
 }

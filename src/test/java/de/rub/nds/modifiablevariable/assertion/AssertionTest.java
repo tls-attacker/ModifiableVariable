@@ -42,7 +42,7 @@ public class AssertionTest {
     @Test
     public void testAddInteger() {
         VariableModification<Integer> modifier = IntegerModificationFactory.add(1);
-        mi.setModification(modifier);
+        mi.setModifications(modifier);
         mi.setAssertEquals(11);
         assertTrue(mi.validateAssertions());
     }

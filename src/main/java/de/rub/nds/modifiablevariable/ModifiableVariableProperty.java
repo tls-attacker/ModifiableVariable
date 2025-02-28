@@ -17,7 +17,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ModifiableVariableProperty {
 
-    public enum Type {
+    enum Type {
         LENGTH,
         COUNT,
         PADDING,
@@ -38,7 +38,7 @@ public @interface ModifiableVariableProperty {
         BEHAVIOR_SWITCH
     }
 
-    public enum Format {
+    enum Format {
         ASN1,
         PKCS1,
         NONE

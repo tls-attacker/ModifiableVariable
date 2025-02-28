@@ -30,7 +30,7 @@ public abstract class ModifiableVariableHolder implements Serializable {
      * @return List of all modifiableVariables declared in this class
      */
     public List<Field> getAllModifiableVariableFields() {
-        return ReflectionHelper.getFieldsUpTo(this.getClass(), null, ModifiableVariable.class);
+        return ReflectionHelper.getFieldsUpTo(getClass(), null, ModifiableVariable.class);
     }
 
     /**
@@ -70,22 +70,22 @@ public abstract class ModifiableVariableHolder implements Serializable {
 
     public void reset() {
         List<Field> fields = getAllModifiableVariableFields();
-        for (Field f : fields) {
-            f.setAccessible(true);
+        for (Field field : fields) {
+            field.setAccessible(true);
 
             ModifiableVariable<?> mv = null;
             try {
-                mv = (ModifiableVariable<?>) f.get(this);
+                mv = (ModifiableVariable<?>) field.get(this);
             } catch (IllegalArgumentException | IllegalAccessException ex) {
                 LOGGER.warn("Could not retrieve ModifiableVariables");
                 LOGGER.debug(ex);
             }
             if (mv != null) {
-                if (mv.getModification() != null || mv.isCreateRandomModification()) {
+                if (mv.getModifications() != null) {
                     mv.setOriginalValue(null);
                 } else {
                     try {
-                        f.set(this, null);
+                        field.set(this, null);
                     } catch (IllegalArgumentException | IllegalAccessException ex) {
                         LOGGER.warn("Could not strip ModifiableVariable without Modification");
                     }
@@ -95,17 +95,12 @@ public abstract class ModifiableVariableHolder implements Serializable {
     }
 
     public String getExtendedString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append("{\n");
-        sb.append(getExtendedString(1));
-        sb.append("}\n");
-        return sb.toString();
+        return getClass().getSimpleName() + "{\n" + getExtendedString(1) + "}\n";
     }
 
     protected String getExtendedString(int depth) {
         StringBuilder stringBuilder = new StringBuilder();
-        List<Field> fields = ReflectionHelper.getFieldsUpTo(this.getClass(), null, null);
+        List<Field> fields = ReflectionHelper.getFieldsUpTo(getClass(), null, null);
         for (Field field : fields) {
             field.setAccessible(true);
             // skip static
@@ -120,43 +115,32 @@ public abstract class ModifiableVariableHolder implements Serializable {
                 LOGGER.debug(ex);
             }
             if (tempObject != null) {
-                if (tempObject instanceof byte[]) {
-                    byte[] temp = (byte[]) tempObject;
-                    for (int i = 0; i < depth; i++) {
-                        stringBuilder.append("\t");
-                    }
+                if (tempObject instanceof byte[] temp) {
+                    stringBuilder.append("\t".repeat(Math.max(0, depth)));
                     stringBuilder.append(field.getName());
                     stringBuilder.append(": ");
                     stringBuilder.append(ArrayConverter.bytesToHexString(temp));
                     stringBuilder.append("\n");
                 }
                 if (tempObject instanceof ModifiableVariableHolder) {
-                    for (int i = 0; i < depth; i++) {
-                        stringBuilder.append("\t");
-                    }
+                    stringBuilder.append("\t".repeat(Math.max(0, depth)));
                     stringBuilder.append(field.getName());
                     stringBuilder.append(":");
                     stringBuilder.append(tempObject.getClass().getSimpleName());
                     stringBuilder.append("{\n");
                     stringBuilder.append(
                             ((ModifiableVariableHolder) tempObject).getExtendedString(depth + 1));
-                    for (int i = 0; i < depth; i++) {
-                        stringBuilder.append("\t");
-                    }
+                    stringBuilder.append("\t".repeat(Math.max(0, depth)));
                     stringBuilder.append("}\n");
                 } else {
-                    for (int i = 0; i < depth; i++) {
-                        stringBuilder.append("\t");
-                    }
+                    stringBuilder.append("\t".repeat(Math.max(0, depth)));
                     stringBuilder.append(field.getName());
                     stringBuilder.append(": ");
-                    stringBuilder.append(tempObject.toString());
+                    stringBuilder.append(tempObject);
                     stringBuilder.append("\n");
                 }
             } else {
-                for (int i = 0; i < depth; i++) {
-                    stringBuilder.append("\t");
-                }
+                stringBuilder.append("\t".repeat(Math.max(0, depth)));
                 stringBuilder.append(field.getName());
                 stringBuilder.append(": null\n");
             }

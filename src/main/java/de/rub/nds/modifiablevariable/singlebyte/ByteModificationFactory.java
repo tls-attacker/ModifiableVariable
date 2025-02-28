@@ -7,116 +7,43 @@
  */
 package de.rub.nds.modifiablevariable.singlebyte;
 
-import de.rub.nds.modifiablevariable.FileConfigurationException;
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.util.RandomHelper;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
 
-public class ByteModificationFactory {
+public final class ByteModificationFactory {
 
-    private static final int BYTE_EXPLICIT_VALUE_MODIFICATION = 3;
-
-    private static final int BYTE_XOR_MODIFICATION = 2;
-
-    private static final int BYTE_SUBTRACT_MODIFICATION = 1;
-
-    private static final int BYTE_ADD_MODIFICATION = 0;
-
-    private static final int MODIFICATION_COUNT = 5;
-
-    private static List<VariableModification<Byte>> modificationsFromFile;
-
-    public static final String FILE_NAME = "de/rub/nds/modifiablevariable/explicit/byte.vec";
-
-    public static ByteAddModification add(final String summand) {
+    public static ByteAddModification add(String summand) {
         return add(Byte.parseByte(summand));
     }
 
-    public static ByteAddModification add(final Byte summand) {
+    public static ByteAddModification add(Byte summand) {
         return new ByteAddModification(summand);
     }
 
-    public static VariableModification<Byte> sub(final String subtrahend) {
+    public static VariableModification<Byte> sub(String subtrahend) {
         return sub(Byte.parseByte(subtrahend));
     }
 
-    public static VariableModification<Byte> sub(final Byte subtrahend) {
+    public static VariableModification<Byte> sub(Byte subtrahend) {
         return new ByteSubtractModification(subtrahend);
     }
 
-    public static VariableModification<Byte> xor(final String xor) {
+    public static VariableModification<Byte> xor(String xor) {
         return xor(Byte.parseByte(xor));
     }
 
-    public static VariableModification<Byte> xor(final Byte xor) {
+    public static VariableModification<Byte> xor(Byte xor) {
         return new ByteXorModification(xor);
     }
 
-    public static VariableModification<Byte> explicitValue(final String value) {
+    public static VariableModification<Byte> explicitValue(String value) {
         return explicitValue(Byte.parseByte(value));
     }
 
-    public static VariableModification<Byte> explicitValue(final Byte value) {
+    public static VariableModification<Byte> explicitValue(Byte value) {
         return new ByteExplicitValueModification(value);
     }
 
-    public static VariableModification<Byte> explicitValueFromFile(int value) {
-        List<VariableModification<Byte>> modifications = modificationsFromFile();
-        int pos = value % modifications.size();
-        return modifications.get(pos);
+    private ByteModificationFactory() {
+        super();
     }
-
-    public static synchronized List<VariableModification<Byte>> modificationsFromFile() {
-        try {
-            if (modificationsFromFile == null) {
-                modificationsFromFile = new LinkedList<>();
-                ClassLoader classLoader = ByteModificationFactory.class.getClassLoader();
-                InputStream is = classLoader.getResourceAsStream(FILE_NAME);
-                BufferedReader br = new BufferedReader(new InputStreamReader(is));
-                String line;
-                while ((line = br.readLine()) != null) {
-                    String value = line.trim().split(" ")[0];
-                    modificationsFromFile.add(explicitValue(value));
-                }
-            }
-            return modificationsFromFile;
-        } catch (IOException ex) {
-            throw new FileConfigurationException(
-                    "Modifiable variable file name could not have been found.", ex);
-        }
-    }
-
-    public static VariableModification<Byte> createRandomModification() {
-        Random random = RandomHelper.getRandom();
-        int r = random.nextInt(MODIFICATION_COUNT);
-        byte modification = (byte) random.nextInt(Byte.MAX_VALUE);
-        VariableModification<Byte> vm = null;
-        switch (r) {
-            case BYTE_ADD_MODIFICATION:
-                vm = new ByteAddModification(modification);
-                return vm;
-            case BYTE_SUBTRACT_MODIFICATION:
-                vm = new ByteSubtractModification(modification);
-                return vm;
-            case BYTE_XOR_MODIFICATION:
-                vm = new ByteXorModification(modification);
-                return vm;
-            case BYTE_EXPLICIT_VALUE_MODIFICATION:
-                vm = new ByteExplicitValueModification(modification);
-                return vm;
-            case 4:
-                vm = explicitValueFromFile(random.nextInt(Byte.MAX_VALUE));
-                return vm;
-            default:
-                return vm;
-        }
-    }
-
-    private ByteModificationFactory() {}
 }

@@ -9,13 +9,22 @@ package de.rub.nds.modifiablevariable.bool;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = {"modificationFilter"})
 public class BooleanToggleModification extends VariableModification<Boolean> {
 
-    public BooleanToggleModification() {}
+    public BooleanToggleModification() {
+        super();
+    }
+
+    public BooleanToggleModification(BooleanToggleModification other) {
+        super(other);
+    }
+
+    @Override
+    public BooleanToggleModification createCopy() {
+        return new BooleanToggleModification(this);
+    }
 
     @Override
     protected Boolean modifyImplementationHook(Boolean input) {
@@ -26,14 +35,8 @@ public class BooleanToggleModification extends VariableModification<Boolean> {
     }
 
     @Override
-    public VariableModification<Boolean> getModifiedCopy() {
-        return new BooleanToggleModification();
-    }
-
-    @Override
     public int hashCode() {
-        int hash = 7;
-        return hash;
+        return 7;
     }
 
     @Override
@@ -44,10 +47,7 @@ public class BooleanToggleModification extends VariableModification<Boolean> {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        return true;
+        return getClass() == obj.getClass();
     }
 
     @Override

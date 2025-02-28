@@ -8,29 +8,30 @@
 package de.rub.nds.modifiablevariable.string;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.util.RandomHelper;
 
-/** */
-public class StringModificationFactory {
+public final class StringModificationFactory {
 
-    private static final int MAX_BYTE_LENGTH = 1000;
+    private StringModificationFactory() {
+        super();
+    }
 
-    public static VariableModification<String> prependValue(final String value) {
+    public static VariableModification<String> prependValue(String value) {
         return new StringPrependValueModification(value);
     }
 
-    public static VariableModification<String> appendValue(final String value) {
+    public static VariableModification<String> appendValue(String value) {
         return new StringAppendValueModification(value);
     }
 
-    public static VariableModification<String> explicitValue(final String value) {
+    public static VariableModification<String> explicitValue(String value) {
         return new StringExplicitValueModification(value);
     }
 
-    public static VariableModification<String> createRandomModification() {
-        int i = RandomHelper.getRandom().nextInt(MAX_BYTE_LENGTH);
-        byte[] randomBytes = new byte[i];
-        RandomHelper.getRandom().nextBytes(randomBytes);
-        return explicitValue(new String(randomBytes));
+    public static VariableModification<String> insertValue(String value, int position) {
+        return new StringInsertValueModification(value, position);
+    }
+
+    public static VariableModification<String> delete(int startPosition, int count) {
+        return new StringDeleteModification(startPosition, count);
     }
 }

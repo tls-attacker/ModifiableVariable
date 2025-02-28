@@ -9,22 +9,33 @@ package de.rub.nds.modifiablevariable.bool;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder = {"explicitValue", "modificationFilter"})
 public class BooleanExplicitValueModification extends VariableModification<Boolean> {
 
     private boolean explicitValue;
 
-    public BooleanExplicitValueModification() {}
+    public BooleanExplicitValueModification() {
+        super();
+    }
 
     public BooleanExplicitValueModification(boolean explicitValue) {
+        super();
         this.explicitValue = explicitValue;
     }
 
+    public BooleanExplicitValueModification(BooleanExplicitValueModification other) {
+        super(other);
+        explicitValue = other.explicitValue;
+    }
+
     @Override
-    protected Boolean modifyImplementationHook(final Boolean input) {
+    public BooleanExplicitValueModification createCopy() {
+        return new BooleanExplicitValueModification(this);
+    }
+
+    @Override
+    protected Boolean modifyImplementationHook(Boolean input) {
         return explicitValue;
     }
 
@@ -37,14 +48,9 @@ public class BooleanExplicitValueModification extends VariableModification<Boole
     }
 
     @Override
-    public VariableModification<Boolean> getModifiedCopy() {
-        return new BooleanExplicitValueModification(!explicitValue);
-    }
-
-    @Override
     public int hashCode() {
         int hash = 7;
-        hash = 29 * hash + (this.explicitValue ? 1 : 0);
+        hash = 31 * hash + (explicitValue ? 1231 : 1237);
         return hash;
     }
 
@@ -59,11 +65,8 @@ public class BooleanExplicitValueModification extends VariableModification<Boole
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final BooleanExplicitValueModification other = (BooleanExplicitValueModification) obj;
-        if (this.explicitValue != other.explicitValue) {
-            return false;
-        }
-        return true;
+        BooleanExplicitValueModification other = (BooleanExplicitValueModification) obj;
+        return explicitValue == other.explicitValue;
     }
 
     @Override

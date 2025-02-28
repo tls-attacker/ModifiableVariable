@@ -20,7 +20,18 @@ public class ModifiableLengthField extends ModifiableInteger {
     private final ModifiableByteArray ref;
 
     public ModifiableLengthField(ModifiableByteArray ref) {
+        super();
         this.ref = ref;
+    }
+
+    public ModifiableLengthField(ModifiableLengthField other) {
+        super(other);
+        ref = other.ref;
+    }
+
+    @Override
+    public ModifiableLengthField createCopy() {
+        return new ModifiableLengthField(this);
     }
 
     @Override
@@ -36,19 +47,17 @@ public class ModifiableLengthField extends ModifiableInteger {
 
     @Override
     public String toString() {
-        return "ModifiableLengthField{" + "ref=" + ref + "} " + super.toString();
+        return "ModifiableLengthField{" + "ref=" + ref + super.toString() + "} ";
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof ModifiableLengthField)) {
+        if (!(obj instanceof ModifiableLengthField that)) {
             return false;
         }
-
-        ModifiableLengthField that = (ModifiableLengthField) o;
 
         return ref != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }

@@ -42,7 +42,7 @@ The best way to present the functionality of ModifiableVariables is by means of 
 ModifiableInteger i = new ModifiableInteger();
 i.setOriginalValue(30);
 VariableModification<Integer> modifier = IntegerModificationFactory.add(20);
-i.setModification(modifier);
+i.setModifications(modifier);
 System.out.println(i.getValue());  // 50
 ```
 
@@ -56,7 +56,7 @@ In byte arrays you can use further modifications like shuffling or inserting byt
 ModifiableByteArray ba = new ModifiableByteArray();
 VariableModification<byte[]> modifier = ByteArrayModificationFactory.insert(new byte[] {2, 3}, 1);
 ba.setOriginalValue(new byte[]{1, 4});
-ba.setModification(modifier);
+ba.setModifications(modifier);
 System.out.println(ArrayConverter.bytesToHexString(ba)); // 01 02 03 04
 ```
 
@@ -116,15 +116,17 @@ The result of the serialized modifiable byte array looks as follows:
 </modifiableByteArray>
 ```
 
-If you would use modification from the previous example, the result would look as follows:
+If you were to use the modification from the previous example, the result would look as follows:
 
 ```xml
 <modifiableByteArray>
     <originalValue>01 02 03</originalValue>
-    <ByteArrayInsertModification>
-        <bytesToInsert>02 03</bytesToInsert>
-        <startPosition>1</startPosition>
-    </ByteArrayInsertModification>
+    <modifications>
+        <ByteArrayInsertModification>
+            <bytesToInsert>02 03</bytesToInsert>
+            <startPosition>1</startPosition>
+        </ByteArrayInsertModification>
+    </modifications>
 </modifiableByteArray>
 ```
 

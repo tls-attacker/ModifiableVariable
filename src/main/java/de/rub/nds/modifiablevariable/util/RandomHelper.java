@@ -9,8 +9,7 @@ package de.rub.nds.modifiablevariable.util;
 
 import java.util.Random;
 
-/** */
-public class RandomHelper {
+public final class RandomHelper {
 
     private static Random random;
 
@@ -29,5 +28,7 @@ public class RandomHelper {
         RandomHelper.random = random;
     }
 
-    private RandomHelper() {}
+    private RandomHelper() {
+        super();
+    }
 }

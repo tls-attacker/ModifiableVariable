@@ -7,25 +7,37 @@
  */
 package de.rub.nds.modifiablevariable.string;
 
+import static de.rub.nds.modifiablevariable.util.StringUtil.backslashEscapeString;
+
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Objects;
 
-/** */
 @XmlRootElement
-@XmlType(propOrder = {"explicitValue", "modificationFilter"})
 public class StringExplicitValueModification extends VariableModification<String> {
 
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
-    private String explicitValue;
+    protected String explicitValue;
 
-    public StringExplicitValueModification() {}
+    public StringExplicitValueModification() {
+        super();
+    }
 
     public StringExplicitValueModification(String explicitValue) {
+        super();
         this.explicitValue = explicitValue;
+    }
+
+    public StringExplicitValueModification(StringExplicitValueModification other) {
+        super(other);
+        explicitValue = other.explicitValue;
+    }
+
+    @Override
+    public StringExplicitValueModification createCopy() {
+        return new StringExplicitValueModification(this);
     }
 
     @Override
@@ -42,14 +54,9 @@ public class StringExplicitValueModification extends VariableModification<String
     }
 
     @Override
-    public VariableModification<String> getModifiedCopy() {
-        return new StringExplicitValueModification(explicitValue);
-    }
-
-    @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 83 * hash + Objects.hashCode(this.explicitValue);
+        int hash = 7;
+        hash = 31 * hash + Objects.hashCode(explicitValue);
         return hash;
     }
 
@@ -64,10 +71,16 @@ public class StringExplicitValueModification extends VariableModification<String
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final StringExplicitValueModification other = (StringExplicitValueModification) obj;
-        if (!Objects.equals(this.explicitValue, other.explicitValue)) {
-            return false;
-        }
-        return true;
+        StringExplicitValueModification other = (StringExplicitValueModification) obj;
+        return Objects.equals(explicitValue, other.explicitValue);
+    }
+
+    @Override
+    public String toString() {
+        return "StringExplicitValueModification{"
+                + "explicitValue='"
+                + backslashEscapeString(explicitValue)
+                + '\''
+                + '}';
     }
 }

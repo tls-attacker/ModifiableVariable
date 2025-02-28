@@ -67,12 +67,6 @@ public class ByteArrayDeleteModificationTest {
         assertEquals(1, b1.getCount());
     }
 
-    /** Test of getModifiedCopy method, of class ByteArrayDeleteModification. */
-    @Test
-    public void testGetModifiedCopy() {
-        assertNotSame(b1, b1.getModifiedCopy());
-    }
-
     /** Test of hashCode method, of class ByteArrayDeleteModification. */
     @Test
     public void testHashCode() {

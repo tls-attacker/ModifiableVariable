@@ -10,32 +10,37 @@ package de.rub.nds.modifiablevariable.bytearray;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Arrays;
-import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = {"explicitValue", "modificationFilter"})
-@XmlAccessorType(XmlAccessType.FIELD)
 public class ByteArrayExplicitValueModification extends VariableModification<byte[]> {
 
-    private static final int MAX_EXPLICIT_VALUE = 256;
-
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
-    private byte[] explicitValue;
+    protected byte[] explicitValue;
 
-    public ByteArrayExplicitValueModification() {}
+    public ByteArrayExplicitValueModification() {
+        super();
+    }
 
     public ByteArrayExplicitValueModification(byte[] explicitValue) {
+        super();
         this.explicitValue = explicitValue;
     }
 
+    public ByteArrayExplicitValueModification(ByteArrayExplicitValueModification other) {
+        super(other);
+        explicitValue = other.explicitValue != null ? other.explicitValue.clone() : null;
+    }
+
     @Override
-    protected byte[] modifyImplementationHook(final byte[] input) {
+    public ByteArrayExplicitValueModification createCopy() {
+        return new ByteArrayExplicitValueModification(this);
+    }
+
+    @Override
+    protected byte[] modifyImplementationHook(byte[] input) {
         return explicitValue.clone();
     }
 
@@ -56,21 +61,9 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
     }
 
     @Override
-    public VariableModification<byte[]> getModifiedCopy() {
-        Random r = new Random();
-        if (explicitValue.length == 0) {
-            return this;
-        }
-        int index = r.nextInt(explicitValue.length);
-        byte[] newValue = Arrays.copyOf(explicitValue, explicitValue.length);
-        newValue[index] = (byte) r.nextInt(MAX_EXPLICIT_VALUE);
-        return new ByteArrayExplicitValueModification(newValue);
-    }
-
-    @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 53 * hash + Arrays.hashCode(this.explicitValue);
+        int hash = 7;
+        hash = 31 * hash + Arrays.hashCode(explicitValue);
         return hash;
     }
 
@@ -85,10 +78,7 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ByteArrayExplicitValueModification other = (ByteArrayExplicitValueModification) obj;
-        if (!Arrays.equals(this.explicitValue, other.explicitValue)) {
-            return false;
-        }
-        return true;
+        ByteArrayExplicitValueModification other = (ByteArrayExplicitValueModification) obj;
+        return Arrays.equals(explicitValue, other.explicitValue);
     }
 }

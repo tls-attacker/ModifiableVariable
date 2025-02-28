@@ -52,12 +52,6 @@ public class BigIntegerAddModificationTest {
         assertEquals(BigInteger.ONE, b2.getSummand());
     }
 
-    /** Test of getModifiedCopy method, of class BigIntegerAddModification. */
-    @Test
-    public void testGetModifiedCopy() {
-        assertNotEquals(b1, b1.getModifiedCopy());
-    }
-
     /** Test of hashCode method, of class BigIntegerAddModification. */
     @Test
     public void testHashCode() {

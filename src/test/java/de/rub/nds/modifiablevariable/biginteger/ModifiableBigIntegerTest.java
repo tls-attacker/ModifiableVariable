@@ -29,11 +29,6 @@ public class ModifiableBigIntegerTest {
         integer2.setOriginalValue(BigInteger.TEN);
     }
 
-    /** Test of createRandomModification method, of class ModifiableBigInteger. */
-    @Disabled("Not yet implemented")
-    @Test
-    public void testCreateRandomModification() {}
-
     /** Test of getAssertEquals method, of class ModifiableBigInteger. */
     @Disabled("Not yet implemented")
     @Test

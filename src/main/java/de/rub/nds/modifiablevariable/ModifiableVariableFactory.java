@@ -16,7 +16,7 @@ import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import java.math.BigInteger;
 
-public class ModifiableVariableFactory {
+public final class ModifiableVariableFactory {
 
     public static ModifiableBigInteger createBigIntegerModifiableVariable() {
         return new ModifiableBigInteger();
@@ -38,9 +38,17 @@ public class ModifiableVariableFactory {
         return new ModifiableLong();
     }
 
+    public static ModifiableBoolean createBooleanModifiableVariable() {
+        return new ModifiableBoolean();
+    }
+
+    public static ModifiableString createStringModifiableVariable() {
+        return new ModifiableString();
+    }
+
     public static ModifiableBigInteger safelySetValue(ModifiableBigInteger mv, BigInteger value) {
         if (mv == null) {
-            mv = new ModifiableBigInteger();
+            return new ModifiableBigInteger(value);
         }
         mv.setOriginalValue(value);
         return mv;
@@ -48,7 +56,7 @@ public class ModifiableVariableFactory {
 
     public static ModifiableString safelySetValue(ModifiableString mv, String value) {
         if (mv == null) {
-            mv = new ModifiableString();
+            return new ModifiableString(value);
         }
         mv.setOriginalValue(value);
         return mv;
@@ -56,7 +64,7 @@ public class ModifiableVariableFactory {
 
     public static ModifiableInteger safelySetValue(ModifiableInteger mv, Integer value) {
         if (mv == null) {
-            mv = new ModifiableInteger();
+            return new ModifiableInteger(value);
         }
         mv.setOriginalValue(value);
         return mv;
@@ -64,7 +72,7 @@ public class ModifiableVariableFactory {
 
     public static ModifiableByte safelySetValue(ModifiableByte mv, Byte value) {
         if (mv == null) {
-            mv = new ModifiableByte();
+            return new ModifiableByte(value);
         }
         mv.setOriginalValue(value);
         return mv;
@@ -72,7 +80,7 @@ public class ModifiableVariableFactory {
 
     public static ModifiableByteArray safelySetValue(ModifiableByteArray mv, byte[] value) {
         if (mv == null) {
-            mv = new ModifiableByteArray();
+            return new ModifiableByteArray(value);
         }
         mv.setOriginalValue(value);
         return mv;
@@ -80,7 +88,7 @@ public class ModifiableVariableFactory {
 
     public static ModifiableLong safelySetValue(ModifiableLong mv, Long value) {
         if (mv == null) {
-            mv = new ModifiableLong();
+            return new ModifiableLong(value);
         }
         mv.setOriginalValue(value);
         return mv;
@@ -88,11 +96,13 @@ public class ModifiableVariableFactory {
 
     public static ModifiableBoolean safelySetValue(ModifiableBoolean mv, Boolean value) {
         if (mv == null) {
-            mv = new ModifiableBoolean();
+            return new ModifiableBoolean(value);
         }
         mv.setOriginalValue(value);
         return mv;
     }
 
-    private ModifiableVariableFactory() {}
+    private ModifiableVariableFactory() {
+        super();
+    }
 }

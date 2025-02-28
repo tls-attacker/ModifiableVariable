@@ -9,27 +9,35 @@ package de.rub.nds.modifiablevariable.integer;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = {"subtrahend", "modificationFilter"})
 public class IntegerSubtractModification extends VariableModification<Integer> {
-
-    private static final int MAX_SUBTRACT_MODIFIER = 256;
 
     private Integer subtrahend;
 
-    public IntegerSubtractModification() {}
+    public IntegerSubtractModification() {
+        super();
+    }
 
-    public IntegerSubtractModification(Integer bi) {
-        this.subtrahend = bi;
+    public IntegerSubtractModification(Integer subtrahend) {
+        super();
+        this.subtrahend = subtrahend;
+    }
+
+    public IntegerSubtractModification(IntegerSubtractModification other) {
+        super(other);
+        subtrahend = other.subtrahend;
     }
 
     @Override
-    protected Integer modifyImplementationHook(final Integer input) {
-        return (input == null) ? -subtrahend : input - subtrahend;
+    public IntegerSubtractModification createCopy() {
+        return new IntegerSubtractModification(this);
+    }
+
+    @Override
+    protected Integer modifyImplementationHook(Integer input) {
+        return input == null ? -subtrahend : input - subtrahend;
     }
 
     public Integer getSubtrahend() {
@@ -41,15 +49,9 @@ public class IntegerSubtractModification extends VariableModification<Integer> {
     }
 
     @Override
-    public VariableModification<Integer> getModifiedCopy() {
-        return new IntegerSubtractModification(
-                subtrahend + new Random().nextInt(MAX_SUBTRACT_MODIFIER));
-    }
-
-    @Override
     public int hashCode() {
         int hash = 7;
-        hash = 23 * hash + Objects.hashCode(this.subtrahend);
+        hash = 31 * hash + subtrahend;
         return hash;
     }
 
@@ -64,10 +66,12 @@ public class IntegerSubtractModification extends VariableModification<Integer> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final IntegerSubtractModification other = (IntegerSubtractModification) obj;
-        if (!Objects.equals(this.subtrahend, other.subtrahend)) {
-            return false;
-        }
-        return true;
+        IntegerSubtractModification other = (IntegerSubtractModification) obj;
+        return Objects.equals(subtrahend, other.subtrahend);
+    }
+
+    @Override
+    public String toString() {
+        return "IntegerSubtractModification{" + "subtrahend=" + subtrahend + '}';
     }
 }

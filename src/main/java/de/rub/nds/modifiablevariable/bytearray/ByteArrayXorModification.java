@@ -10,33 +10,37 @@ package de.rub.nds.modifiablevariable.bytearray;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Arrays;
-import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = {"xor", "startPosition", "modificationFilter"})
-@XmlAccessorType(XmlAccessType.FIELD)
 public class ByteArrayXorModification extends VariableModification<byte[]> {
-
-    private static final int MAX_MODIFIER_VALUE = 256;
-
-    private static final int MAX_XOR_MODIFIER = 32;
 
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] xor;
 
     private int startPosition;
 
-    public ByteArrayXorModification() {}
+    public ByteArrayXorModification() {
+        super();
+    }
 
     public ByteArrayXorModification(byte[] xor, int startPosition) {
+        super();
         this.xor = xor;
         this.startPosition = startPosition;
+    }
+
+    public ByteArrayXorModification(ByteArrayXorModification other) {
+        super(other);
+        xor = other.xor != null ? other.xor.clone() : null;
+        startPosition = other.startPosition;
+    }
+
+    @Override
+    public ByteArrayXorModification createCopy() {
+        return new ByteArrayXorModification(this);
     }
 
     @Override
@@ -44,26 +48,26 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
         if (input == null) {
             input = new byte[0];
         }
-        byte[] result = input.clone();
-        int start = startPosition;
-        if (start < 0) {
-            start += input.length;
-        }
-        final int end = start + xor.length;
-        if (end > result.length) {
-            // result = new byte[end];
-            // System.arraycopy(input, 0, result, 0, input.length);
-            LOGGER.debug(
-                    "Input {{}} of length {} cannot be xor-ed with {{}} of length {} with start position {}",
-                    input,
-                    input.length,
-                    xor,
-                    xor.length,
-                    startPosition);
+        if (input.length == 0) {
             return input;
         }
-        for (int i = 0; i < xor.length; ++i) {
-            result[start + i] = (byte) (input[start + i] ^ xor[i]);
+        byte[] result = input.clone();
+
+        // Wrap around and also allow to xor at the end of the original value
+        int xorPosition = startPosition % input.length;
+        if (startPosition < 0) {
+            xorPosition += input.length - 1;
+        }
+        int endPosition = xorPosition + xor.length;
+        if (endPosition > result.length) {
+            // Fix the end position to the length of the original value
+            // This may not match the expected behavior of a user
+            // But for fuzzing purpose, that's fine
+            endPosition = result.length;
+        }
+
+        for (int i = 0; i < endPosition - xorPosition; ++i) {
+            result[xorPosition + i] = (byte) (input[xorPosition + i] ^ xor[i]);
         }
         return result;
     }
@@ -85,32 +89,10 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
     }
 
     @Override
-    public VariableModification<byte[]> getModifiedCopy() {
-        Random r = new Random();
-        if (r.nextBoolean()) {
-            int index = r.nextInt(xor.length);
-            byte[] newValue = Arrays.copyOf(xor, xor.length);
-            newValue[index] = (byte) r.nextInt(MAX_MODIFIER_VALUE);
-            return new ByteArrayXorModification(newValue, startPosition);
-        } else {
-            byte[] newValue = Arrays.copyOf(xor, xor.length);
-            int modifier = r.nextInt(MAX_XOR_MODIFIER);
-            if (r.nextBoolean()) {
-                modifier *= -1;
-            }
-            modifier = startPosition + modifier;
-            if (modifier <= 0) {
-                modifier = 1;
-            }
-            return new ByteArrayXorModification(newValue, modifier);
-        }
-    }
-
-    @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + Arrays.hashCode(this.xor);
-        hash = 97 * hash + this.startPosition;
+        hash = 31 * hash + Arrays.hashCode(xor);
+        hash = 31 * hash + startPosition;
         return hash;
     }
 
@@ -125,14 +107,11 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ByteArrayXorModification other = (ByteArrayXorModification) obj;
-        if (this.startPosition != other.startPosition) {
+        ByteArrayXorModification other = (ByteArrayXorModification) obj;
+        if (startPosition != other.startPosition) {
             return false;
         }
-        if (!Arrays.equals(this.xor, other.xor)) {
-            return false;
-        }
-        return true;
+        return Arrays.equals(xor, other.xor);
     }
 
     @Override

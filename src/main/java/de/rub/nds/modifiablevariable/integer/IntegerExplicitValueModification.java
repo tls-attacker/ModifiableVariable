@@ -9,26 +9,34 @@ package de.rub.nds.modifiablevariable.integer;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = {"explicitValue", "modificationFilter"})
 public class IntegerExplicitValueModification extends VariableModification<Integer> {
 
-    private static final int MAX_VALUE_MODIFIER = 256;
+    protected Integer explicitValue;
 
-    private Integer explicitValue;
+    public IntegerExplicitValueModification() {
+        super();
+    }
 
-    public IntegerExplicitValueModification() {}
+    public IntegerExplicitValueModification(Integer explicitValue) {
+        super();
+        this.explicitValue = explicitValue;
+    }
 
-    public IntegerExplicitValueModification(Integer bi) {
-        this.explicitValue = bi;
+    public IntegerExplicitValueModification(IntegerExplicitValueModification other) {
+        super(other);
+        explicitValue = other.explicitValue;
     }
 
     @Override
-    protected Integer modifyImplementationHook(final Integer input) {
+    public IntegerExplicitValueModification createCopy() {
+        return new IntegerExplicitValueModification(this);
+    }
+
+    @Override
+    protected Integer modifyImplementationHook(Integer input) {
         return explicitValue;
     }
 
@@ -41,21 +49,9 @@ public class IntegerExplicitValueModification extends VariableModification<Integ
     }
 
     @Override
-    public VariableModification<Integer> getModifiedCopy() {
-        Random r = new Random();
-        if (r.nextBoolean()) {
-            return new IntegerExplicitValueModification(
-                    explicitValue + r.nextInt(MAX_VALUE_MODIFIER));
-        } else {
-            return new IntegerExplicitValueModification(
-                    explicitValue - r.nextInt(MAX_VALUE_MODIFIER));
-        }
-    }
-
-    @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.explicitValue);
+        hash = 31 * hash + explicitValue;
         return hash;
     }
 
@@ -70,10 +66,12 @@ public class IntegerExplicitValueModification extends VariableModification<Integ
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final IntegerExplicitValueModification other = (IntegerExplicitValueModification) obj;
-        if (!Objects.equals(this.explicitValue, other.explicitValue)) {
-            return false;
-        }
-        return true;
+        IntegerExplicitValueModification other = (IntegerExplicitValueModification) obj;
+        return Objects.equals(explicitValue, other.explicitValue);
+    }
+
+    @Override
+    public String toString() {
+        return "IntegerExplicitValueModification{" + "explicitValue=" + explicitValue + '}';
     }
 }

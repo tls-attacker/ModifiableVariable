@@ -45,11 +45,6 @@ public class BigIntegerExplicitValueModificationTest {
     @Test
     public void testSetExplicitValue() {}
 
-    /** Test of getModifiedCopy method, of class BigIntegerExplicitValueModification. */
-    @Disabled("Not yet implemented")
-    @Test
-    public void testGetModifiedCopy() {}
-
     /** Test of hashCode method, of class BigIntegerExplicitValueModification. */
     @Disabled("Not yet implemented")
     @Test

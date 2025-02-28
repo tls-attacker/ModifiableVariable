@@ -10,7 +10,6 @@ package de.rub.nds.modifiablevariable.string;
 import static de.rub.nds.modifiablevariable.util.StringUtil.backslashEscapeString;
 
 import de.rub.nds.modifiablevariable.ModifiableVariable;
-import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -18,22 +17,32 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.nio.charset.StandardCharsets;
 
-/** */
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class ModifiableString extends ModifiableVariable<String> {
 
-    @XmlJavaTypeAdapter(IllegalStringAdapter.class)
-    private String originalValue;
+    protected String originalValue;
 
-    public ModifiableString() {}
-
-    @Override
-    protected void createRandomModification() {
-        VariableModification<String> vm = StringModificationFactory.createRandomModification();
-        setModification(vm);
+    public ModifiableString() {
+        super();
     }
 
+    public ModifiableString(String originalValue) {
+        super();
+        this.originalValue = originalValue;
+    }
+
+    public ModifiableString(ModifiableString other) {
+        super(other);
+        originalValue = other.originalValue;
+    }
+
+    @Override
+    public ModifiableString createCopy() {
+        return new ModifiableString(this);
+    }
+
+    @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     public String getAssertEquals() {
         return assertEquals;
     }
@@ -63,6 +72,7 @@ public class ModifiableString extends ModifiableVariable<String> {
     }
 
     @Override
+    @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     public String getOriginalValue() {
         return originalValue;
     }
@@ -74,20 +84,22 @@ public class ModifiableString extends ModifiableVariable<String> {
 
     @Override
     public String toString() {
-        return String.format(
-                "ModifiableString{originalValue=%s}", backslashEscapeString(originalValue));
+        return "ModifiableString{"
+                + "originalValue='"
+                + backslashEscapeString(originalValue)
+                + '\''
+                + innerToString()
+                + '}';
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof ModifiableString)) {
+        if (!(obj instanceof ModifiableString that)) {
             return false;
         }
-
-        ModifiableString that = (ModifiableString) o;
 
         return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }

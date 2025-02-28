@@ -8,27 +8,32 @@
 package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import java.math.BigInteger;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = {"subtrahend", "modificationFilter"})
-@XmlAccessorType(XmlAccessType.FIELD)
 public class BigIntegerSubtractModification extends VariableModification<BigInteger> {
-
-    private static final int MAX_SUBTRACT_LENGTH = 8;
 
     private BigInteger subtrahend;
 
-    public BigIntegerSubtractModification() {}
+    public BigIntegerSubtractModification() {
+        super();
+    }
 
-    public BigIntegerSubtractModification(BigInteger bi) {
-        this.subtrahend = bi;
+    public BigIntegerSubtractModification(BigInteger subtrahend) {
+        super();
+        this.subtrahend = subtrahend;
+    }
+
+    public BigIntegerSubtractModification(BigIntegerSubtractModification other) {
+        super(other);
+        subtrahend = other.subtrahend;
+    }
+
+    @Override
+    public BigIntegerSubtractModification createCopy() {
+        return new BigIntegerSubtractModification(this);
     }
 
     @Override
@@ -48,15 +53,9 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
     }
 
     @Override
-    public VariableModification<BigInteger> getModifiedCopy() {
-        return new BigIntegerSubtractModification(
-                subtrahend.add(new BigInteger(MAX_SUBTRACT_LENGTH, new Random())));
-    }
-
-    @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 61 * hash + Objects.hashCode(this.subtrahend);
+        int hash = 7;
+        hash = 31 * hash + Objects.hashCode(subtrahend);
         return hash;
     }
 
@@ -71,10 +70,12 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final BigIntegerSubtractModification other = (BigIntegerSubtractModification) obj;
-        if (!Objects.equals(this.subtrahend, other.subtrahend)) {
-            return false;
-        }
-        return true;
+        BigIntegerSubtractModification other = (BigIntegerSubtractModification) obj;
+        return Objects.equals(subtrahend, other.subtrahend);
+    }
+
+    @Override
+    public String toString() {
+        return "BigIntegerSubtractModification{" + "subtrahend=" + subtrahend + '}';
     }
 }
