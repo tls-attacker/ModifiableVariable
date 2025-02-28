@@ -48,21 +48,18 @@ public abstract class ModifiableVariable<E> implements Serializable {
 
     /** Sets multiple modifications, all previously set modifications are removed */
     public void setModifications(List<VariableModification<E>> modifications) {
-        if (modifications != null) {
-            this.modifications = new LinkedList<>(modifications);
-        } else {
-            this.modifications = null;
-        }
+        this.modifications = new LinkedList<>(modifications);
     }
 
     /** Sets multiple modifications, all previously set modifications are removed */
     @SafeVarargs
     public final void setModifications(VariableModification<E>... modifications) {
-        if (modifications != null) {
-            this.modifications = new LinkedList<>(List.of(modifications));
-        } else {
-            this.modifications = null;
-        }
+        this.modifications = new LinkedList<>(List.of(modifications));
+    }
+
+    /** Removes all modifications */
+    public void clearModifications() {
+        modifications = null;
     }
 
     /** Adds a modification to this modifiable variable */

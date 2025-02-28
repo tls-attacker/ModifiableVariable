@@ -61,7 +61,7 @@ public class LongSerializationTest {
 
     @Test
     public void testSerializeDeserializeSimple() throws Exception {
-        start.setModification(null);
+        start.clearModifications();
         m.marshal(start, writer);
 
         String xmlString = writer.toString();
@@ -78,7 +78,7 @@ public class LongSerializationTest {
     @Test
     public void testSerializeDeserializeWithModification() throws Exception {
         VariableModification<Long> modifier = LongModificationFactory.add(1L);
-        start.setModification(modifier);
+        start.setModifications(modifier);
         m.marshal(start, writer);
 
         String xmlString = writer.toString();

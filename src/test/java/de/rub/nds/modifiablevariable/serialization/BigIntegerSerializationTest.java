@@ -63,7 +63,7 @@ public class BigIntegerSerializationTest {
 
     @Test
     public void testSerializeDeserializeSimple() throws Exception {
-        start.setModification(null);
+        start.clearModifications();
         m.marshal(start, writer);
 
         String xmlString = writer.toString();
@@ -82,7 +82,7 @@ public class BigIntegerSerializationTest {
     public void testSerializeDeserializeWithModification() throws Exception {
         VariableModification<BigInteger> modifier =
                 BigIntegerModificationFactory.add(BigInteger.ONE);
-        start.setModification(modifier);
+        start.setModifications(modifier);
         m.marshal(start, writer);
 
         String xmlString = writer.toString();

@@ -34,7 +34,7 @@ public class LongModificationTest {
     public void testAdd() {
 
         VariableModification<Long> modifier = LongModificationFactory.add(1L);
-        start.setModification(modifier);
+        start.setModifications(modifier);
         expectedResult = 11L;
         result = start.getValue();
         assertEquals(expectedResult, result);
@@ -44,7 +44,7 @@ public class LongModificationTest {
     @Test
     public void testSub() {
         VariableModification<Long> modifier = LongModificationFactory.sub(1L);
-        start.setModification(modifier);
+        start.setModifications(modifier);
         expectedResult = 9L;
         result = start.getValue();
         assertEquals(expectedResult, result);
@@ -54,7 +54,7 @@ public class LongModificationTest {
     @Test
     public void testXor() {
         VariableModification<Long> modifier = LongModificationFactory.xor(2L);
-        start.setModification(modifier);
+        start.setModifications(modifier);
         expectedResult = 8L;
         result = start.getValue();
         assertEquals(expectedResult, result);
@@ -64,7 +64,7 @@ public class LongModificationTest {
     @Test
     public void testExplicitValue() {
         VariableModification<Long> modifier = LongModificationFactory.explicitValue(7L);
-        start.setModification(modifier);
+        start.setModifications(modifier);
         expectedResult = 7L;
         result = start.getValue();
         assertEquals(expectedResult, result);

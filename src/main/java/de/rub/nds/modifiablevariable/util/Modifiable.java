@@ -34,49 +34,49 @@ public final class Modifiable {
     private static ModifiableByteArray getModifiableByteArrayWithModification(
             VariableModification<byte[]> modification) {
         ModifiableByteArray modifiableByteArray = new ModifiableByteArray();
-        modifiableByteArray.setModification(modification);
+        modifiableByteArray.setModifications(modification);
         return modifiableByteArray;
     }
 
     private static ModifiableByte getModifiableByteWithModification(
             VariableModification<Byte> modification) {
         ModifiableByte modifiableByte = new ModifiableByte();
-        modifiableByte.setModification(modification);
+        modifiableByte.setModifications(modification);
         return modifiableByte;
     }
 
     private static ModifiableInteger getModifiableIntegerWithModification(
             VariableModification<Integer> modification) {
         ModifiableInteger modifiableInteger = new ModifiableInteger();
-        modifiableInteger.setModification(modification);
+        modifiableInteger.setModifications(modification);
         return modifiableInteger;
     }
 
     private static ModifiableBigInteger getModifiableBigIntegerWithModification(
             VariableModification<BigInteger> modification) {
         ModifiableBigInteger modifiableBigInteger = new ModifiableBigInteger();
-        modifiableBigInteger.setModification(modification);
+        modifiableBigInteger.setModifications(modification);
         return modifiableBigInteger;
     }
 
     private static ModifiableLong getModifiableLongWithModification(
             VariableModification<Long> modification) {
         ModifiableLong modifiableLong = new ModifiableLong();
-        modifiableLong.setModification(modification);
+        modifiableLong.setModifications(modification);
         return modifiableLong;
     }
 
     private static ModifiableBoolean getModifiableBooleanWithModification(
             VariableModification<Boolean> modification) {
         ModifiableBoolean modifiableBoolean = new ModifiableBoolean();
-        modifiableBoolean.setModification(modification);
+        modifiableBoolean.setModifications(modification);
         return modifiableBoolean;
     }
 
     private static ModifiableString getModifiableStringWithModification(
             VariableModification<String> modification) {
         ModifiableString modifiableString = new ModifiableString();
-        modifiableString.setModification(modification);
+        modifiableString.setModifications(modification);
         return modifiableString;
     }
 

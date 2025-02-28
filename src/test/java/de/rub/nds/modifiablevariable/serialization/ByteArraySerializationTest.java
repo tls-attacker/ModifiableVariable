@@ -61,7 +61,7 @@ public class ByteArraySerializationTest {
 
     @Test
     public void testSerializeDeserializeSimple() throws Exception {
-        start.setModification(null);
+        start.clearModifications();
         start.setAssertEquals(new byte[] {(byte) 0xff, 5, 44, 3});
         m.marshal(start, writer);
 
@@ -81,7 +81,7 @@ public class ByteArraySerializationTest {
     public void testSerializeDeserializeWithModification() throws Exception {
         VariableModification<byte[]> modifier =
                 ByteArrayModificationFactory.insertValue(new byte[] {1, 2}, 0);
-        start.setModification(modifier);
+        start.setModifications(modifier);
         m.marshal(start, writer);
 
         String xmlString = writer.toString();

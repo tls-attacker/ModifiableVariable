@@ -29,7 +29,7 @@ public class BigIntegerOperationConcatenationTest {
     @Test
     public void testAddThenMultiplyWithInnerClass() {
         // (input + 4) ^ 3 = (10 + 4) ^ 3 = 13
-        start.setModification(
+        start.setModifications(
                 new VariableModification<>() {
 
                     @Override

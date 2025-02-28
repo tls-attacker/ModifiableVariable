@@ -42,7 +42,7 @@ The best way to present the functionality of ModifiableVariables is by means of 
 ModifiableInteger i = new ModifiableInteger();
 i.setOriginalValue(30);
 VariableModification<Integer> modifier = IntegerModificationFactory.add(20);
-i.setModification(modifier);
+i.setModifications(modifier);
 System.out.println(i.getValue());  // 50
 ```
 
@@ -56,7 +56,7 @@ In byte arrays you can use further modifications like shuffling or inserting byt
 ModifiableByteArray ba = new ModifiableByteArray();
 VariableModification<byte[]> modifier = ByteArrayModificationFactory.insert(new byte[] {2, 3}, 1);
 ba.setOriginalValue(new byte[]{1, 4});
-ba.setModification(modifier);
+ba.setModifications(modifier);
 System.out.println(ArrayConverter.bytesToHexString(ba)); // 01 02 03 04
 ```
 

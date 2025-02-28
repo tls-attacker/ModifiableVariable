@@ -31,7 +31,7 @@ public class ByteModificationTest {
     @Test
     public void testAdd() {
         VariableModification<Byte> modifier = ByteModificationFactory.add(Byte.valueOf("1"));
-        start.setModification(modifier);
+        start.setModifications(modifier);
         expectedResult = Byte.valueOf("11");
         result = start.getValue();
         assertEquals(expectedResult, result);
@@ -42,7 +42,7 @@ public class ByteModificationTest {
     @Test
     public void testSub() {
         VariableModification<Byte> modifier = ByteModificationFactory.sub(Byte.valueOf("1"));
-        start.setModification(modifier);
+        start.setModifications(modifier);
         expectedResult = Byte.valueOf("9");
         result = start.getValue();
         assertEquals(expectedResult, result);
@@ -53,7 +53,7 @@ public class ByteModificationTest {
     @Test
     public void testXor() {
         VariableModification<Byte> modifier = ByteModificationFactory.xor(Byte.valueOf("2"));
-        start.setModification(modifier);
+        start.setModifications(modifier);
         expectedResult = Byte.valueOf("8");
         result = start.getValue();
         assertEquals(expectedResult, result);
@@ -65,7 +65,7 @@ public class ByteModificationTest {
     public void testExplicitValue() {
         VariableModification<Byte> modifier =
                 ByteModificationFactory.explicitValue(Byte.valueOf("7"));
-        start.setModification(modifier);
+        start.setModifications(modifier);
         expectedResult = Byte.valueOf("7");
         result = start.getValue();
         assertEquals(expectedResult, result);
