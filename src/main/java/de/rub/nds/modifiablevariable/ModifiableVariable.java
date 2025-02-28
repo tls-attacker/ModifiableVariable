@@ -46,16 +46,6 @@ public abstract class ModifiableVariable<E> implements Serializable {
         assertEquals = other.assertEquals;
     }
 
-    /** Set a single modification, all previously set modifications are removed */
-    public void setModification(VariableModification<E> modification) {
-        if (modification != null) {
-            modifications = new LinkedList<>();
-            modifications.add(modification);
-        } else {
-            modifications = null;
-        }
-    }
-
     /** Sets multiple modifications, all previously set modifications are removed */
     public void setModifications(List<VariableModification<E>> modifications) {
         if (modifications != null) {
@@ -83,19 +73,6 @@ public abstract class ModifiableVariable<E> implements Serializable {
             }
             modifications.add(modification);
         }
-    }
-
-    /**
-     * Returns the first modification that was set for this modifiable variable, if one exists.
-     *
-     * <p>Use {@code getModifications()} to get all modifications
-     */
-    @XmlTransient
-    public VariableModification<E> getFirstModification() {
-        if (modifications == null || modifications.isEmpty()) {
-            return null;
-        }
-        return modifications.getFirst();
     }
 
     /** Returns all modifications that are set for this modifiable variable */
