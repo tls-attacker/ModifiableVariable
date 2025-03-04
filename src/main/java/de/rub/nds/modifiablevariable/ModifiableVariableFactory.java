@@ -38,6 +38,14 @@ public class ModifiableVariableFactory {
         return new ModifiableLong();
     }
 
+    public static ModifiableString createStringModifiableVariable() {
+        return new ModifiableString();
+    }
+
+    public static ModifiableBoolean createBooleanModifiableVariable() {
+        return new ModifiableBoolean();
+    }
+
     public static ModifiableBigInteger safelySetValue(ModifiableBigInteger mv, BigInteger value) {
         if (mv == null) {
             mv = new ModifiableBigInteger();
