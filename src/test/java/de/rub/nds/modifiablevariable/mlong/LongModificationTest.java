@@ -8,6 +8,7 @@
 package de.rub.nds.modifiablevariable.mlong;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.longint.LongModificationFactory;
@@ -23,7 +24,6 @@ public class LongModificationTest {
 
     @BeforeEach
     public void setUp() {
-
         start = new ModifiableLong();
         start.setOriginalValue(10L);
         expectedResult = null;
@@ -32,7 +32,6 @@ public class LongModificationTest {
 
     @Test
     public void testAdd() {
-
         VariableModification<Long> modifier = LongModificationFactory.add(1L);
         start.setModifications(modifier);
         expectedResult = 11L;
@@ -69,5 +68,149 @@ public class LongModificationTest {
         result = start.getValue();
         assertEquals(expectedResult, result);
         assertEquals(Long.valueOf(10L), start.getOriginalValue());
+    }
+
+    @Test
+    public void testMultiply() {
+        VariableModification<Long> modifier = LongModificationFactory.multiply(3L);
+        start.setModifications(modifier);
+        expectedResult = 30L;
+        result = start.getValue();
+        assertEquals(expectedResult, result);
+        assertEquals(Long.valueOf(10L), start.getOriginalValue());
+    }
+
+    @Test
+    public void testMultiplyWithZero() {
+        VariableModification<Long> modifier = LongModificationFactory.multiply(0L);
+        start.setModifications(modifier);
+        expectedResult = 0L;
+        result = start.getValue();
+        assertEquals(expectedResult, result);
+        assertEquals(Long.valueOf(10L), start.getOriginalValue());
+    }
+
+    @Test
+    public void testMultiplyWithNull() {
+        ModifiableLong nullStart = new ModifiableLong();
+        VariableModification<Long> modifier = LongModificationFactory.multiply(5L);
+        nullStart.setModifications(modifier);
+        expectedResult = 0L;
+        result = nullStart.getValue();
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void testShiftLeft() {
+        VariableModification<Long> modifier = LongModificationFactory.shiftLeft(2);
+        start.setModifications(modifier);
+        expectedResult = 40L; // 10 << 2 = 40
+        result = start.getValue();
+        assertEquals(expectedResult, result);
+        assertEquals(Long.valueOf(10L), start.getOriginalValue());
+    }
+
+    @Test
+    public void testShiftLeftWithLargeShift() {
+        VariableModification<Long> modifier = LongModificationFactory.shiftLeft(65);
+        start.setModifications(modifier);
+        expectedResult = 20L; // (10 << 65) % 64 = (10 << 1) = 20
+        result = start.getValue();
+        assertEquals(expectedResult, result);
+        assertEquals(Long.valueOf(10L), start.getOriginalValue());
+    }
+
+    @Test
+    public void testShiftLeftWithNull() {
+        ModifiableLong nullStart = new ModifiableLong();
+        VariableModification<Long> modifier = LongModificationFactory.shiftLeft(2);
+        nullStart.setModifications(modifier);
+        expectedResult = 0L;
+        result = nullStart.getValue();
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void testShiftRight() {
+        start.setOriginalValue(40L);
+        VariableModification<Long> modifier = LongModificationFactory.shiftRight(2);
+        start.setModifications(modifier);
+        expectedResult = 10L; // 40 >> 2 = 10
+        result = start.getValue();
+        assertEquals(expectedResult, result);
+        assertEquals(Long.valueOf(40L), start.getOriginalValue());
+    }
+
+    @Test
+    public void testShiftRightWithLargeShift() {
+        start.setOriginalValue(40L);
+        VariableModification<Long> modifier = LongModificationFactory.shiftRight(66);
+        start.setModifications(modifier);
+        expectedResult = 10L; // (40 >> 66) % 64 = (40 >> 2) = 10
+        result = start.getValue();
+        assertEquals(expectedResult, result);
+        assertEquals(Long.valueOf(40L), start.getOriginalValue());
+    }
+
+    @Test
+    public void testShiftRightWithNull() {
+        ModifiableLong nullStart = new ModifiableLong();
+        VariableModification<Long> modifier = LongModificationFactory.shiftRight(2);
+        nullStart.setModifications(modifier);
+        expectedResult = 0L;
+        result = nullStart.getValue();
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void testSwapEndian() {
+        start.setOriginalValue(0x1122334455667788L);
+        VariableModification<Long> modifier = LongModificationFactory.swapEndian();
+        start.setModifications(modifier);
+        expectedResult = 0x8877665544332211L; // Byte-swapped value
+        result = start.getValue();
+        assertEquals(expectedResult, result);
+        assertEquals(Long.valueOf(0x1122334455667788L), start.getOriginalValue());
+    }
+
+    @Test
+    public void testSwapEndianWithNull() {
+        ModifiableLong nullStart = new ModifiableLong();
+        VariableModification<Long> modifier = LongModificationFactory.swapEndian();
+        nullStart.setModifications(modifier);
+        result = nullStart.getValue();
+        assertNull(result);
+    }
+
+    @Test
+    public void testMultipleModifications() {
+        // Test add followed by multiply
+        VariableModification<Long> addModifier = LongModificationFactory.add(5L);
+        VariableModification<Long> multiplyModifier = LongModificationFactory.multiply(2L);
+        start.setModifications(addModifier);
+        start.addModification(multiplyModifier);
+        expectedResult = 30L; // (10 + 5) * 2 = 30
+        result = start.getValue();
+        assertEquals(expectedResult, result);
+        assertEquals(Long.valueOf(10L), start.getOriginalValue());
+    }
+
+    @Test
+    public void testBoundaryValues() {
+        // Test with Long.MAX_VALUE
+        start.setOriginalValue(Long.MAX_VALUE);
+        VariableModification<Long> addModifier = LongModificationFactory.add(1L);
+        start.setModifications(addModifier);
+        expectedResult = Long.MIN_VALUE; // Overflow wraps around
+        result = start.getValue();
+        assertEquals(expectedResult, result);
+
+        // Test with Long.MIN_VALUE
+        start.setOriginalValue(Long.MIN_VALUE);
+        VariableModification<Long> subModifier = LongModificationFactory.sub(1L);
+        start.setModifications(subModifier);
+        expectedResult = Long.MAX_VALUE; // Underflow wraps around
+        result = start.getValue();
+        assertEquals(expectedResult, result);
     }
 }

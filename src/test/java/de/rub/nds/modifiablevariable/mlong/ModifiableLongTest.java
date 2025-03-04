@@ -7,18 +7,21 @@
  */
 package de.rub.nds.modifiablevariable.mlong;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import de.rub.nds.modifiablevariable.longint.LongModificationFactory;
 import de.rub.nds.modifiablevariable.longint.ModifiableLong;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class ModifiableLongTest {
 
     private ModifiableLong long1;
-
     private ModifiableLong long2;
 
     @BeforeEach
@@ -30,55 +33,187 @@ public class ModifiableLongTest {
     }
 
     /** Test of getAssertEquals method, of class ModifiableLong. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testGetAssertEquals() {}
+    public void testGetAssertEquals() {
+        assertNull(long1.getAssertEquals());
+        long1.setAssertEquals(42L);
+        assertEquals(Long.valueOf(42L), long1.getAssertEquals());
+    }
 
     /** Test of setAssertEquals method, of class ModifiableLong. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testSetAssertEquals() {}
+    public void testSetAssertEquals() {
+        long1.setAssertEquals(42L);
+        assertEquals(Long.valueOf(42L), long1.getAssertEquals());
+
+        long1.setAssertEquals(null);
+        assertNull(long1.getAssertEquals());
+    }
 
     /** Test of isOriginalValueModified method, of class ModifiableLong. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testIsOriginalValueModified() {}
+    public void testIsOriginalValueModified() {
+        // Initial state - not modified
+        assertFalse(long1.isOriginalValueModified());
+
+        // After modification
+        long1.setModifications(LongModificationFactory.add(1L));
+        assertTrue(long1.isOriginalValueModified());
+
+        // Null original value
+        ModifiableLong nullLong = new ModifiableLong();
+        assertFalse(nullLong.isOriginalValueModified());
+    }
 
     /** Test of getByteArray method, of class ModifiableLong. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testGetByteArray() {}
+    public void testGetByteArray() {
+        // Test 8-byte representation
+        byte[] expected8 = new byte[] {0, 0, 0, 0, 0, 0, 0, 2};
+        assertArrayEquals(expected8, long1.getByteArray(8));
+
+        // Test 4-byte representation (truncation)
+        byte[] expected4 = new byte[] {0, 0, 0, 2};
+        assertArrayEquals(expected4, long1.getByteArray(4));
+
+        // Test with modified value
+        long1.setModifications(LongModificationFactory.add(1L));
+        byte[] expectedModified = new byte[] {0, 0, 0, 0, 0, 0, 0, 3};
+        assertArrayEquals(expectedModified, long1.getByteArray(8));
+    }
 
     /** Test of validateAssertions method, of class ModifiableLong. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testValidateAssertions() {}
+    public void testValidateAssertions() {
+        // No assertions set
+        assertTrue(long1.validateAssertions());
+
+        // Matching assertion
+        long1.setAssertEquals(2L);
+        assertTrue(long1.validateAssertions());
+
+        // Non-matching assertion
+        long1.setAssertEquals(3L);
+        assertFalse(long1.validateAssertions());
+
+        // Modified value matching assertion
+        long1.setAssertEquals(3L);
+        long1.setModifications(LongModificationFactory.add(1L));
+        assertTrue(long1.validateAssertions());
+    }
 
     /** Test of getOriginalValue method, of class ModifiableLong. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testGetOriginalValue() {}
+    public void testGetOriginalValue() {
+        assertEquals(Long.valueOf(2L), long1.getOriginalValue());
+
+        ModifiableLong nullLong = new ModifiableLong();
+        assertNull(nullLong.getOriginalValue());
+    }
 
     /** Test of setOriginalValue method, of class ModifiableLong. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testSetOriginalValue() {}
+    public void testSetOriginalValue() {
+        long1.setOriginalValue(42L);
+        assertEquals(Long.valueOf(42L), long1.getOriginalValue());
+
+        long1.setOriginalValue(null);
+        assertNull(long1.getOriginalValue());
+    }
 
     /** Test of toString method, of class ModifiableLong. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testToString() {}
+    public void testToString() {
+        String expected = "ModifiableLong{originalValue=2}";
+        assertEquals(expected, long1.toString());
+
+        // With modification
+        long1.setModifications(LongModificationFactory.add(1L));
+        String expectedWithMod =
+                "ModifiableLong{originalValue=2, modifications=[LongAddModification{summand=1}]}";
+        assertEquals(expectedWithMod, long1.toString());
+
+        // With assertion
+        long1.setAssertEquals(3L);
+        String expectedWithAssert =
+                "ModifiableLong{originalValue=2, modifications=[LongAddModification{summand=1}], assertEquals=3}";
+        assertEquals(expectedWithAssert, long1.toString());
+    }
 
     /** Test of equals method, of class ModifiableLong. */
     @Test
     public void testEquals() {
         assertEquals(long1, long2);
+
+        // Different original value but same computed value
+        long2.setOriginalValue(1L);
+        long2.setModifications(LongModificationFactory.add(1L));
+        assertEquals(long1, long2);
+
+        // Different computed value
         long2.setOriginalValue(3L);
         assertNotEquals(long1, long2);
+
+        // Test with null
+        assertNotEquals(long1, null);
+
+        // Test with different object type
+        assertNotEquals(long1, "not a ModifiableLong");
+
+        // Test reflexivity
+        assertEquals(long1, long1);
+
+        // Test with null values
+        ModifiableLong nullLong1 = new ModifiableLong();
+        ModifiableLong nullLong2 = new ModifiableLong();
+        assertEquals(nullLong1, nullLong2);
     }
 
     /** Test of hashCode method, of class ModifiableLong. */
-    @Disabled("Not yet implemented")
     @Test
-    public void testHashCode() {}
+    public void testHashCode() {
+        assertEquals(long1.hashCode(), long2.hashCode());
+
+        // Same computed value, different original
+        long2.setOriginalValue(1L);
+        long2.setModifications(LongModificationFactory.add(1L));
+        assertEquals(long1.hashCode(), long2.hashCode());
+
+        // Different computed value
+        long2.setOriginalValue(3L);
+        assertNotEquals(long1.hashCode(), long2.hashCode());
+
+        // Test with null value
+        ModifiableLong nullLong = new ModifiableLong();
+        assertEquals(527, nullLong.hashCode()); // Based on implementation
+    }
+
+    @Test
+    public void testCreateCopy() {
+        ModifiableLong copy = long1.createCopy();
+        assertEquals(long1, copy);
+        assertEquals(long1.getOriginalValue(), copy.getOriginalValue());
+
+        // Modify the original and verify copy is unchanged
+        long1.setModifications(LongModificationFactory.add(1L));
+        assertNotEquals(long1.getValue(), copy.getValue());
+    }
+
+    @Test
+    public void testConstructor() {
+        ModifiableLong defaultConstructor = new ModifiableLong();
+        assertNull(defaultConstructor.getOriginalValue());
+
+        ModifiableLong valueConstructor = new ModifiableLong(5L);
+        assertEquals(Long.valueOf(5L), valueConstructor.getOriginalValue());
+
+        ModifiableLong modLong = new ModifiableLong(5L);
+        modLong.setModifications(LongModificationFactory.add(10L));
+        modLong.setAssertEquals(15L);
+
+        ModifiableLong copyConstructor = new ModifiableLong(modLong);
+        assertEquals(modLong.getOriginalValue(), copyConstructor.getOriginalValue());
+        assertEquals(modLong.getValue(), copyConstructor.getValue());
+        assertEquals(modLong.getAssertEquals(), copyConstructor.getAssertEquals());
+    }
 }
