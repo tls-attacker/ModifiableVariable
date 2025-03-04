@@ -7,8 +7,7 @@
  */
 package de.rub.nds.modifiablevariable.util;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
@@ -98,7 +97,7 @@ public class ArrayConverterTest {
     /** Test of bytesToHexString method, of class ArrayConverter. */
     @Test
     public void testBytesToHexString_byteArr() {
-        byte[] toTest = new byte[] {0x00, 0x11, 0x22, 0x33, 0x44};
+        byte[] toTest = {0x00, 0x11, 0x22, 0x33, 0x44};
         assertEquals("00 11 22 33 44", ArrayConverter.bytesToHexString(toTest));
         toTest = new byte[] {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
         assertEquals("00 01 02 03 04 05 06 07 08", ArrayConverter.bytesToHexString(toTest));
@@ -126,12 +125,11 @@ public class ArrayConverterTest {
     /** Test of bytesToHexString method, of class ArrayConverter. */
     @Test
     public void testBytesToHexString_byteArr_boolean() {
-        byte[] toTest =
-                new byte[] {
-                    0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04,
-                    0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01,
-                    0x02, 0x03, 0x04, 0x05, 0x06, 0x07
-                };
+        byte[] toTest = {
+            0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04,
+            0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01,
+            0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+        };
         assertEquals(
                 "00 01 02 03 04 05 06 07 00 01 02 03 04 05 06 07 00 01 02 03 04 05 06 07 00 01 02 03 04 05 06 07",
                 ArrayConverter.bytesToHexString(toTest, false));
@@ -148,12 +146,11 @@ public class ArrayConverterTest {
     /** Test ArrayConverter.bytesToRawHexString(). */
     @Test
     public void testBytesToRawHexString() {
-        byte[] toTest =
-                new byte[] {
-                    0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04,
-                    0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01,
-                    0x02, 0x03, 0x04, 0x05, 0x06, 0x07
-                };
+        byte[] toTest = {
+            0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04,
+            0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01,
+            0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+        };
         assertEquals(
                 "0001020304050607000102030405060700010203040506070001020304050607",
                 ArrayConverter.bytesToRawHexString(toTest));
@@ -298,7 +295,7 @@ public class ArrayConverterTest {
     /** Test of reverseByteOrder method, of class ArrayConverter. */
     @Test
     public void testReverseByteOrder() {
-        byte[] array = new byte[] {0x00, 0x01, 0x02, 0x03, 0x04};
+        byte[] array = {0x00, 0x01, 0x02, 0x03, 0x04};
 
         assertArrayEquals(
                 new byte[] {0x04, 0x03, 0x02, 0x01, 0x00},
@@ -337,7 +334,7 @@ public class ArrayConverterTest {
         byte[] innerArray3 = ArrayConverter.hexStringToByteArray("FF");
 
         assertEquals(1, ArrayConverter.indexOf(outerArray, innerArray1));
-        assertEquals(null, ArrayConverter.indexOf(outerArray, innerArray2));
-        assertEquals(null, ArrayConverter.indexOf(outerArray, innerArray3));
+        assertNull(ArrayConverter.indexOf(outerArray, innerArray2));
+        assertNull(ArrayConverter.indexOf(outerArray, innerArray3));
     }
 }

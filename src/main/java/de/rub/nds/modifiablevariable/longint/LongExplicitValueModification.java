@@ -9,26 +9,34 @@ package de.rub.nds.modifiablevariable.longint;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = {"explicitValue", "modificationFilter"})
 public class LongExplicitValueModification extends VariableModification<Long> {
 
-    private static final int MAX_EXPLICIT_MODIFIER = 256;
+    protected Long explicitValue;
 
-    private Long explicitValue;
+    public LongExplicitValueModification() {
+        super();
+    }
 
-    public LongExplicitValueModification() {}
+    public LongExplicitValueModification(Long explicitValue) {
+        super();
+        this.explicitValue = explicitValue;
+    }
 
-    public LongExplicitValueModification(Long bi) {
-        this.explicitValue = bi;
+    public LongExplicitValueModification(LongExplicitValueModification other) {
+        super(other);
+        explicitValue = other.explicitValue;
     }
 
     @Override
-    protected Long modifyImplementationHook(final Long input) {
+    public LongExplicitValueModification createCopy() {
+        return new LongExplicitValueModification(this);
+    }
+
+    @Override
+    protected Long modifyImplementationHook(Long input) {
         return explicitValue;
     }
 
@@ -41,21 +49,9 @@ public class LongExplicitValueModification extends VariableModification<Long> {
     }
 
     @Override
-    public VariableModification<Long> getModifiedCopy() {
-        Random r = new Random();
-        if (r.nextBoolean()) {
-            return new LongExplicitValueModification(
-                    explicitValue + r.nextInt(MAX_EXPLICIT_MODIFIER));
-        } else {
-            return new LongExplicitValueModification(
-                    explicitValue - r.nextInt(MAX_EXPLICIT_MODIFIER));
-        }
-    }
-
-    @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 43 * hash + Objects.hashCode(this.explicitValue);
+        int hash = 7;
+        hash = 31 * hash + Objects.hashCode(explicitValue);
         return hash;
     }
 
@@ -70,10 +66,12 @@ public class LongExplicitValueModification extends VariableModification<Long> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final LongExplicitValueModification other = (LongExplicitValueModification) obj;
-        if (!Objects.equals(this.explicitValue, other.explicitValue)) {
-            return false;
-        }
-        return true;
+        LongExplicitValueModification other = (LongExplicitValueModification) obj;
+        return Objects.equals(explicitValue, other.explicitValue);
+    }
+
+    @Override
+    public String toString() {
+        return "LongExplicitValueModification{" + "explicitValue=" + explicitValue + '}';
     }
 }

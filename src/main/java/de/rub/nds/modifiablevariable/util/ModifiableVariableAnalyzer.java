@@ -15,10 +15,13 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/** */
-public class ModifiableVariableAnalyzer {
+public final class ModifiableVariableAnalyzer {
 
     private static final Logger LOGGER = LogManager.getLogger(ModifiableVariableAnalyzer.class);
+
+    private ModifiableVariableAnalyzer() {
+        super();
+    }
 
     /**
      * Lists all the modifiable variables declared in the given class
@@ -67,8 +70,8 @@ public class ModifiableVariableAnalyzer {
                 getAllModifiableVariableHoldersRecursively(object);
         List<ModifiableVariableField> fields = new LinkedList<>();
         for (ModifiableVariableListHolder holder : holders) {
-            for (Field f : holder.getFields()) {
-                fields.add(new ModifiableVariableField(holder.getObject(), f));
+            for (Field field : holder.getFields()) {
+                fields.add(new ModifiableVariableField(holder.getObject(), field));
             }
         }
         return fields;
@@ -89,16 +92,16 @@ public class ModifiableVariableAnalyzer {
             holders.add(new ModifiableVariableListHolder(object, modFields));
         }
         List<Field> allFields = ReflectionHelper.getFieldsUpTo(object.getClass(), null, null);
-        for (Field f : allFields) {
+        for (Field field : allFields) {
             try {
                 HoldsModifiableVariable holdsVariable =
-                        f.getAnnotation(HoldsModifiableVariable.class);
-                f.setAccessible(true);
-                Object possibleHolder = f.get(object);
+                        field.getAnnotation(HoldsModifiableVariable.class);
+                field.setAccessible(true);
+                Object possibleHolder = field.get(object);
                 if (possibleHolder != null && holdsVariable != null) {
                     if (possibleHolder instanceof List) {
                         @SuppressWarnings("unchecked")
-                        List<Object> castedList = List.class.cast(possibleHolder);
+                        List<Object> castedList = (List<Object>) possibleHolder;
                         holders.addAll(getAllModifiableVariableHoldersFromList(castedList));
                     } else if (possibleHolder.getClass().isArray()) {
                         holders.addAll(
@@ -111,8 +114,8 @@ public class ModifiableVariableAnalyzer {
             } catch (IllegalAccessException | IllegalArgumentException ex) {
                 LOGGER.debug(
                         "Accessing field {} of type {} not possible: {}",
-                        f.getName(),
-                        f.getType(),
+                        field.getName(),
+                        field.getType(),
                         ex.toString());
             }
         }

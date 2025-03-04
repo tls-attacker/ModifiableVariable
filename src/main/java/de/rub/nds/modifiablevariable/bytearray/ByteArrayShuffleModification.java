@@ -10,42 +10,56 @@ package de.rub.nds.modifiablevariable.bytearray;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Arrays;
-import java.util.Random;
 
 /**
  * Shuffles the byte array, using a pre-defined array of array pointers (#shuffle). Array pointers
  * are currently defined as bytes, since we are modifying rather smaller arrays.
  */
 @XmlRootElement
-@XmlType(propOrder = {"shuffle", "modificationFilter"})
-@XmlAccessorType(XmlAccessType.FIELD)
 public class ByteArrayShuffleModification extends VariableModification<byte[]> {
-
-    private static final int MAX_MODIFIER_VALUE = 256;
 
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] shuffle;
 
-    public ByteArrayShuffleModification() {}
+    public ByteArrayShuffleModification() {
+        super();
+    }
 
     public ByteArrayShuffleModification(byte[] shuffle) {
+        super();
         this.shuffle = shuffle;
     }
 
+    public ByteArrayShuffleModification(ByteArrayShuffleModification other) {
+        super(other);
+        shuffle = other.shuffle != null ? other.shuffle.clone() : null;
+    }
+
     @Override
-    protected byte[] modifyImplementationHook(final byte[] input) {
+    public ByteArrayShuffleModification createCopy() {
+        return new ByteArrayShuffleModification(this);
+    }
+
+    @Override
+    protected byte[] modifyImplementationHook(byte[] input) {
         if (input == null) {
-            return input;
+            return null;
         }
         byte[] result = input.clone();
         int size = input.length;
-        if (size != 0) {
+        if (size > 255) {
+            for (int i = 0; i < shuffle.length - 3; i += 4) {
+                // Combine two consecutive bytes to form 16-bit values
+                int p1 = ((shuffle[i] & 0xff) << 8 | shuffle[i + 1] & 0xff) % size;
+                int p2 = ((shuffle[i + 2] & 0xff) << 8 | shuffle[i + 3] & 0xff) % size;
+                byte tmp = result[p1];
+                result[p1] = result[p2];
+                result[p2] = tmp;
+            }
+        } else if (size > 0) {
             for (int i = 0; i < shuffle.length - 1; i += 2) {
                 int p1 = (shuffle[i] & 0xff) % size;
                 int p2 = (shuffle[i + 1] & 0xff) % size;
@@ -66,18 +80,9 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
     }
 
     @Override
-    public VariableModification<byte[]> getModifiedCopy() {
-        Random r = new Random();
-        int index = r.nextInt(shuffle.length);
-        byte[] newValue = Arrays.copyOf(shuffle, shuffle.length);
-        newValue[index] = (byte) r.nextInt(MAX_MODIFIER_VALUE);
-        return new ByteArrayShuffleModification(shuffle);
-    }
-
-    @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 71 * hash + Arrays.hashCode(this.shuffle);
+        int hash = 7;
+        hash = 31 * hash + Arrays.hashCode(shuffle);
         return hash;
     }
 
@@ -92,11 +97,8 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ByteArrayShuffleModification other = (ByteArrayShuffleModification) obj;
-        if (!Arrays.equals(this.shuffle, other.shuffle)) {
-            return false;
-        }
-        return true;
+        ByteArrayShuffleModification other = (ByteArrayShuffleModification) obj;
+        return Arrays.equals(shuffle, other.shuffle);
     }
 
     @Override

@@ -8,22 +8,31 @@
 package de.rub.nds.modifiablevariable.integer;
 
 import de.rub.nds.modifiablevariable.ModifiableVariable;
-import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 public class ModifiableInteger extends ModifiableVariable<Integer> {
 
     private Integer originalValue;
 
+    public ModifiableInteger() {
+        super();
+    }
+
+    public ModifiableInteger(Integer originalValue) {
+        super();
+        this.originalValue = originalValue;
+    }
+
+    public ModifiableInteger(ModifiableInteger other) {
+        super(other);
+        originalValue = other.originalValue;
+    }
+
     @Override
-    protected void createRandomModification() {
-        VariableModification<Integer> vm = IntegerModificationFactory.createRandomModification();
-        setModification(vm);
+    public ModifiableInteger createCopy() {
+        return new ModifiableInteger(this);
     }
 
     public Integer getAssertEquals() {
@@ -66,19 +75,17 @@ public class ModifiableInteger extends ModifiableVariable<Integer> {
 
     @Override
     public String toString() {
-        return "ModifiableInteger{" + "originalValue=" + originalValue + '}';
+        return "ModifiableInteger{" + "originalValue=" + originalValue + innerToString() + '}';
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof ModifiableInteger)) {
+        if (!(obj instanceof ModifiableInteger that)) {
             return false;
         }
-
-        ModifiableInteger that = (ModifiableInteger) o;
 
         return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }
