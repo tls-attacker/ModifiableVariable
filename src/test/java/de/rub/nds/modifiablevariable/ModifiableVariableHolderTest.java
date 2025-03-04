@@ -165,12 +165,12 @@ public class ModifiableVariableHolderTest {
         assertTrue(result.contains("Test String"));
 
         // We only know the bytes will be there somewhere in hex format
-        assertTrue(result.contains("04") || result.contains("4"));
-        assertTrue(result.contains("05") || result.contains("5"));
-        assertTrue(result.contains("06") || result.contains("6"));
-        assertTrue(result.contains("01") || result.contains("1"));
-        assertTrue(result.contains("02") || result.contains("2"));
-        assertTrue(result.contains("03") || result.contains("3"));
+        assertTrue(result.contains("04"));
+        assertTrue(result.contains("05"));
+        assertTrue(result.contains("06"));
+        assertTrue(result.contains("01"));
+        assertTrue(result.contains("02"));
+        assertTrue(result.contains("03"));
 
         // Check for presence of other fields without exact formatting
         assertTrue(result.contains("regularString"));
