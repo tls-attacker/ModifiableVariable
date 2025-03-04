@@ -29,7 +29,7 @@ public class BigIntegerOperationConcatenationTest {
     @Test
     public void testAddThenMultiplyWithInnerClass() {
         // (input + 4) ^ 3 = (10 + 4) ^ 3 = 13
-        start.setModification(
+        start.setModifications(
                 new VariableModification<>() {
 
                     @Override
@@ -38,17 +38,8 @@ public class BigIntegerOperationConcatenationTest {
                     }
 
                     @Override
-                    public VariableModification<BigInteger> getModifiedCopy() {
-                        throw new UnsupportedOperationException("Not supported yet."); // To
-                        // change
-                        // body
-                        // of
-                        // generated
-                        // methods,
-                        // choose
-                        // Tools
-                        // |
-                        // Templates.
+                    public VariableModification<BigInteger> createCopy() {
+                        throw new UnsupportedOperationException("Not supported yet.");
                     }
                 });
         expectedResult = new BigInteger("13");

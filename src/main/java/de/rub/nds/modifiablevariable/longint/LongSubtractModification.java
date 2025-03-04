@@ -9,27 +9,35 @@ package de.rub.nds.modifiablevariable.longint;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = {"subtrahend", "modificationFilter"})
 public class LongSubtractModification extends VariableModification<Long> {
-
-    private static final int MAX_SUBTRACT_MODIFIER = 256;
 
     private Long subtrahend;
 
-    public LongSubtractModification() {}
+    public LongSubtractModification() {
+        super();
+    }
 
-    public LongSubtractModification(Long bi) {
-        this.subtrahend = bi;
+    public LongSubtractModification(Long subtrahend) {
+        super();
+        this.subtrahend = subtrahend;
+    }
+
+    public LongSubtractModification(LongSubtractModification other) {
+        super(other);
+        subtrahend = other.subtrahend;
     }
 
     @Override
-    protected Long modifyImplementationHook(final Long input) {
-        return (input == null) ? -subtrahend : input - subtrahend;
+    public LongSubtractModification createCopy() {
+        return new LongSubtractModification(this);
+    }
+
+    @Override
+    protected Long modifyImplementationHook(Long input) {
+        return input == null ? -subtrahend : input - subtrahend;
     }
 
     public Long getSubtrahend() {
@@ -41,15 +49,9 @@ public class LongSubtractModification extends VariableModification<Long> {
     }
 
     @Override
-    public VariableModification<Long> getModifiedCopy() {
-        return new LongSubtractModification(
-                subtrahend + new Random().nextInt(MAX_SUBTRACT_MODIFIER));
-    }
-
-    @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.subtrahend);
+        hash = 31 * hash + Objects.hashCode(subtrahend);
         return hash;
     }
 
@@ -64,10 +66,12 @@ public class LongSubtractModification extends VariableModification<Long> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final LongSubtractModification other = (LongSubtractModification) obj;
-        if (!Objects.equals(this.subtrahend, other.subtrahend)) {
-            return false;
-        }
-        return true;
+        LongSubtractModification other = (LongSubtractModification) obj;
+        return Objects.equals(subtrahend, other.subtrahend);
+    }
+
+    @Override
+    public String toString() {
+        return "LongSubtractModification{" + "subtrahend=" + subtrahend + '}';
     }
 }

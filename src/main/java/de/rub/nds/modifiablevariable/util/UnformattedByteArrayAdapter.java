@@ -9,7 +9,6 @@ package de.rub.nds.modifiablevariable.util;
 
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
-/** */
 public class UnformattedByteArrayAdapter extends XmlAdapter<String, byte[]> {
 
     @Override

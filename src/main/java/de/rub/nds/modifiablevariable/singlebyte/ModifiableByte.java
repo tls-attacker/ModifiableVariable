@@ -8,21 +8,30 @@
 package de.rub.nds.modifiablevariable.singlebyte;
 
 import de.rub.nds.modifiablevariable.ModifiableVariable;
-import de.rub.nds.modifiablevariable.VariableModification;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 public class ModifiableByte extends ModifiableVariable<Byte> {
 
     private Byte originalValue;
 
+    public ModifiableByte() {
+        super();
+    }
+
+    public ModifiableByte(Byte originalValue) {
+        super();
+        this.originalValue = originalValue;
+    }
+
+    public ModifiableByte(ModifiableByte other) {
+        super(other);
+        originalValue = other.originalValue;
+    }
+
     @Override
-    protected void createRandomModification() {
-        VariableModification<Byte> vm = ByteModificationFactory.createRandomModification();
-        setModification(vm);
+    public ModifiableByte createCopy() {
+        return new ModifiableByte(this);
     }
 
     public Byte getAssertEquals() {
@@ -61,19 +70,17 @@ public class ModifiableByte extends ModifiableVariable<Byte> {
 
     @Override
     public String toString() {
-        return "ModifiableByte{" + "originalValue=" + originalValue + '}';
+        return "ModifiableByte{" + "originalValue=" + originalValue + innerToString() + '}';
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof ModifiableByte)) {
+        if (!(obj instanceof ModifiableByte that)) {
             return false;
         }
-
-        ModifiableByte that = (ModifiableByte) o;
 
         return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
     }

@@ -9,27 +9,35 @@ package de.rub.nds.modifiablevariable.longint;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = {"xor", "modificationFilter"})
 public class LongXorModification extends VariableModification<Long> {
-
-    private static final int MAX_XOR_MODIFIER = 256;
 
     private Long xor;
 
-    public LongXorModification() {}
+    public LongXorModification() {
+        super();
+    }
 
-    public LongXorModification(Long bi) {
-        this.xor = bi;
+    public LongXorModification(Long xor) {
+        super();
+        this.xor = xor;
+    }
+
+    public LongXorModification(LongXorModification other) {
+        super(other);
+        xor = other.xor;
     }
 
     @Override
-    protected Long modifyImplementationHook(final Long input) {
-        return (input == null) ? xor : input ^ xor;
+    public LongXorModification createCopy() {
+        return new LongXorModification(this);
+    }
+
+    @Override
+    protected Long modifyImplementationHook(Long input) {
+        return input == null ? xor : input ^ xor;
     }
 
     public Long getXor() {
@@ -41,19 +49,9 @@ public class LongXorModification extends VariableModification<Long> {
     }
 
     @Override
-    public VariableModification<Long> getModifiedCopy() {
-        Random r = new Random();
-        if (r.nextBoolean()) {
-            return new LongXorModification(xor + new Random().nextInt(MAX_XOR_MODIFIER));
-        } else {
-            return new LongXorModification(xor - new Random().nextInt(MAX_XOR_MODIFIER));
-        }
-    }
-
-    @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 59 * hash + Objects.hashCode(this.xor);
+        int hash = 7;
+        hash = 31 * hash + Objects.hashCode(xor);
         return hash;
     }
 
@@ -68,10 +66,12 @@ public class LongXorModification extends VariableModification<Long> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final LongXorModification other = (LongXorModification) obj;
-        if (!Objects.equals(this.xor, other.xor)) {
-            return false;
-        }
-        return true;
+        LongXorModification other = (LongXorModification) obj;
+        return Objects.equals(xor, other.xor);
+    }
+
+    @Override
+    public String toString() {
+        return "LongXorModification{" + "xor=" + xor + '}';
     }
 }

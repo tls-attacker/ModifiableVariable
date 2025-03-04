@@ -29,11 +29,6 @@ public class ModifiableLongTest {
         long2.setOriginalValue(2L);
     }
 
-    /** Test of createRandomModification method, of class ModifiableLong. */
-    @Disabled("Not yet implemented")
-    @Test
-    public void testCreateRandomModification() {}
-
     /** Test of getAssertEquals method, of class ModifiableLong. */
     @Disabled("Not yet implemented")
     @Test
