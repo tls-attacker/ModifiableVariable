@@ -7,49 +7,57 @@
  */
 package de.rub.nds.modifiablevariable.string;
 
+import static de.rub.nds.modifiablevariable.util.StringUtil.backslashEscapeString;
+
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Objects;
 
 /** Modification that prepends a string to the original value. */
 @XmlRootElement
-@XmlType(propOrder = {"prependValue", "modificationFilter"})
 public class StringPrependValueModification extends VariableModification<String> {
 
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     private String prependValue;
 
-    public StringPrependValueModification() {}
+    public StringPrependValueModification() {
+        super();
+    }
 
-    public StringPrependValueModification(final String prependValue) {
+    public StringPrependValueModification(String prependValue) {
+        super();
         this.prependValue = prependValue;
     }
 
+    public StringPrependValueModification(StringPrependValueModification other) {
+        super(other);
+        prependValue = other.prependValue;
+    }
+
     @Override
-    protected String modifyImplementationHook(final String input) {
-        return this.prependValue + input;
+    public StringPrependValueModification createCopy() {
+        return new StringPrependValueModification(this);
+    }
+
+    @Override
+    protected String modifyImplementationHook(String input) {
+        return input != null ? prependValue + input : prependValue;
     }
 
     public String getPrependValue() {
-        return this.prependValue;
+        return prependValue;
     }
 
-    public void setPrependValue(final String prependValue) {
+    public void setPrependValue(String prependValue) {
         this.prependValue = prependValue;
-    }
-
-    @Override
-    public VariableModification<String> getModifiedCopy() {
-        return new StringPrependValueModification(prependValue);
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 83 * hash + Objects.hashCode(this.prependValue);
+        int hash = 7;
+        hash = 31 * hash + Objects.hashCode(prependValue);
         return hash;
     }
 
@@ -64,7 +72,16 @@ public class StringPrependValueModification extends VariableModification<String>
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final StringPrependValueModification other = (StringPrependValueModification) obj;
-        return Objects.equals(this.prependValue, other.getPrependValue());
+        StringPrependValueModification other = (StringPrependValueModification) obj;
+        return Objects.equals(prependValue, other.prependValue);
+    }
+
+    @Override
+    public String toString() {
+        return "StringPrependValueModification{"
+                + "prependValue='"
+                + backslashEscapeString(prependValue)
+                + '\''
+                + '}';
     }
 }

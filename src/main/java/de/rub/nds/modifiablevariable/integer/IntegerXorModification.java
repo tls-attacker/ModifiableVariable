@@ -9,27 +9,35 @@ package de.rub.nds.modifiablevariable.integer;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = {"xor", "modificationFilter"})
 public class IntegerXorModification extends VariableModification<Integer> {
-
-    private static final int MAX_VALUE_MODIFIER = 256;
 
     private Integer xor;
 
-    public IntegerXorModification() {}
+    public IntegerXorModification() {
+        super();
+    }
 
-    public IntegerXorModification(Integer bi) {
-        this.xor = bi;
+    public IntegerXorModification(Integer xor) {
+        super();
+        this.xor = xor;
+    }
+
+    public IntegerXorModification(IntegerXorModification other) {
+        super(other);
+        xor = other.xor;
     }
 
     @Override
-    protected Integer modifyImplementationHook(final Integer input) {
-        return (input == null) ? xor : input ^ xor;
+    public IntegerXorModification createCopy() {
+        return new IntegerXorModification(this);
+    }
+
+    @Override
+    protected Integer modifyImplementationHook(Integer input) {
+        return input == null ? xor : input ^ xor;
     }
 
     public Integer getXor() {
@@ -41,19 +49,9 @@ public class IntegerXorModification extends VariableModification<Integer> {
     }
 
     @Override
-    public VariableModification<Integer> getModifiedCopy() {
-        Random r = new Random();
-        if (r.nextBoolean()) {
-            return new IntegerSubtractModification(xor + new Random().nextInt(MAX_VALUE_MODIFIER));
-        } else {
-            return new IntegerSubtractModification(xor - new Random().nextInt(MAX_VALUE_MODIFIER));
-        }
-    }
-
-    @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + Objects.hashCode(this.xor);
+        int hash = 7;
+        hash = 31 * hash + xor;
         return hash;
     }
 
@@ -68,10 +66,12 @@ public class IntegerXorModification extends VariableModification<Integer> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final IntegerXorModification other = (IntegerXorModification) obj;
-        if (!Objects.equals(this.xor, other.xor)) {
-            return false;
-        }
-        return true;
+        IntegerXorModification other = (IntegerXorModification) obj;
+        return Objects.equals(xor, other.xor);
+    }
+
+    @Override
+    public String toString() {
+        return "IntegerXorModification{" + "xor=" + xor + '}';
     }
 }

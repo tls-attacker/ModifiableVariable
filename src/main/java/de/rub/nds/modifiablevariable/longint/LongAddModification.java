@@ -9,27 +9,35 @@ package de.rub.nds.modifiablevariable.longint;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
 import java.util.Objects;
-import java.util.Random;
 
 @XmlRootElement
-@XmlType(propOrder = {"summand", "modificationFilter"})
 public class LongAddModification extends VariableModification<Long> {
-
-    private static final int MAX_ADD_MODIFIER = 32;
 
     private Long summand;
 
-    public LongAddModification() {}
+    public LongAddModification() {
+        super();
+    }
 
-    public LongAddModification(Long bi) {
-        this.summand = bi;
+    public LongAddModification(Long summand) {
+        super();
+        this.summand = summand;
+    }
+
+    public LongAddModification(LongAddModification other) {
+        super(other);
+        summand = other.summand;
     }
 
     @Override
-    protected Long modifyImplementationHook(final Long input) {
-        return (input == null) ? summand : input + summand;
+    public LongAddModification createCopy() {
+        return new LongAddModification(this);
+    }
+
+    @Override
+    protected Long modifyImplementationHook(Long input) {
+        return input == null ? summand : input + summand;
     }
 
     public Long getSummand() {
@@ -41,14 +49,9 @@ public class LongAddModification extends VariableModification<Long> {
     }
 
     @Override
-    public VariableModification<Long> getModifiedCopy() {
-        return new LongAddModification(summand + new Random().nextInt(MAX_ADD_MODIFIER));
-    }
-
-    @Override
     public int hashCode() {
         int hash = 7;
-        hash = 43 * hash + Objects.hashCode(this.summand);
+        hash = 31 * hash + Objects.hashCode(summand);
         return hash;
     }
 
@@ -63,10 +66,12 @@ public class LongAddModification extends VariableModification<Long> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final LongAddModification other = (LongAddModification) obj;
-        if (!Objects.equals(this.summand, other.summand)) {
-            return false;
-        }
-        return true;
+        LongAddModification other = (LongAddModification) obj;
+        return Objects.equals(summand, other.summand);
+    }
+
+    @Override
+    public String toString() {
+        return "LongAddModification{" + "summand=" + summand + '}';
     }
 }

@@ -7,197 +7,124 @@
  */
 package de.rub.nds.modifiablevariable;
 
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerAddModification;
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerExplicitValueModification;
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerMultiplyModification;
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerShiftLeftModification;
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerShiftRightModification;
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerSubtractModification;
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerXorModification;
-import de.rub.nds.modifiablevariable.bool.BooleanExplicitValueModification;
-import de.rub.nds.modifiablevariable.bool.BooleanToggleModification;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayDeleteModification;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayDuplicateModification;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayExplicitValueModification;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayInsertModification;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayShuffleModification;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayXorModification;
-import de.rub.nds.modifiablevariable.integer.IntegerAddModification;
-import de.rub.nds.modifiablevariable.integer.IntegerExplicitValueModification;
-import de.rub.nds.modifiablevariable.integer.IntegerShiftLeftModification;
-import de.rub.nds.modifiablevariable.integer.IntegerShiftRightModification;
-import de.rub.nds.modifiablevariable.integer.IntegerSubtractModification;
-import de.rub.nds.modifiablevariable.integer.IntegerXorModification;
-import de.rub.nds.modifiablevariable.longint.LongAddModification;
-import de.rub.nds.modifiablevariable.longint.LongExplicitValueModification;
-import de.rub.nds.modifiablevariable.longint.LongSubtractModification;
-import de.rub.nds.modifiablevariable.longint.LongXorModification;
-import de.rub.nds.modifiablevariable.singlebyte.ByteAddModification;
-import de.rub.nds.modifiablevariable.singlebyte.ByteExplicitValueModification;
-import de.rub.nds.modifiablevariable.singlebyte.ByteSubtractModification;
-import de.rub.nds.modifiablevariable.singlebyte.ByteXorModification;
-import de.rub.nds.modifiablevariable.string.StringAppendValueModification;
-import de.rub.nds.modifiablevariable.string.StringExplicitValueModification;
-import de.rub.nds.modifiablevariable.string.StringPrependValueModification;
+import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlElements;
-import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlAnyElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlTransient;
-import java.io.Serializable;
-import java.util.Objects;
 
 /**
- * The base abstract class for modifiable variables, including the getValue function.The class needs
- * to be defined transient to allow propOrder definition in subclasses, see:
- * http://blog.bdoughan.com/2011/06/ignoring-inheritance-with-xmltransient.html
+ * The base abstract class for modifiable variables, including the getValue function. The class
+ * needs to be defined transient to allow propOrder definition in subclasses, see: <a
+ * href="http://blog.bdoughan.com/2011/06/ignoring-inheritance-with-xmltransient.html">docs</a>
  *
  * @param <E>
  */
-@XmlRootElement
 @XmlTransient
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class ModifiableVariable<E> implements Serializable {
 
-    @XmlElements(
-            value = {
-                @XmlElement(
-                        type = BigIntegerXorModification.class,
-                        name = "BigIntegerXorModification"),
-                @XmlElement(
-                        type = BigIntegerSubtractModification.class,
-                        name = "BigIntegerSubtractModification"),
-                @XmlElement(
-                        type = BigIntegerShiftRightModification.class,
-                        name = "BigIntegerShiftRightModification"),
-                @XmlElement(
-                        type = BigIntegerShiftLeftModification.class,
-                        name = "BigIntegerShiftLeftModification"),
-                @XmlElement(
-                        type = BigIntegerExplicitValueModification.class,
-                        name = "BigIntegerExplicitValueModification"),
-                @XmlElement(
-                        type = BigIntegerAddModification.class,
-                        name = "BigIntegerAddModification"),
-                @XmlElement(
-                        type = BigIntegerMultiplyModification.class,
-                        name = "BigIntegerMultiplyModification"),
-                @XmlElement(
-                        type = BooleanToggleModification.class,
-                        name = "BooleanToggleModification"),
-                @XmlElement(
-                        type = BooleanExplicitValueModification.class,
-                        name = "BooleanExplicitValueModification"),
-                @XmlElement(
-                        type = ByteArrayXorModification.class,
-                        name = "ByteArrayXorModification"),
-                @XmlElement(
-                        type = ByteArrayShuffleModification.class,
-                        name = "ByteArrayShuffleModification"),
-                @XmlElement(
-                        type = ByteArrayInsertModification.class,
-                        name = "ByteArrayInsertModification"),
-                @XmlElement(
-                        type = ByteArrayExplicitValueModification.class,
-                        name = "ByteArrayExplicitValueModification"),
-                @XmlElement(
-                        type = ByteArrayDuplicateModification.class,
-                        name = "ByteArrayDuplicateModification"),
-                @XmlElement(
-                        type = ByteArrayDeleteModification.class,
-                        name = "ByteArrayDeleteModification"),
-                @XmlElement(type = IntegerXorModification.class, name = "IntegerXorModification"),
-                @XmlElement(
-                        type = IntegerSubtractModification.class,
-                        name = "IntegerSubtractModification"),
-                @XmlElement(
-                        type = IntegerShiftRightModification.class,
-                        name = "IntegerShiftRightModification"),
-                @XmlElement(
-                        type = IntegerShiftLeftModification.class,
-                        name = "IntegerShiftLeftModification"),
-                @XmlElement(
-                        type = IntegerExplicitValueModification.class,
-                        name = "IntegerExplicitValueModification"),
-                @XmlElement(type = IntegerAddModification.class, name = "IntegerAddModification"),
-                @XmlElement(type = LongXorModification.class, name = "LongXorModification"),
-                @XmlElement(
-                        type = LongSubtractModification.class,
-                        name = "LongSubtractModification"),
-                @XmlElement(
-                        type = LongExplicitValueModification.class,
-                        name = "LongExplicitValueModification"),
-                @XmlElement(type = LongAddModification.class, name = "LongAddModification"),
-                @XmlElement(type = ByteXorModification.class, name = "ByteXorModification"),
-                @XmlElement(
-                        type = ByteSubtractModification.class,
-                        name = "ByteSubtractModification"),
-                @XmlElement(type = ByteAddModification.class, name = "ByteAddModification"),
-                @XmlElement(
-                        type = ByteExplicitValueModification.class,
-                        name = "ByteExplicitValueModification"),
-                @XmlElement(
-                        type = StringPrependValueModification.class,
-                        name = "StringPrependValueModification"),
-                @XmlElement(
-                        type = StringAppendValueModification.class,
-                        name = "StringAppendValueModification"),
-                @XmlElement(
-                        type = StringExplicitValueModification.class,
-                        name = "StringExplicitValueModification")
-            })
-    private VariableModification<E> modification = null;
-
-    private Boolean createRandomModification;
+    @XmlElementWrapper
+    @XmlAnyElement(lax = true)
+    private LinkedList<VariableModification<E>> modifications;
 
     protected E assertEquals;
 
-    public ModifiableVariable() {}
-
-    public void setModification(VariableModification<E> modification) {
-        this.modification = modification;
+    protected ModifiableVariable() {
+        super();
     }
 
-    @XmlTransient
-    public VariableModification<E> getModification() {
-        return modification;
+    protected ModifiableVariable(ModifiableVariable<E> other) {
+        super();
+        if (other.modifications != null) {
+            modifications = new LinkedList<>();
+            for (VariableModification<E> item : other.modifications) {
+                modifications.add(item != null ? item.createCopy() : null);
+            }
+        }
+        // Warning: Make sure to copy assertEquals in subclass correctly
+        assertEquals = other.assertEquals;
+    }
+
+    /** Sets multiple modifications, all previously set modifications are removed */
+    public void setModifications(List<VariableModification<E>> modifications) {
+        this.modifications = new LinkedList<>(modifications);
+    }
+
+    /** Sets multiple modifications, all previously set modifications are removed */
+    @SafeVarargs
+    public final void setModifications(VariableModification<E>... modifications) {
+        this.modifications = new LinkedList<>(List.of(modifications));
+    }
+
+    /** Removes all modifications */
+    public void clearModifications() {
+        modifications = null;
+    }
+
+    /** Adds a modification to this modifiable variable */
+    public void addModification(VariableModification<E> modification) {
+        if (modification != null) {
+            if (modifications == null) {
+                modifications = new LinkedList<>();
+            }
+            modifications.add(modification);
+        }
+    }
+
+    /** Returns all modifications that are set for this modifiable variable */
+    public LinkedList<VariableModification<E>> getModifications() {
+        return modifications;
     }
 
     public E getValue() {
-        if (Objects.equals(createRandomModification, Boolean.TRUE)) {
-            createRandomModification();
-            createRandomModification = false;
-        }
+        return getModifiedValue();
+    }
 
-        if (modification != null) {
-            return modification.modify(getOriginalValue());
+    private E getModifiedValue() {
+        E resultValue = getOriginalValue();
+        if (modifications != null) {
+            for (VariableModification<E> modification : modifications) {
+                resultValue = modification.modify(resultValue);
+            }
         }
-        return getOriginalValue();
+        return resultValue;
     }
 
     public abstract E getOriginalValue();
 
     public abstract void setOriginalValue(E originalValue);
 
-    protected abstract void createRandomModification();
-
-    public void createRandomModificationAtRuntime() {
-        createRandomModification = true;
-    }
+    public abstract ModifiableVariable<E> createCopy();
 
     public abstract boolean isOriginalValueModified();
 
     public abstract boolean validateAssertions();
 
     public boolean containsAssertion() {
-        return (assertEquals != null);
+        return assertEquals != null;
     }
 
-    public Boolean isCreateRandomModification() {
-        if (createRandomModification == null) {
-            return false;
+    protected String innerToString() {
+        StringBuilder result = new StringBuilder();
+        if (modifications != null) {
+            result.append(", modifications=[")
+                    .append(
+                            modifications.stream()
+                                    .map(Object::toString)
+                                    .collect(Collectors.joining(", ")))
+                    .append("]");
         }
-        return createRandomModification;
+
+        if (assertEquals != null) {
+            result.append(", assertEquals=").append(assertEquals);
+        }
+
+        return result.toString();
     }
 }

@@ -48,11 +48,6 @@ public class BigIntegerXorModificationTest {
     @Test
     public void testSetXor() {}
 
-    /** Test of getModifiedCopy method, of class BigIntegerXorModification. */
-    @Disabled("Not yet implemented")
-    @Test
-    public void testGetModifiedCopy() {}
-
     /** Test of hashCode method, of class BigIntegerXorModification. */
     @Disabled("Not yet implemented")
     @Test
