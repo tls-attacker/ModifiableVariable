@@ -7,16 +7,15 @@
  */
 package de.rub.nds.modifiablevariable;
 
-import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAnyElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The base abstract class for modifiable variables, including the getValue function. The class
