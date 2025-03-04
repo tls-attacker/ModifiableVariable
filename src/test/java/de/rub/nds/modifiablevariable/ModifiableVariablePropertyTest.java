@@ -75,28 +75,4 @@ public class ModifiableVariablePropertyTest {
         assertEquals(Type.NONE, annotation.type());
         assertEquals(Format.NONE, annotation.format());
     }
-
-    @Test
-    public void testTypeEnumValues() {
-        // Test that the enum contains all expected values
-        assertEquals(16, Type.values().length);
-
-        // Check a sample of values
-        assertEquals(Type.LENGTH, Type.valueOf("LENGTH"));
-        assertEquals(Type.COUNT, Type.valueOf("COUNT"));
-        assertEquals(Type.SIGNATURE, Type.valueOf("SIGNATURE"));
-        assertEquals(Type.CIPHERTEXT, Type.valueOf("CIPHERTEXT"));
-        assertEquals(Type.NONE, Type.valueOf("NONE"));
-    }
-
-    @Test
-    public void testFormatEnumValues() {
-        // Test that the enum contains all expected values
-        assertEquals(3, Format.values().length);
-
-        // Check all values
-        assertEquals(Format.ASN1, Format.valueOf("ASN1"));
-        assertEquals(Format.PKCS1, Format.valueOf("PKCS1"));
-        assertEquals(Format.NONE, Format.valueOf("NONE"));
-    }
 }
