@@ -13,12 +13,13 @@ import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @XmlTransient
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class VariableModification<E> {
+public abstract class VariableModification<E> implements Serializable {
 
     protected static final Logger LOGGER = LogManager.getLogger(VariableModification.class);
 
