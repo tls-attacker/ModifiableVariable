@@ -132,12 +132,13 @@ public class ModifiableVariableHolderTest {
                     }
 
                     @Override
-                    public VariableModification<Integer> getModifiedCopy() {
-                        return this;
+                    public VariableModification<Integer> createCopy() {
+                        // stub
+                        return null;
                     }
                 };
 
-        holder.intValue.setModification(modification);
+        holder.intValue.setModifications(modification);
         assertEquals(223, holder.intValue.getValue().intValue());
 
         // Reset and check that modifications are removed
@@ -145,7 +146,7 @@ public class ModifiableVariableHolderTest {
 
         // Original value should be null but modification should remain
         assertNull(holder.intValue.getOriginalValue());
-        assertNotNull(holder.intValue.getModification());
+        assertNotNull(holder.intValue.getModifications());
     }
 
     @Test

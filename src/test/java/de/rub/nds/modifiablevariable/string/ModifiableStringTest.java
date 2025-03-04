@@ -9,10 +9,9 @@ package de.rub.nds.modifiablevariable.string;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.VariableModification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,7 +33,7 @@ public class ModifiableStringTest {
     public void testIsOriginalValueModified() {
         assertFalse(string.isOriginalValueModified());
         VariableModification<String> modifier = StringModificationFactory.appendValue("_Modified");
-        string.setModification(modifier);
+        string.setModifications(modifier);
         assertTrue(string.isOriginalValueModified());
     }
 
@@ -58,15 +57,6 @@ public class ModifiableStringTest {
     }
 
     @Test
-    public void testRandomModification() {
-        ModifiableString randomString = ModifiableVariableFactory.createStringModifiableVariable();
-        randomString.setOriginalValue("Original");
-        randomString.createRandomModificationAtRuntime();
-        LOGGER.info("Randomly modified string: {}", randomString.getValue());
-        assertNotNull(randomString.getModification());
-    }
-
-    @Test
     public void testGetByteArray() {
         byte[] expected = "TestString".getBytes(java.nio.charset.StandardCharsets.ISO_8859_1);
         byte[] actual = string.getByteArray(expected.length);
@@ -80,24 +70,22 @@ public class ModifiableStringTest {
     public void testEquals() {
         ModifiableString string2 = new ModifiableString();
         string2.setOriginalValue("TestString");
-
-        assertTrue(string.equals(string));
-        assertTrue(string.equals(string2));
-
-        string2.setModification(StringModificationFactory.appendValue("_Modified"));
-        assertFalse(string.equals(string2));
-
+        assertEquals(string, string2);
+        assertEquals(string2, string);
+        string2.setModifications(StringModificationFactory.appendValue("_Modified"));
+        assertNotEquals(string, string2);
+        assertNotEquals(string2, string);
         assertFalse(string.equals(null));
         assertFalse(string.equals("TestString"));
     }
 
     @Test
     public void testToString() {
-        String expectedToString = "ModifiableString{originalValue=TestString}";
+        String expectedToString = "ModifiableString{originalValue='TestString'}";
         assertEquals(expectedToString, string.toString());
 
         string.setOriginalValue("Test\\String");
-        String expectedEscaped = "ModifiableString{originalValue=Test\\\\String}";
+        String expectedEscaped = "ModifiableString{originalValue='Test\\\\String'}";
         assertEquals(expectedEscaped, string.toString());
     }
 }

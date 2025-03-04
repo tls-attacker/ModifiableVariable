@@ -9,10 +9,7 @@ package de.rub.nds.modifiablevariable.integer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import de.rub.nds.modifiablevariable.VariableModification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +29,7 @@ public class IntegerShiftModificationTest {
     public void testShiftLeftModification() {
         int shift = 4;
         IntegerShiftLeftModification modification = new IntegerShiftLeftModification(shift);
-        modifiableInteger.setModification(modification);
+        modifiableInteger.setModifications(modification);
 
         int expected = originalValue << shift;
         int result = modifiableInteger.getValue();
@@ -44,7 +41,7 @@ public class IntegerShiftModificationTest {
     public void testShiftLeftWithZeroShift() {
         int shift = 0;
         IntegerShiftLeftModification modification = new IntegerShiftLeftModification(shift);
-        modifiableInteger.setModification(modification);
+        modifiableInteger.setModifications(modification);
 
         int expected = originalValue; // Shifting by 0 should return the same value
         int result = modifiableInteger.getValue();
@@ -56,7 +53,7 @@ public class IntegerShiftModificationTest {
     public void testShiftLeftWithMaxShift() {
         int shift = 31; // Max shift for int is 31 bits
         IntegerShiftLeftModification modification = new IntegerShiftLeftModification(shift);
-        modifiableInteger.setModification(modification);
+        modifiableInteger.setModifications(modification);
 
         int expected = originalValue << shift;
         int result = modifiableInteger.getValue();
@@ -70,23 +67,12 @@ public class IntegerShiftModificationTest {
 
         int shift = 4;
         IntegerShiftLeftModification modification = new IntegerShiftLeftModification(shift);
-        modifiableInteger.setModification(modification);
+        modifiableInteger.setModifications(modification);
 
         int expected = 0 << shift; // Should treat null as 0
         int result = modifiableInteger.getValue();
 
         assertEquals(expected, result);
-    }
-
-    @Test
-    public void testShiftLeftGetModifiedCopy() {
-        int shift = 5;
-        IntegerShiftLeftModification modification = new IntegerShiftLeftModification(shift);
-
-        VariableModification<Integer> modifiedCopy = modification.getModifiedCopy();
-
-        assertNotNull(modifiedCopy);
-        assertTrue(modifiedCopy instanceof IntegerShiftLeftModification);
     }
 
     @Test
@@ -119,7 +105,7 @@ public class IntegerShiftModificationTest {
     public void testShiftRightModification() {
         int shift = 4;
         IntegerShiftRightModification modification = new IntegerShiftRightModification(shift);
-        modifiableInteger.setModification(modification);
+        modifiableInteger.setModifications(modification);
 
         int expected = originalValue >> shift;
         int result = modifiableInteger.getValue();
@@ -134,7 +120,7 @@ public class IntegerShiftModificationTest {
 
         int shift = 4;
         IntegerShiftRightModification modification = new IntegerShiftRightModification(shift);
-        modifiableInteger.setModification(modification);
+        modifiableInteger.setModifications(modification);
 
         int expected = negativeValue >> shift;
         int result = modifiableInteger.getValue();
@@ -146,7 +132,7 @@ public class IntegerShiftModificationTest {
     public void testShiftRightWithZeroShift() {
         int shift = 0;
         IntegerShiftRightModification modification = new IntegerShiftRightModification(shift);
-        modifiableInteger.setModification(modification);
+        modifiableInteger.setModifications(modification);
 
         int expected = originalValue; // Shifting by 0 should return the same value
         int result = modifiableInteger.getValue();
@@ -158,7 +144,7 @@ public class IntegerShiftModificationTest {
     public void testShiftRightWithMaxShift() {
         int shift = 31; // Max shift for int is 31 bits
         IntegerShiftRightModification modification = new IntegerShiftRightModification(shift);
-        modifiableInteger.setModification(modification);
+        modifiableInteger.setModifications(modification);
 
         int expected = originalValue >> shift;
         int result = modifiableInteger.getValue();
@@ -172,23 +158,12 @@ public class IntegerShiftModificationTest {
 
         int shift = 4;
         IntegerShiftRightModification modification = new IntegerShiftRightModification(shift);
-        modifiableInteger.setModification(modification);
+        modifiableInteger.setModifications(modification);
 
         int expected = 0 >> shift; // Should treat null as 0
         int result = modifiableInteger.getValue();
 
         assertEquals(expected, result);
-    }
-
-    @Test
-    public void testShiftRightGetModifiedCopy() {
-        int shift = 5;
-        IntegerShiftRightModification modification = new IntegerShiftRightModification(shift);
-
-        VariableModification<Integer> modifiedCopy = modification.getModifiedCopy();
-
-        assertNotNull(modifiedCopy);
-        assertTrue(modifiedCopy instanceof IntegerShiftRightModification);
     }
 
     @Test

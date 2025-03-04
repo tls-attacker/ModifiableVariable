@@ -9,10 +9,7 @@ package de.rub.nds.modifiablevariable.biginteger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import de.rub.nds.modifiablevariable.VariableModification;
 import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +30,7 @@ public class BigIntegerShiftLeftModificationTest {
     public void testShiftLeftModification() {
         int shift = 8;
         BigIntegerShiftLeftModification modification = new BigIntegerShiftLeftModification(shift);
-        modifiableBigInteger.setModification(modification);
+        modifiableBigInteger.setModifications(modification);
 
         BigInteger expected = originalValue.shiftLeft(shift);
         BigInteger result = modifiableBigInteger.getValue();
@@ -48,7 +45,7 @@ public class BigIntegerShiftLeftModificationTest {
 
         int shift = 4;
         BigIntegerShiftLeftModification modification = new BigIntegerShiftLeftModification(shift);
-        modifiableBigInteger.setModification(modification);
+        modifiableBigInteger.setModifications(modification);
 
         BigInteger expected = negativeValue.shiftLeft(shift);
         BigInteger result = modifiableBigInteger.getValue();
@@ -60,7 +57,7 @@ public class BigIntegerShiftLeftModificationTest {
     public void testShiftLeftWithZeroShift() {
         int shift = 0;
         BigIntegerShiftLeftModification modification = new BigIntegerShiftLeftModification(shift);
-        modifiableBigInteger.setModification(modification);
+        modifiableBigInteger.setModifications(modification);
 
         BigInteger expected = originalValue; // Shifting by 0 should return the same value
         BigInteger result = modifiableBigInteger.getValue();
@@ -72,7 +69,7 @@ public class BigIntegerShiftLeftModificationTest {
     public void testShiftLeftWithLargeShift() {
         int shift = 128;
         BigIntegerShiftLeftModification modification = new BigIntegerShiftLeftModification(shift);
-        modifiableBigInteger.setModification(modification);
+        modifiableBigInteger.setModifications(modification);
 
         BigInteger expected = originalValue.shiftLeft(shift);
         BigInteger result = modifiableBigInteger.getValue();
@@ -86,26 +83,12 @@ public class BigIntegerShiftLeftModificationTest {
 
         int shift = 10;
         BigIntegerShiftLeftModification modification = new BigIntegerShiftLeftModification(shift);
-        modifiableBigInteger.setModification(modification);
+        modifiableBigInteger.setModifications(modification);
 
         BigInteger expected = BigInteger.ZERO.shiftLeft(shift); // Should treat null as ZERO
         BigInteger result = modifiableBigInteger.getValue();
 
         assertEquals(expected, result);
-    }
-
-    @Test
-    public void testGetModifiedCopy() {
-        int shift = 5;
-        BigIntegerShiftLeftModification modification = new BigIntegerShiftLeftModification(shift);
-
-        VariableModification<BigInteger> modifiedCopy = modification.getModifiedCopy();
-
-        assertNotNull(modifiedCopy);
-        assertTrue(modifiedCopy instanceof BigIntegerShiftLeftModification);
-
-        BigIntegerShiftLeftModification castCopy = (BigIntegerShiftLeftModification) modifiedCopy;
-        assertTrue(castCopy.getShift() > shift); // Should have a larger shift
     }
 
     @Test

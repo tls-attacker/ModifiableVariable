@@ -9,7 +9,6 @@ package de.rub.nds.modifiablevariable.string;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,7 +29,7 @@ public class StringModificationTest {
     public void testAppendModification() {
         String appendValue = "Appended";
         VariableModification<String> modifier = StringModificationFactory.appendValue(appendValue);
-        modifiableString.setModification(modifier);
+        modifiableString.setModifications(modifier);
 
         assertEquals(originalValue + appendValue, modifiableString.getValue());
     }
@@ -40,7 +39,7 @@ public class StringModificationTest {
         String prependValue = "Prepended";
         VariableModification<String> modifier =
                 StringModificationFactory.prependValue(prependValue);
-        modifiableString.setModification(modifier);
+        modifiableString.setModifications(modifier);
 
         assertEquals(prependValue + originalValue, modifiableString.getValue());
     }
@@ -50,7 +49,7 @@ public class StringModificationTest {
         String explicitValue = "CompletelyDifferent";
         VariableModification<String> modifier =
                 StringModificationFactory.explicitValue(explicitValue);
-        modifiableString.setModification(modifier);
+        modifiableString.setModifications(modifier);
 
         assertEquals(explicitValue, modifiableString.getValue());
         assertNotEquals(originalValue, modifiableString.getValue());
@@ -60,7 +59,7 @@ public class StringModificationTest {
     public void testAppendWithEmptyString() {
         String appendValue = "";
         VariableModification<String> modifier = StringModificationFactory.appendValue(appendValue);
-        modifiableString.setModification(modifier);
+        modifiableString.setModifications(modifier);
 
         assertEquals(originalValue, modifiableString.getValue());
     }
@@ -70,7 +69,7 @@ public class StringModificationTest {
         String prependValue = "";
         VariableModification<String> modifier =
                 StringModificationFactory.prependValue(prependValue);
-        modifiableString.setModification(modifier);
+        modifiableString.setModifications(modifier);
 
         assertEquals(originalValue, modifiableString.getValue());
     }
@@ -80,7 +79,7 @@ public class StringModificationTest {
         modifiableString.setOriginalValue("");
         String appendValue = "JustAppended";
         VariableModification<String> modifier = StringModificationFactory.appendValue(appendValue);
-        modifiableString.setModification(modifier);
+        modifiableString.setModifications(modifier);
 
         assertEquals(appendValue, modifiableString.getValue());
     }
@@ -91,20 +90,9 @@ public class StringModificationTest {
         String prependValue = "JustPrepended";
         VariableModification<String> modifier =
                 StringModificationFactory.prependValue(prependValue);
-        modifiableString.setModification(modifier);
+        modifiableString.setModifications(modifier);
 
         assertEquals(prependValue, modifiableString.getValue());
-    }
-
-    @Test
-    public void testCreateRandomModification() {
-        VariableModification<String> modifier =
-                StringModificationFactory.createRandomModification();
-        assertNotNull(modifier);
-
-        modifiableString.setModification(modifier);
-        String modifiedValue = modifiableString.getValue();
-        assertNotNull(modifiedValue);
     }
 
     @Test
