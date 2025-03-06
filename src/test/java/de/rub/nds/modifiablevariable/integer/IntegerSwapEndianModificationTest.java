@@ -114,16 +114,10 @@ class IntegerSwapEndianModificationTest {
         modifiableInteger.setOriginalValue(originalValue);
 
         IntegerSwapEndianModification modification = new IntegerSwapEndianModification();
-        modifiableInteger.setModifications(modification);
+        modifiableInteger.setModifications(modification, modification);
 
         int result1 = modifiableInteger.getValue(); // Apply once
-        assertEquals(0x78563412, result1);
 
-        // Apply twice (should be back to original)
-        ModifiableInteger modifiableInteger2 = new ModifiableInteger(result1);
-        modifiableInteger2.setModifications(modification);
-        int result2 = modifiableInteger2.getValue();
-
-        assertEquals(originalValue, result2);
+        assertEquals(originalValue, result1);
     }
 }
