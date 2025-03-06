@@ -10,7 +10,10 @@ package de.rub.nds.modifiablevariable.mlong;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.longint.LongModificationFactory;
+import de.rub.nds.modifiablevariable.longint.LongAddModification;
+import de.rub.nds.modifiablevariable.longint.LongExplicitValueModification;
+import de.rub.nds.modifiablevariable.longint.LongSubtractModification;
+import de.rub.nds.modifiablevariable.longint.LongXorModification;
 import de.rub.nds.modifiablevariable.longint.ModifiableLong;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +36,7 @@ public class LongModificationTest {
     @Test
     public void testAdd() {
 
-        VariableModification<Long> modifier = LongModificationFactory.add(1L);
+        VariableModification<Long> modifier = new LongAddModification(1L);
         start.setModifications(modifier);
         expectedResult = 11L;
         result = start.getValue();
@@ -43,7 +46,7 @@ public class LongModificationTest {
 
     @Test
     public void testSub() {
-        VariableModification<Long> modifier = LongModificationFactory.sub(1L);
+        VariableModification<Long> modifier = new LongSubtractModification(1L);
         start.setModifications(modifier);
         expectedResult = 9L;
         result = start.getValue();
@@ -53,7 +56,7 @@ public class LongModificationTest {
 
     @Test
     public void testXor() {
-        VariableModification<Long> modifier = LongModificationFactory.xor(2L);
+        VariableModification<Long> modifier = new LongXorModification(2L);
         start.setModifications(modifier);
         expectedResult = 8L;
         result = start.getValue();
@@ -63,7 +66,7 @@ public class LongModificationTest {
 
     @Test
     public void testExplicitValue() {
-        VariableModification<Long> modifier = LongModificationFactory.explicitValue(7L);
+        VariableModification<Long> modifier = new LongExplicitValueModification(7L);
         start.setModifications(modifier);
         expectedResult = 7L;
         result = start.getValue();

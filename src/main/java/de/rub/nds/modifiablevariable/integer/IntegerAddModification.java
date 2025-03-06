@@ -37,7 +37,7 @@ public class IntegerAddModification extends VariableModification<Integer> {
 
     @Override
     protected Integer modifyImplementationHook(Integer input) {
-        return input == null ? summand : input + summand;
+        return input + summand;
     }
 
     public Integer getSummand() {

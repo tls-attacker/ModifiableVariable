@@ -28,11 +28,10 @@ public class BigIntegerModificationTest {
         result = null;
     }
 
-    /** Test of add method, of class BigIntegerModificationFactory. */
+    /** Test of add method, of class BigIntegerAddModification. */
     @Test
     public void testAdd() {
-        VariableModification<BigInteger> modifier =
-                BigIntegerModificationFactory.add(BigInteger.ONE);
+        VariableModification<BigInteger> modifier = new BigIntegerAddModification(BigInteger.ONE);
         start.setModifications(modifier);
         expectedResult = new BigInteger("11");
         result = start.getValue();
@@ -41,11 +40,11 @@ public class BigIntegerModificationTest {
         assertEquals(BigInteger.TEN, start.getOriginalValue());
     }
 
-    /** Test of sub method, of class BigIntegerModificationFactory. */
+    /** Test of sub method, of class BigIntegerSubtractModification. */
     @Test
     public void testSub() {
         VariableModification<BigInteger> modifier =
-                BigIntegerModificationFactory.sub(BigInteger.ONE);
+                new BigIntegerSubtractModification(BigInteger.ONE);
         start.setModifications(modifier);
         expectedResult = new BigInteger("9");
         result = start.getValue();
@@ -54,11 +53,11 @@ public class BigIntegerModificationTest {
         assertEquals(BigInteger.TEN, start.getOriginalValue());
     }
 
-    /** Test of xor method, of class BigIntegerModificationFactory. */
+    /** Test of xor method, of class BigIntegerXorModification. */
     @Test
     public void testXor() {
         VariableModification<BigInteger> modifier =
-                BigIntegerModificationFactory.xor(new BigInteger("2"));
+                new BigIntegerXorModification(new BigInteger("2"));
         start.setModifications(modifier);
         expectedResult = new BigInteger("8");
         result = start.getValue();
@@ -67,11 +66,11 @@ public class BigIntegerModificationTest {
         assertEquals(BigInteger.TEN, start.getOriginalValue());
     }
 
-    /** Test of explicitValue method, of class BigIntegerModificationFactory. */
+    /** Test of explicitValue method, of class BigIntegerExplicitValueModification. */
     @Test
     public void testExplicitValue() {
         VariableModification<BigInteger> modifier =
-                BigIntegerModificationFactory.explicitValue(new BigInteger("7"));
+                new BigIntegerExplicitValueModification(new BigInteger("7"));
         start.setModifications(modifier);
         expectedResult = new BigInteger("7");
         result = start.getValue();
@@ -80,22 +79,21 @@ public class BigIntegerModificationTest {
         assertEquals(BigInteger.TEN, start.getOriginalValue());
     }
 
-    /** Test of add method, of class BigIntegerModificationFactory. */
+    /** Test of add method, of class BigIntegerAddModification. */
     @Test
     public void testIsOriginalValueModified() {
         assertFalse(start.isOriginalValueModified());
-        VariableModification<BigInteger> modifier =
-                BigIntegerModificationFactory.add(BigInteger.ZERO);
+        VariableModification<BigInteger> modifier = new BigIntegerAddModification(BigInteger.ZERO);
         start.setModifications(modifier);
         assertFalse(start.isOriginalValueModified());
-        modifier = BigIntegerModificationFactory.add(BigInteger.ONE);
+        modifier = new BigIntegerAddModification(BigInteger.ONE);
         start.setModifications(modifier);
         assertTrue(start.isOriginalValueModified());
     }
 
     @Test
     public void testShiftLeft() {
-        VariableModification<BigInteger> modifier = BigIntegerModificationFactory.shiftLeft(2);
+        VariableModification<BigInteger> modifier = new BigIntegerShiftLeftModification(2);
         start.setModifications(modifier);
         expectedResult = new BigInteger("40");
         result = start.getValue();
@@ -106,7 +104,7 @@ public class BigIntegerModificationTest {
 
     @Test
     public void testShiftRight() {
-        VariableModification<BigInteger> modifier = BigIntegerModificationFactory.shiftRight(1);
+        VariableModification<BigInteger> modifier = new BigIntegerShiftRightModification(1);
         start.setModifications(modifier);
         expectedResult = new BigInteger("5");
         result = start.getValue();
