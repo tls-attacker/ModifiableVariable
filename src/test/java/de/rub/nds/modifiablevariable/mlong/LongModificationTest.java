@@ -10,9 +10,6 @@ package de.rub.nds.modifiablevariable.mlong;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.longint.LongAddModification;
 import de.rub.nds.modifiablevariable.longint.LongExplicitValueModification;
@@ -23,6 +20,8 @@ import de.rub.nds.modifiablevariable.longint.LongSubtractModification;
 import de.rub.nds.modifiablevariable.longint.LongSwapEndianModification;
 import de.rub.nds.modifiablevariable.longint.LongXorModification;
 import de.rub.nds.modifiablevariable.longint.ModifiableLong;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class LongModificationTest {
 

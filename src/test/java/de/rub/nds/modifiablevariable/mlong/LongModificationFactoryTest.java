@@ -9,21 +9,17 @@ package de.rub.nds.modifiablevariable.mlong;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.longint.LongAddModification;
 import de.rub.nds.modifiablevariable.longint.LongExplicitValueModification;
-import de.rub.nds.modifiablevariable.longint.LongModificationFactory;
 import de.rub.nds.modifiablevariable.longint.LongMultiplyModification;
 import de.rub.nds.modifiablevariable.longint.LongShiftLeftModification;
 import de.rub.nds.modifiablevariable.longint.LongShiftRightModification;
 import de.rub.nds.modifiablevariable.longint.LongSubtractModification;
 import de.rub.nds.modifiablevariable.longint.LongSwapEndianModification;
 import de.rub.nds.modifiablevariable.longint.LongXorModification;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Modifier;
 import org.junit.jupiter.api.Test;
 
 public class LongModificationFactoryTest {
