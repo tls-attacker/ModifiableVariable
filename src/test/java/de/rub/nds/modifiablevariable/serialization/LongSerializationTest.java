@@ -10,9 +10,8 @@ package de.rub.nds.modifiablevariable.serialization;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayModificationFactory;
+import de.rub.nds.modifiablevariable.bytearray.ByteArrayExplicitValueModification;
 import de.rub.nds.modifiablevariable.longint.LongAddModification;
-import de.rub.nds.modifiablevariable.longint.LongModificationFactory;
 import de.rub.nds.modifiablevariable.longint.ModifiableLong;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -53,7 +52,7 @@ public class LongSerializationTest {
                 JAXBContext.newInstance(
                         ModifiableLong.class,
                         LongAddModification.class,
-                        ByteArrayModificationFactory.class);
+                        ByteArrayExplicitValueModification.class);
         m = context.createMarshaller();
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         um = context.createUnmarshaller();
@@ -77,7 +76,7 @@ public class LongSerializationTest {
 
     @Test
     public void testSerializeDeserializeWithModification() throws Exception {
-        VariableModification<Long> modifier = LongModificationFactory.add(1L);
+        VariableModification<Long> modifier = new LongAddModification(1L);
         start.setModifications(modifier);
         m.marshal(start, writer);
 

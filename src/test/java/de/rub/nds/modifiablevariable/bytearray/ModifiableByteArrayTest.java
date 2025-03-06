@@ -60,7 +60,7 @@ public class ModifiableByteArrayTest {
     public void testExplicitValue() {
         LOGGER.info("testExplicitValue");
         VariableModification<byte[]> modifier =
-                ByteArrayModificationFactory.explicitValue(modification1);
+                new ByteArrayExplicitValueModification(modification1);
         start.setModifications(modifier);
         assertArrayEquals(modification1, start.getValue());
     }
@@ -69,7 +69,7 @@ public class ModifiableByteArrayTest {
     @Test
     public void testXorFirstBytes() {
         LOGGER.info("testXorFirstBytes");
-        VariableModification<byte[]> modifier = ByteArrayModificationFactory.xor(modification1, 0);
+        VariableModification<byte[]> modifier = new ByteArrayXorModification(modification1, 0);
         start.setModifications(modifier);
 
         byte[] expResult = originalValue.clone();
@@ -83,7 +83,7 @@ public class ModifiableByteArrayTest {
         for (int i = 0; i < originalValue.length; i++) {
             expResult2[i] = (byte) (originalValue[i] ^ modification2[i]);
         }
-        VariableModification<byte[]> modifier2 = ByteArrayModificationFactory.xor(modification2, 0);
+        VariableModification<byte[]> modifier2 = new ByteArrayXorModification(modification2, 0);
         start.setModifications(modifier2);
         assertArrayEquals(expResult2, start.getValue());
     }
@@ -99,8 +99,7 @@ public class ModifiableByteArrayTest {
             expResult[first + i] = (byte) (originalValue[first + i] ^ modification1[i]);
         }
 
-        VariableModification<byte[]> modifier =
-                ByteArrayModificationFactory.xor(modification1, first);
+        VariableModification<byte[]> modifier = new ByteArrayXorModification(modification1, first);
         start.setModifications(modifier);
 
         LOGGER.debug("Expected: {}", expResult);
@@ -112,8 +111,7 @@ public class ModifiableByteArrayTest {
             expResult2[first + i] = (byte) (originalValue[first + i] ^ modification2[i]);
         }
 
-        VariableModification<byte[]> modifier2 =
-                ByteArrayModificationFactory.xor(modification2, first);
+        VariableModification<byte[]> modifier2 = new ByteArrayXorModification(modification2, first);
         start.setModifications(modifier2);
         assertArrayEquals(expResult2, start.getValue());
     }
@@ -133,7 +131,7 @@ public class ModifiableByteArrayTest {
         }
 
         VariableModification<byte[]> modifier =
-                ByteArrayModificationFactory.insertValue(modification1, 0);
+                new ByteArrayInsertValueModification(modification1, 0);
         start.setModifications(modifier);
 
         LOGGER.debug("Expected: {}", expResult);
@@ -156,7 +154,7 @@ public class ModifiableByteArrayTest {
         }
 
         VariableModification<byte[]> modifier =
-                ByteArrayModificationFactory.insertValue(modification1, originalValue.length);
+                new ByteArrayInsertValueModification(modification1, originalValue.length);
         start.setModifications(modifier);
 
         LOGGER.debug("Expected: {}", expResult);
@@ -174,7 +172,7 @@ public class ModifiableByteArrayTest {
         byte[] expResult = new byte[len];
         System.arraycopy(originalValue, 0, expResult, 0, len);
         VariableModification<byte[]> modifier =
-                ByteArrayModificationFactory.delete(len, modification1.length);
+                new ByteArrayDeleteModification(len, modification1.length);
         start.setModifications(modifier);
 
         LOGGER.debug("Expected: {}", expResult);
@@ -194,7 +192,7 @@ public class ModifiableByteArrayTest {
         System.arraycopy(
                 originalValue, modification1.length, expResult, 0, len - modification1.length);
         VariableModification<byte[]> modifier =
-                ByteArrayModificationFactory.delete(0, modification1.length);
+                new ByteArrayDeleteModification(0, modification1.length);
         start.setModifications(modifier);
 
         LOGGER.debug("Expected: {}", expResult);
@@ -213,39 +211,39 @@ public class ModifiableByteArrayTest {
         byte[] expResult2 = {(byte) 0, (byte) 1, (byte) 2, (byte) 3, (byte) 4, (byte) 5};
         byte[] expResult3 = {(byte) 2, (byte) 3, (byte) 4, (byte) 5, (byte) 6};
 
-        VariableModification<byte[]> modifier = ByteArrayModificationFactory.delete(0, len);
+        VariableModification<byte[]> modifier = new ByteArrayDeleteModification(0, len);
         start.setModifications(modifier);
 
         assertArrayEquals(expResult, start.getValue());
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
         LOGGER.debug("Testing Delete more Bytes than possible");
-        modifier = ByteArrayModificationFactory.delete(0, len + 1);
+        modifier = new ByteArrayDeleteModification(0, len + 1);
         start.setModifications(modifier);
 
         assertArrayEquals(start.getValue(), expResult);
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
         LOGGER.debug("Testing Delete negative amount");
-        modifier = ByteArrayModificationFactory.delete(0, -1);
+        modifier = new ByteArrayDeleteModification(0, -1);
         start.setModifications(modifier);
         assertArrayEquals(start.getValue(), originalValue);
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
         LOGGER.debug("Testing Delete 0 Bytes");
-        modifier = ByteArrayModificationFactory.delete(0, 0);
+        modifier = new ByteArrayDeleteModification(0, 0);
         start.setModifications(modifier);
         assertArrayEquals(start.getValue(), originalValue);
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
         LOGGER.debug("Testing Delete from negative Start position");
-        modifier = ByteArrayModificationFactory.delete(len * -2, 1);
+        modifier = new ByteArrayDeleteModification(len * -2, 1);
         start.setModifications(modifier);
         assertArrayEquals(start.getValue(), expResult2);
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
         LOGGER.debug("Testing Delete from to big Start Position");
-        modifier = ByteArrayModificationFactory.delete(len * 2, 2);
+        modifier = new ByteArrayDeleteModification(len * 2, 2);
         start.setModifications(modifier);
         assertArrayEquals(start.getValue(), expResult3);
     }
@@ -258,7 +256,7 @@ public class ModifiableByteArrayTest {
         assumeTrue(modification1.length < originalValue.length);
         LOGGER.debug("Inserting negative at position");
         VariableModification<byte[]> modifier =
-                ByteArrayModificationFactory.insertValue(modification1, -2 * originalValue.length);
+                new ByteArrayInsertValueModification(modification1, -2 * originalValue.length);
         start.setModifications(modifier);
         byte[] expResult =
                 ArrayConverter.concatenate(
@@ -270,7 +268,7 @@ public class ModifiableByteArrayTest {
         start.setOriginalValue(originalValue);
         LOGGER.debug("Inserting empty Array");
         byte[] emptyArray = new byte[0];
-        modifier = ByteArrayModificationFactory.insertValue(emptyArray, 0);
+        modifier = new ByteArrayInsertValueModification(emptyArray, 0);
         start.setModifications(modifier);
         assertArrayEquals(originalValue, start.getValue());
 
@@ -278,8 +276,7 @@ public class ModifiableByteArrayTest {
         start = new ModifiableByteArray();
         start.setOriginalValue(originalValue);
         LOGGER.debug("Inserting at too large position");
-        modifier =
-                ByteArrayModificationFactory.insertValue(modification1, originalValue.length * 2);
+        modifier = new ByteArrayInsertValueModification(modification1, originalValue.length * 2);
         start.setModifications(modifier);
         expResult =
                 ArrayConverter.concatenate(
@@ -294,13 +291,13 @@ public class ModifiableByteArrayTest {
     @Test
     public void testIsOriginalValueModified() {
         assertFalse(start.isOriginalValueModified());
-        VariableModification<byte[]> modifier = ByteArrayModificationFactory.xor(new byte[] {}, 0);
+        VariableModification<byte[]> modifier = new ByteArrayXorModification(new byte[] {}, 0);
         start.setModifications(modifier);
         assertFalse(start.isOriginalValueModified());
-        modifier = ByteArrayModificationFactory.xor(new byte[] {1}, 0);
+        modifier = new ByteArrayXorModification(new byte[] {1}, 0);
         start.setModifications(modifier);
         assertTrue(start.isOriginalValueModified());
-        modifier = ByteArrayModificationFactory.xor(new byte[] {0, 0}, originalValue.length - 2);
+        modifier = new ByteArrayXorModification(new byte[] {0, 0}, originalValue.length - 2);
         start.setModifications(modifier);
         assertFalse(start.isOriginalValueModified());
     }
@@ -310,7 +307,7 @@ public class ModifiableByteArrayTest {
         LOGGER.info("testDuplicateModification");
         byte[] expResult = ArrayConverter.concatenate(originalValue, originalValue);
 
-        VariableModification<byte[]> modifier = ByteArrayModificationFactory.duplicate();
+        VariableModification<byte[]> modifier = new ByteArrayDuplicateModification();
         start.setModifications(modifier);
 
         LOGGER.debug("Expected: {}", expResult);
@@ -322,18 +319,17 @@ public class ModifiableByteArrayTest {
     @Test
     public void testShuffle() {
         LOGGER.info("testShuffle");
-        VariableModification<byte[]> modifier =
-                ByteArrayModificationFactory.shuffle(new byte[] {0, 1});
+        VariableModification<byte[]> modifier = new ByteArrayShuffleModification(new byte[] {0, 1});
         start.setModifications(modifier);
         byte[] result = {1, 0, 2, 3, 4, 5, 6};
         assertArrayEquals(result, start.getValue());
 
-        modifier = ByteArrayModificationFactory.shuffle(new byte[] {0, 1, 2, 3, 4, 5, 6});
+        modifier = new ByteArrayShuffleModification(new byte[] {0, 1, 2, 3, 4, 5, 6});
         start.setModifications(modifier);
         result = new byte[] {1, 0, 3, 2, 5, 4, 6};
         assertArrayEquals(result, start.getValue());
 
-        modifier = ByteArrayModificationFactory.shuffle(new byte[] {0, 1, 2, 3, 4, 5, 6, 7});
+        modifier = new ByteArrayShuffleModification(new byte[] {0, 1, 2, 3, 4, 5, 6, 7});
         start.setModifications(modifier);
         result = new byte[] {6, 0, 3, 2, 5, 4, 1};
         assertArrayEquals(result, start.getValue());
