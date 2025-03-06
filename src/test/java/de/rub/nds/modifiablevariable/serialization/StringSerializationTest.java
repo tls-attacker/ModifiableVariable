@@ -12,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import de.rub.nds.modifiablevariable.string.StringInsertValueModification;
-import de.rub.nds.modifiablevariable.string.StringModificationFactory;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -75,7 +74,7 @@ public class StringSerializationTest {
 
     @Test
     public void testSerializeDeserializeWithModification() throws Exception {
-        VariableModification<String> modifier = StringModificationFactory.insertValue("Uff! ", 0);
+        VariableModification<String> modifier = new StringInsertValueModification("Uff! ", 0);
         start.setModifications(modifier);
         m.marshal(start, writer);
 

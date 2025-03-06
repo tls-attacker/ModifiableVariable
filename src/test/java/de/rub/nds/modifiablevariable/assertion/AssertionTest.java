@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
-import de.rub.nds.modifiablevariable.integer.IntegerModificationFactory;
+import de.rub.nds.modifiablevariable.integer.IntegerAddModification;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,7 +41,7 @@ public class AssertionTest {
 
     @Test
     public void testAddInteger() {
-        VariableModification<Integer> modifier = IntegerModificationFactory.add(1);
+        VariableModification<Integer> modifier = new IntegerAddModification(1);
         mi.setModifications(modifier);
         mi.setAssertEquals(11);
         assertTrue(mi.validateAssertions());

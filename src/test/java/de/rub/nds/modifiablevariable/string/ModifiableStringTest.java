@@ -32,7 +32,7 @@ public class ModifiableStringTest {
     @Test
     public void testIsOriginalValueModified() {
         assertFalse(string.isOriginalValueModified());
-        VariableModification<String> modifier = StringModificationFactory.appendValue("_Modified");
+        VariableModification<String> modifier = new StringAppendValueModification("_Modified");
         string.setModifications(modifier);
         assertTrue(string.isOriginalValueModified());
     }
@@ -72,7 +72,7 @@ public class ModifiableStringTest {
         string2.setOriginalValue("TestString");
         assertEquals(string, string2);
         assertEquals(string2, string);
-        string2.setModifications(StringModificationFactory.appendValue("_Modified"));
+        string2.setModifications(new StringAppendValueModification("_Modified"));
         assertNotEquals(string, string2);
         assertNotEquals(string2, string);
         assertFalse(string.equals(null));

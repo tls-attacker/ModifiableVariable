@@ -10,10 +10,9 @@ package de.rub.nds.modifiablevariable.integer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import de.rub.nds.modifiablevariable.VariableModification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import de.rub.nds.modifiablevariable.VariableModification;
 
 class IntegerModificationTest {
 
@@ -96,7 +95,7 @@ class IntegerModificationTest {
     /** Test of xor method with null input, of class IntegerModification. */
     @Test
     void testXorWithNullInput() {
-        VariableModification<Integer> modifier = IntegerModificationFactory.xor(2);
+        VariableModification<Integer> modifier = new IntegerXorModification(2);
         start.setOriginalValue(null);
         start.setModifications(modifier);
         expectedResult = 2;
@@ -107,7 +106,7 @@ class IntegerModificationTest {
     /** Test of explicitValue method, of class IntegerModification. */
     @Test
     void testExplicitValue() {
-        VariableModification<Integer> modifier = IntegerModificationFactory.explicitValue(7);
+        VariableModification<Integer> modifier = new IntegerExplicitValueModification(7);
         start.setModifications(modifier);
         expectedResult = 7;
         result = start.getValue();
@@ -118,7 +117,8 @@ class IntegerModificationTest {
     /** Test of explicitValue method with String, of class IntegerModification. */
     @Test
     void testExplicitValueWithString() {
-        VariableModification<Integer> modifier = IntegerModificationFactory.explicitValue("7");
+        VariableModification<Integer> modifier =
+                new IntegerExplicitValueModification(Integer.valueOf(7));
         start.setModifications(modifier);
         expectedResult = 7;
         result = start.getValue();
@@ -128,7 +128,7 @@ class IntegerModificationTest {
     /** Test of explicitValue method with null input, of class IntegerModification. */
     @Test
     void testExplicitValueWithNullInput() {
-        VariableModification<Integer> modifier = IntegerModificationFactory.explicitValue(7);
+        VariableModification<Integer> modifier = new IntegerExplicitValueModification(7);
         start.setOriginalValue(null);
         start.setModifications(modifier);
         expectedResult = 7;
@@ -139,7 +139,7 @@ class IntegerModificationTest {
     /** Test of shiftLeft method, of class IntegerModification. */
     @Test
     void testShiftLeft() {
-        VariableModification<Integer> modifier = IntegerModificationFactory.shiftLeft(2);
+        VariableModification<Integer> modifier = new IntegerShiftLeftModification(2);
         start.setModifications(modifier);
         expectedResult = 40;
         result = start.getValue();
@@ -150,7 +150,7 @@ class IntegerModificationTest {
     /** Test of shiftLeft method with String, of class IntegerModification. */
     @Test
     void testShiftLeftWithString() {
-        VariableModification<Integer> modifier = IntegerModificationFactory.shiftLeft("2");
+        VariableModification<Integer> modifier = new IntegerShiftLeftModification(2);
         start.setModifications(modifier);
         expectedResult = 40;
         result = start.getValue();
@@ -160,7 +160,7 @@ class IntegerModificationTest {
     /** Test of shiftRight method, of class IntegerModification. */
     @Test
     void testShiftRight() {
-        VariableModification<Integer> modifier = IntegerModificationFactory.shiftRight(2);
+        VariableModification<Integer> modifier = new IntegerShiftRightModification(2);
         start.setModifications(modifier);
         expectedResult = 2;
         result = start.getValue();
@@ -171,7 +171,7 @@ class IntegerModificationTest {
     /** Test of shiftRight method with String, of class IntegerModification. */
     @Test
     void testShiftRightWithString() {
-        VariableModification<Integer> modifier = IntegerModificationFactory.shiftRight("2");
+        VariableModification<Integer> modifier = new IntegerShiftRightModification(2);
         start.setModifications(modifier);
         expectedResult = 2;
         result = start.getValue();
@@ -181,7 +181,7 @@ class IntegerModificationTest {
     /** Test of swapEndian method, of class IntegerModification. */
     @Test
     void testSwapEndian() {
-        VariableModification<Integer> modifier = IntegerModificationFactory.swapEndian();
+        VariableModification<Integer> modifier = new IntegerSwapEndianModification();
         start.setOriginalValue(0x12345678);
         start.setModifications(modifier);
         expectedResult = 0x78563412;
@@ -192,7 +192,7 @@ class IntegerModificationTest {
     /** Test of swapEndian method with null input, of class IntegerModification. */
     @Test
     void testSwapEndianWithNullInput() {
-        VariableModification<Integer> modifier = IntegerModificationFactory.swapEndian();
+        VariableModification<Integer> modifier = new IntegerSwapEndianModification();
         start.setOriginalValue(null);
         start.setModifications(modifier);
         assertNull(start.getValue());
@@ -201,7 +201,7 @@ class IntegerModificationTest {
     /** Test of multiply method, of class IntegerModification. */
     @Test
     void testMultiply() {
-        VariableModification<Integer> modifier = IntegerModificationFactory.multiply(2);
+        VariableModification<Integer> modifier = new IntegerMultiplyModification(2);
         start.setModifications(modifier);
         expectedResult = 20;
         result = start.getValue();
@@ -212,7 +212,7 @@ class IntegerModificationTest {
     /** Test of multiply method with negative value, of class IntegerModification. */
     @Test
     void testMultiplyWithNegativeValue() {
-        VariableModification<Integer> modifier = IntegerModificationFactory.multiply(-1);
+        VariableModification<Integer> modifier = new IntegerMultiplyModification(-1);
         start.setModifications(modifier);
         expectedResult = -10;
         result = start.getValue();
@@ -222,7 +222,7 @@ class IntegerModificationTest {
     /** Test of multiply method with zero, of class IntegerModification. */
     @Test
     void testMultiplyWithZero() {
-        VariableModification<Integer> modifier = IntegerModificationFactory.multiply(0);
+        VariableModification<Integer> modifier = new IntegerMultiplyModification(0);
         start.setModifications(modifier);
         expectedResult = 0;
         result = start.getValue();
@@ -232,7 +232,7 @@ class IntegerModificationTest {
     /** Test of multiply method with null input, of class IntegerModification. */
     @Test
     void testMultiplyWithNullInput() {
-        VariableModification<Integer> modifier = IntegerModificationFactory.multiply(2);
+        VariableModification<Integer> modifier = new IntegerMultiplyModification(2);
         start.setOriginalValue(null);
         start.setModifications(modifier);
         expectedResult = 0;

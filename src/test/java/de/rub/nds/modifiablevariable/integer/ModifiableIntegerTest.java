@@ -124,7 +124,7 @@ class ModifiableIntegerTest {
         integer1.setAssertEquals(11);
         assertFalse(integer1.validateAssertions());
 
-        VariableModification<Integer> modifier = IntegerModificationFactory.add(1);
+        VariableModification<Integer> modifier = new IntegerAddModification(1);
         integer1.setModifications(modifier);
         assertTrue(integer1.validateAssertions());
     }
@@ -136,12 +136,12 @@ class ModifiableIntegerTest {
         assertFalse(integer1.isOriginalValueModified());
 
         // With modification that changes value
-        VariableModification<Integer> modifier = IntegerModificationFactory.add(1);
+        VariableModification<Integer> modifier = new IntegerAddModification(1);
         integer1.setModifications(modifier);
         assertTrue(integer1.isOriginalValueModified());
 
         // With modification that doesn't change value
-        modifier = IntegerModificationFactory.add(0);
+        modifier = new IntegerAddModification(0);
         integer2.setModifications(modifier);
         assertFalse(integer2.isOriginalValueModified());
 
@@ -152,7 +152,7 @@ class ModifiableIntegerTest {
         // a null originalValue will always return false for isOriginalValueModified()
         // even when the getValue() returns a non-null value
         ModifiableInteger nullIntWithExplicit = new ModifiableInteger((Integer) null);
-        nullIntWithExplicit.setModifications(IntegerModificationFactory.explicitValue(5));
+        nullIntWithExplicit.setModifications(new IntegerExplicitValueModification(5));
 
         // Verify getValue() is 5
         assertEquals(Integer.valueOf(5), nullIntWithExplicit.getValue());
@@ -194,7 +194,7 @@ class ModifiableIntegerTest {
         assertTrue(nullString.contains("originalValue=null"));
 
         // Test with modification
-        VariableModification<Integer> modifier = IntegerModificationFactory.add(1);
+        VariableModification<Integer> modifier = new IntegerAddModification(1);
         integer2.setModifications(modifier);
         String modString = integer2.toString();
         assertTrue(modString.contains("modification"));
@@ -230,7 +230,7 @@ class ModifiableIntegerTest {
         // Same after modification
         ModifiableInteger int1 = new ModifiableInteger(5);
         ModifiableInteger int2 = new ModifiableInteger(4);
-        int2.setModifications(IntegerModificationFactory.add(1));
+        int2.setModifications(new IntegerAddModification(1));
         assertEquals(int1, int2);
     }
 
