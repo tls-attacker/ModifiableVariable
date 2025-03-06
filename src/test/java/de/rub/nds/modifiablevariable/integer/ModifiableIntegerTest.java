@@ -13,14 +13,14 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ModifiableIntegerTest {
+class ModifiableIntegerTest {
 
     private ModifiableInteger integer1;
     private ModifiableInteger integer2;
     private ModifiableInteger nullInteger;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         integer1 = new ModifiableInteger();
         integer1.setOriginalValue(2);
         integer2 = new ModifiableInteger();
@@ -30,7 +30,7 @@ public class ModifiableIntegerTest {
 
     /** Test of default constructor, of class ModifiableInteger. */
     @Test
-    public void testDefaultConstructor() {
+    void testDefaultConstructor() {
         ModifiableInteger instance = new ModifiableInteger();
         assertNull(instance.getOriginalValue());
         assertNull(instance.getValue());
@@ -38,7 +38,7 @@ public class ModifiableIntegerTest {
 
     /** Test of parameterized constructor, of class ModifiableInteger. */
     @Test
-    public void testParameterizedConstructor() {
+    void testParameterizedConstructor() {
         Integer originalValue = 42;
         ModifiableInteger instance = new ModifiableInteger(originalValue);
         assertEquals(originalValue, instance.getOriginalValue());
@@ -47,7 +47,7 @@ public class ModifiableIntegerTest {
 
     /** Test of copy constructor, of class ModifiableInteger. */
     @Test
-    public void testCopyConstructor() {
+    void testCopyConstructor() {
         Integer originalValue = 42;
         ModifiableInteger original = new ModifiableInteger(originalValue);
         original.setAssertEquals(100);
@@ -60,7 +60,7 @@ public class ModifiableIntegerTest {
 
     /** Test of createCopy method, of class ModifiableInteger. */
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         ModifiableInteger copy = integer1.createCopy();
 
         assertEquals(integer1.getOriginalValue(), copy.getOriginalValue());
@@ -73,7 +73,7 @@ public class ModifiableIntegerTest {
 
     /** Test of getAssertEquals method, of class ModifiableInteger. */
     @Test
-    public void testGetAssertEquals() {
+    void testGetAssertEquals() {
         integer1.setAssertEquals(2);
         assertEquals(2, integer1.getAssertEquals());
         assertNull(nullInteger.getAssertEquals());
@@ -81,7 +81,7 @@ public class ModifiableIntegerTest {
 
     /** Test of setAssertEquals method, of class ModifiableInteger. */
     @Test
-    public void testSetAssertEquals() {
+    void testSetAssertEquals() {
         assertNull(integer1.getAssertEquals());
         integer1.setAssertEquals(3);
         assertEquals(3, integer1.getAssertEquals());
@@ -92,7 +92,7 @@ public class ModifiableIntegerTest {
 
     /** Test of getByteArray method, of class ModifiableInteger. */
     @Test
-    public void testGetByteArray() {
+    void testGetByteArray() {
         assertArrayEquals(integer1.getByteArray(2), integer2.getByteArray(2));
 
         integer1.setOriginalValue(258); // 0x00000102
@@ -106,7 +106,7 @@ public class ModifiableIntegerTest {
 
     /** Test of validateAssertions method, of class ModifiableInteger. */
     @Test
-    public void testValidateAssertions() {
+    void testValidateAssertions() {
         // No assertions set - should be valid
         assertTrue(integer1.validateAssertions());
         assertTrue(nullInteger.validateAssertions());
@@ -131,7 +131,7 @@ public class ModifiableIntegerTest {
 
     /** Test of isOriginalValueModified method, of class ModifiableInteger. */
     @Test
-    public void testIsOriginalValueModified() {
+    void testIsOriginalValueModified() {
         // No modification
         assertFalse(integer1.isOriginalValueModified());
 
@@ -165,14 +165,14 @@ public class ModifiableIntegerTest {
 
     /** Test of getOriginalValue method, of class ModifiableInteger. */
     @Test
-    public void testGetOriginalValue() {
+    void testGetOriginalValue() {
         assertEquals(2, integer1.getOriginalValue());
         assertNull(nullInteger.getOriginalValue());
     }
 
     /** Test of setOriginalValue method, of class ModifiableInteger. */
     @Test
-    public void testSetOriginalValue() {
+    void testSetOriginalValue() {
         integer1.setOriginalValue(3);
         assertEquals(3, integer1.getOriginalValue());
         assertEquals(3, integer1.getValue());
@@ -184,7 +184,7 @@ public class ModifiableIntegerTest {
 
     /** Test of toString method, of class ModifiableInteger. */
     @Test
-    public void testToString() {
+    void testToString() {
         assertEquals(integer1.toString(), integer2.toString());
 
         integer1.setOriginalValue(4);
@@ -202,7 +202,7 @@ public class ModifiableIntegerTest {
 
     /** Test of equals method, of class ModifiableInteger. */
     @Test
-    public void testEquals() {
+    void testEquals() {
         // Same value
         assertEquals(integer1, integer2);
 
@@ -236,7 +236,7 @@ public class ModifiableIntegerTest {
 
     /** Test of hashCode method, of class ModifiableInteger. */
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         // Same value, same hash code
         assertEquals(integer1.hashCode(), integer2.hashCode());
 
