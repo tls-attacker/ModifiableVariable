@@ -69,7 +69,6 @@ class ModifiableIntegerTest {
         // Verify it's a deep copy - modifying the copy doesn't affect the original
         copy.setOriginalValue(999);
         assertNotEquals(integer1.getOriginalValue(), copy.getOriginalValue());
-
     }
 
     /** Test of getAssertEquals method, of class ModifiableInteger. */
@@ -198,7 +197,9 @@ class ModifiableIntegerTest {
         VariableModification<Integer> modifier = new IntegerAddModification(1);
         integer2.setModifications(modifier);
         String modString = integer2.toString();
-        assertTrue(modString.contains("modification"));
+        assertEquals(
+                "ModifiableInteger{originalValue=2, modifications=[IntegerAddModification{summand=1}]}",
+                modString);
     }
 
     /** Test of equals method, of class ModifiableInteger. */
