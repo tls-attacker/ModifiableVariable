@@ -45,7 +45,7 @@ public class LongModificationTest {
         expectedResult = 11L;
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(Long.valueOf(10L), start.getOriginalValue());
+        assertEquals(10L, start.getOriginalValue());
     }
 
     @Test
@@ -55,7 +55,7 @@ public class LongModificationTest {
         expectedResult = 9L;
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(Long.valueOf(10L), start.getOriginalValue());
+        assertEquals(10L, start.getOriginalValue());
     }
 
     @Test
@@ -65,7 +65,7 @@ public class LongModificationTest {
         expectedResult = 8L;
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(Long.valueOf(10L), start.getOriginalValue());
+        assertEquals(10L, start.getOriginalValue());
     }
 
     @Test
@@ -75,7 +75,7 @@ public class LongModificationTest {
         expectedResult = 7L;
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(Long.valueOf(10L), start.getOriginalValue());
+        assertEquals(10L, start.getOriginalValue());
     }
 
     @Test
@@ -85,7 +85,7 @@ public class LongModificationTest {
         expectedResult = 30L;
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(Long.valueOf(10L), start.getOriginalValue());
+        assertEquals(10L, start.getOriginalValue());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class LongModificationTest {
         expectedResult = 0L;
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(Long.valueOf(10L), start.getOriginalValue());
+        assertEquals(10L, start.getOriginalValue());
     }
 
     @Test
@@ -115,7 +115,7 @@ public class LongModificationTest {
         expectedResult = 40L; // 10 << 2 = 40
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(Long.valueOf(10L), start.getOriginalValue());
+        assertEquals(10L, start.getOriginalValue());
     }
 
     @Test
@@ -125,7 +125,7 @@ public class LongModificationTest {
         expectedResult = 20L; // (10 << 65) % 64 = (10 << 1) = 20
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(Long.valueOf(10L), start.getOriginalValue());
+        assertEquals(10L, start.getOriginalValue());
     }
 
     @Test
@@ -146,7 +146,7 @@ public class LongModificationTest {
         expectedResult = 10L; // 40 >> 2 = 10
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(Long.valueOf(40L), start.getOriginalValue());
+        assertEquals(40L, start.getOriginalValue());
     }
 
     @Test
@@ -157,7 +157,7 @@ public class LongModificationTest {
         expectedResult = 10L; // (40 >> 66) % 64 = (40 >> 2) = 10
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(Long.valueOf(40L), start.getOriginalValue());
+        assertEquals(40L, start.getOriginalValue());
     }
 
     @Test
@@ -200,7 +200,7 @@ public class LongModificationTest {
         expectedResult = 30L; // (10 + 5) * 2 = 30
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(Long.valueOf(10L), start.getOriginalValue());
+        assertEquals(10L, start.getOriginalValue());
     }
 
     @Test
