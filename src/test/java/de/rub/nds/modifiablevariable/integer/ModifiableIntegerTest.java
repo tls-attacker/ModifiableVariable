@@ -65,10 +65,11 @@ class ModifiableIntegerTest {
 
         assertEquals(integer1.getOriginalValue(), copy.getOriginalValue());
         assertEquals(integer1.getValue(), copy.getValue());
-
+        assertNotSame(integer1, copy);
         // Verify it's a deep copy - modifying the copy doesn't affect the original
         copy.setOriginalValue(999);
         assertNotEquals(integer1.getOriginalValue(), copy.getOriginalValue());
+
     }
 
     /** Test of getAssertEquals method, of class ModifiableInteger. */
