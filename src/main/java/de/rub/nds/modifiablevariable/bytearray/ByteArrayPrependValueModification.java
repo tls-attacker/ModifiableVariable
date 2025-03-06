@@ -97,8 +97,8 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
     /**
      * Implements the modification by prepending bytes to the input.
      *
-     * <p>This method concatenates the bytes to prepend with the input byte array using {@link
-     * ArrayConverter#concatenate(byte[], byte[])}. If the input is null, it returns null to
+     * <p>This method concatenates the bytes to prepend with the input byte array using
+     * the ArrayConverter's concatenate method. If the input is null, it returns null to
      * preserve null-safety.
      *
      * @param input The original byte array

@@ -51,15 +51,37 @@ public class BigIntegerXorModification extends VariableModification<BigInteger> 
     /** The BigInteger value to XOR with the original value */
     private BigInteger xor;
 
+    /**
+     * Default constructor for JAXB deserialization.
+     *
+     * <p>When using this constructor, the XOR value must be set via {@link
+     * #setXor(BigInteger)} before applying the modification.
+     */
     public BigIntegerXorModification() {
         super();
     }
 
+    /**
+     * Creates a new modification with the specified XOR value.
+     *
+     * <p>This constructor sets the BigInteger value that will be XORed with the original value
+     * when the modification is applied.
+     *
+     * @param xor The BigInteger value to XOR with the original value
+     */
     public BigIntegerXorModification(BigInteger xor) {
         super();
         this.xor = xor;
     }
 
+    /**
+     * Copy constructor for creating a deep copy of an existing modification.
+     *
+     * <p>This constructor creates a new instance with the same XOR value as the
+     * provided modification.
+     *
+     * @param other The modification to copy
+     */
     public BigIntegerXorModification(BigIntegerXorModification other) {
         super(other);
         xor = other.xor;
@@ -78,10 +100,20 @@ public class BigIntegerXorModification extends VariableModification<BigInteger> 
         return input.xor(xor);
     }
 
+    /**
+     * Gets the BigInteger value that will be XORed with the original value.
+     *
+     * @return The BigInteger XOR value
+     */
     public BigInteger getXor() {
         return xor;
     }
 
+    /**
+     * Sets the BigInteger value that will be XORed with the original value.
+     *
+     * @param xor The new BigInteger XOR value
+     */
     public void setXor(BigInteger xor) {
         this.xor = xor;
     }
