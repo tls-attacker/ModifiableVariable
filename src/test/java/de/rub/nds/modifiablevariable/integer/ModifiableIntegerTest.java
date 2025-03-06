@@ -157,9 +157,6 @@ class ModifiableIntegerTest {
         // Verify getValue() is 5
         assertEquals(Integer.valueOf(5), nullIntWithExplicit.getValue());
 
-        // The implementation returns false when originalValue is null, even if getValue() != null
-        // This is because the check in isOriginalValueModified() is:
-        //   getOriginalValue() != null && getOriginalValue().compareTo(getValue()) != 0;
         assertFalse(nullIntWithExplicit.isOriginalValueModified());
     }
 
