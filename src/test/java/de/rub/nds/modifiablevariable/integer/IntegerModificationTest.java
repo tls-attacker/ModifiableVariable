@@ -117,8 +117,7 @@ class IntegerModificationTest {
     /** Test of explicitValue method with String, of class IntegerModification. */
     @Test
     void testExplicitValueWithString() {
-        VariableModification<Integer> modifier =
-                new IntegerExplicitValueModification(7);
+        VariableModification<Integer> modifier = new IntegerExplicitValueModification(7);
         start.setModifications(modifier);
         expectedResult = 7;
         result = start.getValue();

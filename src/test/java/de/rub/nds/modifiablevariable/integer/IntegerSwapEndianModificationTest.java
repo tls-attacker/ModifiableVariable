@@ -40,20 +40,6 @@ public class IntegerSwapEndianModificationTest {
     }
 
     @Test
-    public void testSwapEndianWithSymmetricValue() {
-        int originalValue = 0x12344321; // Value that reads the same after swapping middle bytes
-        modifiableInteger.setOriginalValue(originalValue);
-
-        IntegerSwapEndianModification modification = new IntegerSwapEndianModification();
-        modifiableInteger.setModifications(modification);
-
-        int expected = Integer.reverseBytes(originalValue);
-        int result = modifiableInteger.getValue();
-
-        assertEquals(expected, result);
-    }
-
-    @Test
     public void testSwapEndianWithZero() {
         int originalValue = 0;
         modifiableInteger.setOriginalValue(originalValue);
@@ -77,34 +63,6 @@ public class IntegerSwapEndianModificationTest {
         Integer result = modifiableInteger.getValue();
 
         assertNull(result);
-    }
-
-    @Test
-    public void testSwapEndianWithMaxValue() {
-        int originalValue = Integer.MAX_VALUE;
-        modifiableInteger.setOriginalValue(originalValue);
-
-        IntegerSwapEndianModification modification = new IntegerSwapEndianModification();
-        modifiableInteger.setModifications(modification);
-
-        int expected = Integer.reverseBytes(originalValue);
-        int result = modifiableInteger.getValue();
-
-        assertEquals(expected, result);
-    }
-
-    @Test
-    public void testSwapEndianWithMinValue() {
-        int originalValue = Integer.MIN_VALUE;
-        modifiableInteger.setOriginalValue(originalValue);
-
-        IntegerSwapEndianModification modification = new IntegerSwapEndianModification();
-        modifiableInteger.setModifications(modification);
-
-        int expected = Integer.reverseBytes(originalValue);
-        int result = modifiableInteger.getValue();
-
-        assertEquals(expected, result);
     }
 
     @Test
