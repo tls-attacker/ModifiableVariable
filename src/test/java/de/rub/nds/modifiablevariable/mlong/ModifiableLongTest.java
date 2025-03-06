@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -197,6 +198,7 @@ public class ModifiableLongTest {
         // Modify the original and verify copy is unchanged
         long1.setModifications(new LongAddModification(1L));
         assertNotEquals(long1.getValue(), copy.getValue());
+        assertNotSame(long1, copy);
     }
 
     @Test
