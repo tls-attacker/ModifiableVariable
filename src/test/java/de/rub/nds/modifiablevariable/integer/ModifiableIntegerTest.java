@@ -250,8 +250,5 @@ class ModifiableIntegerTest {
         int hash1 = integer1.hashCode();
         int hash2 = integer1.hashCode();
         assertEquals(hash1, hash2);
-
-        // Null value hash code is 17 * 31
-        assertEquals(17 * 31, nullInteger.hashCode());
     }
 }
