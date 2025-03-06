@@ -37,7 +37,7 @@ public class ByteArrayDuplicateModificationTest {
         assertArrayEquals(new byte[0], b1.modifyImplementationHook(new byte[0]));
 
         // Test with null input
-        assertArrayEquals(new byte[0], b1.modifyImplementationHook(null));
+        assertNull(b1.modifyImplementationHook(null));
     }
 
     /** Test of createCopy method, of class ByteArrayDuplicateModification. */

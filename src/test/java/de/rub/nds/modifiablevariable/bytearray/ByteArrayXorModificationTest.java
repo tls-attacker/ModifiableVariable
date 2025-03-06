@@ -45,7 +45,7 @@ public class ByteArrayXorModificationTest {
         assertArrayEquals(new byte[0], b1.modifyImplementationHook(new byte[0]));
 
         // Test with null input
-        assertArrayEquals(new byte[0], b1.modifyImplementationHook(null));
+        assertNull(b1.modifyImplementationHook(null));
 
         // Just verify modifyImplementationHook works with negative position
         ByteArrayXorModification negPos = new ByteArrayXorModification(new byte[] {0x01, 0x02}, -1);
