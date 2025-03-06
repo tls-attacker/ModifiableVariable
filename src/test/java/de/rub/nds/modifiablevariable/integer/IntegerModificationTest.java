@@ -35,7 +35,7 @@ class IntegerModificationTest {
         expectedResult = 11;
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(Integer.valueOf(10), start.getOriginalValue());
+        assertEquals(10, start.getOriginalValue());
     }
 
     /** Test of add method with String, of class IntegerModification. */
@@ -67,7 +67,7 @@ class IntegerModificationTest {
         expectedResult = 9;
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(Integer.valueOf(10), start.getOriginalValue());
+        assertEquals(10, start.getOriginalValue());
     }
 
     /** Test of sub method with null input, of class IntegerModification. */
@@ -89,7 +89,7 @@ class IntegerModificationTest {
         expectedResult = 8;
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(Integer.valueOf(10), start.getOriginalValue());
+        assertEquals(10, start.getOriginalValue());
     }
 
     /** Test of xor method with null input, of class IntegerModification. */
@@ -111,14 +111,14 @@ class IntegerModificationTest {
         expectedResult = 7;
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(Integer.valueOf(10), start.getOriginalValue());
+        assertEquals(10, start.getOriginalValue());
     }
 
     /** Test of explicitValue method with String, of class IntegerModification. */
     @Test
     void testExplicitValueWithString() {
         VariableModification<Integer> modifier =
-                new IntegerExplicitValueModification(Integer.valueOf(7));
+                new IntegerExplicitValueModification(7);
         start.setModifications(modifier);
         expectedResult = 7;
         result = start.getValue();
@@ -144,7 +144,7 @@ class IntegerModificationTest {
         expectedResult = 40;
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(Integer.valueOf(10), start.getOriginalValue());
+        assertEquals(10, start.getOriginalValue());
     }
 
     /** Test of shiftLeft method with String, of class IntegerModification. */
@@ -165,7 +165,7 @@ class IntegerModificationTest {
         expectedResult = 2;
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(Integer.valueOf(10), start.getOriginalValue());
+        assertEquals(10, start.getOriginalValue());
     }
 
     /** Test of shiftRight method with String, of class IntegerModification. */
@@ -206,7 +206,7 @@ class IntegerModificationTest {
         expectedResult = 20;
         result = start.getValue();
         assertEquals(expectedResult, result);
-        assertEquals(Integer.valueOf(10), start.getOriginalValue());
+        assertEquals(10, start.getOriginalValue());
     }
 
     /** Test of multiply method with negative value, of class IntegerModification. */
