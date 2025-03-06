@@ -14,10 +14,11 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import de.rub.nds.modifiablevariable.longint.LongModificationFactory;
-import de.rub.nds.modifiablevariable.longint.ModifiableLong;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import de.rub.nds.modifiablevariable.longint.LongAddModification;
+import de.rub.nds.modifiablevariable.longint.ModifiableLong;
 
 public class ModifiableLongTest {
 
@@ -57,7 +58,7 @@ public class ModifiableLongTest {
         assertFalse(long1.isOriginalValueModified());
 
         // After modification
-        long1.setModifications(LongModificationFactory.add(1L));
+        long1.setModifications(new LongAddModification(1L));
         assertTrue(long1.isOriginalValueModified());
 
         // Null original value
@@ -77,7 +78,7 @@ public class ModifiableLongTest {
         assertArrayEquals(expected4, long1.getByteArray(4));
 
         // Test with modified value
-        long1.setModifications(LongModificationFactory.add(1L));
+        long1.setModifications(new LongAddModification(1L));
         byte[] expectedModified = new byte[] {0, 0, 0, 0, 0, 0, 0, 3};
         assertArrayEquals(expectedModified, long1.getByteArray(8));
     }
@@ -98,7 +99,7 @@ public class ModifiableLongTest {
 
         // Modified value matching assertion
         long1.setAssertEquals(3L);
-        long1.setModifications(LongModificationFactory.add(1L));
+        long1.setModifications(new LongAddModification(1L));
         assertTrue(long1.validateAssertions());
     }
 
@@ -128,7 +129,7 @@ public class ModifiableLongTest {
         assertEquals(expected, long1.toString());
 
         // With modification
-        long1.setModifications(LongModificationFactory.add(1L));
+        long1.setModifications(new LongAddModification(1L));
         String expectedWithMod =
                 "ModifiableLong{originalValue=2, modifications=[LongAddModification{summand=1}]}";
         assertEquals(expectedWithMod, long1.toString());
@@ -147,7 +148,7 @@ public class ModifiableLongTest {
 
         // Different original value but same computed value
         long2.setOriginalValue(1L);
-        long2.setModifications(LongModificationFactory.add(1L));
+        long2.setModifications(new LongAddModification(1L));
         assertEquals(long1, long2);
 
         // Different computed value
@@ -176,7 +177,7 @@ public class ModifiableLongTest {
 
         // Same computed value, different original
         long2.setOriginalValue(1L);
-        long2.setModifications(LongModificationFactory.add(1L));
+        long2.setModifications(new LongAddModification(1L));
         assertEquals(long1.hashCode(), long2.hashCode());
 
         // Different computed value
@@ -195,7 +196,7 @@ public class ModifiableLongTest {
         assertEquals(long1.getOriginalValue(), copy.getOriginalValue());
 
         // Modify the original and verify copy is unchanged
-        long1.setModifications(LongModificationFactory.add(1L));
+        long1.setModifications(new LongAddModification(1L));
         assertNotEquals(long1.getValue(), copy.getValue());
     }
 
@@ -208,7 +209,7 @@ public class ModifiableLongTest {
         assertEquals(Long.valueOf(5L), valueConstructor.getOriginalValue());
 
         ModifiableLong modLong = new ModifiableLong(5L);
-        modLong.setModifications(LongModificationFactory.add(10L));
+        modLong.setModifications(new LongAddModification(10L));
         modLong.setAssertEquals(15L);
 
         ModifiableLong copyConstructor = new ModifiableLong(modLong);
