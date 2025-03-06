@@ -10,10 +10,12 @@ package de.rub.nds.modifiablevariable.mlong;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 
-import de.rub.nds.modifiablevariable.longint.LongShiftRightModification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import de.rub.nds.modifiablevariable.longint.LongShiftRightModification;
 
 public class LongShiftRightModificationTest {
 
@@ -31,6 +33,7 @@ public class LongShiftRightModificationTest {
         assertNotNull(copy);
         assertEquals(modification, copy);
         assertEquals(modification.getShift(), copy.getShift());
+        assertNotSame(modification, copy);
     }
 
     @Test

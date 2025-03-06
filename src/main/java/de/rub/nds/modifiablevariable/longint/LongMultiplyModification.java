@@ -37,7 +37,7 @@ public class LongMultiplyModification extends VariableModification<Long> {
 
     @Override
     protected Long modifyImplementationHook(Long input) {
-        return input == null ? 0L : input * factor;
+        return input * factor;
     }
 
     public Long getFactor() {

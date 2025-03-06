@@ -10,6 +10,7 @@ package de.rub.nds.modifiablevariable.mlong;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 import de.rub.nds.modifiablevariable.longint.LongMultiplyModification;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,6 +32,7 @@ public class LongMultiplyModificationTest {
         assertNotNull(copy);
         assertEquals(modification, copy);
         assertEquals(modification.getFactor(), copy.getFactor());
+        assertNotSame(modification, copy);
     }
 
     @Test

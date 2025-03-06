@@ -10,10 +10,12 @@ package de.rub.nds.modifiablevariable.mlong;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 
-import de.rub.nds.modifiablevariable.longint.LongXorModification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import de.rub.nds.modifiablevariable.longint.LongXorModification;
 
 public class LongXorModificationTest {
 
@@ -31,6 +33,7 @@ public class LongXorModificationTest {
         assertNotNull(copy);
         assertEquals(modification, copy);
         assertEquals(modification.getXor(), copy.getXor());
+        assertNotSame(modification, copy);
     }
 
     @Test

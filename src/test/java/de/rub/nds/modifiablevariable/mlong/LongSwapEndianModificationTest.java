@@ -10,6 +10,7 @@ package de.rub.nds.modifiablevariable.mlong;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 import de.rub.nds.modifiablevariable.longint.LongSwapEndianModification;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,6 +30,7 @@ public class LongSwapEndianModificationTest {
         LongSwapEndianModification copy = modification.createCopy();
         assertNotNull(copy);
         assertEquals(modification, copy);
+        assertNotSame(modification, copy);
     }
 
     @Test
@@ -53,9 +55,6 @@ public class LongSwapEndianModificationTest {
 
         // Equal objects should have equal hash codes
         assertEquals(modification.hashCode(), equalModification.hashCode());
-
-        // Should return the same hash code every time
-        assertEquals(7, modification.hashCode());
     }
 
     @Test

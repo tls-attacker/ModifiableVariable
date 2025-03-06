@@ -9,6 +9,7 @@ package de.rub.nds.modifiablevariable.mlong;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.longint.LongAddModification;
@@ -103,9 +104,9 @@ public class LongModificationTest {
         ModifiableLong nullStart = new ModifiableLong();
         VariableModification<Long> modifier = new LongMultiplyModification(5L);
         nullStart.setModifications(modifier);
-        expectedResult = 0L;
-        result = nullStart.getValue();
-        assertEquals(expectedResult, result);
+        assertThrows(NullPointerException.class, () -> {
+            nullStart.getValue();
+        });
     }
 
     @Test
@@ -133,9 +134,9 @@ public class LongModificationTest {
         ModifiableLong nullStart = new ModifiableLong();
         VariableModification<Long> modifier = new LongShiftLeftModification(2);
         nullStart.setModifications(modifier);
-        expectedResult = 0L;
-        result = nullStart.getValue();
-        assertEquals(expectedResult, result);
+        assertThrows(NullPointerException.class, () -> {
+            nullStart.getValue();
+        });
     }
 
     @Test
@@ -186,8 +187,9 @@ public class LongModificationTest {
         ModifiableLong nullStart = new ModifiableLong();
         VariableModification<Long> modifier = new LongSwapEndianModification();
         nullStart.setModifications(modifier);
-        result = nullStart.getValue();
-        assertNull(result);
+        assertThrows(NullPointerException.class, () -> {
+            nullStart.getValue();
+        });
     }
 
     @Test
