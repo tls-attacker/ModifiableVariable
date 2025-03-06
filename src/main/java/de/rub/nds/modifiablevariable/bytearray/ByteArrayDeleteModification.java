@@ -42,6 +42,9 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
 
     @Override
     protected byte[] modifyImplementationHook(byte[] input) {
+        if (input == null) {
+            return null;
+        }
         if (input.length == 0) {
             return input;
         }

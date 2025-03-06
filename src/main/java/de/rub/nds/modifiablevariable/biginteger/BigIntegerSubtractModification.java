@@ -39,7 +39,7 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
     @Override
     protected BigInteger modifyImplementationHook(BigInteger input) {
         if (input == null) {
-            input = BigInteger.ZERO;
+            return null;
         }
         return input.subtract(subtrahend);
     }

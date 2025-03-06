@@ -43,7 +43,10 @@ public class StringAppendValueModification extends VariableModification<String> 
 
     @Override
     protected String modifyImplementationHook(String input) {
-        return input != null ? input + appendValue : appendValue;
+        if (input == null) {
+            return null;
+        }
+        return input + appendValue;
     }
 
     public String getAppendValue() {

@@ -41,6 +41,9 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
 
     @Override
     protected byte[] modifyImplementationHook(byte[] input) {
+        if (input == null) {
+            return null;
+        }
         return ArrayConverter.concatenate(input, bytesToAppend);
     }
 

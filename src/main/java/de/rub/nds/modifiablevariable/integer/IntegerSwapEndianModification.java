@@ -28,6 +28,9 @@ public class IntegerSwapEndianModification extends VariableModification<Integer>
 
     @Override
     protected Integer modifyImplementationHook(Integer input) {
+        if (input == null) {
+            return null;
+        }
         return Integer.reverseBytes(input);
     }
 

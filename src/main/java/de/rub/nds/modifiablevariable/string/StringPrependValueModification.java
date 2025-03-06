@@ -43,7 +43,10 @@ public class StringPrependValueModification extends VariableModification<String>
 
     @Override
     protected String modifyImplementationHook(String input) {
-        return input != null ? prependValue + input : prependValue;
+        if (input == null) {
+            return null;
+        }
+        return prependValue + input;
     }
 
     public String getPrependValue() {

@@ -46,9 +46,8 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
     @Override
     protected byte[] modifyImplementationHook(byte[] input) {
         if (input == null) {
-            input = new byte[0];
+            return null;
         }
-
         // Wrap around and also allow to insert at the end of the original value
         int insertPosition = startPosition % (input.length + 1);
         if (startPosition < 0) {
