@@ -9,15 +9,13 @@ package de.rub.nds.modifiablevariable;
 
 /**
  * Exception thrown when there is a problem with file configuration operations.
- * 
- * <p>This exception is typically thrown when there are issues with loading, saving,
- * or processing configuration files related to modifiable variables.
+ *
+ * <p>This exception is typically thrown when there are issues with loading, saving, or processing
+ * configuration files related to modifiable variables.
  */
 public class FileConfigurationException extends RuntimeException {
 
-    /**
-     * Constructs a new FileConfigurationException with no message or cause.
-     */
+    /** Constructs a new FileConfigurationException with no message or cause. */
     public FileConfigurationException() {
         super();
     }

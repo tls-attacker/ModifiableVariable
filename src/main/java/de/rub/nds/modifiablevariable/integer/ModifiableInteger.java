@@ -13,10 +13,10 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * A modifiable variable implementation for Integer values.
- * 
- * <p>This class extends {@link ModifiableVariable} to provide runtime modification
- * capabilities for Integer values. It supports various integer-specific modifications
- * like addition, subtraction, XOR operations, and more.
+ *
+ * <p>This class extends {@link ModifiableVariable} to provide runtime modification capabilities for
+ * Integer values. It supports various integer-specific modifications like addition, subtraction,
+ * XOR operations, and more.
  */
 @XmlRootElement
 public class ModifiableInteger extends ModifiableVariable<Integer> {
@@ -24,9 +24,7 @@ public class ModifiableInteger extends ModifiableVariable<Integer> {
     /** The original integer value before any modifications */
     private Integer originalValue;
 
-    /**
-     * Default constructor that creates an empty ModifiableInteger with no original value.
-     */
+    /** Default constructor that creates an empty ModifiableInteger with no original value. */
     public ModifiableInteger() {
         super();
     }
@@ -42,8 +40,8 @@ public class ModifiableInteger extends ModifiableVariable<Integer> {
     }
 
     /**
-     * Copy constructor that creates a new ModifiableInteger with the same original value
-     * and modifications as the provided instance.
+     * Copy constructor that creates a new ModifiableInteger with the same original value and
+     * modifications as the provided instance.
      *
      * @param other The ModifiableInteger to copy
      */
@@ -152,8 +150,8 @@ public class ModifiableInteger extends ModifiableVariable<Integer> {
     }
 
     /**
-     * Checks if this ModifiableInteger is equal to another object.
-     * Two ModifiableInteger instances are considered equal if they have the same modified value.
+     * Checks if this ModifiableInteger is equal to another object. Two ModifiableInteger instances
+     * are considered equal if they have the same modified value.
      *
      * @param obj The object to compare with
      * @return true if the objects are equal, false otherwise
@@ -171,8 +169,8 @@ public class ModifiableInteger extends ModifiableVariable<Integer> {
     }
 
     /**
-     * Computes a hash code for this ModifiableInteger.
-     * The hash code is based on the modified value rather than the original value.
+     * Computes a hash code for this ModifiableInteger. The hash code is based on the modified value
+     * rather than the original value.
      *
      * @return The hash code value
      */

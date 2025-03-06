@@ -31,6 +31,17 @@ import java.util.Objects;
 public abstract class SuppressingBooleanAdapter extends XmlAdapter<String, Boolean> {
 
     /**
+     * Creates a new SuppressingBooleanAdapter.
+     *
+     * <p>This constructor initializes a base adapter instance. Concrete subclasses must implement
+     * the {@link #getValueToSuppress()} method to specify which boolean value should be suppressed
+     * in the XML representation.
+     */
+    protected SuppressingBooleanAdapter() {
+        super();
+    }
+
+    /**
      * Returns the boolean value that should be suppressed in the XML representation.
      *
      * <p>This method must be implemented by concrete subclasses to specify which value (true or

@@ -13,18 +13,20 @@ import java.util.Objects;
 
 /**
  * A modification that adds a fixed value to a byte variable.
- * <p>
- * This class modifies a byte by adding a specific summand to it. It's useful in security testing
+ *
+ * <p>This class modifies a byte by adding a specific summand to it. It's useful in security testing
  * for exploring edge cases and boundary conditions in protocol handling.
- * <p>
- * Example use cases:
+ *
+ * <p>Example use cases:
+ *
  * <ul>
- *   <li>Testing overflow behavior by adding values close to byte limits</li>
- *   <li>Modifying version bytes in protocols to test compatibility</li>
- *   <li>Incrementing counter or flag bytes to test sequence handling</li>
+ *   <li>Testing overflow behavior by adding values close to byte limits
+ *   <li>Modifying version bytes in protocols to test compatibility
+ *   <li>Incrementing counter or flag bytes to test sequence handling
  * </ul>
- * <p>
- * Usage example:
+ *
+ * <p>Usage example:
+ *
  * <pre>
  *   ModifiableByte variable = new ModifiableByte();
  *   variable.setOriginalValue((byte) 10);
@@ -39,9 +41,7 @@ public class ByteAddModification extends VariableModification<Byte> {
     /** The value to be added to the original byte */
     private Byte summand;
 
-    /**
-     * Default constructor for serialization.
-     */
+    /** Default constructor for serialization. */
     public ByteAddModification() {
         super();
     }
@@ -78,7 +78,7 @@ public class ByteAddModification extends VariableModification<Byte> {
 
     /**
      * Implements the byte addition modification.
-     * 
+     *
      * @param input The original byte value to be modified
      * @return The modified byte value (original + summand), or null if input is null
      */

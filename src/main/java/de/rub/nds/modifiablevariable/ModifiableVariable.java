@@ -14,16 +14,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * The base abstract class for modifiable variables that provides runtime value modification capabilities.
- * ModifiableVariable serves as the foundation for all modifiable types in the library.
- * 
- * <p>This class implements the concept of runtime value modifications, where variables can be modified
- * through a chain of {@link VariableModification} operations before being accessed. Each subclass
- * represents a specific data type that can be modified at runtime.
- * 
+ * The base abstract class for modifiable variables that provides runtime value modification
+ * capabilities. ModifiableVariable serves as the foundation for all modifiable types in the
+ * library.
+ *
+ * <p>This class implements the concept of runtime value modifications, where variables can be
+ * modified through a chain of {@link VariableModification} operations before being accessed. Each
+ * subclass represents a specific data type that can be modified at runtime.
+ *
  * <p>The class is defined as transient to allow proper XML serialization with propOrder definition
- * in subclasses. See: <a href="http://blog.bdoughan.com/2011/06/ignoring-inheritance-with-xmltransient.html">
- * Ignoring Inheritance with XmlTransient</a> for details.
+ * in subclasses. See: <a
+ * href="http://blog.bdoughan.com/2011/06/ignoring-inheritance-with-xmltransient.html">Ignoring
+ * Inheritance with XmlTransient</a> for details.
  *
  * @param <E> The type of value this modifiable variable holds (e.g., Integer, String, byte[])
  */
@@ -39,16 +41,15 @@ public abstract class ModifiableVariable<E> implements Serializable {
     /** The expected value for assertion validation */
     protected E assertEquals;
 
-    /**
-     * Default constructor that creates an empty modifiable variable.
-     */
+    /** Default constructor that creates an empty modifiable variable. */
     protected ModifiableVariable() {
         super();
     }
 
     /**
-     * Copy constructor that creates a new modifiable variable with the same modifications and assertions.
-     * 
+     * Copy constructor that creates a new modifiable variable with the same modifications and
+     * assertions.
+     *
      * <p>Note: Subclasses must ensure proper copying of the assertEquals field.
      *
      * @param other The modifiable variable to copy
@@ -85,16 +86,16 @@ public abstract class ModifiableVariable<E> implements Serializable {
     }
 
     /**
-     * Removes all modifications from this variable.
-     * After calling this method, getValue() will return the original value.
+     * Removes all modifications from this variable. After calling this method, getValue() will
+     * return the original value.
      */
     public void clearModifications() {
         modifications = null;
     }
 
     /**
-     * Adds a modification to the end of this variable's modification chain.
-     * The modification will be applied after all previously added modifications.
+     * Adds a modification to the end of this variable's modification chain. The modification will
+     * be applied after all previously added modifications.
      *
      * @param modification The modification to add
      */
@@ -117,8 +118,8 @@ public abstract class ModifiableVariable<E> implements Serializable {
     }
 
     /**
-     * Returns the modified value of this variable.
-     * The original value will be modified by applying all registered modifications in sequence.
+     * Returns the modified value of this variable. The original value will be modified by applying
+     * all registered modifications in sequence.
      *
      * @return The modified value after applying all modifications
      */
@@ -127,8 +128,8 @@ public abstract class ModifiableVariable<E> implements Serializable {
     }
 
     /**
-     * Internal implementation method to compute the modified value.
-     * Applies all registered modifications to the original value in sequence.
+     * Internal implementation method to compute the modified value. Applies all registered
+     * modifications to the original value in sequence.
      *
      * @return The value after applying all modifications
      */
@@ -187,8 +188,8 @@ public abstract class ModifiableVariable<E> implements Serializable {
     }
 
     /**
-     * Helper method for toString() implementations in subclasses.
-     * Provides a string representation of modifications and assertions.
+     * Helper method for toString() implementations in subclasses. Provides a string representation
+     * of modifications and assertions.
      *
      * @return A string containing the modifications and assertions
      */

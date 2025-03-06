@@ -19,24 +19,23 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * A modifiable variable implementation for String values.
- * 
- * <p>This class extends {@link ModifiableVariable} to provide runtime modification
- * capabilities for String values. It supports various string-specific modifications
- * such as:
+ *
+ * <p>This class extends {@link ModifiableVariable} to provide runtime modification capabilities for
+ * String values. It supports various string-specific modifications such as:
+ *
  * <ul>
- *   <li>Appending or prepending text</li>
- *   <li>Inserting text at specific positions</li>
- *   <li>Deleting portions of the string</li>
- *   <li>Setting explicit string values</li>
+ *   <li>Appending or prepending text
+ *   <li>Inserting text at specific positions
+ *   <li>Deleting portions of the string
+ *   <li>Setting explicit string values
  * </ul>
  *
- * <p>Strings are commonly used in protocols for human-readable fields, identifiers,
- * and various text-based data. The ability to modify strings at runtime is particularly
- * useful for testing string handling, text parsing, and character encoding issues.
- * 
- * <p>This class uses property-based XML access and the {@link IllegalStringAdapter}
- * to handle proper serialization of strings that might contain characters that are
- * problematic in XML.
+ * <p>Strings are commonly used in protocols for human-readable fields, identifiers, and various
+ * text-based data. The ability to modify strings at runtime is particularly useful for testing
+ * string handling, text parsing, and character encoding issues.
+ *
+ * <p>This class uses property-based XML access and the {@link IllegalStringAdapter} to handle
+ * proper serialization of strings that might contain characters that are problematic in XML.
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
@@ -45,9 +44,7 @@ public class ModifiableString extends ModifiableVariable<String> {
     /** The original string value before any modifications */
     protected String originalValue;
 
-    /**
-     * Default constructor that creates an empty ModifiableString with no original value.
-     */
+    /** Default constructor that creates an empty ModifiableString with no original value. */
     public ModifiableString() {
         super();
     }
@@ -63,8 +60,8 @@ public class ModifiableString extends ModifiableVariable<String> {
     }
 
     /**
-     * Copy constructor that creates a new ModifiableString with the same original value
-     * and modifications as the provided instance.
+     * Copy constructor that creates a new ModifiableString with the same original value and
+     * modifications as the provided instance.
      *
      * @param other The ModifiableString to copy
      */
@@ -85,9 +82,9 @@ public class ModifiableString extends ModifiableVariable<String> {
 
     /**
      * Gets the expected value for assertion validation.
-     * 
-     * <p>Uses a special XML adapter to handle strings with characters that might
-     * be problematic in XML serialization.
+     *
+     * <p>Uses a special XML adapter to handle strings with characters that might be problematic in
+     * XML serialization.
      *
      * @return The assertion value
      */
@@ -107,7 +104,7 @@ public class ModifiableString extends ModifiableVariable<String> {
 
     /**
      * Checks if the modified value differs from the original value.
-     * 
+     *
      * <p>This method compares strings using their natural ordering via the compareTo method.
      *
      * @return true if the value has been modified, false otherwise
@@ -119,12 +116,13 @@ public class ModifiableString extends ModifiableVariable<String> {
 
     /**
      * Converts the string value to a byte array using ISO-8859-1 encoding.
-     * 
-     * <p>This method is useful when the string needs to be processed as binary data.
-     * The size parameter is ignored in this implementation, as the byte array size
-     * is determined by the string's length in the ISO-8859-1 encoding.
      *
-     * @param size This parameter is ignored; the resulting array's size is determined by the string length
+     * <p>This method is useful when the string needs to be processed as binary data. The size
+     * parameter is ignored in this implementation, as the byte array size is determined by the
+     * string's length in the ISO-8859-1 encoding.
+     *
+     * @param size This parameter is ignored; the resulting array's size is determined by the string
+     *     length
      * @return The byte array representation of the string using ISO-8859-1 encoding
      */
     public byte[] getByteArray(int size) {
@@ -133,7 +131,7 @@ public class ModifiableString extends ModifiableVariable<String> {
 
     /**
      * Validates whether the modified value matches the expected value (if set).
-     * 
+     *
      * <p>This method compares strings using their natural ordering via the compareTo method.
      *
      * @return true if no assertion is set or if the current value equals the expected value
@@ -151,9 +149,9 @@ public class ModifiableString extends ModifiableVariable<String> {
 
     /**
      * Gets the original, unmodified string value.
-     * 
-     * <p>Uses a special XML adapter to handle strings with characters that might
-     * be problematic in XML serialization.
+     *
+     * <p>Uses a special XML adapter to handle strings with characters that might be problematic in
+     * XML serialization.
      *
      * @return The original value
      */
@@ -175,9 +173,9 @@ public class ModifiableString extends ModifiableVariable<String> {
 
     /**
      * Returns a string representation of this ModifiableString.
-     * 
-     * <p>The original value is escaped using backslash escaping to make
-     * control characters and other special characters readable.
+     *
+     * <p>The original value is escaped using backslash escaping to make control characters and
+     * other special characters readable.
      *
      * @return A string containing the escaped original value and modifications
      */
@@ -192,8 +190,8 @@ public class ModifiableString extends ModifiableVariable<String> {
     }
 
     /**
-     * Checks if this ModifiableString is equal to another object.
-     * Two ModifiableString instances are considered equal if they have the same modified value.
+     * Checks if this ModifiableString is equal to another object. Two ModifiableString instances
+     * are considered equal if they have the same modified value.
      *
      * @param obj The object to compare with
      * @return true if the objects are equal, false otherwise
@@ -211,8 +209,8 @@ public class ModifiableString extends ModifiableVariable<String> {
     }
 
     /**
-     * Computes a hash code for this ModifiableString.
-     * The hash code is based on the modified value rather than the original value.
+     * Computes a hash code for this ModifiableString. The hash code is based on the modified value
+     * rather than the original value.
      *
      * @return The hash code value
      */

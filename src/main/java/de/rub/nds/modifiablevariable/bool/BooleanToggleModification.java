@@ -12,20 +12,18 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * A modification that inverts (toggles) a Boolean value.
- * 
- * <p>This modification inverts the input Boolean value when applied,
- * turning true to false and false to true. It's particularly useful for
- * testing protocol behavior when flags or condition controls are inverted.
- * 
- * <p>Unlike other modifications, this one has no configurable parameters
- * since the toggle operation is fixed.
+ *
+ * <p>This modification inverts the input Boolean value when applied, turning true to false and
+ * false to true. It's particularly useful for testing protocol behavior when flags or condition
+ * controls are inverted.
+ *
+ * <p>Unlike other modifications, this one has no configurable parameters since the toggle operation
+ * is fixed.
  */
 @XmlRootElement
 public class BooleanToggleModification extends VariableModification<Boolean> {
 
-    /**
-     * Default constructor for XML serialization.
-     */
+    /** Default constructor for XML serialization. */
     public BooleanToggleModification() {
         super();
     }
@@ -51,9 +49,11 @@ public class BooleanToggleModification extends VariableModification<Boolean> {
 
     /**
      * Modifies the input by inverting its boolean value.
-     * 
+     *
      * <p>If the input is true, returns false.
+     *
      * <p>If the input is false, returns true.
+     *
      * <p>If the input is null, returns null.
      *
      * @param input The Boolean value to invert
@@ -69,9 +69,9 @@ public class BooleanToggleModification extends VariableModification<Boolean> {
 
     /**
      * Computes a hash code for this modification.
-     * 
-     * <p>Since this modification has no configurable parameters,
-     * all instances are functionally identical and return the same hash code.
+     *
+     * <p>Since this modification has no configurable parameters, all instances are functionally
+     * identical and return the same hash code.
      *
      * @return A constant hash code
      */
@@ -82,9 +82,9 @@ public class BooleanToggleModification extends VariableModification<Boolean> {
 
     /**
      * Checks if this modification is equal to another object.
-     * 
-     * <p>Since this modification has no configurable parameters,
-     * it equals any other instance of the same class.
+     *
+     * <p>Since this modification has no configurable parameters, it equals any other instance of
+     * the same class.
      *
      * @param obj The object to compare with
      * @return true if the object is a BooleanToggleModification, false otherwise

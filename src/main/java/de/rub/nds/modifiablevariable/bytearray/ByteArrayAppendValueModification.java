@@ -97,9 +97,9 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
     /**
      * Implements the modification by appending bytes to the input.
      *
-     * <p>This method concatenates the bytes to append to the end of the input byte array using
-     * the ArrayConverter's concatenate method. If the input is null, it returns null to
-     * preserve null-safety.
+     * <p>This method concatenates the bytes to append to the end of the input byte array using the
+     * ArrayConverter's concatenate method. If the input is null, it returns null to preserve
+     * null-safety.
      *
      * @param input The original byte array
      * @return A new byte array with the bytes appended, or null if input was null

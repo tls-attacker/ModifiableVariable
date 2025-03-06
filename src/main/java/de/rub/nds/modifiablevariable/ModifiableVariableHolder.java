@@ -21,32 +21,43 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * Base class for objects that contain modifiable variables.
- * 
- * <p>This abstract class provides functionality for managing and accessing modifiable
- * variables within a containing class. It allows for runtime reflection-based access
- * to fields of type {@link ModifiableVariable} and provides methods for:
+ *
+ * <p>This abstract class provides functionality for managing and accessing modifiable variables
+ * within a containing class. It allows for runtime reflection-based access to fields of type {@link
+ * ModifiableVariable} and provides methods for:
+ *
  * <ul>
- *   <li>Discovering all modifiable variables in the class</li>
- *   <li>Selecting random modifiable variables for testing</li>
- *   <li>Resetting all modifiable variables</li>
- *   <li>Creating string representations</li>
+ *   <li>Discovering all modifiable variables in the class
+ *   <li>Selecting random modifiable variables for testing
+ *   <li>Resetting all modifiable variables
+ *   <li>Creating string representations
  * </ul>
- * 
- * <p>This class is the backbone of the modifiable variable framework, as it allows
- * for systematic manipulation and inspection of protocol data structures that
- * contain modifiable variables.
- * 
+ *
+ * <p>This class is the backbone of the modifiable variable framework, as it allows for systematic
+ * manipulation and inspection of protocol data structures that contain modifiable variables.
+ *
  * <p>Classes that extend this base class can be serialized to XML using JAXB.
  */
 @XmlType(name = "ModVarHolder")
 public abstract class ModifiableVariableHolder implements Serializable {
 
+    /**
+     * Creates a new ModifiableVariableHolder.
+     *
+     * <p>This constructor initializes a base ModifiableVariableHolder instance. Subclasses should
+     * call this constructor and add their own initialization as needed.
+     */
+    protected ModifiableVariableHolder() {
+        // Default constructor deliberately left empty
+    }
+
     /** Logger for this class */
     private static final Logger LOGGER = LogManager.getLogger();
 
     /**
-     * Lists all fields that are of type ModifiableVariable declared in this class and its superclasses.
-     * 
+     * Lists all fields that are of type ModifiableVariable declared in this class and its
+     * superclasses.
+     *
      * <p>This method uses reflection to identify all fields that extend ModifiableVariable.
      *
      * @return A list of Field objects representing all ModifiableVariable fields in the class
@@ -57,9 +68,9 @@ public abstract class ModifiableVariableHolder implements Serializable {
 
     /**
      * Returns a randomly selected ModifiableVariable field from this class.
-     * 
-     * <p>This method is particularly useful for testing and fuzzing, where random
-     * manipulation of fields is needed.
+     *
+     * <p>This method is particularly useful for testing and fuzzing, where random manipulation of
+     * fields is needed.
      *
      * @param random The random number generator to use for the selection
      * @return A randomly selected Field object representing a ModifiableVariable
@@ -72,11 +83,12 @@ public abstract class ModifiableVariableHolder implements Serializable {
 
     /**
      * Returns a list of all ModifiableVariableHolder instances in this object.
-     * 
-     * <p>The default implementation only includes this instance, but subclasses can
-     * override this method to include nested ModifiableVariableHolder objects.
      *
-     * @return A list containing this instance and, potentially, nested ModifiableVariableHolder objects
+     * <p>The default implementation only includes this instance, but subclasses can override this
+     * method to include nested ModifiableVariableHolder objects.
+     *
+     * @return A list containing this instance and, potentially, nested ModifiableVariableHolder
+     *     objects
      */
     public List<ModifiableVariableHolder> getAllModifiableVariableHolders() {
         List<ModifiableVariableHolder> holders = new LinkedList<>();
@@ -86,7 +98,7 @@ public abstract class ModifiableVariableHolder implements Serializable {
 
     /**
      * Returns a randomly selected ModifiableVariableHolder from this object.
-     * 
+     *
      * <p>If this class contains nested ModifiableVariableHolder objects and overrides
      * getAllModifiableVariableHolders(), this method could return one of those nested holders.
      *
@@ -101,15 +113,16 @@ public abstract class ModifiableVariableHolder implements Serializable {
 
     /**
      * Resets all ModifiableVariable fields in this object to their default state.
-     * 
+     *
      * <p>For each ModifiableVariable field:
+     *
      * <ul>
-     *   <li>If the field has modifications, its original value is set to null</li>
-     *   <li>If the field has no modifications, the field itself is set to null</li>
+     *   <li>If the field has modifications, its original value is set to null
+     *   <li>If the field has no modifications, the field itself is set to null
      * </ul>
-     * 
-     * <p>This method is useful for returning an object to a clean state before
-     * applying new modifications.
+     *
+     * <p>This method is useful for returning an object to a clean state before applying new
+     * modifications.
      */
     public void reset() {
         List<Field> fields = getAllModifiableVariableFields();
@@ -139,10 +152,10 @@ public abstract class ModifiableVariableHolder implements Serializable {
 
     /**
      * Creates a detailed string representation of this object and all its fields.
-     * 
-     * <p>This method returns a hierarchical, formatted string that includes the values
-     * of all fields, including nested ModifiableVariableHolder objects. The format
-     * is particularly useful for debugging and logging.
+     *
+     * <p>This method returns a hierarchical, formatted string that includes the values of all
+     * fields, including nested ModifiableVariableHolder objects. The format is particularly useful
+     * for debugging and logging.
      *
      * @return A formatted string representation of this object
      */
@@ -152,13 +165,14 @@ public abstract class ModifiableVariableHolder implements Serializable {
 
     /**
      * Helper method that creates a detailed string representation of this object with indentation.
-     * 
-     * <p>This method handles the recursion and formatting for the getExtendedString() method,
-     * with special handling for different field types:
+     *
+     * <p>This method handles the recursion and formatting for the getExtendedString() method, with
+     * special handling for different field types:
+     *
      * <ul>
-     *   <li>byte[] fields are converted to hexadecimal strings</li>
-     *   <li>ModifiableVariableHolder fields are recursively expanded</li>
-     *   <li>Other fields use their toString() method</li>
+     *   <li>byte[] fields are converted to hexadecimal strings
+     *   <li>ModifiableVariableHolder fields are recursively expanded
+     *   <li>Other fields use their toString() method
      * </ul>
      *
      * @param depth The current indentation depth

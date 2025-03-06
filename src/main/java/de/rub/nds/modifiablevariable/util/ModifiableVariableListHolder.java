@@ -12,15 +12,15 @@ import java.util.List;
 
 /**
  * A holder class that pairs an object with a list of its ModifiableVariable fields.
- * 
+ *
  * <p>This class is used to represent the relationship between an object and all of its
  * ModifiableVariable fields. It's particularly useful when working with the results of
- * reflection-based analysis, as it preserves the context needed to access and manipulate
- * the fields.
- * 
- * <p>Unlike {@link ModifiableVariableField}, which represents a single field in an object,
- * this class represents all ModifiableVariable fields in an object, making it useful for
- * operations that need to work with all modifiable fields in an object.
+ * reflection-based analysis, as it preserves the context needed to access and manipulate the
+ * fields.
+ *
+ * <p>Unlike {@link ModifiableVariableField}, which represents a single field in an object, this
+ * class represents all ModifiableVariable fields in an object, making it useful for operations that
+ * need to work with all modifiable fields in an object.
  */
 public class ModifiableVariableListHolder {
 
@@ -30,9 +30,7 @@ public class ModifiableVariableListHolder {
     /** The list of Field objects representing the ModifiableVariables in the object */
     private List<Field> fields;
 
-    /**
-     * Default constructor that creates an empty ModifiableVariableListHolder.
-     */
+    /** Default constructor that creates an empty ModifiableVariableListHolder. */
     public ModifiableVariableListHolder() {
         super();
     }

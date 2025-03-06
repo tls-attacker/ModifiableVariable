@@ -12,14 +12,14 @@ import java.lang.reflect.Field;
 
 /**
  * A wrapper class that pairs an object with one of its ModifiableVariable fields.
- * 
+ *
  * <p>This class is used to represent the relationship between an object and a specific
- * ModifiableVariable field within it. This pairing is particularly useful when working
- * with the results of reflection-based analysis, as it preserves the context needed to
- * access and manipulate the field.
- * 
- * <p>The class provides methods to access both the containing object and the field,
- * as well as a convenience method to directly access the ModifiableVariable instance.
+ * ModifiableVariable field within it. This pairing is particularly useful when working with the
+ * results of reflection-based analysis, as it preserves the context needed to access and manipulate
+ * the field.
+ *
+ * <p>The class provides methods to access both the containing object and the field, as well as a
+ * convenience method to directly access the ModifiableVariable instance.
  */
 public class ModifiableVariableField {
 
@@ -29,9 +29,7 @@ public class ModifiableVariableField {
     /** The Field object representing the ModifiableVariable */
     private Field field;
 
-    /**
-     * Default constructor that creates an empty ModifiableVariableField.
-     */
+    /** Default constructor that creates an empty ModifiableVariableField. */
     public ModifiableVariableField() {
         super();
     }
@@ -86,9 +84,9 @@ public class ModifiableVariableField {
 
     /**
      * Gets the actual ModifiableVariable instance from the object.
-     * 
-     * <p>This method uses reflection to access the field in the object,
-     * making the field accessible if necessary.
+     *
+     * <p>This method uses reflection to access the field in the object, making the field accessible
+     * if necessary.
      *
      * @return The ModifiableVariable instance
      * @throws IllegalArgumentException If the field is not accessible or does not exist
@@ -99,5 +97,4 @@ public class ModifiableVariableField {
         field.setAccessible(true);
         return (ModifiableVariable<?>) field.get(object);
     }
-}
 }

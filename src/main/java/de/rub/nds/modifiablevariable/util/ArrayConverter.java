@@ -317,7 +317,8 @@ public final class ArrayConverter {
     }
 
     /**
-     * Converts a ModifiableByteArray to a hexadecimal string representation with optional pretty-printing.
+     * Converts a ModifiableByteArray to a hexadecimal string representation with optional
+     * pretty-printing.
      *
      * <p>When pretty-printing is enabled, the output includes newlines and spacing to improve
      * readability of longer byte sequences.
@@ -331,8 +332,8 @@ public final class ArrayConverter {
     }
 
     /**
-     * Converts a ModifiableByteArray to a hexadecimal string representation with detailed formatting
-     * options.
+     * Converts a ModifiableByteArray to a hexadecimal string representation with detailed
+     * formatting options.
      *
      * <p>This method provides full control over the formatting:
      *
@@ -345,7 +346,8 @@ public final class ArrayConverter {
      *
      * @param array The ModifiableByteArray to convert
      * @param usePrettyPrinting Whether to use pretty-printing formatting
-     * @param initialNewLine Whether to begin with a new line (only applies if pretty-printing is enabled)
+     * @param initialNewLine Whether to begin with a new line (only applies if pretty-printing is
+     *     enabled)
      * @return A string representation of the bytes in hexadecimal format
      */
     public static String bytesToHexString(
@@ -370,11 +372,11 @@ public final class ArrayConverter {
     /**
      * Concatenates multiple arrays of the same type into a single array.
      *
-     * <p>This generic method works with arrays of any reference type. It creates a new array
-     * that contains all elements from the input arrays in the order they are provided.
+     * <p>This generic method works with arrays of any reference type. It creates a new array that
+     * contains all elements from the input arrays in the order they are provided.
      *
-     * <p>If any of the input arrays is null, it is skipped without causing an error.
-     * However, at least one non-null array must be provided.
+     * <p>If any of the input arrays is null, it is skipped without causing an error. However, at
+     * least one non-null array must be provided.
      *
      * @param <T> The component type of the arrays
      * @param arrays The arrays to concatenate
@@ -408,11 +410,11 @@ public final class ArrayConverter {
     /**
      * Concatenates multiple byte arrays into a single byte array.
      *
-     * <p>This method creates a new byte array that contains all elements from the input arrays
-     * in the order they are provided.
+     * <p>This method creates a new byte array that contains all elements from the input arrays in
+     * the order they are provided.
      *
-     * <p>If any of the input arrays is null, it is skipped without causing an error.
-     * However, at least one non-null array must be provided.
+     * <p>If any of the input arrays is null, it is skipped without causing an error. However, at
+     * least one non-null array must be provided.
      *
      * @param arrays The byte arrays to concatenate
      * @return A new byte array containing all elements from the input arrays
@@ -443,9 +445,9 @@ public final class ArrayConverter {
     /**
      * Concatenates two byte arrays, using only a specified number of bytes from the second array.
      *
-     * <p>This method is similar to {@link #concatenate(byte[]...)}, but allows you to limit how many
-     * bytes are taken from the second array. This is useful when you need to append only a portion
-     * of one array to another.
+     * <p>This method is similar to {@link #concatenate(byte[]...)}, but allows you to limit how
+     * many bytes are taken from the second array. This is useful when you need to append only a
+     * portion of one array to another.
      *
      * @param array1 The first byte array (used in its entirety)
      * @param array2 The second byte array (used partially)
@@ -463,9 +465,9 @@ public final class ArrayConverter {
     /**
      * Replaces all zero bytes in an array with non-zero values.
      *
-     * <p>This method modifies the input array in-place by replacing any bytes with value 0x00
-     * with the value 0x01. This can be useful in cryptographic contexts where zero bytes might
-     * cause special behaviors that need to be avoided.
+     * <p>This method modifies the input array in-place by replacing any bytes with value 0x00 with
+     * the value 0x01. This can be useful in cryptographic contexts where zero bytes might cause
+     * special behaviors that need to be avoided.
      *
      * @param array The byte array to modify (modified in-place)
      */
@@ -662,12 +664,12 @@ public final class ArrayConverter {
 
     /**
      * Converts a signed byte to an unsigned int.
-     * 
-     * <p>In Java, bytes are signed 8-bit values ranging from -128 to 127. This method
-     * converts a byte to an unsigned int value (0-255) by masking with 0xFF.
-     * 
-     * <p>This is particularly useful when dealing with network protocols or file formats
-     * where bytes are often interpreted as unsigned values.
+     *
+     * <p>In Java, bytes are signed 8-bit values ranging from -128 to 127. This method converts a
+     * byte to an unsigned int value (0-255) by masking with 0xFF.
+     *
+     * <p>This is particularly useful when dealing with network protocols or file formats where
+     * bytes are often interpreted as unsigned values.
      *
      * @param b The byte to convert
      * @return The unsigned int value (0-255) corresponding to the byte

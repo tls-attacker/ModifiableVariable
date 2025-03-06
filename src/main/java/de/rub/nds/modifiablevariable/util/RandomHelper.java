@@ -11,14 +11,13 @@ import java.util.Random;
 
 /**
  * Utility class for obtaining and managing random number generators.
- * 
- * <p>This class provides access to a singleton Random instance with a fixed seed (0),
- * ensuring reproducible "random" behavior across test runs. It also provides access
- * to specialized random number generators used for testing purposes.
- * 
- * <p>The fixed seed ensures that any test using this generator will produce
- * consistent results across multiple runs, which is essential for deterministic
- * and reproducible testing.
+ *
+ * <p>This class provides access to a singleton Random instance with a fixed seed (0), ensuring
+ * reproducible "random" behavior across test runs. It also provides access to specialized random
+ * number generators used for testing purposes.
+ *
+ * <p>The fixed seed ensures that any test using this generator will produce consistent results
+ * across multiple runs, which is essential for deterministic and reproducible testing.
  */
 public final class RandomHelper {
 
@@ -27,9 +26,9 @@ public final class RandomHelper {
 
     /**
      * Gets the singleton Random instance with a fixed seed of 0.
-     * 
-     * <p>The fixed seed ensures reproducible "random" behavior across test runs.
-     * If the Random instance hasn't been initialized yet, this method initializes it.
+     *
+     * <p>The fixed seed ensures reproducible "random" behavior across test runs. If the Random
+     * instance hasn't been initialized yet, this method initializes it.
      *
      * @return A Random instance with a fixed seed of 0
      */
@@ -42,11 +41,10 @@ public final class RandomHelper {
 
     /**
      * Gets a BadRandom instance that can be used for security testing.
-     * 
-     * <p>BadRandom extends SecureRandom but uses the deterministic Random
-     * internally, making it predictable while still conforming to the 
-     * SecureRandom API. This is useful for testing cryptographic protocols
-     * with controlled "randomness".
+     *
+     * <p>BadRandom extends SecureRandom but uses the deterministic Random internally, making it
+     * predictable while still conforming to the SecureRandom API. This is useful for testing
+     * cryptographic protocols with controlled "randomness".
      *
      * @return A BadRandom instance that uses the singleton Random internally
      */
@@ -56,10 +54,9 @@ public final class RandomHelper {
 
     /**
      * Sets the singleton Random instance to a specific Random object.
-     * 
-     * <p>This method allows for replacing the default Random instance with
-     * a custom one, which can be useful for testing with different seeds
-     * or alternative random number generators.
+     *
+     * <p>This method allows for replacing the default Random instance with a custom one, which can
+     * be useful for testing with different seeds or alternative random number generators.
      *
      * @param random The Random instance to use as the singleton
      */
@@ -67,9 +64,7 @@ public final class RandomHelper {
         RandomHelper.random = random;
     }
 
-    /**
-     * Private constructor to prevent instantiation of this utility class.
-     */
+    /** Private constructor to prevent instantiation of this utility class. */
     private RandomHelper() {
         super();
     }

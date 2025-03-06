@@ -18,10 +18,10 @@ import java.math.BigInteger;
 
 /**
  * Factory class for creating modifiable variables of different types.
- * 
- * <p>This factory provides methods to create empty modifiable variables and
- * safely set values on existing or new modifiable variables. The factory
- * ensures that null modifiable variables are properly initialized when setting values.
+ *
+ * <p>This factory provides methods to create empty modifiable variables and safely set values on
+ * existing or new modifiable variables. The factory ensures that null modifiable variables are
+ * properly initialized when setting values.
  */
 public final class ModifiableVariableFactory {
 
@@ -193,9 +193,7 @@ public final class ModifiableVariableFactory {
         return mv;
     }
 
-    /**
-     * Private constructor to prevent instantiation of utility class.
-     */
+    /** Private constructor to prevent instantiation of utility class. */
     private ModifiableVariableFactory() {
         super();
     }

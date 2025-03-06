@@ -13,20 +13,22 @@ import java.util.Objects;
 
 /**
  * A modification that replaces a byte variable with an explicit value.
- * <p>
- * This class completely replaces the original byte value with a new, explicitly defined value,
- * regardless of what the original value was. It's particularly useful in security testing
- * for forcing specific byte values in protocol messages.
- * <p>
- * Example use cases:
+ *
+ * <p>This class completely replaces the original byte value with a new, explicitly defined value,
+ * regardless of what the original value was. It's particularly useful in security testing for
+ * forcing specific byte values in protocol messages.
+ *
+ * <p>Example use cases:
+ *
  * <ul>
- *   <li>Setting specific flag values in protocol headers</li>
- *   <li>Testing boundary values (0x00, 0x7F, 0xFF) in protocol fields</li>
- *   <li>Replacing version indicators with specific values to test compatibility</li>
- *   <li>Setting control bytes to specific values to trigger certain behaviors</li>
+ *   <li>Setting specific flag values in protocol headers
+ *   <li>Testing boundary values (0x00, 0x7F, 0xFF) in protocol fields
+ *   <li>Replacing version indicators with specific values to test compatibility
+ *   <li>Setting control bytes to specific values to trigger certain behaviors
  * </ul>
- * <p>
- * Usage example:
+ *
+ * <p>Usage example:
+ *
  * <pre>
  *   ModifiableByte variable = new ModifiableByte();
  *   variable.setOriginalValue((byte) 0x01);
@@ -41,9 +43,7 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
     /** The value that will replace the original byte */
     protected Byte explicitValue;
 
-    /**
-     * Default constructor for serialization.
-     */
+    /** Default constructor for serialization. */
     public ByteExplicitValueModification() {
         super();
     }
@@ -80,7 +80,7 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
 
     /**
      * Implements the byte explicit value modification.
-     * 
+     *
      * @param input The original byte value to be replaced (ignored except for null check)
      * @return The explicit value that replaces the original value, or null if input is null
      */

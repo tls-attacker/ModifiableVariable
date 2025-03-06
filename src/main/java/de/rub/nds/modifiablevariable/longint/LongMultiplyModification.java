@@ -13,41 +13,42 @@ import java.util.Objects;
 
 /**
  * A modification that multiplies a long value by a specified factor.
- * 
- * <p>This modification takes the original long value and multiplies it by
- * a given factor using the {@code *} operator. It's useful for testing
- * cryptographic protocols where scaling or magnifying values can help
- * identify vulnerabilities, especially in implementations that don't properly
+ *
+ * <p>This modification takes the original long value and multiplies it by a given factor using the
+ * {@code *} operator. It's useful for testing cryptographic protocols where scaling or magnifying
+ * values can help identify vulnerabilities, especially in implementations that don't properly
  * validate numeric ranges.
- * 
+ *
  * <p>Key testing scenarios where this modification is valuable include:
+ *
  * <ul>
- *   <li>Scaling values to test how systems handle large numbers</li>
- *   <li>Testing overflow conditions by multiplying by large factors</li>
- *   <li>Manipulating protocol fields that should be within specific ranges</li>
- *   <li>Testing numeric validation routines</li>
- *   <li>Zeroing values by multiplying by 0 to test null/zero handling</li>
+ *   <li>Scaling values to test how systems handle large numbers
+ *   <li>Testing overflow conditions by multiplying by large factors
+ *   <li>Manipulating protocol fields that should be within specific ranges
+ *   <li>Testing numeric validation routines
+ *   <li>Zeroing values by multiplying by 0 to test null/zero handling
  * </ul>
- * 
+ *
  * <p>Example usage:
+ *
  * <pre>{@code
  * // Create a modification that multiplies by 1000
  * LongMultiplyModification mod = new LongMultiplyModification(1000L);
- * 
+ *
  * // Apply to a variable
  * ModifiableLong var = new ModifiableLong();
  * var.setOriginalValue(42L);
  * var.setModification(mod);
- * 
+ *
  * // Results in 42000L
  * Long result = var.getValue();
  * }</pre>
- * 
- * <p>This class is serializable through JAXB annotations, allowing it to be
- * used in XML configurations for testing.
- * 
- * <p>Note that long multiplication may result in overflow if the result exceeds
- * the range of {@link Long} (±2^63).
+ *
+ * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
+ * configurations for testing.
+ *
+ * <p>Note that long multiplication may result in overflow if the result exceeds the range of {@link
+ * Long} (±2^63).
  */
 @XmlRootElement
 public class LongMultiplyModification extends VariableModification<Long> {
@@ -57,9 +58,9 @@ public class LongMultiplyModification extends VariableModification<Long> {
 
     /**
      * Default constructor for JAXB deserialization.
-     * 
-     * <p>When using this constructor, the factor must be set via
-     * {@link #setFactor(Long)} before applying the modification.
+     *
+     * <p>When using this constructor, the factor must be set via {@link #setFactor(Long)} before
+     * applying the modification.
      */
     public LongMultiplyModification() {
         super();
@@ -97,14 +98,12 @@ public class LongMultiplyModification extends VariableModification<Long> {
 
     /**
      * Implements the modification by multiplying the input by the factor.
-     * 
-     * <p>This method performs the multiplication operation on the input long
-     * using the {@code *} operator. If the input is null, it returns
-     * null to preserve null-safety.
-     * 
-     * <p>Note that this operation may result in overflow if the result
-     * exceeds the range of {@link Long}, which can be useful for
-     * testing boundary conditions and overflow handling.
+     *
+     * <p>This method performs the multiplication operation on the input long using the {@code *}
+     * operator. If the input is null, it returns null to preserve null-safety.
+     *
+     * <p>Note that this operation may result in overflow if the result exceeds the range of {@link
+     * Long}, which can be useful for testing boundary conditions and overflow handling.
      *
      * @param input The original long value
      * @return The result of multiplying the input by the factor, or null if input is null
@@ -137,7 +136,7 @@ public class LongMultiplyModification extends VariableModification<Long> {
 
     /**
      * Computes a hash code for this modification.
-     * 
+     *
      * <p>The hash code is based solely on the multiplication factor.
      *
      * @return A hash code value for this object
@@ -151,9 +150,9 @@ public class LongMultiplyModification extends VariableModification<Long> {
 
     /**
      * Compares this modification with another object for equality.
-     * 
-     * <p>Two LongMultiplyModification objects are considered equal if
-     * they have the same multiplication factor.
+     *
+     * <p>Two LongMultiplyModification objects are considered equal if they have the same
+     * multiplication factor.
      *
      * @param obj The object to compare with
      * @return {@code true} if the objects are equal, {@code false} otherwise
@@ -175,7 +174,7 @@ public class LongMultiplyModification extends VariableModification<Long> {
 
     /**
      * Returns a string representation of this modification.
-     * 
+     *
      * <p>The string includes the class name and factor value.
      *
      * @return A string representation of this object

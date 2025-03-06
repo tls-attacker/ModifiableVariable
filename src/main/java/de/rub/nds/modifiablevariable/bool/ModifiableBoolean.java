@@ -12,13 +12,13 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * A modifiable variable implementation for Boolean values.
- * 
- * <p>This class extends {@link ModifiableVariable} to provide runtime modification
- * capabilities for Boolean values. The primary modification for boolean values is
- * toggling (inversion), but explicit value setting is also supported.
  *
- * <p>Boolean values are commonly used for flags and condition controls in protocols,
- * making runtime manipulation of these values useful for testing protocol behavior.
+ * <p>This class extends {@link ModifiableVariable} to provide runtime modification capabilities for
+ * Boolean values. The primary modification for boolean values is toggling (inversion), but explicit
+ * value setting is also supported.
+ *
+ * <p>Boolean values are commonly used for flags and condition controls in protocols, making runtime
+ * manipulation of these values useful for testing protocol behavior.
  */
 @XmlRootElement
 public class ModifiableBoolean extends ModifiableVariable<Boolean> {
@@ -26,9 +26,7 @@ public class ModifiableBoolean extends ModifiableVariable<Boolean> {
     /** The original Boolean value before any modifications */
     private Boolean originalValue;
 
-    /**
-     * Default constructor that creates an empty ModifiableBoolean with no original value.
-     */
+    /** Default constructor that creates an empty ModifiableBoolean with no original value. */
     public ModifiableBoolean() {
         super();
     }
@@ -44,8 +42,8 @@ public class ModifiableBoolean extends ModifiableVariable<Boolean> {
     }
 
     /**
-     * Copy constructor that creates a new ModifiableBoolean with the same original value
-     * and modifications as the provided instance.
+     * Copy constructor that creates a new ModifiableBoolean with the same original value and
+     * modifications as the provided instance.
      *
      * @param other The ModifiableBoolean to copy
      */
@@ -118,8 +116,8 @@ public class ModifiableBoolean extends ModifiableVariable<Boolean> {
     }
 
     /**
-     * Checks if this ModifiableBoolean is equal to another object.
-     * Two ModifiableBoolean instances are considered equal if they have the same modified value.
+     * Checks if this ModifiableBoolean is equal to another object. Two ModifiableBoolean instances
+     * are considered equal if they have the same modified value.
      *
      * @param obj The object to compare with
      * @return true if the objects are equal, false otherwise
@@ -137,8 +135,8 @@ public class ModifiableBoolean extends ModifiableVariable<Boolean> {
     }
 
     /**
-     * Computes a hash code for this ModifiableBoolean.
-     * The hash code is based on the modified value rather than the original value.
+     * Computes a hash code for this ModifiableBoolean. The hash code is based on the modified value
+     * rather than the original value.
      *
      * @return The hash code value
      */

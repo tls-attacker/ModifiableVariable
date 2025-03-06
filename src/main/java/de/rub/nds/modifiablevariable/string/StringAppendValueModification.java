@@ -17,18 +17,19 @@ import java.util.Objects;
 
 /**
  * A modification that appends a specified string value to the end of the input string.
- * 
- * <p>This modification performs string concatenation, adding the specified appendValue
- * to the end of the input string. This is a common operation in string manipulation
- * and can be used for testing string handling in protocols, particularly for:
+ *
+ * <p>This modification performs string concatenation, adding the specified appendValue to the end
+ * of the input string. This is a common operation in string manipulation and can be used for
+ * testing string handling in protocols, particularly for:
+ *
  * <ul>
- *   <li>Testing boundary conditions by appending additional characters</li>
- *   <li>Modifying string-based identifiers or names</li>
- *   <li>Creating malformed string values for security testing</li>
+ *   <li>Testing boundary conditions by appending additional characters
+ *   <li>Modifying string-based identifiers or names
+ *   <li>Creating malformed string values for security testing
  * </ul>
- * 
- * <p>The class uses {@link IllegalStringAdapter} for XML serialization to handle
- * special characters that might be problematic in XML.
+ *
+ * <p>The class uses {@link IllegalStringAdapter} for XML serialization to handle special characters
+ * that might be problematic in XML.
  */
 @XmlRootElement
 public class StringAppendValueModification extends VariableModification<String> {
@@ -37,9 +38,7 @@ public class StringAppendValueModification extends VariableModification<String> 
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     private String appendValue;
 
-    /**
-     * Default constructor for XML serialization.
-     */
+    /** Default constructor for XML serialization. */
     public StringAppendValueModification() {
         super();
     }
@@ -76,12 +75,13 @@ public class StringAppendValueModification extends VariableModification<String> 
 
     /**
      * Modifies the input by appending the specified value.
-     * 
-     * <p>This method uses Java's string concatenation operator (+) to append
-     * the specified value to the end of the input string.
+     *
+     * <p>This method uses Java's string concatenation operator (+) to append the specified value to
+     * the end of the input string.
      *
      * @param input The string value to modify
-     * @return The result of appending the specified value to the input, or null if the input is null
+     * @return The result of appending the specified value to the input, or null if the input is
+     *     null
      */
     @Override
     protected String modifyImplementationHook(String input) {
@@ -110,8 +110,7 @@ public class StringAppendValueModification extends VariableModification<String> 
     }
 
     /**
-     * Computes a hash code for this modification.
-     * The hash code is based on the append value.
+     * Computes a hash code for this modification. The hash code is based on the append value.
      *
      * @return The hash code value
      */
@@ -123,8 +122,8 @@ public class StringAppendValueModification extends VariableModification<String> 
     }
 
     /**
-     * Checks if this modification is equal to another object.
-     * Two StringAppendValueModification instances are considered equal if they have the same append value.
+     * Checks if this modification is equal to another object. Two StringAppendValueModification
+     * instances are considered equal if they have the same append value.
      *
      * @param obj The object to compare with
      * @return true if the objects are equal, false otherwise
@@ -146,9 +145,9 @@ public class StringAppendValueModification extends VariableModification<String> 
 
     /**
      * Returns a string representation of this modification.
-     * 
-     * <p>The append value is escaped using backslash escaping to make
-     * control characters and other special characters readable.
+     *
+     * <p>The append value is escaped using backslash escaping to make control characters and other
+     * special characters readable.
      *
      * @return A string describing this modification
      */

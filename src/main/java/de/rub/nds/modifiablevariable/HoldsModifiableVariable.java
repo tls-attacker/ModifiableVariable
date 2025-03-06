@@ -13,25 +13,27 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for fields that contain ModifiableVariable instances or ModifiableVariableHolder objects.
- * 
- * <p>This annotation marks fields within a class that reference modifiable variables 
- * or objects that contain modifiable variables. It is used for reflection-based discovery
- * and manipulation of modifiable variables throughout a complex object hierarchy.
- * 
- * <p>By marking fields with this annotation, the framework can identify which fields
- * should be included in operations like:
+ * Annotation for fields that contain ModifiableVariable instances or ModifiableVariableHolder
+ * objects.
+ *
+ * <p>This annotation marks fields within a class that reference modifiable variables or objects
+ * that contain modifiable variables. It is used for reflection-based discovery and manipulation of
+ * modifiable variables throughout a complex object hierarchy.
+ *
+ * <p>By marking fields with this annotation, the framework can identify which fields should be
+ * included in operations like:
+ *
  * <ul>
- *   <li>Variable discovery</li>
- *   <li>Recursive manipulation</li>
- *   <li>Assertion validation</li>
- *   <li>Serialization/deserialization</li>
+ *   <li>Variable discovery
+ *   <li>Recursive manipulation
+ *   <li>Assertion validation
+ *   <li>Serialization/deserialization
  * </ul>
- * 
- * <p>For example, in a TLS protocol implementation, protocol message classes might
- * contain fields that represent various protocol fields. By annotating these fields,
- * the framework can automatically discover and manipulate them during testing.
- * 
+ *
+ * <p>For example, in a TLS protocol implementation, protocol message classes might contain fields
+ * that represent various protocol fields. By annotating these fields, the framework can
+ * automatically discover and manipulate them during testing.
+ *
  * <p>This annotation is retained at runtime and can only be applied to fields.
  */
 @Target(ElementType.FIELD)

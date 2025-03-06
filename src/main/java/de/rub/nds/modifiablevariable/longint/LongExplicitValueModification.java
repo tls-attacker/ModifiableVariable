@@ -13,36 +13,38 @@ import java.util.Objects;
 
 /**
  * A modification that replaces the original long value with an explicitly specified value.
- * 
- * <p>This modification ignores the original value completely and always returns
- * the explicit value that was configured during initialization. It's one of the
- * most straightforward and powerful modifications for testing protocol implementations
- * as it allows direct control over values sent in protocol messages.
- * 
+ *
+ * <p>This modification ignores the original value completely and always returns the explicit value
+ * that was configured during initialization. It's one of the most straightforward and powerful
+ * modifications for testing protocol implementations as it allows direct control over values sent
+ * in protocol messages.
+ *
  * <p>Explicit value modifications are particularly useful for:
+ *
  * <ul>
- *   <li>Testing specific boundary values (0, 1, -1, Long.MIN_VALUE, Long.MAX_VALUE)</li>
- *   <li>Testing protocol behavior with reserved, special, or invalid values</li>
- *   <li>Creating reproducible test cases with precisely controlled values</li>
- *   <li>Forcing protocol paths that might be difficult to trigger otherwise</li>
+ *   <li>Testing specific boundary values (0, 1, -1, Long.MIN_VALUE, Long.MAX_VALUE)
+ *   <li>Testing protocol behavior with reserved, special, or invalid values
+ *   <li>Creating reproducible test cases with precisely controlled values
+ *   <li>Forcing protocol paths that might be difficult to trigger otherwise
  * </ul>
- * 
+ *
  * <p>Example usage:
+ *
  * <pre>{@code
  * // Create a modification that always returns Long.MAX_VALUE
  * LongExplicitValueModification mod = new LongExplicitValueModification(Long.MAX_VALUE);
- * 
+ *
  * // Apply to a variable
  * ModifiableLong var = new ModifiableLong();
  * var.setOriginalValue(42L);
  * var.setModification(mod);
- * 
+ *
  * // Results in Long.MAX_VALUE (9223372036854775807), regardless of the original value
  * Long result = var.getValue();
  * }</pre>
- * 
- * <p>This class is serializable through JAXB annotations, allowing it to be
- * used in XML configurations for testing.
+ *
+ * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
+ * configurations for testing.
  */
 @XmlRootElement
 public class LongExplicitValueModification extends VariableModification<Long> {
@@ -52,9 +54,9 @@ public class LongExplicitValueModification extends VariableModification<Long> {
 
     /**
      * Default constructor for JAXB deserialization.
-     * 
-     * <p>When using this constructor, the explicit value must be set via
-     * {@link #setExplicitValue(Long)} before applying the modification.
+     *
+     * <p>When using this constructor, the explicit value must be set via {@link
+     * #setExplicitValue(Long)} before applying the modification.
      */
     public LongExplicitValueModification() {
         super();
@@ -92,11 +94,11 @@ public class LongExplicitValueModification extends VariableModification<Long> {
 
     /**
      * Implements the modification by replacing the input with the explicit value.
-     * 
-     * <p>This method simply returns the explicit value, completely ignoring the
-     * input parameter (except for null checks). This provides a straightforward
-     * way to override values in a protocol message.
-     * 
+     *
+     * <p>This method simply returns the explicit value, completely ignoring the input parameter
+     * (except for null checks). This provides a straightforward way to override values in a
+     * protocol message.
+     *
      * <p>If the input is null, it preserves null-safety by returning null.
      *
      * @param input The original Long value (ignored except for null check)
@@ -130,7 +132,7 @@ public class LongExplicitValueModification extends VariableModification<Long> {
 
     /**
      * Computes a hash code for this modification.
-     * 
+     *
      * <p>The hash code is based solely on the explicit value.
      *
      * @return A hash code value for this object
@@ -144,9 +146,9 @@ public class LongExplicitValueModification extends VariableModification<Long> {
 
     /**
      * Compares this modification with another object for equality.
-     * 
-     * <p>Two LongExplicitValueModification objects are considered equal if
-     * they have the same explicit value.
+     *
+     * <p>Two LongExplicitValueModification objects are considered equal if they have the same
+     * explicit value.
      *
      * @param obj The object to compare with
      * @return {@code true} if the objects are equal, {@code false} otherwise
@@ -168,7 +170,7 @@ public class LongExplicitValueModification extends VariableModification<Long> {
 
     /**
      * Returns a string representation of this modification.
-     * 
+     *
      * <p>The string includes the class name and explicit value.
      *
      * @return A string representation of this object

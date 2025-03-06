@@ -13,9 +13,9 @@ import java.util.Objects;
 
 /**
  * A modification that adds a constant value to an Integer.
- * 
- * <p>This modification adds a specified integer value (summand) to the input value
- * when applied. It can be used to increment or decrement integer values at runtime.
+ *
+ * <p>This modification adds a specified integer value (summand) to the input value when applied. It
+ * can be used to increment or decrement integer values at runtime.
  */
 @XmlRootElement
 public class IntegerAddModification extends VariableModification<Integer> {
@@ -23,9 +23,7 @@ public class IntegerAddModification extends VariableModification<Integer> {
     /** The value to add to the original integer */
     private Integer summand;
 
-    /**
-     * Default constructor for XML serialization.
-     */
+    /** Default constructor for XML serialization. */
     public IntegerAddModification() {
         super();
     }
@@ -93,8 +91,7 @@ public class IntegerAddModification extends VariableModification<Integer> {
     }
 
     /**
-     * Computes a hash code for this modification.
-     * The hash code is based on the summand value.
+     * Computes a hash code for this modification. The hash code is based on the summand value.
      *
      * @return The hash code value
      */
@@ -106,8 +103,8 @@ public class IntegerAddModification extends VariableModification<Integer> {
     }
 
     /**
-     * Checks if this modification is equal to another object.
-     * Two IntegerAddModification instances are considered equal if they have the same summand.
+     * Checks if this modification is equal to another object. Two IntegerAddModification instances
+     * are considered equal if they have the same summand.
      *
      * @param obj The object to compare with
      * @return true if the objects are equal, false otherwise

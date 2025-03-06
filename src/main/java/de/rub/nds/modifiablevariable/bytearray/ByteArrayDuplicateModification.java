@@ -81,9 +81,8 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
     /**
      * Implements the modification by duplicating the input byte array.
      *
-     * <p>This method concatenates the input byte array with itself using the
-     * ArrayConverter's concatenate method. If the input is null, it returns null to
-     * preserve null-safety.
+     * <p>This method concatenates the input byte array with itself using the ArrayConverter's
+     * concatenate method. If the input is null, it returns null to preserve null-safety.
      *
      * @param input The original byte array
      * @return A new byte array consisting of the input array concatenated with itself, or null if

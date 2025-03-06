@@ -12,20 +12,19 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * A modifiable variable implementation for single byte values.
- * 
- * <p>This class extends {@link ModifiableVariable} to provide runtime modification
- * capabilities for Byte values. It supports various byte-specific modifications
- * such as:
+ *
+ * <p>This class extends {@link ModifiableVariable} to provide runtime modification capabilities for
+ * Byte values. It supports various byte-specific modifications such as:
+ *
  * <ul>
- *   <li>Addition and subtraction operations</li>
- *   <li>XOR operations</li>
- *   <li>Setting explicit byte values</li>
+ *   <li>Addition and subtraction operations
+ *   <li>XOR operations
+ *   <li>Setting explicit byte values
  * </ul>
  *
- * <p>Single bytes are commonly used in protocols for flags, type indicators,
- * and other small numeric values. The ability to modify bytes at runtime is
- * particularly useful for testing protocol implementations' handling of
- * unexpected or malformed values.
+ * <p>Single bytes are commonly used in protocols for flags, type indicators, and other small
+ * numeric values. The ability to modify bytes at runtime is particularly useful for testing
+ * protocol implementations' handling of unexpected or malformed values.
  */
 @XmlRootElement
 public class ModifiableByte extends ModifiableVariable<Byte> {
@@ -33,9 +32,7 @@ public class ModifiableByte extends ModifiableVariable<Byte> {
     /** The original byte value before any modifications */
     private Byte originalValue;
 
-    /**
-     * Default constructor that creates an empty ModifiableByte with no original value.
-     */
+    /** Default constructor that creates an empty ModifiableByte with no original value. */
     public ModifiableByte() {
         super();
     }
@@ -51,8 +48,8 @@ public class ModifiableByte extends ModifiableVariable<Byte> {
     }
 
     /**
-     * Copy constructor that creates a new ModifiableByte with the same original value
-     * and modifications as the provided instance.
+     * Copy constructor that creates a new ModifiableByte with the same original value and
+     * modifications as the provided instance.
      *
      * @param other The ModifiableByte to copy
      */
@@ -91,7 +88,7 @@ public class ModifiableByte extends ModifiableVariable<Byte> {
 
     /**
      * Checks if the modified value differs from the original value.
-     * 
+     *
      * <p>This method compares bytes using their natural ordering via the compareTo method.
      *
      * @return true if the value has been modified, false otherwise
@@ -103,7 +100,7 @@ public class ModifiableByte extends ModifiableVariable<Byte> {
 
     /**
      * Validates whether the modified value matches the expected value (if set).
-     * 
+     *
      * <p>This method compares bytes using their natural ordering via the compareTo method.
      *
      * @return true if no assertion is set or if the current value equals the expected value
@@ -150,8 +147,8 @@ public class ModifiableByte extends ModifiableVariable<Byte> {
     }
 
     /**
-     * Checks if this ModifiableByte is equal to another object.
-     * Two ModifiableByte instances are considered equal if they have the same modified value.
+     * Checks if this ModifiableByte is equal to another object. Two ModifiableByte instances are
+     * considered equal if they have the same modified value.
      *
      * @param obj The object to compare with
      * @return true if the objects are equal, false otherwise
@@ -169,8 +166,8 @@ public class ModifiableByte extends ModifiableVariable<Byte> {
     }
 
     /**
-     * Computes a hash code for this ModifiableByte.
-     * The hash code is based on the modified value rather than the original value.
+     * Computes a hash code for this ModifiableByte. The hash code is based on the modified value
+     * rather than the original value.
      *
      * @return The hash code value
      */

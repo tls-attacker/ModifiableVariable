@@ -17,21 +17,23 @@ import java.util.Objects;
 
 /**
  * Modification that prepends a string to the original value.
- * <p>
- * This class modifies a string by adding specified content at the beginning of the original string.
- * It's useful in security testing for manipulating string-based protocol fields, particularly when
- * testing parser robustness and input validation.
- * <p>
- * Example use cases:
+ *
+ * <p>This class modifies a string by adding specified content at the beginning of the original
+ * string. It's useful in security testing for manipulating string-based protocol fields,
+ * particularly when testing parser robustness and input validation.
+ *
+ * <p>Example use cases:
+ *
  * <ul>
- *   <li>Testing for SQL injection by prepending SQL syntax to field values</li>
- *   <li>Testing for XSS vulnerabilities by prepending script tags to form inputs</li>
- *   <li>Adding protocol headers or magic bytes to test parser behavior</li>
- *   <li>Testing boundary conditions by prepending large or special character strings</li>
- *   <li>Manipulating protocol handshakes by modifying string fields</li>
+ *   <li>Testing for SQL injection by prepending SQL syntax to field values
+ *   <li>Testing for XSS vulnerabilities by prepending script tags to form inputs
+ *   <li>Adding protocol headers or magic bytes to test parser behavior
+ *   <li>Testing boundary conditions by prepending large or special character strings
+ *   <li>Manipulating protocol handshakes by modifying string fields
  * </ul>
- * <p>
- * Usage example:
+ *
+ * <p>Usage example:
+ *
  * <pre>
  *   ModifiableString variable = new ModifiableString();
  *   variable.setOriginalValue("example");
@@ -47,9 +49,7 @@ public class StringPrependValueModification extends VariableModification<String>
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     private String prependValue;
 
-    /**
-     * Default constructor for serialization.
-     */
+    /** Default constructor for serialization. */
     public StringPrependValueModification() {
         super();
     }
@@ -86,7 +86,7 @@ public class StringPrependValueModification extends VariableModification<String>
 
     /**
      * Implements the string prepend modification.
-     * 
+     *
      * @param input The original string value to be modified
      * @return The modified string value (prependValue + original), or null if input is null
      */
@@ -150,8 +150,8 @@ public class StringPrependValueModification extends VariableModification<String>
     }
 
     /**
-     * Returns a string representation of this modification.
-     * The prepend value is escaped to make non-printable characters visible.
+     * Returns a string representation of this modification. The prepend value is escaped to make
+     * non-printable characters visible.
      *
      * @return A string containing the modification type and escaped prepend value
      */

@@ -15,19 +15,18 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * A specialized modifiable integer that represents the length of a byte array.
- * 
- * <p>This class extends {@link ModifiableInteger} but instead of storing its own 
- * original value, it dynamically calculates its original value based on the length
- * of a referenced byte array. This makes it suitable for representing length fields
- * in protocols where the length needs to be synchronized with the actual content.
- * 
- * <p>The ModifiableLengthField can still be modified using all the modification 
- * capabilities of ModifiableInteger, allowing for length field manipulations that
- * are common in protocol testing (e.g., length field underflows or overflows).
- * 
+ *
+ * <p>This class extends {@link ModifiableInteger} but instead of storing its own original value, it
+ * dynamically calculates its original value based on the length of a referenced byte array. This
+ * makes it suitable for representing length fields in protocols where the length needs to be
+ * synchronized with the actual content.
+ *
+ * <p>The ModifiableLengthField can still be modified using all the modification capabilities of
+ * ModifiableInteger, allowing for length field manipulations that are common in protocol testing
+ * (e.g., length field underflows or overflows).
+ *
  * <p>Note that attempting to set the original value directly will throw an
- * UnsupportedOperationException, as the original value is derived from the referenced
- * byte array.
+ * UnsupportedOperationException, as the original value is derived from the referenced byte array.
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -48,7 +47,7 @@ public class ModifiableLengthField extends ModifiableInteger {
 
     /**
      * Copy constructor.
-     * 
+     *
      * <p>Note that this creates a new ModifiableLengthField that references the same
      * ModifiableByteArray as the original, not a copy of the byte array.
      *
@@ -70,8 +69,8 @@ public class ModifiableLengthField extends ModifiableInteger {
     }
 
     /**
-     * Gets the original value of this length field, which is dynamically calculated
-     * as the length of the referenced byte array.
+     * Gets the original value of this length field, which is dynamically calculated as the length
+     * of the referenced byte array.
      *
      * @return The current length of the referenced byte array
      */
@@ -81,8 +80,8 @@ public class ModifiableLengthField extends ModifiableInteger {
     }
 
     /**
-     * This method is not supported for ModifiableLengthField, as the original value
-     * is always derived from the referenced byte array.
+     * This method is not supported for ModifiableLengthField, as the original value is always
+     * derived from the referenced byte array.
      *
      * @param originalValue This parameter is ignored
      * @throws UnsupportedOperationException Always thrown when this method is called
@@ -104,8 +103,8 @@ public class ModifiableLengthField extends ModifiableInteger {
     }
 
     /**
-     * Checks if this ModifiableLengthField is equal to another object.
-     * Two ModifiableLengthField instances are considered equal if they have the same modified value.
+     * Checks if this ModifiableLengthField is equal to another object. Two ModifiableLengthField
+     * instances are considered equal if they have the same modified value.
      *
      * @param obj The object to compare with
      * @return true if the objects are equal, false otherwise
@@ -123,8 +122,8 @@ public class ModifiableLengthField extends ModifiableInteger {
     }
 
     /**
-     * Computes a hash code for this ModifiableLengthField.
-     * The hash code is based on the modified value.
+     * Computes a hash code for this ModifiableLengthField. The hash code is based on the modified
+     * value.
      *
      * @return The hash code value
      */

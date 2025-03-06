@@ -13,36 +13,38 @@ import java.util.Objects;
 
 /**
  * A modification that deletes a portion of a string from the original value.
- * 
- * <p>This modification removes a specified number of characters from the original string
- * starting at a specified position. It's useful for testing string handling in protocol 
- * implementations, especially for identifying issues with string parsing, length validation,
- * or content verification.
- * 
+ *
+ * <p>This modification removes a specified number of characters from the original string starting
+ * at a specified position. It's useful for testing string handling in protocol implementations,
+ * especially for identifying issues with string parsing, length validation, or content
+ * verification.
+ *
  * <p>The modification handles various edge cases:
+ *
  * <ul>
- *   <li>If the start position is negative, it wraps around to delete from the end of the string</li>
- *   <li>If the start position exceeds the string length, it wraps around using modulo arithmetic</li>
- *   <li>If the deletion would extend beyond the end of the string, it's truncated at the end</li>
- *   <li>Empty strings are returned unchanged</li>
+ *   <li>If the start position is negative, it wraps around to delete from the end of the string
+ *   <li>If the start position exceeds the string length, it wraps around using modulo arithmetic
+ *   <li>If the deletion would extend beyond the end of the string, it's truncated at the end
+ *   <li>Empty strings are returned unchanged
  * </ul>
- * 
+ *
  * <p>Example usage:
+ *
  * <pre>{@code
  * // Create a modification that deletes 5 characters starting at position 6
  * StringDeleteModification mod = new StringDeleteModification(6, 5);
- * 
+ *
  * // Apply to a variable
  * ModifiableString var = new ModifiableString();
  * var.setOriginalValue("Hello, beautiful world!");
  * var.setModification(mod);
- * 
+ *
  * // Results in "Hello, world!"
  * String result = var.getValue();
  * }</pre>
- * 
- * <p>This class is serializable through JAXB annotations, allowing it to be
- * used in XML configurations for testing.
+ *
+ * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
+ * configurations for testing.
  */
 @XmlRootElement
 public class StringDeleteModification extends VariableModification<String> {
@@ -55,10 +57,9 @@ public class StringDeleteModification extends VariableModification<String> {
 
     /**
      * Default constructor for JAXB deserialization.
-     * 
-     * <p>When using this constructor, the count and start position must be set
-     * via {@link #setCount(int)} and {@link #setStartPosition(int)} before 
-     * applying the modification.
+     *
+     * <p>When using this constructor, the count and start position must be set via {@link
+     * #setCount(int)} and {@link #setStartPosition(int)} before applying the modification.
      */
     public StringDeleteModification() {
         super();
@@ -66,9 +67,9 @@ public class StringDeleteModification extends VariableModification<String> {
 
     /**
      * Creates a new modification with the specified parameters.
-     * 
-     * <p>This constructor sets the position at which to start deletion and
-     * the number of characters to delete.
+     *
+     * <p>This constructor sets the position at which to start deletion and the number of characters
+     * to delete.
      *
      * @param startPosition The position from which to start deletion (0-based index)
      * @param count The number of characters to delete
@@ -102,20 +103,23 @@ public class StringDeleteModification extends VariableModification<String> {
 
     /**
      * Implements the modification by deleting characters from the input string.
-     * 
-     * <p>This method removes the specified number of characters from the input string
-     * starting at the specified position. If the input is null or empty, it returns
-     * the input unchanged to preserve null-safety.
-     * 
+     *
+     * <p>This method removes the specified number of characters from the input string starting at
+     * the specified position. If the input is null or empty, it returns the input unchanged to
+     * preserve null-safety.
+     *
      * <p>The method handles edge cases gracefully:
+     *
      * <ul>
-     *   <li>If the start position is negative, it wraps around to delete from the end of the string</li>
-     *   <li>If the start position exceeds the string length, it wraps around using modulo arithmetic</li>
-     *   <li>If the deletion would extend beyond the end of the string, it's truncated at the end</li>
+     *   <li>If the start position is negative, it wraps around to delete from the end of the string
+     *   <li>If the start position exceeds the string length, it wraps around using modulo
+     *       arithmetic
+     *   <li>If the deletion would extend beyond the end of the string, it's truncated at the end
      * </ul>
      *
      * @param input The original string
-     * @return A new string with the specified portion deleted, or the input unchanged if it's null or empty
+     * @return A new string with the specified portion deleted, or the input unchanged if it's null
+     *     or empty
      */
     @Override
     protected String modifyImplementationHook(String input) {
@@ -179,7 +183,7 @@ public class StringDeleteModification extends VariableModification<String> {
 
     /**
      * Computes a hash code for this modification.
-     * 
+     *
      * <p>The hash code is based on the count and start position.
      *
      * @return A hash code value for this object
@@ -194,9 +198,9 @@ public class StringDeleteModification extends VariableModification<String> {
 
     /**
      * Compares this modification with another object for equality.
-     * 
-     * <p>Two StringDeleteModification objects are considered equal if
-     * they have the same count and start position.
+     *
+     * <p>Two StringDeleteModification objects are considered equal if they have the same count and
+     * start position.
      *
      * @param obj The object to compare with
      * @return {@code true} if the objects are equal, {@code false} otherwise
@@ -221,7 +225,7 @@ public class StringDeleteModification extends VariableModification<String> {
 
     /**
      * Returns a string representation of this modification.
-     * 
+     *
      * <p>The string includes the class name, count, and start position.
      *
      * @return A string representation of this object

@@ -13,16 +13,16 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * A modifiable long integer variable.
- * 
- * <p>This class extends {@link ModifiableVariable} to provide runtime modification capabilities 
- * for Java's primitive {@code long} values (wrapped as {@link Long} objects). It allows for various
+ *
+ * <p>This class extends {@link ModifiableVariable} to provide runtime modification capabilities for
+ * Java's primitive {@code long} values (wrapped as {@link Long} objects). It allows for various
  * transformations to be applied to long values during program execution, making it useful for
  * testing scenarios where long-typed values need to be manipulated.
- * 
- * <p>Modifications specific to long integers include addition, subtraction, multiplication,
- * XOR operations, bit shifts, endian swaps, and explicit value replacements. These modifications
- * are represented by corresponding classes in the same package.
- * 
+ *
+ * <p>Modifications specific to long integers include addition, subtraction, multiplication, XOR
+ * operations, bit shifts, endian swaps, and explicit value replacements. These modifications are
+ * represented by corresponding classes in the same package.
+ *
  * <p>The class supports XML serialization/deserialization through JAXB annotations, making it
  * suitable for configuration-driven testing environments.
  */
@@ -34,9 +34,9 @@ public class ModifiableLong extends ModifiableVariable<Long> {
 
     /**
      * Default constructor creating an uninitialized ModifiableLong.
-     * 
-     * <p>The originalValue is set to null, requiring it to be set later
-     * before meaningful modifications can be applied.
+     *
+     * <p>The originalValue is set to null, requiring it to be set later before meaningful
+     * modifications can be applied.
      */
     public ModifiableLong() {
         super();
@@ -54,7 +54,7 @@ public class ModifiableLong extends ModifiableVariable<Long> {
 
     /**
      * Copy constructor creating a deep copy of the provided ModifiableLong.
-     * 
+     *
      * <p>This constructor copies both the modification sequence and the original value.
      *
      * @param other The ModifiableLong to copy
@@ -76,9 +76,9 @@ public class ModifiableLong extends ModifiableVariable<Long> {
 
     /**
      * Gets the assertion validation value for this variable.
-     * 
-     * <p>This value is used in {@link #validateAssertions()} to verify that
-     * the modified value matches the expected value.
+     *
+     * <p>This value is used in {@link #validateAssertions()} to verify that the modified value
+     * matches the expected value.
      *
      * @return The expected value for assertion validation
      */
@@ -88,9 +88,9 @@ public class ModifiableLong extends ModifiableVariable<Long> {
 
     /**
      * Sets the assertion validation value for this variable.
-     * 
-     * <p>This value is used to validate that modifications produce the
-     * expected result through the {@link #validateAssertions()} method.
+     *
+     * <p>This value is used to validate that modifications produce the expected result through the
+     * {@link #validateAssertions()} method.
      *
      * @param assertEquals The expected value for assertion validation
      */
@@ -100,9 +100,9 @@ public class ModifiableLong extends ModifiableVariable<Long> {
 
     /**
      * Checks if the current value differs from the original value.
-     * 
-     * <p>This method determines whether any modifications have effectively
-     * changed the value from its original state.
+     *
+     * <p>This method determines whether any modifications have effectively changed the value from
+     * its original state.
      *
      * @return {@code true} if the original value has been modified, {@code false} otherwise
      */
@@ -113,9 +113,9 @@ public class ModifiableLong extends ModifiableVariable<Long> {
 
     /**
      * Converts the modified long value to a byte array of the specified size.
-     * 
-     * <p>This method uses {@link ArrayConverter} to convert the current value to a byte array.
-     * The resulting array will have the specified size, with padding or truncation as necessary.
+     *
+     * <p>This method uses {@link ArrayConverter} to convert the current value to a byte array. The
+     * resulting array will have the specified size, with padding or truncation as necessary.
      *
      * @param size The desired size of the resulting byte array
      * @return A byte array representation of the current value with the specified size
@@ -126,11 +126,12 @@ public class ModifiableLong extends ModifiableVariable<Long> {
 
     /**
      * Validates that the current value matches the expected value.
-     * 
-     * <p>If an assertion value has been set with {@link #setAssertEquals(Long)},
-     * this method checks if the current value equals that assertion value.
      *
-     * @return {@code true} if no assertion is set or if the assertion passes, {@code false} otherwise
+     * <p>If an assertion value has been set with {@link #setAssertEquals(Long)}, this method checks
+     * if the current value equals that assertion value.
+     *
+     * @return {@code true} if no assertion is set or if the assertion passes, {@code false}
+     *     otherwise
      */
     @Override
     public boolean validateAssertions() {
@@ -155,7 +156,7 @@ public class ModifiableLong extends ModifiableVariable<Long> {
 
     /**
      * Sets the original value of this variable.
-     * 
+     *
      * <p>This method updates the base value to which modifications are applied.
      *
      * @param originalValue The new original value
@@ -167,7 +168,7 @@ public class ModifiableLong extends ModifiableVariable<Long> {
 
     /**
      * Returns a string representation of this ModifiableLong.
-     * 
+     *
      * <p>The string includes the original value and details about any applied modifications.
      *
      * @return A string representation of this object
@@ -179,10 +180,10 @@ public class ModifiableLong extends ModifiableVariable<Long> {
 
     /**
      * Compares this ModifiableLong with another object for equality.
-     * 
-     * <p>Two ModifiableLong objects are considered equal if their current values
-     * (after applying modifications) are equal, regardless of the original values
-     * or the sequence of modifications applied to reach those values.
+     *
+     * <p>Two ModifiableLong objects are considered equal if their current values (after applying
+     * modifications) are equal, regardless of the original values or the sequence of modifications
+     * applied to reach those values.
      *
      * @param obj The object to compare with
      * @return {@code true} if the objects are equal, {@code false} otherwise
@@ -201,9 +202,9 @@ public class ModifiableLong extends ModifiableVariable<Long> {
 
     /**
      * Computes a hash code for this ModifiableLong.
-     * 
-     * <p>The hash code is based on the current value after modifications have been applied,
-     * not on the original value or the sequence of modifications.
+     *
+     * <p>The hash code is based on the current value after modifications have been applied, not on
+     * the original value or the sequence of modifications.
      *
      * @return A hash code value for this object
      */

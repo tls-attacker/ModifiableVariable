@@ -17,35 +17,37 @@ import java.util.Objects;
 
 /**
  * A modification that inserts a string at a specified position within the original string.
- * 
- * <p>This modification takes the original string and inserts additional content at a
- * specified position. It's useful for testing string handling in protocol implementations,
- * especially for identifying issues with string parsing, content validation, or length checks.
- * 
+ *
+ * <p>This modification takes the original string and inserts additional content at a specified
+ * position. It's useful for testing string handling in protocol implementations, especially for
+ * identifying issues with string parsing, content validation, or length checks.
+ *
  * <p>The modification handles various edge cases:
+ *
  * <ul>
- *   <li>If the start position is negative, it wraps around to insert from the end of the string</li>
- *   <li>If the start position exceeds the string length, it wraps around using modulo arithmetic</li>
- *   <li>It allows insertion at the end of the string</li>
+ *   <li>If the start position is negative, it wraps around to insert from the end of the string
+ *   <li>If the start position exceeds the string length, it wraps around using modulo arithmetic
+ *   <li>It allows insertion at the end of the string
  * </ul>
- * 
+ *
  * <p>Example usage:
+ *
  * <pre>{@code
  * // Create a modification that inserts " modified" at position 5
  * StringInsertValueModification mod = new StringInsertValueModification(" modified", 5);
- * 
+ *
  * // Apply to a variable
  * ModifiableString var = new ModifiableString();
  * var.setOriginalValue("Hello world");
  * var.setModification(mod);
- * 
+ *
  * // Results in "Hello modified world"
  * String result = var.getValue();
  * }</pre>
- * 
- * <p>This class is serializable through JAXB annotations, allowing it to be
- * used in XML configurations for testing. The insertion value is adapted using
- * {@link IllegalStringAdapter} to handle special characters properly in XML.
+ *
+ * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
+ * configurations for testing. The insertion value is adapted using {@link IllegalStringAdapter} to
+ * handle special characters properly in XML.
  */
 @XmlRootElement
 public class StringInsertValueModification extends VariableModification<String> {
@@ -59,10 +61,9 @@ public class StringInsertValueModification extends VariableModification<String> 
 
     /**
      * Default constructor for JAXB deserialization.
-     * 
-     * <p>When using this constructor, the insert value and start position must be set
-     * via {@link #setInsertValue(String)} and {@link #setStartPosition(int)} before
-     * applying the modification.
+     *
+     * <p>When using this constructor, the insert value and start position must be set via {@link
+     * #setInsertValue(String)} and {@link #setStartPosition(int)} before applying the modification.
      */
     public StringInsertValueModification() {
         super();
@@ -70,9 +71,9 @@ public class StringInsertValueModification extends VariableModification<String> 
 
     /**
      * Creates a new modification with the specified insert value and position.
-     * 
-     * <p>This constructor sets the string to insert and the position at which
-     * to insert it when the modification is applied.
+     *
+     * <p>This constructor sets the string to insert and the position at which to insert it when the
+     * modification is applied.
      *
      * @param insertValue The string to insert into the original string
      * @param startPosition The position at which to insert the string (0-based index)
@@ -106,16 +107,17 @@ public class StringInsertValueModification extends VariableModification<String> 
 
     /**
      * Implements the modification by inserting a string at the specified position.
-     * 
-     * <p>This method inserts the specified string at the position specified during
-     * initialization or via {@link #setStartPosition(int)}. If the input is null,
-     * it returns null to preserve null-safety.
-     * 
+     *
+     * <p>This method inserts the specified string at the position specified during initialization
+     * or via {@link #setStartPosition(int)}. If the input is null, it returns null to preserve
+     * null-safety.
+     *
      * <p>The method handles edge cases gracefully:
+     *
      * <ul>
-     *   <li>If the position is negative, it wraps around to insert from the end of the string</li>
-     *   <li>If the position exceeds the string length, it's adjusted using modulo arithmetic</li>
-     *   <li>Insertion at the end of the string is supported</li>
+     *   <li>If the position is negative, it wraps around to insert from the end of the string
+     *   <li>If the position exceeds the string length, it's adjusted using modulo arithmetic
+     *   <li>Insertion at the end of the string is supported
      * </ul>
      *
      * @param input The original string
@@ -173,7 +175,7 @@ public class StringInsertValueModification extends VariableModification<String> 
 
     /**
      * Computes a hash code for this modification.
-     * 
+     *
      * <p>The hash code is based on the insert value and start position.
      *
      * @return A hash code value for this object
@@ -188,9 +190,9 @@ public class StringInsertValueModification extends VariableModification<String> 
 
     /**
      * Compares this modification with another object for equality.
-     * 
-     * <p>Two StringInsertValueModification objects are considered equal if
-     * they have the same insert value and start position.
+     *
+     * <p>Two StringInsertValueModification objects are considered equal if they have the same
+     * insert value and start position.
      *
      * @param obj The object to compare with
      * @return {@code true} if the objects are equal, {@code false} otherwise
@@ -215,9 +217,9 @@ public class StringInsertValueModification extends VariableModification<String> 
 
     /**
      * Returns a string representation of this modification.
-     * 
-     * <p>The string includes the class name, insert value (with special characters escaped),
-     * and start position.
+     *
+     * <p>The string includes the class name, insert value (with special characters escaped), and
+     * start position.
      *
      * @return A string representation of this object
      */

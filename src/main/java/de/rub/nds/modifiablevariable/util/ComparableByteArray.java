@@ -11,18 +11,19 @@ import java.util.Arrays;
 
 /**
  * A wrapper for byte arrays that provides proper content-based equality and hash code.
- * 
- * <p>Java arrays are reference types that do not override {@link Object#equals(Object)}
- * or {@link Object#hashCode()}, making them unsuitable for use as keys in hash-based
- * collections or for content-based equality comparisons. This class wraps a byte array
- * and provides implementations of {@code equals()} and {@code hashCode()} that compare
- * and hash based on the content of the array, not its reference.
- * 
+ *
+ * <p>Java arrays are reference types that do not override {@link Object#equals(Object)} or {@link
+ * Object#hashCode()}, making them unsuitable for use as keys in hash-based collections or for
+ * content-based equality comparisons. This class wraps a byte array and provides implementations of
+ * {@code equals()} and {@code hashCode()} that compare and hash based on the content of the array,
+ * not its reference.
+ *
  * <p>This class is particularly useful in:
+ *
  * <ul>
- *   <li>Hash-based collections when the byte array content is the key</li>
- *   <li>Equality assertions where content equality is intended</li>
- *   <li>Caching scenarios where byte array content should be the cache key</li>
+ *   <li>Hash-based collections when the byte array content is the key
+ *   <li>Equality assertions where content equality is intended
+ *   <li>Caching scenarios where byte array content should be the cache key
  * </ul>
  */
 public class ComparableByteArray {
@@ -60,9 +61,9 @@ public class ComparableByteArray {
 
     /**
      * Computes a hash code for this object based on the content of the wrapped array.
-     * 
-     * <p>This implementation uses {@link Arrays#hashCode(byte[])} to ensure that
-     * arrays with the same content produce the same hash code.
+     *
+     * <p>This implementation uses {@link Arrays#hashCode(byte[])} to ensure that arrays with the
+     * same content produce the same hash code.
      *
      * @return A hash code value based on the content of the wrapped array
      */
@@ -75,10 +76,10 @@ public class ComparableByteArray {
 
     /**
      * Compares this object with another for equality based on array content.
-     * 
-     * <p>Two ComparableByteArray objects are considered equal if their wrapped
-     * arrays contain the same sequence of bytes. This implementation uses
-     * {@link Arrays#equals(byte[], byte[])} for the comparison.
+     *
+     * <p>Two ComparableByteArray objects are considered equal if their wrapped arrays contain the
+     * same sequence of bytes. This implementation uses {@link Arrays#equals(byte[], byte[])} for
+     * the comparison.
      *
      * @param obj The object to compare with
      * @return {@code true} if the objects are equal based on array content, {@code false} otherwise

@@ -13,20 +13,23 @@ import java.util.Objects;
 
 /**
  * A modification that subtracts a fixed value from a byte variable.
- * <p>
- * This class modifies a byte by subtracting a specific subtrahend from it. It's useful in security testing
- * for exploring edge cases and boundary conditions in protocol handling, particularly when testing
- * for underflow conditions or boundary value analysis.
- * <p>
- * Example use cases:
+ *
+ * <p>This class modifies a byte by subtracting a specific subtrahend from it. It's useful in
+ * security testing for exploring edge cases and boundary conditions in protocol handling,
+ * particularly when testing for underflow conditions or boundary value analysis.
+ *
+ * <p>Example use cases:
+ *
  * <ul>
- *   <li>Testing underflow behavior by subtracting values close to byte limits</li>
- *   <li>Modifying version bytes in protocols to test backward compatibility</li>
- *   <li>Decreasing counter or sequence bytes to test protocol resilience against out-of-order packets</li>
- *   <li>Manipulating length fields to create malformed protocol messages</li>
+ *   <li>Testing underflow behavior by subtracting values close to byte limits
+ *   <li>Modifying version bytes in protocols to test backward compatibility
+ *   <li>Decreasing counter or sequence bytes to test protocol resilience against out-of-order
+ *       packets
+ *   <li>Manipulating length fields to create malformed protocol messages
  * </ul>
- * <p>
- * Usage example:
+ *
+ * <p>Usage example:
+ *
  * <pre>
  *   ModifiableByte variable = new ModifiableByte();
  *   variable.setOriginalValue((byte) 10);
@@ -41,9 +44,7 @@ public class ByteSubtractModification extends VariableModification<Byte> {
     /** The value to be subtracted from the original byte */
     private Byte subtrahend;
 
-    /**
-     * Default constructor for serialization.
-     */
+    /** Default constructor for serialization. */
     public ByteSubtractModification() {
         super();
     }
@@ -80,7 +81,7 @@ public class ByteSubtractModification extends VariableModification<Byte> {
 
     /**
      * Implements the byte subtraction modification.
-     * 
+     *
      * @param input The original byte value to be modified
      * @return The modified byte value (original - subtrahend), or null if input is null
      */
