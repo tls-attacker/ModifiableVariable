@@ -158,11 +158,7 @@ class ModifiableIntegerTest {
                 () -> {
                     nullIntWithExplicit.isOriginalValueModified();
                 });
-        org.junit.jupiter.api.Assertions.assertThrows(
-                NullPointerException.class,
-                () -> {
-                    nullIntWithExplicit.getValue();
-                });
+        assertNull(nullIntWithExplicit.getValue());
     }
 
     /** Test of getOriginalValue method, of class ModifiableInteger. */

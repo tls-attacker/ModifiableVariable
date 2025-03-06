@@ -43,7 +43,7 @@ public class StringExplicitValueModification extends VariableModification<String
     @Override
     protected String modifyImplementationHook(String input) {
         if (input == null) {
-            throw new NullPointerException("original value must not be null");
+            return null;
         }
         return explicitValue;
     }

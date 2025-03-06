@@ -9,6 +9,7 @@ package de.rub.nds.modifiablevariable.integer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -69,11 +70,7 @@ public class IntegerShiftModificationTest {
         IntegerShiftLeftModification modification = new IntegerShiftLeftModification(shift);
         modifiableInteger.setModifications(modification);
 
-        org.junit.jupiter.api.Assertions.assertThrows(
-                NullPointerException.class,
-                () -> {
-                    modifiableInteger.getValue();
-                });
+        assertNull(modifiableInteger.getValue());
     }
 
     @Test
@@ -160,12 +157,7 @@ public class IntegerShiftModificationTest {
         int shift = 4;
         IntegerShiftRightModification modification = new IntegerShiftRightModification(shift);
         modifiableInteger.setModifications(modification);
-
-        org.junit.jupiter.api.Assertions.assertThrows(
-                NullPointerException.class,
-                () -> {
-                    modifiableInteger.getValue();
-                });
+        assertNull(modifiableInteger.getValue());
     }
 
     @Test

@@ -28,6 +28,9 @@ public class BooleanToggleModification extends VariableModification<Boolean> {
 
     @Override
     protected Boolean modifyImplementationHook(Boolean input) {
+        if (input == null) {
+            return null;
+        }
         return !input;
     }
 

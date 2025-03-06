@@ -39,7 +39,7 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
     @Override
     protected BigInteger modifyImplementationHook(BigInteger input) {
         if (input == null) {
-            throw new NullPointerException("original value must not be null");
+            return null;
         }
         return explicitValue;
     }

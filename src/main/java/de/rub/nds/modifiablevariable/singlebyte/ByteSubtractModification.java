@@ -38,7 +38,7 @@ public class ByteSubtractModification extends VariableModification<Byte> {
     @Override
     protected Byte modifyImplementationHook(Byte input) {
         if (input == null) {
-            input = 0;
+            return null;
         }
         return (byte) (input - subtrahend);
     }

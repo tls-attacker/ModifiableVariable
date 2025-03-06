@@ -37,6 +37,9 @@ public class IntegerXorModification extends VariableModification<Integer> {
 
     @Override
     protected Integer modifyImplementationHook(Integer input) {
+        if (input == null) {
+            return null;
+        }
         return input ^ xor;
     }
 

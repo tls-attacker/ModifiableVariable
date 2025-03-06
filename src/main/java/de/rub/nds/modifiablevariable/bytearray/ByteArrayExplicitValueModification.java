@@ -42,7 +42,7 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
     @Override
     protected byte[] modifyImplementationHook(byte[] input) {
         if (input == null) {
-            throw new NullPointerException("original value must not be null");
+            return null;
         }
         return explicitValue.clone();
     }

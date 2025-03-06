@@ -37,6 +37,9 @@ public class IntegerSubtractModification extends VariableModification<Integer> {
 
     @Override
     protected Integer modifyImplementationHook(Integer input) {
+        if (input == null) {
+            return null;
+        }
         return input - subtrahend;
     }
 

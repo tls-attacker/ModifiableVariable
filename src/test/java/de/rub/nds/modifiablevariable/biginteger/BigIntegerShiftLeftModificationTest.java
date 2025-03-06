@@ -85,7 +85,7 @@ public class BigIntegerShiftLeftModificationTest {
         BigIntegerShiftLeftModification modification = new BigIntegerShiftLeftModification(shift);
         modifiableBigInteger.setModifications(modification);
 
-        BigInteger expected = BigInteger.ZERO.shiftLeft(shift); // Should treat null as ZERO
+        BigInteger expected = null;
         BigInteger result = modifiableBigInteger.getValue();
 
         assertEquals(expected, result);

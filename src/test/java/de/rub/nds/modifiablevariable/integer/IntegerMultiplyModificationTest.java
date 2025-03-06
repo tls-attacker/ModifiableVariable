@@ -10,6 +10,7 @@ package de.rub.nds.modifiablevariable.integer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -82,12 +83,7 @@ public class IntegerMultiplyModificationTest {
         int factor = 5;
         IntegerMultiplyModification modification = new IntegerMultiplyModification(factor);
         modifiableInteger.setModifications(modification);
-
-        org.junit.jupiter.api.Assertions.assertThrows(
-                NullPointerException.class,
-                () -> {
-                    modifiableInteger.getValue();
-                });
+        assertNull(modifiableInteger.getValue());
     }
 
     @Test

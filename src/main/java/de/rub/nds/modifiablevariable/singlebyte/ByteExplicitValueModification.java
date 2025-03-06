@@ -38,7 +38,7 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
     @Override
     protected Byte modifyImplementationHook(Byte input) {
         if (input == null) {
-            throw new NullPointerException("original value must not be null");
+            return null;
         }
         return explicitValue;
     }

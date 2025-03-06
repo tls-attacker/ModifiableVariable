@@ -30,7 +30,7 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
     @Override
     protected byte[] modifyImplementationHook(byte[] input) {
         if (input == null) {
-            input = new byte[0];
+            return null;
         }
         return ArrayConverter.concatenate(input, input);
     }
