@@ -15,17 +15,17 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class IntegerSwapEndianModificationTest {
+class IntegerSwapEndianModificationTest {
 
     private ModifiableInteger modifiableInteger;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         modifiableInteger = new ModifiableInteger();
     }
 
     @Test
-    public void testSwapEndianModification() {
+    void testSwapEndianModification() {
         int originalValue = 0x12345678;
         modifiableInteger.setOriginalValue(originalValue);
 
@@ -40,7 +40,7 @@ public class IntegerSwapEndianModificationTest {
     }
 
     @Test
-    public void testSwapEndianWithZero() {
+    void testSwapEndianWithZero() {
         int originalValue = 0;
         modifiableInteger.setOriginalValue(originalValue);
 
@@ -54,7 +54,7 @@ public class IntegerSwapEndianModificationTest {
     }
 
     @Test
-    public void testSwapEndianWithNullInput() {
+    void testSwapEndianWithNullInput() {
         modifiableInteger.setOriginalValue(null);
 
         IntegerSwapEndianModification modification = new IntegerSwapEndianModification();
@@ -66,7 +66,7 @@ public class IntegerSwapEndianModificationTest {
     }
 
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         IntegerSwapEndianModification modification = new IntegerSwapEndianModification();
         IntegerSwapEndianModification copy = modification.createCopy();
 
@@ -81,7 +81,7 @@ public class IntegerSwapEndianModificationTest {
     }
 
     @Test
-    public void testEqualsAndHashCode() {
+    void testEqualsAndHashCode() {
         IntegerSwapEndianModification modification1 = new IntegerSwapEndianModification();
         IntegerSwapEndianModification modification2 = new IntegerSwapEndianModification();
         IntegerAddModification differentModification = new IntegerAddModification(1);
@@ -103,7 +103,7 @@ public class IntegerSwapEndianModificationTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         IntegerSwapEndianModification modification = new IntegerSwapEndianModification();
         String toString = modification.toString();
 
@@ -111,7 +111,7 @@ public class IntegerSwapEndianModificationTest {
     }
 
     @Test
-    public void testApplyMultipleTimes() {
+    void testApplyMultipleTimes() {
         int originalValue = 0x12345678;
         modifiableInteger.setOriginalValue(originalValue);
 
