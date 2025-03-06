@@ -12,9 +12,11 @@ import de.rub.nds.modifiablevariable.biginteger.BigIntegerModificationFactory;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
 import de.rub.nds.modifiablevariable.bool.BooleanModificationFactory;
 import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
+import de.rub.nds.modifiablevariable.bytearray.ByteArrayAppendValueModification;
 import de.rub.nds.modifiablevariable.bytearray.ByteArrayModificationFactory;
+import de.rub.nds.modifiablevariable.bytearray.ByteArrayPrependValueModification;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
-import de.rub.nds.modifiablevariable.integer.IntegerModificationFactory;
+import de.rub.nds.modifiablevariable.integer.IntegerExplicitValueModification;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
 import de.rub.nds.modifiablevariable.longint.LongModificationFactory;
 import de.rub.nds.modifiablevariable.longint.ModifiableLong;
@@ -22,6 +24,8 @@ import de.rub.nds.modifiablevariable.singlebyte.ByteModificationFactory;
 import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import de.rub.nds.modifiablevariable.string.StringModificationFactory;
+import de.rub.nds.modifiablevariable.string.StringPrependValueModification;
+
 import java.math.BigInteger;
 
 @SuppressWarnings("unused")
@@ -82,17 +86,17 @@ public final class Modifiable {
 
     public static ModifiableByteArray prepend(byte[] perpendValue) {
         return getModifiableByteArrayWithModification(
-                ByteArrayModificationFactory.prependValue(perpendValue));
+                new ByteArrayPrependValueModification(perpendValue));
     }
 
     public static ModifiableString prepend(String perpendValue) {
         return getModifiableStringWithModification(
-                StringModificationFactory.prependValue(perpendValue));
+                new StringPrependValueModification(perpendValue));
     }
 
     public static ModifiableByteArray append(byte[] appendValue) {
         return getModifiableByteArrayWithModification(
-                ByteArrayModificationFactory.appendValue(appendValue));
+                new ByteArrayAppendValueModification(appendValue));
     }
 
     public static ModifiableString append(String appendValue) {
@@ -112,7 +116,7 @@ public final class Modifiable {
 
     public static ModifiableInteger explicit(Integer explicitValue) {
         return getModifiableIntegerWithModification(
-                IntegerModificationFactory.explicitValue(explicitValue));
+                new IntegerExplicitValueModification(explicitValue));
     }
 
     public static ModifiableBigInteger explicit(BigInteger explicitValue) {

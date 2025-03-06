@@ -10,9 +10,10 @@ package de.rub.nds.modifiablevariable.integer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import de.rub.nds.modifiablevariable.VariableModification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import de.rub.nds.modifiablevariable.VariableModification;
 
 class IntegerModificationTest {
 
@@ -30,7 +31,7 @@ class IntegerModificationTest {
     /** Test of add method, of class IntegerModification. */
     @Test
     void testAdd() {
-        VariableModification<Integer> modifier = IntegerModificationFactory.add(1);
+        VariableModification<Integer> modifier = new IntegerAddModification(1);
         start.setModifications(modifier);
         expectedResult = 11;
         result = start.getValue();
@@ -41,7 +42,7 @@ class IntegerModificationTest {
     /** Test of add method with String, of class IntegerModification. */
     @Test
     void testAddWithString() {
-        VariableModification<Integer> modifier = IntegerModificationFactory.add("1");
+        VariableModification<Integer> modifier = new IntegerAddModification(1);
         start.setModifications(modifier);
         expectedResult = 11;
         result = start.getValue();
@@ -51,7 +52,7 @@ class IntegerModificationTest {
     /** Test of add method with null input, of class IntegerModification. */
     @Test
     void testAddWithNullInput() {
-        VariableModification<Integer> modifier = IntegerModificationFactory.add(1);
+        VariableModification<Integer> modifier = new IntegerAddModification(1);
         start.setOriginalValue(null);
         start.setModifications(modifier);
         expectedResult = 1;
@@ -62,7 +63,7 @@ class IntegerModificationTest {
     /** Test of sub method, of class IntegerModification. */
     @Test
     void testSub() {
-        VariableModification<Integer> modifier = IntegerModificationFactory.sub(1);
+        VariableModification<Integer> modifier = new IntegerSubtractModification(1);
         start.setModifications(modifier);
         expectedResult = 9;
         result = start.getValue();
@@ -70,20 +71,10 @@ class IntegerModificationTest {
         assertEquals(Integer.valueOf(10), start.getOriginalValue());
     }
 
-    /** Test of sub method with String, of class IntegerModification. */
-    @Test
-    void testSubWithString() {
-        VariableModification<Integer> modifier = IntegerModificationFactory.sub("1");
-        start.setModifications(modifier);
-        expectedResult = 9;
-        result = start.getValue();
-        assertEquals(expectedResult, result);
-    }
-
     /** Test of sub method with null input, of class IntegerModification. */
     @Test
     void testSubWithNullInput() {
-        VariableModification<Integer> modifier = IntegerModificationFactory.sub(1);
+        VariableModification<Integer> modifier = new IntegerSubtractModification(1);
         start.setOriginalValue(null);
         start.setModifications(modifier);
         expectedResult = -1;
@@ -94,22 +85,12 @@ class IntegerModificationTest {
     /** Test of xor method, of class IntegerModification. */
     @Test
     void testXor() {
-        VariableModification<Integer> modifier = IntegerModificationFactory.xor(2);
+        VariableModification<Integer> modifier = new IntegerXorModification(2);
         start.setModifications(modifier);
         expectedResult = 8;
         result = start.getValue();
         assertEquals(expectedResult, result);
         assertEquals(Integer.valueOf(10), start.getOriginalValue());
-    }
-
-    /** Test of xor method with String, of class IntegerModification. */
-    @Test
-    void testXorWithString() {
-        VariableModification<Integer> modifier = IntegerModificationFactory.xor("2");
-        start.setModifications(modifier);
-        expectedResult = 8;
-        result = start.getValue();
-        assertEquals(expectedResult, result);
     }
 
     /** Test of xor method with null input, of class IntegerModification. */
@@ -263,17 +244,11 @@ class IntegerModificationTest {
     @Test
     void testMultipleModifications() {
         // Instead of chaining, apply modifications one after another
-        VariableModification<Integer> addModifier = IntegerModificationFactory.add(5);
-        start.setModifications(addModifier);
-        assertEquals(15, start.getValue());
-
-        // Apply a second modification to a new ModifiableInteger
-        ModifiableInteger intermediate = new ModifiableInteger(start.getValue());
-        VariableModification<Integer> multiplyModifier = IntegerModificationFactory.multiply(2);
-        intermediate.setModifications(multiplyModifier);
-
+        VariableModification<Integer> addModifier = new IntegerAddModification(5);
+        VariableModification<Integer> multiplyModifier = new IntegerMultiplyModification(2);
+        start.setModifications(addModifier, multiplyModifier);
         expectedResult = 30; // (10 + 5) * 2
-        result = intermediate.getValue();
+        result = start.getValue();
         assertEquals(expectedResult, result);
     }
 }
