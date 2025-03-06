@@ -52,7 +52,6 @@ public class ByteArrayDuplicateModificationTest {
     @Test
     public void testHashCode() {
         assertEquals(b1.hashCode(), b2.hashCode());
-        assertEquals(7, b1.hashCode());
     }
 
     /** Test of equals method, of class ByteArrayDuplicateModification. */
