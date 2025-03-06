@@ -145,19 +145,24 @@ class ModifiableIntegerTest {
         integer2.setModifications(modifier);
         assertFalse(integer2.isOriginalValueModified());
 
-        // Null original value - if null, then getValue() is also null, so not modified
-        assertFalse(nullInteger.isOriginalValueModified());
+        org.junit.jupiter.api.Assertions.assertThrows(
+                IllegalStateException.class,
+                () -> {
+                    nullInteger.isOriginalValueModified();
+                });
 
-        // Following the implementation in ModifiableInteger.isOriginalValueModified(),
-        // a null originalValue will always return false for isOriginalValueModified()
-        // even when the getValue() returns a non-null value
         ModifiableInteger nullIntWithExplicit = new ModifiableInteger((Integer) null);
         nullIntWithExplicit.setModifications(new IntegerExplicitValueModification(5));
-
-        // Verify getValue() is 5
-        assertEquals(Integer.valueOf(5), nullIntWithExplicit.getValue());
-
-        assertFalse(nullIntWithExplicit.isOriginalValueModified());
+        org.junit.jupiter.api.Assertions.assertThrows(
+                IllegalStateException.class,
+                () -> {
+                    nullIntWithExplicit.isOriginalValueModified();
+                });
+        org.junit.jupiter.api.Assertions.assertThrows(
+                NullPointerException.class,
+                () -> {
+                    nullIntWithExplicit.getValue();
+                });
     }
 
     /** Test of getOriginalValue method, of class ModifiableInteger. */

@@ -45,7 +45,11 @@ public class ModifiableInteger extends ModifiableVariable<Integer> {
 
     @Override
     public boolean isOriginalValueModified() {
-        return getOriginalValue() != null && getOriginalValue().compareTo(getValue()) != 0;
+        if (getOriginalValue() == null) {
+            throw new IllegalStateException("Original value must not be null");
+        } else {
+            return getOriginalValue().compareTo(getValue()) != 0;
+        }
     }
 
     public byte[] getByteArray(int size) {

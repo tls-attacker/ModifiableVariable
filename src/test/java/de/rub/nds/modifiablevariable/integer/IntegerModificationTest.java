@@ -135,9 +135,11 @@ class IntegerModificationTest {
         VariableModification<Integer> modifier = new IntegerExplicitValueModification(7);
         start.setOriginalValue(null);
         start.setModifications(modifier);
-        expectedResult = 7;
-        result = start.getValue();
-        assertEquals(expectedResult, result);
+        org.junit.jupiter.api.Assertions.assertThrows(
+                NullPointerException.class,
+                () -> {
+                    start.getValue();
+                });
     }
 
     /** Test of shiftLeft method, of class IntegerModification. */
