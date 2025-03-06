@@ -83,10 +83,11 @@ public class IntegerMultiplyModificationTest {
         IntegerMultiplyModification modification = new IntegerMultiplyModification(factor);
         modifiableInteger.setModifications(modification);
 
-        int expected = 0;
-        int result = modifiableInteger.getValue();
-
-        assertEquals(expected, result);
+        org.junit.jupiter.api.Assertions.assertThrows(
+                NullPointerException.class,
+                () -> {
+                    modifiableInteger.getValue();
+                });
     }
 
     @Test

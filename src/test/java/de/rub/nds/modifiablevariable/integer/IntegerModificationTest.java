@@ -8,7 +8,6 @@
 package de.rub.nds.modifiablevariable.integer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,9 +53,11 @@ class IntegerModificationTest {
         VariableModification<Integer> modifier = new IntegerAddModification(1);
         start.setOriginalValue(null);
         start.setModifications(modifier);
-        expectedResult = 1;
-        result = start.getValue();
-        assertEquals(expectedResult, result);
+        org.junit.jupiter.api.Assertions.assertThrows(
+                NullPointerException.class,
+                () -> {
+                    start.getValue();
+                });
     }
 
     /** Test of sub method, of class IntegerModification. */
@@ -76,9 +77,11 @@ class IntegerModificationTest {
         VariableModification<Integer> modifier = new IntegerSubtractModification(1);
         start.setOriginalValue(null);
         start.setModifications(modifier);
-        expectedResult = -1;
-        result = start.getValue();
-        assertEquals(expectedResult, result);
+        org.junit.jupiter.api.Assertions.assertThrows(
+                NullPointerException.class,
+                () -> {
+                    start.getValue();
+                });
     }
 
     /** Test of xor method, of class IntegerModification. */
@@ -98,9 +101,11 @@ class IntegerModificationTest {
         VariableModification<Integer> modifier = new IntegerXorModification(2);
         start.setOriginalValue(null);
         start.setModifications(modifier);
-        expectedResult = 2;
-        result = start.getValue();
-        assertEquals(expectedResult, result);
+        org.junit.jupiter.api.Assertions.assertThrows(
+                NullPointerException.class,
+                () -> {
+                    start.getValue();
+                });
     }
 
     /** Test of explicitValue method, of class IntegerModification. */
@@ -194,7 +199,11 @@ class IntegerModificationTest {
         VariableModification<Integer> modifier = new IntegerSwapEndianModification();
         start.setOriginalValue(null);
         start.setModifications(modifier);
-        assertNull(start.getValue());
+        org.junit.jupiter.api.Assertions.assertThrows(
+                NullPointerException.class,
+                () -> {
+                    start.getValue();
+                });
     }
 
     /** Test of multiply method, of class IntegerModification. */
@@ -234,9 +243,11 @@ class IntegerModificationTest {
         VariableModification<Integer> modifier = new IntegerMultiplyModification(2);
         start.setOriginalValue(null);
         start.setModifications(modifier);
-        expectedResult = 0;
-        result = start.getValue();
-        assertEquals(expectedResult, result);
+        org.junit.jupiter.api.Assertions.assertThrows(
+                NullPointerException.class,
+                () -> {
+                    start.getValue();
+                });
     }
 
     /** Test of multiple modifications, of class IntegerModification. */
