@@ -12,9 +12,43 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import java.math.BigInteger;
 import java.util.Objects;
 
+/**
+ * A modification that applies an XOR operation to a BigInteger value.
+ *
+ * <p>This modification performs a bitwise XOR operation between a specified BigInteger value and
+ * the original BigInteger. The XOR operation is commonly used for bit manipulation in cryptographic
+ * protocols and data masking.
+ *
+ * <p>XOR operations are particularly useful for testing because they can:
+ *
+ * <ul>
+ *   <li>Flip specific bits in a number (using a mask with 1s in positions to flip)
+ *   <li>Leave certain bits unchanged (using a mask with 0s in positions to preserve)
+ *   <li>Be used to apply masks or transformations that can help identify implementation issues
+ * </ul>
+ *
+ * <p>Example usage:
+ *
+ * <pre>{@code
+ * // Create a modification that XORs with 0xFF (flips the lowest 8 bits)
+ * BigIntegerXorModification mod = new BigIntegerXorModification(BigInteger.valueOf(0xFF));
+ *
+ * // Apply to a variable
+ * ModifiableBigInteger var = new ModifiableBigInteger();
+ * var.setOriginalValue(BigInteger.valueOf(0x1234));
+ * var.setModification(mod);
+ *
+ * // Results in 0x12CB (0x1234 XOR 0xFF)
+ * BigInteger result = var.getValue();
+ * }</pre>
+ *
+ * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
+ * configurations for testing.
+ */
 @XmlRootElement
 public class BigIntegerXorModification extends VariableModification<BigInteger> {
 
+    /** The BigInteger value to XOR with the original value */
     private BigInteger xor;
 
     public BigIntegerXorModification() {

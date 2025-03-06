@@ -7,9 +7,22 @@
  */
 package de.rub.nds.modifiablevariable.util;
 
+/**
+ * Utility class for string manipulation operations.
+ * 
+ * <p>This class provides utility methods for handling strings in ways that are
+ * commonly needed across the ModifiableVariable framework, particularly for
+ * formatting and escaping strings for logging or display purposes.
+ * 
+ * <p>The primary function is to handle non-printable or non-ASCII characters
+ * by converting them to their escape sequence equivalents, ensuring that all
+ * string content can be safely represented in logs, debug output, or other
+ * text-based contexts.
+ */
 public final class StringUtil {
-    // Private constructor, because this is a utility class that is not meant
-    // to be instantiated.
+    /**
+     * Private constructor to prevent instantiation of this utility class.
+     */
     private StringUtil() {
         super();
     }

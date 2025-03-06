@@ -30,9 +30,36 @@ import org.apache.logging.log4j.util.PropertiesUtil;
 import org.apache.logging.log4j.util.Strings;
 
 /**
- * A layout for LOG messages in the correct format and also for logging ByteArrays with good
- * performance. The ExtendedPatternLayout is mostly copied from {@link
- * org.apache.logging.log4j.core.layout.PatternLayout}.
+ * A specialized layout for formatting log messages with enhanced byte array handling.
+ *
+ * <p>This class extends the functionality of Log4j2's standard PatternLayout by adding specialized
+ * handling for byte array parameters in log messages. While the standard PatternLayout would format
+ * byte arrays using {@link Arrays#toString(byte[])}, which produces output like "[B@1a2b3c4]", this
+ * layout intercepts byte array parameters and formats them as readable hexadecimal strings using
+ * {@link ArrayConverter#bytesToHexString(byte[])}.
+ *
+ * <p>The layout supports all standard PatternLayout features including:
+ *
+ * <ul>
+ *   <li>Pattern-based formatting with conversion patterns
+ *   <li>Header and footer support
+ *   <li>ANSI color support (platform-dependent)
+ *   <li>Regex-based text replacement
+ *   <li>Pattern selectors for context-based formatting
+ * </ul>
+ *
+ * <p>Additionally, it provides configuration options specific to byte array formatting:
+ *
+ * <ul>
+ *   <li>{@code prettyPrinting} - Whether to add spacing between bytes for readability
+ *   <li>{@code initNewLine} - Whether to start byte array output on a new line
+ * </ul>
+ *
+ * <p>This layout is particularly useful in protocol testing environments where binary data needs to
+ * be logged in a human-readable format.
+ *
+ * <p>The implementation is based on {@link org.apache.logging.log4j.core.layout.PatternLayout} with
+ * modifications for byte array handling.
  */
 @Plugin(
         name = "ExtendedPatternLayout",
@@ -40,12 +67,31 @@ import org.apache.logging.log4j.util.Strings;
         elementType = "layout",
         printObject = true)
 public final class ExtendedPatternLayout extends AbstractStringLayout {
+    /** The default conversion pattern: "%m%n" (message followed by a newline) */
     public static final String DEFAULT_CONVERSION_PATTERN = "%m%n";
+
+    /**
+     * The TTCC conversion pattern includes thread, time, category and context information: "%r [%t]
+     * %p %c %notEmpty{%x }- %m%n"
+     */
     public static final String TTCC_CONVERSION_PATTERN = "%r [%t] %p %c %notEmpty{%x }- %m%n";
+
+    /**
+     * A simple conversion pattern with date, thread, priority, category and message: "%d [%t] %p %c
+     * - %m%n"
+     */
     public static final String SIMPLE_CONVERSION_PATTERN = "%d [%t] %p %c - %m%n";
+
+    /** The key for the pattern converter in the configuration */
     public static final String KEY = "Converter";
+
+    /** The pattern string used to format log events */
     private final String conversionPattern;
+
+    /** Pattern selector for dynamic pattern selection based on log event properties */
     private final PatternSelector patternSelector;
+
+    /** Serializer used to format log events into strings */
     private final AbstractStringLayout.Serializer eventSerializer;
 
     private ExtendedPatternLayout(
@@ -141,15 +187,46 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
         return result;
     }
 
+    /**
+     * Converts a LogEvent to a serialized string representation.
+     *
+     * <p>This method delegates to the configured event serializer to format the log event according
+     * to the pattern and configuration settings.
+     *
+     * @param event The LogEvent to serialize
+     * @return The formatted string representation of the log event
+     */
     @Override
     public String toSerializable(LogEvent event) {
         return eventSerializer.toSerializable(event);
     }
 
+    /**
+     * Serializes a LogEvent into the provided StringBuilder.
+     *
+     * <p>This method is more efficient than {@link #toSerializable(LogEvent)} when the caller
+     * already has a StringBuilder, as it avoids creating intermediate string objects.
+     *
+     * @param event The LogEvent to serialize
+     * @param stringBuilder The StringBuilder to append the formatted event to
+     */
     public void serialize(LogEvent event, StringBuilder stringBuilder) {
         eventSerializer.toSerializable(event, stringBuilder);
     }
 
+    /**
+     * Encodes a LogEvent to a byte buffer destination.
+     *
+     * <p>This method handles the complete serialization and encoding process for writing a log
+     * event to a destination. It first formats the event using the configured serializer, then
+     * encodes the resulting text using the configured charset.
+     *
+     * <p>This method is particularly important for high-performance logging scenarios as it
+     * minimizes intermediate object creation and directly writes to the destination.
+     *
+     * @param event The LogEvent to encode
+     * @param destination The destination to write the encoded event to
+     */
     @Override
     public void encode(LogEvent event, ByteBufferDestination destination) {
         if (eventSerializer == null) {
@@ -514,6 +591,35 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
             return var3;
         }
 
+        /**
+         * Converts a LogEvent to a serialized string representation in the provided StringBuilder.
+         *
+         * <p>This method is the core implementation of the layout's formatting process:
+         *
+         * <ol>
+         *   <li>First, it applies all pattern formatters to build the base formatted string
+         *   <li>Then it applies any regex replacements if configured
+         *   <li>Finally, it performs the specialized byte array handling that sets this layout
+         *       apart:
+         *       <ul>
+         *         <li>It identifies any byte array parameters in the log message
+         *         <li>It locates the default string representation of these byte arrays in the
+         *             builder
+         *         <li>It replaces them with formatted hexadecimal strings using ArrayConverter
+         *       </ul>
+         * </ol>
+         *
+         * <p>The byte array formatting is controlled by two static configuration options:
+         *
+         * <ul>
+         *   <li>{@link Builder#prettyPrinting} - Whether to format with spaces between bytes
+         *   <li>{@link Builder#initNewLine} - Whether to start byte arrays on a new line
+         * </ul>
+         *
+         * @param event The LogEvent to serialize
+         * @param builder The StringBuilder to append the formatted event to
+         * @return The StringBuilder with the formatted event appended
+         */
         @Override
         public StringBuilder toSerializable(LogEvent event, StringBuilder builder) {
             Arrays.stream(formatters).forEachOrdered(formatter -> formatter.format(event, builder));
@@ -535,8 +641,7 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
                 for (Object param : event.getMessage().getParameters()) {
 
                     // Replace all ByteArrays with the String representation of the ByteArray
-                    // calculated
-                    // by the ArrayConverter.
+                    // calculated by the ArrayConverter.
                     if (param != null && bArrayClass.equals(param.getClass())) {
                         builder.replace(
                                 builder.indexOf(Arrays.toString((byte[]) param)),
