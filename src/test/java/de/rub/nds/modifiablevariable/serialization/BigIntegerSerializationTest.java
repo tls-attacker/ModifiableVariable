@@ -12,9 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerAddModification;
-import de.rub.nds.modifiablevariable.biginteger.BigIntegerModificationFactory;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayModificationFactory;
+import de.rub.nds.modifiablevariable.bytearray.ByteArrayExplicitValueModification;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -55,7 +54,7 @@ public class BigIntegerSerializationTest {
                 JAXBContext.newInstance(
                         ModifiableBigInteger.class,
                         BigIntegerAddModification.class,
-                        ByteArrayModificationFactory.class);
+                        ByteArrayExplicitValueModification.class);
         m = context.createMarshaller();
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         um = context.createUnmarshaller();
@@ -80,8 +79,7 @@ public class BigIntegerSerializationTest {
 
     @Test
     public void testSerializeDeserializeWithModification() throws Exception {
-        VariableModification<BigInteger> modifier =
-                BigIntegerModificationFactory.add(BigInteger.ONE);
+        VariableModification<BigInteger> modifier = new BigIntegerAddModification(BigInteger.ONE);
         start.setModifications(modifier);
         m.marshal(start, writer);
 

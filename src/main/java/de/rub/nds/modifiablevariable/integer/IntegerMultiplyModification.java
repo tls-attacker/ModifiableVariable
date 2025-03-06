@@ -37,7 +37,10 @@ public class IntegerMultiplyModification extends VariableModification<Integer> {
 
     @Override
     protected Integer modifyImplementationHook(Integer input) {
-        return input == null ? 0 : input * factor;
+        if (input == null) {
+            return null;
+        }
+        return input * factor;
     }
 
     public Integer getFactor() {

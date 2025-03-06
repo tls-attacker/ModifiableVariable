@@ -27,10 +27,10 @@ public class ByteModificationTest {
         result = null;
     }
 
-    /** Test of add method, of class ByteModificationFactory. */
+    /** Test of add method, of class ByteAddModification. */
     @Test
     public void testAdd() {
-        VariableModification<Byte> modifier = ByteModificationFactory.add(Byte.valueOf("1"));
+        VariableModification<Byte> modifier = new ByteAddModification(Byte.valueOf("1"));
         start.setModifications(modifier);
         expectedResult = Byte.valueOf("11");
         result = start.getValue();
@@ -38,10 +38,10 @@ public class ByteModificationTest {
         assertEquals(Byte.valueOf("10"), start.getOriginalValue());
     }
 
-    /** Test of sub method, of class ByteModificationFactory. */
+    /** Test of sub method, of class ByteSubtractModification. */
     @Test
     public void testSub() {
-        VariableModification<Byte> modifier = ByteModificationFactory.sub(Byte.valueOf("1"));
+        VariableModification<Byte> modifier = new ByteSubtractModification(Byte.valueOf("1"));
         start.setModifications(modifier);
         expectedResult = Byte.valueOf("9");
         result = start.getValue();
@@ -49,10 +49,10 @@ public class ByteModificationTest {
         assertEquals(Byte.valueOf("10"), start.getOriginalValue());
     }
 
-    /** Test of xor method, of class ByteModificationFactory. */
+    /** Test of xor method, of class ByteXorModification. */
     @Test
     public void testXor() {
-        VariableModification<Byte> modifier = ByteModificationFactory.xor(Byte.valueOf("2"));
+        VariableModification<Byte> modifier = new ByteXorModification(Byte.valueOf("2"));
         start.setModifications(modifier);
         expectedResult = Byte.valueOf("8");
         result = start.getValue();
@@ -60,11 +60,10 @@ public class ByteModificationTest {
         assertEquals(Byte.valueOf("10"), start.getOriginalValue());
     }
 
-    /** Test of explicitValue method, of class ByteModificationFactory. */
+    /** Test of explicitValue method, of class ByteExplicitValueModification. */
     @Test
     public void testExplicitValue() {
-        VariableModification<Byte> modifier =
-                ByteModificationFactory.explicitValue(Byte.valueOf("7"));
+        VariableModification<Byte> modifier = new ByteExplicitValueModification(Byte.valueOf("7"));
         start.setModifications(modifier);
         expectedResult = Byte.valueOf("7");
         result = start.getValue();

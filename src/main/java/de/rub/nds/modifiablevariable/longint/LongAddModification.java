@@ -37,7 +37,10 @@ public class LongAddModification extends VariableModification<Long> {
 
     @Override
     protected Long modifyImplementationHook(Long input) {
-        return input == null ? summand : input + summand;
+        if (input == null) {
+            return null;
+        }
+        return input + summand;
     }
 
     public Long getSummand() {

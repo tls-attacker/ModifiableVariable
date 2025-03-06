@@ -30,7 +30,7 @@ public class HoldsModifiableVariableTest {
     }
 
     @Test
-    public void testAnnotationPresence() throws NoSuchFieldException {
+    void testAnnotationPresence() throws NoSuchFieldException {
         Field holderField = TestClass.class.getDeclaredField("holder");
         HoldsModifiableVariable annotation =
                 holderField.getAnnotation(HoldsModifiableVariable.class);
@@ -39,7 +39,7 @@ public class HoldsModifiableVariableTest {
     }
 
     @Test
-    public void testListFieldAnnotation() throws NoSuchFieldException {
+    void testListFieldAnnotation() throws NoSuchFieldException {
         Field listField = TestClass.class.getDeclaredField("integerList");
         HoldsModifiableVariable annotation = listField.getAnnotation(HoldsModifiableVariable.class);
 
@@ -47,7 +47,7 @@ public class HoldsModifiableVariableTest {
     }
 
     @Test
-    public void testNoAnnotation() throws NoSuchFieldException {
+    void testNoAnnotation() throws NoSuchFieldException {
         Field regularField = TestClass.class.getDeclaredField("regularHolder");
         HoldsModifiableVariable annotation =
                 regularField.getAnnotation(HoldsModifiableVariable.class);
@@ -56,7 +56,7 @@ public class HoldsModifiableVariableTest {
     }
 
     @Test
-    public void testFindAnnotatedFields() {
+    void testFindAnnotatedFields() {
         // Use ReflectionHelper to find fields with the annotation
         List<Field> fields = ReflectionHelper.getFieldsUpTo(TestClass.class, Object.class, null);
 

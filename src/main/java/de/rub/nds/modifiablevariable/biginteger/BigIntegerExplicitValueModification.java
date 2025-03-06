@@ -38,6 +38,9 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
 
     @Override
     protected BigInteger modifyImplementationHook(BigInteger input) {
+        if (input == null) {
+            return null;
+        }
         return explicitValue;
     }
 

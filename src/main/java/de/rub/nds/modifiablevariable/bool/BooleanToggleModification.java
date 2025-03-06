@@ -29,7 +29,7 @@ public class BooleanToggleModification extends VariableModification<Boolean> {
     @Override
     protected Boolean modifyImplementationHook(Boolean input) {
         if (input == null) {
-            input = Boolean.FALSE;
+            return null;
         }
         return !input;
     }

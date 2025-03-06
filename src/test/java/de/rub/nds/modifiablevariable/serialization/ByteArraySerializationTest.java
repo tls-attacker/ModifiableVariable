@@ -80,7 +80,7 @@ public class ByteArraySerializationTest {
     @Test
     public void testSerializeDeserializeWithModification() throws Exception {
         VariableModification<byte[]> modifier =
-                ByteArrayModificationFactory.insertValue(new byte[] {1, 2}, 0);
+                new ByteArrayInsertValueModification(new byte[] {1, 2}, 0);
         start.setModifications(modifier);
         m.marshal(start, writer);
 

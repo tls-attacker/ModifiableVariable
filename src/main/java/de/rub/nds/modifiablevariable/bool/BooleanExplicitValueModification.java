@@ -36,6 +36,9 @@ public class BooleanExplicitValueModification extends VariableModification<Boole
 
     @Override
     protected Boolean modifyImplementationHook(Boolean input) {
+        if (input == null) {
+            return null;
+        }
         return explicitValue;
     }
 

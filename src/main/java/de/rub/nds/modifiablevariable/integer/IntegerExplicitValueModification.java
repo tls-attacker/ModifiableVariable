@@ -37,6 +37,9 @@ public class IntegerExplicitValueModification extends VariableModification<Integ
 
     @Override
     protected Integer modifyImplementationHook(Integer input) {
+        if (input == null) {
+            return null;
+        }
         return explicitValue;
     }
 

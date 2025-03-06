@@ -39,7 +39,10 @@ public class LongShiftRightModification extends VariableModification<Long> {
 
     @Override
     protected Long modifyImplementationHook(Long input) {
-        return input == null ? 0L : input >> shift % MAX_SHIFT_MODIFIER;
+        if (input == null) {
+            return null;
+        }
+        return input >> shift % MAX_SHIFT_MODIFIER;
     }
 
     public int getShift() {

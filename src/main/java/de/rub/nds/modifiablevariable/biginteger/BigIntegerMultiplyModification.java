@@ -38,7 +38,10 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
 
     @Override
     protected BigInteger modifyImplementationHook(BigInteger input) {
-        return input == null ? BigInteger.ZERO : input.multiply(factor);
+        if (input == null) {
+            return null;
+        }
+        return input.multiply(factor);
     }
 
     public BigInteger getFactor() {

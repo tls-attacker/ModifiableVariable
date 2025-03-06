@@ -28,7 +28,7 @@ public class StringModificationTest {
     @Test
     public void testAppendModification() {
         String appendValue = "Appended";
-        VariableModification<String> modifier = StringModificationFactory.appendValue(appendValue);
+        VariableModification<String> modifier = new StringAppendValueModification(appendValue);
         modifiableString.setModifications(modifier);
 
         assertEquals(originalValue + appendValue, modifiableString.getValue());
@@ -37,8 +37,7 @@ public class StringModificationTest {
     @Test
     public void testPrependModification() {
         String prependValue = "Prepended";
-        VariableModification<String> modifier =
-                StringModificationFactory.prependValue(prependValue);
+        VariableModification<String> modifier = new StringPrependValueModification(prependValue);
         modifiableString.setModifications(modifier);
 
         assertEquals(prependValue + originalValue, modifiableString.getValue());
@@ -47,8 +46,7 @@ public class StringModificationTest {
     @Test
     public void testExplicitValueModification() {
         String explicitValue = "CompletelyDifferent";
-        VariableModification<String> modifier =
-                StringModificationFactory.explicitValue(explicitValue);
+        VariableModification<String> modifier = new StringExplicitValueModification(explicitValue);
         modifiableString.setModifications(modifier);
 
         assertEquals(explicitValue, modifiableString.getValue());
@@ -58,7 +56,7 @@ public class StringModificationTest {
     @Test
     public void testAppendWithEmptyString() {
         String appendValue = "";
-        VariableModification<String> modifier = StringModificationFactory.appendValue(appendValue);
+        VariableModification<String> modifier = new StringAppendValueModification(appendValue);
         modifiableString.setModifications(modifier);
 
         assertEquals(originalValue, modifiableString.getValue());
@@ -67,8 +65,7 @@ public class StringModificationTest {
     @Test
     public void testPrependWithEmptyString() {
         String prependValue = "";
-        VariableModification<String> modifier =
-                StringModificationFactory.prependValue(prependValue);
+        VariableModification<String> modifier = new StringPrependValueModification(prependValue);
         modifiableString.setModifications(modifier);
 
         assertEquals(originalValue, modifiableString.getValue());
@@ -78,7 +75,7 @@ public class StringModificationTest {
     public void testAppendToEmptyString() {
         modifiableString.setOriginalValue("");
         String appendValue = "JustAppended";
-        VariableModification<String> modifier = StringModificationFactory.appendValue(appendValue);
+        VariableModification<String> modifier = new StringAppendValueModification(appendValue);
         modifiableString.setModifications(modifier);
 
         assertEquals(appendValue, modifiableString.getValue());
@@ -88,8 +85,7 @@ public class StringModificationTest {
     public void testPrependToEmptyString() {
         modifiableString.setOriginalValue("");
         String prependValue = "JustPrepended";
-        VariableModification<String> modifier =
-                StringModificationFactory.prependValue(prependValue);
+        VariableModification<String> modifier = new StringPrependValueModification(prependValue);
         modifiableString.setModifications(modifier);
 
         assertEquals(prependValue, modifiableString.getValue());

@@ -34,7 +34,7 @@ public class BigIntegerAddModificationTest {
     public void testModifyImplementationHook() {
         assertEquals(BigInteger.valueOf(11), b1.modifyImplementationHook(BigInteger.TEN));
         assertEquals(BigInteger.valueOf(2), b3.modifyImplementationHook(BigInteger.ONE));
-        assertEquals(BigInteger.ONE, b1.modifyImplementationHook(null));
+        assertEquals(null, b1.modifyImplementationHook(null));
     }
 
     /** Test of getSummand method, of class BigIntegerAddModification. */

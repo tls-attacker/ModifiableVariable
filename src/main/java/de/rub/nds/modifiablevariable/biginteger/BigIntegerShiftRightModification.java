@@ -38,7 +38,7 @@ public class BigIntegerShiftRightModification extends VariableModification<BigIn
     @Override
     protected BigInteger modifyImplementationHook(BigInteger input) {
         if (input == null) {
-            input = BigInteger.ZERO;
+            return null;
         }
         return input.shiftRight(shift);
     }

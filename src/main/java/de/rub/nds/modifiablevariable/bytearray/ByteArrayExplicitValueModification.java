@@ -41,6 +41,9 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
 
     @Override
     protected byte[] modifyImplementationHook(byte[] input) {
+        if (input == null) {
+            return null;
+        }
         return explicitValue.clone();
     }
 
