@@ -32,10 +32,8 @@ class IntegerSwapEndianModificationTest {
         IntegerSwapEndianModification modification = new IntegerSwapEndianModification();
         modifiableInteger.setModifications(modification);
 
-        int expected = Integer.reverseBytes(originalValue); // 0x78563412
         int result = modifiableInteger.getValue();
 
-        assertEquals(expected, result);
         assertEquals(0x78563412, result);
     }
 
