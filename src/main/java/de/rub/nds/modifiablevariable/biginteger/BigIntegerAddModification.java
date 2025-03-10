@@ -91,6 +91,7 @@ public class BigIntegerAddModification extends VariableModification<BigInteger> 
      * @param summand The value that will be added to the original BigInteger
      */
     public void setSummand(BigInteger summand) {
+        Objects.requireNonNull(summand, "Summand must not be null");
         this.summand = summand;
     }
 

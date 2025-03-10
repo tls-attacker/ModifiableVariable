@@ -19,28 +19,6 @@ import java.util.Objects;
  * BigInteger value and a specified XOR mask when applied. It can be used to selectively flip
  * specific bits in BigInteger values at runtime.
  *
- * <p>XOR operations are particularly valuable for security testing because:
- *
- * <ul>
- *   <li>They allow selective bit flipping, which can target specific bits in a value
- *   <li>They're reversible (applying the same XOR mask twice restores the original value)
- *   <li>They create predictable and controlled changes to binary data
- *   <li>They can be used to simulate data corruption or protocol tampering
- * </ul>
- *
- * <p>BigInteger XOR operations are especially useful for testing cryptographic implementations
- * where large integers are used, such as:
- *
- * <ul>
- *   <li>RSA key parameters and signatures
- *   <li>Diffie-Hellman and other public key protocol values
- *   <li>Large hash values or arbitrary-precision integers
- *   <li>Custom cryptographic algorithms using large numbers
- * </ul>
- *
- * <p>Unlike integer or long XOR operations, BigInteger XOR can be applied to integers of any size,
- * making it suitable for testing with extremely large numeric values.
- *
  * @see ModifiableBigInteger
  * @see de.rub.nds.modifiablevariable.integer.IntegerXorModification
  * @see de.rub.nds.modifiablevariable.longint.LongXorModification
@@ -100,9 +78,6 @@ public class BigIntegerXorModification extends VariableModification<BigInteger> 
      * <p>This method uses BigInteger's native xor method which performs the operation on all bits
      * regardless of the size of the values. The operation is performed bit by bit according to the
      * standard XOR truth table (1⊕0=1, 0⊕1=1, 0⊕0=0, 1⊕1=0).
-     *
-     * <p>The resulting value will have a bit length equal to the maximum bit length of the input
-     * and the XOR mask, with leading zeros as needed.
      *
      * @param input The BigInteger value to modify
      * @return The result of XORing the input with the configured mask, or null if the input is null

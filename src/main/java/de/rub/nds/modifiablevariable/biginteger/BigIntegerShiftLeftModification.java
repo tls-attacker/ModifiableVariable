@@ -18,23 +18,6 @@ import java.math.BigInteger;
  * positions when applied. It effectively multiplies the value by 2 raised to the power of the shift
  * amount, which can be used to rapidly scale BigInteger values at runtime.
  *
- * <p>This modification is particularly useful for:
- *
- * <ul>
- *   <li>Testing with very large numeric values beyond the range of primitive integers
- *   <li>Creating exponentially increasing values for boundary testing
- *   <li>Simulating arithmetic operations in cryptographic tests
- *   <li>Manipulating bit patterns in arbitrarily large integers
- * </ul>
- *
- * <p>Unlike integer or long shift operations, BigInteger shifts have no overflow concerns since
- * BigInteger can represent arbitrarily large numbers. This makes it particularly valuable for
- * testing with extremely large values that would overflow standard numeric types.
- *
- * <p>For example, shifting the decimal value 5 left by 100 bits results in a very large number (5 *
- * 2^100), which would be impossible to represent in primitive integer types but is handled
- * seamlessly by BigInteger.
- *
  * @see ModifiableBigInteger
  * @see BigIntegerShiftRightModification
  */
@@ -44,7 +27,7 @@ public class BigIntegerShiftLeftModification extends VariableModification<BigInt
     /** The number of bits to shift left */
     private int shift;
 
-    /** Default constructor for XML serialization. */
+    /** Default constructor for serialization. */
     @SuppressWarnings("unused")
     private BigIntegerShiftLeftModification() {
         super();

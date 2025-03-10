@@ -18,6 +18,7 @@ import java.math.BigInteger;
  * dividing the value by 2 raised to the power of the shift amount. It can be used to manipulate
  * binary data at runtime.
  *
+ * @see BigIntegerShiftLeftModification
  * @see ModifiableBigInteger
  */
 @XmlRootElement

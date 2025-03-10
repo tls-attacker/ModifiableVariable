@@ -36,6 +36,7 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
      * Creates a new subtraction modification with the specified subtrahend.
      *
      * @param subtrahend The value to subtract from the original BigInteger
+     * @throws NullPointerException if subtrahend is null
      */
     public BigIntegerSubtractModification(BigInteger subtrahend) {
         super();
@@ -93,6 +94,7 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
      * @param subtrahend The value that will be subtracted from the original BigInteger
      */
     public void setSubtrahend(BigInteger subtrahend) {
+        Objects.requireNonNull(subtrahend, "Subtrahend must not be null");
         this.subtrahend = subtrahend;
     }
 

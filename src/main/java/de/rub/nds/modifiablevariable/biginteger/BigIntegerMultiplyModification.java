@@ -36,6 +36,7 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
      * Creates a new multiplication modification with the specified factor.
      *
      * @param factor The value to multiply the original BigInteger by
+     * @throws NullPointerException if factor is null
      */
     public BigIntegerMultiplyModification(BigInteger factor) {
         super();
@@ -65,9 +66,6 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
     /**
      * Modifies the input by multiplying it by the factor.
      *
-     * <p>This operation can significantly change the magnitude of the value, which may be useful
-     * for testing boundary conditions in protocols.
-     *
      * @param input The BigInteger value to modify
      * @return The result of multiplying the input by the factor, or null if input is null
      */
@@ -94,6 +92,7 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
      * @param factor The value that will multiply the original BigInteger
      */
     public void setFactor(BigInteger factor) {
+        Objects.requireNonNull(factor, "Factor must not be null");
         this.factor = factor;
     }
 

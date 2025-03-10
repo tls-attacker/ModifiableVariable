@@ -19,8 +19,13 @@ import java.math.BigInteger;
  * BigInteger values. It supports various BigInteger-specific modifications like addition,
  * multiplication, bit-shifts, XOR operations, and more.
  *
- * <p>BigInteger is commonly used for cryptographic operations that require arbitrary precision
- * arithmetic, such as RSA key operations.
+ * @see ModifiableVariable
+ * @see BigIntegerAddModification
+ * @see BigIntegerSubtractModification
+ * @see BigIntegerMultiplyModification
+ * @see BigIntegerShiftLeftModification
+ * @see BigIntegerShiftRightModification
+ * @see BigIntegerXorModification
  */
 @XmlRootElement
 public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
@@ -86,14 +91,19 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
      * Checks if the modified value differs from the original value.
      *
      * @return true if the value has been modified, false otherwise
+     * @throws IllegalStateException if the original value is null
      */
     @Override
     public boolean isOriginalValueModified() {
-        return originalValue != null && originalValue.compareTo(getValue()) != 0;
+        if (getOriginalValue() == null) {
+            throw new IllegalStateException("Original value must not be null");
+        } else {
+            return originalValue.compareTo(getValue()) != 0;
+        }
     }
 
     /**
-     * Converts the BigInteger value to a byte array with minimum required size.
+     * Converts the BigInteger value to an unsigned byte array with minimum required size.
      *
      * @return The byte array representation of the BigInteger
      */
@@ -102,7 +112,7 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
     }
 
     /**
-     * Converts the BigInteger value to a byte array of the specified size.
+     * Converts the BigInteger value to an unsigned byte array of the specified size.
      *
      * @param size The size of the resulting byte array
      * @return The byte array representation of the BigInteger
