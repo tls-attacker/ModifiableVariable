@@ -17,11 +17,11 @@ import java.util.Objects;
  * <p>This modification subtracts a specified byte value (subtrahend) from the input value when
  * applied. It can be used to decrement byte values at runtime, which is particularly useful for
  * testing protocol implementations.
- * 
+ *
  * <p>This class modifies a byte by subtracting a specific subtrahend from it. It's useful in
  * security testing for exploring edge cases and boundary conditions in protocol handling,
  * particularly when testing for underflow conditions or boundary value analysis.
- * 
+ *
  * <p>Example use cases:
  *
  * <ul>
@@ -31,7 +31,7 @@ import java.util.Objects;
  *       packets
  *   <li>Manipulating length fields to create malformed protocol messages
  * </ul>
- * 
+ *
  * @see ModifiableByte
  */
 @XmlRootElement
@@ -79,9 +79,9 @@ public class ByteSubtractModification extends VariableModification<Byte> {
     /**
      * Modifies the input by subtracting the subtrahend.
      *
-     * <p>Note that this operation may cause byte underflow if the result falls below Byte.MIN_VALUE. 
-     * In such cases, the result will wrap around according to Java's two's complement arithmetic,
-     * which can be useful for testing boundary conditions.
+     * <p>Note that this operation may cause byte underflow if the result falls below
+     * Byte.MIN_VALUE. In such cases, the result will wrap around according to Java's two's
+     * complement arithmetic, which can be useful for testing boundary conditions.
      *
      * @param input The byte value to modify
      * @return The result of subtracting the subtrahend from the input, or null if the input is null

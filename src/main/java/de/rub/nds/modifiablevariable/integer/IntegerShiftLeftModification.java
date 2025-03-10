@@ -13,7 +13,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 /**
  * A modification that performs a left bit shift on a ModifiableInteger.
  *
- * <p>This modification shifts the bits of the input integer to the left by a specified number of 
+ * <p>This modification shifts the bits of the input integer to the left by a specified number of
  * positions when applied. It effectively multiplies the value by 2 raised to the power of the shift
  * amount, which can be used to rapidly scale integer values at runtime.
  *

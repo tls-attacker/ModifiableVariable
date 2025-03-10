@@ -16,7 +16,7 @@ import java.util.Objects;
  * A modification that applies a bitwise XOR operation to a ModifiableBigInteger.
  *
  * <p>This modification performs a bitwise XOR (exclusive OR) operation between the original
- * BigInteger value and a specified XOR mask when applied. It can be used to selectively flip 
+ * BigInteger value and a specified XOR mask when applied. It can be used to selectively flip
  * specific bits in BigInteger values at runtime.
  *
  * <p>XOR operations are particularly valuable for security testing because:
@@ -30,7 +30,7 @@ import java.util.Objects;
  *
  * <p>BigInteger XOR operations are especially useful for testing cryptographic implementations
  * where large integers are used, such as:
- * 
+ *
  * <ul>
  *   <li>RSA key parameters and signatures
  *   <li>Diffie-Hellman and other public key protocol values
@@ -38,8 +38,8 @@ import java.util.Objects;
  *   <li>Custom cryptographic algorithms using large numbers
  * </ul>
  *
- * <p>Unlike integer or long XOR operations, BigInteger XOR can be applied to integers of any
- * size, making it suitable for testing with extremely large numeric values.
+ * <p>Unlike integer or long XOR operations, BigInteger XOR can be applied to integers of any size,
+ * making it suitable for testing with extremely large numeric values.
  *
  * @see ModifiableBigInteger
  * @see IntegerXorModification
@@ -98,8 +98,8 @@ public class BigIntegerXorModification extends VariableModification<BigInteger> 
      * Modifies the input by applying a bitwise XOR operation with the configured XOR mask.
      *
      * <p>This method uses BigInteger's native xor method which performs the operation on all bits
-     * regardless of the size of the values. The operation is performed bit by bit according to
-     * the standard XOR truth table (1⊕0=1, 0⊕1=1, 0⊕0=0, 1⊕1=0).
+     * regardless of the size of the values. The operation is performed bit by bit according to the
+     * standard XOR truth table (1⊕0=1, 0⊕1=1, 0⊕0=0, 1⊕1=0).
      *
      * <p>The resulting value will have a bit length equal to the maximum bit length of the input
      * and the XOR mask, with leading zeros as needed.

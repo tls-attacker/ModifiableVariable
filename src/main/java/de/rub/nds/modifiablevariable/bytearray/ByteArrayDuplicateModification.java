@@ -19,7 +19,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * particularly useful for testing protocol implementations.
  *
  * <p>This modification is particularly useful for:
- * 
+ *
  * <ul>
  *   <li>Testing protocol implementations with repeated data segments
  *   <li>Stressing length validation mechanisms in parsers
@@ -31,8 +31,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * <p>For example, given the byte array {@code {0x01, 0x02, 0x03}}, this modification would produce
  * {@code {0x01, 0x02, 0x03, 0x01, 0x02, 0x03}}.
  *
- * <p>This modification is stateless as it has no configuration parameters. All instances
- * of this class behave identically and are considered equal when compared.
+ * <p>This modification is stateless as it has no configuration parameters. All instances of this
+ * class behave identically and are considered equal when compared.
  *
  * @see ModifiableByteArray
  * @see ByteArrayAppendValueModification
@@ -72,11 +72,12 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
      * Modifies the input by duplicating the byte array.
      *
      * <p>This method creates a new byte array that consists of the input array concatenated with a
-     * copy of itself, effectively doubling the length of the array. The operation preserves the 
+     * copy of itself, effectively doubling the length of the array. The operation preserves the
      * original array's contents and ordering, simply repeating it.
      *
-     * <p>The implementation uses the ArrayConverter's concatenate method for efficient array 
-     * manipulation and guarantees that the original array is not modified, maintaining immutability.
+     * <p>The implementation uses the ArrayConverter's concatenate method for efficient array
+     * manipulation and guarantees that the original array is not modified, maintaining
+     * immutability.
      *
      * @param input The original byte array
      * @return A new byte array consisting of the input array concatenated with itself, or null if

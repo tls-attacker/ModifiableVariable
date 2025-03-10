@@ -14,8 +14,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * A modification that swaps the byte order (endianness) of a ModifiableInteger.
  *
  * <p>This modification reverses the byte order of an integer value when applied, effectively
- * converting between big-endian and little-endian representations. It can be used to test
- * how systems handle different byte ordering conventions at runtime.
+ * converting between big-endian and little-endian representations. It can be used to test how
+ * systems handle different byte ordering conventions at runtime.
  *
  * <p>For example, the decimal value 16909060 is represented as:
  *
@@ -25,7 +25,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * </ul>
  *
  * <p>This conversion between byte orderings is particularly useful for:
- * 
+ *
  * <ul>
  *   <li>Testing protocol implementations that may misinterpret byte ordering
  *   <li>Finding endianness-related bugs in multi-platform applications
@@ -33,11 +33,11 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  *   <li>Testing systems that interact with different processor architectures
  * </ul>
  *
- * <p>The implementation uses Java's built-in {@link Integer#reverseBytes(int)} method to perform
- * an efficient, single-operation byte swap.
+ * <p>The implementation uses Java's built-in {@link Integer#reverseBytes(int)} method to perform an
+ * efficient, single-operation byte swap.
  *
- * <p>This modification is stateless as it has no configuration parameters. All instances
- * of this class behave identically and are considered equal when compared.
+ * <p>This modification is stateless as it has no configuration parameters. All instances of this
+ * class behave identically and are considered equal when compared.
  *
  * @see ModifiableInteger
  * @see LongSwapEndianModification

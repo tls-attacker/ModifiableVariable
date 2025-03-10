@@ -15,9 +15,9 @@ import java.util.Objects;
 /**
  * A modification that replaces the original BigInteger value with an explicitly defined value.
  *
- * <p>This modification ignores the original value and always returns a predefined value specified at
- * initialization or via setter. It's useful for testing scenarios where a specific BigInteger value
- * needs to be injected regardless of the original value.
+ * <p>This modification ignores the original value and always returns a predefined value specified
+ * at initialization or via setter. It's useful for testing scenarios where a specific BigInteger
+ * value needs to be injected regardless of the original value.
  *
  * @see ModifiableBigInteger
  */
@@ -40,7 +40,8 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
      */
     public BigIntegerExplicitValueModification(BigInteger explicitValue) {
         super();
-        this.explicitValue = Objects.requireNonNull(explicitValue, "ExplicitValue must not be null");
+        this.explicitValue =
+                Objects.requireNonNull(explicitValue, "ExplicitValue must not be null");
     }
 
     /**
@@ -111,8 +112,9 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
     }
 
     /**
-     * Checks if this modification is equal to another object. Two BigIntegerExplicitValueModification
-     * instances are considered equal if they have the same explicit value.
+     * Checks if this modification is equal to another object. Two
+     * BigIntegerExplicitValueModification instances are considered equal if they have the same
+     * explicit value.
      *
      * @param obj The object to compare with
      * @return true if the objects are equal, false otherwise

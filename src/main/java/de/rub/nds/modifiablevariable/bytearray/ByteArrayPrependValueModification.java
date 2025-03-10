@@ -23,7 +23,7 @@ import java.util.Objects;
  * identify issues with header processing, length validation, or data parsing.
  *
  * <p>This modification is particularly useful for:
- * 
+ *
  * <ul>
  *   <li>Testing protocol implementations that rely on specific header bytes
  *   <li>Adding marker bytes or magic values to the start of a message
@@ -95,9 +95,9 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
      * ArrayConverter's concatenate method. A new byte array is created with the bytes to prepend at
      * the beginning followed by the original input bytes.
      *
-     * <p>Note that this operation creates a new array that is longer than the original input by
-     * the length of the bytes to prepend. This can be useful for testing how protocol
-     * implementations handle unexpected additional data.
+     * <p>Note that this operation creates a new array that is longer than the original input by the
+     * length of the bytes to prepend. This can be useful for testing how protocol implementations
+     * handle unexpected additional data.
      *
      * @param input The original byte array
      * @return A new byte array with the bytes prepended, or null if input was null

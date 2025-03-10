@@ -15,8 +15,8 @@ import java.util.Objects;
  * A modification that applies a bitwise XOR operation to a ModifiableLong.
  *
  * <p>This modification performs a bitwise XOR (exclusive OR) operation between the original long
- * value and a specified XOR mask when applied. It can be used to selectively flip specific bits
- * in long values at runtime.
+ * value and a specified XOR mask when applied. It can be used to selectively flip specific bits in
+ * long values at runtime.
  *
  * <p>XOR modifications are particularly valuable for security testing because:
  *

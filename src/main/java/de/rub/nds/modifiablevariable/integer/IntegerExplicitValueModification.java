@@ -14,10 +14,10 @@ import java.util.Objects;
 /**
  * A modification that replaces the original value with an explicitly defined value.
  *
- * <p>This modification ignores the original value of a {@link ModifiableInteger} and always
- * returns a predefined integer value specified at initialization or via setter. It's one of the
- * most straightforward and powerful modifications for testing as it allows direct control over
- * values in protocol messages.
+ * <p>This modification ignores the original value of a {@link ModifiableInteger} and always returns
+ * a predefined integer value specified at initialization or via setter. It's one of the most
+ * straightforward and powerful modifications for testing as it allows direct control over values in
+ * protocol messages.
  *
  * <p>Explicit value modifications are particularly useful for:
  *

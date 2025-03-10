@@ -27,10 +27,9 @@ import java.util.Objects;
  *   <li>Altering flag or option bytes to test different configuration combinations
  * </ul>
  *
- * <p>Since bytes are limited to 8 bits, additions that exceed the range of a byte
- * (Byte.MIN_VALUE to Byte.MAX_VALUE, or -128 to 127) will wrap around according to Java's
- * two's complement arithmetic. This wrapping behavior is particularly useful for testing
- * overflow conditions.
+ * <p>Since bytes are limited to 8 bits, additions that exceed the range of a byte (Byte.MIN_VALUE
+ * to Byte.MAX_VALUE, or -128 to 127) will wrap around according to Java's two's complement
+ * arithmetic. This wrapping behavior is particularly useful for testing overflow conditions.
  *
  * @see ModifiableByte
  * @see ByteSubtractModification
@@ -80,9 +79,9 @@ public class ByteAddModification extends VariableModification<Byte> {
     /**
      * Modifies the input by adding the summand.
      *
-     * <p>Note that this operation may cause byte overflow if the sum of the input and the
-     * summand exceeds Byte.MAX_VALUE (127) or falls below Byte.MIN_VALUE (-128). In such cases, 
-     * the result will wrap around according to Java's two's complement arithmetic.
+     * <p>Note that this operation may cause byte overflow if the sum of the input and the summand
+     * exceeds Byte.MAX_VALUE (127) or falls below Byte.MIN_VALUE (-128). In such cases, the result
+     * will wrap around according to Java's two's complement arithmetic.
      *
      * @param input The byte value to modify
      * @return The result of adding the summand to the input, or null if the input is null

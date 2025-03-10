@@ -15,8 +15,8 @@ import java.util.Objects;
 /**
  * A modification that multiplies a ModifiableBigInteger by a constant factor.
  *
- * <p>This modification multiplies the input value by a specified BigInteger factor when applied.
- * It can be used to scale BigInteger values at runtime.
+ * <p>This modification multiplies the input value by a specified BigInteger factor when applied. It
+ * can be used to scale BigInteger values at runtime.
  *
  * @see ModifiableBigInteger
  */
@@ -65,8 +65,8 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
     /**
      * Modifies the input by multiplying it by the factor.
      *
-     * <p>This operation can significantly change the magnitude of the value, which
-     * may be useful for testing boundary conditions in protocols.
+     * <p>This operation can significantly change the magnitude of the value, which may be useful
+     * for testing boundary conditions in protocols.
      *
      * @param input The BigInteger value to modify
      * @return The result of multiplying the input by the factor, or null if input is null

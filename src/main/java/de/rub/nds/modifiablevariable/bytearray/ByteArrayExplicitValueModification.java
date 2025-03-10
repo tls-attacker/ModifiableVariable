@@ -18,9 +18,9 @@ import java.util.Objects;
 /**
  * A modification that replaces the original byte array with an explicitly defined value.
  *
- * <p>This modification ignores the original value and always returns a predefined byte array specified
- * at initialization or via setter. It can be used to inject specific byte sequences regardless of the
- * original content.
+ * <p>This modification ignores the original value and always returns a predefined byte array
+ * specified at initialization or via setter. It can be used to inject specific byte sequences
+ * regardless of the original content.
  *
  * @see ModifiableByteArray
  */
@@ -44,7 +44,8 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
      */
     public ByteArrayExplicitValueModification(byte[] explicitValue) {
         super();
-        this.explicitValue = Objects.requireNonNull(explicitValue, "ExplicitValue must not be null");
+        this.explicitValue =
+                Objects.requireNonNull(explicitValue, "ExplicitValue must not be null");
     }
 
     /**
@@ -70,8 +71,8 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
     /**
      * Modifies the input by replacing it with the explicit value.
      *
-     * <p>This method ignores the input value and always returns a clone of the explicit value.
-     * A defensive copy is returned to prevent modification of the internal value.
+     * <p>This method ignores the input value and always returns a clone of the explicit value. A
+     * defensive copy is returned to prevent modification of the internal value.
      *
      * @param input The original byte array (ignored except for null check)
      * @return A clone of the explicit value, or null if input was null
@@ -115,8 +116,9 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
     }
 
     /**
-     * Checks if this modification is equal to another object. Two ByteArrayExplicitValueModification
-     * instances are considered equal if they have the same explicit value (compared by content).
+     * Checks if this modification is equal to another object. Two
+     * ByteArrayExplicitValueModification instances are considered equal if they have the same
+     * explicit value (compared by content).
      *
      * @param obj The object to compare with
      * @return true if the objects are equal, false otherwise

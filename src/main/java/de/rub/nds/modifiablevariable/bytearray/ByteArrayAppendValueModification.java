@@ -24,7 +24,7 @@ import java.util.Objects;
  * fields.
  *
  * <p>This modification is particularly useful for:
- * 
+ *
  * <ul>
  *   <li>Testing protocol implementations' handling of trailing data
  *   <li>Adding signature or checksum bytes to the end of a message
@@ -93,12 +93,12 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
      * Modifies the input by appending bytes to the end of the array.
      *
      * <p>This method concatenates the bytes to append to the end of the input byte array using the
-     * ArrayConverter's concatenate method. A new byte array is created with the original input bytes
-     * followed by the bytes to append.
+     * ArrayConverter's concatenate method. A new byte array is created with the original input
+     * bytes followed by the bytes to append.
      *
-     * <p>Note that this operation creates a new array that is longer than the original input by
-     * the length of the bytes to append. This can be useful for testing how protocol
-     * implementations handle unexpected additional data at the end of messages.
+     * <p>Note that this operation creates a new array that is longer than the original input by the
+     * length of the bytes to append. This can be useful for testing how protocol implementations
+     * handle unexpected additional data at the end of messages.
      *
      * @param input The original byte array
      * @return A new byte array with the bytes appended, or null if input was null

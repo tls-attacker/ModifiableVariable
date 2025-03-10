@@ -19,7 +19,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * implementations.
  *
  * <p>This modification is especially valuable for:
- * 
+ *
  * <ul>
  *   <li>Testing specific code paths by forcing condition flags
  *   <li>Simulating enabled/disabled features in protocol implementations

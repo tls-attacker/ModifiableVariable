@@ -14,7 +14,7 @@ import java.util.Objects;
 /**
  * A modification that performs a signed right bit shift on a ModifiableLong.
  *
- * <p>This modification shifts the bits of the input long to the right by a specified number of 
+ * <p>This modification shifts the bits of the input long to the right by a specified number of
  * positions when applied. It effectively divides the value by 2 raised to the power of the shift
  * amount, which can be used to reduce long values at runtime.
  *
@@ -36,7 +36,7 @@ import java.util.Objects;
  *   <li>Bit-level protocol operations
  * </ul>
  *
- * <p>This modification is especially useful for testing with 64-bit values common in cryptographic 
+ * <p>This modification is especially useful for testing with 64-bit values common in cryptographic
  * protocols, timestamp handling, and other areas where large numeric values are manipulated.
  *
  * @see ModifiableLong

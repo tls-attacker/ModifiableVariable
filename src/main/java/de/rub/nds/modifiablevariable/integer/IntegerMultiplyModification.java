@@ -15,11 +15,11 @@ import java.util.Objects;
  * A modification that multiplies a ModifiableInteger by a constant factor.
  *
  * <p>This modification takes the original integer value and multiplies it by a specified factor
- * when applied. It can be used to scale integer values at runtime, which is particularly useful
- * for testing protocol implementations.
+ * when applied. It can be used to scale integer values at runtime, which is particularly useful for
+ * testing protocol implementations.
  *
  * <p>This modification is valuable for:
- * 
+ *
  * <ul>
  *   <li>Testing boundary conditions by rapidly scaling values up
  *   <li>Simulating overflow conditions by multiplying large values

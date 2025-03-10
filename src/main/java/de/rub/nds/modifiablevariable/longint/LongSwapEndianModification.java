@@ -18,7 +18,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * different byte ordering conventions at runtime.
  *
  * <p>In big-endian format, the most significant byte is stored at the lowest memory address, while
- * in little-endian format, the least significant byte is stored at the lowest memory address. 
+ * in little-endian format, the least significant byte is stored at the lowest memory address.
  * Converting between these formats is a common source of bugs in networked and cross-platform
  * applications.
  *
@@ -34,8 +34,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * <p>This modification is particularly useful for testing 64-bit values that might be interpreted
  * differently across systems, such as timestamps, file offsets, or cryptographic values.
  *
- * <p>This modification is stateless as it has no configuration parameters. All instances
- * of this class behave identically and are considered equal when compared.
+ * <p>This modification is stateless as it has no configuration parameters. All instances of this
+ * class behave identically and are considered equal when compared.
  *
  * @see ModifiableLong
  * @see IntegerSwapEndianModification

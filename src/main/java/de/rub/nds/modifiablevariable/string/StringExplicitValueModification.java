@@ -19,8 +19,8 @@ import java.util.Objects;
  * A modification that replaces the original string with an explicitly defined value.
  *
  * <p>This modification ignores the original value and always returns a predefined string specified
- * at initialization or via setter. It can be used to inject specific string content regardless of the
- * original value.
+ * at initialization or via setter. It can be used to inject specific string content regardless of
+ * the original value.
  *
  * @see ModifiableString
  */
@@ -44,7 +44,8 @@ public class StringExplicitValueModification extends VariableModification<String
      */
     public StringExplicitValueModification(String explicitValue) {
         super();
-        this.explicitValue = Objects.requireNonNull(explicitValue, "ExplicitValue must not be null");
+        this.explicitValue =
+                Objects.requireNonNull(explicitValue, "ExplicitValue must not be null");
     }
 
     /**
@@ -70,8 +71,8 @@ public class StringExplicitValueModification extends VariableModification<String
     /**
      * Modifies the input by replacing it with the explicit value.
      *
-     * <p>This method ignores the input value and always returns the explicit value.
-     * Strings in Java are immutable, so no defensive copy is needed.
+     * <p>This method ignores the input value and always returns the explicit value. Strings in Java
+     * are immutable, so no defensive copy is needed.
      *
      * @param input The original string (ignored except for null check)
      * @return The explicit value, or null if input was null

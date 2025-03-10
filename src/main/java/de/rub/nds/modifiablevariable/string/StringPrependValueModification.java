@@ -18,12 +18,12 @@ import java.util.Objects;
 /**
  * A modification that prepends a string to the beginning of a ModifiableString.
  *
- * <p>This modification takes the original string and adds a specified string to its beginning
- * when applied. It can be used to add text to the start of string values at runtime, which is
+ * <p>This modification takes the original string and adds a specified string to its beginning when
+ * applied. It can be used to add text to the start of string values at runtime, which is
  * particularly useful for testing protocol implementations.
  *
  * <p>This modification is especially valuable for:
- * 
+ *
  * <ul>
  *   <li>Testing for SQL injection by prepending SQL syntax to field values
  *   <li>Testing for XSS vulnerabilities by prepending script tags to form inputs
@@ -32,12 +32,12 @@ import java.util.Objects;
  *   <li>Manipulating protocol handshakes by modifying string fields
  * </ul>
  *
- * <p>When applied, this modification creates a new string that is the concatenation of the
- * prepend value followed by the original string. The original string remains unchanged,
- * preserving immutability.
+ * <p>When applied, this modification creates a new string that is the concatenation of the prepend
+ * value followed by the original string. The original string remains unchanged, preserving
+ * immutability.
  *
- * <p>Unlike insertion modifications, prepending always adds content at the very beginning of
- * the string, making it useful for adding headers, prefixes, or protocol markers.
+ * <p>Unlike insertion modifications, prepending always adds content at the very beginning of the
+ * string, making it useful for adding headers, prefixes, or protocol markers.
  *
  * @see ModifiableString
  * @see StringAppendValueModification
@@ -91,15 +91,15 @@ public class StringPrependValueModification extends VariableModification<String>
      * Modifies the input by prepending the specified string value.
      *
      * <p>This method creates a new string by concatenating the prepend value with the original
-     * input string. The implementation uses Java's built-in string concatenation, which creates
-     * a new string object, preserving the immutability of the original string.
+     * input string. The implementation uses Java's built-in string concatenation, which creates a
+     * new string object, preserving the immutability of the original string.
      *
-     * <p>This concatenation approach ensures efficient string creation while maintaining
-     * correct behavior even with special characters or Unicode strings.
+     * <p>This concatenation approach ensures efficient string creation while maintaining correct
+     * behavior even with special characters or Unicode strings.
      *
      * @param input The original string to modify
-     * @return A new string with the prepend value added at the beginning,
-     *     or null if the input is null
+     * @return A new string with the prepend value added at the beginning, or null if the input is
+     *     null
      */
     @Override
     protected String modifyImplementationHook(String input) {

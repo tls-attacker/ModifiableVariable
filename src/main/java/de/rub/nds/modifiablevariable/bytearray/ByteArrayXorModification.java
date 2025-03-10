@@ -19,11 +19,11 @@ import java.util.Objects;
  * A modification that applies an XOR operation to a portion of a ModifiableByteArray.
  *
  * <p>This modification performs a bitwise XOR operation between a specified byte array and the
- * input byte array, starting at a specified position when applied. It can be used to selectively 
+ * input byte array, starting at a specified position when applied. It can be used to selectively
  * alter specific bytes or bits at runtime, which is particularly useful for security testing.
  *
  * <p>This modification is especially valuable for:
- * 
+ *
  * <ul>
  *   <li>Cryptographic testing by flipping bits in key material or ciphertext
  *   <li>Protocol fuzzing by subtly altering values without changing their length
@@ -33,7 +33,7 @@ import java.util.Objects;
  * </ul>
  *
  * <p>The XOR operation is particularly useful because:
- * 
+ *
  * <ul>
  *   <li>It's reversible - applying the same XOR mask twice restores the original value
  *   <li>It allows precise control over which bits change in a value

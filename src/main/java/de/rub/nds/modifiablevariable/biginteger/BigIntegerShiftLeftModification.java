@@ -14,12 +14,12 @@ import java.math.BigInteger;
 /**
  * A modification that performs a left bit shift on a ModifiableBigInteger.
  *
- * <p>This modification shifts the bits of the input BigInteger to the left by a specified number of 
+ * <p>This modification shifts the bits of the input BigInteger to the left by a specified number of
  * positions when applied. It effectively multiplies the value by 2 raised to the power of the shift
  * amount, which can be used to rapidly scale BigInteger values at runtime.
  *
  * <p>This modification is particularly useful for:
- * 
+ *
  * <ul>
  *   <li>Testing with very large numeric values beyond the range of primitive integers
  *   <li>Creating exponentially increasing values for boundary testing
@@ -31,8 +31,8 @@ import java.math.BigInteger;
  * BigInteger can represent arbitrarily large numbers. This makes it particularly valuable for
  * testing with extremely large values that would overflow standard numeric types.
  *
- * <p>For example, shifting the decimal value 5 left by 100 bits results in a very large number
- * (5 * 2^100), which would be impossible to represent in primitive integer types but is handled
+ * <p>For example, shifting the decimal value 5 left by 100 bits results in a very large number (5 *
+ * 2^100), which would be impossible to represent in primitive integer types but is handled
  * seamlessly by BigInteger.
  *
  * @see ModifiableBigInteger

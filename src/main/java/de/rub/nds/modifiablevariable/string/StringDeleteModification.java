@@ -15,11 +15,11 @@ import java.util.Objects;
  * A modification that deletes a portion of a ModifiableString.
  *
  * <p>This modification removes a specified number of characters from the original string starting
- * at a specified position when applied. It can be used to create truncated or partial string data 
+ * at a specified position when applied. It can be used to create truncated or partial string data
  * at runtime, which is particularly useful for testing protocol implementations.
  *
  * <p>This modification is especially valuable for:
- * 
+ *
  * <ul>
  *   <li>Testing string handling with missing content or partial data
  *   <li>Removing critical fields or values from string-encoded protocol messages
@@ -97,17 +97,18 @@ public class StringDeleteModification extends VariableModification<String> {
     /**
      * Modifies the input by removing characters from the specified position.
      *
-     * <p>This method creates a new string with the specified section removed. It effectively
-     * takes the characters before the deletion point, then concatenates them with the characters 
-     * after the deletion point, creating a shorter string.
+     * <p>This method creates a new string with the specified section removed. It effectively takes
+     * the characters before the deletion point, then concatenates them with the characters after
+     * the deletion point, creating a shorter string.
      *
-     * <p>The implementation uses StringBuilder's efficient delete operation to perform the 
-     * character removal in a single operation. The position calculation ensures that all
-     * edge cases are handled correctly:
+     * <p>The implementation uses StringBuilder's efficient delete operation to perform the
+     * character removal in a single operation. The position calculation ensures that all edge cases
+     * are handled correctly:
      *
      * <ul>
      *   <li>If the start position is negative, it wraps around to delete from the end of the string
-     *   <li>If the start position exceeds the string length, it wraps around using modulo arithmetic
+     *   <li>If the start position exceeds the string length, it wraps around using modulo
+     *       arithmetic
      *   <li>If the deletion would extend beyond the end of the string, it's truncated appropriately
      * </ul>
      *
@@ -115,8 +116,8 @@ public class StringDeleteModification extends VariableModification<String> {
      * edge-case inputs, making it particularly suitable for robust testing scenarios.
      *
      * @param input The original string
-     * @return A new string with the specified portion removed, or null if the input is null,
-     *     or the original string if it's empty
+     * @return A new string with the specified portion removed, or null if the input is null, or the
+     *     original string if it's empty
      */
     @Override
     protected String modifyImplementationHook(String input) {

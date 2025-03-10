@@ -18,8 +18,8 @@ import java.util.Objects;
 /**
  * A modification that inserts a string at a specified position within the original string.
  *
- * <p>This modification inserts additional text at the specified position in the input string.
- * It handles special cases such as negative positions and positions beyond the string length.
+ * <p>This modification inserts additional text at the specified position in the input string. It
+ * handles special cases such as negative positions and positions beyond the string length.
  *
  * @see ModifiableString
  */
@@ -75,9 +75,9 @@ public class StringInsertValueModification extends VariableModification<String> 
     /**
      * Modifies the input by inserting the specified string at the given position.
      *
-     * <p>If the position is negative, it wraps around to insert from the end of the string.
-     * If the position exceeds the string length, it's adjusted using modulo arithmetic.
-     * Insertion at the end of the string is also supported.
+     * <p>If the position is negative, it wraps around to insert from the end of the string. If the
+     * position exceeds the string length, it's adjusted using modulo arithmetic. Insertion at the
+     * end of the string is also supported.
      *
      * @param input The string to modify
      * @return A new string with the insertion applied, or null if input was null
@@ -133,7 +133,8 @@ public class StringInsertValueModification extends VariableModification<String> 
     }
 
     /**
-     * Computes a hash code for this modification. The hash code is based on the insert value and position.
+     * Computes a hash code for this modification. The hash code is based on the insert value and
+     * position.
      *
      * @return The hash code value
      */
@@ -146,8 +147,8 @@ public class StringInsertValueModification extends VariableModification<String> 
     }
 
     /**
-     * Checks if this modification is equal to another object. Two StringInsertValueModification instances
-     * are considered equal if they have the same insert value and start position.
+     * Checks if this modification is equal to another object. Two StringInsertValueModification
+     * instances are considered equal if they have the same insert value and start position.
      *
      * @param obj The object to compare with
      * @return true if the objects are equal, false otherwise

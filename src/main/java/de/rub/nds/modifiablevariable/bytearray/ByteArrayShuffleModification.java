@@ -18,12 +18,12 @@ import java.util.Objects;
 /**
  * A modification that shuffles elements within a ModifiableByteArray.
  *
- * <p>This modification reorders elements within the byte array by performing a series of 
- * swap operations based on a predefined shuffle pattern. It can be used to create data with
- * the same content but in a different order at runtime.
+ * <p>This modification reorders elements within the byte array by performing a series of swap
+ * operations based on a predefined shuffle pattern. It can be used to create data with the same
+ * content but in a different order at runtime.
  *
  * <p>The shuffling pattern is specified as a byte array where:
- * 
+ *
  * <ul>
  *   <li>For arrays with at most 255 elements, each consecutive pair of bytes in the shuffle array
  *       is interpreted as two indices to swap.
@@ -32,7 +32,7 @@ import java.util.Objects;
  * </ul>
  *
  * <p>This modification is particularly useful for:
- * 
+ *
  * <ul>
  *   <li>Testing protocol implementations against malformed but content-preserving inputs
  *   <li>Testing parser robustness when field order is changed
@@ -40,9 +40,9 @@ import java.util.Objects;
  *   <li>Checking protocol tolerance to reordered data (e.g., sequence numbers)
  * </ul>
  *
- * <p>The transformation always produces a byte array with the same length and the same elements 
- * as the input, just in a different order, making it valuable for testing protocol sensitivity 
- * to element ordering without changing the actual content.
+ * <p>The transformation always produces a byte array with the same length and the same elements as
+ * the input, just in a different order, making it valuable for testing protocol sensitivity to
+ * element ordering without changing the actual content.
  *
  * @see ModifiableByteArray
  */
@@ -116,8 +116,8 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
      * arrays of a different size.
      *
      * @param input The byte array to shuffle
-     * @return A new byte array containing the same elements as the input but in shuffled order,
-     *     or null if the input is null
+     * @return A new byte array containing the same elements as the input but in shuffled order, or
+     *     null if the input is null
      */
     @Override
     protected byte[] modifyImplementationHook(byte[] input) {

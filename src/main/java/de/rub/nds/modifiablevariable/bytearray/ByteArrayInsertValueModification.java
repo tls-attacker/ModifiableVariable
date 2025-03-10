@@ -23,7 +23,7 @@ import java.util.Objects;
  * particularly useful for testing protocol implementations.
  *
  * <p>This modification is especially valuable for:
- * 
+ *
  * <ul>
  *   <li>Testing protocol parsers with unexpected additional data
  *   <li>Injecting malicious payloads at specific offsets
@@ -40,8 +40,8 @@ import java.util.Objects;
  *   <li>It allows insertion at the beginning, middle, or end of the array
  * </ul>
  *
- * <p>When applied, this modification creates a new byte array with the specified bytes inserted
- * at the designated position, preserving all original data before and after the insertion point.
+ * <p>When applied, this modification creates a new byte array with the specified bytes inserted at
+ * the designated position, preserving all original data before and after the insertion point.
  *
  * @see ModifiableByteArray
  * @see ByteArrayDeleteModification
@@ -106,10 +106,9 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
      * Modifies the input by inserting bytes at the specified position.
      *
      * <p>This method creates a new byte array with the specified bytes inserted at the designated
-     * position. It works by:
-     * 1. Copying the portion of the input array before the insertion point
-     * 2. Adding the bytes to insert
-     * 3. Appending the remainder of the input array after the insertion point
+     * position. It works by: 1. Copying the portion of the input array before the insertion point
+     * 2. Adding the bytes to insert 3. Appending the remainder of the input array after the
+     * insertion point
      *
      * <p>The position calculation handles various edge cases gracefully:
      *
@@ -123,8 +122,8 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
      * optimal performance even with large arrays.
      *
      * @param input The original byte array
-     * @return A new byte array with the bytes inserted at the specified position,
-     *     or null if input was null
+     * @return A new byte array with the bytes inserted at the specified position, or null if input
+     *     was null
      */
     @Override
     protected byte[] modifyImplementationHook(byte[] input) {

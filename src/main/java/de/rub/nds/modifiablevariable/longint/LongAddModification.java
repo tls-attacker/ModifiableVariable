@@ -64,9 +64,9 @@ public class LongAddModification extends VariableModification<Long> {
     /**
      * Modifies the input by adding the summand.
      *
-     * <p>Note that this operation may cause long overflow if the sum of the input and the
-     * summand exceeds Long.MAX_VALUE or falls below Long.MIN_VALUE. In such cases, the result
-     * will wrap around according to Java's long arithmetic.
+     * <p>Note that this operation may cause long overflow if the sum of the input and the summand
+     * exceeds Long.MAX_VALUE or falls below Long.MIN_VALUE. In such cases, the result will wrap
+     * around according to Java's long arithmetic.
      *
      * @param input The long value to modify
      * @return The result of adding the summand to the input, or null if the input is null
@@ -110,8 +110,8 @@ public class LongAddModification extends VariableModification<Long> {
     }
 
     /**
-     * Checks if this modification is equal to another object. Two LongAddModification instances
-     * are considered equal if they have the same summand.
+     * Checks if this modification is equal to another object. Two LongAddModification instances are
+     * considered equal if they have the same summand.
      *
      * @param obj The object to compare with
      * @return true if the objects are equal, false otherwise

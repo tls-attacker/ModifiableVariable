@@ -69,7 +69,8 @@ public class BigIntegerShiftRightModification extends VariableModification<BigIn
      * toward zero). This operation preserves the sign of the original value.
      *
      * @param input The BigInteger value to modify
-     * @return The result of shifting the input right by the specified amount, or null if input is null
+     * @return The result of shifting the input right by the specified amount, or null if input is
+     *     null
      */
     @Override
     protected BigInteger modifyImplementationHook(BigInteger input) {

@@ -15,8 +15,8 @@ import java.util.Objects;
  * A modification that subtracts a constant value from a ModifiableLong.
  *
  * <p>This modification subtracts a specified long value (subtrahend) from the input value when
- * applied. It can be used to decrement long values at runtime, which is particularly useful
- * for testing protocol implementations.
+ * applied. It can be used to decrement long values at runtime, which is particularly useful for
+ * testing protocol implementations.
  *
  * <p>Key testing scenarios where this modification is valuable include:
  *
@@ -27,9 +27,9 @@ import java.util.Objects;
  *   <li>Checking boundary validation at long limits (Long.MIN_VALUE, Long.MAX_VALUE)
  * </ul>
  *
- * <p>Unlike addition, subtraction can yield negative results that may test error handling 
- * and range validation in protocol implementations. This makes it particularly useful for
- * testing code that expects unsigned or positive values.
+ * <p>Unlike addition, subtraction can yield negative results that may test error handling and range
+ * validation in protocol implementations. This makes it particularly useful for testing code that
+ * expects unsigned or positive values.
  *
  * <p>Long values provide a much larger range than integers, making this modification suitable for
  * testing protocols that use 64-bit values such as timestamps, file sizes, or cryptographic values.

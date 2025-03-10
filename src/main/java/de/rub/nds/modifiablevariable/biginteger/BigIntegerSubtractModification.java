@@ -15,8 +15,8 @@ import java.util.Objects;
 /**
  * A modification that subtracts a constant value from a ModifiableBigInteger.
  *
- * <p>This modification subtracts a specified BigInteger value (subtrahend) from the input value when
- * applied. It can be used to decrement BigInteger values at runtime.
+ * <p>This modification subtracts a specified BigInteger value (subtrahend) from the input value
+ * when applied. It can be used to decrement BigInteger values at runtime.
  *
  * @see ModifiableBigInteger
  */

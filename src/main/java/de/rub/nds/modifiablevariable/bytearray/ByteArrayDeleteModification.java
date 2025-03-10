@@ -20,7 +20,7 @@ import java.util.Arrays;
  * which is particularly useful for testing protocol implementations.
  *
  * <p>This modification is particularly useful for:
- * 
+ *
  * <ul>
  *   <li>Testing protocol implementations against incomplete data
  *   <li>Removing critical fields or headers from protocol messages
@@ -103,8 +103,8 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
      * Modifies the input by removing bytes from the specified position.
      *
      * <p>This method creates a new byte array with the specified section removed. It effectively
-     * takes the bytes before the deletion point, then concatenates them with the bytes after
-     * the deletion point, creating a shorter array.
+     * takes the bytes before the deletion point, then concatenates them with the bytes after the
+     * deletion point, creating a shorter array.
      *
      * <p>The implementation handles several edge cases to ensure robustness:
      *
