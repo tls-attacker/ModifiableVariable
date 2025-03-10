@@ -65,10 +65,12 @@ public class StringExplicitValueModification extends VariableModification<String
      * modification is applied.
      *
      * @param explicitValue The string that will replace the original value
+     * @throws NullPointerException if explicitValue is null
      */
     public StringExplicitValueModification(String explicitValue) {
         super();
-        this.explicitValue = explicitValue;
+        this.explicitValue =
+                Objects.requireNonNull(explicitValue, "ExplicitValue must not be null");
     }
 
     /**

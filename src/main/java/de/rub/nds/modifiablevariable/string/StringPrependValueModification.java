@@ -58,11 +58,12 @@ public class StringPrependValueModification extends VariableModification<String>
     /**
      * Constructor with a specified prepend value.
      *
-     * @param prependValue The string to prepend to the original value
+     * @param prependValue .*
+     * @throws NullPointerException if prependValue is null
      */
     public StringPrependValueModification(String prependValue) {
         super();
-        this.prependValue = prependValue;
+        this.prependValue = Objects.requireNonNull(prependValue, "PrependValue must not be null");
     }
 
     /**
@@ -111,10 +112,11 @@ public class StringPrependValueModification extends VariableModification<String>
     /**
      * Sets the string value to be prepended to the original value.
      *
-     * @param prependValue The string to prepend
+     * @param prependValue .*
+     * @throws NullPointerException if prependValue is null
      */
     public void setPrependValue(String prependValue) {
-        this.prependValue = prependValue;
+        this.prependValue = Objects.requireNonNull(prependValue, "PrependValue must not be null");
     }
 
     /**

@@ -52,7 +52,7 @@ public class ByteAddModification extends VariableModification<Byte> {
      *
      * @param summand The byte value to add to the original value
      */
-    public ByteAddModification(Byte summand) {
+    public ByteAddModification(byte summand) {
         super();
         this.summand = summand;
     }

@@ -55,7 +55,7 @@ public class ByteSubtractModification extends VariableModification<Byte> {
      *
      * @param subtrahend The byte value to subtract from the original value
      */
-    public ByteSubtractModification(Byte subtrahend) {
+    public ByteSubtractModification(byte subtrahend) {
         super();
         this.subtrahend = subtrahend;
     }

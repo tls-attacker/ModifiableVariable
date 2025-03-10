@@ -13,6 +13,7 @@ import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * A modification that prepends additional bytes to the beginning of a byte array.
@@ -60,11 +61,13 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
      * <p>This constructor sets the bytes that will be prepended to the original byte array when the
      * modification is applied.
      *
-     * @param bytesToPrepend The bytes to prepend to the beginning of the original byte array
+     * @param bytesToPrepend The bytes to prepend to the original byte array
+     * @throws NullPointerException if bytesToPrepend is null
      */
     public ByteArrayPrependValueModification(byte[] bytesToPrepend) {
         super();
-        this.bytesToPrepend = bytesToPrepend;
+        this.bytesToPrepend =
+                Objects.requireNonNull(bytesToPrepend, "BytesToPrepend must not be null");
     }
 
     /**
@@ -127,10 +130,12 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
      * defensive copy. Callers should be careful not to modify the array after passing it to this
      * method.
      *
-     * @param bytesToPrepend The new bytes to prepend
+     * @param bytesToPrepend The new bytes to prepend to the original byte array
+     * @throws NullPointerException if bytesToPrepend is null
      */
     public void setBytesToPrepend(byte[] bytesToPrepend) {
-        this.bytesToPrepend = bytesToPrepend;
+        this.bytesToPrepend =
+                Objects.requireNonNull(bytesToPrepend, "BytesToPrepend must not be null");
     }
 
     /**

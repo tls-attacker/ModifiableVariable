@@ -35,10 +35,11 @@ public class BigIntegerAddModification extends VariableModification<BigInteger> 
      * Creates a new addition modification with the specified summand.
      *
      * @param summand The value to add to the original BigInteger
+     * @throws NullPointerException if summand is null
      */
     public BigIntegerAddModification(BigInteger summand) {
         super();
-        this.summand = summand;
+        this.summand = Objects.requireNonNull(summand, "Summand must not be null");
     }
 
     /**

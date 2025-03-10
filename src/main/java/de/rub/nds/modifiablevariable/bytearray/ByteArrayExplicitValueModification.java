@@ -13,6 +13,7 @@ import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * A modification that replaces the original byte array with an explicitly defined value.
@@ -65,10 +66,12 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
      * modification is applied.
      *
      * @param explicitValue The byte array that will replace the original value
+     * @throws NullPointerException if explicitValue is null
      */
     public ByteArrayExplicitValueModification(byte[] explicitValue) {
         super();
-        this.explicitValue = explicitValue;
+        this.explicitValue =
+                Objects.requireNonNull(explicitValue, "ExplicitValue must not be null");
     }
 
     /**

@@ -12,10 +12,12 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
- * A modification that adds a constant value to an Integer.
+ * A modification that adds a constant value to a ModifiableInteger.
  *
  * <p>This modification adds a specified integer value (summand) to the input value when applied. It
  * can be used to increment or decrement integer values at runtime.
+ *
+ * @see ModifiableInteger
  */
 @XmlRootElement
 public class IntegerAddModification extends VariableModification<Integer> {
@@ -34,7 +36,7 @@ public class IntegerAddModification extends VariableModification<Integer> {
      *
      * @param summand The value to add to the original integer
      */
-    public IntegerAddModification(Integer summand) {
+    public IntegerAddModification(int summand) {
         super();
         this.summand = summand;
     }
@@ -61,6 +63,10 @@ public class IntegerAddModification extends VariableModification<Integer> {
 
     /**
      * Modifies the input by adding the summand.
+     *
+     * <p>Note that this operation may cause integer overflow if the sum of the input and the
+     * summand exceeds Integer.MAX_VALUE or falls below Integer.MIN_VALUE. In such cases, the result
+     * will wrap around according to Java's integer arithmetic.
      *
      * @param input The integer value to modify
      * @return The result of adding the summand to the input, or null if the input is null

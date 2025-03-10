@@ -72,7 +72,7 @@ public class IntegerXorModification extends VariableModification<Integer> {
      *
      * @param xor The integer value to use as the XOR mask
      */
-    public IntegerXorModification(Integer xor) {
+    public IntegerXorModification(int xor) {
         super();
         this.xor = xor;
     }

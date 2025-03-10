@@ -54,7 +54,7 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
      *
      * @param explicitValue The byte value that will replace the original value
      */
-    public ByteExplicitValueModification(Byte explicitValue) {
+    public ByteExplicitValueModification(byte explicitValue) {
         super();
         this.explicitValue = explicitValue;
     }

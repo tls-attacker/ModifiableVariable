@@ -13,6 +13,7 @@ import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * A modification that shuffles elements within a byte array.
@@ -57,10 +58,11 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
      * Creates a new shuffle modification with the specified shuffle pattern.
      *
      * @param shuffle The byte array containing the shuffle pattern defining which indices to swap
+     * @throws NullPointerException if shuffle is null
      */
     public ByteArrayShuffleModification(byte[] shuffle) {
         super();
-        this.shuffle = shuffle;
+        this.shuffle = Objects.requireNonNull(shuffle, "Shuffle pattern must not be null");
     }
 
     /**
@@ -142,9 +144,10 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
      * Sets the shuffle pattern array.
      *
      * @param shuffle The byte array containing the shuffle pattern defining which indices to swap
+     * @throws NullPointerException if shuffle is null
      */
     public void setShuffle(byte[] shuffle) {
-        this.shuffle = shuffle;
+        this.shuffle = Objects.requireNonNull(shuffle, "Shuffle pattern must not be null");
     }
 
     /**

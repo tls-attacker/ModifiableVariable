@@ -72,7 +72,7 @@ public class LongXorModification extends VariableModification<Long> {
      *
      * @param xor The long value to use as the XOR mask
      */
-    public LongXorModification(Long xor) {
+    public LongXorModification(long xor) {
         super();
         this.xor = xor;
     }

@@ -66,7 +66,7 @@ public class LongSubtractModification extends VariableModification<Long> {
      *
      * @param subtrahend The long value to subtract from the original value
      */
-    public LongSubtractModification(Long subtrahend) {
+    public LongSubtractModification(long subtrahend) {
         super();
         this.subtrahend = subtrahend;
     }

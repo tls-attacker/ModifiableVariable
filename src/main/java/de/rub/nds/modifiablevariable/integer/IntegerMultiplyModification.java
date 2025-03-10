@@ -59,7 +59,7 @@ public class IntegerMultiplyModification extends VariableModification<Integer> {
      *
      * @param factor The factor to multiply the original value by
      */
-    public IntegerMultiplyModification(Integer factor) {
+    public IntegerMultiplyModification(int factor) {
         super();
         this.factor = factor;
     }
@@ -118,9 +118,10 @@ public class IntegerMultiplyModification extends VariableModification<Integer> {
      * Sets the factor by which the original value will be multiplied.
      *
      * @param factor The new multiplication factor
+     * @throws NullPointerException if factor is null
      */
     public void setFactor(Integer factor) {
-        this.factor = factor;
+        this.factor = Objects.requireNonNull(factor, "Factor must not be null");
     }
 
     /**

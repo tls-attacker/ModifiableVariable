@@ -63,7 +63,7 @@ public class IntegerExplicitValueModification extends VariableModification<Integ
      *
      * @param explicitValue The value that will replace the original value
      */
-    public IntegerExplicitValueModification(Integer explicitValue) {
+    public IntegerExplicitValueModification(int explicitValue) {
         super();
         this.explicitValue = explicitValue;
     }

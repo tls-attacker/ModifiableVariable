@@ -94,7 +94,9 @@ public class ModifiableInteger extends ModifiableVariable<Integer> {
     }
 
     /**
-     * Converts the integer value to a byte array of the specified size.
+     * Converts the integer value to a byte array of the specified size. If the size is too small,
+     * the most significant bytes are truncated. If the size is too large, the byte array is padded
+     * with zeros.
      *
      * @param size The size of the resulting byte array
      * @return The byte array representation of the integer

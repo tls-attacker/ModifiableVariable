@@ -73,10 +73,11 @@ public class StringInsertValueModification extends VariableModification<String> 
      *
      * @param insertValue The string to insert into the original string
      * @param startPosition The position at which to insert the string (0-based index)
+     * @throws NullPointerException if insertValue is null
      */
     public StringInsertValueModification(String insertValue, int startPosition) {
         super();
-        this.insertValue = insertValue;
+        this.insertValue = Objects.requireNonNull(insertValue, "InsertValue must not be null");
         this.startPosition = startPosition;
     }
 

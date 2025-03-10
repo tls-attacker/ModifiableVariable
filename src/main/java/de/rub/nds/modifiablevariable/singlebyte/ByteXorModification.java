@@ -46,7 +46,7 @@ public class ByteXorModification extends VariableModification<Byte> {
      *
      * @param xor The byte value to XOR with the input
      */
-    public ByteXorModification(Byte xor) {
+    public ByteXorModification(byte xor) {
         super();
         this.xor = xor;
     }

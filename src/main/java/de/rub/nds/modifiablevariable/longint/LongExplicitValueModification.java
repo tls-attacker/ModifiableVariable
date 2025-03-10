@@ -63,7 +63,7 @@ public class LongExplicitValueModification extends VariableModification<Long> {
      *
      * @param explicitValue The value that will replace the original value
      */
-    public LongExplicitValueModification(Long explicitValue) {
+    public LongExplicitValueModification(long explicitValue) {
         super();
         this.explicitValue = explicitValue;
     }

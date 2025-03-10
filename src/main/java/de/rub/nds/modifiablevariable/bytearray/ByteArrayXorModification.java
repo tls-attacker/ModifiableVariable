@@ -13,6 +13,7 @@ import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * A modification that applies an XOR operation to a portion of a byte array.
@@ -46,10 +47,11 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
      *
      * @param xor The byte array to XOR with the original value
      * @param startPosition The position in the original array to start the XOR operation
+     * @throws NullPointerException if xor is null
      */
     public ByteArrayXorModification(byte[] xor, int startPosition) {
         super();
-        this.xor = xor;
+        this.xor = Objects.requireNonNull(xor, "XOR array must not be null");
         this.startPosition = startPosition;
     }
 

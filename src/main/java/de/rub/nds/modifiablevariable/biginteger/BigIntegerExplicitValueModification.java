@@ -57,10 +57,12 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
      * is applied.
      *
      * @param explicitValue The value that will replace the original value
+     * @throws NullPointerException if explicitValue is null
      */
     public BigIntegerExplicitValueModification(BigInteger explicitValue) {
         super();
-        this.explicitValue = explicitValue;
+        this.explicitValue =
+                Objects.requireNonNull(explicitValue, "ExplicitValue must not be null");
     }
 
     /**

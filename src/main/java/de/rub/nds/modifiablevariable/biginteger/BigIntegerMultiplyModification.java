@@ -54,10 +54,11 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
      * Creates a new modification with the specified multiplication factor.
      *
      * @param factor The BigInteger to multiply the original value by
+     * @throws NullPointerException if factor is null
      */
     public BigIntegerMultiplyModification(BigInteger factor) {
         super();
-        this.factor = factor;
+        this.factor = Objects.requireNonNull(factor, "Factor must not be null");
     }
 
     /**

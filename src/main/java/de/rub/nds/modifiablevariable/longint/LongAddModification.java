@@ -59,7 +59,7 @@ public class LongAddModification extends VariableModification<Long> {
      *
      * @param summand The value to add to the original long
      */
-    public LongAddModification(Long summand) {
+    public LongAddModification(long summand) {
         super();
         this.summand = summand;
     }

@@ -67,7 +67,7 @@ public class LongMultiplyModification extends VariableModification<Long> {
      *
      * @param factor The long value to multiply the original value by
      */
-    public LongMultiplyModification(Long factor) {
+    public LongMultiplyModification(long factor) {
         super();
         this.factor = factor;
     }

@@ -48,10 +48,11 @@ public class StringAppendValueModification extends VariableModification<String> 
      * Creates a new append modification with the specified string value.
      *
      * @param appendValue The string to append to the input
+     * @throws NullPointerException if appendValue is null
      */
     public StringAppendValueModification(String appendValue) {
         super();
-        this.appendValue = appendValue;
+        this.appendValue = Objects.requireNonNull(appendValue, "AppendValue must not be null");
     }
 
     /**

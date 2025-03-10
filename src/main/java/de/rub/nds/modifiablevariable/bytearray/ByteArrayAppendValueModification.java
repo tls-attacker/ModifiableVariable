@@ -13,6 +13,7 @@ import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * A modification that appends additional bytes to the end of a byte array.
@@ -60,11 +61,13 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
      * <p>This constructor sets the bytes that will be appended to the original byte array when the
      * modification is applied.
      *
-     * @param bytesToAppend The bytes to append to the end of the original byte array
+     * @param bytesToAppend The bytes to append to the original byte array
+     * @throws NullPointerException if bytesToAppend is null
      */
     public ByteArrayAppendValueModification(byte[] bytesToAppend) {
         super();
-        this.bytesToAppend = bytesToAppend;
+        this.bytesToAppend =
+                Objects.requireNonNull(bytesToAppend, "BytesToAppend must not be null");
     }
 
     /**
@@ -120,10 +123,12 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
     /**
      * Sets the bytes that will be appended to the original byte array.
      *
-     * @param bytesToAppend The new bytes to append
+     * @param bytesToAppend The new bytes to append to the original byte array
+     * @throws NullPointerException if bytesToAppend is null
      */
     public void setBytesToAppend(byte[] bytesToAppend) {
-        this.bytesToAppend = bytesToAppend;
+        this.bytesToAppend =
+                Objects.requireNonNull(bytesToAppend, "BytesToAppend must not be null");
     }
 
     /**

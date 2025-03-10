@@ -63,11 +63,12 @@ public class BigIntegerXorModification extends VariableModification<BigInteger> 
      * <p>This constructor sets the BigInteger value that will be XORed with the original value when
      * the modification is applied.
      *
-     * @param xor The BigInteger value to XOR with the original value
+     * @param xor The BigInteger to XOR with the original value
+     * @throws NullPointerException if xor is null
      */
     public BigIntegerXorModification(BigInteger xor) {
         super();
-        this.xor = xor;
+        this.xor = Objects.requireNonNull(xor, "Xor must not be null");
     }
 
     /**
@@ -108,10 +109,11 @@ public class BigIntegerXorModification extends VariableModification<BigInteger> 
     /**
      * Sets the BigInteger value that will be XORed with the original value.
      *
-     * @param xor The new BigInteger XOR value
+     * @param xor The new BigInteger value to use for XOR operations
+     * @throws NullPointerException if xor is null
      */
     public void setXor(BigInteger xor) {
-        this.xor = xor;
+        this.xor = Objects.requireNonNull(xor, "Xor must not be null");
     }
 
     @Override

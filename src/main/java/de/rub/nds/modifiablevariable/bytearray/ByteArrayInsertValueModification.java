@@ -13,6 +13,7 @@ import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * A modification that inserts a byte array at a specified position within the original byte array.
@@ -73,10 +74,12 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
      *
      * @param bytesToInsert The bytes to insert into the original array
      * @param startPosition The position at which to insert the bytes (0-based index)
+     * @throws NullPointerException if bytesToInsert is null
      */
     public ByteArrayInsertValueModification(byte[] bytesToInsert, int startPosition) {
         super();
-        this.bytesToInsert = bytesToInsert;
+        this.bytesToInsert =
+                Objects.requireNonNull(bytesToInsert, "BytesToInsert must not be null");
         this.startPosition = startPosition;
     }
 
@@ -151,9 +154,11 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
      * Sets the bytes that will be inserted into the original array.
      *
      * @param bytesToInsert The new bytes to insert
+     * @throws NullPointerException if bytesToInsert is null
      */
     public void setBytesToInsert(byte[] bytesToInsert) {
-        this.bytesToInsert = bytesToInsert;
+        this.bytesToInsert =
+                Objects.requireNonNull(bytesToInsert, "BytesToInsert must not be null");
     }
 
     /**
