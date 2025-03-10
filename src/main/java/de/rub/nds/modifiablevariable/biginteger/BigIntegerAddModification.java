@@ -63,8 +63,7 @@ public class BigIntegerAddModification extends VariableModification<BigInteger> 
     }
 
     /**
-     * Modifies the input by adding the summand. Utilizes BigInteger's add method for arbitrary
-     * precision addition.
+     * Modifies the input by adding the summand.
      *
      * @param input The BigInteger value to modify
      * @return The result of adding the summand to the input, or null if the input is null
