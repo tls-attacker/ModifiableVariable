@@ -19,32 +19,12 @@ import java.util.Objects;
  * A modification that inserts bytes at a specified position within a ModifiableByteArray.
  *
  * <p>This modification takes the original byte array and inserts additional bytes at a specified
- * position when applied. It can be used to inject data into specific locations at runtime, which is
- * particularly useful for testing protocol implementations.
- *
- * <p>This modification is especially valuable for:
- *
- * <ul>
- *   <li>Testing protocol parsers with unexpected additional data
- *   <li>Injecting malicious payloads at specific offsets
- *   <li>Manipulating binary formats by adding fields or values
- *   <li>Testing protocol robustness against modified messages
- *   <li>Creating test cases for length field validation
- * </ul>
- *
- * <p>The implementation handles various edge cases gracefully:
- *
- * <ul>
- *   <li>If the start position is negative, it wraps around to insert from the end of the array
- *   <li>If the start position exceeds the array length, it wraps around using modulo arithmetic
- *   <li>It allows insertion at the beginning, middle, or end of the array
- * </ul>
+ * position when applied. It can be used to inject data into specific locations at runtime.
  *
  * <p>When applied, this modification creates a new byte array with the specified bytes inserted at
  * the designated position, preserving all original data before and after the insertion point.
  *
  * @see ModifiableByteArray
- * @see ByteArrayDeleteModification
  * @see ByteArrayAppendValueModification
  * @see ByteArrayPrependValueModification
  */
@@ -115,7 +95,6 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
      * <ul>
      *   <li>If the position is negative, it wraps around to insert from the end of the array
      *   <li>If the position exceeds the array length, it's adjusted using modulo arithmetic
-     *   <li>Special handling for insertion at the end of the array ensures correct behavior
      * </ul>
      *
      * <p>The implementation uses ArrayConverter for efficient concatenation operations, ensuring
@@ -161,7 +140,7 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
      */
     public void setBytesToInsert(byte[] bytesToInsert) {
         this.bytesToInsert =
-                Objects.requireNonNull(bytesToInsert, "BytesToInsert must not be null");
+                Objects.requireNonNull(bytesToInsert, "bytesToInsert must not be null");
     }
 
     /**

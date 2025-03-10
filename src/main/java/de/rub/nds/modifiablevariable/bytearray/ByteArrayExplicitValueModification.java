@@ -100,7 +100,8 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
      * @param explicitValue The new explicit byte array to use
      */
     public void setExplicitValue(byte[] explicitValue) {
-        this.explicitValue = explicitValue;
+        this.explicitValue =
+                Objects.requireNonNull(explicitValue, "ExplicitValue must not be null");
     }
 
     /**

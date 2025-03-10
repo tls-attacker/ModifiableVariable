@@ -16,26 +16,7 @@ import java.util.Arrays;
  * A modification that deletes a portion of a ModifiableByteArray.
  *
  * <p>This modification removes a specified number of bytes from the original byte array starting at
- * a specified position when applied. It can be used to create truncated or partial data at runtime,
- * which is particularly useful for testing protocol implementations.
- *
- * <p>This modification is particularly useful for:
- *
- * <ul>
- *   <li>Testing protocol implementations against incomplete data
- *   <li>Removing critical fields or headers from protocol messages
- *   <li>Creating malformed data by removing checksums or length fields
- *   <li>Testing parser robustness when expected data is missing
- *   <li>Simulating packet loss or truncation scenarios
- * </ul>
- *
- * <p>The implementation handles various edge cases gracefully:
- *
- * <ul>
- *   <li>Empty input arrays
- *   <li>Negative start positions (wraps around to the end of the array)
- *   <li>Deletion that extends beyond the array bounds (truncates at the end)
- * </ul>
+ * a specified position when applied. It can be used to create truncated or partial data at runtime.
  *
  * <p>The result is always a new byte array with the specified portion removed, preserving the
  * immutability of the original data.
@@ -59,15 +40,6 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
 
     /**
      * Creates a new delete modification with the specified parameters.
-     *
-     * <p>Example:
-     *
-     * <pre>{@code
-     * // Create a modification that deletes 2 bytes starting at position 3
-     * ByteArrayDeleteModification mod = new ByteArrayDeleteModification(3, 2);
-     * byte[] original = new byte[]{0, 1, 2, 3, 4, 5, 6};
-     * byte[] modified = mod.modify(original); // Result: {0, 1, 2, 5, 6}
-     * }</pre>
      *
      * @param startPosition The position from which to start deleting (0-based index)
      * @param count The number of bytes to delete
@@ -114,9 +86,6 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
      *   <li>If startPosition is negative, it wraps around to the end of the array
      *   <li>If deletion would extend beyond the array bounds, it's truncated at the end
      * </ul>
-     *
-     * <p>This behavior ensures that the modification always produces valid output even with
-     * edge-case inputs, making it particularly suitable for robust testing scenarios.
      *
      * @param input The byte array to modify
      * @return A new byte array with the specified portion removed, or null if input was null

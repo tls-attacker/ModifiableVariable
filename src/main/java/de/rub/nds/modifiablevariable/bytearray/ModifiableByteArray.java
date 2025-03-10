@@ -31,11 +31,15 @@ import java.util.Arrays;
  *   <li>Shuffling bytes
  * </ul>
  *
- * <p>Byte arrays are commonly used in cryptographic protocols to represent various binary data
- * structures, messages, and cryptographic values.
- *
- * <p>This class uses property-based XML access to properly handle byte array serialization with the
- * help of {@link UnformattedByteArrayAdapter}.
+ * @see ModifiableVariable
+ * @see ByteArrayAppendValueModification
+ * @see ByteArrayPrependValueModification
+ * @see ByteArrayInsertValueModification
+ * @see ByteArrayDeleteModification
+ * @see ByteArrayDuplicateModification
+ * @see ByteArrayXorModification
+ * @see ByteArrayShuffleModification
+ * 
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
@@ -134,11 +138,15 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
      * <p>This method uses Arrays.equals() to properly compare the byte arrays.
      *
      * @return true if the value has been modified, false otherwise
+     * @throws IllegalStateException if the original value is null
      */
     @Override
     public boolean isOriginalValueModified() {
-        return originalValue != null && !Arrays.equals(originalValue, getValue());
-    }
+        if(originalValue == null) {
+            throw new IllegalStateException("Original value must not be null");
+        }else {
+            return !Arrays.equals(originalValue, getValue());
+        }}
 
     /**
      * Validates whether the modified value matches the expected value (if set).

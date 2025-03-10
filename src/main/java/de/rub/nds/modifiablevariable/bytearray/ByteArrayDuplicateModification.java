@@ -15,24 +15,10 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * A modification that duplicates a ModifiableByteArray by concatenating it with itself.
  *
  * <p>This modification takes the original byte array and appends a copy of itself, effectively
- * doubling its length. It can be used to create repeated data sequences at runtime, which is
- * particularly useful for testing protocol implementations.
- *
- * <p>This modification is particularly useful for:
- *
- * <ul>
- *   <li>Testing protocol implementations with repeated data segments
- *   <li>Stressing length validation mechanisms in parsers
- *   <li>Verifying buffer overflow protections
- *   <li>Testing how systems handle unexpected data repetition
- *   <li>Creating payload patterns that might trigger edge cases in pattern recognition
- * </ul>
+ * doubling its length. It can be used to create repeated data sequences at runtime.
  *
  * <p>For example, given the byte array {@code {0x01, 0x02, 0x03}}, this modification would produce
  * {@code {0x01, 0x02, 0x03, 0x01, 0x02, 0x03}}.
- *
- * <p>This modification is stateless as it has no configuration parameters. All instances of this
- * class behave identically and are considered equal when compared.
  *
  * @see ModifiableByteArray
  * @see ByteArrayAppendValueModification
@@ -47,8 +33,6 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
 
     /**
      * Copy constructor for creating a deep copy of an existing modification.
-     *
-     * <p>Since this modification is stateless, all instances are equivalent.
      *
      * @param other The modification to copy
      */
@@ -133,6 +117,6 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
      */
     @Override
     public String toString() {
-        return "ByteArrayDuplicateModification{" + '}';
+        return "ByteArrayDuplicateModification{}";
     }
 }

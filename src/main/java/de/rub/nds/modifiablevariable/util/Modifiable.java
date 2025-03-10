@@ -705,7 +705,7 @@ public final class Modifiable {
      * @param shuffle The byte array defining the shuffle pattern
      * @return A ModifiableByteArray that shuffles according to the specified pattern
      */
-    public static ModifiableByteArray shuffle(byte[] shuffle) {
+    public static ModifiableByteArray shuffle(int[] shuffle) {
         return getModifiableByteArrayWithModification(new ByteArrayShuffleModification(shuffle));
     }
 

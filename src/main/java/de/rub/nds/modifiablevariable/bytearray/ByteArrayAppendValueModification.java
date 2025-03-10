@@ -19,18 +19,7 @@ import java.util.Objects;
  * A modification that appends additional bytes to the end of a ModifiableByteArray.
  *
  * <p>This modification takes the original byte array and concatenates a specified array of bytes to
- * its end. It's useful for testing protocol implementations with data that has additional bytes
- * appended, which can help identify issues with length verification or parsing of variable-length
- * fields.
- *
- * <p>This modification is particularly useful for:
- *
- * <ul>
- *   <li>Testing protocol implementations' handling of trailing data
- *   <li>Adding signature or checksum bytes to the end of a message
- *   <li>Simulating padding or alignment bytes
- *   <li>Testing robustness against unexpected trailing data
- * </ul>
+ * its end.
  *
  * <p>When applied, this modification creates a new byte array that is the concatenation of the
  * original byte array followed by the bytes to append. The original byte array remains unchanged.
@@ -63,7 +52,7 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
     public ByteArrayAppendValueModification(byte[] bytesToAppend) {
         super();
         this.bytesToAppend =
-                Objects.requireNonNull(bytesToAppend, "BytesToAppend must not be null");
+                Objects.requireNonNull(bytesToAppend, "bytesToAppend must not be null");
     }
 
     /**
@@ -97,8 +86,7 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
      * bytes followed by the bytes to append.
      *
      * <p>Note that this operation creates a new array that is longer than the original input by the
-     * length of the bytes to append. This can be useful for testing how protocol implementations
-     * handle unexpected additional data at the end of messages.
+     * length of the bytes to append. The original input remains unchanged.
      *
      * @param input The original byte array
      * @return A new byte array with the bytes appended, or null if input was null

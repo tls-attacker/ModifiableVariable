@@ -19,23 +19,14 @@ import java.util.Objects;
  * A modification that prepends additional bytes to the beginning of a ModifiableByteArray.
  *
  * <p>This modification takes the original byte array and adds a specified array of bytes to its
- * beginning. It's useful for testing protocol implementations with prefixed data, which can help
- * identify issues with header processing, length validation, or data parsing.
- *
- * <p>This modification is particularly useful for:
- *
- * <ul>
- *   <li>Testing protocol implementations that rely on specific header bytes
- *   <li>Adding marker bytes or magic values to the start of a message
- *   <li>Simulating protocol version or type indicators at the beginning of data
- *   <li>Manipulating length fields by adding data at the start of messages
- * </ul>
+ * beginning.
  *
  * <p>When applied, this modification creates a new byte array that is the concatenation of the
  * bytes to prepend followed by the original byte array. The original byte array remains unchanged.
  *
  * @see ModifiableByteArray
  * @see ByteArrayAppendValueModification
+ * @see ByteArrayInsertValueModification
  */
 @XmlRootElement
 public class ByteArrayPrependValueModification extends VariableModification<byte[]> {
@@ -62,7 +53,7 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
     public ByteArrayPrependValueModification(byte[] bytesToPrepend) {
         super();
         this.bytesToPrepend =
-                Objects.requireNonNull(bytesToPrepend, "BytesToPrepend must not be null");
+                Objects.requireNonNull(bytesToPrepend, "bytesToPrepend must not be null");
     }
 
     /**
@@ -113,9 +104,6 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
     /**
      * Gets the bytes that will be prepended to the original byte array.
      *
-     * <p>Note that this method returns a direct reference to the internal bytes to prepend, not a
-     * defensive copy. Callers should be careful not to modify the returned array.
-     *
      * @return The bytes to prepend
      */
     public byte[] getBytesToPrepend() {
@@ -125,16 +113,12 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
     /**
      * Sets the bytes that will be prepended to the original byte array.
      *
-     * <p>Note that this method stores a direct reference to the provided byte array, not a
-     * defensive copy. Callers should be careful not to modify the array after passing it to this
-     * method.
-     *
      * @param bytesToPrepend The new bytes to prepend to the original byte array
      * @throws NullPointerException if bytesToPrepend is null
      */
     public void setBytesToPrepend(byte[] bytesToPrepend) {
         this.bytesToPrepend =
-                Objects.requireNonNull(bytesToPrepend, "BytesToPrepend must not be null");
+                Objects.requireNonNull(bytesToPrepend, "bytesToPrepend must not be null");
     }
 
     /**
