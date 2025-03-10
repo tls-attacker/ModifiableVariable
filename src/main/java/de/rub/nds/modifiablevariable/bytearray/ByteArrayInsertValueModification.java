@@ -59,14 +59,9 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
     /** The position at which to insert the bytes (0-based index) */
     private int startPosition;
 
-    /**
-     * Default constructor for JAXB deserialization.
-     *
-     * <p>When using this constructor, the bytes to insert and start position must be set via {@link
-     * #setBytesToInsert(byte[])} and {@link #setStartPosition(int)} before applying the
-     * modification.
-     */
-    public ByteArrayInsertValueModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private ByteArrayInsertValueModification() {
         super();
     }
 

@@ -55,13 +55,9 @@ public class StringDeleteModification extends VariableModification<String> {
     /** The position from which to start deletion (0-based index) */
     private int startPosition;
 
-    /**
-     * Default constructor for JAXB deserialization.
-     *
-     * <p>When using this constructor, the count and start position must be set via {@link
-     * #setCount(int)} and {@link #setStartPosition(int)} before applying the modification.
-     */
-    public StringDeleteModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private StringDeleteModification() {
         super();
     }
 

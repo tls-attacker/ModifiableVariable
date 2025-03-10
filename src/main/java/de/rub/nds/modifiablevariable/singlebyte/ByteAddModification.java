@@ -42,7 +42,8 @@ public class ByteAddModification extends VariableModification<Byte> {
     private Byte summand;
 
     /** Default constructor for serialization. */
-    public ByteAddModification() {
+    @SuppressWarnings("unused")
+    private ByteAddModification() {
         super();
     }
 

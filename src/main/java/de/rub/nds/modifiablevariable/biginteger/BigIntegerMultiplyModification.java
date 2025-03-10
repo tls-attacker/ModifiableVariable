@@ -44,13 +44,9 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
     /** The factor to multiply by */
     private BigInteger factor;
 
-    /**
-     * Default constructor for JAXB deserialization.
-     *
-     * <p>When using this constructor, the factor must be set via {@link #setFactor(BigInteger)}
-     * before applying the modification.
-     */
-    public BigIntegerMultiplyModification() {
+    /** Default constructor for XML serialization. */
+    @SuppressWarnings("unused")
+    private BigIntegerMultiplyModification() {
         super();
     }
 

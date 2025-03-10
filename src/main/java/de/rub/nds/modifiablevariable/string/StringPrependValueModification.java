@@ -50,7 +50,8 @@ public class StringPrependValueModification extends VariableModification<String>
     private String prependValue;
 
     /** Default constructor for serialization. */
-    public StringPrependValueModification() {
+    @SuppressWarnings("unused")
+    private StringPrependValueModification() {
         super();
     }
 

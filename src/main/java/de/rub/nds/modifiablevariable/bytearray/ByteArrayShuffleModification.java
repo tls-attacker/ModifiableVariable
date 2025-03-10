@@ -47,13 +47,9 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] shuffle;
 
-    /**
-     * Default constructor creating an uninitialized modification.
-     *
-     * <p>The shuffle array must be set via {@link #setShuffle(byte[])} before this modification can
-     * be applied.
-     */
-    public ByteArrayShuffleModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private ByteArrayShuffleModification() {
         super();
     }
 

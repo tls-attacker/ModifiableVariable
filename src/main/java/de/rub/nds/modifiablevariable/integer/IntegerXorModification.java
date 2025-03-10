@@ -61,13 +61,9 @@ public class IntegerXorModification extends VariableModification<Integer> {
     /** The XOR mask to apply to the original integer */
     private Integer xor;
 
-    /**
-     * Default constructor for JAXB deserialization.
-     *
-     * <p>When using this constructor, the XOR mask must be set via {@link #setXor(Integer)} before
-     * applying the modification.
-     */
-    public IntegerXorModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private IntegerXorModification() {
         super();
     }
 

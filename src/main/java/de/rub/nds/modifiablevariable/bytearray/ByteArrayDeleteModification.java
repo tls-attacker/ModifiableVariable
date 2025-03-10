@@ -39,13 +39,9 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
     /** The position from which to start deletion (0-based index) */
     private int startPosition;
 
-    /**
-     * Default constructor. Initializes an uninitialized modification.
-     *
-     * <p>When using this constructor, the startPosition and count must be set using the setter
-     * methods before applying the modification.
-     */
-    public ByteArrayDeleteModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private ByteArrayDeleteModification() {
         super();
     }
 

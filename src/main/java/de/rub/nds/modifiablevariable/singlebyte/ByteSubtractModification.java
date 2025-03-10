@@ -45,7 +45,8 @@ public class ByteSubtractModification extends VariableModification<Byte> {
     private Byte subtrahend;
 
     /** Default constructor for serialization. */
-    public ByteSubtractModification() {
+    @SuppressWarnings("unused")
+    private ByteSubtractModification() {
         super();
     }
 

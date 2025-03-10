@@ -48,13 +48,9 @@ public class BigIntegerShiftLeftModification extends VariableModification<BigInt
     /** The number of bits to shift left */
     private int shift;
 
-    /**
-     * Default constructor for JAXB deserialization.
-     *
-     * <p>When using this constructor, the shift amount must be set via {@link #setShift(int)}
-     * before applying the modification.
-     */
-    public BigIntegerShiftLeftModification() {
+    /** Default constructor for XML serialization. */
+    @SuppressWarnings("unused")
+    private BigIntegerShiftLeftModification() {
         super();
     }
 

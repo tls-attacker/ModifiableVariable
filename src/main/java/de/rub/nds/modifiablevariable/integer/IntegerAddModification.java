@@ -23,8 +23,9 @@ public class IntegerAddModification extends VariableModification<Integer> {
     /** The value to add to the original integer */
     private Integer summand;
 
-    /** Default constructor for XML serialization. */
-    public IntegerAddModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private IntegerAddModification() {
         super();
     }
 

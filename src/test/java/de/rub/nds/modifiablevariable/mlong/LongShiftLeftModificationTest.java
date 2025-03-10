@@ -81,9 +81,9 @@ public class LongShiftLeftModificationTest {
 
     @Test
     public void testConstructors() {
-        // Test default constructor
-        LongShiftLeftModification defaultConstructor = new LongShiftLeftModification();
-        assertNotNull(defaultConstructor);
+        LongShiftLeftModification constructor = new LongShiftLeftModification(5);
+        assertNotNull(constructor);
+        assertEquals(5, constructor.getShift());
 
         // Test copy constructor
         LongShiftLeftModification copy = new LongShiftLeftModification(modification);

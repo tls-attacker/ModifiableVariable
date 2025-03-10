@@ -44,13 +44,9 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
     /** The explicit value that will replace the original value */
     protected BigInteger explicitValue;
 
-    /**
-     * Default constructor for JAXB deserialization.
-     *
-     * <p>When using this constructor, the explicit value must be set via {@link
-     * #setExplicitValue(BigInteger)} before applying the modification.
-     */
-    public BigIntegerExplicitValueModification() {
+    /** Default constructor for XML serialization. */
+    @SuppressWarnings("unused")
+    private BigIntegerExplicitValueModification() {
         super();
     }
 

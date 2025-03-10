@@ -45,13 +45,9 @@ public class LongAddModification extends VariableModification<Long> {
     /** The value to add to the original long value */
     private Long summand;
 
-    /**
-     * Default constructor for JAXB deserialization.
-     *
-     * <p>When using this constructor, the summand must be set via {@link #setSummand(Long)} before
-     * applying the modification.
-     */
-    public LongAddModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private LongAddModification() {
         super();
     }
 

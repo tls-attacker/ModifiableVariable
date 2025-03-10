@@ -93,7 +93,7 @@ public class ByteArrayShuffleModificationTest {
     /** Test of setShuffle method, of class ByteArrayShuffleModification. */
     @Test
     public void testSetShuffle() {
-        ByteArrayShuffleModification mod = new ByteArrayShuffleModification();
+        ByteArrayShuffleModification mod = new ByteArrayShuffleModification(new byte[] {1, 2, 3});
         mod.setShuffle(new byte[] {5, 6, 7, 8});
         assertArrayEquals(new byte[] {5, 6, 7, 8}, mod.getShuffle());
     }

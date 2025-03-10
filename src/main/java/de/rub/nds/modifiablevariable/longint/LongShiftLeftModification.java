@@ -63,13 +63,9 @@ public class LongShiftLeftModification extends VariableModification<Long> {
     /** The number of bit positions to shift left */
     private int shift;
 
-    /**
-     * Default constructor for JAXB deserialization.
-     *
-     * <p>When using this constructor, the shift amount must be set via {@link #setShift(int)}
-     * before applying the modification.
-     */
-    public LongShiftLeftModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private LongShiftLeftModification() {
         super();
     }
 

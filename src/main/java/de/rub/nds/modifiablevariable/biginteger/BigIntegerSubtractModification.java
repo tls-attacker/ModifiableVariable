@@ -53,13 +53,9 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
     /** The value to subtract from the original BigInteger */
     private BigInteger subtrahend;
 
-    /**
-     * Default constructor for JAXB deserialization.
-     *
-     * <p>When using this constructor, the subtrahend must be set via {@link
-     * #setSubtrahend(BigInteger)} before applying the modification.
-     */
-    public BigIntegerSubtractModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private BigIntegerSubtractModification() {
         super();
     }
 

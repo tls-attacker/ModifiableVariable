@@ -55,13 +55,9 @@ public class LongSubtractModification extends VariableModification<Long> {
     /** The value to subtract from the original long */
     private Long subtrahend;
 
-    /**
-     * Default constructor for JAXB deserialization.
-     *
-     * <p>When using this constructor, the subtrahend must be set via {@link #setSubtrahend(Long)}
-     * before applying the modification.
-     */
-    public LongSubtractModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private LongSubtractModification() {
         super();
     }
 

@@ -46,11 +46,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class ByteArrayDuplicateModification extends VariableModification<byte[]> {
 
-    /**
-     * Default constructor.
-     *
-     * <p>This modification is stateless so no parameters are needed.
-     */
+    /** Default constructor */
     public ByteArrayDuplicateModification() {
         super();
     }

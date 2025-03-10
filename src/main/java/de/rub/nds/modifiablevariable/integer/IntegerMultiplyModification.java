@@ -45,13 +45,9 @@ public class IntegerMultiplyModification extends VariableModification<Integer> {
     /** The factor by which to multiply the original integer value */
     private Integer factor;
 
-    /**
-     * Default constructor for JAXB deserialization.
-     *
-     * <p>When using this constructor, the multiplication factor must be set via {@link
-     * #setFactor(Integer)} before applying the modification.
-     */
-    public IntegerMultiplyModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private IntegerMultiplyModification() {
         super();
     }
 

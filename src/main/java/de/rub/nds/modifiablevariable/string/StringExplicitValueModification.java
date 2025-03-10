@@ -52,13 +52,9 @@ public class StringExplicitValueModification extends VariableModification<String
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     protected String explicitValue;
 
-    /**
-     * Default constructor for JAXB deserialization.
-     *
-     * <p>When using this constructor, the explicit value must be set via {@link
-     * #setExplicitValue(String)} before applying the modification.
-     */
-    public StringExplicitValueModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private StringExplicitValueModification() {
         super();
     }
 

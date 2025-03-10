@@ -48,13 +48,9 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] bytesToPrepend;
 
-    /**
-     * Default constructor for JAXB deserialization.
-     *
-     * <p>When using this constructor, the bytes to prepend must be set via {@link
-     * #setBytesToPrepend(byte[])} before applying the modification.
-     */
-    public ByteArrayPrependValueModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private ByteArrayPrependValueModification() {
         super();
     }
 

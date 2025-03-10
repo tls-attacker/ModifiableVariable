@@ -51,13 +51,9 @@ public class BigIntegerXorModification extends VariableModification<BigInteger> 
     /** The BigInteger value to XOR with the original value */
     private BigInteger xor;
 
-    /**
-     * Default constructor for JAXB deserialization.
-     *
-     * <p>When using this constructor, the XOR value must be set via {@link #setXor(BigInteger)}
-     * before applying the modification.
-     */
-    public BigIntegerXorModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private BigIntegerXorModification() {
         super();
     }
 

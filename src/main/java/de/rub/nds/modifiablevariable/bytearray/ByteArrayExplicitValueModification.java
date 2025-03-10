@@ -52,13 +52,9 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     protected byte[] explicitValue;
 
-    /**
-     * Default constructor for JAXB deserialization.
-     *
-     * <p>When using this constructor, the explicit value must be set via {@link
-     * #setExplicitValue(byte[])} before applying the modification.
-     */
-    public ByteArrayExplicitValueModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private ByteArrayExplicitValueModification() {
         super();
     }
 

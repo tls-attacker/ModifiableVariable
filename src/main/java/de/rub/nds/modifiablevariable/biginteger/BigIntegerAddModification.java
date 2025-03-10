@@ -25,8 +25,9 @@ public class BigIntegerAddModification extends VariableModification<BigInteger> 
     /** The value to add to the original BigInteger */
     private BigInteger summand;
 
-    /** Default constructor for XML serialization. */
-    public BigIntegerAddModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private BigIntegerAddModification() {
         super();
     }
 

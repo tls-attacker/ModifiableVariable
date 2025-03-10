@@ -52,13 +52,9 @@ public class IntegerExplicitValueModification extends VariableModification<Integ
     /** The explicit value that will replace the original value */
     protected Integer explicitValue;
 
-    /**
-     * Default constructor for JAXB deserialization.
-     *
-     * <p>When using this constructor, the explicit value must be set via {@link
-     * #setExplicitValue(Integer)} before applying the modification.
-     */
-    public IntegerExplicitValueModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private IntegerExplicitValueModification() {
         super();
     }
 

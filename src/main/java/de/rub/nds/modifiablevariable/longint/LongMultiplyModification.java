@@ -56,13 +56,9 @@ public class LongMultiplyModification extends VariableModification<Long> {
     /** The factor to multiply by */
     private Long factor;
 
-    /**
-     * Default constructor for JAXB deserialization.
-     *
-     * <p>When using this constructor, the factor must be set via {@link #setFactor(Long)} before
-     * applying the modification.
-     */
-    public LongMultiplyModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private LongMultiplyModification() {
         super();
     }
 

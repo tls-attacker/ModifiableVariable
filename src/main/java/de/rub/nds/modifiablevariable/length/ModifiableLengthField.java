@@ -35,6 +35,13 @@ public class ModifiableLengthField extends ModifiableInteger {
     /** The byte array whose length this field represents */
     private final ModifiableByteArray ref;
 
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private ModifiableLengthField() {
+        super();
+        ref = null;
+    }
+
     /**
      * Constructor that creates a ModifiableLengthField for the specified byte array.
      *

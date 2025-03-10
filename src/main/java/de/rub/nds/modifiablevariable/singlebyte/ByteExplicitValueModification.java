@@ -44,7 +44,8 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
     protected Byte explicitValue;
 
     /** Default constructor for serialization. */
-    public ByteExplicitValueModification() {
+    @SuppressWarnings("unused")
+    private ByteExplicitValueModification() {
         super();
     }
 

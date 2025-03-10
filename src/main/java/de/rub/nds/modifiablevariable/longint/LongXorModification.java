@@ -61,13 +61,9 @@ public class LongXorModification extends VariableModification<Long> {
     /** The XOR mask to apply to the original long */
     private Long xor;
 
-    /**
-     * Default constructor for JAXB deserialization.
-     *
-     * <p>When using this constructor, the XOR mask must be set via {@link #setXor(Long)} before
-     * applying the modification.
-     */
-    public LongXorModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private LongXorModification() {
         super();
     }
 

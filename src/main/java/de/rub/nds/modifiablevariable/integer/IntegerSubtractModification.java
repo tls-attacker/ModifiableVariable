@@ -51,13 +51,9 @@ public class IntegerSubtractModification extends VariableModification<Integer> {
     /** The value to subtract from the original integer */
     private Integer subtrahend;
 
-    /**
-     * Default constructor for JAXB deserialization.
-     *
-     * <p>When using this constructor, the subtrahend must be set via {@link
-     * #setSubtrahend(Integer)} before applying the modification.
-     */
-    public IntegerSubtractModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private IntegerSubtractModification() {
         super();
     }
 

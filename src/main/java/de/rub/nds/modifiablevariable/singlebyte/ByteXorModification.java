@@ -35,8 +35,9 @@ public class ByteXorModification extends VariableModification<Byte> {
     /** The byte value to XOR with the input byte */
     private Byte xor;
 
-    /** Default constructor for XML serialization. */
-    public ByteXorModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private ByteXorModification() {
         super();
     }
 

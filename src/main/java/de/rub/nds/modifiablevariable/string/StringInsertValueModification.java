@@ -59,13 +59,9 @@ public class StringInsertValueModification extends VariableModification<String> 
     /** The position at which to insert the string (0-based index) */
     private int startPosition;
 
-    /**
-     * Default constructor for JAXB deserialization.
-     *
-     * <p>When using this constructor, the insert value and start position must be set via {@link
-     * #setInsertValue(String)} and {@link #setStartPosition(int)} before applying the modification.
-     */
-    public StringInsertValueModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private StringInsertValueModification() {
         super();
     }
 

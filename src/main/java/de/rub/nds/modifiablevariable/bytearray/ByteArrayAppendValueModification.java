@@ -48,13 +48,9 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     private byte[] bytesToAppend;
 
-    /**
-     * Default constructor for JAXB deserialization.
-     *
-     * <p>When using this constructor, the bytes to append must be set via {@link
-     * #setBytesToAppend(byte[])} before applying the modification.
-     */
-    public ByteArrayAppendValueModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private ByteArrayAppendValueModification() {
         super();
     }
 

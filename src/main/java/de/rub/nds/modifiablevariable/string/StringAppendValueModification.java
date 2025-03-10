@@ -38,8 +38,9 @@ public class StringAppendValueModification extends VariableModification<String> 
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     private String appendValue;
 
-    /** Default constructor for XML serialization. */
-    public StringAppendValueModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private StringAppendValueModification() {
         super();
     }
 

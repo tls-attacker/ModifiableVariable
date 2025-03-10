@@ -35,8 +35,9 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
     /** The position in the original byte array where the XOR operation starts */
     private int startPosition;
 
-    /** Default constructor for XML serialization. */
-    public ByteArrayXorModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private ByteArrayXorModification() {
         super();
     }
 
