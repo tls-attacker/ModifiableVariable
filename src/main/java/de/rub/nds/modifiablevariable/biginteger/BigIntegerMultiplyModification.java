@@ -92,8 +92,7 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
      * @param factor The value that will multiply the original BigInteger
      */
     public void setFactor(BigInteger factor) {
-        Objects.requireNonNull(factor, "Factor must not be null");
-        this.factor = factor;
+        this.factor = Objects.requireNonNull(factor, "Factor must not be null");
     }
 
     /**
