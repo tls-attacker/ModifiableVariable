@@ -83,9 +83,9 @@ public class LongMultiplyModificationTest {
 
     @Test
     public void testConstructors() {
-        // Test default constructor
-        LongMultiplyModification defaultConstructor = new LongMultiplyModification();
-        assertNotNull(defaultConstructor);
+        LongMultiplyModification constructor = new LongMultiplyModification(5L);
+        assertNotNull(constructor);
+        assertEquals(5L, constructor.getFactor());
 
         // Test copy constructor
         LongMultiplyModification copy = new LongMultiplyModification(modification);

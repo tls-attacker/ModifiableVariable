@@ -115,20 +115,6 @@ public class IntegerMultiplyModificationTest {
     }
 
     @Test
-    public void testDefaultConstructor() {
-        IntegerMultiplyModification modification = new IntegerMultiplyModification();
-
-        // Set factor after construction
-        modification.setFactor(3);
-
-        modifiableInteger.setModifications(modification);
-        int expected = originalValue * 3;
-        int result = modifiableInteger.getValue();
-
-        assertEquals(expected, result);
-    }
-
-    @Test
     public void testGetFactor() {
         int factor = 5;
         IntegerMultiplyModification modification = new IntegerMultiplyModification(factor);

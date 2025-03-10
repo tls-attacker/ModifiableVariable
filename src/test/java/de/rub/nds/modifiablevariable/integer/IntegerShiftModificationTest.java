@@ -91,7 +91,7 @@ public class IntegerShiftModificationTest {
 
     @Test
     public void testShiftLeftGetterAndSetter() {
-        IntegerShiftLeftModification modification = new IntegerShiftLeftModification();
+        IntegerShiftLeftModification modification = new IntegerShiftLeftModification(5);
 
         int shift = 15;
         modification.setShift(shift);
@@ -178,7 +178,7 @@ public class IntegerShiftModificationTest {
 
     @Test
     public void testShiftRightGetterAndSetter() {
-        IntegerShiftRightModification modification = new IntegerShiftRightModification();
+        IntegerShiftRightModification modification = new IntegerShiftRightModification(5);
 
         int shift = 15;
         modification.setShift(shift);

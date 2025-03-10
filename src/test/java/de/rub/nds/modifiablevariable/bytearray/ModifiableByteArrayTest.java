@@ -319,17 +319,17 @@ public class ModifiableByteArrayTest {
     @Test
     public void testShuffle() {
         LOGGER.info("testShuffle");
-        VariableModification<byte[]> modifier = new ByteArrayShuffleModification(new byte[] {0, 1});
+        VariableModification<byte[]> modifier = new ByteArrayShuffleModification(new int[] {0, 1});
         start.setModifications(modifier);
         byte[] result = {1, 0, 2, 3, 4, 5, 6};
         assertArrayEquals(result, start.getValue());
 
-        modifier = new ByteArrayShuffleModification(new byte[] {0, 1, 2, 3, 4, 5, 6});
+        modifier = new ByteArrayShuffleModification(new int[] {0, 1, 2, 3, 4, 5, 6});
         start.setModifications(modifier);
         result = new byte[] {1, 0, 3, 2, 5, 4, 6};
         assertArrayEquals(result, start.getValue());
 
-        modifier = new ByteArrayShuffleModification(new byte[] {0, 1, 2, 3, 4, 5, 6, 7});
+        modifier = new ByteArrayShuffleModification(new int[] {0, 1, 2, 3, 4, 5, 6, 7});
         start.setModifications(modifier);
         result = new byte[] {6, 0, 3, 2, 5, 4, 1};
         assertArrayEquals(result, start.getValue());

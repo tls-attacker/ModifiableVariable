@@ -83,9 +83,9 @@ public class LongXorModificationTest {
 
     @Test
     public void testConstructors() {
-        // Test default constructor
-        LongXorModification defaultConstructor = new LongXorModification();
-        assertNotNull(defaultConstructor);
+        LongXorModification constuctor = new LongXorModification(2L);
+        assertNotNull(constuctor);
+        assertEquals(2L, constuctor.getXor());
 
         // Test copy constructor
         LongXorModification copy = new LongXorModification(modification);

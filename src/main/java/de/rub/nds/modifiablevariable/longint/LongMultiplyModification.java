@@ -11,30 +11,86 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
+/**
+ * A modification that multiplies a ModifiableLong by a constant factor.
+ *
+ * <p>This modification takes the original long value and multiplies it by a specified factor when
+ * applied. It can be used to scale long values at runtime, which is particularly useful for testing
+ * protocol implementations.
+ *
+ * <p>Key testing scenarios where this modification is valuable include:
+ *
+ * <ul>
+ *   <li>Scaling values to test how systems handle large numbers
+ *   <li>Testing overflow conditions by multiplying by large factors
+ *   <li>Manipulating protocol fields that should be within specific ranges
+ *   <li>Testing numeric validation routines
+ *   <li>Zeroing values by multiplying by 0 to test null/zero handling
+ * </ul>
+ *
+ * <p>Long values provide a much larger range than integers, allowing for testing with extremely
+ * large numbers. This makes this modification particularly useful when testing protocols dealing
+ * with timestamps, file sizes, memory addresses, or other large numeric values.
+ *
+ * <p>Note that long multiplication may result in overflow if the result exceeds the range of {@link
+ * Long} (±2^63), which can be useful for testing overflow handling in implementations.
+ *
+ * @see ModifiableLong
+ */
 @XmlRootElement
 public class LongMultiplyModification extends VariableModification<Long> {
 
+    /** The factor to multiply by */
     private Long factor;
 
-    public LongMultiplyModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private LongMultiplyModification() {
         super();
     }
 
-    public LongMultiplyModification(Long factor) {
+    /**
+     * Creates a new modification with the specified multiplication factor.
+     *
+     * @param factor The long value to multiply the original value by
+     */
+    public LongMultiplyModification(long factor) {
         super();
         this.factor = factor;
     }
 
+    /**
+     * Copy constructor for creating a deep copy of an existing modification.
+     *
+     * @param other The modification to copy
+     */
     public LongMultiplyModification(LongMultiplyModification other) {
         super(other);
         factor = other.factor;
     }
 
+    /**
+     * Creates a deep copy of this modification.
+     *
+     * @return A new instance with the same multiplication factor
+     */
     @Override
     public LongMultiplyModification createCopy() {
         return new LongMultiplyModification(this);
     }
 
+    /**
+     * Implements the modification by multiplying the input by the factor.
+     *
+     * <p>This method performs the multiplication operation on the input long using the {@code *}
+     * operator. If the input is null, it returns null to preserve null-safety.
+     *
+     * <p>Note that this operation may result in overflow if the result exceeds the range of {@link
+     * Long}, which can be useful for testing boundary conditions and overflow handling.
+     *
+     * @param input The original long value
+     * @return The result of multiplying the input by the factor, or null if input is null
+     */
     @Override
     protected Long modifyImplementationHook(Long input) {
         if (input == null) {
@@ -43,14 +99,31 @@ public class LongMultiplyModification extends VariableModification<Long> {
         return input * factor;
     }
 
+    /**
+     * Gets the factor used for multiplication.
+     *
+     * @return The multiplication factor
+     */
     public Long getFactor() {
         return factor;
     }
 
+    /**
+     * Sets the factor to use for multiplication.
+     *
+     * @param factor The new multiplication factor
+     */
     public void setFactor(Long factor) {
         this.factor = factor;
     }
 
+    /**
+     * Computes a hash code for this modification.
+     *
+     * <p>The hash code is based solely on the multiplication factor.
+     *
+     * @return A hash code value for this object
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -58,6 +131,15 @@ public class LongMultiplyModification extends VariableModification<Long> {
         return hash;
     }
 
+    /**
+     * Compares this modification with another object for equality.
+     *
+     * <p>Two LongMultiplyModification objects are considered equal if they have the same
+     * multiplication factor.
+     *
+     * @param obj The object to compare with
+     * @return {@code true} if the objects are equal, {@code false} otherwise
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -73,6 +155,13 @@ public class LongMultiplyModification extends VariableModification<Long> {
         return Objects.equals(factor, other.factor);
     }
 
+    /**
+     * Returns a string representation of this modification.
+     *
+     * <p>The string includes the class name and factor value.
+     *
+     * @return A string representation of this object
+     */
     @Override
     public String toString() {
         return "LongMultiplyModification{" + "factor=" + factor + '}';
