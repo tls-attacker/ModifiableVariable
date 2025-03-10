@@ -42,8 +42,8 @@ import java.util.Objects;
  * making it suitable for testing with extremely large numeric values.
  *
  * @see ModifiableBigInteger
- * @see IntegerXorModification
- * @see LongXorModification
+ * @see de.rub.nds.modifiablevariable.integer.IntegerXorModification
+ * @see de.rub.nds.modifiablevariable.longint.LongXorModification
  */
 @XmlRootElement
 public class BigIntegerXorModification extends VariableModification<BigInteger> {

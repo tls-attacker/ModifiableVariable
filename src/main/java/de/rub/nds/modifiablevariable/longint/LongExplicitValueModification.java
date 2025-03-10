@@ -38,7 +38,7 @@ import java.util.Objects;
  * regular integers.
  *
  * @see ModifiableLong
- * @see IntegerExplicitValueModification
+ * @see de.rub.nds.modifiablevariable.integer.IntegerExplicitValueModification
  */
 @XmlRootElement
 public class LongExplicitValueModification extends VariableModification<Long> {

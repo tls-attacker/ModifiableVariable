@@ -40,7 +40,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * class behave identically and are considered equal when compared.
  *
  * @see ModifiableInteger
- * @see LongSwapEndianModification
+ * @see de.rub.nds.modifiablevariable.longint.LongSwapEndianModification
  */
 @XmlRootElement
 public class IntegerSwapEndianModification extends VariableModification<Integer> {
