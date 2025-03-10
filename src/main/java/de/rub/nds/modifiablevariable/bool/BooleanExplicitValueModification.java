@@ -15,26 +15,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  *
  * <p>This modification ignores the original value of a {@link ModifiableBoolean} and always returns
  * a predefined boolean value specified at initialization or via setter. It can be used to force
- * specific boolean states at runtime, which is particularly useful for testing protocol
- * implementations.
- *
- * <p>This modification is especially valuable for:
- *
- * <ul>
- *   <li>Testing specific code paths by forcing condition flags
- *   <li>Simulating enabled/disabled features in protocol implementations
- *   <li>Creating test cases where boolean flags must have exact values
- *   <li>Testing error handling when expected flags are inverted
- *   <li>Exploring security boundaries controlled by boolean flags
- * </ul>
- *
- * <p>This is one of the simplest modifications available, as it completely disregards the original
- * value and replaces it with a constant. It's often used as a baseline for testing or to force
- * specific protocol states.
- *
- * <p>Having only two possible values (true or false) makes this modification particularly
- * straightforward to use for exhaustively testing both states of a boolean condition.
- *
+ * specific boolean states at runtime.
+ * 
  * @see ModifiableBoolean
  * @see BooleanToggleModification
  */
