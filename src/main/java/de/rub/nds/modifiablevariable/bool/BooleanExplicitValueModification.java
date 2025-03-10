@@ -16,7 +16,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * <p>This modification ignores the original value of a {@link ModifiableBoolean} and always returns
  * a predefined boolean value specified at initialization or via setter. It can be used to force
  * specific boolean states at runtime.
- * 
+ *
  * @see ModifiableBoolean
  * @see BooleanToggleModification
  */
