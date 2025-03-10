@@ -12,14 +12,23 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
- * A modification that deletes a portion of a string from the original value.
+ * A modification that deletes a portion of a ModifiableString.
  *
  * <p>This modification removes a specified number of characters from the original string starting
- * at a specified position. It's useful for testing string handling in protocol implementations,
- * especially for identifying issues with string parsing, length validation, or content
- * verification.
+ * at a specified position when applied. It can be used to create truncated or partial string data 
+ * at runtime, which is particularly useful for testing protocol implementations.
  *
- * <p>The modification handles various edge cases:
+ * <p>This modification is especially valuable for:
+ * 
+ * <ul>
+ *   <li>Testing string handling with missing content or partial data
+ *   <li>Removing critical fields or values from string-encoded protocol messages
+ *   <li>Testing parser robustness when expected text is missing
+ *   <li>Creating malformed data by removing characters that might be expected
+ *   <li>Testing boundary conditions in text processing algorithms
+ * </ul>
+ *
+ * <p>The implementation handles various edge cases gracefully:
  *
  * <ul>
  *   <li>If the start position is negative, it wraps around to delete from the end of the string
@@ -28,23 +37,11 @@ import java.util.Objects;
  *   <li>Empty strings are returned unchanged
  * </ul>
  *
- * <p>Example usage:
+ * <p>The result is always a new string with the specified portion removed, preserving the
+ * immutability of the original data.
  *
- * <pre>{@code
- * // Create a modification that deletes 5 characters starting at position 6
- * StringDeleteModification mod = new StringDeleteModification(6, 5);
- *
- * // Apply to a variable
- * ModifiableString var = new ModifiableString();
- * var.setOriginalValue("Hello, beautiful world!");
- * var.setModification(mod);
- *
- * // Results in "Hello, world!"
- * String result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing.
+ * @see ModifiableString
+ * @see StringInsertValueModification
  */
 @XmlRootElement
 public class StringDeleteModification extends VariableModification<String> {
@@ -98,24 +95,28 @@ public class StringDeleteModification extends VariableModification<String> {
     }
 
     /**
-     * Implements the modification by deleting characters from the input string.
+     * Modifies the input by removing characters from the specified position.
      *
-     * <p>This method removes the specified number of characters from the input string starting at
-     * the specified position. If the input is null or empty, it returns the input unchanged to
-     * preserve null-safety.
+     * <p>This method creates a new string with the specified section removed. It effectively
+     * takes the characters before the deletion point, then concatenates them with the characters 
+     * after the deletion point, creating a shorter string.
      *
-     * <p>The method handles edge cases gracefully:
+     * <p>The implementation uses StringBuilder's efficient delete operation to perform the 
+     * character removal in a single operation. The position calculation ensures that all
+     * edge cases are handled correctly:
      *
      * <ul>
      *   <li>If the start position is negative, it wraps around to delete from the end of the string
-     *   <li>If the start position exceeds the string length, it wraps around using modulo
-     *       arithmetic
-     *   <li>If the deletion would extend beyond the end of the string, it's truncated at the end
+     *   <li>If the start position exceeds the string length, it wraps around using modulo arithmetic
+     *   <li>If the deletion would extend beyond the end of the string, it's truncated appropriately
      * </ul>
      *
+     * <p>This behavior ensures that the modification always produces valid output even with
+     * edge-case inputs, making it particularly suitable for robust testing scenarios.
+     *
      * @param input The original string
-     * @return A new string with the specified portion deleted, or the input unchanged if it's null
-     *     or empty
+     * @return A new string with the specified portion removed, or null if the input is null,
+     *     or the original string if it's empty
      */
     @Override
     protected String modifyImplementationHook(String input) {

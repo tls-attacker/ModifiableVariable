@@ -13,39 +13,12 @@ import java.math.BigInteger;
 import java.util.Objects;
 
 /**
- * A modification that subtracts a specified value from a BigInteger.
+ * A modification that subtracts a constant value from a ModifiableBigInteger.
  *
- * <p>This modification takes the original BigInteger value and subtracts a specified subtrahend
- * using the {@link BigInteger#subtract(BigInteger)} method. This is useful for testing protocol
- * implementations where decreasing numeric values can help discover boundary condition
- * vulnerabilities or improper range validation.
+ * <p>This modification subtracts a specified BigInteger value (subtrahend) from the input value when
+ * applied. It can be used to decrement BigInteger values at runtime.
  *
- * <p>Key testing scenarios where this modification is valuable include:
- *
- * <ul>
- *   <li>Testing protocol handling of decreased cryptographic parameters (key sizes, moduli, etc.)
- *   <li>Exploring edge cases around zero or negative values in protocols expecting positive numbers
- *   <li>Verifying proper handling of numeric wraparound in constrained systems
- *   <li>Checking boundary validation at integer limits
- * </ul>
- *
- * <p>Example usage:
- *
- * <pre>{@code
- * // Create a modification that subtracts 5
- * BigIntegerSubtractModification mod = new BigIntegerSubtractModification(BigInteger.valueOf(5));
- *
- * // Apply to a variable
- * ModifiableBigInteger var = new ModifiableBigInteger();
- * var.setOriginalValue(BigInteger.valueOf(42));
- * var.setModification(mod);
- *
- * // Results in 37
- * BigInteger result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing.
+ * @see ModifiableBigInteger
  */
 @XmlRootElement
 public class BigIntegerSubtractModification extends VariableModification<BigInteger> {
@@ -60,10 +33,9 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
     }
 
     /**
-     * Creates a new modification with the specified subtrahend.
+     * Creates a new subtraction modification with the specified subtrahend.
      *
-     * @param subtrahend The BigInteger value to subtract from the original value
-     * @throws NullPointerException if subtrahend is null
+     * @param subtrahend The value to subtract from the original BigInteger
      */
     public BigIntegerSubtractModification(BigInteger subtrahend) {
         super();
@@ -71,7 +43,7 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
     }
 
     /**
-     * Copy constructor for creating a deep copy of an existing modification.
+     * Copy constructor.
      *
      * @param other The modification to copy
      */
@@ -91,16 +63,11 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
     }
 
     /**
-     * Implements the modification by subtracting the subtrahend from the input.
+     * Modifies the input by subtracting the subtrahend.
      *
-     * <p>This method performs the subtraction operation on the input BigInteger using {@link
-     * BigInteger#subtract(BigInteger)}. If the input is null, it returns null to preserve
-     * null-safety.
+     * <p>Note that the result can be negative if the subtrahend is larger than the input value.
      *
-     * <p>Note that the result can be negative if the subtrahend is larger than the input value,
-     * which is often useful for testing boundary conditions.
-     *
-     * @param input The original BigInteger value
+     * @param input The BigInteger value to modify
      * @return The result of subtracting the subtrahend from the input, or null if input is null
      */
     @Override
@@ -112,29 +79,27 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
     }
 
     /**
-     * Gets the value being subtracted (the subtrahend).
+     * Gets the subtrahend used for the subtraction.
      *
-     * @return The subtrahend
+     * @return The value that will be subtracted from the original BigInteger
      */
     public BigInteger getSubtrahend() {
         return subtrahend;
     }
 
     /**
-     * Sets the value to subtract (the subtrahend).
+     * Sets the subtrahend for the subtraction.
      *
-     * @param subtrahend The new subtrahend
+     * @param subtrahend The value that will be subtracted from the original BigInteger
      */
     public void setSubtrahend(BigInteger subtrahend) {
         this.subtrahend = subtrahend;
     }
 
     /**
-     * Computes a hash code for this modification.
+     * Computes a hash code for this modification. The hash code is based on the subtrahend value.
      *
-     * <p>The hash code is based solely on the subtrahend value.
-     *
-     * @return A hash code value for this object
+     * @return The hash code value
      */
     @Override
     public int hashCode() {
@@ -144,13 +109,11 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
     }
 
     /**
-     * Compares this modification with another object for equality.
-     *
-     * <p>Two BigIntegerSubtractModification objects are considered equal if they have the same
-     * subtrahend.
+     * Checks if this modification is equal to another object. Two BigIntegerSubtractModification
+     * instances are considered equal if they have the same subtrahend.
      *
      * @param obj The object to compare with
-     * @return {@code true} if the objects are equal, {@code false} otherwise
+     * @return true if the objects are equal, false otherwise
      */
     @Override
     public boolean equals(Object obj) {
@@ -170,9 +133,7 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
     /**
      * Returns a string representation of this modification.
      *
-     * <p>The string includes the class name and subtrahend value.
-     *
-     * @return A string representation of this object
+     * @return A string containing the modification type and subtrahend
      */
     @Override
     public String toString() {

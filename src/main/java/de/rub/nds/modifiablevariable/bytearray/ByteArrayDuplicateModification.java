@@ -12,36 +12,30 @@ import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
- * A modification that duplicates a byte array by concatenating it with itself.
+ * A modification that duplicates a ModifiableByteArray by concatenating it with itself.
  *
  * <p>This modification takes the original byte array and appends a copy of itself, effectively
- * doubling its length. It's useful for testing protocol implementations with repeated data
- * sequences, which can help identify issues with length validation, buffer handling, or payload
- * parsing.
+ * doubling its length. It can be used to create repeated data sequences at runtime, which is
+ * particularly useful for testing protocol implementations.
+ *
+ * <p>This modification is particularly useful for:
+ * 
+ * <ul>
+ *   <li>Testing protocol implementations with repeated data segments
+ *   <li>Stressing length validation mechanisms in parsers
+ *   <li>Verifying buffer overflow protections
+ *   <li>Testing how systems handle unexpected data repetition
+ *   <li>Creating payload patterns that might trigger edge cases in pattern recognition
+ * </ul>
  *
  * <p>For example, given the byte array {@code {0x01, 0x02, 0x03}}, this modification would produce
  * {@code {0x01, 0x02, 0x03, 0x01, 0x02, 0x03}}.
  *
- * <p>Example usage:
+ * <p>This modification is stateless as it has no configuration parameters. All instances
+ * of this class behave identically and are considered equal when compared.
  *
- * <pre>{@code
- * // Create a modification that duplicates a byte array
- * ByteArrayDuplicateModification mod = new ByteArrayDuplicateModification();
- *
- * // Apply to a variable
- * ModifiableByteArray var = new ModifiableByteArray();
- * var.setOriginalValue(new byte[]{0x01, 0x02, 0x03});
- * var.setModification(mod);
- *
- * // Results in {0x01, 0x02, 0x03, 0x01, 0x02, 0x03}
- * byte[] result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing.
- *
- * <p>Note that this modification is stateless as it has no configuration parameters. All instances
- * of this class behave identically and are considered equal.
+ * @see ModifiableByteArray
+ * @see ByteArrayAppendValueModification
  */
 @XmlRootElement
 public class ByteArrayDuplicateModification extends VariableModification<byte[]> {
@@ -75,10 +69,14 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
     }
 
     /**
-     * Implements the modification by duplicating the input byte array.
+     * Modifies the input by duplicating the byte array.
      *
-     * <p>This method concatenates the input byte array with itself using the ArrayConverter's
-     * concatenate method. If the input is null, it returns null to preserve null-safety.
+     * <p>This method creates a new byte array that consists of the input array concatenated with a
+     * copy of itself, effectively doubling the length of the array. The operation preserves the 
+     * original array's contents and ordering, simply repeating it.
+     *
+     * <p>The implementation uses the ArrayConverter's concatenate method for efficient array 
+     * manipulation and guarantees that the original array is not modified, maintaining immutability.
      *
      * @param input The original byte array
      * @return A new byte array consisting of the input array concatenated with itself, or null if

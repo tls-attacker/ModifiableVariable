@@ -11,14 +11,30 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
- * A modification that inverts (toggles) a Boolean value.
+ * A modification that inverts (toggles) a ModifiableBoolean value.
  *
  * <p>This modification inverts the input Boolean value when applied, turning true to false and
- * false to true. It's particularly useful for testing protocol behavior when flags or condition
- * controls are inverted.
+ * false to true. It can be used to flip boolean flags at runtime, which is particularly useful
+ * for testing protocol implementations.
+ *
+ * <p>This modification is especially valuable for:
+ * 
+ * <ul>
+ *   <li>Testing protocol behavior with inverted flags (enabled/disabled)
+ *   <li>Exploring alternate code paths controlled by boolean conditions
+ *   <li>Verifying system response when feature flags are toggled
+ *   <li>Testing error handling when expected conditions are inverted
+ *   <li>Simulating incorrect boolean field values in protocol messages
+ * </ul>
  *
  * <p>Unlike other modifications, this one has no configurable parameters since the toggle operation
- * is fixed.
+ * is fixed - it always performs a logical NOT operation on the input value.
+ *
+ * <p>This simplicity makes the modification particularly useful as a baseline test for boolean
+ * processing without needing to specify exact values.
+ *
+ * @see ModifiableBoolean
+ * @see BooleanExplicitValueModification
  */
 @XmlRootElement
 public class BooleanToggleModification extends VariableModification<Boolean> {

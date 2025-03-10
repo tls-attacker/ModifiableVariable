@@ -12,42 +12,30 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
- * A modification that subtracts a specified value from a long.
+ * A modification that subtracts a constant value from a ModifiableLong.
  *
- * <p>This modification takes the original long value and subtracts a specified subtrahend using the
- * {@code -} operator. This is useful for testing protocol implementations where decreasing numeric
- * values can help discover boundary condition vulnerabilities or improper range validation.
+ * <p>This modification subtracts a specified long value (subtrahend) from the input value when
+ * applied. It can be used to decrement long values at runtime, which is particularly useful
+ * for testing protocol implementations.
  *
  * <p>Key testing scenarios where this modification is valuable include:
  *
  * <ul>
- *   <li>Testing protocol handling of decreased values (lengths, counts, etc.)
+ *   <li>Testing protocol handling of decreased values (lengths, counts, timestamps, etc.)
  *   <li>Exploring edge cases around zero or negative values in protocols expecting positive numbers
  *   <li>Testing long underflow conditions
  *   <li>Checking boundary validation at long limits (Long.MIN_VALUE, Long.MAX_VALUE)
  * </ul>
  *
- * <p>Example usage:
+ * <p>Unlike addition, subtraction can yield negative results that may test error handling 
+ * and range validation in protocol implementations. This makes it particularly useful for
+ * testing code that expects unsigned or positive values.
  *
- * <pre>{@code
- * // Create a modification that subtracts 1000L
- * LongSubtractModification mod = new LongSubtractModification(1000L);
+ * <p>Long values provide a much larger range than integers, making this modification suitable for
+ * testing protocols that use 64-bit values such as timestamps, file sizes, or cryptographic values.
  *
- * // Apply to a variable
- * ModifiableLong var = new ModifiableLong();
- * var.setOriginalValue(5000L);
- * var.setModification(mod);
- *
- * // Results in 4000L
- * Long result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing.
- *
- * <p>Note that the result can be negative if the subtrahend is larger than the input value, which
- * is often useful for testing boundary conditions. Also, long underflow can occur if the result is
- * less than Long.MIN_VALUE, which can be useful for testing numeric wraparound handling.
+ * @see ModifiableLong
+ * @see LongAddModification
  */
 @XmlRootElement
 public class LongSubtractModification extends VariableModification<Long> {

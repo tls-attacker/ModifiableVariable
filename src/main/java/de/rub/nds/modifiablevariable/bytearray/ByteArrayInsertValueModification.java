@@ -16,39 +16,37 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * A modification that inserts a byte array at a specified position within the original byte array.
+ * A modification that inserts bytes at a specified position within a ModifiableByteArray.
  *
  * <p>This modification takes the original byte array and inserts additional bytes at a specified
- * position. It's useful for testing binary protocol handling, especially for identifying issues
- * with packet parsing, length validation, or content verification.
+ * position when applied. It can be used to inject data into specific locations at runtime, which is
+ * particularly useful for testing protocol implementations.
  *
- * <p>The modification handles various edge cases:
+ * <p>This modification is especially valuable for:
+ * 
+ * <ul>
+ *   <li>Testing protocol parsers with unexpected additional data
+ *   <li>Injecting malicious payloads at specific offsets
+ *   <li>Manipulating binary formats by adding fields or values
+ *   <li>Testing protocol robustness against modified messages
+ *   <li>Creating test cases for length field validation
+ * </ul>
+ *
+ * <p>The implementation handles various edge cases gracefully:
  *
  * <ul>
  *   <li>If the start position is negative, it wraps around to insert from the end of the array
  *   <li>If the start position exceeds the array length, it wraps around using modulo arithmetic
- *   <li>It allows insertion at the end of the array
+ *   <li>It allows insertion at the beginning, middle, or end of the array
  * </ul>
  *
- * <p>Example usage:
+ * <p>When applied, this modification creates a new byte array with the specified bytes inserted
+ * at the designated position, preserving all original data before and after the insertion point.
  *
- * <pre>{@code
- * // Create a modification that inserts [0x11, 0x22] at position 2
- * ByteArrayInsertValueModification mod = new ByteArrayInsertValueModification(
- *     new byte[]{0x11, 0x22}, 2);
- *
- * // Apply to a variable
- * ModifiableByteArray var = new ModifiableByteArray();
- * var.setOriginalValue(new byte[]{0x01, 0x02, 0x03, 0x04});
- * var.setModification(mod);
- *
- * // Results in [0x01, 0x02, 0x11, 0x22, 0x03, 0x04]
- * byte[] result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing. The insertion value is adapted using {@link
- * UnformattedByteArrayAdapter} to handle binary data properly in XML.
+ * @see ModifiableByteArray
+ * @see ByteArrayDeleteModification
+ * @see ByteArrayAppendValueModification
+ * @see ByteArrayPrependValueModification
  */
 @XmlRootElement
 public class ByteArrayInsertValueModification extends VariableModification<byte[]> {
@@ -105,22 +103,28 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
     }
 
     /**
-     * Implements the modification by inserting bytes at the specified position.
+     * Modifies the input by inserting bytes at the specified position.
      *
-     * <p>This method inserts the specified bytes at the position specified during initialization or
-     * via {@link #setStartPosition(int)}. If the input is null, it returns null to preserve
-     * null-safety.
+     * <p>This method creates a new byte array with the specified bytes inserted at the designated
+     * position. It works by:
+     * 1. Copying the portion of the input array before the insertion point
+     * 2. Adding the bytes to insert
+     * 3. Appending the remainder of the input array after the insertion point
      *
-     * <p>The method handles edge cases gracefully:
+     * <p>The position calculation handles various edge cases gracefully:
      *
      * <ul>
      *   <li>If the position is negative, it wraps around to insert from the end of the array
      *   <li>If the position exceeds the array length, it's adjusted using modulo arithmetic
-     *   <li>Insertion at the end of the array is supported
+     *   <li>Special handling for insertion at the end of the array ensures correct behavior
      * </ul>
      *
+     * <p>The implementation uses ArrayConverter for efficient concatenation operations, ensuring
+     * optimal performance even with large arrays.
+     *
      * @param input The original byte array
-     * @return A new byte array with the insertion applied, or null if input was null
+     * @return A new byte array with the bytes inserted at the specified position,
+     *     or null if input was null
      */
     @Override
     protected byte[] modifyImplementationHook(byte[] input) {

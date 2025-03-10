@@ -12,12 +12,12 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
- * A modification that replaces the original long value with an explicitly specified value.
+ * A modification that replaces the original value with an explicitly defined value.
  *
- * <p>This modification ignores the original value completely and always returns the explicit value
- * that was configured during initialization. It's one of the most straightforward and powerful
- * modifications for testing protocol implementations as it allows direct control over values sent
- * in protocol messages.
+ * <p>This modification ignores the original value of a {@link ModifiableLong} and always
+ * returns a predefined long value specified at initialization or via setter. It's one of the
+ * most straightforward and powerful modifications for testing as it allows direct control over
+ * values in protocol messages.
  *
  * <p>Explicit value modifications are particularly useful for:
  *
@@ -26,25 +26,19 @@ import java.util.Objects;
  *   <li>Testing protocol behavior with reserved, special, or invalid values
  *   <li>Creating reproducible test cases with precisely controlled values
  *   <li>Forcing protocol paths that might be difficult to trigger otherwise
+ *   <li>Testing with exact timestamp values in time-sensitive protocols
  * </ul>
  *
- * <p>Example usage:
+ * <p>This is one of the simplest modifications available, as it completely disregards the original
+ * value and replaces it with a constant. It's often used as a baseline for testing or to force
+ * specific protocol states.
  *
- * <pre>{@code
- * // Create a modification that always returns Long.MAX_VALUE
- * LongExplicitValueModification mod = new LongExplicitValueModification(Long.MAX_VALUE);
+ * <p>The 64-bit range of long values makes this modification particularly useful for testing
+ * with large numbers like timestamps, file sizes, or database identifiers that exceed the
+ * range of regular integers.
  *
- * // Apply to a variable
- * ModifiableLong var = new ModifiableLong();
- * var.setOriginalValue(42L);
- * var.setModification(mod);
- *
- * // Results in Long.MAX_VALUE (9223372036854775807), regardless of the original value
- * Long result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing.
+ * @see ModifiableLong
+ * @see IntegerExplicitValueModification
  */
 @XmlRootElement
 public class LongExplicitValueModification extends VariableModification<Long> {

@@ -12,12 +12,12 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
- * A modification that replaces the original integer value with an explicitly specified value.
+ * A modification that replaces the original value with an explicitly defined value.
  *
- * <p>This modification ignores the original value completely and always returns the explicit value
- * that was configured during initialization. It's one of the most straightforward and powerful
- * modifications for testing protocol implementations as it allows direct control over values sent
- * in protocol messages.
+ * <p>This modification ignores the original value of a {@link ModifiableInteger} and always
+ * returns a predefined integer value specified at initialization or via setter. It's one of the
+ * most straightforward and powerful modifications for testing as it allows direct control over
+ * values in protocol messages.
  *
  * <p>Explicit value modifications are particularly useful for:
  *
@@ -28,23 +28,11 @@ import java.util.Objects;
  *   <li>Forcing protocol paths that might be difficult to trigger otherwise
  * </ul>
  *
- * <p>Example usage:
+ * <p>This is one of the simplest modifications available, as it completely disregards the original
+ * value and replaces it with a constant. It's often used as a baseline for testing or to force
+ * specific protocol states.
  *
- * <pre>{@code
- * // Create a modification that always returns Integer.MAX_VALUE
- * IntegerExplicitValueModification mod = new IntegerExplicitValueModification(Integer.MAX_VALUE);
- *
- * // Apply to a variable
- * ModifiableInteger var = new ModifiableInteger();
- * var.setOriginalValue(42);
- * var.setModification(mod);
- *
- * // Results in Integer.MAX_VALUE (2147483647), regardless of the original value
- * Integer result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing.
+ * @see ModifiableInteger
  */
 @XmlRootElement
 public class IntegerExplicitValueModification extends VariableModification<Integer> {

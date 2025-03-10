@@ -12,28 +12,28 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
- * A modification that adds a fixed value to a byte variable.
+ * A modification that adds a constant value to a ModifiableByte.
  *
- * <p>This class modifies a byte by adding a specific summand to it. It's useful in security testing
- * for exploring edge cases and boundary conditions in protocol handling.
+ * <p>This modification adds a specified byte value (summand) to the input value when applied. It
+ * can be used to increment or decrement byte values at runtime, which is particularly useful for
+ * testing protocol implementations.
  *
- * <p>Example use cases:
+ * <p>Example use cases for this modification include:
  *
  * <ul>
- *   <li>Testing overflow behavior by adding values close to byte limits
- *   <li>Modifying version bytes in protocols to test compatibility
- *   <li>Incrementing counter or flag bytes to test sequence handling
+ *   <li>Testing overflow behavior by adding values close to byte limits (127/-128)
+ *   <li>Modifying version bytes in protocols to test version compatibility
+ *   <li>Incrementing counter or sequence bytes to test protocol robustness
+ *   <li>Altering flag or option bytes to test different configuration combinations
  * </ul>
  *
- * <p>Usage example:
+ * <p>Since bytes are limited to 8 bits, additions that exceed the range of a byte
+ * (Byte.MIN_VALUE to Byte.MAX_VALUE, or -128 to 127) will wrap around according to Java's
+ * two's complement arithmetic. This wrapping behavior is particularly useful for testing
+ * overflow conditions.
  *
- * <pre>
- *   ModifiableByte variable = new ModifiableByte();
- *   variable.setOriginalValue((byte) 10);
- *   ByteAddModification modification = new ByteAddModification((byte) 5);
- *   variable.setModification(modification);
- *   byte result = variable.getValue(); // result will be (byte) 15
- * </pre>
+ * @see ModifiableByte
+ * @see ByteSubtractModification
  */
 @XmlRootElement
 public class ByteAddModification extends VariableModification<Byte> {
@@ -48,9 +48,9 @@ public class ByteAddModification extends VariableModification<Byte> {
     }
 
     /**
-     * Constructor with a specified summand value.
+     * Creates a new addition modification with the specified summand.
      *
-     * @param summand The byte value to add to the original value
+     * @param summand The value to add to the original byte
      */
     public ByteAddModification(byte summand) {
         super();
@@ -78,10 +78,14 @@ public class ByteAddModification extends VariableModification<Byte> {
     }
 
     /**
-     * Implements the byte addition modification.
+     * Modifies the input by adding the summand.
      *
-     * @param input The original byte value to be modified
-     * @return The modified byte value (original + summand), or null if input is null
+     * <p>Note that this operation may cause byte overflow if the sum of the input and the
+     * summand exceeds Byte.MAX_VALUE (127) or falls below Byte.MIN_VALUE (-128). In such cases, 
+     * the result will wrap around according to Java's two's complement arithmetic.
+     *
+     * @param input The byte value to modify
+     * @return The result of adding the summand to the input, or null if the input is null
      */
     @Override
     protected Byte modifyImplementationHook(Byte input) {

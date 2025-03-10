@@ -11,17 +11,15 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
- * A modification that performs a left bit shift on an integer value.
+ * A modification that performs a left bit shift on a ModifiableInteger.
  *
- * <p>This modification applies a left shift operation to the original integer value using the
- * {@code <<} operator. It moves the bits in the binary representation to the left by a specified
- * number of positions, effectively multiplying the value by 2 raised to the power of the shift
- * amount.
+ * <p>This modification shifts the bits of the input integer to the left by a specified number of 
+ * positions when applied. It effectively multiplies the value by 2 raised to the power of the shift
+ * amount, which can be used to rapidly scale integer values at runtime.
  *
  * <p>In Java, left shifts on integers are performed modulo 32 (the width of an integer). This class
  * enforces this behavior by applying a modulo 32 operation on the shift amount before performing
- * the shift. This ensures that very large shift values still produce valid results consistent with
- * Java's built-in shift behavior.
+ * the shift, ensuring consistent results even with large shift values.
  *
  * <p>Left shift operations are useful for testing protocol implementations, particularly when
  * testing:
@@ -33,23 +31,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  *   <li>Bit-level protocol operations and binary format handling
  * </ul>
  *
- * <p>Example usage:
- *
- * <pre>{@code
- * // Create a modification that shifts left by 3 bits
- * IntegerShiftLeftModification mod = new IntegerShiftLeftModification(3);
- *
- * // Apply to a variable
- * ModifiableInteger var = new ModifiableInteger();
- * var.setOriginalValue(5); // Binary: 101
- * var.setModification(mod);
- *
- * // Results in 40 (Binary: 101000)
- * Integer result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing.
+ * @see ModifiableInteger
+ * @see IntegerShiftRightModification
  */
 @XmlRootElement
 public class IntegerShiftLeftModification extends VariableModification<Integer> {

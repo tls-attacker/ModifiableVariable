@@ -18,39 +18,18 @@ import java.util.Objects;
 /**
  * A modification that replaces the original string with an explicitly defined value.
  *
- * <p>This modification ignores the original value of a {@link ModifiableString} and always returns
- * a predefined string specified at initialization or via setter. It's useful for testing scenarios
- * where a specific string content needs to be injected regardless of the original value.
+ * <p>This modification ignores the original value and always returns a predefined string specified
+ * at initialization or via setter. It can be used to inject specific string content regardless of the
+ * original value.
  *
- * <p>Example usage:
- *
- * <pre>{@code
- * // Create a modification that always returns a specific string
- * StringExplicitValueModification mod = new StringExplicitValueModification("MODIFIED");
- *
- * // Apply to a variable
- * ModifiableString var = new ModifiableString();
- * var.setOriginalValue("ORIGINAL");
- * var.setModification(mod);
- *
- * // Will always return the explicit value ("MODIFIED"), not the original value
- * String result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing. The explicit value is adapted using {@link IllegalStringAdapter} to
- * handle special characters properly in XML.
- *
- * <p>This modification is particularly useful for testing string handling in protocol
- * implementations, especially for cases where specific string content may trigger different
- * behaviors or edge cases.
+ * @see ModifiableString
  */
 @XmlRootElement
 public class StringExplicitValueModification extends VariableModification<String> {
 
     /** The explicit string that will replace the original value */
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
-    protected String explicitValue;
+    private String explicitValue;
 
     /** Default constructor for serialization. */
     @SuppressWarnings("unused")
@@ -59,22 +38,17 @@ public class StringExplicitValueModification extends VariableModification<String
     }
 
     /**
-     * Creates a new modification with the specified explicit value.
-     *
-     * <p>This constructor sets the string that will replace the original value when the
-     * modification is applied.
+     * Creates a new explicit value modification with the specified value.
      *
      * @param explicitValue The string that will replace the original value
-     * @throws NullPointerException if explicitValue is null
      */
     public StringExplicitValueModification(String explicitValue) {
         super();
-        this.explicitValue =
-                Objects.requireNonNull(explicitValue, "ExplicitValue must not be null");
+        this.explicitValue = Objects.requireNonNull(explicitValue, "ExplicitValue must not be null");
     }
 
     /**
-     * Copy constructor for creating a deep copy of an existing modification.
+     * Copy constructor.
      *
      * @param other The modification to copy
      */
@@ -94,13 +68,10 @@ public class StringExplicitValueModification extends VariableModification<String
     }
 
     /**
-     * Implements the modification by returning the explicit value.
+     * Modifies the input by replacing it with the explicit value.
      *
-     * <p>This method ignores the input value and always returns the explicit value set during
-     * initialization or via {@link #setExplicitValue(String)}. If the input is null, it returns
-     * null to preserve null-safety.
-     *
-     * <p>Unlike byte arrays, strings are immutable in Java, so no defensive copy is needed.
+     * <p>This method ignores the input value and always returns the explicit value.
+     * Strings in Java are immutable, so no defensive copy is needed.
      *
      * @param input The original string (ignored except for null check)
      * @return The explicit value, or null if input was null
@@ -132,11 +103,9 @@ public class StringExplicitValueModification extends VariableModification<String
     }
 
     /**
-     * Computes a hash code for this modification.
+     * Computes a hash code for this modification. The hash code is based on the explicit value.
      *
-     * <p>The hash code is based solely on the explicit value.
-     *
-     * @return A hash code value for this object
+     * @return The hash code value
      */
     @Override
     public int hashCode() {
@@ -146,13 +115,11 @@ public class StringExplicitValueModification extends VariableModification<String
     }
 
     /**
-     * Compares this modification with another object for equality.
-     *
-     * <p>Two StringExplicitValueModification objects are considered equal if they have the same
-     * explicit value.
+     * Checks if this modification is equal to another object. Two StringExplicitValueModification
+     * instances are considered equal if they have the same explicit value.
      *
      * @param obj The object to compare with
-     * @return {@code true} if the objects are equal, {@code false} otherwise
+     * @return true if the objects are equal, false otherwise
      */
     @Override
     public boolean equals(Object obj) {
@@ -172,10 +139,7 @@ public class StringExplicitValueModification extends VariableModification<String
     /**
      * Returns a string representation of this modification.
      *
-     * <p>The string includes the class name and the explicit value with special characters escaped
-     * for readability.
-     *
-     * @return A string representation of this object
+     * @return A string containing the modification type and explicit value
      */
     @Override
     public String toString() {

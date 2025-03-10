@@ -13,10 +13,23 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Arrays;
 
 /**
- * A modification that deletes a portion of a byte array.
+ * A modification that deletes a portion of a ModifiableByteArray.
  *
  * <p>This modification removes a specified number of bytes from the original byte array starting at
- * a specified position. It handles various edge cases such as:
+ * a specified position when applied. It can be used to create truncated or partial data at runtime,
+ * which is particularly useful for testing protocol implementations.
+ *
+ * <p>This modification is particularly useful for:
+ * 
+ * <ul>
+ *   <li>Testing protocol implementations against incomplete data
+ *   <li>Removing critical fields or headers from protocol messages
+ *   <li>Creating malformed data by removing checksums or length fields
+ *   <li>Testing parser robustness when expected data is missing
+ *   <li>Simulating packet loss or truncation scenarios
+ * </ul>
+ *
+ * <p>The implementation handles various edge cases gracefully:
  *
  * <ul>
  *   <li>Empty input arrays
@@ -24,11 +37,10 @@ import java.util.Arrays;
  *   <li>Deletion that extends beyond the array bounds (truncates at the end)
  * </ul>
  *
- * <p>The result is a new byte array with the specified portion removed. The original byte array is
- * not modified.
+ * <p>The result is always a new byte array with the specified portion removed, preserving the
+ * immutability of the original data.
  *
- * <p>This class is used for testing protocol implementations against manipulated data where
- * sections have been removed.
+ * @see ModifiableByteArray
  */
 @XmlRootElement
 public class ByteArrayDeleteModification extends VariableModification<byte[]> {
@@ -88,17 +100,23 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
     }
 
     /**
-     * Applies the delete modification to the input byte array.
+     * Modifies the input by removing bytes from the specified position.
      *
-     * <p>This method removes the specified number of bytes from the input array starting at the
-     * specified position. It handles several edge cases:
+     * <p>This method creates a new byte array with the specified section removed. It effectively
+     * takes the bytes before the deletion point, then concatenates them with the bytes after
+     * the deletion point, creating a shorter array.
+     *
+     * <p>The implementation handles several edge cases to ensure robustness:
      *
      * <ul>
-     *   <li>If input is null, returns null
-     *   <li>If input is empty, returns the empty array
+     *   <li>If input is null, returns null (preserving null-safety)
+     *   <li>If input is empty, returns the empty array (unchanged)
      *   <li>If startPosition is negative, it wraps around to the end of the array
      *   <li>If deletion would extend beyond the array bounds, it's truncated at the end
      * </ul>
+     *
+     * <p>This behavior ensures that the modification always produces valid output even with
+     * edge-case inputs, making it particularly suitable for robust testing scenarios.
      *
      * @param input The byte array to modify
      * @return A new byte array with the specified portion removed, or null if input was null

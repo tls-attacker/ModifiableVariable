@@ -16,20 +16,32 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Objects;
 
 /**
- * A modification that appends a specified string value to the end of the input string.
+ * A modification that appends a string to the end of a ModifiableString.
  *
- * <p>This modification performs string concatenation, adding the specified appendValue to the end
- * of the input string. This is a common operation in string manipulation and can be used for
- * testing string handling in protocols, particularly for:
+ * <p>This modification takes the original string and adds a specified string to its end
+ * when applied. It can be used to add text to the end of string values at runtime, which is
+ * particularly useful for testing protocol implementations.
  *
+ * <p>This modification is especially valuable for:
+ * 
  * <ul>
  *   <li>Testing boundary conditions by appending additional characters
  *   <li>Modifying string-based identifiers or names
  *   <li>Creating malformed string values for security testing
+ *   <li>Adding suffixes or terminators to protocol messages
+ *   <li>Testing string handling with unexpected trailing data
  * </ul>
  *
- * <p>The class uses {@link IllegalStringAdapter} for XML serialization to handle special characters
- * that might be problematic in XML.
+ * <p>When applied, this modification creates a new string that is the concatenation of the
+ * original string followed by the append value. The original string remains unchanged,
+ * preserving immutability.
+ *
+ * <p>Unlike insertion modifications, appending always adds content at the very end of
+ * the string, making it useful for adding suffixes, terminators, or trailing data.
+ *
+ * @see ModifiableString
+ * @see StringPrependValueModification
+ * @see StringInsertValueModification
  */
 @XmlRootElement
 public class StringAppendValueModification extends VariableModification<String> {
@@ -76,14 +88,18 @@ public class StringAppendValueModification extends VariableModification<String> 
     }
 
     /**
-     * Modifies the input by appending the specified value.
+     * Modifies the input by appending the specified string value.
      *
-     * <p>This method uses Java's string concatenation operator (+) to append the specified value to
-     * the end of the input string.
+     * <p>This method creates a new string by concatenating the original input string with the
+     * append value. The implementation uses Java's built-in string concatenation, which creates
+     * a new string object, preserving the immutability of the original string.
      *
-     * @param input The string value to modify
-     * @return The result of appending the specified value to the input, or null if the input is
-     *     null
+     * <p>This concatenation approach ensures efficient string creation while maintaining
+     * correct behavior even with special characters or Unicode strings.
+     *
+     * @param input The original string to modify
+     * @return A new string with the append value added at the end,
+     *     or null if the input is null
      */
     @Override
     protected String modifyImplementationHook(String input) {

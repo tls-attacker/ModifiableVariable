@@ -12,16 +12,15 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
- * A modification that performs a left bit shift on a long value.
+ * A modification that performs a left bit shift on a ModifiableLong.
  *
- * <p>This modification applies a left shift operation to the original long value using the {@code
- * <<} operator. It moves the bits in the binary representation to the left by a specified number of
- * positions, effectively multiplying the value by 2 raised to the power of the shift amount.
+ * <p>This modification shifts the bits of the input long to the left by a specified number of 
+ * positions when applied. It effectively multiplies the value by 2 raised to the power of the shift
+ * amount, which can be used to rapidly scale long values at runtime.
  *
  * <p>In Java, left shifts on longs are performed modulo 64 (the width of a long). This class
  * enforces this behavior by applying a modulo 64 operation on the shift amount before performing
- * the shift. This ensures that very large shift values still produce valid results consistent with
- * Java's built-in shift behavior.
+ * the shift, ensuring consistent results even with large shift values.
  *
  * <p>Left shift operations are useful for testing protocol implementations, particularly when
  * testing:
@@ -33,23 +32,11 @@ import java.util.Objects;
  *   <li>Bit-level protocol operations and binary format handling
  * </ul>
  *
- * <p>Example usage:
+ * <p>This modification is especially useful for testing with 64-bit values common in cryptographic 
+ * protocols, timestamp handling, and other areas where large numeric values are manipulated.
  *
- * <pre>{@code
- * // Create a modification that shifts left by 10 bits
- * LongShiftLeftModification mod = new LongShiftLeftModification(10);
- *
- * // Apply to a variable
- * ModifiableLong var = new ModifiableLong();
- * var.setOriginalValue(5L); // Binary: 101
- * var.setModification(mod);
- *
- * // Results in 5120L (Binary: 1010000000000)
- * Long result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing.
+ * @see ModifiableLong
+ * @see LongShiftRightModification
  */
 @XmlRootElement
 public class LongShiftLeftModification extends VariableModification<Long> {

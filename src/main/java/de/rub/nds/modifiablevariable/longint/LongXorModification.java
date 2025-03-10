@@ -12,12 +12,11 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
- * A modification that applies a bitwise XOR operation to a long value.
+ * A modification that applies a bitwise XOR operation to a ModifiableLong.
  *
  * <p>This modification performs a bitwise XOR (exclusive OR) operation between the original long
- * value and a specified XOR mask using the {@code ^} operator. XOR is a bitwise operation that sets
- * each bit to 1 if only one of the corresponding bits in the operands is 1, otherwise it sets the
- * bit to 0.
+ * value and a specified XOR mask when applied. It can be used to selectively flip specific bits
+ * in long values at runtime.
  *
  * <p>XOR modifications are particularly valuable for security testing because:
  *
@@ -37,23 +36,11 @@ import java.util.Objects;
  *   <li>Manipulating flags or bit-field based configuration values
  * </ul>
  *
- * <p>Example usage:
+ * <p>Long values are often used in cryptographic operations, timestamps, and other scenarios where
+ * larger numeric ranges are needed, making this modification particularly useful for testing such
+ * implementations.
  *
- * <pre>{@code
- * // Create a modification that flips the lowest bit (XOR with 1)
- * LongXorModification mod = new LongXorModification(1L);
- *
- * // Apply to a variable
- * ModifiableLong var = new ModifiableLong();
- * var.setOriginalValue(42L); // Binary: 101010
- * var.setModification(mod);
- *
- * // Results in 43L (Binary: 101011)
- * Long result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing.
+ * @see ModifiableLong
  */
 @XmlRootElement
 public class LongXorModification extends VariableModification<Long> {

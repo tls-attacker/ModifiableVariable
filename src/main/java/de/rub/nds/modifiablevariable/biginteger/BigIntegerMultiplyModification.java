@@ -13,30 +13,12 @@ import java.math.BigInteger;
 import java.util.Objects;
 
 /**
- * A modification that multiplies a BigInteger by a specified factor.
+ * A modification that multiplies a ModifiableBigInteger by a constant factor.
  *
- * <p>This modification takes the original BigInteger value and multiplies it by a given factor
- * using the {@link BigInteger#multiply(BigInteger)} method. It's useful for testing cryptographic
- * protocols where scaling or magnifying values can help identify vulnerabilities, especially in
- * implementations that don't properly validate numeric ranges.
+ * <p>This modification multiplies the input value by a specified BigInteger factor when applied.
+ * It can be used to scale BigInteger values at runtime.
  *
- * <p>Example usage:
- *
- * <pre>{@code
- * // Create a modification that multiplies by 2
- * BigIntegerMultiplyModification mod = new BigIntegerMultiplyModification(BigInteger.valueOf(2));
- *
- * // Apply to a variable
- * ModifiableBigInteger var = new ModifiableBigInteger();
- * var.setOriginalValue(BigInteger.valueOf(42));
- * var.setModification(mod);
- *
- * // Results in 84
- * BigInteger result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing.
+ * @see ModifiableBigInteger
  */
 @XmlRootElement
 public class BigIntegerMultiplyModification extends VariableModification<BigInteger> {
@@ -44,17 +26,16 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
     /** The factor to multiply by */
     private BigInteger factor;
 
-    /** Default constructor for XML serialization. */
+    /** Default constructor for serialization. */
     @SuppressWarnings("unused")
     private BigIntegerMultiplyModification() {
         super();
     }
 
     /**
-     * Creates a new modification with the specified multiplication factor.
+     * Creates a new multiplication modification with the specified factor.
      *
-     * @param factor The BigInteger to multiply the original value by
-     * @throws NullPointerException if factor is null
+     * @param factor The value to multiply the original BigInteger by
      */
     public BigIntegerMultiplyModification(BigInteger factor) {
         super();
@@ -62,7 +43,7 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
     }
 
     /**
-     * Copy constructor for creating a deep copy of an existing modification.
+     * Copy constructor.
      *
      * @param other The modification to copy
      */
@@ -74,7 +55,7 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
     /**
      * Creates a deep copy of this modification.
      *
-     * @return A new instance with the same multiplication factor
+     * @return A new instance with the same factor
      */
     @Override
     public BigIntegerMultiplyModification createCopy() {
@@ -82,13 +63,12 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
     }
 
     /**
-     * Implements the modification by multiplying the input by the factor.
+     * Modifies the input by multiplying it by the factor.
      *
-     * <p>This method performs the multiplication operation on the input BigInteger using {@link
-     * BigInteger#multiply(BigInteger)}. If the input is null, it returns null to preserve
-     * null-safety.
+     * <p>This operation can significantly change the magnitude of the value, which
+     * may be useful for testing boundary conditions in protocols.
      *
-     * @param input The original BigInteger value
+     * @param input The BigInteger value to modify
      * @return The result of multiplying the input by the factor, or null if input is null
      */
     @Override
@@ -102,27 +82,25 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
     /**
      * Gets the factor used for multiplication.
      *
-     * @return The multiplication factor
+     * @return The value that will multiply the original BigInteger
      */
     public BigInteger getFactor() {
         return factor;
     }
 
     /**
-     * Sets the factor to use for multiplication.
+     * Sets the factor for multiplication.
      *
-     * @param factor The new multiplication factor
+     * @param factor The value that will multiply the original BigInteger
      */
     public void setFactor(BigInteger factor) {
         this.factor = factor;
     }
 
     /**
-     * Computes a hash code for this modification.
+     * Computes a hash code for this modification. The hash code is based on the factor value.
      *
-     * <p>The hash code is based solely on the multiplication factor.
-     *
-     * @return A hash code value for this object
+     * @return The hash code value
      */
     @Override
     public int hashCode() {
@@ -132,13 +110,11 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
     }
 
     /**
-     * Compares this modification with another object for equality.
-     *
-     * <p>Two BigIntegerMultiplyModification objects are considered equal if they have the same
-     * multiplication factor.
+     * Checks if this modification is equal to another object. Two BigIntegerMultiplyModification
+     * instances are considered equal if they have the same factor.
      *
      * @param obj The object to compare with
-     * @return {@code true} if the objects are equal, {@code false} otherwise
+     * @return true if the objects are equal, false otherwise
      */
     @Override
     public boolean equals(Object obj) {
@@ -158,9 +134,7 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
     /**
      * Returns a string representation of this modification.
      *
-     * <p>The string includes the class name and factor value.
-     *
-     * @return A string representation of this object
+     * @return A string containing the modification type and factor
      */
     @Override
     public String toString() {

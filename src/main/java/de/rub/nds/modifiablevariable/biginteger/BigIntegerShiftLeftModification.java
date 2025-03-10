@@ -12,35 +12,31 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import java.math.BigInteger;
 
 /**
- * A modification that shifts a BigInteger value to the left by a specified number of bits.
+ * A modification that performs a left bit shift on a ModifiableBigInteger.
  *
- * <p>This modification performs a left bit shift operation on the original BigInteger value. It
- * effectively multiplies the value by 2^shift, which can be useful for testing protocol
- * implementations with scaled values or for detecting issues related to numeric boundary conditions
- * or binary processing.
+ * <p>This modification shifts the bits of the input BigInteger to the left by a specified number of 
+ * positions when applied. It effectively multiplies the value by 2 raised to the power of the shift
+ * amount, which can be used to rapidly scale BigInteger values at runtime.
  *
- * <p>For example, shifting the decimal value 5 left by 2 bits results in 20 (5 * 2²).
+ * <p>This modification is particularly useful for:
+ * 
+ * <ul>
+ *   <li>Testing with very large numeric values beyond the range of primitive integers
+ *   <li>Creating exponentially increasing values for boundary testing
+ *   <li>Simulating arithmetic operations in cryptographic tests
+ *   <li>Manipulating bit patterns in arbitrarily large integers
+ * </ul>
  *
- * <p>Example usage:
+ * <p>Unlike integer or long shift operations, BigInteger shifts have no overflow concerns since
+ * BigInteger can represent arbitrarily large numbers. This makes it particularly valuable for
+ * testing with extremely large values that would overflow standard numeric types.
  *
- * <pre>{@code
- * // Create a modification that shifts left by 3 bits
- * BigIntegerShiftLeftModification mod = new BigIntegerShiftLeftModification(3);
+ * <p>For example, shifting the decimal value 5 left by 100 bits results in a very large number
+ * (5 * 2^100), which would be impossible to represent in primitive integer types but is handled
+ * seamlessly by BigInteger.
  *
- * // Apply to a variable
- * ModifiableBigInteger var = new ModifiableBigInteger();
- * var.setOriginalValue(BigInteger.valueOf(10));
- * var.setModification(mod);
- *
- * // Results in 80 (10 * 2³)
- * BigInteger result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing.
- *
- * <p>Unlike the built-in integer types, BigInteger does not have overflow concerns when performing
- * shift operations, as it can grow to accommodate arbitrarily large values.
+ * @see ModifiableBigInteger
+ * @see BigIntegerShiftRightModification
  */
 @XmlRootElement
 public class BigIntegerShiftLeftModification extends VariableModification<BigInteger> {

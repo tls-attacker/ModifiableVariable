@@ -12,12 +12,16 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
- * A modification that subtracts a fixed value from a byte variable.
+ * A modification that subtracts a constant value from a ModifiableByte.
  *
+ * <p>This modification subtracts a specified byte value (subtrahend) from the input value when
+ * applied. It can be used to decrement byte values at runtime, which is particularly useful for
+ * testing protocol implementations.
+ * 
  * <p>This class modifies a byte by subtracting a specific subtrahend from it. It's useful in
  * security testing for exploring edge cases and boundary conditions in protocol handling,
  * particularly when testing for underflow conditions or boundary value analysis.
- *
+ * 
  * <p>Example use cases:
  *
  * <ul>
@@ -27,16 +31,8 @@ import java.util.Objects;
  *       packets
  *   <li>Manipulating length fields to create malformed protocol messages
  * </ul>
- *
- * <p>Usage example:
- *
- * <pre>
- *   ModifiableByte variable = new ModifiableByte();
- *   variable.setOriginalValue((byte) 10);
- *   ByteSubtractModification modification = new ByteSubtractModification((byte) 15);
- *   variable.setModification(modification);
- *   byte result = variable.getValue(); // result will be (byte) -5
- * </pre>
+ * 
+ * @see ModifiableByte
  */
 @XmlRootElement
 public class ByteSubtractModification extends VariableModification<Byte> {
@@ -51,9 +47,9 @@ public class ByteSubtractModification extends VariableModification<Byte> {
     }
 
     /**
-     * Constructor with a specified subtrahend value.
+     * Creates a new subtraction modification with the specified subtrahend.
      *
-     * @param subtrahend The byte value to subtract from the original value
+     * @param subtrahend The value to subtract from the original byte
      */
     public ByteSubtractModification(byte subtrahend) {
         super();
@@ -81,10 +77,14 @@ public class ByteSubtractModification extends VariableModification<Byte> {
     }
 
     /**
-     * Implements the byte subtraction modification.
+     * Modifies the input by subtracting the subtrahend.
      *
-     * @param input The original byte value to be modified
-     * @return The modified byte value (original - subtrahend), or null if input is null
+     * <p>Note that this operation may cause byte underflow if the result falls below Byte.MIN_VALUE. 
+     * In such cases, the result will wrap around according to Java's two's complement arithmetic,
+     * which can be useful for testing boundary conditions.
+     *
+     * @param input The byte value to modify
+     * @return The result of subtracting the subtrahend from the input, or null if the input is null
      */
     @Override
     protected Byte modifyImplementationHook(Byte input) {

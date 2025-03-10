@@ -18,36 +18,10 @@ import java.util.Objects;
 /**
  * A modification that inserts a string at a specified position within the original string.
  *
- * <p>This modification takes the original string and inserts additional content at a specified
- * position. It's useful for testing string handling in protocol implementations, especially for
- * identifying issues with string parsing, content validation, or length checks.
+ * <p>This modification inserts additional text at the specified position in the input string.
+ * It handles special cases such as negative positions and positions beyond the string length.
  *
- * <p>The modification handles various edge cases:
- *
- * <ul>
- *   <li>If the start position is negative, it wraps around to insert from the end of the string
- *   <li>If the start position exceeds the string length, it wraps around using modulo arithmetic
- *   <li>It allows insertion at the end of the string
- * </ul>
- *
- * <p>Example usage:
- *
- * <pre>{@code
- * // Create a modification that inserts " modified" at position 5
- * StringInsertValueModification mod = new StringInsertValueModification(" modified", 5);
- *
- * // Apply to a variable
- * ModifiableString var = new ModifiableString();
- * var.setOriginalValue("Hello world");
- * var.setModification(mod);
- *
- * // Results in "Hello modified world"
- * String result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing. The insertion value is adapted using {@link IllegalStringAdapter} to
- * handle special characters properly in XML.
+ * @see ModifiableString
  */
 @XmlRootElement
 public class StringInsertValueModification extends VariableModification<String> {
@@ -66,14 +40,10 @@ public class StringInsertValueModification extends VariableModification<String> 
     }
 
     /**
-     * Creates a new modification with the specified insert value and position.
-     *
-     * <p>This constructor sets the string to insert and the position at which to insert it when the
-     * modification is applied.
+     * Creates a new insertion modification with the specified value and position.
      *
      * @param insertValue The string to insert into the original string
      * @param startPosition The position at which to insert the string (0-based index)
-     * @throws NullPointerException if insertValue is null
      */
     public StringInsertValueModification(String insertValue, int startPosition) {
         super();
@@ -82,7 +52,7 @@ public class StringInsertValueModification extends VariableModification<String> 
     }
 
     /**
-     * Copy constructor for creating a deep copy of an existing modification.
+     * Copy constructor.
      *
      * @param other The modification to copy
      */
@@ -103,21 +73,13 @@ public class StringInsertValueModification extends VariableModification<String> 
     }
 
     /**
-     * Implements the modification by inserting a string at the specified position.
+     * Modifies the input by inserting the specified string at the given position.
      *
-     * <p>This method inserts the specified string at the position specified during initialization
-     * or via {@link #setStartPosition(int)}. If the input is null, it returns null to preserve
-     * null-safety.
+     * <p>If the position is negative, it wraps around to insert from the end of the string.
+     * If the position exceeds the string length, it's adjusted using modulo arithmetic.
+     * Insertion at the end of the string is also supported.
      *
-     * <p>The method handles edge cases gracefully:
-     *
-     * <ul>
-     *   <li>If the position is negative, it wraps around to insert from the end of the string
-     *   <li>If the position exceeds the string length, it's adjusted using modulo arithmetic
-     *   <li>Insertion at the end of the string is supported
-     * </ul>
-     *
-     * @param input The original string
+     * @param input The string to modify
      * @return A new string with the insertion applied, or null if input was null
      */
     @Override
@@ -171,11 +133,9 @@ public class StringInsertValueModification extends VariableModification<String> 
     }
 
     /**
-     * Computes a hash code for this modification.
+     * Computes a hash code for this modification. The hash code is based on the insert value and position.
      *
-     * <p>The hash code is based on the insert value and start position.
-     *
-     * @return A hash code value for this object
+     * @return The hash code value
      */
     @Override
     public int hashCode() {
@@ -186,13 +146,11 @@ public class StringInsertValueModification extends VariableModification<String> 
     }
 
     /**
-     * Compares this modification with another object for equality.
-     *
-     * <p>Two StringInsertValueModification objects are considered equal if they have the same
-     * insert value and start position.
+     * Checks if this modification is equal to another object. Two StringInsertValueModification instances
+     * are considered equal if they have the same insert value and start position.
      *
      * @param obj The object to compare with
-     * @return {@code true} if the objects are equal, {@code false} otherwise
+     * @return true if the objects are equal, false otherwise
      */
     @Override
     public boolean equals(Object obj) {
@@ -215,10 +173,7 @@ public class StringInsertValueModification extends VariableModification<String> 
     /**
      * Returns a string representation of this modification.
      *
-     * <p>The string includes the class name, insert value (with special characters escaped), and
-     * start position.
-     *
-     * @return A string representation of this object
+     * @return A string containing the modification type, insert value, and position
      */
     @Override
     public String toString() {

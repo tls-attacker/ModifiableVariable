@@ -12,11 +12,11 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
- * A modification that subtracts a specified value from an integer.
+ * A modification that subtracts a constant value from a ModifiableInteger.
  *
- * <p>This modification takes the original integer value and subtracts a specified subtrahend using
- * the {@code -} operator. This is useful for testing protocol implementations where decreasing
- * numeric values can help discover boundary condition vulnerabilities or improper range validation.
+ * <p>This modification subtracts a specified integer value (subtrahend) from the input value when
+ * applied. It can be used to decrement integer values at runtime, which is particularly useful
+ * for testing protocol implementations.
  *
  * <p>Key testing scenarios where this modification is valuable include:
  *
@@ -27,23 +27,12 @@ import java.util.Objects;
  *   <li>Checking boundary validation at integer limits (MIN_VALUE, MAX_VALUE)
  * </ul>
  *
- * <p>Example usage:
+ * <p>Unlike addition, subtraction can yield negative results that may test error handling 
+ * and range validation in protocol implementations. This makes it particularly useful for
+ * testing code that expects unsigned or positive values.
  *
- * <pre>{@code
- * // Create a modification that subtracts 5
- * IntegerSubtractModification mod = new IntegerSubtractModification(5);
- *
- * // Apply to a variable
- * ModifiableInteger var = new ModifiableInteger();
- * var.setOriginalValue(42);
- * var.setModification(mod);
- *
- * // Results in 37
- * Integer result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing.
+ * @see ModifiableInteger
+ * @see IntegerAddModification
  */
 @XmlRootElement
 public class IntegerSubtractModification extends VariableModification<Integer> {

@@ -16,14 +16,14 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * A modification that shuffles elements within a byte array.
+ * A modification that shuffles elements within a ModifiableByteArray.
  *
- * <p>This modification randomly reorders elements within the target byte array by performing a
- * series of swap operations. The swap locations are determined by a pre-defined byte array ({@code
- * shuffle}) that contains pairs of indices to be swapped.
+ * <p>This modification reorders elements within the byte array by performing a series of 
+ * swap operations based on a predefined shuffle pattern. It can be used to create data with
+ * the same content but in a different order at runtime.
  *
- * <p>The class supports two modes of operation:
- *
+ * <p>The shuffling pattern is specified as a byte array where:
+ * 
  * <ul>
  *   <li>For arrays with at most 255 elements, each consecutive pair of bytes in the shuffle array
  *       is interpreted as two indices to swap.
@@ -31,9 +31,20 @@ import java.util.Objects;
  *       are interpreted as two 16-bit indices to swap.
  * </ul>
  *
- * <p>This modification is useful for testing protocol implementations against malformed inputs
- * where the ordering of elements matters. The transformation always produces a byte array with the
- * same length and the same elements as the input, just in a different order.
+ * <p>This modification is particularly useful for:
+ * 
+ * <ul>
+ *   <li>Testing protocol implementations against malformed but content-preserving inputs
+ *   <li>Testing parser robustness when field order is changed
+ *   <li>Verifying that implementations don't make inappropriate assumptions about data ordering
+ *   <li>Checking protocol tolerance to reordered data (e.g., sequence numbers)
+ * </ul>
+ *
+ * <p>The transformation always produces a byte array with the same length and the same elements 
+ * as the input, just in a different order, making it valuable for testing protocol sensitivity 
+ * to element ordering without changing the actual content.
+ *
+ * @see ModifiableByteArray
  */
 @XmlRootElement
 public class ByteArrayShuffleModification extends VariableModification<byte[]> {
@@ -88,20 +99,25 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
     }
 
     /**
-     * Applies the shuffle modification to the input byte array.
+     * Modifies the input by shuffling bytes according to the specified pattern.
      *
      * <p>This method creates a copy of the input array and performs a series of swap operations as
-     * defined by the shuffle pattern. The original array is not modified.
+     * defined by the shuffle pattern. The original array is not modified, preserving immutability.
      *
-     * <p>The implementation has two modes:
+     * <p>The implementation automatically adapts to the input array size:
      *
      * <ul>
      *   <li>For arrays with more than 255 elements, it uses 16-bit indices (4 bytes per swap)
      *   <li>For smaller arrays, it uses 8-bit indices (2 bytes per swap)
      * </ul>
      *
+     * <p>Each index in the shuffle pattern is taken modulo the length of the input array to ensure
+     * that all swaps are performed within bounds, even if the shuffle pattern was designed for
+     * arrays of a different size.
+     *
      * @param input The byte array to shuffle
-     * @return A shuffled copy of the input array, or null if the input is null
+     * @return A new byte array containing the same elements as the input but in shuffled order,
+     *     or null if the input is null
      */
     @Override
     protected byte[] modifyImplementationHook(byte[] input) {

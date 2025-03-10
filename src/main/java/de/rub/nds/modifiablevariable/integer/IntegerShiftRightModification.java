@@ -11,17 +11,15 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
- * A modification that performs a signed right bit shift on an integer value.
+ * A modification that performs a signed right bit shift on a ModifiableInteger.
  *
- * <p>This modification applies a signed right shift operation to the original integer value using
- * the {@code >>} operator. It moves the bits in the binary representation to the right by a
- * specified number of positions, effectively dividing the value by 2 raised to the power of the
- * shift amount. The sign bit is preserved and propagated during the shift operation.
+ * <p>This modification shifts the bits of the input integer to the right by a specified number of 
+ * positions when applied. It effectively divides the value by 2 raised to the power of the shift
+ * amount, which can be used to reduce integer values at runtime.
  *
  * <p>In Java, right shifts on integers are performed modulo 32 (the width of an integer). This
  * class enforces this behavior by applying a modulo 32 operation on the shift amount before
- * performing the shift. This ensures that very large shift values still produce valid results
- * consistent with Java's built-in shift behavior.
+ * performing the shift, ensuring consistent results even with large shift values.
  *
  * <p>Importantly, this class uses the signed right shift operator ({@code >>}), which preserves the
  * sign of the original value. Negative values remain negative after shifting, with the sign bit
@@ -37,23 +35,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  *   <li>Bit-level protocol operations
  * </ul>
  *
- * <p>Example usage:
- *
- * <pre>{@code
- * // Create a modification that shifts right by 2 bits
- * IntegerShiftRightModification mod = new IntegerShiftRightModification(2);
- *
- * // Apply to a variable
- * ModifiableInteger var = new ModifiableInteger();
- * var.setOriginalValue(20); // Binary: 10100
- * var.setModification(mod);
- *
- * // Results in 5 (Binary: 101)
- * Integer result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing.
+ * @see ModifiableInteger
+ * @see IntegerShiftLeftModification
  */
 @XmlRootElement
 public class IntegerShiftRightModification extends VariableModification<Integer> {

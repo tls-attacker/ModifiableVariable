@@ -12,12 +12,11 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
- * A modification that multiplies a long value by a specified factor.
+ * A modification that multiplies a ModifiableLong by a constant factor.
  *
- * <p>This modification takes the original long value and multiplies it by a given factor using the
- * {@code *} operator. It's useful for testing cryptographic protocols where scaling or magnifying
- * values can help identify vulnerabilities, especially in implementations that don't properly
- * validate numeric ranges.
+ * <p>This modification takes the original long value and multiplies it by a specified factor
+ * when applied. It can be used to scale long values at runtime, which is particularly useful
+ * for testing protocol implementations.
  *
  * <p>Key testing scenarios where this modification is valuable include:
  *
@@ -29,26 +28,14 @@ import java.util.Objects;
  *   <li>Zeroing values by multiplying by 0 to test null/zero handling
  * </ul>
  *
- * <p>Example usage:
- *
- * <pre>{@code
- * // Create a modification that multiplies by 1000
- * LongMultiplyModification mod = new LongMultiplyModification(1000L);
- *
- * // Apply to a variable
- * ModifiableLong var = new ModifiableLong();
- * var.setOriginalValue(42L);
- * var.setModification(mod);
- *
- * // Results in 42000L
- * Long result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing.
+ * <p>Long values provide a much larger range than integers, allowing for testing with extremely 
+ * large numbers. This makes this modification particularly useful when testing protocols
+ * dealing with timestamps, file sizes, memory addresses, or other large numeric values.
  *
  * <p>Note that long multiplication may result in overflow if the result exceeds the range of {@link
- * Long} (±2^63).
+ * Long} (±2^63), which can be useful for testing overflow handling in implementations.
+ *
+ * @see ModifiableLong
  */
 @XmlRootElement
 public class LongMultiplyModification extends VariableModification<Long> {

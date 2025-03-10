@@ -16,31 +16,27 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * A modification that appends additional bytes to the end of a byte array.
+ * A modification that appends additional bytes to the end of a ModifiableByteArray.
  *
  * <p>This modification takes the original byte array and concatenates a specified array of bytes to
  * its end. It's useful for testing protocol implementations with data that has additional bytes
  * appended, which can help identify issues with length verification or parsing of variable-length
  * fields.
  *
- * <p>Example usage:
+ * <p>This modification is particularly useful for:
+ * 
+ * <ul>
+ *   <li>Testing protocol implementations' handling of trailing data
+ *   <li>Adding signature or checksum bytes to the end of a message
+ *   <li>Simulating padding or alignment bytes
+ *   <li>Testing robustness against unexpected trailing data
+ * </ul>
  *
- * <pre>{@code
- * // Create a modification that appends {0xAA, 0xBB} to any byte array
- * ByteArrayAppendValueModification mod = new ByteArrayAppendValueModification(new byte[]{(byte)0xAA, (byte)0xBB});
+ * <p>When applied, this modification creates a new byte array that is the concatenation of the
+ * original byte array followed by the bytes to append. The original byte array remains unchanged.
  *
- * // Apply to a variable
- * ModifiableByteArray var = new ModifiableByteArray();
- * var.setOriginalValue(new byte[]{0x01, 0x02, 0x03});
- * var.setModification(mod);
- *
- * // Results in {0x01, 0x02, 0x03, 0xAA, 0xBB}
- * byte[] result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing. The bytes to append are serialized using {@link
- * UnformattedByteArrayAdapter}, which provides a compact hexadecimal representation.
+ * @see ModifiableByteArray
+ * @see ByteArrayPrependValueModification
  */
 @XmlRootElement
 public class ByteArrayAppendValueModification extends VariableModification<byte[]> {
@@ -94,11 +90,15 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
     }
 
     /**
-     * Implements the modification by appending bytes to the input.
+     * Modifies the input by appending bytes to the end of the array.
      *
      * <p>This method concatenates the bytes to append to the end of the input byte array using the
-     * ArrayConverter's concatenate method. If the input is null, it returns null to preserve
-     * null-safety.
+     * ArrayConverter's concatenate method. A new byte array is created with the original input bytes
+     * followed by the bytes to append.
+     *
+     * <p>Note that this operation creates a new array that is longer than the original input by
+     * the length of the bytes to append. This can be useful for testing how protocol
+     * implementations handle unexpected additional data at the end of messages.
      *
      * @param input The original byte array
      * @return A new byte array with the bytes appended, or null if input was null

@@ -11,33 +11,32 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
- * A modification that replaces the original boolean value with an explicitly defined value.
+ * A modification that replaces the original value with an explicitly defined boolean value.
  *
  * <p>This modification ignores the original value of a {@link ModifiableBoolean} and always returns
- * a predefined boolean value specified at initialization or via setter. It's useful for testing
- * scenarios where a specific boolean state needs to be injected regardless of the original value.
+ * a predefined boolean value specified at initialization or via setter. It can be used to force
+ * specific boolean states at runtime, which is particularly useful for testing protocol
+ * implementations.
  *
- * <p>Example usage:
+ * <p>This modification is especially valuable for:
+ * 
+ * <ul>
+ *   <li>Testing specific code paths by forcing condition flags
+ *   <li>Simulating enabled/disabled features in protocol implementations
+ *   <li>Creating test cases where boolean flags must have exact values
+ *   <li>Testing error handling when expected flags are inverted
+ *   <li>Exploring security boundaries controlled by boolean flags
+ * </ul>
  *
- * <pre>{@code
- * // Create a modification that always returns true
- * BooleanExplicitValueModification mod = new BooleanExplicitValueModification(true);
+ * <p>This is one of the simplest modifications available, as it completely disregards the original
+ * value and replaces it with a constant. It's often used as a baseline for testing or to force
+ * specific protocol states.
  *
- * // Apply to a variable
- * ModifiableBoolean var = new ModifiableBoolean();
- * var.setOriginalValue(false);
- * var.setModification(mod);
+ * <p>Having only two possible values (true or false) makes this modification particularly
+ * straightforward to use for exhaustively testing both states of a boolean condition.
  *
- * // Will always return the explicit value (true), not the original value (false)
- * Boolean result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing.
- *
- * <p>This modification is particularly useful for testing boolean-based control flow paths in
- * protocol implementations, such as flag fields that enable or disable specific features or
- * behaviors.
+ * @see ModifiableBoolean
+ * @see BooleanToggleModification
  */
 @XmlRootElement
 public class BooleanExplicitValueModification extends VariableModification<Boolean> {

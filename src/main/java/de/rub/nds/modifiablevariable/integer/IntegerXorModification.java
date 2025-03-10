@@ -12,12 +12,11 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
- * A modification that applies a bitwise XOR operation to an integer value.
+ * A modification that applies a bitwise XOR operation to a ModifiableInteger.
  *
  * <p>This modification performs a bitwise XOR (exclusive OR) operation between the original integer
- * value and a specified XOR mask using the {@code ^} operator. XOR is a bitwise operation that sets
- * each bit to 1 if only one of the corresponding bits in the operands is 1, otherwise it sets the
- * bit to 0.
+ * value and a specified XOR mask when applied. It can be used to selectively flip specific bits
+ * in integer values at runtime.
  *
  * <p>XOR modifications are particularly valuable for security testing because:
  *
@@ -37,23 +36,7 @@ import java.util.Objects;
  *   <li>Manipulating flags or bit-field based configuration values
  * </ul>
  *
- * <p>Example usage:
- *
- * <pre>{@code
- * // Create a modification that flips the lowest bit (XOR with 1)
- * IntegerXorModification mod = new IntegerXorModification(1);
- *
- * // Apply to a variable
- * ModifiableInteger var = new ModifiableInteger();
- * var.setOriginalValue(42); // Binary: 101010
- * var.setModification(mod);
- *
- * // Results in 43 (Binary: 101011)
- * Integer result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing.
+ * @see ModifiableInteger
  */
 @XmlRootElement
 public class IntegerXorModification extends VariableModification<Integer> {

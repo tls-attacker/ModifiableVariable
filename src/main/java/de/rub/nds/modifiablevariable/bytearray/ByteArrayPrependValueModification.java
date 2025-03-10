@@ -16,31 +16,26 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * A modification that prepends additional bytes to the beginning of a byte array.
+ * A modification that prepends additional bytes to the beginning of a ModifiableByteArray.
  *
  * <p>This modification takes the original byte array and adds a specified array of bytes to its
  * beginning. It's useful for testing protocol implementations with prefixed data, which can help
  * identify issues with header processing, length validation, or data parsing.
  *
- * <p>Example usage:
+ * <p>This modification is particularly useful for:
+ * 
+ * <ul>
+ *   <li>Testing protocol implementations that rely on specific header bytes
+ *   <li>Adding marker bytes or magic values to the start of a message
+ *   <li>Simulating protocol version or type indicators at the beginning of data
+ *   <li>Manipulating length fields by adding data at the start of messages
+ * </ul>
  *
- * <pre>{@code
- * // Create a modification that prepends {0xAA, 0xBB} to any byte array
- * ByteArrayPrependValueModification mod = new ByteArrayPrependValueModification(
- *     new byte[]{(byte)0xAA, (byte)0xBB});
+ * <p>When applied, this modification creates a new byte array that is the concatenation of the
+ * bytes to prepend followed by the original byte array. The original byte array remains unchanged.
  *
- * // Apply to a variable
- * ModifiableByteArray var = new ModifiableByteArray();
- * var.setOriginalValue(new byte[]{0x01, 0x02, 0x03});
- * var.setModification(mod);
- *
- * // Results in {0xAA, 0xBB, 0x01, 0x02, 0x03}
- * byte[] result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing. The bytes to prepend are serialized using {@link
- * UnformattedByteArrayAdapter}, which provides a compact hexadecimal representation.
+ * @see ModifiableByteArray
+ * @see ByteArrayAppendValueModification
  */
 @XmlRootElement
 public class ByteArrayPrependValueModification extends VariableModification<byte[]> {
@@ -94,11 +89,15 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
     }
 
     /**
-     * Implements the modification by prepending bytes to the input.
+     * Modifies the input by prepending bytes to the beginning of the array.
      *
      * <p>This method concatenates the bytes to prepend with the input byte array using the
-     * ArrayConverter's concatenate method. If the input is null, it returns null to preserve
-     * null-safety.
+     * ArrayConverter's concatenate method. A new byte array is created with the bytes to prepend at
+     * the beginning followed by the original input bytes.
+     *
+     * <p>Note that this operation creates a new array that is longer than the original input by
+     * the length of the bytes to prepend. This can be useful for testing how protocol
+     * implementations handle unexpected additional data.
      *
      * @param input The original byte array
      * @return A new byte array with the bytes prepended, or null if input was null

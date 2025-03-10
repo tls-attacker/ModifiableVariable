@@ -16,31 +16,32 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Objects;
 
 /**
- * Modification that prepends a string to the original value.
+ * A modification that prepends a string to the beginning of a ModifiableString.
  *
- * <p>This class modifies a string by adding specified content at the beginning of the original
- * string. It's useful in security testing for manipulating string-based protocol fields,
- * particularly when testing parser robustness and input validation.
+ * <p>This modification takes the original string and adds a specified string to its beginning
+ * when applied. It can be used to add text to the start of string values at runtime, which is
+ * particularly useful for testing protocol implementations.
  *
- * <p>Example use cases:
- *
+ * <p>This modification is especially valuable for:
+ * 
  * <ul>
  *   <li>Testing for SQL injection by prepending SQL syntax to field values
  *   <li>Testing for XSS vulnerabilities by prepending script tags to form inputs
- *   <li>Adding protocol headers or magic bytes to test parser behavior
+ *   <li>Adding protocol prefixes, headers, or markers to string data
  *   <li>Testing boundary conditions by prepending large or special character strings
  *   <li>Manipulating protocol handshakes by modifying string fields
  * </ul>
  *
- * <p>Usage example:
+ * <p>When applied, this modification creates a new string that is the concatenation of the
+ * prepend value followed by the original string. The original string remains unchanged,
+ * preserving immutability.
  *
- * <pre>
- *   ModifiableString variable = new ModifiableString();
- *   variable.setOriginalValue("example");
- *   StringPrependValueModification modification = new StringPrependValueModification("test_");
- *   variable.setModification(modification);
- *   String result = variable.getValue(); // result will be "test_example"
- * </pre>
+ * <p>Unlike insertion modifications, prepending always adds content at the very beginning of
+ * the string, making it useful for adding headers, prefixes, or protocol markers.
+ *
+ * @see ModifiableString
+ * @see StringAppendValueModification
+ * @see StringInsertValueModification
  */
 @XmlRootElement
 public class StringPrependValueModification extends VariableModification<String> {
@@ -56,9 +57,9 @@ public class StringPrependValueModification extends VariableModification<String>
     }
 
     /**
-     * Constructor with a specified prepend value.
+     * Creates a new prepend modification with the specified value.
      *
-     * @param prependValue .*
+     * @param prependValue The string to prepend to the original string
      * @throws NullPointerException if prependValue is null
      */
     public StringPrependValueModification(String prependValue) {
@@ -87,10 +88,18 @@ public class StringPrependValueModification extends VariableModification<String>
     }
 
     /**
-     * Implements the string prepend modification.
+     * Modifies the input by prepending the specified string value.
      *
-     * @param input The original string value to be modified
-     * @return The modified string value (prependValue + original), or null if input is null
+     * <p>This method creates a new string by concatenating the prepend value with the original
+     * input string. The implementation uses Java's built-in string concatenation, which creates
+     * a new string object, preserving the immutability of the original string.
+     *
+     * <p>This concatenation approach ensures efficient string creation while maintaining
+     * correct behavior even with special characters or Unicode strings.
+     *
+     * @param input The original string to modify
+     * @return A new string with the prepend value added at the beginning,
+     *     or null if the input is null
      */
     @Override
     protected String modifyImplementationHook(String input) {
@@ -112,7 +121,7 @@ public class StringPrependValueModification extends VariableModification<String>
     /**
      * Sets the string value to be prepended to the original value.
      *
-     * @param prependValue .*
+     * @param prependValue The string to prepend to the original string
      * @throws NullPointerException if prependValue is null
      */
     public void setPrependValue(String prependValue) {

@@ -12,32 +12,26 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
- * A modification that multiplies an integer value by a specified factor.
+ * A modification that multiplies a ModifiableInteger by a constant factor.
  *
- * <p>This modification takes the original integer value and multiplies it by a specified factor.
- * It's useful for testing protocol implementations with scaled values, which can help identify
- * issues with field validation, boundary conditions, or numeric processing.
+ * <p>This modification takes the original integer value and multiplies it by a specified factor
+ * when applied. It can be used to scale integer values at runtime, which is particularly useful
+ * for testing protocol implementations.
  *
- * <p>Example usage:
- *
- * <pre>{@code
- * // Create a modification that multiplies by 2
- * IntegerMultiplyModification mod = new IntegerMultiplyModification(2);
- *
- * // Apply to a variable
- * ModifiableInteger var = new ModifiableInteger();
- * var.setOriginalValue(10);
- * var.setModification(mod);
- *
- * // Results in 20 (10 * 2)
- * Integer result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing.
+ * <p>This modification is valuable for:
+ * 
+ * <ul>
+ *   <li>Testing boundary conditions by rapidly scaling values up
+ *   <li>Simulating overflow conditions by multiplying large values
+ *   <li>Testing protocol field validation with scaled values
+ *   <li>Creating values outside expected ranges in cryptographic protocols
+ *   <li>Modifying protocol-specific numeric fields (counters, lengths, identifiers)
+ * </ul>
  *
  * <p>Note that integer multiplication may result in overflow if the result exceeds the range of
- * {@link Integer} (±2^31).
+ * {@link Integer} (±2^31), which can be useful for testing overflow handling in implementations.
+ *
+ * @see ModifiableInteger
  */
 @XmlRootElement
 public class IntegerMultiplyModification extends VariableModification<Integer> {

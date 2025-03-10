@@ -11,42 +11,36 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
- * A modification that reverses the byte order (endianness) of an integer.
+ * A modification that swaps the byte order (endianness) of a ModifiableInteger.
  *
- * <p>This modification changes the endianness of the original integer value by reversing the order
- * of its bytes. It converts between little-endian and big-endian representations, which is useful
- * for testing protocol implementations that might misinterpret byte ordering.
+ * <p>This modification reverses the byte order of an integer value when applied, effectively
+ * converting between big-endian and little-endian representations. It can be used to test
+ * how systems handle different byte ordering conventions at runtime.
  *
  * <p>For example, the decimal value 16909060 is represented as:
  *
  * <ul>
- *   <li>0x01020304 in big-endian format
- *   <li>0x04030201 in little-endian format
+ *   <li>0x01020304 in big-endian format (most significant byte first)
+ *   <li>0x04030201 in little-endian format (least significant byte first)
  * </ul>
  *
- * <p>This modification converts between these two representations, allowing testing of code that
- * might be sensitive to endianness issues.
+ * <p>This conversion between byte orderings is particularly useful for:
+ * 
+ * <ul>
+ *   <li>Testing protocol implementations that may misinterpret byte ordering
+ *   <li>Finding endianness-related bugs in multi-platform applications
+ *   <li>Verifying proper byte order handling in network protocol stacks
+ *   <li>Testing systems that interact with different processor architectures
+ * </ul>
  *
- * <p>Example usage:
+ * <p>The implementation uses Java's built-in {@link Integer#reverseBytes(int)} method to perform
+ * an efficient, single-operation byte swap.
  *
- * <pre>{@code
- * // Create a modification that swaps byte order
- * IntegerSwapEndianModification mod = new IntegerSwapEndianModification();
+ * <p>This modification is stateless as it has no configuration parameters. All instances
+ * of this class behave identically and are considered equal when compared.
  *
- * // Apply to a variable
- * ModifiableInteger var = new ModifiableInteger();
- * var.setOriginalValue(0x01020304); // Decimal 16909060
- * var.setModification(mod);
- *
- * // Results in 0x04030201 (Decimal 67305985)
- * Integer result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing.
- *
- * <p>Note that this modification is stateless as it has no configuration parameters. All instances
- * of this class behave identically and are considered equal.
+ * @see ModifiableInteger
+ * @see LongSwapEndianModification
  */
 @XmlRootElement
 public class IntegerSwapEndianModification extends VariableModification<Integer> {

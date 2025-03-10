@@ -12,11 +12,11 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
- * A modification that replaces a byte variable with an explicit value.
+ * A modification that replaces the original byte with an explicitly defined value.
  *
- * <p>This class completely replaces the original byte value with a new, explicitly defined value,
- * regardless of what the original value was. It's particularly useful in security testing for
- * forcing specific byte values in protocol messages.
+ * <p>This modification ignores the original value of a {@link ModifiableByte} and always returns a
+ * predefined byte value specified at initialization or via setter. It's particularly useful in
+ * security testing for forcing specific byte values in protocol messages.
  *
  * <p>Example use cases:
  *
@@ -27,15 +27,11 @@ import java.util.Objects;
  *   <li>Setting control bytes to specific values to trigger certain behaviors
  * </ul>
  *
- * <p>Usage example:
+ * <p>This is one of the simplest modifications available, as it completely disregards the original
+ * value and replaces it with a constant. It's often used as a baseline for testing or to force
+ * specific protocol states.
  *
- * <pre>
- *   ModifiableByte variable = new ModifiableByte();
- *   variable.setOriginalValue((byte) 0x01);
- *   ByteExplicitValueModification modification = new ByteExplicitValueModification((byte) 0xFF);
- *   variable.setModification(modification);
- *   byte result = variable.getValue(); // result will be (byte) 0xFF
- * </pre>
+ * @see ModifiableByte
  */
 @XmlRootElement
 public class ByteExplicitValueModification extends VariableModification<Byte> {
@@ -80,9 +76,13 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
     }
 
     /**
-     * Implements the byte explicit value modification.
+     * Implements the modification by returning the explicit value.
      *
-     * @param input The original byte value to be replaced (ignored except for null check)
+     * <p>This method ignores the input value and always returns the explicit value set during
+     * initialization or via {@link #setExplicitValue(Byte)}. If the input is null, it returns null
+     * to preserve null-safety.
+     *
+     * @param input The original byte value (ignored except for null check)
      * @return The explicit value that replaces the original value, or null if input is null
      */
     @Override

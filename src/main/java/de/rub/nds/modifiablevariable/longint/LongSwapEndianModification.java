@@ -11,16 +11,16 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
- * A modification that swaps the byte order (endianness) of a long value.
+ * A modification that swaps the byte order (endianness) of a ModifiableLong.
  *
- * <p>This modification reverses the byte order of a long value, effectively converting between
- * big-endian and little-endian representations. It uses Java's {@link Long#reverseBytes(long)}
- * method to perform the actual byte order reversal.
+ * <p>This modification reverses the byte order of a long value when applied, effectively converting
+ * between big-endian and little-endian representations. It can be used to test how systems handle
+ * different byte ordering conventions at runtime.
  *
  * <p>In big-endian format, the most significant byte is stored at the lowest memory address, while
- * in little-endian format, the least significant byte is stored at the lowest memory address. This
- * modification is particularly useful for testing protocol implementations that may have
- * inconsistent handling of byte order.
+ * in little-endian format, the least significant byte is stored at the lowest memory address. 
+ * Converting between these formats is a common source of bugs in networked and cross-platform
+ * applications.
  *
  * <p>Key testing scenarios where this modification is valuable include:
  *
@@ -31,24 +31,14 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  *   <li>Testing network protocol implementations where byte order conversion is critical
  * </ul>
  *
- * <p>Example usage:
+ * <p>This modification is particularly useful for testing 64-bit values that might be interpreted
+ * differently across systems, such as timestamps, file offsets, or cryptographic values.
  *
- * <pre>{@code
- * // Create a modification that swaps byte order
- * LongSwapEndianModification mod = new LongSwapEndianModification();
+ * <p>This modification is stateless as it has no configuration parameters. All instances
+ * of this class behave identically and are considered equal when compared.
  *
- * // Apply to a variable
- * ModifiableLong var = new ModifiableLong();
- * var.setOriginalValue(0x0102030405060708L);
- * var.setModification(mod);
- *
- * // Results in 0x0807060504030201L
- * Long result = var.getValue();
- * }</pre>
- *
- * <p>This class is stateless (it has no fields) since the byte-swapping operation does not require
- * any parameters. It is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing.
+ * @see ModifiableLong
+ * @see IntegerSwapEndianModification
  */
 @XmlRootElement
 public class LongSwapEndianModification extends VariableModification<Long> {

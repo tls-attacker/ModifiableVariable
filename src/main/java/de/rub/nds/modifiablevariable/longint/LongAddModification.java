@@ -12,37 +12,17 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
- * A modification that adds a specified value to a long integer.
+ * A modification that adds a constant value to a ModifiableLong.
  *
- * <p>This modification takes the original long value and adds a specified summand to it. It's
- * useful for testing protocol implementations with incremented or decremented values, which can
- * help identify issues with boundary checking, numeric validation, or arithmetic processing.
+ * <p>This modification adds a specified long value (summand) to the input value when applied. It
+ * can be used to increment or decrement long values at runtime.
  *
- * <p>Example usage:
- *
- * <pre>{@code
- * // Create a modification that adds 100 to the original value
- * LongAddModification mod = new LongAddModification(100L);
- *
- * // Apply to a variable
- * ModifiableLong var = new ModifiableLong();
- * var.setOriginalValue(5000L);
- * var.setModification(mod);
- *
- * // Results in 5100L (5000 + 100)
- * Long result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing.
- *
- * <p>Note that long addition may result in overflow if the result exceeds the range of {@link Long}
- * (±2^63).
+ * @see ModifiableLong
  */
 @XmlRootElement
 public class LongAddModification extends VariableModification<Long> {
 
-    /** The value to add to the original long value */
+    /** The value to add to the original long */
     private Long summand;
 
     /** Default constructor for serialization. */
@@ -52,10 +32,7 @@ public class LongAddModification extends VariableModification<Long> {
     }
 
     /**
-     * Creates a new modification with the specified summand.
-     *
-     * <p>This constructor sets the value that will be added to the original long when the
-     * modification is applied.
+     * Creates a new addition modification with the specified summand.
      *
      * @param summand The value to add to the original long
      */
@@ -65,7 +42,7 @@ public class LongAddModification extends VariableModification<Long> {
     }
 
     /**
-     * Copy constructor for creating a deep copy of an existing modification.
+     * Copy constructor.
      *
      * @param other The modification to copy
      */
@@ -85,17 +62,14 @@ public class LongAddModification extends VariableModification<Long> {
     }
 
     /**
-     * Implements the modification by adding the summand to the input value.
+     * Modifies the input by adding the summand.
      *
-     * <p>This method adds the summand specified during initialization or via {@link
-     * #setSummand(Long)} to the input long. If the input is null, it returns null to preserve
-     * null-safety.
+     * <p>Note that this operation may cause long overflow if the sum of the input and the
+     * summand exceeds Long.MAX_VALUE or falls below Long.MIN_VALUE. In such cases, the result
+     * will wrap around according to Java's long arithmetic.
      *
-     * <p>Note that this operation may result in overflow if the result exceeds the range of {@link
-     * Long}.
-     *
-     * @param input The original long value
-     * @return The result of adding the summand to the input, or null if input was null
+     * @param input The long value to modify
+     * @return The result of adding the summand to the input, or null if the input is null
      */
     @Override
     protected Long modifyImplementationHook(Long input) {
@@ -106,29 +80,27 @@ public class LongAddModification extends VariableModification<Long> {
     }
 
     /**
-     * Gets the summand that will be added to the original value.
+     * Gets the summand used for the addition.
      *
-     * @return The summand
+     * @return The value that will be added to the original long
      */
     public Long getSummand() {
         return summand;
     }
 
     /**
-     * Sets the summand that will be added to the original value.
+     * Sets the summand for the addition.
      *
-     * @param summand The new summand to use
+     * @param summand The value that will be added to the original long
      */
     public void setSummand(Long summand) {
         this.summand = summand;
     }
 
     /**
-     * Computes a hash code for this modification.
+     * Computes a hash code for this modification. The hash code is based on the summand value.
      *
-     * <p>The hash code is based solely on the summand.
-     *
-     * @return A hash code value for this object
+     * @return The hash code value
      */
     @Override
     public int hashCode() {
@@ -138,12 +110,11 @@ public class LongAddModification extends VariableModification<Long> {
     }
 
     /**
-     * Compares this modification with another object for equality.
-     *
-     * <p>Two LongAddModification objects are considered equal if they have the same summand.
+     * Checks if this modification is equal to another object. Two LongAddModification instances
+     * are considered equal if they have the same summand.
      *
      * @param obj The object to compare with
-     * @return {@code true} if the objects are equal, {@code false} otherwise
+     * @return true if the objects are equal, false otherwise
      */
     @Override
     public boolean equals(Object obj) {
@@ -163,9 +134,7 @@ public class LongAddModification extends VariableModification<Long> {
     /**
      * Returns a string representation of this modification.
      *
-     * <p>The string includes the class name and the summand.
-     *
-     * @return A string representation of this object
+     * @return A string containing the modification type and summand
      */
     @Override
     public String toString() {

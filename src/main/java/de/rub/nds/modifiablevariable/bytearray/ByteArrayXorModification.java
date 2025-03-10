@@ -16,15 +16,34 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * A modification that applies an XOR operation to a portion of a byte array.
+ * A modification that applies an XOR operation to a portion of a ModifiableByteArray.
  *
  * <p>This modification performs a bitwise XOR operation between a specified byte array and the
- * input byte array, starting at a specified position. The XOR operation can be used to flip
- * specific bits in the byte array, which is a common technique in cryptographic testing and
- * fuzzing.
+ * input byte array, starting at a specified position when applied. It can be used to selectively 
+ * alter specific bytes or bits at runtime, which is particularly useful for security testing.
  *
- * <p>If the XOR operation would extend beyond the end of the input array, only the overlapping
- * portion is modified.
+ * <p>This modification is especially valuable for:
+ * 
+ * <ul>
+ *   <li>Cryptographic testing by flipping bits in key material or ciphertext
+ *   <li>Protocol fuzzing by subtly altering values without changing their length
+ *   <li>Creating targeted bit-level changes in protocol messages
+ *   <li>Testing error detection and correction mechanisms
+ *   <li>Creating malformed but syntactically valid protocol messages
+ * </ul>
+ *
+ * <p>The XOR operation is particularly useful because:
+ * 
+ * <ul>
+ *   <li>It's reversible - applying the same XOR mask twice restores the original value
+ *   <li>It allows precise control over which bits change in a value
+ *   <li>It maintains the same data length, unlike other modifications that insert or delete bytes
+ * </ul>
+ *
+ * <p>The implementation handles edge cases gracefully, ensuring that if the XOR operation would
+ * extend beyond the end of the input array, only the overlapping portion is modified.
+ *
+ * @see ModifiableByteArray
  */
 @XmlRootElement
 public class ByteArrayXorModification extends VariableModification<byte[]> {

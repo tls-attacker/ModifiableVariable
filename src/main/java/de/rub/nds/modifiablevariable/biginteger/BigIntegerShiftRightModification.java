@@ -12,35 +12,13 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import java.math.BigInteger;
 
 /**
- * A modification that performs a right bit shift on a BigInteger value.
+ * A modification that performs a right bit shift on a ModifiableBigInteger.
  *
- * <p>This modification applies a logical right shift operation to the original BigInteger value
- * using the {@link BigInteger#shiftRight(int)} method. It moves the bits of the binary
- * representation to the right by a specified number of positions, effectively dividing the value by
- * 2 raised to the power of the shift amount.
+ * <p>This modification applies a logical right shift operation to the input value, effectively
+ * dividing the value by 2 raised to the power of the shift amount. It can be used to manipulate
+ * binary data at runtime.
  *
- * <p>Shift operations are useful for testing protocol implementations that manipulate binary data,
- * perform bit-level operations, or use values where bit positioning is significant (like
- * cryptographic values). This modification can help expose protocol weaknesses related to
- * insufficient validation of bit-shifted values.
- *
- * <p>Example usage:
- *
- * <pre>{@code
- * // Create a modification that shifts right by 3 bits
- * BigIntegerShiftRightModification mod = new BigIntegerShiftRightModification(3);
- *
- * // Apply to a variable
- * ModifiableBigInteger var = new ModifiableBigInteger();
- * var.setOriginalValue(new BigInteger("40")); // Binary: 101000
- * var.setModification(mod);
- *
- * // Results in 5 (Binary: 101)
- * BigInteger result = var.getValue();
- * }</pre>
- *
- * <p>This class is serializable through JAXB annotations, allowing it to be used in XML
- * configurations for testing.
+ * @see ModifiableBigInteger
  */
 @XmlRootElement
 public class BigIntegerShiftRightModification extends VariableModification<BigInteger> {
@@ -55,7 +33,7 @@ public class BigIntegerShiftRightModification extends VariableModification<BigIn
     }
 
     /**
-     * Creates a new modification with the specified right shift amount.
+     * Creates a new right shift modification with the specified shift amount.
      *
      * @param shift The number of bit positions to shift the value right
      */
@@ -65,7 +43,7 @@ public class BigIntegerShiftRightModification extends VariableModification<BigIn
     }
 
     /**
-     * Copy constructor for creating a deep copy of an existing modification.
+     * Copy constructor.
      *
      * @param other The modification to copy
      */
@@ -85,17 +63,13 @@ public class BigIntegerShiftRightModification extends VariableModification<BigIn
     }
 
     /**
-     * Implements the modification by shifting the input right by the specified number of bits.
-     *
-     * <p>This method performs the right shift operation on the input BigInteger using {@link
-     * BigInteger#shiftRight(int)}. If the input is null, it returns null to preserve null-safety.
+     * Modifies the input by shifting it right by the specified number of bits.
      *
      * <p>A right shift by n bits is equivalent to dividing by 2^n (integer division with truncation
-     * toward zero).
+     * toward zero). This operation preserves the sign of the original value.
      *
-     * @param input The original BigInteger value
-     * @return The result of shifting the input right by the specified amount, or null if input is
-     *     null
+     * @param input The BigInteger value to modify
+     * @return The result of shifting the input right by the specified amount, or null if input is null
      */
     @Override
     protected BigInteger modifyImplementationHook(BigInteger input) {
@@ -108,7 +82,7 @@ public class BigIntegerShiftRightModification extends VariableModification<BigIn
     /**
      * Gets the number of bits to shift right.
      *
-     * @return The shift amount
+     * @return The shift amount used for this modification
      */
     public int getShift() {
         return shift;
@@ -117,18 +91,16 @@ public class BigIntegerShiftRightModification extends VariableModification<BigIn
     /**
      * Sets the number of bits to shift right.
      *
-     * @param shift The new shift amount
+     * @param shift The new shift amount to use
      */
     public void setShift(int shift) {
         this.shift = shift;
     }
 
     /**
-     * Computes a hash code for this modification.
+     * Computes a hash code for this modification. The hash code is based on the shift amount.
      *
-     * <p>The hash code is based solely on the shift amount.
-     *
-     * @return A hash code value for this object
+     * @return The hash code value
      */
     @Override
     public int hashCode() {
@@ -138,13 +110,11 @@ public class BigIntegerShiftRightModification extends VariableModification<BigIn
     }
 
     /**
-     * Compares this modification with another object for equality.
-     *
-     * <p>Two BigIntegerShiftRightModification objects are considered equal if they have the same
-     * shift amount.
+     * Checks if this modification is equal to another object. Two BigIntegerShiftRightModification
+     * instances are considered equal if they have the same shift amount.
      *
      * @param obj The object to compare with
-     * @return {@code true} if the objects are equal, {@code false} otherwise
+     * @return true if the objects are equal, false otherwise
      */
     @Override
     public boolean equals(Object obj) {
@@ -164,9 +134,7 @@ public class BigIntegerShiftRightModification extends VariableModification<BigIn
     /**
      * Returns a string representation of this modification.
      *
-     * <p>The string includes the class name and shift amount.
-     *
-     * @return A string representation of this object
+     * @return A string containing the modification type and shift amount
      */
     @Override
     public String toString() {

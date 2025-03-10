@@ -12,11 +12,11 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
- * A modification that applies an XOR operation to a byte value.
+ * A modification that applies an XOR operation to a ModifiableByte.
  *
- * <p>This modification performs a bitwise XOR operation between a specified byte value and the
- * input byte. The XOR operation is commonly used for bit manipulation in cryptographic protocols
- * and data encoding.
+ * <p>This modification performs a bitwise XOR operation between a specified byte value (the xor
+ * mask) and the input byte when applied. XOR operations are commonly used for bit manipulation in
+ * cryptographic protocols and data encoding.
  *
  * <p>XOR operations are particularly useful for testing because they can:
  *
@@ -28,6 +28,8 @@ import java.util.Objects;
  *
  * <p>This makes it a valuable tool for protocol testing, especially when testing implementations'
  * handling of malformed or unexpected byte values.
+ *
+ * @see ModifiableByte
  */
 @XmlRootElement
 public class ByteXorModification extends VariableModification<Byte> {
@@ -76,6 +78,10 @@ public class ByteXorModification extends VariableModification<Byte> {
      *
      * <p>This method uses Java's bitwise XOR operator (^) to perform the operation. The result is
      * cast back to a byte to maintain the correct data type.
+     *
+     * <p>Note that this operation may cause byte overflow according to Java's two's complement
+     * arithmetic. For example, if a bit is set in both the input and XOR mask, the result will have
+     * that bit cleared.
      *
      * @param input The byte value to modify
      * @return The result of XORing the input with the configured value, or null if the input is
