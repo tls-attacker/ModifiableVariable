@@ -15,22 +15,7 @@ import java.util.Objects;
  * A modification that replaces the original value with an explicitly defined value.
  *
  * <p>This modification ignores the original value of a {@link ModifiableInteger} and always returns
- * a predefined integer value specified at initialization or via setter. It's one of the most
- * straightforward and powerful modifications for testing as it allows direct control over values in
- * protocol messages.
- *
- * <p>Explicit value modifications are particularly useful for:
- *
- * <ul>
- *   <li>Testing specific boundary values (0, 1, -1, Integer.MIN_VALUE, Integer.MAX_VALUE)
- *   <li>Testing protocol behavior with reserved, special, or invalid values
- *   <li>Creating reproducible test cases with precisely controlled values
- *   <li>Forcing protocol paths that might be difficult to trigger otherwise
- * </ul>
- *
- * <p>This is one of the simplest modifications available, as it completely disregards the original
- * value and replaces it with a constant. It's often used as a baseline for testing or to force
- * specific protocol states.
+ * a predefined integer value specified at initialization or via setter.
  *
  * @see ModifiableInteger
  */
@@ -80,8 +65,7 @@ public class IntegerExplicitValueModification extends VariableModification<Integ
      * Implements the modification by replacing the input with the explicit value.
      *
      * <p>This method simply returns the explicit value, completely ignoring the input parameter
-     * (except for null checks). This provides a straightforward way to override values in a
-     * protocol message.
+     * (except for null checks).
      *
      * <p>If the input is null, it preserves null-safety by returning null.
      *

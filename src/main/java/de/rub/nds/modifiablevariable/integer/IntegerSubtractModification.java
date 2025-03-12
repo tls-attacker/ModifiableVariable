@@ -15,21 +15,7 @@ import java.util.Objects;
  * A modification that subtracts a constant value from a ModifiableInteger.
  *
  * <p>This modification subtracts a specified integer value (subtrahend) from the input value when
- * applied. It can be used to decrement integer values at runtime, which is particularly useful for
- * testing protocol implementations.
- *
- * <p>Key testing scenarios where this modification is valuable include:
- *
- * <ul>
- *   <li>Testing protocol handling of decreased values (lengths, counts, etc.)
- *   <li>Exploring edge cases around zero or negative values in protocols expecting positive numbers
- *   <li>Testing integer underflow conditions
- *   <li>Checking boundary validation at integer limits (MIN_VALUE, MAX_VALUE)
- * </ul>
- *
- * <p>Unlike addition, subtraction can yield negative results that may test error handling and range
- * validation in protocol implementations. This makes it particularly useful for testing code that
- * expects unsigned or positive values.
+ * applied. It can be used to decrement integer values at runtime.
  *
  * @see ModifiableInteger
  * @see IntegerAddModification
@@ -50,10 +36,11 @@ public class IntegerSubtractModification extends VariableModification<Integer> {
      * Creates a new modification with the specified subtrahend.
      *
      * @param subtrahend The integer value to subtract from the original value
+     * @throws NullPointerException if subtrahend is null
      */
     public IntegerSubtractModification(Integer subtrahend) {
         super();
-        this.subtrahend = subtrahend;
+        this.subtrahend = Objects.requireNonNull(subtrahend, "Subtrahend must not be null");
     }
 
     /**
@@ -82,11 +69,6 @@ public class IntegerSubtractModification extends VariableModification<Integer> {
      * <p>This method performs the subtraction operation on the input integer using the {@code -}
      * operator. If the input is null, it returns null to preserve null-safety.
      *
-     * <p>Note that the result can be negative if the subtrahend is larger than the input value,
-     * which is often useful for testing boundary conditions. Also, integer underflow can occur if
-     * the result is less than Integer.MIN_VALUE, which can be useful for testing numeric wraparound
-     * handling.
-     *
      * @param input The original integer value
      * @return The result of subtracting the subtrahend from the input, or null if input is null
      */
@@ -113,7 +95,7 @@ public class IntegerSubtractModification extends VariableModification<Integer> {
      * @param subtrahend The new subtrahend
      */
     public void setSubtrahend(Integer subtrahend) {
-        this.subtrahend = subtrahend;
+        this.subtrahend = Objects.requireNonNull(subtrahend, "Subtrahend must not be null");
     }
 
     /**

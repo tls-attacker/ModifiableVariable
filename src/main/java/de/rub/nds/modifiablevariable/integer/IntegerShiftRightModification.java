@@ -17,35 +17,12 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * positions when applied. It effectively divides the value by 2 raised to the power of the shift
  * amount, which can be used to reduce integer values at runtime.
  *
- * <p>In Java, right shifts on integers are performed modulo 32 (the width of an integer). This
- * class enforces this behavior by applying a modulo 32 operation on the shift amount before
- * performing the shift, ensuring consistent results even with large shift values.
- *
- * <p>Importantly, this class uses the signed right shift operator ({@code >>}), which preserves the
- * sign of the original value. Negative values remain negative after shifting, with the sign bit
- * being copied into the positions vacated by the shift.
- *
- * <p>Right shift operations are useful for testing protocol implementations, particularly when
- * testing:
- *
- * <ul>
- *   <li>Value truncation (right shift removes least significant bits)
- *   <li>Partial information loss in binary formats
- *   <li>Sign bit handling and negative value behavior
- *   <li>Bit-level protocol operations
- * </ul>
  *
  * @see ModifiableInteger
  * @see IntegerShiftLeftModification
  */
 @XmlRootElement
 public class IntegerShiftRightModification extends VariableModification<Integer> {
-
-    /**
-     * The maximum shift modifier for integers, equal to the bit width of an integer (32). This is
-     * used to ensure that shift operations follow Java's behavior of modulo 32 for integer shifts.
-     */
-    private static final int MAX_SHIFT_MODIFIER = 32;
 
     /** The number of bit positions to shift right */
     private int shift;
@@ -92,13 +69,6 @@ public class IntegerShiftRightModification extends VariableModification<Integer>
      * <p>This method performs the signed right shift operation on the input integer using the
      * {@code >>} operator. If the input is null, it returns null to preserve null-safety.
      *
-     * <p>The shift amount is taken modulo 32 (the bit width of an integer) to match Java's built-in
-     * behavior for shift operations and to prevent undefined behavior with large shift values.
-     *
-     * <p>A right shift by n bits is equivalent to dividing by 2^n (with truncation toward negative
-     * infinity for negative numbers). For signed right shifts, the sign bit is propagated, meaning
-     * that negative values remain negative after shifting.
-     *
      * @param input The original integer value
      * @return The result of shifting the input right by the specified amount, or null if input is
      *     null
@@ -108,7 +78,7 @@ public class IntegerShiftRightModification extends VariableModification<Integer>
         if (input == null) {
             return null;
         }
-        return input >> shift % MAX_SHIFT_MODIFIER;
+        return input >> shift;
     }
 
     /**

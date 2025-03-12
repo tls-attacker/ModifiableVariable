@@ -15,21 +15,7 @@ import java.util.Objects;
  * A modification that multiplies a ModifiableInteger by a constant factor.
  *
  * <p>This modification takes the original integer value and multiplies it by a specified factor
- * when applied. It can be used to scale integer values at runtime, which is particularly useful for
- * testing protocol implementations.
- *
- * <p>This modification is valuable for:
- *
- * <ul>
- *   <li>Testing boundary conditions by rapidly scaling values up
- *   <li>Simulating overflow conditions by multiplying large values
- *   <li>Testing protocol field validation with scaled values
- *   <li>Creating values outside expected ranges in cryptographic protocols
- *   <li>Modifying protocol-specific numeric fields (counters, lengths, identifiers)
- * </ul>
- *
- * <p>Note that integer multiplication may result in overflow if the result exceeds the range of
- * {@link Integer} (±2^31), which can be useful for testing overflow handling in implementations.
+ * when applied. It can be used to scale integer values at runtime.
  *
  * @see ModifiableInteger
  */
@@ -86,7 +72,7 @@ public class IntegerMultiplyModification extends VariableModification<Integer> {
      * null-safety.
      *
      * <p>Note that this operation may result in integer overflow if the result exceeds the range of
-     * {@link Integer}.
+     * {@link Integer}, following regular Java integer logic.
      *
      * @param input The original integer value
      * @return The result of multiplying the input by the factor, or null if input was null

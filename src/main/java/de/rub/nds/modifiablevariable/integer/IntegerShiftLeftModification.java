@@ -17,31 +17,11 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * positions when applied. It effectively multiplies the value by 2 raised to the power of the shift
  * amount, which can be used to rapidly scale integer values at runtime.
  *
- * <p>In Java, left shifts on integers are performed modulo 32 (the width of an integer). This class
- * enforces this behavior by applying a modulo 32 operation on the shift amount before performing
- * the shift, ensuring consistent results even with large shift values.
- *
- * <p>Left shift operations are useful for testing protocol implementations, particularly when
- * testing:
- *
- * <ul>
- *   <li>Handling of large values (left shift can quickly generate large numbers)
- *   <li>Integer overflow behavior (left shifts can cause overflow)
- *   <li>Sign bit manipulation (shifting into the sign bit changes value sign)
- *   <li>Bit-level protocol operations and binary format handling
- * </ul>
- *
  * @see ModifiableInteger
  * @see IntegerShiftRightModification
  */
 @XmlRootElement
 public class IntegerShiftLeftModification extends VariableModification<Integer> {
-
-    /**
-     * The maximum shift modifier for integers, equal to the bit width of an integer (32). This is
-     * used to ensure that shift operations follow Java's behavior of modulo 32 for integer shifts.
-     */
-    private static final int MAX_SHIFT_MODIFIER = 32;
 
     /** The number of bit positions to shift left */
     private int shift;
@@ -88,11 +68,7 @@ public class IntegerShiftLeftModification extends VariableModification<Integer> 
      * <p>This method performs the left shift operation on the input integer using the {@code <<}
      * operator. If the input is null, it returns null to preserve null-safety.
      *
-     * <p>The shift amount is taken modulo 32 (the bit width of an integer) to match Java's built-in
-     * behavior for shift operations and to prevent undefined behavior with large shift values.
-     *
-     * <p>A left shift by n bits is equivalent to multiplying by 2^n. Note that for integers, shifts
-     * beyond 31 bits will overflow and produce unexpected results.
+     * <p>A left shift by n bits is equivalent to multiplying by 2^n.
      *
      * @param input The original integer value
      * @return The result of shifting the input left by the specified amount, or null if input is
@@ -103,7 +79,7 @@ public class IntegerShiftLeftModification extends VariableModification<Integer> 
         if (input == null) {
             return null;
         }
-        return input << shift % MAX_SHIFT_MODIFIER;
+        return input << shift;
     }
 
     /**

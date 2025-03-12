@@ -14,24 +14,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * A modification that swaps the byte order (endianness) of a ModifiableInteger.
  *
  * <p>This modification reverses the byte order of an integer value when applied, effectively
- * converting between big-endian and little-endian representations. It can be used to test how
- * systems handle different byte ordering conventions at runtime.
- *
- * <p>For example, the decimal value 16909060 is represented as:
- *
- * <ul>
- *   <li>0x01020304 in big-endian format (most significant byte first)
- *   <li>0x04030201 in little-endian format (least significant byte first)
- * </ul>
- *
- * <p>This conversion between byte orderings is particularly useful for:
- *
- * <ul>
- *   <li>Testing protocol implementations that may misinterpret byte ordering
- *   <li>Finding endianness-related bugs in multi-platform applications
- *   <li>Verifying proper byte order handling in network protocol stacks
- *   <li>Testing systems that interact with different processor architectures
- * </ul>
+ * converting between big-endian and little-endian representations.
  *
  * <p>The implementation uses Java's built-in {@link Integer#reverseBytes(int)} method to perform an
  * efficient, single-operation byte swap.
@@ -47,8 +30,6 @@ public class IntegerSwapEndianModification extends VariableModification<Integer>
 
     /**
      * Default constructor.
-     *
-     * <p>This modification is stateless so no parameters are needed.
      */
     public IntegerSwapEndianModification() {
         super();
@@ -56,8 +37,6 @@ public class IntegerSwapEndianModification extends VariableModification<Integer>
 
     /**
      * Copy constructor for creating a deep copy of an existing modification.
-     *
-     * <p>Since this modification is stateless, all instances are equivalent.
      *
      * @param other The modification to copy
      */
@@ -67,8 +46,6 @@ public class IntegerSwapEndianModification extends VariableModification<Integer>
 
     /**
      * Creates a deep copy of this modification.
-     *
-     * <p>Since this modification is stateless, all instances are equivalent.
      *
      * @return A new instance of this modification
      */
@@ -129,8 +106,6 @@ public class IntegerSwapEndianModification extends VariableModification<Integer>
 
     /**
      * Returns a string representation of this modification.
-     *
-     * <p>Since this modification is stateless, the string only includes the class name.
      *
      * @return A string representation of this object
      */
