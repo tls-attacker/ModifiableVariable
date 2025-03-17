@@ -55,9 +55,6 @@ import org.apache.logging.log4j.util.Strings;
  *   <li>{@code initNewLine} - Whether to start byte array output on a new line
  * </ul>
  *
- * <p>This layout is particularly useful in protocol testing environments where binary data needs to
- * be logged in a human-readable format.
- *
  * <p>The implementation is based on {@link org.apache.logging.log4j.core.layout.PatternLayout} with
  * modifications for byte array handling.
  */
@@ -240,9 +237,6 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
      * <p>This method handles the complete serialization and encoding process for writing a log
      * event to a destination. It first formats the event using the configured serializer, then
      * encodes the resulting text using the configured charset.
-     *
-     * <p>This method is particularly important for high-performance logging scenarios as it
-     * minimizes intermediate object creation and directly writes to the destination.
      *
      * @param event The LogEvent to encode
      * @param destination The destination to write the encoded event to
