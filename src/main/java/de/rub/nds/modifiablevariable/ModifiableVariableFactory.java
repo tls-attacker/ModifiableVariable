@@ -19,9 +19,8 @@ import java.math.BigInteger;
 /**
  * Factory class for creating modifiable variables of different types.
  *
- * <p>This factory provides methods to safely set values on
- * existing or new modifiable variables. The factory ensures that null modifiable variables are
- * properly initialized when setting values.
+ * <p>This factory provides methods to safely set values on existing or new modifiable variables.
+ * The factory ensures that null modifiable variables are properly initialized when setting values.
  */
 public final class ModifiableVariableFactory {
 
