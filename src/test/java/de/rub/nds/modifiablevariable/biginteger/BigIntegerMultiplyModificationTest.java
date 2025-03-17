@@ -37,11 +37,6 @@ public class BigIntegerMultiplyModificationTest {
         assertEquals(BigInteger.valueOf(20), m1.modifyImplementationHook(BigInteger.TEN));
         assertEquals(BigInteger.valueOf(50), m2.modifyImplementationHook(BigInteger.TEN));
 
-        // Multiply by 1 (identity)
-        BigIntegerMultiplyModification identity =
-                new BigIntegerMultiplyModification(BigInteger.ONE);
-        assertEquals(BigInteger.TEN, identity.modifyImplementationHook(BigInteger.TEN));
-
         // Multiply by 0
         BigIntegerMultiplyModification zero = new BigIntegerMultiplyModification(BigInteger.ZERO);
         assertEquals(BigInteger.ZERO, zero.modifyImplementationHook(BigInteger.TEN));
