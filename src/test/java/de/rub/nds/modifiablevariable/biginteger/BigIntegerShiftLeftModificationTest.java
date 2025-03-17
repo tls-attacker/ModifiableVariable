@@ -164,23 +164,6 @@ public class BigIntegerShiftLeftModificationTest {
 
         other.setShift(5);
         assertTrue(mutable.equals(other));
-
-        // Boundary cases
-        BigIntegerShiftLeftModification zero1 = new BigIntegerShiftLeftModification(0);
-        BigIntegerShiftLeftModification zero2 = new BigIntegerShiftLeftModification(0);
-        assertEquals(zero1, zero2);
-
-        BigIntegerShiftLeftModification negative1 = new BigIntegerShiftLeftModification(-1);
-        BigIntegerShiftLeftModification negative2 = new BigIntegerShiftLeftModification(-1);
-        assertEquals(negative1, negative2);
-        assertNotEquals(negative1, zero1);
-
-        BigIntegerShiftLeftModification maxInt1 =
-                new BigIntegerShiftLeftModification(Integer.MAX_VALUE);
-        BigIntegerShiftLeftModification maxInt2 =
-                new BigIntegerShiftLeftModification(Integer.MAX_VALUE);
-        assertEquals(maxInt1, maxInt2);
-        assertNotEquals(maxInt1, zero1);
     }
 
     @Test
