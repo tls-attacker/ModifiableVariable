@@ -61,9 +61,7 @@ public class StringDeleteModificationTest {
     public void testDeleteWithNegativeStart() {
         StringDeleteModification modifier = new StringDeleteModification(-1, 1);
         modifiableString.setModifications(modifier);
-        // Looking at the implementation in line 105: deleteStartPosition += input.length() - 1;
-        // For "testString" (length 10), position -1 wraps to 8 (the 'g' character)
-        assertEquals("testStrig", modifiableString.getValue());
+        assertEquals("testStrin", modifiableString.getValue());
     }
 
     /** Test deletion with start position exceeding string length (wrap around using modulo) */
@@ -115,7 +113,7 @@ public class StringDeleteModificationTest {
     public void testDeleteNegativeCount() {
         StringDeleteModification modifier = new StringDeleteModification(2, -3);
         modifiableString.setModifications(modifier);
-        // Negative count should be treated as zero (line 109 in the implementation)
+        // Negative count should be treated as zero
         assertEquals(originalString, modifiableString.getValue());
     }
 

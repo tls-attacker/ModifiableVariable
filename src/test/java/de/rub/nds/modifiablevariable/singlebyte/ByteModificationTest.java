@@ -177,7 +177,6 @@ public class ByteModificationTest {
         start.setModifications(sameModifier);
         assertEquals((byte) 0, start.getValue());
 
-
         // Test with null input
         ByteXorModification nullModifier = new ByteXorModification((byte) 0);
         start.setModifications(nullModifier);

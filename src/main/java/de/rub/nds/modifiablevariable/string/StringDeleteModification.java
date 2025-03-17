@@ -102,7 +102,7 @@ public class StringDeleteModification extends VariableModification<String> {
         // Wrap around and also allow to delete at the end of the original value
         int deleteStartPosition = startPosition % input.length();
         if (startPosition < 0) {
-            deleteStartPosition += input.length() - 1;
+            deleteStartPosition += input.length();
         }
 
         // If the end position overflows, it is fixed at the end of the string
