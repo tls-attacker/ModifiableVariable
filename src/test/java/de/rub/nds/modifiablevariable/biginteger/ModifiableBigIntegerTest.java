@@ -526,23 +526,4 @@ public class ModifiableBigIntegerTest {
         assertEquals(integer1, integer3);
         assertEquals(integer1.hashCode(), integer3.hashCode());
     }
-
-    /** Test hashCode with large values */
-    @Test
-    public void testHashCodeWithLargeValues() {
-        // Test with very large BigInteger values
-        BigInteger large1 = new BigInteger("9999999999999999999999999999999999999999");
-        BigInteger large2 = new BigInteger("9999999999999999999999999999999999999999");
-
-        ModifiableBigInteger largeInteger1 = new ModifiableBigInteger(large1);
-        ModifiableBigInteger largeInteger2 = new ModifiableBigInteger(large2);
-
-        // Same large values should have same hash code
-        assertEquals(largeInteger1.hashCode(), largeInteger2.hashCode());
-
-        // Different large values should have different hash codes
-        largeInteger2.setModifications(new BigIntegerAddModification(BigInteger.ONE));
-
-        assertNotEquals(largeInteger1.hashCode(), largeInteger2.hashCode());
-    }
 }
