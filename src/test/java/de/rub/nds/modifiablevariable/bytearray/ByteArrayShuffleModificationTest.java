@@ -127,10 +127,10 @@ public class ByteArrayShuffleModificationTest {
     /** Test of toString method, of class ByteArrayShuffleModification. */
     @Test
     public void testToString() {
-        String expected = "ByteArrayShuffleModification{shuffle=00 02 01 03}";
+        String expected = "ByteArrayShuffleModification{shuffle=[0, 2, 1, 3]}";
         assertEquals(expected, b1.toString());
 
-        String expected3 = "ByteArrayShuffleModification{shuffle=01 03 00 02}";
+        String expected3 = "ByteArrayShuffleModification{shuffle=[1, 3, 0, 2]}";
         assertEquals(expected3, b3.toString());
     }
 }

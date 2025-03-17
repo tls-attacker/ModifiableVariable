@@ -15,12 +15,18 @@ import java.util.Objects;
 /**
  * A modification that shuffles elements within a ModifiableByteArray.
  *
- * <p>This modification reorders elements within the byte array by performing a series of swap
- * operations based on a predefined shuffle pattern. It can be used to create data with the same
+ * <p>
+ * This modification reorders elements within the byte array by performing a
+ * series of swap
+ * operations based on a predefined shuffle pattern. It can be used to create
+ * data with the same
  * content but in a different order at runtime.
  *
- * <p>The transformation always produces a byte array with the same length and the same elements as
- * the input, just in a different order, making it valuable for testing protocol sensitivity to
+ * <p>
+ * The transformation always produces a byte array with the same length and the
+ * same elements as
+ * the input, just in a different order, making it valuable for testing protocol
+ * sensitivity to
  * element ordering without changing the actual content.
  *
  * @see ModifiableByteArray
@@ -40,7 +46,8 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
     /**
      * Creates a new shuffle modification with the specified shuffle pattern.
      *
-     * @param shuffle The int array containing the shuffle pattern defining which indices to swap
+     * @param shuffle The int array containing the shuffle pattern defining which
+     *                indices to swap
      * @throws NullPointerException if shuffle is null
      */
     public ByteArrayShuffleModification(int[] shuffle) {
@@ -51,7 +58,8 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
     /**
      * Copy constructor creating a deep copy of the provided modification.
      *
-     * <p>This creates a new instance with a copy of the shuffle pattern array.
+     * <p>
+     * This creates a new instance with a copy of the shuffle pattern array.
      *
      * @param other The modification to copy
      */
@@ -73,24 +81,36 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
     /**
      * Modifies the input by shuffling bytes according to the specified pattern.
      *
-     * <p>This method creates a copy of the input array and performs a series of swap operations as
-     * defined by the shuffle pattern. The original array is not modified, preserving immutability.
+     * <p>
+     * This method creates a copy of the input array and performs a series of swap
+     * operations as
+     * defined by the shuffle pattern. The original array is not modified,
+     * preserving immutability.
      *
-     * <p>Each index in the shuffle pattern is taken modulo the length of the input array to ensure
-     * that all swaps are performed within bounds, even if the shuffle pattern was designed for
+     * <p>
+     * Each index in the shuffle pattern is taken modulo the length of the input
+     * array to ensure
+     * that all swaps are performed within bounds, even if the shuffle pattern was
+     * designed for
      * arrays of a different size.
      *
-     * <p>The shuffle pattern is interpreted as pairs of indices to swap. For example, the pattern
+     * <p>
+     * The shuffle pattern is interpreted as pairs of indices to swap. For example,
+     * the pattern
      * [0, 1, 2, 3] would swap [0] with [1] and [2] with [3].
      *
      * @param input The byte array to shuffle
-     * @return A new byte array containing the same elements as the input but in shuffled order, or
-     *     null if the input is null
+     * @return A new byte array containing the same elements as the input but in
+     *         shuffled order, or
+     *         null if the input is null
      */
     @Override
     protected byte[] modifyImplementationHook(byte[] input) {
         if (input == null) {
             return null;
+        }
+        if (input.length == 0) {
+            return input;
         }
         byte[] result = input.clone();
         int size = input.length;
@@ -116,7 +136,8 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
     /**
      * Sets the shuffle pattern array.
      *
-     * @param shuffle The int array containing the shuffle pattern defining which indices to swap
+     * @param shuffle The int array containing the shuffle pattern defining which
+     *                indices to swap
      * @throws NullPointerException if shuffle is null
      */
     public void setShuffle(int[] shuffle) {
@@ -126,7 +147,8 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
     /**
      * Computes a hash code for this shuffle modification.
      *
-     * <p>The hash code is based solely on the shuffle pattern array.
+     * <p>
+     * The hash code is based solely on the shuffle pattern array.
      *
      * @return A hash code value for this object
      */
@@ -140,7 +162,9 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
     /**
      * Compares this shuffle modification with another object for equality.
      *
-     * <p>Two ByteArrayShuffleModification objects are considered equal if they have identical
+     * <p>
+     * Two ByteArrayShuffleModification objects are considered equal if they have
+     * identical
      * shuffle pattern arrays.
      *
      * @param obj The object to compare with
@@ -164,7 +188,8 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
     /**
      * Returns a string representation of this shuffle modification.
      *
-     * <p>The string includes the shuffle pattern as a list of ints.
+     * <p>
+     * The string includes the shuffle pattern as a list of ints.
      *
      * @return A string representation of this object
      */
