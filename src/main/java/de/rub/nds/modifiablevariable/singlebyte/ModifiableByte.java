@@ -14,17 +14,11 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * A modifiable variable implementation for single byte values.
  *
  * <p>This class extends {@link ModifiableVariable} to provide runtime modification capabilities for
- * Byte values. It supports various byte-specific modifications such as:
- *
- * <ul>
- *   <li>Addition and subtraction operations
- *   <li>XOR operations
- *   <li>Setting explicit byte values
- * </ul>
- *
- * <p>Single bytes are commonly used in protocols for flags, type indicators, and other small
- * numeric values. The ability to modify bytes at runtime is particularly useful for testing
- * protocol implementations' handling of unexpected or malformed values.
+ * Byte values. It supports various byte-specific modifications such as addition, subtraction, XOR
+ * operations, and more.
+ * 
+ * I many cases it is beneficial to use ModifiableByteArray instead of ModifiableByte, as it allows for
+ * more uniform treatment in the code.
  */
 @XmlRootElement
 public class ModifiableByte extends ModifiableVariable<Byte> {
@@ -92,16 +86,18 @@ public class ModifiableByte extends ModifiableVariable<Byte> {
      * <p>This method compares bytes using their natural ordering via the compareTo method.
      *
      * @return true if the value has been modified, false otherwise
+     * @throws IllegalStateException if the original value is not set
      */
     @Override
     public boolean isOriginalValueModified() {
-        return originalValue != null && originalValue.compareTo(getValue()) != 0;
+        if (originalValue == null) {
+            throw new IllegalStateException("Original value must be set before modification");
+        }
+        return originalValue.compareTo(getValue()) != 0;
     }
 
     /**
      * Validates whether the modified value matches the expected value (if set).
-     *
-     * <p>This method compares bytes using their natural ordering via the compareTo method.
      *
      * @return true if no assertion is set or if the current value equals the expected value
      */

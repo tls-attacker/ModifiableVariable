@@ -15,23 +15,8 @@ import java.util.Objects;
  * A modification that subtracts a constant value from a ModifiableByte.
  *
  * <p>This modification subtracts a specified byte value (subtrahend) from the input value when
- * applied. It can be used to decrement byte values at runtime, which is particularly useful for
- * testing protocol implementations.
- *
- * <p>This class modifies a byte by subtracting a specific subtrahend from it. It's useful in
- * security testing for exploring edge cases and boundary conditions in protocol handling,
- * particularly when testing for underflow conditions or boundary value analysis.
- *
- * <p>Example use cases:
- *
- * <ul>
- *   <li>Testing underflow behavior by subtracting values close to byte limits
- *   <li>Modifying version bytes in protocols to test backward compatibility
- *   <li>Decreasing counter or sequence bytes to test protocol resilience against out-of-order
- *       packets
- *   <li>Manipulating length fields to create malformed protocol messages
- * </ul>
- *
+ * applied. It can be used to decrement byte values at runtime.
+ * 
  * @see ModifiableByte
  */
 @XmlRootElement
@@ -81,7 +66,7 @@ public class ByteSubtractModification extends VariableModification<Byte> {
      *
      * <p>Note that this operation may cause byte underflow if the result falls below
      * Byte.MIN_VALUE. In such cases, the result will wrap around according to Java's two's
-     * complement arithmetic, which can be useful for testing boundary conditions.
+     * complement arithmetic.
      *
      * @param input The byte value to modify
      * @return The result of subtracting the subtrahend from the input, or null if the input is null
@@ -113,7 +98,7 @@ public class ByteSubtractModification extends VariableModification<Byte> {
     }
 
     /**
-     * Computes the hash code for this object.
+     * Computes the hash code for this object. The hash code is based solely on the subtrahend.
      *
      * @return A hash code value for this object
      */
@@ -125,7 +110,8 @@ public class ByteSubtractModification extends VariableModification<Byte> {
     }
 
     /**
-     * Compares this ByteSubtractModification with another object for equality.
+     * Compares this ByteSubtractModification with another object for equality. Two modifications are
+     * considered equal if they are of the same class and their subtrahend values are equal.
      *
      * @param obj The object to compare with
      * @return true if the objects are equal, false otherwise

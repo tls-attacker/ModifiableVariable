@@ -15,19 +15,7 @@ import java.util.Objects;
  * A modification that applies an XOR operation to a ModifiableByte.
  *
  * <p>This modification performs a bitwise XOR operation between a specified byte value (the xor
- * mask) and the input byte when applied. XOR operations are commonly used for bit manipulation in
- * cryptographic protocols and data encoding.
- *
- * <p>XOR operations are particularly useful for testing because they can:
- *
- * <ul>
- *   <li>Flip specific bits in a byte (using a mask with 1s in positions to flip)
- *   <li>Invert all bits in a byte (using a mask of 0xFF)
- *   <li>Leave certain bits unchanged (using a mask with 0s in positions to preserve)
- * </ul>
- *
- * <p>This makes it a valuable tool for protocol testing, especially when testing implementations'
- * handling of malformed or unexpected byte values.
+ * mask) and the input byte when applied.
  *
  * @see ModifiableByte
  */
@@ -76,8 +64,7 @@ public class ByteXorModification extends VariableModification<Byte> {
     /**
      * Modifies the input by applying an XOR operation with the configured XOR value.
      *
-     * <p>This method uses Java's bitwise XOR operator (^) to perform the operation. The result is
-     * cast back to a byte to maintain the correct data type.
+     * <p>This method uses Java's bitwise XOR operator (^) to perform the operation. 
      *
      * <p>Note that this operation may cause byte overflow according to Java's two's complement
      * arithmetic. For example, if a bit is set in both the input and XOR mask, the result will have

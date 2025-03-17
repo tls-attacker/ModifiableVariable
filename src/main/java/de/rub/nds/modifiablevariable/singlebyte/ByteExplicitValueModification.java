@@ -15,21 +15,7 @@ import java.util.Objects;
  * A modification that replaces the original byte with an explicitly defined value.
  *
  * <p>This modification ignores the original value of a {@link ModifiableByte} and always returns a
- * predefined byte value specified at initialization or via setter. It's particularly useful in
- * security testing for forcing specific byte values in protocol messages.
- *
- * <p>Example use cases:
- *
- * <ul>
- *   <li>Setting specific flag values in protocol headers
- *   <li>Testing boundary values (0x00, 0x7F, 0xFF) in protocol fields
- *   <li>Replacing version indicators with specific values to test compatibility
- *   <li>Setting control bytes to specific values to trigger certain behaviors
- * </ul>
- *
- * <p>This is one of the simplest modifications available, as it completely disregards the original
- * value and replaces it with a constant. It's often used as a baseline for testing or to force
- * specific protocol states.
+ * predefined byte value specified at initialization or via setter.
  *
  * @see ModifiableByte
  */
@@ -112,7 +98,7 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
     }
 
     /**
-     * Computes the hash code for this object.
+     * Computes the hash code for this object. The hash code is based solely on the explicit value.
      *
      * @return A hash code value for this object
      */
@@ -125,6 +111,7 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
 
     /**
      * Compares this ByteExplicitValueModification with another object for equality.
+     * Two ByteExplicitValueModifications are considered equal if their explicit values are equal.
      *
      * @param obj The object to compare with
      * @return true if the objects are equal, false otherwise

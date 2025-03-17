@@ -15,21 +15,7 @@ import java.util.Objects;
  * A modification that adds a constant value to a ModifiableByte.
  *
  * <p>This modification adds a specified byte value (summand) to the input value when applied. It
- * can be used to increment or decrement byte values at runtime, which is particularly useful for
- * testing protocol implementations.
- *
- * <p>Example use cases for this modification include:
- *
- * <ul>
- *   <li>Testing overflow behavior by adding values close to byte limits (127/-128)
- *   <li>Modifying version bytes in protocols to test version compatibility
- *   <li>Incrementing counter or sequence bytes to test protocol robustness
- *   <li>Altering flag or option bytes to test different configuration combinations
- * </ul>
- *
- * <p>Since bytes are limited to 8 bits, additions that exceed the range of a byte (Byte.MIN_VALUE
- * to Byte.MAX_VALUE, or -128 to 127) will wrap around according to Java's two's complement
- * arithmetic. This wrapping behavior is particularly useful for testing overflow conditions.
+ * can be used to increment or decrement byte values at runtime.
  *
  * @see ModifiableByte
  * @see ByteSubtractModification
