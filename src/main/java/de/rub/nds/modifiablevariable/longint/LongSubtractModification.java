@@ -24,7 +24,7 @@ import java.util.Objects;
 public class LongSubtractModification extends VariableModification<Long> {
 
     /** The value to subtract from the original long */
-    private Long subtrahend;
+    private long subtrahend;
 
     /** Default constructor for serialization. */
     @SuppressWarnings("unused")
@@ -87,7 +87,7 @@ public class LongSubtractModification extends VariableModification<Long> {
      *
      * @return The subtrahend
      */
-    public Long getSubtrahend() {
+    public long getSubtrahend() {
         return subtrahend;
     }
 

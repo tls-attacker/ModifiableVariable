@@ -23,7 +23,7 @@ import java.util.Objects;
 public class LongAddModification extends VariableModification<Long> {
 
     /** The value to add to the original long */
-    private Long summand;
+    private long summand;
 
     /** Default constructor for serialization. */
     @SuppressWarnings("unused")

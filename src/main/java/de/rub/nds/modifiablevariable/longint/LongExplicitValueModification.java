@@ -24,7 +24,7 @@ import java.util.Objects;
 public class LongExplicitValueModification extends VariableModification<Long> {
 
     /** The explicit value that will replace the original value */
-    protected Long explicitValue;
+    protected long explicitValue;
 
     /** Default constructor for serialization. */
     @SuppressWarnings("unused")

@@ -24,7 +24,7 @@ import java.util.Objects;
 public class LongXorModification extends VariableModification<Long> {
 
     /** The XOR mask to apply to the original long */
-    private Long xor;
+    private long xor;
 
     /** Default constructor for serialization. */
     @SuppressWarnings("unused")
@@ -84,7 +84,7 @@ public class LongXorModification extends VariableModification<Long> {
      *
      * @return The XOR mask
      */
-    public Long getXor() {
+    public long getXor() {
         return xor;
     }
 
@@ -93,7 +93,7 @@ public class LongXorModification extends VariableModification<Long> {
      *
      * @param xor The new XOR mask
      */
-    public void setXor(Long xor) {
+    public void setXor(long xor) {
         this.xor = xor;
     }
 

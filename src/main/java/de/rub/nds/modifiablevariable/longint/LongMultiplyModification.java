@@ -23,7 +23,7 @@ import java.util.Objects;
 public class LongMultiplyModification extends VariableModification<Long> {
 
     /** The factor to multiply by */
-    private Long factor;
+    private long factor;
 
     /** Default constructor for serialization. */
     @SuppressWarnings("unused")
@@ -86,7 +86,7 @@ public class LongMultiplyModification extends VariableModification<Long> {
      *
      * @return The multiplication factor
      */
-    public Long getFactor() {
+    public long getFactor() {
         return factor;
     }
 
