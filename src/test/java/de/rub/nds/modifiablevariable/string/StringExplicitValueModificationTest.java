@@ -65,7 +65,7 @@ public class StringExplicitValueModificationTest {
                 new StringExplicitValueModification(explicitValue);
         nullString.setModifications(modifier);
 
-        // According to implementation, null input returns null regardless of explicit value
+        // null input returns null regardless of explicit value
         assertNull(nullString.getValue());
     }
 
