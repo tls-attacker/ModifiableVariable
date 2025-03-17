@@ -71,8 +71,7 @@ public class StringExplicitValueModification extends VariableModification<String
     /**
      * Modifies the input by replacing it with the explicit value.
      *
-     * <p>This method ignores the input value and always returns the explicit value. Strings in Java
-     * are immutable, so no defensive copy is needed.
+     * <p>This method ignores the input value and always returns the explicit value.
      *
      * @param input The original string (ignored except for null check)
      * @return The explicit value, or null if input was null
@@ -100,7 +99,7 @@ public class StringExplicitValueModification extends VariableModification<String
      * @param explicitValue The new explicit string to use
      */
     public void setExplicitValue(String explicitValue) {
-        this.explicitValue = explicitValue;
+        this.explicitValue = Objects.requireNonNull(explicitValue, "ExplicitValue must not be null");
     }
 
     /**

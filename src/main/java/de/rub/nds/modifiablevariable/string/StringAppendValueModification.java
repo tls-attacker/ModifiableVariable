@@ -19,25 +19,7 @@ import java.util.Objects;
  * A modification that appends a string to the end of a ModifiableString.
  *
  * <p>This modification takes the original string and adds a specified string to its end when
- * applied. It can be used to add text to the end of string values at runtime, which is particularly
- * useful for testing protocol implementations.
- *
- * <p>This modification is especially valuable for:
- *
- * <ul>
- *   <li>Testing boundary conditions by appending additional characters
- *   <li>Modifying string-based identifiers or names
- *   <li>Creating malformed string values for security testing
- *   <li>Adding suffixes or terminators to protocol messages
- *   <li>Testing string handling with unexpected trailing data
- * </ul>
- *
- * <p>When applied, this modification creates a new string that is the concatenation of the original
- * string followed by the append value. The original string remains unchanged, preserving
- * immutability.
- *
- * <p>Unlike insertion modifications, appending always adds content at the very end of the string,
- * making it useful for adding suffixes, terminators, or trailing data.
+ * applied. It can be used to add text to the end of string values at runtime.
  *
  * @see ModifiableString
  * @see StringPrependValueModification
@@ -94,9 +76,6 @@ public class StringAppendValueModification extends VariableModification<String> 
      * append value. The implementation uses Java's built-in string concatenation, which creates a
      * new string object, preserving the immutability of the original string.
      *
-     * <p>This concatenation approach ensures efficient string creation while maintaining correct
-     * behavior even with special characters or Unicode strings.
-     *
      * @param input The original string to modify
      * @return A new string with the append value added at the end, or null if the input is null
      */
@@ -123,7 +102,7 @@ public class StringAppendValueModification extends VariableModification<String> 
      * @param appendValue The new string to append
      */
     public void setAppendValue(String appendValue) {
-        this.appendValue = appendValue;
+        this.appendValue = Objects.requireNonNull(appendValue, "AppendValue must not be null");
     }
 
     /**

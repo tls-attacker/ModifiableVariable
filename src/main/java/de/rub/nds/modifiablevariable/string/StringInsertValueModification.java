@@ -22,6 +22,10 @@ import java.util.Objects;
  * handles special cases such as negative positions and positions beyond the string length.
  *
  * @see ModifiableString
+ * @see StringDeleteModification
+ * @see StringAppendValueModification
+ * @see StringPrependValueModification
+ * 
  */
 @XmlRootElement
 public class StringInsertValueModification extends VariableModification<String> {
@@ -77,7 +81,7 @@ public class StringInsertValueModification extends VariableModification<String> 
      *
      * <p>If the position is negative, it wraps around to insert from the end of the string. If the
      * position exceeds the string length, it's adjusted using modulo arithmetic. Insertion at the
-     * end of the string is also supported.
+     * end of the string is also supported, effectivly resulting in an append.
      *
      * @param input The string to modify
      * @return A new string with the insertion applied, or null if input was null
@@ -111,7 +115,7 @@ public class StringInsertValueModification extends VariableModification<String> 
      * @param insertValue The new string to insert
      */
     public void setInsertValue(String insertValue) {
-        this.insertValue = insertValue;
+        this.insertValue = Objects.requireNonNull(insertValue, "InsertValue must not be null");
     }
 
     /**

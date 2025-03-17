@@ -21,24 +21,7 @@ import java.util.Objects;
  * <p>This modification takes the original string and adds a specified string to its beginning when
  * applied. It can be used to add text to the start of string values at runtime, which is
  * particularly useful for testing protocol implementations.
- *
- * <p>This modification is especially valuable for:
- *
- * <ul>
- *   <li>Testing for SQL injection by prepending SQL syntax to field values
- *   <li>Testing for XSS vulnerabilities by prepending script tags to form inputs
- *   <li>Adding protocol prefixes, headers, or markers to string data
- *   <li>Testing boundary conditions by prepending large or special character strings
- *   <li>Manipulating protocol handshakes by modifying string fields
- * </ul>
- *
- * <p>When applied, this modification creates a new string that is the concatenation of the prepend
- * value followed by the original string. The original string remains unchanged, preserving
- * immutability.
- *
- * <p>Unlike insertion modifications, prepending always adds content at the very beginning of the
- * string, making it useful for adding headers, prefixes, or protocol markers.
- *
+ * 
  * @see ModifiableString
  * @see StringAppendValueModification
  * @see StringInsertValueModification
