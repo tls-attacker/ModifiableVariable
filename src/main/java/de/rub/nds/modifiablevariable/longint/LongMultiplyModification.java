@@ -15,26 +15,8 @@ import java.util.Objects;
  * A modification that multiplies a ModifiableLong by a constant factor.
  *
  * <p>This modification takes the original long value and multiplies it by a specified factor when
- * applied. It can be used to scale long values at runtime, which is particularly useful for testing
- * protocol implementations.
- *
- * <p>Key testing scenarios where this modification is valuable include:
- *
- * <ul>
- *   <li>Scaling values to test how systems handle large numbers
- *   <li>Testing overflow conditions by multiplying by large factors
- *   <li>Manipulating protocol fields that should be within specific ranges
- *   <li>Testing numeric validation routines
- *   <li>Zeroing values by multiplying by 0 to test null/zero handling
- * </ul>
- *
- * <p>Long values provide a much larger range than integers, allowing for testing with extremely
- * large numbers. This makes this modification particularly useful when testing protocols dealing
- * with timestamps, file sizes, memory addresses, or other large numeric values.
- *
- * <p>Note that long multiplication may result in overflow if the result exceeds the range of {@link
- * Long} (±2^63), which can be useful for testing overflow handling in implementations.
- *
+ * applied. It can be used to scale long values at runtime.
+ * 
  * @see ModifiableLong
  */
 @XmlRootElement

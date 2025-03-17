@@ -18,34 +18,11 @@ import java.util.Objects;
  * positions when applied. It effectively multiplies the value by 2 raised to the power of the shift
  * amount, which can be used to rapidly scale long values at runtime.
  *
- * <p>In Java, left shifts on longs are performed modulo 64 (the width of a long). This class
- * enforces this behavior by applying a modulo 64 operation on the shift amount before performing
- * the shift, ensuring consistent results even with large shift values.
- *
- * <p>Left shift operations are useful for testing protocol implementations, particularly when
- * testing:
- *
- * <ul>
- *   <li>Handling of large values (left shift can quickly generate large numbers)
- *   <li>Long overflow behavior (left shifts can cause overflow)
- *   <li>Sign bit manipulation (shifting into the sign bit changes value sign)
- *   <li>Bit-level protocol operations and binary format handling
- * </ul>
- *
- * <p>This modification is especially useful for testing with 64-bit values common in cryptographic
- * protocols, timestamp handling, and other areas where large numeric values are manipulated.
- *
  * @see ModifiableLong
  * @see LongShiftRightModification
  */
 @XmlRootElement
 public class LongShiftLeftModification extends VariableModification<Long> {
-
-    /**
-     * The maximum shift modifier for longs, equal to the bit width of a long (64). This is used to
-     * ensure that shift operations follow Java's behavior of modulo 64 for long shifts.
-     */
-    private static final int MAX_SHIFT_MODIFIER = 64;
 
     /** The number of bit positions to shift left */
     private int shift;
@@ -92,12 +69,6 @@ public class LongShiftLeftModification extends VariableModification<Long> {
      * <p>This method performs the left shift operation on the input long using the {@code <<}
      * operator. If the input is null, it returns null to preserve null-safety.
      *
-     * <p>The shift amount is taken modulo 64 (the bit width of a long) to match Java's built-in
-     * behavior for shift operations and to prevent undefined behavior with large shift values.
-     *
-     * <p>A left shift by n bits is equivalent to multiplying by 2^n. Note that for longs, shifts
-     * beyond 63 bits will overflow and produce unexpected results.
-     *
      * @param input The original long value
      * @return The result of shifting the input left by the specified amount, or null if input is
      *     null
@@ -107,7 +78,7 @@ public class LongShiftLeftModification extends VariableModification<Long> {
         if (input == null) {
             return null;
         }
-        return input << shift % MAX_SHIFT_MODIFIER;
+        return input << shift;
     }
 
     /**

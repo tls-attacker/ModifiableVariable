@@ -23,8 +23,15 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * operations, bit shifts, endian swaps, and explicit value replacements. These modifications are
  * represented by corresponding classes in the same package.
  *
- * <p>The class supports XML serialization/deserialization through JAXB annotations, making it
- * suitable for configuration-driven testing environments.
+ * @see ModifiableVariable
+ * @see LongAddModification
+ * @see LongSubtractModification
+ * @see LongMultiplyModification
+ * @see LongXorModification
+ * @see LongShiftLeftModification
+ * @see LongShiftRightModification
+ * @see LongSwapEndianModification
+ * @see LongExplicitValueModification
  */
 @XmlRootElement
 public class ModifiableLong extends ModifiableVariable<Long> {
@@ -37,6 +44,7 @@ public class ModifiableLong extends ModifiableVariable<Long> {
      *
      * <p>The originalValue is set to null, requiring it to be set later before meaningful
      * modifications can be applied.
+     * 
      */
     public ModifiableLong() {
         super();
@@ -105,10 +113,14 @@ public class ModifiableLong extends ModifiableVariable<Long> {
      * its original state.
      *
      * @return {@code true} if the original value has been modified, {@code false} otherwise
+     * @throws IllegalStateException if the original value has not been set
      */
     @Override
     public boolean isOriginalValueModified() {
-        return originalValue != null && originalValue.compareTo(getValue()) != 0;
+        if(originalValue == null) {
+            throw new IllegalStateException("Original value must be set before checking for modifications");
+        }
+        return !originalValue.equals(getValue());
     }
 
     /**

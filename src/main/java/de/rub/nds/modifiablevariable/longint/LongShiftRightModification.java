@@ -18,38 +18,11 @@ import java.util.Objects;
  * positions when applied. It effectively divides the value by 2 raised to the power of the shift
  * amount, which can be used to reduce long values at runtime.
  *
- * <p>In Java, right shifts on longs are performed modulo 64 (the width of a long). This class
- * enforces this behavior by applying a modulo 64 operation on the shift amount before performing
- * the shift, ensuring consistent results even with large shift values.
- *
- * <p>Importantly, this class uses the signed right shift operator ({@code >>}), which preserves the
- * sign of the original value. Negative values remain negative after shifting, with the sign bit
- * being copied into the positions vacated by the shift.
- *
- * <p>Right shift operations are useful for testing protocol implementations, particularly when
- * testing:
- *
- * <ul>
- *   <li>Value truncation (right shift removes least significant bits)
- *   <li>Partial information loss in binary formats
- *   <li>Sign bit handling and negative value behavior
- *   <li>Bit-level protocol operations
- * </ul>
- *
- * <p>This modification is especially useful for testing with 64-bit values common in cryptographic
- * protocols, timestamp handling, and other areas where large numeric values are manipulated.
- *
  * @see ModifiableLong
  * @see LongShiftLeftModification
  */
 @XmlRootElement
 public class LongShiftRightModification extends VariableModification<Long> {
-
-    /**
-     * The maximum shift modifier for longs, equal to the bit width of a long (64). This is used to
-     * ensure that shift operations follow Java's behavior of modulo 64 for long shifts.
-     */
-    private static final int MAX_SHIFT_MODIFIER = 64;
 
     /** The number of bit positions to shift right */
     private int shift;
@@ -96,13 +69,6 @@ public class LongShiftRightModification extends VariableModification<Long> {
      * <p>This method performs the signed right shift operation on the input long using the {@code
      * >>} operator. If the input is null, it returns null to preserve null-safety.
      *
-     * <p>The shift amount is taken modulo 64 (the bit width of a long) to match Java's built-in
-     * behavior for shift operations and to prevent undefined behavior with large shift values.
-     *
-     * <p>A right shift by n bits is equivalent to dividing by 2^n (with truncation toward negative
-     * infinity for negative numbers). For signed right shifts, the sign bit is propagated, meaning
-     * that negative values remain negative after shifting.
-     *
      * @param input The original long value
      * @return The result of shifting the input right by the specified amount, or null if input is
      *     null
@@ -112,7 +78,7 @@ public class LongShiftRightModification extends VariableModification<Long> {
         if (input == null) {
             return null;
         }
-        return input >> shift % MAX_SHIFT_MODIFIER;
+        return input >> shift;
     }
 
     /**

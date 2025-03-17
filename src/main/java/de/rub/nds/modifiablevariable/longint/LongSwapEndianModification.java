@@ -17,23 +17,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * between big-endian and little-endian representations. It can be used to test how systems handle
  * different byte ordering conventions at runtime.
  *
- * <p>In big-endian format, the most significant byte is stored at the lowest memory address, while
- * in little-endian format, the least significant byte is stored at the lowest memory address.
- * Converting between these formats is a common source of bugs in networked and cross-platform
- * applications.
- *
- * <p>Key testing scenarios where this modification is valuable include:
- *
- * <ul>
- *   <li>Testing protocol compatibility with different endian systems
- *   <li>Finding implementation bugs related to byte order assumptions
- *   <li>Verifying proper endianness handling in multi-platform code
- *   <li>Testing network protocol implementations where byte order conversion is critical
- * </ul>
- *
- * <p>This modification is particularly useful for testing 64-bit values that might be interpreted
- * differently across systems, such as timestamps, file offsets, or cryptographic values.
- *
  * <p>This modification is stateless as it has no configuration parameters. All instances of this
  * class behave identically and are considered equal when compared.
  *
@@ -45,9 +28,6 @@ public class LongSwapEndianModification extends VariableModification<Long> {
 
     /**
      * Default constructor.
-     *
-     * <p>This constructor creates a modification that swaps the byte order of a long value. No
-     * additional configuration is required.
      */
     public LongSwapEndianModification() {
         super();

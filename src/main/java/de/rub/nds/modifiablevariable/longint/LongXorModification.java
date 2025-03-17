@@ -18,28 +18,6 @@ import java.util.Objects;
  * value and a specified XOR mask when applied. It can be used to selectively flip specific bits in
  * long values at runtime.
  *
- * <p>XOR modifications are particularly valuable for security testing because:
- *
- * <ul>
- *   <li>They allow selective bit flipping, which can target specific bits in a value
- *   <li>They're reversible (applying the same XOR mask twice restores the original value)
- *   <li>They create predictable and controlled changes to binary data
- *   <li>They can be used to simulate data corruption or protocol tampering
- * </ul>
- *
- * <p>Common testing scenarios include:
- *
- * <ul>
- *   <li>Flipping individual bits to test error detection/correction
- *   <li>Inverting all bits by using XOR with -1 (all 1s in binary)
- *   <li>Testing protocol implementations' handling of corrupted numeric values
- *   <li>Manipulating flags or bit-field based configuration values
- * </ul>
- *
- * <p>Long values are often used in cryptographic operations, timestamps, and other scenarios where
- * larger numeric ranges are needed, making this modification particularly useful for testing such
- * implementations.
- *
  * @see ModifiableLong
  */
 @XmlRootElement
@@ -89,17 +67,6 @@ public class LongXorModification extends VariableModification<Long> {
      *
      * <p>This method performs the bitwise XOR operation on the input long using the {@code ^}
      * operator. If the input is null, it returns null to preserve null-safety.
-     *
-     * <p>The XOR operation is performed bit by bit according to the following rules:
-     *
-     * <ul>
-     *   <li>0 XOR 0 = 0
-     *   <li>0 XOR 1 = 1
-     *   <li>1 XOR 0 = 1
-     *   <li>1 XOR 1 = 0
-     * </ul>
-     *
-     * <p>This allows precise control over which bits are flipped in the input value.
      *
      * @param input The original long value
      * @return The result of XORing the input with the XOR mask, or null if input is null

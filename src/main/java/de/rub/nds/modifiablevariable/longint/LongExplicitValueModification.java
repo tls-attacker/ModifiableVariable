@@ -15,27 +15,7 @@ import java.util.Objects;
  * A modification that replaces the original value with an explicitly defined value.
  *
  * <p>This modification ignores the original value of a {@link ModifiableLong} and always returns a
- * predefined long value specified at initialization or via setter. It's one of the most
- * straightforward and powerful modifications for testing as it allows direct control over values in
- * protocol messages.
- *
- * <p>Explicit value modifications are particularly useful for:
- *
- * <ul>
- *   <li>Testing specific boundary values (0, 1, -1, Long.MIN_VALUE, Long.MAX_VALUE)
- *   <li>Testing protocol behavior with reserved, special, or invalid values
- *   <li>Creating reproducible test cases with precisely controlled values
- *   <li>Forcing protocol paths that might be difficult to trigger otherwise
- *   <li>Testing with exact timestamp values in time-sensitive protocols
- * </ul>
- *
- * <p>This is one of the simplest modifications available, as it completely disregards the original
- * value and replaces it with a constant. It's often used as a baseline for testing or to force
- * specific protocol states.
- *
- * <p>The 64-bit range of long values makes this modification particularly useful for testing with
- * large numbers like timestamps, file sizes, or database identifiers that exceed the range of
- * regular integers.
+ * predefined long value specified at initialization or via setter.
  *
  * @see ModifiableLong
  * @see de.rub.nds.modifiablevariable.integer.IntegerExplicitValueModification
