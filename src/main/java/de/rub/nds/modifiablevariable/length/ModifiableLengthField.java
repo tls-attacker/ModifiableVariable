@@ -21,10 +21,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * makes it suitable for representing length fields in protocols where the length needs to be
  * synchronized with the actual content.
  *
- * <p>The ModifiableLengthField can still be modified using all the modification capabilities of
- * ModifiableInteger, allowing for length field manipulations that are common in protocol testing
- * (e.g., length field underflows or overflows).
- *
  * <p>Note that attempting to set the original value directly will throw an
  * UnsupportedOperationException, as the original value is derived from the referenced byte array.
  */
