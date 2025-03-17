@@ -30,9 +30,33 @@ import org.apache.logging.log4j.util.PropertiesUtil;
 import org.apache.logging.log4j.util.Strings;
 
 /**
- * A layout for LOG messages in the correct format and also for logging ByteArrays with good
- * performance. The ExtendedPatternLayout is mostly copied from {@link
- * org.apache.logging.log4j.core.layout.PatternLayout}.
+ * A specialized layout for formatting log messages with enhanced byte array handling.
+ *
+ * <p>This class extends the functionality of Log4j2's standard PatternLayout by adding specialized
+ * handling for byte array parameters in log messages. While the standard PatternLayout would format
+ * byte arrays using {@link Arrays#toString(byte[])}, which produces output like "[B@1a2b3c4]", this
+ * layout intercepts byte array parameters and formats them as readable hexadecimal strings using
+ * {@link ArrayConverter#bytesToHexString(byte[])}.
+ *
+ * <p>The layout supports all standard PatternLayout features including:
+ *
+ * <ul>
+ *   <li>Pattern-based formatting with conversion patterns
+ *   <li>Header and footer support
+ *   <li>ANSI color support (platform-dependent)
+ *   <li>Regex-based text replacement
+ *   <li>Pattern selectors for context-based formatting
+ * </ul>
+ *
+ * <p>Additionally, it provides configuration options specific to byte array formatting:
+ *
+ * <ul>
+ *   <li>{@code prettyPrinting} - Whether to add spacing between bytes for readability
+ *   <li>{@code initNewLine} - Whether to start byte array output on a new line
+ * </ul>
+ *
+ * <p>The implementation is based on {@link org.apache.logging.log4j.core.layout.PatternLayout} with
+ * modifications for byte array handling.
  */
 @Plugin(
         name = "ExtendedPatternLayout",
@@ -40,12 +64,31 @@ import org.apache.logging.log4j.util.Strings;
         elementType = "layout",
         printObject = true)
 public final class ExtendedPatternLayout extends AbstractStringLayout {
+    /** The default conversion pattern: "%m%n" (message followed by a newline) */
     public static final String DEFAULT_CONVERSION_PATTERN = "%m%n";
+
+    /**
+     * The TTCC conversion pattern includes thread, time, category and context information: "%r [%t]
+     * %p %c %notEmpty{%x }- %m%n"
+     */
     public static final String TTCC_CONVERSION_PATTERN = "%r [%t] %p %c %notEmpty{%x }- %m%n";
+
+    /**
+     * A simple conversion pattern with date, thread, priority, category and message: "%d [%t] %p %c
+     * - %m%n"
+     */
     public static final String SIMPLE_CONVERSION_PATTERN = "%d [%t] %p %c - %m%n";
+
+    /** The key for the pattern converter in the configuration */
     public static final String KEY = "Converter";
+
+    /** The pattern string used to format log events */
     private final String conversionPattern;
+
+    /** Pattern selector for dynamic pattern selection based on log event properties */
     private final PatternSelector patternSelector;
+
+    /** Serializer used to format log events into strings */
     private final AbstractStringLayout.Serializer eventSerializer;
 
     private ExtendedPatternLayout(
@@ -95,6 +138,11 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
                         .build();
     }
 
+    /**
+     * Creates a new serializer builder for configuring a serializer.
+     *
+     * @return A new serializer builder instance
+     */
     public static ExtendedPatternLayout.SerializerBuilder newSerializerBuilder() {
         return new ExtendedPatternLayout.SerializerBuilder();
     }
@@ -106,7 +154,17 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
     }
 
     /**
-     * @deprecated
+     * Creates a serializer with the specified parameters.
+     *
+     * @param configuration The configuration to use
+     * @param replace The regex replacement to apply to the formatted output
+     * @param pattern The conversion pattern to use for formatting
+     * @param defaultPattern The default pattern to use if the primary pattern is not available
+     * @param patternSelector Optional pattern selector for dynamic pattern selection
+     * @param alwaysWriteExceptions Whether to always include exception information in the output
+     * @param noConsoleNoAnsi Whether to disable ANSI escapes when output is not to a console
+     * @return A serializer configured with the specified parameters
+     * @deprecated Use the builder pattern with {@link #newSerializerBuilder()} instead
      */
     @Deprecated
     public static AbstractStringLayout.Serializer createSerializer(
@@ -128,6 +186,11 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
         return builder.build();
     }
 
+    /**
+     * Returns the conversion pattern used by this layout.
+     *
+     * @return The pattern string used to format log events
+     */
     public String getConversionPattern() {
         return conversionPattern;
     }
@@ -141,15 +204,43 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
         return result;
     }
 
+    /**
+     * Converts a LogEvent to a serialized string representation.
+     *
+     * <p>This method delegates to the configured event serializer to format the log event according
+     * to the pattern and configuration settings.
+     *
+     * @param event The LogEvent to serialize
+     * @return The formatted string representation of the log event
+     */
     @Override
     public String toSerializable(LogEvent event) {
         return eventSerializer.toSerializable(event);
     }
 
+    /**
+     * Serializes a LogEvent into the provided StringBuilder.
+     *
+     * <p>This method is more efficient than {@link #toSerializable(LogEvent)} when the caller
+     * already has a StringBuilder, as it avoids creating intermediate string objects.
+     *
+     * @param event The LogEvent to serialize
+     * @param stringBuilder The StringBuilder to append the formatted event to
+     */
     public void serialize(LogEvent event, StringBuilder stringBuilder) {
         eventSerializer.toSerializable(event, stringBuilder);
     }
 
+    /**
+     * Encodes a LogEvent to a byte buffer destination.
+     *
+     * <p>This method handles the complete serialization and encoding process for writing a log
+     * event to a destination. It first formats the event using the configured serializer, then
+     * encodes the resulting text using the configured charset.
+     *
+     * @param event The LogEvent to encode
+     * @param destination The destination to write the encoded event to
+     */
     @Override
     public void encode(LogEvent event, ByteBufferDestination destination) {
         if (eventSerializer == null) {
@@ -169,6 +260,16 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
         return serializer.toSerializable(event, destination);
     }
 
+    /**
+     * Creates a pattern parser for the given configuration.
+     *
+     * <p>If the configuration already contains a pattern parser component with the key "Converter",
+     * that parser is returned. Otherwise, a new parser is created and registered with the
+     * configuration.
+     *
+     * @param config The configuration to create or retrieve a pattern parser for
+     * @return A pattern parser for the specified configuration
+     */
     public static PatternParser createPatternParser(Configuration config) {
         if (config == null) {
             return new PatternParser(null, "Converter", LogEventPatternConverter.class);
@@ -190,7 +291,19 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
     }
 
     /**
-     * @deprecated
+     * Creates a layout with the specified parameters.
+     *
+     * @param pattern The conversion pattern to use for formatting
+     * @param patternSelector Optional pattern selector for dynamic pattern selection
+     * @param config The configuration to use
+     * @param replace The regex replacement to apply to the formatted output
+     * @param charset The character set to use for encoding the output
+     * @param alwaysWriteExceptions Whether to always include exception information in the output
+     * @param noConsoleNoAnsi Whether to disable ANSI escapes when output is not to a console
+     * @param headerPattern The pattern to use for the header
+     * @param footerPattern The pattern to use for the footer
+     * @return A layout configured with the specified parameters
+     * @deprecated Use the builder pattern with {@link #newBuilder()} instead
      */
     @PluginFactory
     @Deprecated
@@ -218,23 +331,50 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
                 .build();
     }
 
+    /**
+     * Creates a layout with default settings.
+     *
+     * @return A layout configured with default settings
+     */
     public static ExtendedPatternLayout createDefaultLayout() {
         return newBuilder().build();
     }
 
+    /**
+     * Creates a layout with default settings and the specified configuration.
+     *
+     * @param configuration The configuration to use
+     * @return A layout configured with default settings and the specified configuration
+     */
     public static ExtendedPatternLayout createDefaultLayout(Configuration configuration) {
         return newBuilder().withConfiguration(configuration).build();
     }
 
+    /**
+     * Creates a new builder for configuring a layout.
+     *
+     * @return A new builder instance
+     */
     @PluginBuilderFactory
     public static ExtendedPatternLayout.Builder newBuilder() {
         return new ExtendedPatternLayout.Builder();
     }
 
+    /**
+     * Returns the serializer used to format log events.
+     *
+     * @return The event serializer
+     */
     public AbstractStringLayout.Serializer getEventSerializer() {
         return eventSerializer;
     }
 
+    /**
+     * Builder for creating and configuring ExtendedPatternLayout instances.
+     *
+     * <p>This builder provides a fluent API for configuring all aspects of the layout, including
+     * patterns, formatters, character encoding, and display options.
+     */
     public static final class Builder
             implements org.apache.logging.log4j.core.util.Builder<ExtendedPatternLayout> {
         @PluginBuilderAttribute private String pattern;
@@ -275,27 +415,57 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
             return isPlatformSupportsAnsi || isJansiRequested;
         }
 
+        /**
+         * Sets the conversion pattern to use for formatting log events.
+         *
+         * @param pattern The pattern string
+         * @return This builder instance
+         */
         public ExtendedPatternLayout.Builder withPattern(String pattern) {
             this.pattern = pattern;
             return this;
         }
 
+        /**
+         * Sets the pattern selector for dynamic pattern selection based on log event properties.
+         *
+         * @param patternSelector The pattern selector to use
+         * @return This builder instance
+         */
         public ExtendedPatternLayout.Builder withPatternSelector(PatternSelector patternSelector) {
             this.patternSelector = patternSelector;
             return this;
         }
 
+        /**
+         * Sets the configuration to use for this layout.
+         *
+         * @param configuration The configuration
+         * @return This builder instance
+         */
         public ExtendedPatternLayout.Builder withConfiguration(Configuration configuration) {
             this.configuration = configuration;
             return this;
         }
 
+        /**
+         * Sets the regex replacement to apply to the formatted output.
+         *
+         * @param regexReplacement The regex replacement
+         * @return This builder instance
+         */
         public ExtendedPatternLayout.Builder withRegexReplacement(
                 RegexReplacement regexReplacement) {
             this.regexReplacement = regexReplacement;
             return this;
         }
 
+        /**
+         * Sets the character set to use for encoding the output.
+         *
+         * @param charset The character set
+         * @return This builder instance
+         */
         public ExtendedPatternLayout.Builder withCharset(Charset charset) {
             if (charset != null) {
                 this.charset = charset;
@@ -304,27 +474,57 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
             return this;
         }
 
+        /**
+         * Sets whether to always include exception information in the output.
+         *
+         * @param alwaysWriteExceptions Whether to always write exceptions
+         * @return This builder instance
+         */
         public ExtendedPatternLayout.Builder withAlwaysWriteExceptions(
                 boolean alwaysWriteExceptions) {
             this.alwaysWriteExceptions = alwaysWriteExceptions;
             return this;
         }
 
+        /**
+         * Sets whether to disable ANSI escape codes in the output.
+         *
+         * @param disableAnsi Whether to disable ANSI escape codes
+         * @return This builder instance
+         */
         public ExtendedPatternLayout.Builder withDisableAnsi(boolean disableAnsi) {
             this.disableAnsi = disableAnsi;
             return this;
         }
 
+        /**
+         * Sets whether to disable ANSI escapes when output is not to a console.
+         *
+         * @param noConsoleNoAnsi Whether to disable ANSI when not writing to console
+         * @return This builder instance
+         */
         public ExtendedPatternLayout.Builder withNoConsoleNoAnsi(boolean noConsoleNoAnsi) {
             this.noConsoleNoAnsi = noConsoleNoAnsi;
             return this;
         }
 
+        /**
+         * Sets the pattern to use for the header.
+         *
+         * @param header The header pattern
+         * @return This builder instance
+         */
         public ExtendedPatternLayout.Builder withHeader(String header) {
             this.header = header;
             return this;
         }
 
+        /**
+         * Sets the pattern to use for the footer.
+         *
+         * @param footer The footer pattern
+         * @return This builder instance
+         */
         public ExtendedPatternLayout.Builder withFooter(String footer) {
             this.footer = footer;
             return this;
@@ -408,8 +608,26 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
         }
     }
 
+    /**
+     * Builder class for creating serializers for formatting log events.
+     *
+     * <p>This builder provides a fluent API for configuring all aspects of serialization, including
+     * patterns, pattern selectors, and formatting options.
+     */
     public static class SerializerBuilder
             implements org.apache.logging.log4j.core.util.Builder<AbstractStringLayout.Serializer> {
+
+        /**
+         * Creates a new SerializerBuilder with default settings.
+         *
+         * <p>This constructor initializes a builder with no configuration, pattern, pattern
+         * selector, or formatting options. These must be set using the appropriate setter methods
+         * before calling {@link #build()}.
+         */
+        public SerializerBuilder() {
+            // Default constructor deliberately left empty
+        }
+
         private Configuration configuration;
         private RegexReplacement replace;
         private String pattern;
@@ -445,44 +663,92 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
             }
         }
 
+        /**
+         * Sets the configuration to use for this serializer.
+         *
+         * @param configuration The configuration
+         * @return This builder instance
+         */
         public ExtendedPatternLayout.SerializerBuilder setConfiguration(
                 Configuration configuration) {
             this.configuration = configuration;
             return this;
         }
 
+        /**
+         * Sets the regex replacement to apply to the formatted output.
+         *
+         * @param replace The regex replacement
+         * @return This builder instance
+         */
         public ExtendedPatternLayout.SerializerBuilder setReplace(RegexReplacement replace) {
             this.replace = replace;
             return this;
         }
 
+        /**
+         * Sets the conversion pattern to use for formatting log events.
+         *
+         * @param pattern The pattern string
+         * @return This builder instance
+         */
         public ExtendedPatternLayout.SerializerBuilder setPattern(String pattern) {
             this.pattern = pattern;
             return this;
         }
 
+        /**
+         * Sets the default pattern to use if the primary pattern is not available.
+         *
+         * @param defaultPattern The default pattern string
+         * @return This builder instance
+         */
         public ExtendedPatternLayout.SerializerBuilder setDefaultPattern(String defaultPattern) {
             this.defaultPattern = defaultPattern;
             return this;
         }
 
+        /**
+         * Sets the pattern selector for dynamic pattern selection based on log event properties.
+         *
+         * @param patternSelector The pattern selector to use
+         * @return This builder instance
+         */
         public ExtendedPatternLayout.SerializerBuilder setPatternSelector(
                 PatternSelector patternSelector) {
             this.patternSelector = patternSelector;
             return this;
         }
 
+        /**
+         * Sets whether to always include exception information in the output.
+         *
+         * @param alwaysWriteExceptions Whether to always write exceptions
+         * @return This builder instance
+         */
         public ExtendedPatternLayout.SerializerBuilder setAlwaysWriteExceptions(
                 boolean alwaysWriteExceptions) {
             this.alwaysWriteExceptions = alwaysWriteExceptions;
             return this;
         }
 
+        /**
+         * Sets whether to disable ANSI escape codes in the output.
+         *
+         * @param disableAnsi Whether to disable ANSI escape codes
+         * @return This builder instance
+         */
         public ExtendedPatternLayout.SerializerBuilder setDisableAnsi(boolean disableAnsi) {
             this.disableAnsi = disableAnsi;
             return this;
         }
 
+        /**
+         * Sets whether to disable ANSI escapes when output is not to a console.
+         *
+         * @param noConsoleNoAnsi Whether to disable ANSI when not writing to console
+         * @return This builder instance
+         */
         public ExtendedPatternLayout.SerializerBuilder setNoConsoleNoAnsi(boolean noConsoleNoAnsi) {
             this.noConsoleNoAnsi = noConsoleNoAnsi;
             return this;
@@ -514,6 +780,35 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
             return var3;
         }
 
+        /**
+         * Converts a LogEvent to a serialized string representation in the provided StringBuilder.
+         *
+         * <p>This method is the core implementation of the layout's formatting process:
+         *
+         * <ol>
+         *   <li>First, it applies all pattern formatters to build the base formatted string
+         *   <li>Then it applies any regex replacements if configured
+         *   <li>Finally, it performs the specialized byte array handling that sets this layout
+         *       apart:
+         *       <ul>
+         *         <li>It identifies any byte array parameters in the log message
+         *         <li>It locates the default string representation of these byte arrays in the
+         *             builder
+         *         <li>It replaces them with formatted hexadecimal strings using ArrayConverter
+         *       </ul>
+         * </ol>
+         *
+         * <p>The byte array formatting is controlled by two static configuration options:
+         *
+         * <ul>
+         *   <li>{@link Builder#prettyPrinting} - Whether to format with spaces between bytes
+         *   <li>{@link Builder#initNewLine} - Whether to start byte arrays on a new line
+         * </ul>
+         *
+         * @param event The LogEvent to serialize
+         * @param builder The StringBuilder to append the formatted event to
+         * @return The StringBuilder with the formatted event appended
+         */
         @Override
         public StringBuilder toSerializable(LogEvent event, StringBuilder builder) {
             Arrays.stream(formatters).forEachOrdered(formatter -> formatter.format(event, builder));
@@ -535,8 +830,7 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
                 for (Object param : event.getMessage().getParameters()) {
 
                     // Replace all ByteArrays with the String representation of the ByteArray
-                    // calculated
-                    // by the ArrayConverter.
+                    // calculated by the ArrayConverter.
                     if (param != null && bArrayClass.equals(param.getClass())) {
                         builder.replace(
                                 builder.indexOf(Arrays.toString((byte[]) param)),

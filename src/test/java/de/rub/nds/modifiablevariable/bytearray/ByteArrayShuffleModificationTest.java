@@ -23,9 +23,9 @@ public class ByteArrayShuffleModificationTest {
     public void setUp() {
         b1 =
                 new ByteArrayShuffleModification(
-                        new byte[] {0, 2, 1, 3}); // Swap positions 0 and 2, 1 and 3
-        b2 = new ByteArrayShuffleModification(new byte[] {0, 2, 1, 3});
-        b3 = new ByteArrayShuffleModification(new byte[] {1, 3, 0, 2}); // Different shuffle pattern
+                        new int[] {0, 2, 1, 3}); // Swap positions 0 and 2, 1 and 3
+        b2 = new ByteArrayShuffleModification(new int[] {0, 2, 1, 3});
+        b3 = new ByteArrayShuffleModification(new int[] {1, 3, 0, 2}); // Different shuffle pattern
         b4 = new Object();
     }
 
@@ -61,7 +61,7 @@ public class ByteArrayShuffleModificationTest {
         }
 
         // Create a shuffle modification for a large array
-        byte[] shufflePattern = new byte[] {0, 50, 1, 100, 10, (byte) 200, 20, (byte) 150};
+        int[] shufflePattern = new int[] {0, 50, 1, 100, 10, (byte) 200, 20, (byte) 150};
         ByteArrayShuffleModification largeShuffle =
                 new ByteArrayShuffleModification(shufflePattern);
 
@@ -87,15 +87,15 @@ public class ByteArrayShuffleModificationTest {
     /** Test of getShuffle method, of class ByteArrayShuffleModification. */
     @Test
     public void testGetShuffle() {
-        assertArrayEquals(new byte[] {0, 2, 1, 3}, b1.getShuffle());
+        assertArrayEquals(new int[] {0, 2, 1, 3}, b1.getShuffle());
     }
 
     /** Test of setShuffle method, of class ByteArrayShuffleModification. */
     @Test
     public void testSetShuffle() {
-        ByteArrayShuffleModification mod = new ByteArrayShuffleModification();
-        mod.setShuffle(new byte[] {5, 6, 7, 8});
-        assertArrayEquals(new byte[] {5, 6, 7, 8}, mod.getShuffle());
+        ByteArrayShuffleModification mod = new ByteArrayShuffleModification(new int[] {1, 2, 3});
+        mod.setShuffle(new int[] {5, 6, 7, 8});
+        assertArrayEquals(new int[] {5, 6, 7, 8}, mod.getShuffle());
     }
 
     /** Test of hashCode method, of class ByteArrayShuffleModification. */
@@ -127,10 +127,10 @@ public class ByteArrayShuffleModificationTest {
     /** Test of toString method, of class ByteArrayShuffleModification. */
     @Test
     public void testToString() {
-        String expected = "ByteArrayShuffleModification{shuffle=00 02 01 03}";
+        String expected = "ByteArrayShuffleModification{shuffle=[0, 2, 1, 3]}";
         assertEquals(expected, b1.toString());
 
-        String expected3 = "ByteArrayShuffleModification{shuffle=01 03 00 02}";
+        String expected3 = "ByteArrayShuffleModification{shuffle=[1, 3, 0, 2]}";
         assertEquals(expected3, b3.toString());
     }
 }

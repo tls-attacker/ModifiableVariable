@@ -13,8 +13,24 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation interface for modifiable variables holders. A modifiable variable holder is for
- * example a TLS protocol message.
+ * Annotation for fields that contain ModifiableVariable instances or ModifiableVariableHolder
+ * objects.
+ *
+ * <p>This annotation marks fields within a class that reference modifiable variables or objects
+ * that contain modifiable variables. It is used for reflection-based discovery and manipulation of
+ * modifiable variables throughout a complex object hierarchy.
+ *
+ * <p>By marking fields with this annotation, the framework can identify which fields should be
+ * included in operations like:
+ *
+ * <ul>
+ *   <li>Variable discovery
+ *   <li>Recursive manipulation
+ *   <li>Assertion validation
+ *   <li>Serialization/deserialization
+ * </ul>
+ *
+ * <p>This annotation is retained at runtime and can only be applied to fields.
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

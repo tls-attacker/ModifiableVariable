@@ -12,19 +12,36 @@ import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.util.List;
 
-/** A utility class to handle arrays and array conversions */
+/**
+ * A utility class for array conversions and manipulations.
+ *
+ * <p>This class provides methods for:
+ *
+ * <ul>
+ *   <li>Converting between various numeric types and byte arrays
+ *   <li>Converting between hexadecimal strings and byte arrays
+ *   <li>Concatenating arrays
+ *   <li>Manipulating byte arrays
+ *   <li>BigInteger conversions
+ * </ul>
+ *
+ * <p>All methods are static, and the class cannot be instantiated.
+ */
 public final class ArrayConverter {
 
+    /** Private constructor to prevent instantiation of this utility class. */
     private ArrayConverter() {
         super();
     }
 
     /**
-     * Takes a long value and converts it to 8 bytes (needed for example to convert SQN numbers in
-     * TLS records)
+     * Converts a long value to an 8-byte array representing a 64-bit unsigned integer.
      *
-     * @param value long value
-     * @return long represented by 8 bytes
+     * <p>This method uses big-endian byte order (most significant byte first), which is the network
+     * byte order and the standard for many protocols.
+     *
+     * @param value The long value to convert
+     * @return A byte array of length 8 representing the value in big-endian order
      */
     public static byte[] longToUint64Bytes(long value) {
         byte[] result = new byte[8];
@@ -39,7 +56,17 @@ public final class ArrayConverter {
         return result;
     }
 
-    /** Note: This will truncate the long */
+    /**
+     * Converts a long value to a 6-byte array representing a 48-bit unsigned integer.
+     *
+     * <p>This method uses big-endian byte order (most significant byte first). The highest 16 bits
+     * of the long value will be truncated.
+     *
+     * <p>48-bit values are sometimes used in networking protocols for timestamps or identifiers.
+     *
+     * @param value The long value to convert (highest 16 bits will be truncated)
+     * @return A byte array of length 6 representing the value in big-endian order
+     */
     public static byte[] longToUint48Bytes(long value) {
         byte[] output = new byte[6];
         output[0] = (byte) (value >>> 40);
@@ -52,10 +79,16 @@ public final class ArrayConverter {
     }
 
     /**
-     * Takes an int value and converts it to 4 bytes
+     * Converts a long value to a 4-byte array representing a 32-bit unsigned integer.
      *
-     * @param value int value
-     * @return int represented by 4 bytes
+     * <p>This method uses big-endian byte order (most significant byte first). Only the lowest 32
+     * bits of the long value are used; higher bits are truncated.
+     *
+     * <p>This is commonly used for 32-bit protocol fields like sequence numbers, timestamps, and
+     * message lengths.
+     *
+     * @param value The long value to convert (highest 32 bits will be truncated)
+     * @return A byte array of length 4 representing the value in big-endian order
      */
     public static byte[] longToUint32Bytes(long value) {
         byte[] result = new byte[4];
@@ -66,6 +99,17 @@ public final class ArrayConverter {
         return result;
     }
 
+    /**
+     * Converts an 8-byte array representing a 64-bit unsigned integer to a long value.
+     *
+     * <p>This method uses big-endian byte order (most significant byte first), which is the network
+     * byte order and the standard for many protocols.
+     *
+     * <p>This is the inverse operation of {@link #longToUint64Bytes(long)}.
+     *
+     * @param bytes The byte array of length 8 to convert
+     * @return The long value represented by the byte array
+     */
     public static long uInt64BytesToLong(byte[] bytes) {
         return (long) (bytes[0] & 0xFF) << 56
                 | (long) (bytes[1] & 0xFF) << 48
@@ -77,6 +121,17 @@ public final class ArrayConverter {
                 | (long) (bytes[7] & 0xFF);
     }
 
+    /**
+     * Converts a 4-byte array representing a 32-bit unsigned integer to a long value.
+     *
+     * <p>This method uses big-endian byte order (most significant byte first), which is the network
+     * byte order and the standard for many protocols.
+     *
+     * <p>This is the inverse operation of {@link #longToUint32Bytes(long)}.
+     *
+     * @param bytes The byte array of length 4 to convert
+     * @return The long value represented by the byte array
+     */
     public static long uInt32BytesToLong(byte[] bytes) {
         return (long) (bytes[0] & 0xFF) << 24
                 | (bytes[1] & 0xFF) << 16
@@ -85,7 +140,7 @@ public final class ArrayConverter {
     }
 
     /**
-     * Takes an integer value and stores its last bytes into a byte array
+     * Takes an integer value and stores its last bytes into a byte array of a given size.
      *
      * @param value integer value
      * @param size byte size of the new integer byte array
@@ -162,6 +217,18 @@ public final class ArrayConverter {
         return result;
     }
 
+    /**
+     * Converts a byte array to a hexadecimal string representation.
+     *
+     * <p>This method automatically determines whether to use pretty-printing based on the array
+     * length. If the array has more than 15 bytes, pretty-printing is enabled for better
+     * readability.
+     *
+     * <p>If the input array is null, an empty array is used.
+     *
+     * @param array The byte array to convert
+     * @return A string representation of the bytes in hexadecimal format
+     */
     public static String bytesToHexString(byte[] array) {
         if (array == null) {
             array = new byte[0];
@@ -170,6 +237,18 @@ public final class ArrayConverter {
         return bytesToHexString(array, usePrettyPrinting);
     }
 
+    /**
+     * Converts a byte array to a hexadecimal string representation with optional pretty-printing.
+     *
+     * <p>When pretty-printing is enabled, the output includes newlines and spacing to improve
+     * readability of longer byte sequences.
+     *
+     * <p>If the input array is null, an empty array is used.
+     *
+     * @param array The byte array to convert
+     * @param usePrettyPrinting Whether to use pretty-printing formatting
+     * @return A string representation of the bytes in hexadecimal format
+     */
     public static String bytesToHexString(byte[] array, boolean usePrettyPrinting) {
         if (array == null) {
             array = new byte[0];
@@ -177,6 +256,27 @@ public final class ArrayConverter {
         return bytesToHexString(array, usePrettyPrinting, true);
     }
 
+    /**
+     * Converts a byte array to a hexadecimal string representation with detailed formatting
+     * options.
+     *
+     * <p>This method provides full control over the formatting:
+     *
+     * <ul>
+     *   <li>When pretty-printing is enabled, bytes are grouped with spaces
+     *   <li>Every 8 bytes get an additional space
+     *   <li>Every 16 bytes get a new line
+     *   <li>The optional initial new line can be controlled separately
+     * </ul>
+     *
+     * <p>If the input array is null, an empty array is used.
+     *
+     * @param array The byte array to convert
+     * @param usePrettyPrinting Whether to use pretty-printing formatting
+     * @param initialNewLine Whether to begin with a new line (only applies if pretty-printing is
+     *     enabled)
+     * @return A string representation of the bytes in hexadecimal format
+     */
     public static String bytesToHexString(
             byte[] array, boolean usePrettyPrinting, boolean initialNewLine) {
         StringBuilder result = new StringBuilder();
@@ -200,15 +300,54 @@ public final class ArrayConverter {
         return result.toString();
     }
 
+    /**
+     * Converts a ModifiableByteArray to a hexadecimal string representation.
+     *
+     * <p>This method automatically determines whether to use pretty-printing based on the array
+     * length. If the array has more than 15 bytes, pretty-printing is enabled for better
+     * readability.
+     *
+     * @param array The ModifiableByteArray to convert
+     * @return A string representation of the bytes in hexadecimal format
+     */
     public static String bytesToHexString(ModifiableByteArray array) {
         return bytesToHexString(array.getValue());
     }
 
+    /**
+     * Converts a ModifiableByteArray to a hexadecimal string representation with optional
+     * pretty-printing.
+     *
+     * <p>When pretty-printing is enabled, the output includes newlines and spacing to improve
+     * readability of longer byte sequences.
+     *
+     * @param array The ModifiableByteArray to convert
+     * @param usePrettyPrinting Whether to use pretty-printing formatting
+     * @return A string representation of the bytes in hexadecimal format
+     */
     public static String bytesToHexString(ModifiableByteArray array, boolean usePrettyPrinting) {
-
         return bytesToHexString(array.getValue(), usePrettyPrinting, true);
     }
 
+    /**
+     * Converts a ModifiableByteArray to a hexadecimal string representation with detailed
+     * formatting options.
+     *
+     * <p>This method provides full control over the formatting:
+     *
+     * <ul>
+     *   <li>When pretty-printing is enabled, bytes are grouped with spaces
+     *   <li>Every 8 bytes get an additional space
+     *   <li>Every 16 bytes get a new line
+     *   <li>The optional initial new line can be controlled separately
+     * </ul>
+     *
+     * @param array The ModifiableByteArray to convert
+     * @param usePrettyPrinting Whether to use pretty-printing formatting
+     * @param initialNewLine Whether to begin with a new line (only applies if pretty-printing is
+     *     enabled)
+     * @return A string representation of the bytes in hexadecimal format
+     */
     public static String bytesToHexString(
             ModifiableByteArray array, boolean usePrettyPrinting, boolean initialNewLine) {
         return bytesToHexString(array.getValue(), usePrettyPrinting, initialNewLine);
@@ -228,6 +367,20 @@ public final class ArrayConverter {
         return result.toString();
     }
 
+    /**
+     * Concatenates multiple arrays of the same type into a single array.
+     *
+     * <p>This generic method works with arrays of any reference type. It creates a new array that
+     * contains all elements from the input arrays in the order they are provided.
+     *
+     * <p>If any of the input arrays is null, it is skipped without causing an error. However, at
+     * least one non-null array must be provided.
+     *
+     * @param <T> The component type of the arrays
+     * @param arrays The arrays to concatenate
+     * @return A new array containing all elements from the input arrays
+     * @throws IllegalArgumentException if arrays is null or empty
+     */
     @SafeVarargs
     public static <T> T[] concatenate(T[]... arrays) {
         if (arrays == null || arrays.length == 0) {
@@ -252,6 +405,19 @@ public final class ArrayConverter {
         return result;
     }
 
+    /**
+     * Concatenates multiple byte arrays into a single byte array.
+     *
+     * <p>This method creates a new byte array that contains all elements from the input arrays in
+     * the order they are provided.
+     *
+     * <p>If any of the input arrays is null, it is skipped without causing an error. However, at
+     * least one non-null array must be provided.
+     *
+     * @param arrays The byte arrays to concatenate
+     * @return A new byte array containing all elements from the input arrays
+     * @throws IllegalArgumentException if arrays is null or empty
+     */
     public static byte[] concatenate(byte[]... arrays) {
         if (arrays == null || arrays.length == 0) {
             throw new IllegalArgumentException(
@@ -274,6 +440,18 @@ public final class ArrayConverter {
         return result;
     }
 
+    /**
+     * Concatenates two byte arrays, using only a specified number of bytes from the second array.
+     *
+     * <p>This method is similar to {@link #concatenate(byte[]...)}, but allows you to limit how
+     * many bytes are taken from the second array. This is useful when you need to append only a
+     * portion of one array to another.
+     *
+     * @param array1 The first byte array (used in its entirety)
+     * @param array2 The second byte array (used partially)
+     * @param numberOfArray2Bytes The number of bytes to use from array2
+     * @return A new byte array containing array1 followed by the specified portion of array2
+     */
     public static byte[] concatenate(byte[] array1, byte[] array2, int numberOfArray2Bytes) {
         int length = array1.length + numberOfArray2Bytes;
         byte[] result = new byte[length];
@@ -282,6 +460,15 @@ public final class ArrayConverter {
         return result;
     }
 
+    /**
+     * Replaces all zero bytes in an array with non-zero values.
+     *
+     * <p>This method modifies the input array in-place by replacing any bytes with value 0x00 with
+     * the value 0x01. This can be useful in cryptographic contexts where zero bytes might cause
+     * special behaviors that need to be avoided.
+     *
+     * @param array The byte array to modify (modified in-place)
+     */
     public static void makeArrayNonZero(byte[] array) {
         for (int i = 0; i < array.length; i++) {
             if (array[i] == 0) {
@@ -291,24 +478,37 @@ public final class ArrayConverter {
     }
 
     /**
-     * Takes a BigInteger value and returns its byte array representation filled with 0x00 bytes to
-     * achieve the block size length.
+     * Converts a BigInteger to a byte array with specific output size padding.
      *
-     * @param value big integer to be converted
-     * @param blockSize block size to be achieved
-     * @param removeSignByte in a case the removeSignByte is set, the sign byte is removed (in case
-     *     the byte array contains one)
-     * @return big integer represented in bytes, padded to a specific block size
+     * <p>This method is particularly useful for cryptographic operations that require values to be
+     * padded to specific block sizes.
+     *
+     * <p>The resulting array will have a length that is a multiple of the specified size. If the
+     * BigInteger's byte representation is not of the specified size, the array will be padded with
+     * leading zeros.
+     *
+     * <p>Special cases:
+     *
+     * <ul>
+     *   <li>If the output size is 0, an empty array is returned
+     *   <li>If the value is zero, an array of zeros with length equal to the block size is returned
+     * </ul>
+     *
+     * @param value The BigInteger to convert
+     * @param expectedLength The expecxted length to align the output to
+     * @param removeSignByte Whether to remove the sign byte (if present) before padding
+     * @return A byte array representation of the BigInteger, padded to be a multiple of the block
+     *     size
      */
     public static byte[] bigIntegerToByteArray(
-            BigInteger value, int blockSize, boolean removeSignByte) {
-        if (blockSize == 0) {
+            BigInteger value, int expectedLength, boolean removeSignByte) {
+        if (expectedLength == 0) {
             return new byte[0];
         } else if (value.equals(BigInteger.ZERO)) {
-            return new byte[blockSize];
+            return new byte[expectedLength];
         }
         byte[] array = value.toByteArray();
-        int remainder = array.length % blockSize;
+        int remainder = array.length % expectedLength;
         byte[] result = array;
         byte[] tmp;
 
@@ -316,13 +516,13 @@ public final class ArrayConverter {
             tmp = new byte[result.length - 1];
             System.arraycopy(result, 1, tmp, 0, tmp.length);
             result = tmp;
-            remainder = tmp.length % blockSize;
+            remainder = tmp.length % expectedLength;
         }
 
         if (remainder > 0) {
             // add zeros to fit size
-            tmp = new byte[result.length + blockSize - remainder];
-            System.arraycopy(result, 0, tmp, blockSize - remainder, result.length);
+            tmp = new byte[result.length + expectedLength - remainder];
+            System.arraycopy(result, 0, tmp, expectedLength - remainder, result.length);
             result = tmp;
         }
 
@@ -330,8 +530,8 @@ public final class ArrayConverter {
     }
 
     /**
-     * Takes a BigInteger value and returns its byte array representation, if necessary the sign
-     * byte is removed.
+     * Takes a BigInteger value and returns its (unsigned) byte array representation, if necessary
+     * the sign byte is removed.
      *
      * @param value big integer to be converted
      * @return big integer represented in bytes
@@ -459,6 +659,18 @@ public final class ArrayConverter {
         return null;
     }
 
+    /**
+     * Converts a signed byte to an unsigned int.
+     *
+     * <p>In Java, bytes are signed 8-bit values ranging from -128 to 127. This method converts a
+     * byte to an unsigned int value (0-255) by masking with 0xFF.
+     *
+     * <p>This is particularly useful when dealing with network protocols or file formats where
+     * bytes are often interpreted as unsigned values.
+     *
+     * @param b The byte to convert
+     * @return The unsigned int value (0-255) corresponding to the byte
+     */
     public static int byteToUnsignedInt(byte b) {
         return b & 0xff;
     }

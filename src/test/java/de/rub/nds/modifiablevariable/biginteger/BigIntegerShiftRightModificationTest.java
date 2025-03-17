@@ -116,7 +116,7 @@ public class BigIntegerShiftRightModificationTest {
 
     @Test
     public void testGetterAndSetter() {
-        BigIntegerShiftRightModification modification = new BigIntegerShiftRightModification();
+        BigIntegerShiftRightModification modification = new BigIntegerShiftRightModification(5);
 
         int shift = 25;
         modification.setShift(shift);

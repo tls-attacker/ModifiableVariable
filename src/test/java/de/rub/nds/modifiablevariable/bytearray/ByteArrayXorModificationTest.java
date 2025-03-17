@@ -83,7 +83,7 @@ public class ByteArrayXorModificationTest {
     /** Test of setXor method, of class ByteArrayXorModification. */
     @Test
     public void testSetXor() {
-        ByteArrayXorModification mod = new ByteArrayXorModification();
+        ByteArrayXorModification mod = new ByteArrayXorModification(new byte[] {0x01, 0x02}, 0);
         mod.setXor(new byte[] {0x0A, 0x0B});
         assertArrayEquals(new byte[] {0x0A, 0x0B}, mod.getXor());
     }
@@ -98,7 +98,7 @@ public class ByteArrayXorModificationTest {
     /** Test of setStartPosition method, of class ByteArrayXorModification. */
     @Test
     public void testSetStartPosition() {
-        ByteArrayXorModification mod = new ByteArrayXorModification();
+        ByteArrayXorModification mod = new ByteArrayXorModification(new byte[] {0x01, 0x02}, 0);
         mod.setStartPosition(5);
         assertEquals(5, mod.getStartPosition());
     }

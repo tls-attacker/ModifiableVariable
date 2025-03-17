@@ -83,9 +83,9 @@ public class LongAddModificationTest {
 
     @Test
     public void testConstructors() {
-        // Test default constructor
-        LongAddModification defaultConstructor = new LongAddModification();
-        assertNotNull(defaultConstructor);
+        LongAddModification constructor = new LongAddModification(5L);
+        assertNotNull(constructor);
+        assertEquals(constructor.getSummand(), 5);
 
         // Test copy constructor
         LongAddModification copy = new LongAddModification(modification);

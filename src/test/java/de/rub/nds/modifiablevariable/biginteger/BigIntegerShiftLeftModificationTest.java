@@ -110,7 +110,7 @@ public class BigIntegerShiftLeftModificationTest {
 
     @Test
     public void testGetterAndSetter() {
-        BigIntegerShiftLeftModification modification = new BigIntegerShiftLeftModification();
+        BigIntegerShiftLeftModification modification = new BigIntegerShiftLeftModification(5);
 
         int shift = 25;
         modification.setShift(shift);

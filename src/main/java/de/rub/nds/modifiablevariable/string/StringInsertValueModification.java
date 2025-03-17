@@ -15,36 +15,76 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Objects;
 
-/** Modification that inserts a string to the original value. */
+/**
+ * A modification that inserts a string at a specified position within the original string.
+ *
+ * <p>This modification inserts additional text at the specified position in the input string. It
+ * handles special cases such as negative positions and positions beyond the string length.
+ *
+ * @see ModifiableString
+ * @see StringDeleteModification
+ * @see StringAppendValueModification
+ * @see StringPrependValueModification
+ */
 @XmlRootElement
 public class StringInsertValueModification extends VariableModification<String> {
 
+    /** The string to insert into the original string */
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     private String insertValue;
 
+    /** The position at which to insert the string (0-based index) */
     private int startPosition;
 
-    public StringInsertValueModification() {
+    /** Default constructor for serialization. */
+    @SuppressWarnings("unused")
+    private StringInsertValueModification() {
         super();
     }
 
+    /**
+     * Creates a new insertion modification with the specified value and position.
+     *
+     * @param insertValue The string to insert into the original string
+     * @param startPosition The position at which to insert the string (0-based index)
+     */
     public StringInsertValueModification(String insertValue, int startPosition) {
         super();
-        this.insertValue = insertValue;
+        this.insertValue = Objects.requireNonNull(insertValue, "InsertValue must not be null");
         this.startPosition = startPosition;
     }
 
+    /**
+     * Copy constructor.
+     *
+     * @param other The modification to copy
+     */
     public StringInsertValueModification(StringInsertValueModification other) {
         super(other);
         insertValue = other.insertValue;
         startPosition = other.startPosition;
     }
 
+    /**
+     * Creates a deep copy of this modification.
+     *
+     * @return A new instance with the same insert value and position
+     */
     @Override
     public StringInsertValueModification createCopy() {
         return new StringInsertValueModification(this);
     }
 
+    /**
+     * Modifies the input by inserting the specified string at the given position.
+     *
+     * <p>If the position is negative, it wraps around to insert from the end of the string. If the
+     * position exceeds the string length, it's adjusted using modulo arithmetic. Insertion at the
+     * end of the string is also supported, effectivly resulting in an append.
+     *
+     * @param input The string to modify
+     * @return A new string with the insertion applied, or null if input was null
+     */
     @Override
     protected String modifyImplementationHook(String input) {
         if (input == null) {
@@ -59,22 +99,48 @@ public class StringInsertValueModification extends VariableModification<String> 
         return new StringBuilder(input).insert(insertPosition, insertValue).toString();
     }
 
+    /**
+     * Gets the string that will be inserted into the original string.
+     *
+     * @return The string to insert
+     */
     public String getInsertValue() {
         return insertValue;
     }
 
+    /**
+     * Sets the string that will be inserted into the original string.
+     *
+     * @param insertValue The new string to insert
+     */
     public void setInsertValue(String insertValue) {
-        this.insertValue = insertValue;
+        this.insertValue = Objects.requireNonNull(insertValue, "InsertValue must not be null");
     }
 
+    /**
+     * Gets the position at which the string will be inserted.
+     *
+     * @return The insertion position (0-based index)
+     */
     public int getStartPosition() {
         return startPosition;
     }
 
+    /**
+     * Sets the position at which the string will be inserted.
+     *
+     * @param startPosition The new insertion position (0-based index)
+     */
     public void setStartPosition(int startPosition) {
         this.startPosition = startPosition;
     }
 
+    /**
+     * Computes a hash code for this modification. The hash code is based on the insert value and
+     * position.
+     *
+     * @return The hash code value
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -83,6 +149,13 @@ public class StringInsertValueModification extends VariableModification<String> 
         return hash;
     }
 
+    /**
+     * Checks if this modification is equal to another object. Two StringInsertValueModification
+     * instances are considered equal if they have the same insert value and start position.
+     *
+     * @param obj The object to compare with
+     * @return true if the objects are equal, false otherwise
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -101,6 +174,11 @@ public class StringInsertValueModification extends VariableModification<String> 
         return Objects.equals(insertValue, other.insertValue);
     }
 
+    /**
+     * Returns a string representation of this modification.
+     *
+     * @return A string containing the modification type, insert value, and position
+     */
     @Override
     public String toString() {
         return "StringInsertValueModification{"

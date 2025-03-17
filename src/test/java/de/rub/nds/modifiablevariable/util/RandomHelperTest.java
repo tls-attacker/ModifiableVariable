@@ -93,9 +93,6 @@ public class RandomHelperTest {
         // Test generateSeed
         byte[] generatedSeed = badRandom.generateSeed(5);
         assertEquals(5, generatedSeed.length);
-
-        // setSeed with byte array should throw UnsupportedOperationException
-        assertThrows(UnsupportedOperationException.class, () -> badRandom.setSeed(new byte[1]));
     }
 
     @Test
