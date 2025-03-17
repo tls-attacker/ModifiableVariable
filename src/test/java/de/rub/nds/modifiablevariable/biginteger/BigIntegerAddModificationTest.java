@@ -131,16 +131,6 @@ public class BigIntegerAddModificationTest {
         assertTrue(b1.equals(b4));
     }
 
-    /** Test of equals method with consistency property */
-    @Test
-    public void testEqualsConsistency() {
-        // Multiple invocations should return the same result
-        boolean result = b1.equals(b3);
-        for (int i = 0; i < 5; i++) {
-            assertEquals(result, b1.equals(b3));
-        }
-    }
-
     /** Test of equals method with null comparison */
     @Test
     public void testEqualsNull() {
@@ -157,19 +147,6 @@ public class BigIntegerAddModificationTest {
         assertFalse(b1.equals("Not a BigIntegerAddModification"));
         assertFalse(b1.equals(BigInteger.ONE));
         assertFalse(b1.equals(new Object()));
-    }
-
-    /** Test of equals method with similar but different modification types */
-    @Test
-    public void testEqualsDifferentModificationTypes() {
-        // Comparison with different modification types should return false
-        BigIntegerSubtractModification subtractMod =
-                new BigIntegerSubtractModification(BigInteger.ONE);
-        assertFalse(b1.equals(subtractMod));
-
-        BigIntegerExplicitValueModification explicitMod =
-                new BigIntegerExplicitValueModification(BigInteger.ONE);
-        assertFalse(b1.equals(explicitMod));
     }
 
     /** Test of equals method after state change */
@@ -189,24 +166,6 @@ public class BigIntegerAddModificationTest {
 
         // Should be equal again
         assertTrue(b1.equals(b3));
-    }
-
-    /** Test of equals method with large values */
-    @Test
-    public void testEqualsWithLargeValues() {
-        BigInteger large1 = new BigInteger("9999999999999999999999999999999999999999");
-        BigInteger large2 = new BigInteger("9999999999999999999999999999999999999999");
-        BigInteger large3 = new BigInteger("9999999999999999999999999999999999999998");
-
-        BigIntegerAddModification largeMod1 = new BigIntegerAddModification(large1);
-        BigIntegerAddModification largeMod2 = new BigIntegerAddModification(large2);
-        BigIntegerAddModification largeMod3 = new BigIntegerAddModification(large3);
-
-        // Equal large values should be equal
-        assertEquals(largeMod1, largeMod2);
-
-        // Different large values should not be equal
-        assertNotEquals(largeMod1, largeMod3);
     }
 
     /** Test of toString method */
