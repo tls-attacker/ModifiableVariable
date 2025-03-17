@@ -23,7 +23,7 @@ import java.util.Objects;
 public class ByteXorModification extends VariableModification<Byte> {
 
     /** The byte value to XOR with the input byte */
-    private Byte xor;
+    private byte xor;
 
     /** Default constructor for serialization. */
     @SuppressWarnings("unused")
@@ -87,7 +87,7 @@ public class ByteXorModification extends VariableModification<Byte> {
      *
      * @return The XOR byte value
      */
-    public Byte getXor() {
+    public byte getXor() {
         return xor;
     }
 
@@ -96,7 +96,7 @@ public class ByteXorModification extends VariableModification<Byte> {
      *
      * @param xor The new XOR byte value
      */
-    public void setXor(Byte xor) {
+    public void setXor(byte xor) {
         this.xor = xor;
     }
 

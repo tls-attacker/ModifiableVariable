@@ -23,7 +23,7 @@ import java.util.Objects;
 public class ByteExplicitValueModification extends VariableModification<Byte> {
 
     /** The value that will replace the original byte */
-    protected Byte explicitValue;
+    protected byte explicitValue;
 
     /** Default constructor for serialization. */
     @SuppressWarnings("unused")
@@ -84,7 +84,7 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
      *
      * @return The explicit byte value
      */
-    public Byte getExplicitValue() {
+    public byte getExplicitValue() {
         return explicitValue;
     }
 
@@ -93,7 +93,7 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
      *
      * @param explicitValue The new byte value to use
      */
-    public void setExplicitValue(Byte explicitValue) {
+    public void setExplicitValue(byte explicitValue) {
         this.explicitValue = explicitValue;
     }
 

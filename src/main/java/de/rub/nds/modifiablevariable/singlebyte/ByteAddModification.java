@@ -24,7 +24,7 @@ import java.util.Objects;
 public class ByteAddModification extends VariableModification<Byte> {
 
     /** The value to be added to the original byte */
-    private Byte summand;
+    private byte summand;
 
     /** Default constructor for serialization. */
     @SuppressWarnings("unused")
@@ -85,7 +85,7 @@ public class ByteAddModification extends VariableModification<Byte> {
      *
      * @return The summand value
      */
-    public Byte getSummand() {
+    public byte getSummand() {
         return summand;
     }
 
@@ -94,7 +94,7 @@ public class ByteAddModification extends VariableModification<Byte> {
      *
      * @param summand The byte value to add to the original value
      */
-    public void setSummand(Byte summand) {
+    public void setSummand(byte summand) {
         this.summand = summand;
     }
 

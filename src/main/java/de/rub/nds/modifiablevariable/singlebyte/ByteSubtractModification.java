@@ -23,7 +23,7 @@ import java.util.Objects;
 public class ByteSubtractModification extends VariableModification<Byte> {
 
     /** The value to be subtracted from the original byte */
-    private Byte subtrahend;
+    private byte subtrahend;
 
     /** Default constructor for serialization. */
     @SuppressWarnings("unused")
@@ -84,7 +84,7 @@ public class ByteSubtractModification extends VariableModification<Byte> {
      *
      * @return The subtrahend value
      */
-    public Byte getSubtrahend() {
+    public byte getSubtrahend() {
         return subtrahend;
     }
 
@@ -93,7 +93,7 @@ public class ByteSubtractModification extends VariableModification<Byte> {
      *
      * @param subtrahend The byte value to subtract from the original value
      */
-    public void setSubtrahend(Byte subtrahend) {
+    public void setSubtrahend(byte subtrahend) {
         this.subtrahend = subtrahend;
     }
 
