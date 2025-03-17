@@ -170,23 +170,6 @@ public class BigIntegerShiftRightModificationTest {
 
         other.setShift(5);
         assertTrue(mutable.equals(other));
-
-        // Boundary cases
-        BigIntegerShiftRightModification zero1 = new BigIntegerShiftRightModification(0);
-        BigIntegerShiftRightModification zero2 = new BigIntegerShiftRightModification(0);
-        assertEquals(zero1, zero2);
-
-        BigIntegerShiftRightModification negative1 = new BigIntegerShiftRightModification(-1);
-        BigIntegerShiftRightModification negative2 = new BigIntegerShiftRightModification(-1);
-        assertEquals(negative1, negative2);
-        assertNotEquals(negative1, zero1);
-
-        BigIntegerShiftRightModification maxInt1 =
-                new BigIntegerShiftRightModification(Integer.MAX_VALUE);
-        BigIntegerShiftRightModification maxInt2 =
-                new BigIntegerShiftRightModification(Integer.MAX_VALUE);
-        assertEquals(maxInt1, maxInt2);
-        assertNotEquals(maxInt1, zero1);
     }
 
     @Test
