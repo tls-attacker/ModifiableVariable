@@ -30,10 +30,6 @@ import java.lang.annotation.Target;
  *   <li>Serialization/deserialization
  * </ul>
  *
- * <p>For example, in a TLS protocol implementation, protocol message classes might contain fields
- * that represent various protocol fields. By annotating these fields, the framework can
- * automatically discover and manipulate them during testing.
- *
  * <p>This annotation is retained at runtime and can only be applied to fields.
  */
 @Target(ElementType.FIELD)

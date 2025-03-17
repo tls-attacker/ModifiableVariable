@@ -19,6 +19,8 @@ import java.lang.annotation.Target;
  * type (what kind of data it represents) and format (how the data is encoded). This information can
  * be used for reflection-based analysis, serialization, or other operations that need to understand
  * the purpose of different variables.
+ * 
+ * //TODO This class has not been touched or used much for a while and needs refactoring.
  *
  * <p>The annotation is retained at runtime and can only be applied to fields.
  */

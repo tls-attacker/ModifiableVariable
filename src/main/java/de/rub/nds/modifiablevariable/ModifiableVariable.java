@@ -50,7 +50,7 @@ public abstract class ModifiableVariable<E> implements Serializable {
      * Copy constructor that creates a new modifiable variable with the same modifications and
      * assertions.
      *
-     * <p>Note: Subclasses must ensure proper copying of the assertEquals field.
+     * <p>Note: Subclasses must ensure proper copying of the respecitve assertEquals field.
      *
      * @param other The modifiable variable to copy
      */
@@ -168,6 +168,7 @@ public abstract class ModifiableVariable<E> implements Serializable {
      * Checks if the modified value differs from the original value.
      *
      * @return true if the modified value is different from the original, false otherwise
+     * @throws IllegalStateException If the original value is not set
      */
     public abstract boolean isOriginalValueModified();
 

@@ -32,7 +32,6 @@ import org.apache.logging.log4j.Logger;
  *   <li>Modify protocol messages to explore security vulnerabilities
  *   <li>Simulate malformed or unexpected protocol data
  *   <li>Create test cases with precise control over field values
- *   <li>Explore protocol implementations' handling of manipulated data
  * </ul>
  *
  * <p>This class follows the Template Method pattern, with the main {@link #modify} method providing
@@ -124,8 +123,7 @@ public abstract class VariableModification<E> implements Serializable {
      * Logs debug information about the modification being applied.
      *
      * <p>This method logs the modification class name, calling function, and the new value after
-     * modification. The method optimizes performance by only computing the stack trace if debug
-     * logging is enabled.
+     * modification.
      *
      * @param value The modified value to be logged
      */

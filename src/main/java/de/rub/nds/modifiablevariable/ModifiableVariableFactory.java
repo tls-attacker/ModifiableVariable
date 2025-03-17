@@ -19,74 +19,11 @@ import java.math.BigInteger;
 /**
  * Factory class for creating modifiable variables of different types.
  *
- * <p>This factory provides methods to create empty modifiable variables and safely set values on
+ * <p>This factory provides methods to safely set values on
  * existing or new modifiable variables. The factory ensures that null modifiable variables are
  * properly initialized when setting values.
  */
 public final class ModifiableVariableFactory {
-
-    /**
-     * Creates a new empty ModifiableBigInteger.
-     *
-     * @return A new ModifiableBigInteger instance with no original value
-     */
-    public static ModifiableBigInteger createBigIntegerModifiableVariable() {
-        return new ModifiableBigInteger();
-    }
-
-    /**
-     * Creates a new empty ModifiableInteger.
-     *
-     * @return A new ModifiableInteger instance with no original value
-     */
-    public static ModifiableInteger createIntegerModifiableVariable() {
-        return new ModifiableInteger();
-    }
-
-    /**
-     * Creates a new empty ModifiableByte.
-     *
-     * @return A new ModifiableByte instance with no original value
-     */
-    public static ModifiableByte createByteModifiableVariable() {
-        return new ModifiableByte();
-    }
-
-    /**
-     * Creates a new empty ModifiableByteArray.
-     *
-     * @return A new ModifiableByteArray instance with no original value
-     */
-    public static ModifiableByteArray createByteArrayModifiableVariable() {
-        return new ModifiableByteArray();
-    }
-
-    /**
-     * Creates a new empty ModifiableLong.
-     *
-     * @return A new ModifiableLong instance with no original value
-     */
-    public static ModifiableLong createLongModifiableVariable() {
-        return new ModifiableLong();
-    }
-
-    /**
-     * Creates a new empty ModifiableBoolean.
-     *
-     * @return A new ModifiableBoolean instance with no original value
-     */
-    public static ModifiableBoolean createBooleanModifiableVariable() {
-        return new ModifiableBoolean();
-    }
-
-    /**
-     * Creates a new empty ModifiableString.
-     *
-     * @return A new ModifiableString instance with no original value
-     */
-    public static ModifiableString createStringModifiableVariable() {
-        return new ModifiableString();
-    }
 
     /**
      * Safely sets a value on a ModifiableBigInteger, creating a new instance if necessary.
