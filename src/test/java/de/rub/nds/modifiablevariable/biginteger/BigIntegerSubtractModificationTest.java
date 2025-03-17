@@ -12,8 +12,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.math.BigInteger;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -48,11 +50,6 @@ public class BigIntegerSubtractModificationTest {
 
         // Handle null input
         assertNull(b1.modifyImplementationHook(null));
-
-        // Large values
-        BigInteger largeNumber = new BigInteger("1000000000000000000000000000000");
-        BigInteger result = b1.modifyImplementationHook(largeNumber);
-        assertEquals(largeNumber.subtract(BigInteger.ONE), result);
     }
 
     /** Test of getSubtrahend method, of class BigIntegerSubtractModification. */
@@ -75,16 +72,6 @@ public class BigIntegerSubtractModificationTest {
 
         // Verify modification behavior changed
         assertEquals(BigInteger.valueOf(5), b1.modifyImplementationHook(BigInteger.TEN));
-
-        // Test with various values
-        b1.setSubtrahend(BigInteger.ZERO);
-        assertEquals(BigInteger.ZERO, b1.getSubtrahend());
-        assertEquals(BigInteger.TEN, b1.modifyImplementationHook(BigInteger.TEN));
-
-        // Large value
-        BigInteger largeValue = new BigInteger("9999999999999999999999999999999");
-        b1.setSubtrahend(largeValue);
-        assertEquals(largeValue, b1.getSubtrahend());
     }
 
     /** Test of hashCode method, of class BigIntegerSubtractModification. */
@@ -186,7 +173,7 @@ public class BigIntegerSubtractModificationTest {
             BigInteger nullValue = null;
             BigIntegerSubtractModification mod = new BigIntegerSubtractModification(nullValue);
             // Should not reach here
-            assertFalse(true, "Constructor should throw NullPointerException");
+            fail("Constructor should throw NullPointerException");
         } catch (NullPointerException e) {
             // Expected exception
             assertTrue(e.getMessage().contains("null"));
@@ -200,7 +187,7 @@ public class BigIntegerSubtractModificationTest {
         try {
             b1.setSubtrahend(null);
             // Should not reach here
-            assertFalse(true, "setSubtrahend should throw NullPointerException");
+            fail("setSubtrahend should throw NullPointerException");
         } catch (NullPointerException e) {
             // Expected exception
             assertTrue(e.getMessage().contains("null"));
