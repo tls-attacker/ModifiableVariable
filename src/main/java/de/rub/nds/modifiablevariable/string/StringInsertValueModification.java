@@ -78,9 +78,16 @@ public class StringInsertValueModification extends VariableModification<String> 
     /**
      * Modifies the input by inserting the specified string at the given position.
      *
-     * <p>If the position is negative, it wraps around to insert from the end of the string. If the
-     * position exceeds the string length, it's adjusted using modulo arithmetic. Insertion at the
-     * end of the string is also supported, effectivly resulting in an append.
+     * <p>Special cases are handled as follows:
+     *
+     * <ul>
+     *   <li>If the input is null, returns null
+     *   <li>If the input is empty, returns the insert value
+     *   <li>If the start position is negative, it counts from the end of the string (e.g., -1 means
+     *       before the last character)
+     *   <li>If the start position is beyond the string length, it appends to the end of the string
+     *   <li>Normal case: inserts the value at the specified position (0-based index)
+     * </ul>
      *
      * @param input The string to modify
      * @return A new string with the insertion applied, or null if input was null
@@ -90,10 +97,20 @@ public class StringInsertValueModification extends VariableModification<String> 
         if (input == null) {
             return null;
         }
-        // Wrap around and also allow to insert at the end of the original value
-        int insertPosition = startPosition % (input.length() + 1);
+        if (input.isEmpty()) {
+            return insertValue;
+        }
+
+        int insertPosition;
         if (startPosition < 0) {
-            insertPosition += input.length();
+            // For negative positions, count from the end
+            insertPosition = Math.max(0, input.length() + startPosition);
+        } else if (startPosition >= input.length()) {
+            // If position is beyond the string length, append to the end
+            insertPosition = input.length();
+        } else {
+            // Normal case: insert at the specified position
+            insertPosition = startPosition;
         }
 
         return new StringBuilder(input).insert(insertPosition, insertValue).toString();

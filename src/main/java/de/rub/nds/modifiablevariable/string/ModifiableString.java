@@ -28,9 +28,9 @@ import java.nio.charset.StandardCharsets;
  * proper serialization of strings that might contain characters that are problematic in XML.
  *
  * @see ModifiableVariable
- * @see StringAppendModification
- * @see StringPrependModification
- * @see StringInsertModification
+ * @see StringAppendValueModification
+ * @see StringPrependValueModification
+ * @see StringInsertValueModification
  * @see StringDeleteModification
  */
 @XmlRootElement

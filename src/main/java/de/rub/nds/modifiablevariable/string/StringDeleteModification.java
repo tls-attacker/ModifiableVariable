@@ -79,16 +79,22 @@ public class StringDeleteModification extends VariableModification<String> {
      * the characters before the deletion point, then concatenates them with the characters after
      * the deletion point, creating a shorter string.
      *
+     * <p>Special cases are handled as follows:
+     *
      * <ul>
-     *   <li>If the start position is negative, it wraps around to delete from the end of the string
-     *   <li>If the start position exceeds the string length, it wraps around using modulo
-     *       arithmetic
-     *   <li>If the deletion would extend beyond the end of the string, it's truncated appropriately
+     *   <li>If the input is null, returns null
+     *   <li>If the input is empty, returns the empty string
+     *   <li>If the count is zero or negative, returns the original string unchanged
+     *   <li>If the start position is negative, it counts from the end of the string (e.g., -1 means
+     *       the last character)
+     *   <li>If the start position is beyond the string length, it wraps around using modulo (e.g.,
+     *       for length 10, position 20 becomes position 0)
+     *   <li>If the deletion would extend beyond the end of the string, it's truncated to the end
      * </ul>
      *
      * @param input The original string
      * @return A new string with the specified portion removed, or null if the input is null, or the
-     *     original string if it's empty
+     *     original string if the input is empty
      */
     @Override
     protected String modifyImplementationHook(String input) {
@@ -98,18 +104,24 @@ public class StringDeleteModification extends VariableModification<String> {
         if (input.isEmpty()) {
             return input;
         }
+        if (count <= 0) {
+            return input;
+        }
 
-        // Wrap around and also allow to delete at the end of the original value
-        int deleteStartPosition = startPosition % input.length();
+        int deleteStartPosition;
         if (startPosition < 0) {
-            deleteStartPosition += input.length() - 1;
+            // For negative positions, count from the end
+            deleteStartPosition = Math.max(0, input.length() + startPosition);
+        } else if (startPosition >= input.length()) {
+            // Position beyond string length wrap using modulo operation
+            deleteStartPosition = startPosition % input.length();
+        } else {
+            // Normal case: delete from the specified position
+            deleteStartPosition = startPosition;
         }
 
-        // If the end position overflows, it is fixed at the end of the string
-        int deleteEndPosition = deleteStartPosition + Math.max(0, count);
-        if (deleteEndPosition > input.length()) {
-            deleteEndPosition = input.length();
-        }
+        // Calculate end position, ensuring it doesn't go beyond string length
+        int deleteEndPosition = Math.min(input.length(), deleteStartPosition + count);
 
         return new StringBuilder(input).delete(deleteStartPosition, deleteEndPosition).toString();
     }

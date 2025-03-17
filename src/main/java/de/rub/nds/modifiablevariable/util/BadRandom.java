@@ -53,6 +53,11 @@ public class BadRandom extends SecureRandom {
         this.random = random;
     }
 
+    /**
+     * Creates a BadRandom that delegates to the specified Random instance.
+     *
+     * @param random The Random instance to use for generating values
+     */
     public BadRandom(Random random) {
         super();
         this.random = random;
