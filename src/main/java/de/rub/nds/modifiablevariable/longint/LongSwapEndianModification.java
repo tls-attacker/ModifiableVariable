@@ -26,9 +26,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class LongSwapEndianModification extends VariableModification<Long> {
 
-    /**
-     * Default constructor.
-     */
+    /** Default constructor. */
     public LongSwapEndianModification() {
         super();
     }

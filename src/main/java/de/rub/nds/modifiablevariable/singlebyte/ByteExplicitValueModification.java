@@ -110,8 +110,8 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
     }
 
     /**
-     * Compares this ByteExplicitValueModification with another object for equality.
-     * Two ByteExplicitValueModifications are considered equal if their explicit values are equal.
+     * Compares this ByteExplicitValueModification with another object for equality. Two
+     * ByteExplicitValueModifications are considered equal if their explicit values are equal.
      *
      * @param obj The object to compare with
      * @return true if the objects are equal, false otherwise

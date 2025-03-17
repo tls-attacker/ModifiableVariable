@@ -16,7 +16,7 @@ import java.util.Objects;
  *
  * <p>This modification takes the original long value and multiplies it by a specified factor when
  * applied. It can be used to scale long values at runtime.
- * 
+ *
  * @see ModifiableLong
  */
 @XmlRootElement

@@ -44,7 +44,6 @@ public class ModifiableLong extends ModifiableVariable<Long> {
      *
      * <p>The originalValue is set to null, requiring it to be set later before meaningful
      * modifications can be applied.
-     * 
      */
     public ModifiableLong() {
         super();
@@ -117,8 +116,9 @@ public class ModifiableLong extends ModifiableVariable<Long> {
      */
     @Override
     public boolean isOriginalValueModified() {
-        if(originalValue == null) {
-            throw new IllegalStateException("Original value must be set before checking for modifications");
+        if (originalValue == null) {
+            throw new IllegalStateException(
+                    "Original value must be set before checking for modifications");
         }
         return !originalValue.equals(getValue());
     }

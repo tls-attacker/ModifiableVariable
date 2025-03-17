@@ -16,7 +16,7 @@ import java.util.Objects;
  *
  * <p>This modification subtracts a specified byte value (subtrahend) from the input value when
  * applied. It can be used to decrement byte values at runtime.
- * 
+ *
  * @see ModifiableByte
  */
 @XmlRootElement
@@ -110,8 +110,8 @@ public class ByteSubtractModification extends VariableModification<Byte> {
     }
 
     /**
-     * Compares this ByteSubtractModification with another object for equality. Two modifications are
-     * considered equal if they are of the same class and their subtrahend values are equal.
+     * Compares this ByteSubtractModification with another object for equality. Two modifications
+     * are considered equal if they are of the same class and their subtrahend values are equal.
      *
      * @param obj The object to compare with
      * @return true if the objects are equal, false otherwise

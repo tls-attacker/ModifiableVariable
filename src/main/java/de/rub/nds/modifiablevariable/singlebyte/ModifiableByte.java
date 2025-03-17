@@ -16,9 +16,9 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * <p>This class extends {@link ModifiableVariable} to provide runtime modification capabilities for
  * Byte values. It supports various byte-specific modifications such as addition, subtraction, XOR
  * operations, and more.
- * 
- * I many cases it is beneficial to use ModifiableByteArray instead of ModifiableByte, as it allows for
- * more uniform treatment in the code.
+ *
+ * <p>I many cases it is beneficial to use ModifiableByteArray instead of ModifiableByte, as it
+ * allows for more uniform treatment in the code.
  */
 @XmlRootElement
 public class ModifiableByte extends ModifiableVariable<Byte> {

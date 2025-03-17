@@ -64,7 +64,7 @@ public class ByteXorModification extends VariableModification<Byte> {
     /**
      * Modifies the input by applying an XOR operation with the configured XOR value.
      *
-     * <p>This method uses Java's bitwise XOR operator (^) to perform the operation. 
+     * <p>This method uses Java's bitwise XOR operator (^) to perform the operation.
      *
      * <p>Note that this operation may cause byte overflow according to Java's two's complement
      * arithmetic. For example, if a bit is set in both the input and XOR mask, the result will have
