@@ -28,9 +28,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class IntegerSwapEndianModification extends VariableModification<Integer> {
 
-    /**
-     * Default constructor.
-     */
+    /** Default constructor. */
     public IntegerSwapEndianModification() {
         super();
     }

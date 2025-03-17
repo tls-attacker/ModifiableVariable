@@ -39,7 +39,6 @@ import java.util.Arrays;
  * @see ByteArrayDuplicateModification
  * @see ByteArrayXorModification
  * @see ByteArrayShuffleModification
- * 
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
@@ -142,11 +141,12 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
      */
     @Override
     public boolean isOriginalValueModified() {
-        if(originalValue == null) {
+        if (originalValue == null) {
             throw new IllegalStateException("Original value must not be null");
-        }else {
+        } else {
             return !Arrays.equals(originalValue, getValue());
-        }}
+        }
+    }
 
     /**
      * Validates whether the modified value matches the expected value (if set).

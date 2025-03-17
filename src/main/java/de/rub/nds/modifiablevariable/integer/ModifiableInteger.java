@@ -17,7 +17,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * <p>This class extends {@link ModifiableVariable} to provide runtime modification capabilities for
  * Integer values. It supports various integer-specific modifications like addition, subtraction,
  * XOR operations, and more.
- * 
+ *
  * @see ModifiableVariable
  * @see IntegerAddModification
  * @see IntegerSubtractModification
@@ -26,7 +26,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * @see IntegerShiftRightModification
  * @see IntegerSwapEndianModification
  * @see IntegerExplicitValueModification
- * 
  */
 @XmlRootElement
 public class ModifiableInteger extends ModifiableVariable<Integer> {

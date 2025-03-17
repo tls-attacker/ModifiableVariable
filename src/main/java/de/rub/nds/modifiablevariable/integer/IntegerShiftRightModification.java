@@ -17,7 +17,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * positions when applied. It effectively divides the value by 2 raised to the power of the shift
  * amount, which can be used to reduce integer values at runtime.
  *
- *
  * @see ModifiableInteger
  * @see IntegerShiftLeftModification
  */
