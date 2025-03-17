@@ -95,7 +95,7 @@ public class LongMultiplyModification extends VariableModification<Long> {
      *
      * @param factor The new multiplication factor
      */
-    public void setFactor(Long factor) {
+    public void setFactor(long factor) {
         this.factor = factor;
     }
 

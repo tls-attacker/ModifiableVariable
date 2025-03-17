@@ -23,7 +23,7 @@ import java.util.Objects;
 public class IntegerAddModification extends VariableModification<Integer> {
 
     /** The value to add to the original integer */
-    private Integer summand;
+    private int summand;
 
     /** Default constructor for serialization. */
     @SuppressWarnings("unused")
@@ -84,7 +84,7 @@ public class IntegerAddModification extends VariableModification<Integer> {
      *
      * @return The value that will be added to the original integer
      */
-    public Integer getSummand() {
+    public int getSummand() {
         return summand;
     }
 
@@ -93,7 +93,7 @@ public class IntegerAddModification extends VariableModification<Integer> {
      *
      * @param summand The value that will be added to the original integer
      */
-    public void setSummand(Integer summand) {
+    public void setSummand(int summand) {
         this.summand = summand;
     }
 

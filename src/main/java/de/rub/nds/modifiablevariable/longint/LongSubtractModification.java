@@ -96,7 +96,7 @@ public class LongSubtractModification extends VariableModification<Long> {
      *
      * @param subtrahend The new subtrahend
      */
-    public void setSubtrahend(Long subtrahend) {
+    public void setSubtrahend(long subtrahend) {
         this.subtrahend = subtrahend;
     }
 

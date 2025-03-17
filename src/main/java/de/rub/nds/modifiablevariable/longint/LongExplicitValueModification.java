@@ -87,7 +87,7 @@ public class LongExplicitValueModification extends VariableModification<Long> {
      *
      * @return The explicit value
      */
-    public Long getExplicitValue() {
+    public long getExplicitValue() {
         return explicitValue;
     }
 
@@ -96,7 +96,7 @@ public class LongExplicitValueModification extends VariableModification<Long> {
      *
      * @param explicitValue The new explicit value
      */
-    public void setExplicitValue(Long explicitValue) {
+    public void setExplicitValue(long explicitValue) {
         this.explicitValue = explicitValue;
     }
 

@@ -23,7 +23,7 @@ import java.util.Objects;
 public class IntegerExplicitValueModification extends VariableModification<Integer> {
 
     /** The explicit value that will replace the original value */
-    protected Integer explicitValue;
+    protected int explicitValue;
 
     /** Default constructor for serialization. */
     @SuppressWarnings("unused")
@@ -85,7 +85,7 @@ public class IntegerExplicitValueModification extends VariableModification<Integ
      *
      * @return The explicit value
      */
-    public Integer getExplicitValue() {
+    public int getExplicitValue() {
         return explicitValue;
     }
 
@@ -94,7 +94,7 @@ public class IntegerExplicitValueModification extends VariableModification<Integ
      *
      * @param explicitValue The new explicit value
      */
-    public void setExplicitValue(Integer explicitValue) {
+    public void setExplicitValue(int explicitValue) {
         this.explicitValue = explicitValue;
     }
 

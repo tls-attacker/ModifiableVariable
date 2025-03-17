@@ -24,7 +24,7 @@ import java.util.Objects;
 public class IntegerXorModification extends VariableModification<Integer> {
 
     /** The XOR mask to apply to the original integer */
-    private Integer xor;
+    private int xor;
 
     /** Default constructor for serialization. */
     @SuppressWarnings("unused")
@@ -84,7 +84,7 @@ public class IntegerXorModification extends VariableModification<Integer> {
      *
      * @return The XOR mask
      */
-    public Integer getXor() {
+    public int getXor() {
         return xor;
     }
 
@@ -93,7 +93,7 @@ public class IntegerXorModification extends VariableModification<Integer> {
      *
      * @param xor The new XOR mask
      */
-    public void setXor(Integer xor) {
+    public void setXor(int xor) {
         this.xor = xor;
     }
 

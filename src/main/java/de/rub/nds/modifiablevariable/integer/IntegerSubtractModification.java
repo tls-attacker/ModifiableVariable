@@ -24,7 +24,7 @@ import java.util.Objects;
 public class IntegerSubtractModification extends VariableModification<Integer> {
 
     /** The value to subtract from the original integer */
-    private Integer subtrahend;
+    private int subtrahend;
 
     /** Default constructor for serialization. */
     @SuppressWarnings("unused")
@@ -85,7 +85,7 @@ public class IntegerSubtractModification extends VariableModification<Integer> {
      *
      * @return The subtrahend
      */
-    public Integer getSubtrahend() {
+    public int getSubtrahend() {
         return subtrahend;
     }
 
@@ -94,8 +94,8 @@ public class IntegerSubtractModification extends VariableModification<Integer> {
      *
      * @param subtrahend The new subtrahend
      */
-    public void setSubtrahend(Integer subtrahend) {
-        this.subtrahend = Objects.requireNonNull(subtrahend, "Subtrahend must not be null");
+    public void setSubtrahend(int subtrahend) {
+        this.subtrahend = subtrahend;
     }
 
     /**

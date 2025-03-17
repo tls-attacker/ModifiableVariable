@@ -23,7 +23,7 @@ import java.util.Objects;
 public class IntegerMultiplyModification extends VariableModification<Integer> {
 
     /** The factor by which to multiply the original integer value */
-    private Integer factor;
+    private int factor;
 
     /** Default constructor for serialization. */
     @SuppressWarnings("unused")
@@ -90,7 +90,7 @@ public class IntegerMultiplyModification extends VariableModification<Integer> {
      *
      * @return The multiplication factor
      */
-    public Integer getFactor() {
+    public int getFactor() {
         return factor;
     }
 
@@ -100,8 +100,8 @@ public class IntegerMultiplyModification extends VariableModification<Integer> {
      * @param factor The new multiplication factor
      * @throws NullPointerException if factor is null
      */
-    public void setFactor(Integer factor) {
-        this.factor = Objects.requireNonNull(factor, "Factor must not be null");
+    public void setFactor(int factor) {
+        this.factor = factor;
     }
 
     /**
