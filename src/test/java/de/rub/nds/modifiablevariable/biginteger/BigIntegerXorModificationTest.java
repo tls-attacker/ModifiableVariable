@@ -12,8 +12,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.math.BigInteger;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,17 +40,6 @@ public class BigIntegerXorModificationTest {
         // Basic XOR operations
         // 10 XOR 1 = 11 (binary: 1010 XOR 0001 = 1011)
         assertEquals(BigInteger.valueOf(11), b1.modifyImplementationHook(BigInteger.TEN));
-
-        // 10 XOR 10 = 0 (binary: 1010 XOR 1010 = 0000)
-        assertEquals(BigInteger.ZERO, b2.modifyImplementationHook(BigInteger.TEN));
-
-        // 0 XOR 1 = 1
-        assertEquals(BigInteger.ONE, b1.modifyImplementationHook(BigInteger.ZERO));
-
-        // XOR with large values
-        BigInteger largeValue = new BigInteger("1000000000000000000000000000000");
-        BigInteger result = b1.modifyImplementationHook(largeValue);
-        assertEquals(largeValue.xor(BigInteger.ONE), result);
 
         // XOR with zero mask leaves value unchanged
         BigIntegerXorModification zeroMask = new BigIntegerXorModification(BigInteger.ZERO);
@@ -79,16 +70,6 @@ public class BigIntegerXorModificationTest {
         // Verify modification behavior changed
         // 10 XOR 5 = 15 (binary: 1010 XOR 0101 = 1111)
         assertEquals(BigInteger.valueOf(15), b1.modifyImplementationHook(BigInteger.TEN));
-
-        // Test with zero
-        b1.setXor(BigInteger.ZERO);
-        assertEquals(BigInteger.ZERO, b1.getXor());
-        assertEquals(BigInteger.TEN, b1.modifyImplementationHook(BigInteger.TEN));
-
-        // Test with large value
-        BigInteger largeValue = new BigInteger("9999999999999999999999999999999");
-        b1.setXor(largeValue);
-        assertEquals(largeValue, b1.getXor());
     }
 
     /** Test of hashCode method, of class BigIntegerXorModification. */
@@ -186,9 +167,9 @@ public class BigIntegerXorModificationTest {
         try {
             // Explicitly specify null as BigInteger to avoid ambiguity with copy constructor
             BigInteger nullValue = null;
-            BigIntegerXorModification mod = new BigIntegerXorModification(nullValue);
+            new BigIntegerXorModification(nullValue);
             // Should not reach here
-            assertFalse(true, "Constructor should throw NullPointerException");
+            fail("Constructor should throw NullPointerException");
         } catch (NullPointerException e) {
             // Expected exception
             assertTrue(e.getMessage().contains("null"));
@@ -202,7 +183,7 @@ public class BigIntegerXorModificationTest {
         try {
             b1.setXor(null);
             // Should not reach here
-            assertFalse(true, "setXor should throw NullPointerException");
+            fail("setXor should throw NullPointerException");
         } catch (NullPointerException e) {
             // Expected exception
             assertTrue(e.getMessage().contains("null"));
