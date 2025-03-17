@@ -23,20 +23,12 @@ import org.apache.logging.log4j.Logger;
  * locate fields that are either of type ModifiableVariable or are annotated with {@link
  * HoldsModifiableVariable}.
  *
- * <p>The analyzer is particularly useful for:
- *
- * <ul>
- *   <li>Testing frameworks that need to discover all modifiable variables
- *   <li>Security analysis tools that need to examine protocol message structures
- *   <li>Serialization/deserialization utilities
- * </ul>
- *
  * <p>This class cannot be instantiated and all methods are static.
  */
 public final class ModifiableVariableAnalyzer {
 
     /** Logger for this class */
-    private static final Logger LOGGER = LogManager.getLogger(ModifiableVariableAnalyzer.class);
+    private static final Logger LOGGER = LogManager.getLogger();
 
     /** Private constructor to prevent instantiation of this utility class. */
     private ModifiableVariableAnalyzer() {
@@ -63,11 +55,14 @@ public final class ModifiableVariableAnalyzer {
      * modification. It uses the {@link RandomHelper} to ensure deterministic behavior in tests.
      *
      * @param object The object from which to select a random ModifiableVariable field
-     * @return A randomly selected Field object representing a ModifiableVariable
-     * @throws IndexOutOfBoundsException if the object has no ModifiableVariable fields
+     * @return A randomly selected Field object representing a ModifiableVariable. Returns null if
+     *     the object does not contain any ModifiableVariable fields.
      */
     public static Field getRandomModifiableVariableField(Object object) {
         List<Field> fields = getAllModifiableVariableFields(object);
+        if (fields.isEmpty()) {
+            return null;
+        }
         int randomField = RandomHelper.getRandom().nextInt(fields.size());
         return fields.get(randomField);
     }
@@ -159,7 +154,7 @@ public final class ModifiableVariableAnalyzer {
                     }
                 }
             } catch (IllegalAccessException | IllegalArgumentException ex) {
-                LOGGER.debug(
+                LOGGER.warn(
                         "Accessing field {} of type {} not possible: {}",
                         field.getName(),
                         field.getType(),

@@ -20,10 +20,6 @@ import java.util.Random;
  * initialized with a fixed seed. This makes it useful for testing security protocols where
  * reproducible "randomness" is needed.
  *
- * <p><strong>WARNING:</strong> This class is NOT cryptographically secure and should NEVER be used
- * in production code or for any security-sensitive operations. It is designed exclusively for
- * testing and debugging purposes.
- *
  * <p>The primary use case is testing protocol implementations that rely on SecureRandom where we
  * need to control the "random" values to create reproducible test cases.
  */
@@ -49,8 +45,15 @@ public class BadRandom extends SecureRandom {
      *
      * @param random The Random instance to use for generating values
      * @param seed Ignored parameter (for API compatibility)
+     * @deprecated Use {@link #BadRandom(Random)} instead
      */
+    @Deprecated
     public BadRandom(Random random, byte[] seed) {
+        super();
+        this.random = random;
+    }
+
+    public BadRandom(Random random) {
         super();
         this.random = random;
     }
@@ -63,7 +66,9 @@ public class BadRandom extends SecureRandom {
      * @param random The Random instance to use for generating values
      * @param secureRandomSpi Ignored parameter (for API compatibility)
      * @param provider Ignored parameter (for API compatibility)
+     * @deprecated Use {@link #BadRandom(Random)} instead
      */
+    @Deprecated
     public BadRandom(Random random, SecureRandomSpi secureRandomSpi, Provider provider) {
         super();
         this.random = random;
@@ -102,16 +107,9 @@ public class BadRandom extends SecureRandom {
         random = new Random(seed);
     }
 
-    /**
-     * Setting seed with a byte array is not supported in this implementation.
-     *
-     * @param seed The seed byte array (ignored)
-     * @throws UnsupportedOperationException Always thrown when this method is called
-     */
+    /** Setting seed is meaningless in this implementation and does nothing. */
     @Override
-    public synchronized void setSeed(byte[] seed) {
-        throw new UnsupportedOperationException();
-    }
+    public synchronized void setSeed(byte[] seed) {}
 
     /**
      * Returns a warning message instead of an algorithm name to make it clear that this is not a

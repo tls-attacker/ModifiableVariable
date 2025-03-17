@@ -40,8 +40,6 @@ public final class ArrayConverter {
      * <p>This method uses big-endian byte order (most significant byte first), which is the network
      * byte order and the standard for many protocols.
      *
-     * <p>This is commonly used for sequence numbers in TLS records and other protocol fields.
-     *
      * @param value The long value to convert
      * @return A byte array of length 8 representing the value in big-endian order
      */
@@ -142,7 +140,7 @@ public final class ArrayConverter {
     }
 
     /**
-     * Takes an integer value and stores its last bytes into a byte array
+     * Takes an integer value and stores its last bytes into a byte array of a given size.
      *
      * @param value integer value
      * @param size byte size of the new integer byte array
@@ -480,38 +478,37 @@ public final class ArrayConverter {
     }
 
     /**
-     * Converts a BigInteger to a byte array with specific block size padding.
+     * Converts a BigInteger to a byte array with specific output size padding.
      *
      * <p>This method is particularly useful for cryptographic operations that require values to be
-     * padded to specific block sizes. The method can also handle the sign byte that BigInteger
-     * prepends to positive values in some cases.
+     * padded to specific block sizes.
      *
-     * <p>The resulting array will have a length that is a multiple of the specified block size. If
-     * the BigInteger's byte representation doesn't align with the block size, the array will be
-     * padded with leading zeros.
+     * <p>The resulting array will have a length that is a multiple of the specified size. If the
+     * BigInteger's byte representation is not of the specified size, the array will be padded with
+     * leading zeros.
      *
      * <p>Special cases:
      *
      * <ul>
-     *   <li>If the block size is 0, an empty array is returned
+     *   <li>If the output size is 0, an empty array is returned
      *   <li>If the value is zero, an array of zeros with length equal to the block size is returned
      * </ul>
      *
      * @param value The BigInteger to convert
-     * @param blockSize The block size to align the output to (e.g., 16 for AES)
+     * @param expectedLength The expecxted length to align the output to
      * @param removeSignByte Whether to remove the sign byte (if present) before padding
      * @return A byte array representation of the BigInteger, padded to be a multiple of the block
      *     size
      */
     public static byte[] bigIntegerToByteArray(
-            BigInteger value, int blockSize, boolean removeSignByte) {
-        if (blockSize == 0) {
+            BigInteger value, int expectedLength, boolean removeSignByte) {
+        if (expectedLength == 0) {
             return new byte[0];
         } else if (value.equals(BigInteger.ZERO)) {
-            return new byte[blockSize];
+            return new byte[expectedLength];
         }
         byte[] array = value.toByteArray();
-        int remainder = array.length % blockSize;
+        int remainder = array.length % expectedLength;
         byte[] result = array;
         byte[] tmp;
 
@@ -519,13 +516,13 @@ public final class ArrayConverter {
             tmp = new byte[result.length - 1];
             System.arraycopy(result, 1, tmp, 0, tmp.length);
             result = tmp;
-            remainder = tmp.length % blockSize;
+            remainder = tmp.length % expectedLength;
         }
 
         if (remainder > 0) {
             // add zeros to fit size
-            tmp = new byte[result.length + blockSize - remainder];
-            System.arraycopy(result, 0, tmp, blockSize - remainder, result.length);
+            tmp = new byte[result.length + expectedLength - remainder];
+            System.arraycopy(result, 0, tmp, expectedLength - remainder, result.length);
             result = tmp;
         }
 
@@ -533,8 +530,8 @@ public final class ArrayConverter {
     }
 
     /**
-     * Takes a BigInteger value and returns its byte array representation, if necessary the sign
-     * byte is removed.
+     * Takes a BigInteger value and returns its (unsigned) byte array representation, if necessary
+     * the sign byte is removed.
      *
      * @param value big integer to be converted
      * @return big integer represented in bytes

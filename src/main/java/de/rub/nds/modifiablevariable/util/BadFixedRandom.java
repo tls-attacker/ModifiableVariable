@@ -16,21 +16,6 @@ import java.util.Random;
  * fixed byte value instead of generating truly random values. It is designed specifically for
  * testing scenarios where predictable, reproducible "random" values are required.
  *
- * <p>The main use case for this class is in protocol testing, where the ability to produce
- * consistent, predictable output is essential for creating reproducible test cases.
- *
- * <p>Usage example:
- *
- * <pre>{@code
- * // Create a "random" generator that always returns 0x42
- * Random random = new BadFixedRandom((byte)0x42);
- *
- * // Generate a "random" array
- * byte[] data = new byte[10];
- * random.nextBytes(data);
- * // data now contains [0x42, 0x42, 0x42, 0x42, 0x42, 0x42, 0x42, 0x42, 0x42, 0x42]
- * }</pre>
- *
  * <p>Note that this implementation only overrides the {@link #nextBytes(byte[])} method; other
  * methods from the {@link Random} superclass are not overridden and may still produce pseudo-random
  * values that don't match the fixed byte value.

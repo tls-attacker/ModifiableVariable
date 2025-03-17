@@ -30,11 +30,6 @@ public class ModifiableVariableListHolder {
     /** The list of Field objects representing the ModifiableVariables in the object */
     private List<Field> fields;
 
-    /** Default constructor that creates an empty ModifiableVariableListHolder. */
-    public ModifiableVariableListHolder() {
-        super();
-    }
-
     /**
      * Constructor that creates a ModifiableVariableListHolder with the specified object and fields.
      *

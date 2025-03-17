@@ -49,9 +49,6 @@ public final class ReflectionHelper {
      * <p>The fields can be optionally filtered by type, including only those that are assignable
      * from the specified filter class. If the filter class is null, all fields are included.
      *
-     * <p>This method is particularly useful for finding all fields of a specific type throughout a
-     * class hierarchy, such as finding all ModifiableVariable fields in a complex object structure.
-     *
      * <p>Source: <a
      * href="http://stackoverflow.com/questions/17451506/list-all-private-fields-of-a-java-object">
      * Stack Overflow: List all private fields of a Java object</a>

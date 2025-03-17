@@ -14,9 +14,7 @@ import java.lang.reflect.Field;
  * A wrapper class that pairs an object with one of its ModifiableVariable fields.
  *
  * <p>This class is used to represent the relationship between an object and a specific
- * ModifiableVariable field within it. This pairing is particularly useful when working with the
- * results of reflection-based analysis, as it preserves the context needed to access and manipulate
- * the field.
+ * ModifiableVariable field within it.
  *
  * <p>The class provides methods to access both the containing object and the field, as well as a
  * convenience method to directly access the ModifiableVariable instance.
@@ -28,11 +26,6 @@ public class ModifiableVariableField {
 
     /** The Field object representing the ModifiableVariable */
     private Field field;
-
-    /** Default constructor that creates an empty ModifiableVariableField. */
-    public ModifiableVariableField() {
-        super();
-    }
 
     /**
      * Constructor that creates a ModifiableVariableField with the specified object and field.

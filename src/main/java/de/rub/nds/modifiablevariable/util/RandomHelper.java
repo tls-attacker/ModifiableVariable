@@ -49,7 +49,7 @@ public final class RandomHelper {
      * @return A BadRandom instance that uses the singleton Random internally
      */
     public static BadRandom getBadSecureRandom() {
-        return new BadRandom(getRandom(), null);
+        return new BadRandom(getRandom());
     }
 
     /**
