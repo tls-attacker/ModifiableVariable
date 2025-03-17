@@ -59,7 +59,7 @@ public class ModifiableStringTest {
     @Test
     public void testGetByteArray() {
         byte[] expected = "TestString".getBytes(java.nio.charset.StandardCharsets.ISO_8859_1);
-        byte[] actual = string.getByteArray(expected.length);
+        byte[] actual = string.getByteArray();
 
         for (int i = 0; i < expected.length; i++) {
             assertEquals(expected[i], actual[i]);
