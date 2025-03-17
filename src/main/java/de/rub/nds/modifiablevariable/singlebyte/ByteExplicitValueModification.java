@@ -65,7 +65,7 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
      * Implements the modification by returning the explicit value.
      *
      * <p>This method ignores the input value and always returns the explicit value set during
-     * initialization or via {@link #setExplicitValue(Byte)}. If the input is null, it returns null
+     * initialization or via {@link #setExplicitValue(byte)}. If the input is null, it returns null
      * to preserve null-safety.
      *
      * @param input The original byte value (ignored except for null check)

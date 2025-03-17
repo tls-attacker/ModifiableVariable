@@ -68,8 +68,7 @@ public class IntegerMultiplyModification extends VariableModification<Integer> {
      * Implements the modification by multiplying the input by the factor.
      *
      * <p>This method multiplies the input integer by the factor specified during initialization or
-     * via {@link #setFactor(Integer)}. If the input is null, it returns null to preserve
-     * null-safety.
+     * via {@link #setFactor(int)}. If the input is null, it returns null to preserve null-safety.
      *
      * <p>Note that this operation may result in integer overflow if the result exceeds the range of
      * {@link Integer}, following regular Java integer logic.
