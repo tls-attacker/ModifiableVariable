@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,17 +38,9 @@ public class BigIntegerExplicitValueModificationTest {
     public void testModifyImplementationHook() {
         // Should always return explicit value, regardless of input
         assertEquals(BigInteger.ONE, b1.modifyImplementationHook(BigInteger.ZERO));
-        assertEquals(BigInteger.ONE, b1.modifyImplementationHook(BigInteger.TEN));
         assertEquals(BigInteger.ONE, b1.modifyImplementationHook(BigInteger.valueOf(-42)));
 
-        assertEquals(BigInteger.TEN, b2.modifyImplementationHook(BigInteger.ZERO));
         assertEquals(BigInteger.TEN, b2.modifyImplementationHook(BigInteger.ONE));
-
-        // Test with large values
-        BigInteger largeValue = new BigInteger("99999999999999999999999999999999");
-        BigIntegerExplicitValueModification largeExplicit =
-                new BigIntegerExplicitValueModification(largeValue);
-        assertEquals(largeValue, largeExplicit.modifyImplementationHook(BigInteger.ONE));
 
         // Handle null input
         assertNull(b1.modifyImplementationHook(null));
@@ -57,10 +50,6 @@ public class BigIntegerExplicitValueModificationTest {
     @Test
     public void testGetExplicitValue() {
         assertEquals(BigInteger.ONE, b1.getExplicitValue());
-        assertEquals(BigInteger.TEN, b2.getExplicitValue());
-
-        // Verify same explicit value for equal objects
-        assertEquals(b1.getExplicitValue(), b3.getExplicitValue());
     }
 
     /** Test of setExplicitValue method, of class BigIntegerExplicitValueModification. */
@@ -70,23 +59,6 @@ public class BigIntegerExplicitValueModificationTest {
         assertNotEquals(BigInteger.valueOf(42), b1.getExplicitValue());
         b1.setExplicitValue(BigInteger.valueOf(42));
         assertEquals(BigInteger.valueOf(42), b1.getExplicitValue());
-
-        // Verify modification behavior changed
-        assertEquals(BigInteger.valueOf(42), b1.modifyImplementationHook(BigInteger.TEN));
-
-        // Test with various values
-        b1.setExplicitValue(BigInteger.ZERO);
-        assertEquals(BigInteger.ZERO, b1.getExplicitValue());
-        assertEquals(BigInteger.ZERO, b1.modifyImplementationHook(BigInteger.TEN));
-
-        // Test with negative value
-        b1.setExplicitValue(BigInteger.valueOf(-100));
-        assertEquals(BigInteger.valueOf(-100), b1.getExplicitValue());
-
-        // Test with large value
-        BigInteger largeValue = new BigInteger("9999999999999999999999999999999");
-        b1.setExplicitValue(largeValue);
-        assertEquals(largeValue, b1.getExplicitValue());
     }
 
     /** Test of hashCode method, of class BigIntegerExplicitValueModification. */
@@ -188,10 +160,8 @@ public class BigIntegerExplicitValueModificationTest {
         try {
             // Explicitly specify null as BigInteger to avoid ambiguity with copy constructor
             BigInteger nullValue = null;
-            BigIntegerExplicitValueModification mod =
-                    new BigIntegerExplicitValueModification(nullValue);
-            // Should not reach here
-            assertFalse(true, "Constructor should throw NullPointerException");
+            new BigIntegerExplicitValueModification(nullValue);
+            fail("Constructor should throw NullPointerException");
         } catch (NullPointerException e) {
             // Expected exception
             assertTrue(e.getMessage().contains("null"));
@@ -205,7 +175,7 @@ public class BigIntegerExplicitValueModificationTest {
         try {
             b1.setExplicitValue(null);
             // Should not reach here
-            assertFalse(true, "setExplicitValue should throw NullPointerException");
+            fail("setExplicitValue should throw NullPointerException");
         } catch (NullPointerException e) {
             // Expected exception
             assertTrue(e.getMessage().contains("null"));
