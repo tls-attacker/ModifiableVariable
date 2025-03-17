@@ -49,23 +49,22 @@ public class StringInsertValueModificationTest {
         assertEquals("testStringINSERT", modifiableString.getValue());
     }
 
-    /** Test insertion with negative position (wraps around to insert from the end) */
+    /** Test insertion with negative position (inserts from the end) */
     @Test
     public void testInsertWithNegativePosition() {
         StringInsertValueModification modifier = new StringInsertValueModification(insertValue, -1);
         modifiableString.setModifications(modifier);
-        // From the implementation (line 96): insertPosition += input.length();
-        // For position -1, it should wrap to position 9
+        // -1 means to insert before the last character
         assertEquals("testStrinINSERTg", modifiableString.getValue());
     }
 
-    /** Test insertion with position exceeding string length (wraps using modulo) */
+    /** Test insertion with position exceeding string length (appends to the end) */
     @Test
     public void testInsertWithPositionOverflow() {
         StringInsertValueModification modifier = new StringInsertValueModification(insertValue, 22);
         modifiableString.setModifications(modifier);
-        // 22 % 11 = 0 (string length + 1), so it should insert at position 0
-        assertEquals("INSERTtestString", modifiableString.getValue());
+        // Position beyond string length should append to the end
+        assertEquals("testStringINSERT", modifiableString.getValue());
     }
 
     /** Test insertion with empty string as the original value */
