@@ -25,7 +25,6 @@ import java.util.Objects;
  * @see StringDeleteModification
  * @see StringAppendValueModification
  * @see StringPrependValueModification
- * 
  */
 @XmlRootElement
 public class StringInsertValueModification extends VariableModification<String> {

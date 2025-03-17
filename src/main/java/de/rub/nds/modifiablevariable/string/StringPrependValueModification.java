@@ -21,7 +21,7 @@ import java.util.Objects;
  * <p>This modification takes the original string and adds a specified string to its beginning when
  * applied. It can be used to add text to the start of string values at runtime, which is
  * particularly useful for testing protocol implementations.
- * 
+ *
  * @see ModifiableString
  * @see StringAppendValueModification
  * @see StringInsertValueModification

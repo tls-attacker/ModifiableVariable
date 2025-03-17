@@ -99,7 +99,8 @@ public class StringExplicitValueModification extends VariableModification<String
      * @param explicitValue The new explicit string to use
      */
     public void setExplicitValue(String explicitValue) {
-        this.explicitValue = Objects.requireNonNull(explicitValue, "ExplicitValue must not be null");
+        this.explicitValue =
+                Objects.requireNonNull(explicitValue, "ExplicitValue must not be null");
     }
 
     /**

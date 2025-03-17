@@ -26,7 +26,7 @@ import java.nio.charset.StandardCharsets;
  *
  * <p>This class uses property-based XML access and the {@link IllegalStringAdapter} to handle
  * proper serialization of strings that might contain characters that are problematic in XML.
- * 
+ *
  * @see ModifiableVariable
  * @see StringAppendModification
  * @see StringPrependModification
@@ -112,7 +112,6 @@ public class ModifiableString extends ModifiableVariable<String> {
 
     /**
      * Converts the string value to a byte array using ISO-8859-1 encoding.
-     *
      *
      * @return The byte array representation of the string using ISO-8859-1 encoding
      */
