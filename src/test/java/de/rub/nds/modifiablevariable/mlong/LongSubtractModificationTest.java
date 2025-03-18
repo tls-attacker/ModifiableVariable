@@ -10,8 +10,10 @@ package de.rub.nds.modifiablevariable.mlong;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import de.rub.nds.modifiablevariable.longint.LongSubtractModification;
+import de.rub.nds.modifiablevariable.longint.ModifiableLong;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -49,8 +51,8 @@ public class LongSubtractModificationTest {
         assertNotEquals(modification, differentModification);
 
         // Test with null and different object type
-        assertNotEquals(modification, null);
-        assertNotEquals(modification, "string");
+        assertNotEquals(null, modification);
+        assertNotEquals("string", modification);
     }
 
     @Test
@@ -92,4 +94,17 @@ public class LongSubtractModificationTest {
 
     // We can't directly test the protected modifyImplementationHook method,
     // but we can indirectly test its behavior through public methods
+
+    @Test
+    public void testModifyWithNull() {
+        // Create a ModifiableLong with null value
+        ModifiableLong modifiable = new ModifiableLong();
+        modifiable.setOriginalValue(null);
+
+        // Add our subtraction modification
+        modifiable.addModification(modification);
+
+        // The result should be null since the input is null
+        assertNull(modifiable.getValue());
+    }
 }
