@@ -60,8 +60,6 @@ public class ModifiableVariableField {
     /**
      * Gets the Field object representing the ModifiableVariable.
      *
-     * <p>Note: Field objects are effectively immutable, so no defensive copy is needed.
-     *
      * @return The Field object
      */
     public Field getField() {
