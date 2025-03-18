@@ -36,8 +36,6 @@ public final class RandomHelper {
         if (random == null) {
             random = new Random(0);
         }
-        // Since Random is thread-safe, we don't need to return a defensive copy
-        // This is a design choice for testing code performance
         return random;
     }
 
