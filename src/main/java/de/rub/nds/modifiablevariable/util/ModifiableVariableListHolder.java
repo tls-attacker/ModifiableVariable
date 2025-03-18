@@ -63,10 +63,10 @@ public class ModifiableVariableListHolder {
     /**
      * Gets the list of Field objects representing the ModifiableVariables in the object.
      *
-     * @return A defensive copy of the list of Field objects
+     * @return The list of Field objects
      */
     public List<Field> getFields() {
-        return fields != null ? List.copyOf(fields) : null;
+        return fields;
     }
 
     /**
