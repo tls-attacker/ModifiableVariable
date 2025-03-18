@@ -107,4 +107,14 @@ public class LongSubtractModificationTest {
         // The result should be null since the input is null
         assertNull(modifiable.getValue());
     }
+    
+    @Test
+    public void testGetValueWithNullInput() {
+        // Test direct call to modify with null input
+        Long result = modification.modify(null);
+        
+        // The result should be null as specified in the implementation
+        assertNull(result);
+    }
+}
 }
