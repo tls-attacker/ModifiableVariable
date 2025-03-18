@@ -121,6 +121,23 @@ public class ArrayConverterTest {
                         + "{0x16} {0x55}");
     }
 
+    /** Test longToBytes with invalid size parameter (less than 1). */
+    @Test
+    public void testLongToBytesWithInvalidSize() {
+        int value = 42;
+        // Test with size 0
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.longToBytes(value, 0),
+                "Should throw IllegalArgumentException for size 0");
+
+        // Test with negative size
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.longToBytes(value, -1),
+                "Should throw IllegalArgumentException for negative size");
+    }
+
     /** Test of bytesToInt method, of class ArrayConverter. */
     @Test
     public void testBytesToInt() {
@@ -199,6 +216,18 @@ public class ArrayConverterTest {
         assertEquals(
                 "\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07",
                 ArrayConverter.bytesToHexString(toTest));
+
+        // Test with null input
+        assertEquals(
+                "",
+                ArrayConverter.bytesToHexString((byte[]) null),
+                "Null input should return empty string");
+
+        // Test with empty array
+        assertEquals(
+                "",
+                ArrayConverter.bytesToHexString(new byte[0]),
+                "Empty array should return empty string");
     }
 
     /** Test of bytesToHexString method, of class ArrayConverter. */
@@ -228,30 +257,28 @@ public class ArrayConverterTest {
         // Test with pretty printing and initialNewLine=true
         assertEquals(
                 "\n00 01 02 03 04 05 06 07  08 09 0A 0B 0C 0D 0E 0F",
-                ArrayConverter.bytesToHexString((byte[]) toTest, true, true));
+                ArrayConverter.bytesToHexString(toTest, true, true));
 
         // Test with pretty printing and initialNewLine=false
         assertEquals(
                 "00 01 02 03 04 05 06 07  08 09 0A 0B 0C 0D 0E 0F",
-                ArrayConverter.bytesToHexString((byte[]) toTest, true, false));
+                ArrayConverter.bytesToHexString(toTest, true, false));
 
         // Test without pretty printing and initialNewLine=true (initialNewLine should be ignored)
         assertEquals(
                 "00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F",
-                ArrayConverter.bytesToHexString((byte[]) toTest, false, true));
+                ArrayConverter.bytesToHexString(toTest, false, true));
 
         // Test without pretty printing and initialNewLine=false
         assertEquals(
                 "00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F",
-                ArrayConverter.bytesToHexString((byte[]) toTest, false, false));
+                ArrayConverter.bytesToHexString(toTest, false, false));
 
-        // Test with null array - implementation throws NPE so we'll catch it
-        try {
-            ArrayConverter.bytesToHexString((byte[]) null, false, false);
-            fail("Should throw NullPointerException for null input");
-        } catch (NullPointerException e) {
-            // Expected behavior - implementation doesn't handle null input
-        }
+        // Test with null array - implementation throws NPE
+        assertThrows(
+                NullPointerException.class,
+                () -> ArrayConverter.bytesToHexString((byte[]) null, false, false),
+                "bytesToHexString(null, bool, bool) should throw NullPointerException");
 
         // Test with longer array to check line breaks
         byte[] longArray = new byte[32];
@@ -262,13 +289,13 @@ public class ArrayConverterTest {
         String expected =
                 "\n00 01 02 03 04 05 06 07  08 09 0A 0B 0C 0D 0E 0F\n"
                         + "10 11 12 13 14 15 16 17  18 19 1A 1B 1C 1D 1E 1F";
-        assertEquals(expected, ArrayConverter.bytesToHexString((byte[]) longArray, true, true));
+        assertEquals(expected, ArrayConverter.bytesToHexString(longArray, true, true));
 
         // Test without initial new line but with pretty printing
         expected =
                 "00 01 02 03 04 05 06 07  08 09 0A 0B 0C 0D 0E 0F\n"
                         + "10 11 12 13 14 15 16 17  18 19 1A 1B 1C 1D 1E 1F";
-        assertEquals(expected, ArrayConverter.bytesToHexString((byte[]) longArray, true, false));
+        assertEquals(expected, ArrayConverter.bytesToHexString(longArray, true, false));
     }
 
     /** Test ArrayConverter.bytesToRawHexString(). */
@@ -292,7 +319,7 @@ public class ArrayConverterTest {
         String[] array3 = {"g", "h"};
 
         // Test concatenation of two arrays
-        String[] result = ArrayConverter.<String>concatenate(array1, array2);
+        String[] result = ArrayConverter.concatenate(array1, array2);
         assertEquals(6, result.length, "Should have length 6");
         assertArrayEquals(
                 new String[] {"a", "b", "c", "d", "e", "f"},
@@ -300,7 +327,7 @@ public class ArrayConverterTest {
                 "Arrays should be concatenated in order");
 
         // Test concatenation of three arrays
-        result = ArrayConverter.<String>concatenate(array1, array2, array3);
+        result = ArrayConverter.concatenate(array1, array2, array3);
         assertEquals(8, result.length, "Should have length 8");
         assertArrayEquals(
                 new String[] {"a", "b", "c", "d", "e", "f", "g", "h"},
@@ -308,20 +335,26 @@ public class ArrayConverterTest {
                 "Three arrays should be concatenated in order");
 
         // Test with null array in the middle
-        result = ArrayConverter.<String>concatenate(array1, null, array3);
+        result = ArrayConverter.concatenate(array1, null, array3);
         assertEquals(5, result.length, "Should have length 5");
         assertArrayEquals(
                 new String[] {"a", "b", "c", "g", "h"}, result, "Null array should be skipped");
 
         // Test with single array
-        result = ArrayConverter.<String>concatenate(array1);
+        result = ArrayConverter.concatenate(array1);
         assertEquals(3, result.length, "Should have length 3");
         assertArrayEquals(array1, result, "Single array should be unchanged");
 
         // Test with empty arrays
         String[] emptyArray = new String[0];
-        result = ArrayConverter.<String>concatenate(emptyArray, emptyArray);
+        result = ArrayConverter.concatenate(emptyArray, emptyArray);
         assertEquals(0, result.length, "Should have length 0 for empty arrays");
+
+        // Test with null parameter (should throw IllegalArgumentException)
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.concatenate((String[][]) null),
+                "Should throw IllegalArgumentException for null parameter");
     }
 
     /** Test of concatenate method, of class ArrayConverter. */
@@ -363,13 +396,25 @@ public class ArrayConverterTest {
         result = ArrayConverter.concatenate(emptyArray, emptyArray);
         assertEquals(0, result.length, "Should have length 0 for empty arrays");
 
+        // Test with zero-length array
+        result = ArrayConverter.concatenate(array1, new byte[0]);
+        assertEquals(
+                3,
+                result.length,
+                "Should have original length when concatenating with empty array");
+        assertArrayEquals(array1, result, "Should be identical to first array");
+
+        // Test with null parameter (should throw IllegalArgumentException)
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.concatenate((byte[][]) null),
+                "Should throw IllegalArgumentException for null parameter");
+
         // Test with illegal argument
-        try {
-            ArrayConverter.concatenate(new byte[0][0]);
-            fail("Should have thrown IllegalArgumentException for empty parameter list");
-        } catch (IllegalArgumentException e) {
-            // Expected behavior
-        }
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.concatenate(new byte[0][0]),
+                "Should throw IllegalArgumentException for empty parameter list");
 
         // Test limited concatenation with the 3-parameter method
         result = ArrayConverter.concatenate(array1, array2, 2);
@@ -548,6 +593,18 @@ public class ArrayConverterTest {
                 new byte[] {(byte) 0xff, (byte) 0xff, (byte) 0xff},
                 ArrayConverter.hexStringToByteArray(hex),
                 "Testing one byte hex value > 0x7f");
+
+        // Test with null input (should throw IllegalArgumentException)
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.hexStringToByteArray(null),
+                "Should throw IllegalArgumentException for null input");
+
+        // Test with odd length string (should throw IllegalArgumentException)
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.hexStringToByteArray("ABC"),
+                "Should throw IllegalArgumentException for odd-length string");
     }
 
     @Test
@@ -566,6 +623,12 @@ public class ArrayConverterTest {
                 ArrayConverter.hexStringToByteArray("0000000000000000000000001D42C86F7923DFEC"),
                 ArrayConverter.bigIntegerToNullPaddedByteArray(test, 20),
                 "Check output size bigger than input size");
+
+        // Test with null input (should throw IllegalArgumentException)
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.bigIntegerToNullPaddedByteArray(null, 8),
+                "Should throw IllegalArgumentException for null input");
     }
 
     @Test
@@ -597,12 +660,14 @@ public class ArrayConverterTest {
         toTest =
                 ModifiableVariableFactory.safelySetValue(
                         toTest, new byte[] {0x00, 0x11, 0x22, 0x33, 0x44});
-        assertEquals("00 11 22 33 44", ArrayConverter.bytesToHexString(toTest));
+        ModifiableByteArray mba = toTest; // Variable to help the compiler disambiguate
+        assertEquals("00 11 22 33 44", ArrayConverter.bytesToHexString(mba));
 
         toTest =
                 ModifiableVariableFactory.safelySetValue(
                         toTest, new byte[] {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08});
-        assertEquals("00 01 02 03 04 05 06 07 08", ArrayConverter.bytesToHexString(toTest));
+        mba = toTest;
+        assertEquals("00 01 02 03 04 05 06 07 08", ArrayConverter.bytesToHexString(mba));
 
         toTest =
                 ModifiableVariableFactory.safelySetValue(
@@ -610,7 +675,8 @@ public class ArrayConverterTest {
                         new byte[] {
                             0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x10
                         });
-        assertEquals("00 01 02 03 04 05 06 07 08 09 10", ArrayConverter.bytesToHexString(toTest));
+        mba = toTest;
+        assertEquals("00 01 02 03 04 05 06 07 08 09 10", ArrayConverter.bytesToHexString(mba));
 
         toTest =
                 ModifiableVariableFactory.safelySetValue(
@@ -619,9 +685,10 @@ public class ArrayConverterTest {
                             0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03,
                             0x04, 0x05, 0x06, 0x07,
                         });
+        mba = toTest;
         assertEquals(
                 "\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07",
-                ArrayConverter.bytesToHexString(toTest));
+                ArrayConverter.bytesToHexString(mba));
 
         toTest =
                 ModifiableVariableFactory.safelySetValue(
@@ -631,9 +698,10 @@ public class ArrayConverterTest {
                             0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
                             0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
                         });
+        mba = toTest;
         assertEquals(
                 "\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07",
-                ArrayConverter.bytesToHexString(toTest));
+                ArrayConverter.bytesToHexString(mba));
     }
 
     /**
@@ -652,24 +720,25 @@ public class ArrayConverterTest {
                         });
 
         // Test with pretty printing and initialNewLine=true
+        ModifiableByteArray mba = toTest; // Variable to help the compiler disambiguate
         assertEquals(
                 "\n00 01 02 03 04 05 06 07  08 09 0A 0B 0C 0D 0E 0F",
-                ArrayConverter.bytesToHexString(toTest, true, true));
+                ArrayConverter.bytesToHexString(mba, true, true));
 
         // Test with pretty printing and initialNewLine=false
         assertEquals(
                 "00 01 02 03 04 05 06 07  08 09 0A 0B 0C 0D 0E 0F",
-                ArrayConverter.bytesToHexString(toTest, true, false));
+                ArrayConverter.bytesToHexString(mba, true, false));
 
         // Test without pretty printing and initialNewLine=true (should be ignored)
         assertEquals(
                 "00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F",
-                ArrayConverter.bytesToHexString(toTest, false, true));
+                ArrayConverter.bytesToHexString(mba, false, true));
 
         // Test without pretty printing and initialNewLine=false
         assertEquals(
                 "00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F",
-                ArrayConverter.bytesToHexString(toTest, false, false));
+                ArrayConverter.bytesToHexString(mba, false, false));
 
         // Test with longer array
         toTest =
@@ -681,15 +750,18 @@ public class ArrayConverterTest {
                             0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
                         });
 
+        // Update our helper variable
+        mba = toTest;
+
         // Test with pretty printing and initialNewLine=true for longer array
         String expected =
                 "\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07";
-        assertEquals(expected, ArrayConverter.bytesToHexString(toTest, true, true));
+        assertEquals(expected, ArrayConverter.bytesToHexString(mba, true, true));
 
         // Test with pretty printing and initialNewLine=false for longer array
         expected =
                 "00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07";
-        assertEquals(expected, ArrayConverter.bytesToHexString(toTest, true, false));
+        assertEquals(expected, ArrayConverter.bytesToHexString(mba, true, false));
     }
 
     /**
@@ -704,13 +776,15 @@ public class ArrayConverterTest {
         toTest =
                 ModifiableVariableFactory.safelySetValue(
                         toTest, new byte[] {0x00, 0x11, 0x22, 0x33, 0x44});
-        assertEquals("00 11 22 33 44", ArrayConverter.bytesToHexString(toTest, false));
+        ModifiableByteArray mba = toTest; // Variable to help the compiler disambiguate
+        assertEquals("00 11 22 33 44", ArrayConverter.bytesToHexString(mba, false));
 
         // Test a medium array (9 bytes) with pretty printing disabled
         toTest =
                 ModifiableVariableFactory.safelySetValue(
                         toTest, new byte[] {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08});
-        assertEquals("00 01 02 03 04 05 06 07 08", ArrayConverter.bytesToHexString(toTest, false));
+        mba = toTest;
+        assertEquals("00 01 02 03 04 05 06 07 08", ArrayConverter.bytesToHexString(mba, false));
 
         // Test a 16-byte array with pretty printing enabled
         toTest =
@@ -720,14 +794,15 @@ public class ArrayConverterTest {
                             0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B,
                             0x0C, 0x0D, 0x0E, 0x0F
                         });
+        mba = toTest;
         assertEquals(
                 "\n00 01 02 03 04 05 06 07  08 09 0A 0B 0C 0D 0E 0F",
-                ArrayConverter.bytesToHexString(toTest, true));
+                ArrayConverter.bytesToHexString(mba, true));
 
         // Test a 16-byte array with pretty printing disabled
         assertEquals(
                 "00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F",
-                ArrayConverter.bytesToHexString(toTest, false));
+                ArrayConverter.bytesToHexString(mba, false));
 
         // Test a larger array (32 bytes) with pretty printing enabled
         toTest =
@@ -738,14 +813,15 @@ public class ArrayConverterTest {
                             0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
                             0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
                         });
+        mba = toTest;
         assertEquals(
                 "\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07",
-                ArrayConverter.bytesToHexString(toTest, true));
+                ArrayConverter.bytesToHexString(mba, true));
 
         // Test a larger array with pretty printing disabled
         assertEquals(
                 "00 01 02 03 04 05 06 07 00 01 02 03 04 05 06 07 00 01 02 03 04 05 06 07 00 01 02 03 04 05 06 07",
-                ArrayConverter.bytesToHexString(toTest, false));
+                ArrayConverter.bytesToHexString(mba, false));
     }
 
     /** Test of reverseByteOrder method, of class ArrayConverter. */
