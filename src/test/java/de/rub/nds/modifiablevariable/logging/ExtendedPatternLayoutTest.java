@@ -368,6 +368,8 @@ class ExtendedPatternLayoutTest {
         boolean alwaysWriteExceptions = true;
         boolean noConsoleNoAnsi = false;
 
+        // Using the deprecated method for testing purposes
+        @SuppressWarnings("deprecation")
         AbstractStringLayout.Serializer serializer =
                 ExtendedPatternLayout.createSerializer(
                         config,
@@ -382,6 +384,7 @@ class ExtendedPatternLayoutTest {
     }
 
     @Test
+    @SuppressWarnings("deprecation")
     void testCreateLayout() {
         String pattern = "%m%n";
         Configuration config = new DefaultConfiguration();

@@ -148,10 +148,8 @@ public class ModifiableLong extends ModifiableVariable<Long> {
     @Override
     public boolean validateAssertions() {
         boolean valid = true;
-        if (assertEquals != null) {
-            if (assertEquals.compareTo(getValue()) != 0) {
-                valid = false;
-            }
+        if (assertEquals != null && assertEquals.compareTo(getValue()) != 0) {
+            valid = false;
         }
         return valid;
     }

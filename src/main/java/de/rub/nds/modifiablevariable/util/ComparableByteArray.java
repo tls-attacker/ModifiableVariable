@@ -34,29 +34,29 @@ public class ComparableByteArray {
     /**
      * Creates a new comparable wrapper for the given byte array.
      *
-     * @param array The byte array to wrap
+     * @param array The byte array to wrap (will be defensively copied)
      */
     public ComparableByteArray(byte[] array) {
         super();
-        this.array = array;
+        this.array = array != null ? array.clone() : null;
     }
 
     /**
      * Gets the wrapped byte array.
      *
-     * @return The wrapped byte array
+     * @return A copy of the wrapped byte array
      */
     public byte[] getArray() {
-        return array;
+        return array != null ? array.clone() : null;
     }
 
     /**
      * Sets the wrapped byte array.
      *
-     * @param array The new byte array to wrap
+     * @param array The new byte array to wrap (will be defensively copied)
      */
     public void setArray(byte[] array) {
-        this.array = array;
+        this.array = array != null ? array.clone() : null;
     }
 
     /**

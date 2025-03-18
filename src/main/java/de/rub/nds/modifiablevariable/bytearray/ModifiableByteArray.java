@@ -160,10 +160,8 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
     @Override
     public boolean validateAssertions() {
         boolean valid = true;
-        if (assertEquals != null) {
-            if (!Arrays.equals(assertEquals, getValue())) {
-                valid = false;
-            }
+        if (assertEquals != null && !Arrays.equals(assertEquals, getValue())) {
+            valid = false;
         }
         return valid;
     }
