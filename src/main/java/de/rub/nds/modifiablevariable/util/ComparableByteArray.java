@@ -44,10 +44,10 @@ public class ComparableByteArray {
     /**
      * Gets the wrapped byte array.
      *
-     * @return A copy of the wrapped byte array
+     * @return A the wrapped byte array
      */
     public byte[] getArray() {
-        return array != null ? array.clone() : null;
+        return array;
     }
 
     /**
