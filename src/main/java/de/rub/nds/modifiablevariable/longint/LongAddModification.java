@@ -47,7 +47,7 @@ public class LongAddModification extends VariableModification<Long> {
      * @param other The modification to copy
      */
     public LongAddModification(LongAddModification other) {
-        super(other);
+        super();
         summand = other.summand;
     }
 

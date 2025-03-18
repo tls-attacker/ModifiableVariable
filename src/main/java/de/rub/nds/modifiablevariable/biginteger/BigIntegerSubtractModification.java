@@ -49,7 +49,7 @@ public class BigIntegerSubtractModification extends VariableModification<BigInte
      * @param other The modification to copy
      */
     public BigIntegerSubtractModification(BigIntegerSubtractModification other) {
-        super(other);
+        super();
         subtrahend = other.subtrahend;
     }
 

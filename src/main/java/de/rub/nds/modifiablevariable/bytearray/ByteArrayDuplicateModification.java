@@ -37,8 +37,7 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
      * @param other The modification to copy
      */
     public ByteArrayDuplicateModification(ByteArrayDuplicateModification other) {
-        super(other);
-    }
+        super();}
 
     /**
      * Creates a deep copy of this modification.

@@ -51,7 +51,7 @@ public class BooleanExplicitValueModification extends VariableModification<Boole
      * @param other The modification to copy
      */
     public BooleanExplicitValueModification(BooleanExplicitValueModification other) {
-        super(other);
+        super();
         explicitValue = other.explicitValue;
     }
 

@@ -57,7 +57,7 @@ public class StringDeleteModification extends VariableModification<String> {
      * @param other The modification to copy
      */
     public StringDeleteModification(StringDeleteModification other) {
-        super(other);
+        super();
         count = other.count;
         startPosition = other.startPosition;
     }

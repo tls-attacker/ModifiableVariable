@@ -49,7 +49,7 @@ public class LongShiftLeftModification extends VariableModification<Long> {
      * @param other The modification to copy
      */
     public LongShiftLeftModification(LongShiftLeftModification other) {
-        super(other);
+        super();
         shift = other.shift;
     }
 

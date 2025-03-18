@@ -56,8 +56,8 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
      * @param other The modification to copy
      */
     public ByteArrayDeleteModification(ByteArrayDeleteModification other) {
-        super(other);
-        count = other.count;
+        super();
+            count = other.count;
         startPosition = other.startPosition;
     }
 

@@ -48,7 +48,7 @@ public class LongExplicitValueModification extends VariableModification<Long> {
      * @param other The modification to copy
      */
     public LongExplicitValueModification(LongExplicitValueModification other) {
-        super(other);
+        super();
         explicitValue = other.explicitValue;
     }
 

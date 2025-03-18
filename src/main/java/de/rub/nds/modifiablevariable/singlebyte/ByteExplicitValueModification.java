@@ -47,7 +47,7 @@ public class ByteExplicitValueModification extends VariableModification<Byte> {
      * @param other The ByteExplicitValueModification to copy from
      */
     public ByteExplicitValueModification(ByteExplicitValueModification other) {
-        super(other);
+        super();
         explicitValue = other.explicitValue;
     }
 

@@ -48,7 +48,7 @@ public class IntegerShiftLeftModification extends VariableModification<Integer> 
      * @param other The modification to copy
      */
     public IntegerShiftLeftModification(IntegerShiftLeftModification other) {
-        super(other);
+        super();
         shift = other.shift;
     }
 

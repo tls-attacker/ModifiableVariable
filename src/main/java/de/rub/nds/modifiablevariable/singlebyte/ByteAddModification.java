@@ -48,7 +48,7 @@ public class ByteAddModification extends VariableModification<Byte> {
      * @param other The ByteAddModification to copy from
      */
     public ByteAddModification(ByteAddModification other) {
-        super(other);
+        super();
         summand = other.summand;
     }
 

@@ -54,8 +54,8 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
      * @param other The modification to copy
      */
     public ByteArrayExplicitValueModification(ByteArrayExplicitValueModification other) {
-        super(other);
-        explicitValue = other.explicitValue.clone();
+        super();
+            explicitValue = other.explicitValue.clone();
     }
 
     /**

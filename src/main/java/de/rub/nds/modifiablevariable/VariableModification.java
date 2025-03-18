@@ -56,17 +56,6 @@ public abstract class VariableModification<E> implements Serializable {
     }
 
     /**
-     * Copy constructor.
-     *
-     * @param other The modification to copy (not used in base class)
-     */
-    @SuppressWarnings("unused")
-    protected VariableModification(VariableModification<E> other) {
-        super();
-        // Base class doesn't use 'other' parameter, but subclasses might
-    }
-
-    /**
      * Creates a deep copy of this modification.
      *
      * @return A new instance with the same modification parameters

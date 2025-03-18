@@ -49,7 +49,7 @@ public class BigIntegerMultiplyModification extends VariableModification<BigInte
      * @param other The modification to copy
      */
     public BigIntegerMultiplyModification(BigIntegerMultiplyModification other) {
-        super(other);
+        super();
         factor = other.factor;
     }
 

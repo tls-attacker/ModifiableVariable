@@ -60,7 +60,7 @@ public class StringInsertValueModification extends VariableModification<String> 
      * @param other The modification to copy
      */
     public StringInsertValueModification(StringInsertValueModification other) {
-        super(other);
+        super();
         insertValue = other.insertValue;
         startPosition = other.startPosition;
     }

@@ -58,7 +58,7 @@ public class BigIntegerXorModification extends VariableModification<BigInteger> 
      * @param other The modification to copy
      */
     public BigIntegerXorModification(BigIntegerXorModification other) {
-        super(other);
+        super();
         xor = other.xor;
     }
 

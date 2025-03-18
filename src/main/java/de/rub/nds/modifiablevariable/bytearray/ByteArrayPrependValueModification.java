@@ -65,7 +65,7 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
      * @param other The modification to copy
      */
     public ByteArrayPrependValueModification(ByteArrayPrependValueModification other) {
-        super(other);
+        super();
         bytesToPrepend = other.bytesToPrepend.clone();
     }
 

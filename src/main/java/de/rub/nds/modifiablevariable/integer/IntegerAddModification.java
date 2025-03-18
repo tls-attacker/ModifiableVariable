@@ -47,7 +47,7 @@ public class IntegerAddModification extends VariableModification<Integer> {
      * @param other The modification to copy
      */
     public IntegerAddModification(IntegerAddModification other) {
-        super(other);
+        super();
         summand = other.summand;
     }
 
