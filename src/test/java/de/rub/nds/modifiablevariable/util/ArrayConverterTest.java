@@ -7,7 +7,11 @@
  */
 package de.rub.nds.modifiablevariable.util;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
@@ -87,6 +91,18 @@ public class ArrayConverterTest {
                 new byte[] {0x16, 0x55},
                 result,
                 "The conversion result of 5717 should be {0x16} {0x55}");
+
+        // Test with invalid size parameter (less than 1)
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.intToBytes(42, 0),
+                "Should throw IllegalArgumentException for size 0");
+
+        // Test with negative size
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.intToBytes(42, -1),
+                "Should throw IllegalArgumentException for negative size");
     }
 
     @Test
@@ -147,6 +163,51 @@ public class ArrayConverterTest {
                 expectedResult,
                 ArrayConverter.bytesToInt(toParse),
                 "The conversion result of {0x16, 0x55} should be 5717");
+
+        // Test with empty array
+        toParse = new byte[0];
+        expectedResult = 0;
+        assertEquals(
+                expectedResult,
+                ArrayConverter.bytesToInt(toParse),
+                "Empty array should convert to 0");
+
+        // Test with 4 bytes (max allowed)
+        toParse = new byte[] {0x01, 0x02, 0x03, 0x04};
+        expectedResult = 0x01020304;
+        assertEquals(
+                expectedResult,
+                ArrayConverter.bytesToInt(toParse),
+                "4-byte array should convert correctly");
+
+        // Test with array exceeding allowed length (should throw exception)
+        final byte[] oversizedIntArray = new byte[] {0x01, 0x02, 0x03, 0x04, 0x05};
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.bytesToInt(oversizedIntArray),
+                "Array > 4 bytes should throw IllegalArgumentException");
+
+        // Test with null input
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.bytesToInt(null),
+                "Null input should throw IllegalArgumentException");
+    }
+
+    @Test
+    public void testModifiableVariableToHexString() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.bytesToHexString((ModifiableByteArray) null),
+                "Null input should throw IllegalArgumentException");
+    }
+
+    @Test
+    public void testConcatatenateGenericArray() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.concatenate(new Object[][] {}),
+                "Null input should throw IllegalArgumentException");
     }
 
     /** Test of bytesToLong method, of class ArrayConverter. */
@@ -188,6 +249,20 @@ public class ArrayConverterTest {
                 expected,
                 ArrayConverter.bytesToLong(toParse),
                 "Should handle maximum 64-bit value");
+
+        // Test with array exceeding allowed length (should throw exception)
+        final byte[] oversizedLongArray =
+                new byte[] {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09};
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.bytesToLong(oversizedLongArray),
+                "Array > 8 bytes should throw IllegalArgumentException");
+
+        // Test with null input
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.bytesToLong(null),
+                "Null input should throw IllegalArgumentException");
     }
 
     /** Test of bytesToHexString method, of class ArrayConverter. */
@@ -217,11 +292,11 @@ public class ArrayConverterTest {
                 "\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07",
                 ArrayConverter.bytesToHexString(toTest));
 
-        // Test with null input
-        assertEquals(
-                "",
-                ArrayConverter.bytesToHexString((byte[]) null),
-                "Null input should return empty string");
+        // Test with null input should throw IllegalArgumentException
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.bytesToHexString((byte[]) null),
+                "Null input should throw IllegalArgumentException");
 
         // Test with empty array
         assertEquals(
@@ -244,6 +319,12 @@ public class ArrayConverterTest {
         assertEquals(
                 "\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07",
                 ArrayConverter.bytesToHexString(toTest, true));
+
+        // Test with null input
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.bytesToHexString((byte[]) null, false),
+                "Null input should throw IllegalArgumentException");
     }
 
     /** Test of bytesToHexString method, of class ArrayConverter. */
@@ -274,11 +355,11 @@ public class ArrayConverterTest {
                 "00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F",
                 ArrayConverter.bytesToHexString(toTest, false, false));
 
-        // Test with null array - implementation throws NPE
+        // Test with null array - implementation throws IllegalArgumentException
         assertThrows(
-                NullPointerException.class,
+                IllegalArgumentException.class,
                 () -> ArrayConverter.bytesToHexString((byte[]) null, false, false),
-                "bytesToHexString(null, bool, bool) should throw NullPointerException");
+                "bytesToHexString(null, bool, bool) should throw IllegalArgumentException");
 
         // Test with longer array to check line breaks
         byte[] longArray = new byte[32];
@@ -309,6 +390,18 @@ public class ArrayConverterTest {
         assertEquals(
                 "0001020304050607000102030405060700010203040506070001020304050607",
                 ArrayConverter.bytesToRawHexString(toTest));
+
+        // Test with null input
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.bytesToRawHexString(null),
+                "bytesToRawHexString(null) should throw IllegalArgumentException");
+
+        // Test with empty array
+        assertEquals(
+                "",
+                ArrayConverter.bytesToRawHexString(new byte[0]),
+                "Empty array should return empty string");
     }
 
     /** Test of concatenate method, of class ArrayConverter. */
@@ -429,6 +522,30 @@ public class ArrayConverterTest {
         assertEquals(3, result.length, "Should have length 3");
         assertArrayEquals(
                 array1, result, "Should only use first array when second byte count is 0");
+
+        // Test with null first array
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.concatenate(null, array2, 1),
+                "First array null should throw IllegalArgumentException");
+
+        // Test with null second array
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.concatenate(array1, null, 1),
+                "Second array null should throw IllegalArgumentException");
+
+        // Test with invalid number of bytes (negative)
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.concatenate(array1, array2, -1),
+                "Negative bytes should throw IllegalArgumentException");
+
+        // Test with invalid number of bytes (greater than array2.length)
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.concatenate(array1, array2, array2.length + 1),
+                "Too many bytes should throw IllegalArgumentException");
     }
 
     /** Test of makeArrayNonZero method, of class ArrayConverter. */
@@ -463,6 +580,12 @@ public class ArrayConverterTest {
         testArray = new byte[0];
         ArrayConverter.makeArrayNonZero(testArray);
         assertEquals(0, testArray.length, "Empty array should remain empty");
+
+        // Test with null array
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.makeArrayNonZero(null),
+                "Null array should throw IllegalArgumentException");
     }
 
     /** Test of bigIntegerToByteArray method, of class ArrayConverter. */
@@ -506,6 +629,12 @@ public class ArrayConverterTest {
 
         result = ArrayConverter.bigIntegerToByteArray(testValue, 4, true);
         assertEquals(4, result.length, "Should remove sign byte and match expected length");
+
+        // Test with null value
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.bigIntegerToByteArray(null, 4, true),
+                "Null BigInteger should throw IllegalArgumentException");
     }
 
     /** Test of bigIntegerToByteArray method, of class ArrayConverter. */
@@ -534,6 +663,12 @@ public class ArrayConverterTest {
         assertTrue(
                 result.length == 0 || (result.length == 1 && result[0] == 0),
                 "Zero should be represented as either an empty array or a single zero byte");
+
+        // Test with null value
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.bigIntegerToByteArray(null),
+                "Null BigInteger should throw IllegalArgumentException");
     }
 
     /** Test of convertListToArray method, of class ArrayConverter. */
@@ -573,6 +708,12 @@ public class ArrayConverterTest {
                 new BigInteger("7FFFFFFFFFFFFFFF", 16),
                 result[1],
                 "Second large value should match");
+
+        // Test with null list
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.convertListToArray(null),
+                "Null list should throw IllegalArgumentException");
     }
 
     /** Test of hexStringToByteArray method, of class ArrayConverter. */
@@ -762,6 +903,12 @@ public class ArrayConverterTest {
         expected =
                 "00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07\n00 01 02 03 04 05 06 07  00 01 02 03 04 05 06 07";
         assertEquals(expected, ArrayConverter.bytesToHexString(mba, true, false));
+
+        // Test with null ModifiableByteArray
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.bytesToHexString((ModifiableByteArray) null, true, true),
+                "Null ModifiableByteArray should throw IllegalArgumentException");
     }
 
     /**
@@ -822,6 +969,36 @@ public class ArrayConverterTest {
         assertEquals(
                 "00 01 02 03 04 05 06 07 00 01 02 03 04 05 06 07 00 01 02 03 04 05 06 07 00 01 02 03 04 05 06 07",
                 ArrayConverter.bytesToHexString(mba, false));
+
+        // Test with null ModifiableByteArray
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.bytesToHexString((ModifiableByteArray) null, false),
+                "Null ModifiableByteArray should throw IllegalArgumentException");
+    }
+
+    @Test
+    public void testModifiableByteArrayWithNullValue() {
+        // Create a ModifiableByteArray with a null value
+        ModifiableByteArray mba = new ModifiableByteArray();
+
+        // Test for the single argument bytesToHexString
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.bytesToHexString(mba),
+                "ModifiableByteArray with null value should throw IllegalArgumentException");
+
+        // Test for the two argument bytesToHexString
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.bytesToHexString(mba, true),
+                "ModifiableByteArray with null value should throw IllegalArgumentException");
+
+        // Test for the three argument bytesToHexString
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.bytesToHexString(mba, true, true),
+                "ModifiableByteArray with null value should throw IllegalArgumentException");
     }
 
     /** Test of reverseByteOrder method, of class ArrayConverter. */
@@ -833,6 +1010,18 @@ public class ArrayConverterTest {
                 new byte[] {0x04, 0x03, 0x02, 0x01, 0x00},
                 ArrayConverter.reverseByteOrder(array),
                 "Testing byte order reversion");
+
+        // Test with null array
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.reverseByteOrder(null),
+                "Null array should throw IllegalArgumentException");
+
+        // Test with empty array
+        assertArrayEquals(
+                new byte[0],
+                ArrayConverter.reverseByteOrder(new byte[0]),
+                "Empty array should be reversed to empty array");
     }
 
     @Test
@@ -844,6 +1033,13 @@ public class ArrayConverterTest {
             BigInteger c = new BigInteger(1, bigIntegerToByteArray);
             assertEquals(b, c);
         }
+    }
+
+    @Test
+    public void testBigIntegerToByteArrayWithZero() {
+        // Test with BigInteger.ZERO
+        byte[] result = ArrayConverter.bigIntegerToByteArray(BigInteger.ZERO);
+        assertArrayEquals(new byte[] {0}, result, "BigInteger.ZERO should convert to {0}");
     }
 
     @Test
@@ -907,6 +1103,19 @@ public class ArrayConverterTest {
                 expected,
                 ArrayConverter.uInt64BytesToLong(testBytes),
                 "All FFs should convert to -1L (all bits set)");
+
+        // Test with null input
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.uInt64BytesToLong(null),
+                "Null input should throw IllegalArgumentException");
+
+        // Test with wrong length
+        final byte[] wrongLengthArray = new byte[7]; // Not 8 bytes
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.uInt64BytesToLong(wrongLengthArray),
+                "Array != 8 bytes should throw IllegalArgumentException");
     }
 
     @Test
@@ -945,6 +1154,19 @@ public class ArrayConverterTest {
                 expected,
                 ArrayConverter.uInt32BytesToLong(testBytes),
                 "High bit should be preserved as unsigned");
+
+        // Test with null input
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.uInt32BytesToLong(null),
+                "Null input should throw IllegalArgumentException");
+
+        // Test with wrong length
+        final byte[] wrongLengthArray = new byte[3]; // Not 4 bytes
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.uInt32BytesToLong(wrongLengthArray),
+                "Array != 4 bytes should throw IllegalArgumentException");
     }
 
     @Test
@@ -965,9 +1187,35 @@ public class ArrayConverterTest {
         byte[] innerArray1 = ArrayConverter.hexStringToByteArray("BBCCDD");
         byte[] innerArray2 = ArrayConverter.hexStringToByteArray("BBCCDDEE");
         byte[] innerArray3 = ArrayConverter.hexStringToByteArray("FF");
+        byte[] emptyArray = new byte[0];
 
         assertEquals(1, ArrayConverter.indexOf(outerArray, innerArray1));
         assertNull(ArrayConverter.indexOf(outerArray, innerArray2));
         assertNull(ArrayConverter.indexOf(outerArray, innerArray3));
+
+        // Test with null outer array
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.indexOf(null, innerArray1),
+                "Null outer array should throw IllegalArgumentException");
+
+        // Test with null inner array
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.indexOf(outerArray, null),
+                "Null inner array should throw IllegalArgumentException");
+
+        // Test with empty inner array
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.indexOf(outerArray, emptyArray),
+                "Empty inner array should throw IllegalArgumentException");
+
+        // Test with inner array longer than outer array
+        byte[] smallOuterArray = new byte[3];
+        byte[] largeInnerArray = new byte[4];
+        assertNull(
+                ArrayConverter.indexOf(smallOuterArray, largeInnerArray),
+                "Inner array should not be found when longer than outer array");
     }
 }

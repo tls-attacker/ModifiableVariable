@@ -109,8 +109,15 @@ public final class ArrayConverter {
      *
      * @param bytes The byte array of length 8 to convert
      * @return The long value represented by the byte array
+     * @throws IllegalArgumentException if bytes is null or not exactly 8 bytes long
      */
     public static long uInt64BytesToLong(byte[] bytes) {
+        if (bytes == null) {
+            throw new IllegalArgumentException("Input byte array must not be null");
+        }
+        if (bytes.length != 8) {
+            throw new IllegalArgumentException("Input byte array must be exactly 8 bytes long");
+        }
         return (long) (bytes[0] & 0xFF) << 56
                 | (long) (bytes[1] & 0xFF) << 48
                 | (long) (bytes[2] & 0xFF) << 40
@@ -131,8 +138,15 @@ public final class ArrayConverter {
      *
      * @param bytes The byte array of length 4 to convert
      * @return The long value represented by the byte array
+     * @throws IllegalArgumentException if bytes is null or not exactly 4 bytes long
      */
     public static long uInt32BytesToLong(byte[] bytes) {
+        if (bytes == null) {
+            throw new IllegalArgumentException("Input byte array must not be null");
+        }
+        if (bytes.length != 4) {
+            throw new IllegalArgumentException("Input byte array must be exactly 4 bytes long");
+        }
         return (long) (bytes[0] & 0xFF) << 24
                 | (bytes[1] & 0xFF) << 16
                 | (bytes[2] & 0xFF) << 8
@@ -190,8 +204,15 @@ public final class ArrayConverter {
      *
      * @param value byte array
      * @return integer
+     * @throws IllegalArgumentException if value is null or exceeds 4 bytes
      */
     public static int bytesToInt(byte[] value) {
+        if (value == null) {
+            throw new IllegalArgumentException("Input byte array must not be null");
+        }
+        if (value.length > 4) {
+            throw new IllegalArgumentException("Input byte array length must not exceed 4 bytes");
+        }
         int result = 0;
         int shift = 0;
         for (int i = value.length - 1; i >= 0; i--) {
@@ -206,8 +227,15 @@ public final class ArrayConverter {
      *
      * @param value byte array
      * @return long
+     * @throws IllegalArgumentException if value is null or exceeds 8 bytes
      */
     public static long bytesToLong(byte[] value) {
+        if (value == null) {
+            throw new IllegalArgumentException("Input byte array must not be null");
+        }
+        if (value.length > 8) {
+            throw new IllegalArgumentException("Input byte array length must not exceed 8 bytes");
+        }
         long result = 0;
         int shift = 0;
         for (int i = value.length - 1; i >= 0; i--) {
@@ -224,14 +252,15 @@ public final class ArrayConverter {
      * length. If the array has more than 15 bytes, pretty-printing is enabled for better
      * readability.
      *
-     * <p>If the input array is null, an empty array is used.
+     * <p>If the input array is null, an IllegalArgumentException is thrown.
      *
      * @param array The byte array to convert
      * @return A string representation of the bytes in hexadecimal format
+     * @throws IllegalArgumentException if array is null
      */
     public static String bytesToHexString(byte[] array) {
         if (array == null) {
-            array = new byte[0];
+            throw new IllegalArgumentException("Input byte array must not be null");
         }
         boolean usePrettyPrinting = array.length > 15;
         return bytesToHexString(array, usePrettyPrinting);
@@ -243,15 +272,16 @@ public final class ArrayConverter {
      * <p>When pretty-printing is enabled, the output includes newlines and spacing to improve
      * readability of longer byte sequences.
      *
-     * <p>If the input array is null, an empty array is used.
+     * <p>If the input array is null, an IllegalArgumentException is thrown.
      *
      * @param array The byte array to convert
      * @param usePrettyPrinting Whether to use pretty-printing formatting
      * @return A string representation of the bytes in hexadecimal format
+     * @throws IllegalArgumentException if array is null
      */
     public static String bytesToHexString(byte[] array, boolean usePrettyPrinting) {
         if (array == null) {
-            array = new byte[0];
+            throw new IllegalArgumentException("Input byte array must not be null");
         }
         return bytesToHexString(array, usePrettyPrinting, true);
     }
@@ -269,16 +299,20 @@ public final class ArrayConverter {
      *   <li>The optional initial new line can be controlled separately
      * </ul>
      *
-     * <p>If the input array is null, an empty array is used.
+     * <p>If the input array is null, an IllegalArgumentException is thrown.
      *
      * @param array The byte array to convert
      * @param usePrettyPrinting Whether to use pretty-printing formatting
      * @param initialNewLine Whether to begin with a new line (only applies if pretty-printing is
      *     enabled)
      * @return A string representation of the bytes in hexadecimal format
+     * @throws IllegalArgumentException if array is null
      */
     public static String bytesToHexString(
             byte[] array, boolean usePrettyPrinting, boolean initialNewLine) {
+        if (array == null) {
+            throw new IllegalArgumentException("Input byte array must not be null");
+        }
         StringBuilder result = new StringBuilder();
         if (initialNewLine && usePrettyPrinting) {
             result.append("\n");
@@ -309,9 +343,17 @@ public final class ArrayConverter {
      *
      * @param array The ModifiableByteArray to convert
      * @return A string representation of the bytes in hexadecimal format
+     * @throws IllegalArgumentException if array is null or its value is null
      */
     public static String bytesToHexString(ModifiableByteArray array) {
-        return bytesToHexString(array.getValue());
+        if (array == null) {
+            throw new IllegalArgumentException("Input ModifiableByteArray must not be null");
+        }
+        byte[] value = array.getValue();
+        if (value == null) {
+            throw new IllegalArgumentException("Value of ModifiableByteArray must not be null");
+        }
+        return bytesToHexString(value);
     }
 
     /**
@@ -324,9 +366,17 @@ public final class ArrayConverter {
      * @param array The ModifiableByteArray to convert
      * @param usePrettyPrinting Whether to use pretty-printing formatting
      * @return A string representation of the bytes in hexadecimal format
+     * @throws IllegalArgumentException if array is null or its value is null
      */
     public static String bytesToHexString(ModifiableByteArray array, boolean usePrettyPrinting) {
-        return bytesToHexString(array.getValue(), usePrettyPrinting, true);
+        if (array == null) {
+            throw new IllegalArgumentException("Input ModifiableByteArray must not be null");
+        }
+        byte[] value = array.getValue();
+        if (value == null) {
+            throw new IllegalArgumentException("Value of ModifiableByteArray must not be null");
+        }
+        return bytesToHexString(value, usePrettyPrinting, true);
     }
 
     /**
@@ -347,10 +397,18 @@ public final class ArrayConverter {
      * @param initialNewLine Whether to begin with a new line (only applies if pretty-printing is
      *     enabled)
      * @return A string representation of the bytes in hexadecimal format
+     * @throws IllegalArgumentException if array is null or its value is null
      */
     public static String bytesToHexString(
             ModifiableByteArray array, boolean usePrettyPrinting, boolean initialNewLine) {
-        return bytesToHexString(array.getValue(), usePrettyPrinting, initialNewLine);
+        if (array == null) {
+            throw new IllegalArgumentException("Input ModifiableByteArray must not be null");
+        }
+        byte[] value = array.getValue();
+        if (value == null) {
+            throw new IllegalArgumentException("Value of ModifiableByteArray must not be null");
+        }
+        return bytesToHexString(value, usePrettyPrinting, initialNewLine);
     }
 
     /**
@@ -358,8 +416,12 @@ public final class ArrayConverter {
      *
      * @param array byte array
      * @return hex string
+     * @throws IllegalArgumentException if array is null
      */
     public static String bytesToRawHexString(byte[] array) {
+        if (array == null) {
+            throw new IllegalArgumentException("Input byte array must not be null");
+        }
         StringBuilder result = new StringBuilder();
         for (byte b : array) {
             result.append(String.format("%02X", b));
@@ -451,8 +513,20 @@ public final class ArrayConverter {
      * @param array2 The second byte array (used partially)
      * @param numberOfArray2Bytes The number of bytes to use from array2
      * @return A new byte array containing array1 followed by the specified portion of array2
+     * @throws IllegalArgumentException if array1 or array2 is null, or if numberOfArray2Bytes is
+     *     negative or greater than array2.length
      */
     public static byte[] concatenate(byte[] array1, byte[] array2, int numberOfArray2Bytes) {
+        if (array1 == null) {
+            throw new IllegalArgumentException("First array must not be null");
+        }
+        if (array2 == null) {
+            throw new IllegalArgumentException("Second array must not be null");
+        }
+        if (numberOfArray2Bytes < 0 || numberOfArray2Bytes > array2.length) {
+            throw new IllegalArgumentException(
+                    "Number of bytes from second array must be between 0 and array2.length");
+        }
         int length = array1.length + numberOfArray2Bytes;
         byte[] result = new byte[length];
         System.arraycopy(array1, 0, result, 0, array1.length);
@@ -468,8 +542,12 @@ public final class ArrayConverter {
      * special behaviors that need to be avoided.
      *
      * @param array The byte array to modify (modified in-place)
+     * @throws IllegalArgumentException if array is null
      */
     public static void makeArrayNonZero(byte[] array) {
+        if (array == null) {
+            throw new IllegalArgumentException("Input array must not be null");
+        }
         for (int i = 0; i < array.length; i++) {
             if (array[i] == 0) {
                 array[i] = 1;
@@ -495,13 +573,17 @@ public final class ArrayConverter {
      * </ul>
      *
      * @param value The BigInteger to convert
-     * @param expectedLength The expecxted length to align the output to
+     * @param expectedLength The expected length to align the output to
      * @param removeSignByte Whether to remove the sign byte (if present) before padding
      * @return A byte array representation of the BigInteger, padded to be a multiple of the block
      *     size
+     * @throws IllegalArgumentException if value is null
      */
     public static byte[] bigIntegerToByteArray(
             BigInteger value, int expectedLength, boolean removeSignByte) {
+        if (value == null) {
+            throw new IllegalArgumentException("Input BigInteger must not be null");
+        }
         if (expectedLength == 0) {
             return new byte[0];
         } else if (value.equals(BigInteger.ZERO)) {
@@ -535,11 +617,20 @@ public final class ArrayConverter {
      *
      * @param value big integer to be converted
      * @return big integer represented in bytes
+     * @throws IllegalArgumentException if value is null
      */
     public static byte[] bigIntegerToByteArray(BigInteger value) {
+        if (value == null) {
+            throw new IllegalArgumentException("Input BigInteger must not be null");
+        }
+
+        if (value.equals(BigInteger.ZERO)) {
+            return new byte[] {0};
+        }
+
         byte[] result = value.toByteArray();
 
-        if (result[0] == 0x0) {
+        if (result.length > 1 && result[0] == 0x0) {
             byte[] tmp = new byte[result.length - 1];
             System.arraycopy(result, 1, tmp, 0, tmp.length);
             result = tmp;
@@ -552,8 +643,12 @@ public final class ArrayConverter {
      *
      * @param list list of big integers
      * @return array of big integers
+     * @throws IllegalArgumentException if list is null
      */
     public static BigInteger[] convertListToArray(List<BigInteger> list) {
+        if (list == null) {
+            throw new IllegalArgumentException("Input list must not be null");
+        }
         BigInteger[] result = new BigInteger[list.size()];
         for (int i = 0; i < list.size(); i++) {
             result[i] = list.get(i);
@@ -626,8 +721,12 @@ public final class ArrayConverter {
      *
      * @param array the byte array to reverse
      * @return byte array with reversed byte order
+     * @throws IllegalArgumentException if array is null
      */
     public static byte[] reverseByteOrder(byte[] array) {
+        if (array == null) {
+            throw new IllegalArgumentException("Input array must not be null");
+        }
         int length = array.length;
         byte[] temp = new byte[length];
         int counter = length - 1;
@@ -644,8 +743,23 @@ public final class ArrayConverter {
      * @param outerArray Outer byte array to search for inner array
      * @param innerArray byte array searched for
      * @return StartIndex of innerArray in outerArray or null if not present.
+     * @throws IllegalArgumentException if outerArray or innerArray is null, or if innerArray is
+     *     empty
      */
     public static Integer indexOf(byte[] outerArray, byte[] innerArray) {
+        if (outerArray == null) {
+            throw new IllegalArgumentException("Outer array must not be null");
+        }
+        if (innerArray == null) {
+            throw new IllegalArgumentException("Inner array must not be null");
+        }
+        if (innerArray.length == 0) {
+            throw new IllegalArgumentException("Inner array must not be empty");
+        }
+        if (innerArray.length > outerArray.length) {
+            return null; // Inner array can't be found in a smaller outer array
+        }
+
         for (int i = 0; i < outerArray.length - innerArray.length + 1; ++i) {
             boolean found = true;
             for (int j = 0; j < innerArray.length; ++j) {

@@ -123,10 +123,9 @@ class ExtendedPatternLayoutTest {
 
     @Test
     void testWithPrettyPrinting() {
-        // Create a new layout with prettyPrinting enabled
-        // Note: Since prettyPrinting is a static field, we can't directly test its effect
-        // without potentially affecting other tests. This test demonstrates awareness of this
-        // limitation.
+        // Note: Since Builder.prettyPrinting is a private field, we can't directly test its effect
+        // without using reflection, which is complex and potentially brittle.
+        // Instead, we'll just verify basic functionality works.
 
         byte[] data = {0x01, 0x02, 0x03, 0x04};
         String message = "Data: {}";
@@ -136,6 +135,65 @@ class ExtendedPatternLayoutTest {
 
         // Verify that the hex representation is included
         assertTrue(result.contains(ArrayConverter.bytesToHexString(data, false, false)));
+    }
+
+    @Test
+    void testLongByteArray() {
+        // Test with a byte array that has more than 16 bytes
+        byte[] longData = new byte[32];
+        for (int i = 0; i < longData.length; i++) {
+            longData[i] = (byte) i;
+        }
+
+        String message = "Long data: {}";
+        LogEvent event = createLogEvent(new ParameterizedMessage(message, new Object[] {longData}));
+
+        String result = layout.toSerializable(event);
+
+        // Verify that the array was serialized correctly (shouldn't contain [B@...)
+        assertFalse(result.contains("[B@"));
+
+        // Should contain the hex representation from ArrayConverter
+        String expectedHex = ArrayConverter.bytesToHexString(longData, false, false);
+        assertTrue(result.contains(expectedHex));
+    }
+
+    @Test
+    void testByteArrayFormatting() {
+        // Since we can't directly test initNewLine (private field), test general formatting
+        byte[] data = {0x01, 0x02, 0x03, 0x04};
+        String message = "Data: {}";
+        LogEvent event = createLogEvent(new ParameterizedMessage(message, new Object[] {data}));
+
+        String result = layout.toSerializable(event);
+
+        // Should NOT contain the default "[B@..." representation
+        assertFalse(result.contains("[B@"));
+
+        // Should contain the formatted hex string (use exact bytes for matching)
+        String expectedHex = ArrayConverter.bytesToHexString(data, false, false);
+        assertTrue(result.contains(expectedHex));
+    }
+
+    @Test
+    void testNonByteArrayParameters() {
+        // Test that other parameter types are not affected
+        String stringParam = "string value";
+        Integer intParam = 42;
+        Boolean boolParam = true;
+        String message = "Params: {}, {}, {}";
+
+        LogEvent event =
+                createLogEvent(
+                        new ParameterizedMessage(
+                                message, new Object[] {stringParam, intParam, boolParam}));
+
+        String result = layout.toSerializable(event);
+
+        // All parameters should be properly formatted
+        assertTrue(result.contains(stringParam));
+        assertTrue(result.contains(intParam.toString()));
+        assertTrue(result.contains(boolParam.toString()));
     }
 
     @Test
@@ -253,6 +311,54 @@ class ExtendedPatternLayoutTest {
         assertNotNull(serializer);
     }
 
+    // Not testing null LogEvent as the Log4j2 implementation doesn't support it
+
+    @Test
+    void testMultipleIdenticalByteArrays() {
+        // Test with multiple identical byte arrays in a single message
+        byte[] data = {0x01, 0x02, 0x03};
+        String message = "First: {}, Second: {}";
+        LogEvent event =
+                createLogEvent(new ParameterizedMessage(message, new Object[] {data, data}));
+
+        String result = layout.toSerializable(event);
+
+        // Should contain the hex representation twice (both instances replaced)
+        String expectedHex = ArrayConverter.bytesToHexString(data, false, false);
+
+        // Count occurrences of the hex string
+        int count = 0;
+        int index = 0;
+        while ((index = result.indexOf(expectedHex, index)) != -1) {
+            count++;
+            index += expectedHex.length();
+        }
+
+        assertEquals(2, count, "Both byte array instances should be replaced with hex string");
+    }
+
+    @Test
+    void testVeryLargeByteArray() {
+        // Test with a very large byte array (1KB, reduced from 10KB to avoid memory issues)
+        byte[] veryLargeData = new byte[1024];
+        for (int i = 0; i < veryLargeData.length; i++) {
+            veryLargeData[i] = (byte) (i % 256);
+        }
+
+        String message = "Large data: {}";
+        LogEvent event =
+                createLogEvent(new ParameterizedMessage(message, new Object[] {veryLargeData}));
+
+        String result = layout.toSerializable(event);
+
+        // Should NOT contain the default "[B@..." representation
+        assertFalse(result.contains("[B@"));
+
+        // Should contain the hex representation from ArrayConverter
+        // (Note: we don't check the exact string since it would be very large)
+        assertTrue(result.length() > 2000); // A rough check that conversion happened
+    }
+
     @Test
     void testCreateSerializerMethod() {
         Configuration config = new DefaultConfiguration();
@@ -343,6 +449,36 @@ class ExtendedPatternLayoutTest {
                 ExtendedPatternLayout.newSerializerBuilder();
         AbstractStringLayout.Serializer serializer = builder.build();
         assertNull(serializer);
+    }
+
+    // Note: Log4j2's pattern parser doesn't throw exceptions for invalid patterns at build time,
+    // it logs warnings and then fails at runtime. Therefore we can't effectively test this.
+
+    @Test
+    void testBuilderWithNullCharset() {
+        // Test the withCharset method with null charset (should use default)
+        ExtendedPatternLayout layout =
+                ExtendedPatternLayout.newBuilder().withPattern(PATTERN).withCharset(null).build();
+
+        assertNotNull(layout);
+        // Verify it works correctly
+        String message = "Test message";
+        LogEvent event = createLogEvent(new SimpleMessage(message));
+        String result = layout.toSerializable(event);
+        assertEquals(message + System.lineSeparator(), result);
+    }
+
+    @Test
+    void testMessageWithNullParameters() {
+        // Create a parameterized message
+        ParameterizedMessage message = new ParameterizedMessage("Message with {}");
+        LogEvent event = createLogEvent(message);
+
+        // Should handle null parameters without exception
+        String result = layout.toSerializable(event);
+        assertNotNull(result);
+        // Simple check that it produced some output
+        assertTrue(result.contains("Message with"));
     }
 
     @Test

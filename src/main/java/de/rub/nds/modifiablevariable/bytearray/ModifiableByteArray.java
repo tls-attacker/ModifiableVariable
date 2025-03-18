@@ -215,7 +215,7 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
     public String toString() {
         return "ModifiableByteArray{"
                 + "originalValue="
-                + ArrayConverter.bytesToHexString(originalValue)
+                + (originalValue != null ? ArrayConverter.bytesToHexString(originalValue) : "")
                 + innerToString()
                 + '}';
     }
