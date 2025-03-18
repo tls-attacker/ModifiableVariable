@@ -65,7 +65,7 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
      */
     public ByteArrayAppendValueModification(ByteArrayAppendValueModification other) {
         super();
-            bytesToAppend = other.bytesToAppend.clone();
+        bytesToAppend = other.bytesToAppend.clone();
     }
 
     /**

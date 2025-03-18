@@ -57,7 +57,7 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
      */
     public ByteArrayDeleteModification(ByteArrayDeleteModification other) {
         super();
-            count = other.count;
+        count = other.count;
         startPosition = other.startPosition;
     }
 
