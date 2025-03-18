@@ -91,4 +91,7 @@ public class LongXorModificationTest {
         LongXorModification copy = new LongXorModification(modification);
         assertEquals(modification.getXor(), copy.getXor());
     }
+
+    // We can't directly test the protected modifyImplementationHook method,
+    // but we can indirectly test its behavior through public methods
 }

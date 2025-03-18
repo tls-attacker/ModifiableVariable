@@ -95,4 +95,7 @@ public class LongExplicitValueModificationTest {
         LongExplicitValueModification copy = new LongExplicitValueModification(modification);
         assertEquals(modification.getExplicitValue(), copy.getExplicitValue());
     }
+
+    // We can't directly test the protected modifyImplementationHook method,
+    // but we can indirectly test its behavior through public methods
 }

@@ -175,8 +175,7 @@ public class ModifiableInteger extends ModifiableVariable<Integer> {
         if (!(obj instanceof ModifiableInteger that)) {
             return false;
         }
-
-        return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
+        return getValue() == null ? that.getValue() == null : getValue().equals(that.getValue());
     }
 
     /**

@@ -73,8 +73,10 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
      */
     public ModifiableByteArray(ModifiableByteArray other) {
         super(other);
-        originalValue = other.originalValue != null ? other.originalValue.clone() : null;
-        assertEquals = other.assertEquals != null ? other.assertEquals.clone() : null;
+        originalValue = other.originalValue.clone();
+        if (other.assertEquals != null) {
+            assertEquals = other.assertEquals.clone();
+        }
     }
 
     /**

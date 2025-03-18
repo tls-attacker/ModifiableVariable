@@ -66,7 +66,7 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
      */
     public ByteArrayPrependValueModification(ByteArrayPrependValueModification other) {
         super(other);
-        bytesToPrepend = other.bytesToPrepend != null ? other.bytesToPrepend.clone() : null;
+        bytesToPrepend = other.bytesToPrepend.clone();
     }
 
     /**

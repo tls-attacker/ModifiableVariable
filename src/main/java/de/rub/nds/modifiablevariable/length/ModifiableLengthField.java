@@ -120,8 +120,7 @@ public class ModifiableLengthField extends ModifiableInteger {
         if (!(obj instanceof ModifiableLengthField that)) {
             return false;
         }
-
-        return ref != null ? getValue().equals(that.getValue()) : that.getValue() == null;
+        return getValue() == null ? that.getValue() == null : getValue().equals(that.getValue());
     }
 
     /**

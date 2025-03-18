@@ -57,7 +57,7 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
      */
     public ByteArrayShuffleModification(ByteArrayShuffleModification other) {
         super(other);
-        shuffle = other.shuffle != null ? other.shuffle.clone() : null;
+        shuffle = other.shuffle.clone();
     }
 
     /**

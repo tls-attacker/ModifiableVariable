@@ -89,4 +89,7 @@ public class LongSubtractModificationTest {
         LongSubtractModification copy = new LongSubtractModification(modification);
         assertEquals(modification.getSubtrahend(), copy.getSubtrahend());
     }
+
+    // We can't directly test the protected modifyImplementationHook method,
+    // but we can indirectly test its behavior through public methods
 }

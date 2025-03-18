@@ -91,4 +91,7 @@ public class LongAddModificationTest {
         LongAddModification copy = new LongAddModification(modification);
         assertEquals(modification.getSummand(), copy.getSummand());
     }
+
+    // We can't directly test the protected modifyImplementationHook method,
+    // but we can indirectly test its behavior through public methods
 }
