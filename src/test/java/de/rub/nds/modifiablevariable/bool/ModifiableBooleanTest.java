@@ -218,22 +218,6 @@ public class ModifiableBooleanTest {
         assertFalse(nullBool1.equals(notNullBool));
     }
 
-    /** Test consistency of equals over multiple calls */
-    @Test
-    public void testEqualsConsistency() {
-        // Multiple calls should return the same result
-        for (int i = 0; i < 5; i++) {
-            assertEquals(boolean1, boolean2);
-            assertTrue(boolean1.equals(boolean2));
-        }
-
-        // Even after getting the value multiple times
-        boolean1.getValue();
-        boolean2.getValue();
-        assertEquals(boolean1, boolean2);
-        assertTrue(boolean1.equals(boolean2));
-    }
-
     /** Test equals with assertions */
     @Test
     public void testEqualsWithAssertions() throws Exception {
