@@ -101,8 +101,7 @@ public class ModifiableVariableFactoryTest {
         ModifiableByteArray result = ModifiableVariableFactory.safelySetValue(null, originalValue);
 
         assertNotNull(result);
-        // No need to check if they're different objects since ModifiableByteArray doesn't clone the
-        // array
+
         assertEquals(originalValue[0], result.getValue()[0]);
         assertEquals(originalValue[1], result.getValue()[1]);
         assertEquals(originalValue[2], result.getValue()[2]);
@@ -113,8 +112,7 @@ public class ModifiableVariableFactoryTest {
                 ModifiableVariableFactory.safelySetValue(existing, originalValue);
 
         assertSame(existing, updated);
-        // No need to check if they're different objects since ModifiableByteArray doesn't clone the
-        // array
+        
         assertEquals(originalValue[0], updated.getValue()[0]);
         assertEquals(originalValue[1], updated.getValue()[1]);
         assertEquals(originalValue[2], updated.getValue()[2]);
