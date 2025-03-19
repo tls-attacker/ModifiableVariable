@@ -212,11 +212,11 @@ public class ModifiableLengthFieldTest {
     @Test
     public void testNullReference() {
         ModifiableByteArray nullArray = null;
-        ModifiableLengthField nullField = new ModifiableLengthField(nullArray);
+        // The constructor should throw NullPointerException with null reference
         assertThrows(
                 NullPointerException.class,
-                () -> nullField.getOriginalValue(),
-                "Should throw NullPointerException when referenced array is null");
+                () -> new ModifiableLengthField(nullArray),
+                "Should throw NullPointerException when passing null to constructor");
     }
 
     /** Test equality with different length fields */
@@ -359,17 +359,13 @@ public class ModifiableLengthFieldTest {
 
         // Test the behavior of a ModifiableLengthField created with the private constructor
 
-        // Test that getOriginalValue throws NullPointerException since ref is null
-        assertThrows(
-                NullPointerException.class,
-                () -> instance.getOriginalValue(),
-                "getOriginalValue should throw NullPointerException when ref is null");
+        // Test that getOriginalValue returns null when ref is null
+        assertNull(
+                instance.getOriginalValue(),
+                "getOriginalValue should return null when ref is null");
 
-        // Test that getValue throws a NullPointerException since ref is null
-        assertThrows(
-                NullPointerException.class,
-                () -> instance.getValue(),
-                "getValue should throw NullPointerException when ref is null");
+        // Test that getValue returns null when ref is null
+        assertNull(instance.getValue(), "getValue should return null when ref is null");
 
         // Test that setOriginalValue still throws UnsupportedOperationException
         assertThrows(

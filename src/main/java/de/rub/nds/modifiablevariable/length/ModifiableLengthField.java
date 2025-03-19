@@ -12,6 +12,7 @@ import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import java.util.Objects;
 
 /**
  * A specialized modifiable integer that represents the length of a byte array.
@@ -45,7 +46,7 @@ public class ModifiableLengthField extends ModifiableInteger {
      */
     public ModifiableLengthField(ModifiableByteArray ref) {
         super();
-        this.ref = ref;
+        this.ref = Objects.requireNonNull(ref);
     }
 
     /**
@@ -73,12 +74,16 @@ public class ModifiableLengthField extends ModifiableInteger {
 
     /**
      * Gets the original value of this length field, which is dynamically calculated as the length
-     * of the referenced byte array.
+     * of the referenced byte array. If the referenced byte array is null, this method will return
+     * null.
      *
      * @return The current length of the referenced byte array
      */
     @Override
     public Integer getOriginalValue() {
+        if (ref == null || ref.getValue() == null) {
+            return null;
+        }
         return ref.getValue().length;
     }
 
