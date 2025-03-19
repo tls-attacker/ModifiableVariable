@@ -11,9 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.integer.IntegerAddModification;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Modifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -510,5 +507,46 @@ public class ModifiableLengthFieldTest {
                 5,
                 (int) field2.getOriginalValue(),
                 "Original value should reflect new array length");
+    }
+
+    /** Test with reference having no original value */
+    @Test
+    public void testReferenceWithNoOriginalValue() {
+        // Create a byte array reference but don't set an original value
+        ModifiableByteArray emptyRef = new ModifiableByteArray();
+        // emptyRef.setOriginalValue() not called
+
+        // Create a length field with this reference
+        ModifiableLengthField lengthField = new ModifiableLengthField(emptyRef);
+
+        // Test behavior when reference exists but has no original value
+        assertNull(
+                lengthField.getOriginalValue(),
+                "Original value should be null when referenced array has no value");
+        assertNull(
+                lengthField.getValue(), "Value should be null when referenced array has no value");
+
+        // Now set an original value
+        emptyRef.setOriginalValue(new byte[] {1, 2, 3});
+
+        // Values should now be available
+        assertEquals(
+                3,
+                (int) lengthField.getOriginalValue(),
+                "Original value should reflect array length after value is set");
+        assertEquals(
+                3,
+                (int) lengthField.getValue(),
+                "Value should reflect array length after value is set");
+
+        // Apply a modification
+        lengthField.setModifications(new IntegerAddModification(10));
+
+        // Original value should still be array length, but getValue should include modification
+        assertEquals(
+                3,
+                (int) lengthField.getOriginalValue(),
+                "Original value should still be array length");
+        assertEquals(13, (int) lengthField.getValue(), "Value should include modification");
     }
 }

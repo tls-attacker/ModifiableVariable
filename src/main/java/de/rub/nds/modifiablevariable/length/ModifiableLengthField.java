@@ -134,7 +134,7 @@ public class ModifiableLengthField extends ModifiableInteger {
         boolean valuesEqual =
                 getValue() == null ? that.getValue() == null : getValue().equals(that.getValue());
         // Then check if they reference the same byte array
-        boolean refsEqual = ref == null ? that.ref == null : ref.equals(that.ref);
+        boolean refsEqual = ref.equals(that.ref);
         return valuesEqual && refsEqual;
     }
 
@@ -148,7 +148,7 @@ public class ModifiableLengthField extends ModifiableInteger {
     public int hashCode() {
         int result = 17;
         result = 31 * result + (getValue() != null ? getValue().hashCode() : 0);
-        result = 31 * result + (ref != null ? ref.hashCode() : 0);
+        result = 31 * result + ref.hashCode();
         return result;
     }
 }
