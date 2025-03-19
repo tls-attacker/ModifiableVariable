@@ -71,11 +71,15 @@ public final class StringUtil {
                                         (int) Character.lowSurrogate(codePoint));
                         numCodePoints = 2;
                     } else if (codePoint < 0x20 || codePoint > 0x7F) {
-                        // FIXME: This theoretically includes codePoints >=
-                        // Character.MAX_CODE_POINT. Unsure if this is actually
-                        // possible and if we need to handle that case in a
-                        // special way.
-                        replacement = String.format("\\u%04X", codePoint);
+                        // Validate that the code point is valid (between 0 and
+                        // Character.MAX_CODE_POINT)
+                        if (codePoint > Character.MAX_CODE_POINT) {
+                            // If an invalid code point is encountered, represent it as replacement
+                            // character
+                            replacement = "\\uFFFD"; // Unicode replacement character
+                        } else {
+                            replacement = String.format("\\u%04X", codePoint);
+                        }
                     } else {
                         continue;
                     }
