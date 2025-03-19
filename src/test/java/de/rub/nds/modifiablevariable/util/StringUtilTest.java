@@ -7,28 +7,145 @@
  */
 package de.rub.nds.modifiablevariable.util;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
+/**
+ * Comprehensive test class for StringUtil.
+ *
+ * <p>Tests all methods and edge cases in the StringUtil class.
+ */
 public class StringUtilTest {
 
+    /** Test backslashEscapeString with null input. */
     @Test
-    public void testBackslashEscapeString() {
-        final String plainText = "hello world, this is some plain text!";
-        assertEquals(plainText, StringUtil.backslashEscapeString(plainText));
+    public void testBackslashEscapeStringWithNull() {
+        assertNull(StringUtil.backslashEscapeString(null), "Null input should return null");
+    }
 
+    /** Test backslashEscapeString with empty string. */
+    @Test
+    public void testBackslashEscapeStringWithEmptyString() {
+        assertEquals("", StringUtil.backslashEscapeString(""), "Empty string should remain empty");
+    }
+
+    /**
+     * Test backslashEscapeString with plain ASCII text. This should not change the input string as
+     * all characters are printable ASCII.
+     */
+    @ParameterizedTest
+    @ValueSource(
+            strings = {
+                "hello world, this is some plain text!",
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+                "abcdefghijklmnopqrstuvwxyz",
+                "0123456789",
+                "!@#$%^&*()_+-={}[]|:;'<>,.?/~`"
+            })
+    public void testBackslashEscapeStringWithPlainText(String input) {
+        assertEquals(
+                input,
+                StringUtil.backslashEscapeString(input),
+                "Plain ASCII text should not be modified");
+    }
+
+    /** Test backslashEscapeString with common escape characters. */
+    @Test
+    public void testBackslashEscapeStringWithEscapeChars() {
+        // Test backspace character
+        assertEquals(
+                "a\\b",
+                StringUtil.backslashEscapeString("a\b"),
+                "Backspace should be properly escaped");
+
+        // Test common escape sequences
+        assertEquals(
+                "\\r\\n\\t\\f\\b",
+                StringUtil.backslashEscapeString("\r\n\t\f\b"),
+                "Common escape sequences should be properly escaped");
+
+        // Test newline
+        assertEquals(
+                "String with line-\\nbreak",
+                StringUtil.backslashEscapeString("String with line-\nbreak"),
+                "Newline should be properly escaped");
+
+        // Test tab
+        assertEquals(
+                "String with tab\\tstop",
+                StringUtil.backslashEscapeString("String with tab\tstop"),
+                "Tab should be properly escaped");
+
+        // Test backslash
+        assertEquals(
+                "String with backslash \\\\",
+                StringUtil.backslashEscapeString("String with backslash \\"),
+                "Backslash should be properly escaped");
+    }
+
+    /** Test backslashEscapeString with non-ASCII and control characters. */
+    @Test
+    public void testBackslashEscapeStringWithNonAsciiAndControlChars() {
+        // Test string with various control characters and non-ASCII characters
+        assertEquals(
+                "Null byte \\u0000 and bell \\u0007",
+                StringUtil.backslashEscapeString("Null byte \u0000 and bell \u0007"),
+                "Control characters should be properly escaped");
+
+        assertEquals(
+                "Non-ASCII chars: \\u00E4\\u00F6\\u00FC\\u00DF",
+                StringUtil.backslashEscapeString("Non-ASCII chars: äöüß"),
+                "Non-ASCII characters should be properly escaped");
+    }
+
+    /** Test backslashEscapeString with supplementary characters (characters outside BMP). */
+    @Test
+    public void testBackslashEscapeStringWithSupplementaryChars() {
+        // Test string with emoji and other supplementary characters
+        assertEquals(
+                "Emoji: \\uD83D\\uDE00 \\uD83D\\uDE04 \\uD83D\\uDE2D",
+                StringUtil.backslashEscapeString("Emoji: 😀 😄 😭"),
+                "Supplementary characters should be escaped as surrogate pairs");
+
+        // Mathematical symbols from supplementary planes
+        assertEquals(
+                "Math: \\uD835\\uDC00 \\uD835\\uDC01 \\uD835\\uDC02",
+                StringUtil.backslashEscapeString("Math: 𝐀 𝐁 𝐂"),
+                "Mathematical symbols should be escaped as surrogate pairs");
+    }
+
+    /**
+     * Test backslashEscapeString with a complex mixed string containing various character types.
+     */
+    @Test
+    public void testBackslashEscapeStringWithComplexString() {
+        String input =
+                "ASCII with control chars \n\t\r\f\b\\ and non-ASCII äöü and emoji 👨‍👩‍👧‍👦";
+        String expected =
+                "ASCII with control chars \\n\\t\\r\\f\\b\\\\ and non-ASCII \\u00E4\\u00F6\\u00FC and emoji \\uD83D\\uDC68\\u200D\\uD83D\\uDC69\\u200D\\uD83D\\uDC67\\u200D\\uD83D\\uDC66";
+
+        assertEquals(
+                expected,
+                StringUtil.backslashEscapeString(input),
+                "Complex strings with mixed character types should be properly escaped");
+    }
+
+    /** Test backslashEscapeString with real-world examples from previous test. */
+    @Test
+    public void testBackslashEscapeStringWithExistingExamples() {
+        // Existing test cases for reference and regression
         assertEquals(
                 "String with line-\\nbreak, tab\\tstop and backslash \\\\",
                 StringUtil.backslashEscapeString(
                         "String with line-\nbreak, tab\tstop and backslash \\"));
-        // This string includes some emojis in the supplementary character range that require two
-        // unicode escapes.
+
         assertEquals(
                 "Null byte \\u0000 and some emojis \\uD83D\\uDC41\\uD83D\\uDC44\\uD83D\\uDC41\\u2615\\uFE0F\\uD83D\\uDC4C",
                 StringUtil.backslashEscapeString("Null byte \u0000 and some emojis 👁👄👁☕️👌"));
 
-        // Escape some random bytes read from /dev/urandom.
         assertEquals(
                 "\\u0007\\u001A\\u001F\\u00DCf\\u00FD\\tu\\u0011\\u001D\\\\\\u00A2\\u0086T\\u009D\\u00AC\\u001F5\\u00E1\\u00AD",
                 StringUtil.backslashEscapeString(

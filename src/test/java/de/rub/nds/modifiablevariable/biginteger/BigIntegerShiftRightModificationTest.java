@@ -8,7 +8,9 @@
 package de.rub.nds.modifiablevariable.biginteger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
@@ -115,6 +117,62 @@ public class BigIntegerShiftRightModificationTest {
     }
 
     @Test
+    public void testEqualsComprehensive() {
+        // Same instance equality (reflexivity)
+        BigIntegerShiftRightModification modification = new BigIntegerShiftRightModification(8);
+        assertTrue(modification.equals(modification));
+
+        // Equality with same shift value (symmetry)
+        BigIntegerShiftRightModification modification1 = new BigIntegerShiftRightModification(42);
+        BigIntegerShiftRightModification modification2 = new BigIntegerShiftRightModification(42);
+        assertTrue(modification1.equals(modification2));
+        assertTrue(modification2.equals(modification1));
+
+        // Inequality with different shift values
+        BigIntegerShiftRightModification modification3 = new BigIntegerShiftRightModification(24);
+        assertFalse(modification1.equals(modification3));
+        assertFalse(modification3.equals(modification1));
+
+        // Consistency: Should return same result on multiple invocations
+        assertTrue(modification1.equals(modification2));
+        assertTrue(modification1.equals(modification2));
+
+        // Null comparison
+        assertFalse(modification1.equals(null));
+
+        // Test with different modification types
+        BigIntegerAddModification addMod = new BigIntegerAddModification(BigInteger.ONE);
+        assertFalse(modification1.equals(addMod));
+
+        // Test with similar but different class type (shift left vs shift right)
+        BigIntegerShiftLeftModification shiftLeftMod = new BigIntegerShiftLeftModification(42);
+        assertFalse(modification1.equals(shiftLeftMod));
+
+        // Test with different object types
+        assertFalse(modification1.equals("Not a modification"));
+        assertFalse(modification1.equals(Integer.valueOf(42)));
+
+        // Transitivity
+        BigIntegerShiftRightModification a = new BigIntegerShiftRightModification(100);
+        BigIntegerShiftRightModification b = new BigIntegerShiftRightModification(100);
+        BigIntegerShiftRightModification c = new BigIntegerShiftRightModification(100);
+        assertTrue(a.equals(b));
+        assertTrue(b.equals(c));
+        assertTrue(a.equals(c));
+
+        // Test after state change
+        BigIntegerShiftRightModification mutable = new BigIntegerShiftRightModification(1);
+        BigIntegerShiftRightModification other = new BigIntegerShiftRightModification(1);
+        assertTrue(mutable.equals(other));
+
+        mutable.setShift(5);
+        assertFalse(mutable.equals(other));
+
+        other.setShift(5);
+        assertTrue(mutable.equals(other));
+    }
+
+    @Test
     public void testGetterAndSetter() {
         BigIntegerShiftRightModification modification = new BigIntegerShiftRightModification(5);
 
@@ -122,5 +180,40 @@ public class BigIntegerShiftRightModificationTest {
         modification.setShift(shift);
 
         assertEquals(shift, modification.getShift());
+    }
+
+    @Test
+    public void testCreateCopy() {
+        int shift = 12;
+        BigIntegerShiftRightModification original = new BigIntegerShiftRightModification(shift);
+        BigIntegerShiftRightModification copy = original.createCopy();
+
+        // Verify copy has same properties
+        assertEquals(original.getShift(), copy.getShift());
+        assertEquals(original, copy);
+
+        // Verify it's a different instance
+        assertNotEquals(System.identityHashCode(original), System.identityHashCode(copy));
+
+        // Modify copy and verify original is unchanged
+        copy.setShift(42);
+        assertEquals(shift, original.getShift());
+        assertEquals(42, copy.getShift());
+        assertNotEquals(original, copy);
+    }
+
+    @Test
+    public void testToString() {
+        int shift = 7;
+        BigIntegerShiftRightModification modification = new BigIntegerShiftRightModification(shift);
+        String toString = modification.toString();
+
+        assertTrue(toString.contains("BigIntegerShiftRightModification"));
+        assertTrue(toString.contains("shift=" + shift));
+
+        // Test with different shift value
+        modification.setShift(99);
+        String newToString = modification.toString();
+        assertTrue(newToString.contains("shift=99"));
     }
 }

@@ -73,8 +73,10 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
      */
     public ModifiableByteArray(ModifiableByteArray other) {
         super(other);
-        originalValue = other.originalValue != null ? other.originalValue.clone() : null;
-        assertEquals = other.assertEquals != null ? other.assertEquals.clone() : null;
+        originalValue = other.originalValue.clone();
+        if (other.assertEquals != null) {
+            assertEquals = other.assertEquals.clone();
+        }
     }
 
     /**
@@ -158,10 +160,8 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
     @Override
     public boolean validateAssertions() {
         boolean valid = true;
-        if (assertEquals != null) {
-            if (!Arrays.equals(assertEquals, getValue())) {
-                valid = false;
-            }
+        if (assertEquals != null && !Arrays.equals(assertEquals, getValue())) {
+            valid = false;
         }
         return valid;
     }
@@ -213,7 +213,7 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
     public String toString() {
         return "ModifiableByteArray{"
                 + "originalValue="
-                + ArrayConverter.bytesToHexString(originalValue)
+                + (originalValue != null ? ArrayConverter.bytesToHexString(originalValue) : "")
                 + innerToString()
                 + '}';
     }

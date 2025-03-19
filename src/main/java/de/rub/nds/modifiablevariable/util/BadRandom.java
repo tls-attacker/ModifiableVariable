@@ -48,11 +48,17 @@ public class BadRandom extends SecureRandom {
      * @deprecated Use {@link #BadRandom(Random)} instead
      */
     @Deprecated
+    @SuppressWarnings("unused")
     public BadRandom(Random random, byte[] seed) {
         super();
         this.random = random;
     }
 
+    /**
+     * Creates a BadRandom that delegates to the specified Random instance.
+     *
+     * @param random The Random instance to use for generating values
+     */
     public BadRandom(Random random) {
         super();
         this.random = random;
@@ -69,6 +75,7 @@ public class BadRandom extends SecureRandom {
      * @deprecated Use {@link #BadRandom(Random)} instead
      */
     @Deprecated
+    @SuppressWarnings({"unused", "java:S107"})
     public BadRandom(Random random, SecureRandomSpi secureRandomSpi, Provider provider) {
         super();
         this.random = random;

@@ -50,7 +50,7 @@ public class IntegerMultiplyModification extends VariableModification<Integer> {
      * @param other The modification to copy
      */
     public IntegerMultiplyModification(IntegerMultiplyModification other) {
-        super(other);
+        super();
         factor = other.factor;
     }
 

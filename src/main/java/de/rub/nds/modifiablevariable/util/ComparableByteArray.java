@@ -44,7 +44,7 @@ public class ComparableByteArray {
     /**
      * Gets the wrapped byte array.
      *
-     * @return The wrapped byte array
+     * @return A the wrapped byte array
      */
     public byte[] getArray() {
         return array;

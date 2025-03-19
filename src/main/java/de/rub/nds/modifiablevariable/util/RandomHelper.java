@@ -32,7 +32,7 @@ public final class RandomHelper {
      *
      * @return A Random instance with a fixed seed of 0
      */
-    public static Random getRandom() {
+    public static synchronized Random getRandom() {
         if (random == null) {
             random = new Random(0);
         }
@@ -58,10 +58,10 @@ public final class RandomHelper {
      * <p>This method allows for replacing the default Random instance with a custom one, which can
      * be useful for testing with different seeds or alternative random number generators.
      *
-     * @param random The Random instance to use as the singleton
+     * @param randomInstance The Random instance to use as the singleton
      */
-    public static void setRandom(Random random) {
-        RandomHelper.random = random;
+    public static synchronized void setRandom(Random randomInstance) {
+        random = randomInstance;
     }
 
     /** Private constructor to prevent instantiation of this utility class. */

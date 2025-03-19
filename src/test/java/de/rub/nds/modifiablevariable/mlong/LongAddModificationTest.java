@@ -11,8 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import de.rub.nds.modifiablevariable.longint.LongAddModification;
+import de.rub.nds.modifiablevariable.longint.ModifiableLong;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -90,5 +92,21 @@ public class LongAddModificationTest {
         // Test copy constructor
         LongAddModification copy = new LongAddModification(modification);
         assertEquals(modification.getSummand(), copy.getSummand());
+    }
+
+    // We can't directly test the protected modifyImplementationHook method,
+    // but we can indirectly test its behavior through public methods
+
+    @Test
+    public void testModifyWithNull() {
+        // Create a ModifiableLong with null value
+        ModifiableLong modifiable = new ModifiableLong();
+        modifiable.setOriginalValue(null);
+
+        // Add our addition modification
+        modifiable.addModification(modification);
+
+        // The result should be null since the input is null
+        assertNull(modifiable.getValue());
     }
 }

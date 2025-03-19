@@ -39,7 +39,7 @@ public class IntegerSwapEndianModification extends VariableModification<Integer>
      * @param other The modification to copy
      */
     public IntegerSwapEndianModification(IntegerSwapEndianModification other) {
-        super(other);
+        super();
     }
 
     /**

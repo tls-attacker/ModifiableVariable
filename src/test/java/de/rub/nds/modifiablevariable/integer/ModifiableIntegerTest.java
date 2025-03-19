@@ -248,5 +248,32 @@ class ModifiableIntegerTest {
         int hash1 = integer1.hashCode();
         int hash2 = integer1.hashCode();
         assertEquals(hash1, hash2);
+
+        // Test with null value
+        int nullHash = nullInteger.hashCode();
+        assertEquals(527, nullHash); // Expected value: 17 * 31 + 0 = 527
+    }
+
+    /** Test of equals and hashCode with null values */
+    @Test
+    void testEqualsAndHashCodeWithNull() {
+        // Two objects with null values should be equal
+        ModifiableInteger nullInt1 = new ModifiableInteger();
+        ModifiableInteger nullInt2 = new ModifiableInteger();
+
+        // Verify both have null values
+        assertNull(nullInt1.getValue());
+        assertNull(nullInt2.getValue());
+
+        // Test equals
+        assertEquals(nullInt1, nullInt2);
+
+        // Test hashCode consistency
+        assertEquals(nullInt1.hashCode(), nullInt2.hashCode());
+
+        // Test interactions between null and non-null values
+        assertNotEquals(nullInt1, integer1);
+        assertNotEquals(integer1, nullInt1);
+        assertNotEquals(nullInt1.hashCode(), integer1.hashCode());
     }
 }

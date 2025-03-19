@@ -64,8 +64,8 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
      * @param other The modification to copy
      */
     public ByteArrayAppendValueModification(ByteArrayAppendValueModification other) {
-        super(other);
-        bytesToAppend = other.bytesToAppend != null ? other.bytesToAppend.clone() : null;
+        super();
+        bytesToAppend = other.bytesToAppend.clone();
     }
 
     /**

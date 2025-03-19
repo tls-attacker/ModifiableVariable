@@ -48,7 +48,7 @@ public class LongSubtractModification extends VariableModification<Long> {
      * @param other The modification to copy
      */
     public LongSubtractModification(LongSubtractModification other) {
-        super(other);
+        super();
         subtrahend = other.subtrahend;
     }
 

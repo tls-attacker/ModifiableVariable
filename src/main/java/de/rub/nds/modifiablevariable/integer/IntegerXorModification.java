@@ -48,7 +48,7 @@ public class IntegerXorModification extends VariableModification<Integer> {
      * @param other The modification to copy
      */
     public IntegerXorModification(IntegerXorModification other) {
-        super(other);
+        super();
         xor = other.xor;
     }
 

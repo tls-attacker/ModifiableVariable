@@ -61,8 +61,8 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
      * @param other The modification to copy
      */
     public ByteArrayXorModification(ByteArrayXorModification other) {
-        super(other);
-        xor = other.xor != null ? other.xor.clone() : null;
+        super();
+        xor = other.xor.clone();
         startPosition = other.startPosition;
     }
 

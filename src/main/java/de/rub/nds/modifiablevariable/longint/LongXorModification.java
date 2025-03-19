@@ -48,7 +48,7 @@ public class LongXorModification extends VariableModification<Long> {
      * @param other The modification to copy
      */
     public LongXorModification(LongXorModification other) {
-        super(other);
+        super();
         xor = other.xor;
     }
 

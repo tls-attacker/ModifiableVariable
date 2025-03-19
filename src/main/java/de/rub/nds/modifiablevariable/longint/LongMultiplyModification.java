@@ -47,7 +47,7 @@ public class LongMultiplyModification extends VariableModification<Long> {
      * @param other The modification to copy
      */
     public LongMultiplyModification(LongMultiplyModification other) {
-        super(other);
+        super();
         factor = other.factor;
     }
 

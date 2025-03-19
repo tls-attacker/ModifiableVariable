@@ -12,6 +12,7 @@ import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import java.util.Objects;
 
 /**
  * A specialized modifiable integer that represents the length of a byte array.
@@ -23,6 +24,10 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  *
  * <p>Note that attempting to set the original value directly will throw an
  * UnsupportedOperationException, as the original value is derived from the referenced byte array.
+ *
+ * <p>Two ModifiableLengthField instances are considered equal if they have the same modified value
+ * and reference the same ModifiableByteArray. The hash code is computed based on both the modified
+ * value and the referenced byte array.
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -45,7 +50,7 @@ public class ModifiableLengthField extends ModifiableInteger {
      */
     public ModifiableLengthField(ModifiableByteArray ref) {
         super();
-        this.ref = ref;
+        this.ref = Objects.requireNonNull(ref);
     }
 
     /**
@@ -73,12 +78,16 @@ public class ModifiableLengthField extends ModifiableInteger {
 
     /**
      * Gets the original value of this length field, which is dynamically calculated as the length
-     * of the referenced byte array.
+     * of the referenced byte array. If the referenced byte array is null, this method will return
+     * null.
      *
      * @return The current length of the referenced byte array
      */
     @Override
     public Integer getOriginalValue() {
+        if (ref.getValue() == null) {
+            return null;
+        }
         return ref.getValue().length;
     }
 
@@ -107,7 +116,8 @@ public class ModifiableLengthField extends ModifiableInteger {
 
     /**
      * Checks if this ModifiableLengthField is equal to another object. Two ModifiableLengthField
-     * instances are considered equal if they have the same modified value.
+     * instances are considered equal if they have the same modified value and reference a byte
+     * array with the same content.
      *
      * @param obj The object to compare with
      * @return true if the objects are equal, false otherwise
@@ -120,13 +130,17 @@ public class ModifiableLengthField extends ModifiableInteger {
         if (!(obj instanceof ModifiableLengthField that)) {
             return false;
         }
-
-        return ref != null ? getValue().equals(that.getValue()) : that.getValue() == null;
+        // First check if the values are equal
+        boolean valuesEqual =
+                getValue() == null ? that.getValue() == null : getValue().equals(that.getValue());
+        // Then check if they reference the same byte array
+        boolean refsEqual = ref.equals(that.ref);
+        return valuesEqual && refsEqual;
     }
 
     /**
-     * Computes a hash code for this ModifiableLengthField. The hash code is based on the modified
-     * value.
+     * Computes a hash code for this ModifiableLengthField. The hash code is based on both the
+     * modified value and the referenced byte array.
      *
      * @return The hash code value
      */
@@ -134,6 +148,7 @@ public class ModifiableLengthField extends ModifiableInteger {
     public int hashCode() {
         int result = 17;
         result = 31 * result + (getValue() != null ? getValue().hashCode() : 0);
+        result = 31 * result + ref.hashCode();
         return result;
     }
 }

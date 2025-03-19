@@ -56,15 +56,6 @@ public abstract class VariableModification<E> implements Serializable {
     }
 
     /**
-     * Copy constructor.
-     *
-     * @param other The modification to copy
-     */
-    protected VariableModification(VariableModification<E> other) {
-        super();
-    }
-
-    /**
      * Creates a deep copy of this modification.
      *
      * @return A new instance with the same modification parameters

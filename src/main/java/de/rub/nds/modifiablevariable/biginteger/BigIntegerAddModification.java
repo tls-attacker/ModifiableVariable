@@ -48,7 +48,7 @@ public class BigIntegerAddModification extends VariableModification<BigInteger> 
      * @param other The modification to copy
      */
     public BigIntegerAddModification(BigIntegerAddModification other) {
-        super(other);
+        super();
         summand = other.summand;
     }
 

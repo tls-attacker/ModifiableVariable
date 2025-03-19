@@ -95,6 +95,7 @@ public class RandomHelperTest {
     }
 
     @Test
+    @SuppressWarnings("deprecation")
     public void testBadRandomConstructors() {
         Random customRandom = new Random(123);
 

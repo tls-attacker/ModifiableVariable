@@ -360,4 +360,216 @@ public class ModifiableByteArrayTest {
         array2.setOriginalValue(new byte[] {3, 4, 5});
         assertNotEquals(array1, array2);
     }
+
+    /** Test equals with same object reference */
+    @Test
+    public void testEqualsSameReference() {
+        ModifiableByteArray array = new ModifiableByteArray(new byte[] {1, 2, 3});
+        assertTrue(array.equals(array));
+    }
+
+    /** Test equals with null */
+    @Test
+    public void testEqualsNull() {
+        ModifiableByteArray array = new ModifiableByteArray(new byte[] {1, 2, 3});
+        assertFalse(array.equals(null));
+    }
+
+    /** Test equals with different class */
+    @Test
+    public void testEqualsDifferentClass() {
+        ModifiableByteArray array = new ModifiableByteArray(new byte[] {1, 2, 3});
+        Object obj = new Object();
+        assertFalse(array.equals(obj));
+    }
+
+    /** Test equals with modified values producing same result */
+    @Test
+    public void testEqualsModifiedSameValue() {
+        ModifiableByteArray array1 = new ModifiableByteArray(new byte[] {1, 2, 3});
+        ByteArrayXorModification xorMod = new ByteArrayXorModification(new byte[] {0, 0, 0}, 0);
+        array1.setModifications(xorMod);
+
+        ModifiableByteArray array2 = new ModifiableByteArray(new byte[] {1, 2, 3});
+        ByteArrayAppendValueModification appendMod =
+                new ByteArrayAppendValueModification(new byte[0]);
+        array2.setModifications(appendMod);
+
+        assertEquals(array1, array2);
+    }
+
+    /** Test equals with modified values producing different results */
+    @Test
+    public void testEqualsModifiedDifferentValue() {
+        ModifiableByteArray array1 = new ModifiableByteArray(new byte[] {1, 2, 3});
+        ByteArrayXorModification xorMod = new ByteArrayXorModification(new byte[] {1, 0, 0}, 0);
+        array1.setModifications(xorMod);
+
+        ModifiableByteArray array2 = new ModifiableByteArray(new byte[] {1, 2, 3});
+
+        assertNotEquals(array1, array2);
+    }
+
+    /** Test equals with null values */
+    @Test
+    public void testEqualsNullValues() {
+        ModifiableByteArray array1 = new ModifiableByteArray();
+        ModifiableByteArray array2 = new ModifiableByteArray();
+
+        assertEquals(array1, array2);
+    }
+
+    /** Test hashCode method */
+    @Test
+    public void testHashCode() {
+        ModifiableByteArray array1 = new ModifiableByteArray(new byte[] {1, 2, 3});
+        ModifiableByteArray array2 = new ModifiableByteArray(new byte[] {1, 2, 3});
+
+        assertEquals(array1.hashCode(), array2.hashCode());
+
+        array2.setOriginalValue(new byte[] {3, 4, 5});
+        assertNotEquals(array1.hashCode(), array2.hashCode());
+    }
+
+    /** Test hashCode with modified values */
+    @Test
+    public void testHashCodeModified() {
+        ModifiableByteArray array1 = new ModifiableByteArray(new byte[] {1, 2, 3});
+        ByteArrayXorModification xorMod = new ByteArrayXorModification(new byte[] {1, 0, 0}, 0);
+        array1.setModifications(xorMod);
+
+        ModifiableByteArray array2 = new ModifiableByteArray(new byte[] {0, 2, 3});
+
+        assertEquals(array1.hashCode(), array2.hashCode());
+    }
+
+    /** Test hashCode with null values */
+    @Test
+    public void testHashCodeNull() {
+        ModifiableByteArray array1 = new ModifiableByteArray();
+        ModifiableByteArray array2 = new ModifiableByteArray();
+
+        assertEquals(array1.hashCode(), array2.hashCode());
+    }
+
+    /** Test copy constructor */
+    @Test
+    public void testCopyConstructor() {
+        ModifiableByteArray original = new ModifiableByteArray(new byte[] {1, 2, 3});
+        ByteArrayXorModification xorMod = new ByteArrayXorModification(new byte[] {1, 0, 0}, 0);
+        original.setModifications(xorMod);
+
+        ModifiableByteArray copy = new ModifiableByteArray(original);
+
+        // Ensure values are equal but not the same instance
+        assertNotSame(original, copy);
+        assertEquals(original, copy);
+
+        // Verify deep copy of original value
+        assertNotSame(original.getOriginalValue(), copy.getOriginalValue());
+        assertArrayEquals(original.getOriginalValue(), copy.getOriginalValue());
+
+        // Verify modifications were copied
+        assertArrayEquals(original.getValue(), copy.getValue());
+    }
+
+    /** Test copy constructor with assertions */
+    @Test
+    public void testCopyConstructorWithAssertions() {
+        ModifiableByteArray original = new ModifiableByteArray(new byte[] {1, 2, 3});
+        original.setAssertEquals(new byte[] {0, 2, 3});
+
+        ModifiableByteArray copy = new ModifiableByteArray(original);
+
+        // Verify deep copy of assertion value
+        assertNotSame(original.getAssertEquals(), copy.getAssertEquals());
+        assertArrayEquals(original.getAssertEquals(), copy.getAssertEquals());
+    }
+
+    /** Test createCopy method */
+    @Test
+    public void testCreateCopy() {
+        ModifiableByteArray original = new ModifiableByteArray(new byte[] {1, 2, 3});
+        ByteArrayXorModification xorMod = new ByteArrayXorModification(new byte[] {1, 0, 0}, 0);
+        original.setModifications(xorMod);
+
+        ModifiableByteArray copy = original.createCopy();
+
+        // Ensure values are equal but not the same instance
+        assertNotSame(original, copy);
+        assertEquals(original, copy);
+
+        // Verify modifications were copied
+        assertArrayEquals(original.getValue(), copy.getValue());
+    }
+
+    /** Test of getAssertEquals method */
+    @Test
+    public void testGetAssertEquals() {
+        byte[] assertValue = new byte[] {1, 2, 3};
+        ModifiableByteArray array = new ModifiableByteArray();
+        array.setAssertEquals(assertValue);
+
+        assertArrayEquals(assertValue, array.getAssertEquals());
+    }
+
+    /** Test of validateAssertions method with matching values */
+    @Test
+    public void testValidateAssertionsMatch() {
+        byte[] originalValue = new byte[] {1, 2, 3};
+        byte[] assertValue = new byte[] {1, 2, 3};
+
+        ModifiableByteArray array = new ModifiableByteArray(originalValue);
+        array.setAssertEquals(assertValue);
+
+        assertTrue(array.validateAssertions());
+    }
+
+    /** Test of validateAssertions method with non-matching values */
+    @Test
+    public void testValidateAssertionsNoMatch() {
+        byte[] originalValue = new byte[] {1, 2, 3};
+        byte[] assertValue = new byte[] {3, 4, 5};
+
+        ModifiableByteArray array = new ModifiableByteArray(originalValue);
+        array.setAssertEquals(assertValue);
+
+        assertFalse(array.validateAssertions());
+    }
+
+    /** Test of validateAssertions method with no assertions */
+    @Test
+    public void testValidateAssertionsNoAssertions() {
+        ModifiableByteArray array = new ModifiableByteArray(new byte[] {1, 2, 3});
+
+        assertTrue(array.validateAssertions());
+    }
+
+    /** Test of isOriginalValueModified method with null original value */
+    @Test
+    public void testIsOriginalValueModifiedNull() {
+        ModifiableByteArray array = new ModifiableByteArray();
+
+        assertThrows(IllegalStateException.class, () -> array.isOriginalValueModified());
+    }
+
+    /** Test of toString method with null original value */
+    @Test
+    public void testToStringNullOriginalValue() {
+        ModifiableByteArray array = new ModifiableByteArray();
+
+        assertEquals("ModifiableByteArray{originalValue=}", array.toString());
+    }
+
+    /** Test of toString method with modifications */
+    @Test
+    public void testToStringWithModifications() {
+        ModifiableByteArray array = new ModifiableByteArray(new byte[] {1, 2, 3});
+        ByteArrayXorModification xorMod = new ByteArrayXorModification(new byte[] {1, 0, 0}, 0);
+        array.setModifications(xorMod);
+
+        String result = array.toString();
+        assertTrue(result.contains("originalValue=01 02 03"));
+        assertTrue(result.contains("ByteArrayXorModification"));
+    }
 }

@@ -37,7 +37,7 @@ public class LongSwapEndianModification extends VariableModification<Long> {
      * @param other The modification to copy
      */
     public LongSwapEndianModification(LongSwapEndianModification other) {
-        super(other);
+        super();
     }
 
     /**

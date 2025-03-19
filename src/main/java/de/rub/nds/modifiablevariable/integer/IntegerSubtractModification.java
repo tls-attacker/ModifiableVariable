@@ -49,7 +49,7 @@ public class IntegerSubtractModification extends VariableModification<Integer> {
      * @param other The modification to copy
      */
     public IntegerSubtractModification(IntegerSubtractModification other) {
-        super(other);
+        super();
         subtrahend = other.subtrahend;
     }
 
