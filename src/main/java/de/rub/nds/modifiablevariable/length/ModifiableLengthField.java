@@ -116,8 +116,8 @@ public class ModifiableLengthField extends ModifiableInteger {
 
     /**
      * Checks if this ModifiableLengthField is equal to another object. Two ModifiableLengthField
-     * instances are considered equal if they have the same modified value and reference the same
-     * byte array.
+     * instances are considered equal if they have the same modified value and reference a byte array
+     * with the same content.
      *
      * @param obj The object to compare with
      * @return true if the objects are equal, false otherwise
