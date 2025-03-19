@@ -435,13 +435,12 @@ public final class ArrayConverter {
      * <p>This generic method works with arrays of any reference type. It creates a new array that
      * contains all elements from the input arrays in the order they are provided.
      *
-     * <p>If any of the input arrays is null, it is skipped without causing an error. However, at
-     * least one non-null array must be provided.
+     * <p>If any of the input arrays is null, an IllegalArgumentException will be thrown.
      *
      * @param <T> The component type of the arrays
      * @param arrays The arrays to concatenate
      * @return A new array containing all elements from the input arrays
-     * @throws IllegalArgumentException if arrays is null or empty
+     * @throws IllegalArgumentException if arrays is null or empty, or if any input array is null
      */
     @SafeVarargs
     public static <T> T[] concatenate(T[]... arrays) {
@@ -451,18 +450,17 @@ public final class ArrayConverter {
         }
         int length = 0;
         for (T[] a : arrays) {
-            if (a != null) {
-                length += a.length;
+            if (a == null) {
+                throw new IllegalArgumentException("Input arrays must not be null");
             }
+            length += a.length;
         }
         @SuppressWarnings("unchecked")
         T[] result = (T[]) Array.newInstance(arrays[0].getClass().getComponentType(), length);
         int currentOffset = 0;
         for (T[] a : arrays) {
-            if (a != null) {
-                System.arraycopy(a, 0, result, currentOffset, a.length);
-                currentOffset += a.length;
-            }
+            System.arraycopy(a, 0, result, currentOffset, a.length);
+            currentOffset += a.length;
         }
         return result;
     }
@@ -473,12 +471,11 @@ public final class ArrayConverter {
      * <p>This method creates a new byte array that contains all elements from the input arrays in
      * the order they are provided.
      *
-     * <p>If any of the input arrays is null, it is skipped without causing an error. However, at
-     * least one non-null array must be provided.
+     * <p>If any of the input arrays is null, an IllegalArgumentException will be thrown.
      *
      * @param arrays The byte arrays to concatenate
      * @return A new byte array containing all elements from the input arrays
-     * @throws IllegalArgumentException if arrays is null or empty
+     * @throws IllegalArgumentException if arrays is null or empty, or if any input array is null
      */
     public static byte[] concatenate(byte[]... arrays) {
         if (arrays == null || arrays.length == 0) {
@@ -487,17 +484,16 @@ public final class ArrayConverter {
         }
         int length = 0;
         for (byte[] a : arrays) {
-            if (a != null) {
-                length += a.length;
+            if (a == null) {
+                throw new IllegalArgumentException("Input arrays must not be null");
             }
+            length += a.length;
         }
         byte[] result = new byte[length];
         int currentOffset = 0;
         for (byte[] a : arrays) {
-            if (a != null) {
-                System.arraycopy(a, 0, result, currentOffset, a.length);
-                currentOffset += a.length;
-            }
+            System.arraycopy(a, 0, result, currentOffset, a.length);
+            currentOffset += a.length;
         }
         return result;
     }

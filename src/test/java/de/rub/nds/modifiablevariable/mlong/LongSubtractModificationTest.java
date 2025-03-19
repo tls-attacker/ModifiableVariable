@@ -13,14 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import java.util.Objects;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import de.rub.nds.modifiablevariable.longint.LongAddModification;
 import de.rub.nds.modifiablevariable.longint.LongSubtractModification;
 import de.rub.nds.modifiablevariable.longint.ModifiableLong;
+import java.util.Objects;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class LongSubtractModificationTest {
 

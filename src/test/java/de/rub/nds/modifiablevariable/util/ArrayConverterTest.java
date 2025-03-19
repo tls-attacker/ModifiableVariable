@@ -427,11 +427,11 @@ public class ArrayConverterTest {
                 result,
                 "Three arrays should be concatenated in order");
 
-        // Test with null array in the middle
-        result = ArrayConverter.concatenate(array1, null, array3);
-        assertEquals(5, result.length, "Should have length 5");
-        assertArrayEquals(
-                new String[] {"a", "b", "c", "g", "h"}, result, "Null array should be skipped");
+        // Test with null array in the middle (should throw IllegalArgumentException)
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.concatenate(array1, null, array3),
+                "Null array should throw IllegalArgumentException");
 
         // Test with single array
         result = ArrayConverter.concatenate(array1);
@@ -473,11 +473,11 @@ public class ArrayConverterTest {
                 result,
                 "Three arrays should be concatenated in order");
 
-        // Test with null array in the middle
-        result = ArrayConverter.concatenate(array1, null, array3);
-        assertEquals(5, result.length, "Should have length 5");
-        assertArrayEquals(
-                new byte[] {0x01, 0x02, 0x03, 0x07, 0x08}, result, "Null array should be skipped");
+        // Test with null array in the middle (should throw IllegalArgumentException)
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ArrayConverter.concatenate(array1, null, array3),
+                "Null array should throw IllegalArgumentException");
 
         // Test with single array
         result = ArrayConverter.concatenate(array1);

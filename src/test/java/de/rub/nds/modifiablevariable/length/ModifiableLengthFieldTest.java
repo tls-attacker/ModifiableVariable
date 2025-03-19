@@ -328,14 +328,8 @@ public class ModifiableLengthFieldTest {
 
         // Fields are considered equal when they have
         // the same length value, even if they reference different arrays
-        assertEquals(
-                field1,
-                field2,
-                "Fields are equal when they have the same length");
-        assertEquals(
-                field1.hashCode(),
-                field2.hashCode(),
-                "Same hash codes when values are equal");
+        assertEquals(field1, field2, "Fields are equal when they have the same length");
+        assertEquals(field1.hashCode(), field2.hashCode(), "Same hash codes when values are equal");
 
         // Now create two fields referencing the same array
         ModifiableLengthField fieldA = new ModifiableLengthField(array1);
