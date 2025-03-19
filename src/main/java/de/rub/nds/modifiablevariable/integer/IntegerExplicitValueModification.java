@@ -47,7 +47,7 @@ public class IntegerExplicitValueModification extends VariableModification<Integ
      * @param other The modification to copy
      */
     public IntegerExplicitValueModification(IntegerExplicitValueModification other) {
-        super(other);
+        super();
         explicitValue = other.explicitValue;
     }
 

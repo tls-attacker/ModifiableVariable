@@ -33,7 +33,7 @@ public class BooleanToggleModification extends VariableModification<Boolean> {
      * @param other The modification to copy
      */
     public BooleanToggleModification(BooleanToggleModification other) {
-        super(other);
+        super();
     }
 
     /**

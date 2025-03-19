@@ -11,8 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import de.rub.nds.modifiablevariable.longint.LongSwapEndianModification;
+import de.rub.nds.modifiablevariable.longint.ModifiableLong;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -72,5 +74,18 @@ public class LongSwapEndianModificationTest {
         // Test copy constructor
         LongSwapEndianModification copy = new LongSwapEndianModification(modification);
         assertEquals(modification, copy);
+    }
+
+    @Test
+    public void testModifyWithNull() {
+        // Create a ModifiableLong with null value
+        ModifiableLong modifiable = new ModifiableLong();
+        modifiable.setOriginalValue(null);
+
+        // Add our swap endian modification
+        modifiable.addModification(modification);
+
+        // The result should be null since the input is null
+        assertNull(modifiable.getValue());
     }
 }

@@ -165,10 +165,33 @@ public class ModifiableLongTest {
         // Test reflexivity
         assertEquals(long1, long1);
 
-        // Test with null values
+        // Test with null values - both instances have getValue() == null
         ModifiableLong nullLong1 = new ModifiableLong();
         ModifiableLong nullLong2 = new ModifiableLong();
         assertEquals(nullLong1, nullLong2);
+
+        // Test with one null and one non-null getValue()
+        ModifiableLong nonNullLong = new ModifiableLong();
+        nonNullLong.setOriginalValue(5L);
+
+        // Test both directions to ensure symmetry in equals()
+        assertNotEquals(
+                nullLong1,
+                nonNullLong,
+                "Object with null value should not equal object with non-null value");
+        assertNotEquals(
+                nonNullLong,
+                nullLong1,
+                "Object with non-null value should not equal object with null value");
+
+        // Explicitly test both branches where one object has getValue() == null and the other
+        // doesn't
+        assertFalse(
+                nullLong1.equals(nonNullLong),
+                "Object with null value should not equal object with non-null value");
+        assertFalse(
+                nonNullLong.equals(nullLong1),
+                "Object with non-null value should not equal object with null value");
     }
 
     /** Test of hashCode method, of class ModifiableLong. */
@@ -185,8 +208,16 @@ public class ModifiableLongTest {
         long2.setOriginalValue(3L);
         assertNotEquals(long1.hashCode(), long2.hashCode());
 
-        // Test with null value
-        ModifiableLong nullLong = new ModifiableLong();
+        // Test with null value (getValue() returns null)
+        ModifiableLong nullLong1 = new ModifiableLong();
+        ModifiableLong nullLong2 = new ModifiableLong();
+
+        // Two objects with null values should have the same hash code
+        assertEquals(nullLong1.hashCode(), nullLong2.hashCode());
+
+        // Check that the implementation correctly handles null values
+        int expectedHashCode = 17 * 31; // Initial value in hashCode() multiplied by 31
+        assertEquals(expectedHashCode, nullLong1.hashCode());
     }
 
     @Test

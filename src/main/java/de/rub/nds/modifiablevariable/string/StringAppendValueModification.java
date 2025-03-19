@@ -55,7 +55,7 @@ public class StringAppendValueModification extends VariableModification<String> 
      * @param other The modification to copy
      */
     public StringAppendValueModification(StringAppendValueModification other) {
-        super(other);
+        super();
         appendValue = other.appendValue;
     }
 

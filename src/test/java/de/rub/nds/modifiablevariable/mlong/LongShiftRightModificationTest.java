@@ -11,8 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import de.rub.nds.modifiablevariable.longint.LongShiftRightModification;
+import de.rub.nds.modifiablevariable.longint.ModifiableLong;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -90,5 +92,18 @@ public class LongShiftRightModificationTest {
         // Test copy constructor
         LongShiftRightModification copy = new LongShiftRightModification(modification);
         assertEquals(modification.getShift(), copy.getShift());
+    }
+
+    @Test
+    public void testModifyWithNull() {
+        // Create a ModifiableLong with null value
+        ModifiableLong modifiable = new ModifiableLong();
+        modifiable.setOriginalValue(null);
+
+        // Add our shift right modification
+        modifiable.addModification(modification);
+
+        // The result should be null since the input is null
+        assertNull(modifiable.getValue());
     }
 }

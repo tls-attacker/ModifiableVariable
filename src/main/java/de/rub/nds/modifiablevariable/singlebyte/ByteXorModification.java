@@ -47,7 +47,7 @@ public class ByteXorModification extends VariableModification<Byte> {
      * @param other The modification to copy
      */
     public ByteXorModification(ByteXorModification other) {
-        super(other);
+        super();
         xor = other.xor;
     }
 

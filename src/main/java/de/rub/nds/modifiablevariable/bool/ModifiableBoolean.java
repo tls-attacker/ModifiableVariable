@@ -136,7 +136,10 @@ public class ModifiableBoolean extends ModifiableVariable<Boolean> {
             return false;
         }
 
-        return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
+        Boolean thisValue = getValue();
+        Boolean thatValue = that.getValue();
+
+        return thisValue != null ? thisValue.equals(thatValue) : thatValue == null;
     }
 
     /**

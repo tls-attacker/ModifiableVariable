@@ -122,10 +122,8 @@ public class ModifiableInteger extends ModifiableVariable<Integer> {
     @Override
     public boolean validateAssertions() {
         boolean valid = true;
-        if (assertEquals != null) {
-            if (assertEquals.compareTo(getValue()) != 0) {
-                valid = false;
-            }
+        if (assertEquals != null && assertEquals.compareTo(getValue()) != 0) {
+            valid = false;
         }
         return valid;
     }
@@ -175,8 +173,7 @@ public class ModifiableInteger extends ModifiableVariable<Integer> {
         if (!(obj instanceof ModifiableInteger that)) {
             return false;
         }
-
-        return getValue() != null ? getValue().equals(that.getValue()) : that.getValue() == null;
+        return getValue() == null ? that.getValue() == null : getValue().equals(that.getValue());
     }
 
     /**

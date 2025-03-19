@@ -49,7 +49,7 @@ public class BigIntegerShiftRightModification extends VariableModification<BigIn
      * @param other The modification to copy
      */
     public BigIntegerShiftRightModification(BigIntegerShiftRightModification other) {
-        super(other);
+        super();
         shift = other.shift;
     }
 

@@ -51,7 +51,7 @@ public class BigIntegerExplicitValueModification extends VariableModification<Bi
      * @param other The modification to copy
      */
     public BigIntegerExplicitValueModification(BigIntegerExplicitValueModification other) {
-        super(other);
+        super();
         explicitValue = other.explicitValue;
     }
 

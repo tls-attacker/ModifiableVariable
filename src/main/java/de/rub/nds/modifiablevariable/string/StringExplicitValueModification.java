@@ -54,7 +54,7 @@ public class StringExplicitValueModification extends VariableModification<String
      * @param other The modification to copy
      */
     public StringExplicitValueModification(StringExplicitValueModification other) {
-        super(other);
+        super();
         explicitValue = other.explicitValue;
     }
 

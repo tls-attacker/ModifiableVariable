@@ -56,7 +56,7 @@ public class StringPrependValueModification extends VariableModification<String>
      * @param other The StringPrependValueModification to copy from
      */
     public StringPrependValueModification(StringPrependValueModification other) {
-        super(other);
+        super();
         prependValue = other.prependValue;
     }
 
