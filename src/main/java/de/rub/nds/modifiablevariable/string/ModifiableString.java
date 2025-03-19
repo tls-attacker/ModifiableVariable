@@ -28,10 +28,10 @@ import java.nio.charset.StandardCharsets;
  * proper serialization of strings that might contain characters that are problematic in XML.
  *
  * @see ModifiableVariable
- * @see StringAppendModification
- * @see StringPrependModification
- * @see StringInsertModification
- * @see StringDeleteModification
+ * @see de.rub.nds.modifiablevariable.string.StringAppendValueModification
+ * @see de.rub.nds.modifiablevariable.string.StringPrependValueModification
+ * @see de.rub.nds.modifiablevariable.string.StringInsertValueModification
+ * @see de.rub.nds.modifiablevariable.string.StringDeleteModification
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
