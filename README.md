@@ -3,7 +3,7 @@
 ![licence](https://img.shields.io/badge/License-Apachev2-brightgreen.svg)
 [![jenkins](https://hydrogen.cloud.nds.rub.de/buildStatus/icon.svg?job=ModifiableVariable)](https://hydrogen.cloud.nds.rub.de/job/ModifiableVariable/)
 
-Modifiable variable allows one to set modifications to basic types after or before their values are actually determined. When their actual values are determined and one tries to access the value via getters, the original value will be returned in a modified form accordingly.
+Modifiable Variable allows you to set modifications to basic types after or before their values are actually determined. When their actual values are determined and you access the value via getters, the original value will be returned in a modified form according to the defined modifications.
 
 # Installation
 
@@ -15,7 +15,7 @@ $ sudo apt-get install maven
 ```
 
 ModifiableVariable currently needs Java JDK 21 to run. If you have the correct Java version you can install
-ModifiableVariable as follows.
+ModifiableVariable as follows:
 
 ```bash
 $ git clone https://github.com/tls-attacker/ModifiableVariable.git
@@ -23,14 +23,13 @@ $ cd ModifiableVariable
 $ mvn clean install
 ```
 
-If you want to use this project as a dependency, you do not have to compile it yourself and can include it in your pom
-.xml as follows.
+If you want to use this project as a dependency, you do not have to compile it yourself and can include it in your pom.xml as follows:
 
 ```xml
 <dependency>
     <groupId>de.rub.nds</groupId>
     <artifactId>modifiable-variable</artifactId>
-    <version>5.0.0</version>
+    <version>5.0.1</version>
 </dependency>
 ```
 
@@ -41,72 +40,102 @@ The best way to present the functionality of ModifiableVariables is by means of 
 ```java
 ModifiableInteger i = new ModifiableInteger();
 i.setOriginalValue(30);
-VariableModification<Integer> modifier = IntegerModificationFactory.add(20);
+VariableModification<Integer> modifier = new IntegerAddModification(20);
 i.setModifications(modifier);
 System.out.println(i.getValue());  // 50
 ```
 
-In this example, we defined a new ModifiableInteger and set its value to 30. Next, we defined a new modification AddModification which simply returns a sum of two integers. We set its value to 20. If we execute the above program, the result 50 is printed.
+In this example, we defined a new ModifiableInteger and set its value to 30. Next, we defined a new IntegerAddModification which simply returns a sum of two integers. We set the summand to 20. If we execute the above program, the result 50 is printed.
 
-You can use further modifications to an integer value, for example subtract, xor or shift.
+You can use further modifications to an integer value, for example subtract, xor, or shift. The available modification types depend on the data type you're working with.
 
-In byte arrays you can use further modifications like shuffling or inserting bytes:
+## Multiple Modifications
+
+You can apply multiple modifications in sequence:
+
+```java
+ModifiableInteger i = new ModifiableInteger();
+i.setOriginalValue(10);
+i.addModification(new IntegerAddModification(5));
+i.addModification(new IntegerMultiplyModification(2));
+System.out.println(i.getValue());  // (10 + 5) * 2 = 30
+```
+
+## Byte Array Modifications
+
+For byte arrays, you can use various modifications like shuffling, inserting, or XORing bytes:
 
 ```java
 ModifiableByteArray ba = new ModifiableByteArray();
-VariableModification<byte[]> modifier = ByteArrayModificationFactory.insert(new byte[] {2, 3}, 1);
 ba.setOriginalValue(new byte[]{1, 4});
+VariableModification<byte[]> modifier = new ByteArrayInsertValueModification(new byte[] {2, 3}, 1);
 ba.setModifications(modifier);
-System.out.println(ArrayConverter.bytesToHexString(ba)); // 01 02 03 04
+System.out.println(ArrayConverter.bytesToHexString(ba.getValue())); // 01 02 03 04
 ```
 
 # Supported data types
 
 The following modifiable variables are provided in this package with their modifications:
-* ModifiableBigInteger: add, explicitValue, shiftLeft, shiftRight, subtract, xor
+
+* ModifiableBigInteger: add, explicitValue, multiply, shiftLeft, shiftRight, subtract, xor
 * ModifiableBoolean: explicitValue, toggle
-* ModifiableByteArray: delete, duplicate, explicitValue, insert, shuffle, xor
-* ModifiableInteger: add, explicitValue, shiftLeft, shiftRight, subtract, xor
-* ModifiableLong: add, explicitValue, subtract, xor
+* ModifiableByteArray: appendValue, delete, duplicate, explicitValue, insertValue, prependValue, shuffle, xor
+* ModifiableInteger: add, explicitValue, multiply, shiftLeft, shiftRight, subtract, swapEndian, xor
+* ModifiableLong: add, explicitValue, multiply, shiftLeft, shiftRight, subtract, swapEndian, xor
 * ModifiableByte: add, explicitValue, subtract, xor
-* ModifiableString: explicitValue
+* ModifiableString: appendValue, delete, explicitValue, insertValue, prependValue
 
 # Creating modifications
 
-If you use a modifiable variables in your Java code, use the modification factories, for example:
+To create modifiable variables and apply modifications in your Java code, use the appropriate modification classes:
 
 ```java
-VariableModification<Integer> modifier = IntegerModificationFactory.explicitValue(7);
-VariableModification<BigInteger> modifier = BigIntegerModificationFactory.add(BigInteger.ONE);
-VariableModification<byte[]> modifier = ByteArrayModificationFactory.xor(new byte[] {2, 3}, 0);
+// Integer modifications
+VariableModification<Integer> intMod = new IntegerExplicitValueModification(7);
+VariableModification<Integer> addMod = new IntegerAddModification(10);
+VariableModification<Integer> xorMod = new IntegerXorModification(0xFF);
+
+// BigInteger modifications
+VariableModification<BigInteger> bigIntMod = new BigIntegerAddModification(BigInteger.ONE);
+
+// Byte array modifications
+VariableModification<byte[]> byteArrayMod = new ByteArrayXorModification(new byte[] {2, 3}, 0);
 ```
 
 # Modifiable variables in XML
 
-Modifiable variables are serializable with JAXB into XML. You can use the following code to do that:
+Modifiable variables are serializable with Jakarta XML Binding (JAXB) into XML. You can use the following code to do that:
 
 ```java
 ModifiableByteArray mba = new ModifiableByteArray();
 mba.setOriginalValue(new byte[]{1, 2, 3});
 StringWriter writer = new StringWriter();
 
-// we have to create a jaxb context a put there all the classes we are going to use for serialization
-JAXBContext context = JAXBContext.newInstance(ModifiableByteArray.class, ByteArrayDeleteModification.class,
-                ByteArrayExplicitValueModification.class, ByteArrayInsertModification.class,
-                ByteArrayXorModification.class);
+// Create a JAXB context with all classes you'll need for serialization
+JAXBContext context = JAXBContext.newInstance(
+        ModifiableByteArray.class, 
+        ByteArrayDeleteModification.class,
+        ByteArrayExplicitValueModification.class, 
+        ByteArrayInsertValueModification.class,
+        ByteArrayXorModification.class
+);
+
+// Create a marshaller with formatted output
 Marshaller m = context.createMarshaller();
 m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         
-// we marshall the array into xml
+// Marshal the array into XML
 m.marshal(mba, writer);
 String xmlString = writer.toString();
 System.out.println(xmlString);
 
-// we can use the xml to create a modifiable byte array variable again
+// Use the XML to create a modifiable byte array variable again
 Unmarshaller um = context.createUnmarshaller();
 ModifiableByteArray test = (ModifiableByteArray) um.unmarshal(new StringReader(xmlString));
-System.out.println(ArrayConverter.bytesToHexString(test));
+System.out.println(ArrayConverter.bytesToHexString(test.getValue()));
 ```
+
+When creating the JAXBContext, make sure to include all modification classes you intend to use. The example above only includes a subset of the available modifications.
 
 The result of the serialized modifiable byte array looks as follows:
 
@@ -116,154 +145,246 @@ The result of the serialized modifiable byte array looks as follows:
 </modifiableByteArray>
 ```
 
-If you were to use the modification from the previous example, the result would look as follows:
+If you were to use a byte array with an insertion modification, the result would look as follows:
 
 ```xml
 <modifiableByteArray>
     <originalValue>01 02 03</originalValue>
     <modifications>
-        <ByteArrayInsertModification>
+        <byteArrayInsertValueModification>
             <bytesToInsert>02 03</bytesToInsert>
             <startPosition>1</startPosition>
-        </ByteArrayInsertModification>
+        </byteArrayInsertValueModification>
     </modifications>
 </modifiableByteArray>
 ```
 
-The following examples should give you a useful list of modifications in modifiable variables:
+Below are examples of XML representations for various modification types:
 
-## Integer
+## Integer Modifications
 
 - Explicit value:
 
 ```xml
-<IntegerExplicitValueModification>
+<integerExplicitValueModification>
     <explicitValue>25872</explicitValue>
-</IntegerExplicitValueModification>
-```
-
-- Subtract:
-
-```xml
-<IntegerSubtractModification>
-    <subtrahend>30959</subtrahend>
-</IntegerSubtractModification>
+</integerExplicitValueModification>
 ```
 
 - Add:
 
 ```xml
-<IntegerAddModification>
+<integerAddModification>
     <summand>960</summand>
-</IntegerAddModification>
+</integerAddModification>
+```
+
+- Subtract:
+
+```xml
+<integerSubtractModification>
+    <subtrahend>30959</subtrahend>
+</integerSubtractModification>
+```
+
+- Multiply:
+
+```xml
+<integerMultiplyModification>
+    <factor>2</factor>
+</integerMultiplyModification>
 ```
 
 - Right shift:
 
 ```xml
-<IntegerShiftRightModification>
+<integerShiftRightModification>
     <shift>13</shift>
-</IntegerShiftRightModification>
+</integerShiftRightModification>
 ```
 
 - Left shift:
 
 ```xml
-<IntegerShiftLeftModification>
+<integerShiftLeftModification>
     <shift>13</shift>
-</IntegerShiftLeftModification>
+</integerShiftLeftModification>
 ```
 
 - XOR:
 
 ```xml
-<IntegerXorModification>
+<integerXorModification>
     <xor>22061</xor>
-</IntegerXorModification>
+</integerXorModification>
 ```
 
-You can use the same operations for BigInteger data types, for example:
+- Swap endian:
 
 ```xml
-<BigIntegerAddModification>
-    <summand>1</summand>
-</BigIntegerAddModification>
+<integerSwapEndianModification/>
 ```
 
-ModifiableLong and ModifiableBytes support the following operations: add, explicitValue, subtract, xor
+## BigInteger Modifications
 
-## Byte Array
+BigInteger supports similar operations to Integer:
+
+```xml
+<bigIntegerAddModification>
+    <summand>1</summand>
+</bigIntegerAddModification>
+```
+
+```xml
+<bigIntegerMultiplyModification>
+    <factor>42</factor>
+</bigIntegerMultiplyModification>
+```
+
+```xml
+<bigIntegerXorModification>
+    <xor>1337</xor>
+</bigIntegerXorModification>
+```
+
+## Long Modifications
+
+ModifiableLong supports the same operations as Integer:
+
+```xml
+<longAddModification>
+    <summand>10000</summand>
+</longAddModification>
+```
+
+```xml
+<longSwapEndianModification/>
+```
+
+## Byte Array Modifications
 
 - Explicit value:
 
 ```xml
-<ByteArrayExplicitValueModification>
-    <explicitValue>
-        4F 3F 8C FC 17 8E 66 0A  53 DF 4D 4E E9 0B D0
-    </explicitValue>
-</ByteArrayExplicitValueModification>
+<byteArrayExplicitValueModification>
+    <explicitValue>4F 3F 8C FC 17 8E 66 0A 53 DF 4D 4E E9 0B D0</explicitValue>
+</byteArrayExplicitValueModification>
 ```
 
 - XOR:
 
 ```xml
-<ByteArrayXorModification>
+<byteArrayXorModification>
     <xor>11 22</xor>
     <startPosition>1</startPosition>
-</ByteArrayXorModification>
+</byteArrayXorModification>
 ```
 
 - Insert:
 
 ```xml
-<ByteArrayInsertModification>
-    <bytesToInsert>
-        3D 9F 3B 77 65 03 F9 8A  93 6D 94 CD 7E 4A C5 1B 
-    </bytesToInsert>
+<byteArrayInsertValueModification>
+    <bytesToInsert>3D 9F 3B 77 65 03 F9 8A 93 6D 94 CD 7E 4A C5 1B</bytesToInsert>
     <startPosition>0</startPosition>
-</ByteArrayInsertModification>
+</byteArrayInsertValueModification>
+```
+
+- Append:
+
+```xml
+<byteArrayAppendValueModification>
+    <bytesToAppend>AA BB CC</bytesToAppend>
+</byteArrayAppendValueModification>
+```
+
+- Prepend:
+
+```xml
+<byteArrayPrependValueModification>
+    <byteArrayToPrepend>AA BB CC</byteArrayToPrepend>
+</byteArrayPrependValueModification>
 ```
 
 - Delete:
 
 ```xml
-<ByteArrayDeleteModification>
+<byteArrayDeleteModification>
     <count>2</count>
     <startPosition>0</startPosition>
-</ByteArrayDeleteModification>
+</byteArrayDeleteModification>
+```
+
+- Duplicate:
+
+```xml
+<byteArrayDuplicateModification/>
 ```
 
 - Shuffle:
 
 ```xml
-<ByteArrayShuffleModification>
-    <shuffle>02 03</shuffle>
-</ByteArrayShuffleModification>
+<byteArrayShuffleModification>
+    <shuffle>00 01</shuffle>
+</byteArrayShuffleModification>
 ```
 
-# Boolean
+## Boolean Modifications
 
 - Explicit value:
 
 ```xml
-<BooleanExplicitValueModification>
+<booleanExplicitValueModification>
     <explicitValue>true</explicitValue>
-</BooleanExplicitValueModification>
+</booleanExplicitValueModification>
 ```
 
 - Toggle:
 
 ```xml
-<BooleanToggleModification/>
+<booleanToggleModification/>
 ```
 
-# String
+## String Modifications
 
 - Explicit value:
 
 ```xml
-<StringExplicitValueModification>
+<stringExplicitValueModification>
     <explicitValue>abc</explicitValue>
-</StringExplicitValueModification>
+</stringExplicitValueModification>
+```
+
+- Append value:
+
+```xml
+<stringAppendValueModification>
+    <appendValue>def</appendValue>
+</stringAppendValueModification>
+```
+
+- Prepend value:
+
+```xml
+<stringPrependValueModification>
+    <prependValue>xyz</prependValue>
+</stringPrependValueModification>
+```
+
+- Insert value:
+
+```xml
+<stringInsertValueModification>
+    <insertValue>123</insertValue>
+    <insertPosition>2</insertPosition>
+</stringInsertValueModification>
+```
+
+- Delete:
+
+```xml
+<stringDeleteModification>
+    <count>2</count>
+    <startPosition>1</startPosition>
+</stringDeleteModification>
 ```
 
