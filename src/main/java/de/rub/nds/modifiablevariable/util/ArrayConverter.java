@@ -619,11 +619,9 @@ public final class ArrayConverter {
         if (value == null) {
             throw new IllegalArgumentException("Input BigInteger must not be null");
         }
-
         if (value.equals(BigInteger.ZERO)) {
-            return new byte[] {0};
+            return new byte[0];
         }
-
         byte[] result = value.toByteArray();
 
         if (result.length > 1 && result[0] == 0x0) {

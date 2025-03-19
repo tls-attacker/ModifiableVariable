@@ -658,11 +658,7 @@ public class ArrayConverterTest {
         // Test with zero
         testValue = BigInteger.ZERO;
         result = ArrayConverter.bigIntegerToByteArray(testValue);
-        // The implementation represents BigInteger.ZERO as an empty array
-        // instead of a single zero byte, so we'll verify either case is acceptable
-        assertTrue(
-                result.length == 0 || (result.length == 1 && result[0] == 0),
-                "Zero should be represented as either an empty array or a single zero byte");
+        assertTrue(result.length == 0, "Zero should be represented as either an empty array");
 
         // Test with null value
         assertThrows(
@@ -1039,7 +1035,7 @@ public class ArrayConverterTest {
     public void testBigIntegerToByteArrayWithZero() {
         // Test with BigInteger.ZERO
         byte[] result = ArrayConverter.bigIntegerToByteArray(BigInteger.ZERO);
-        assertArrayEquals(new byte[] {0}, result, "BigInteger.ZERO should convert to {0}");
+        assertArrayEquals(new byte[0], result, "BigInteger.ZERO should convert to new byte[0]");
     }
 
     @Test
