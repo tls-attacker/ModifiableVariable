@@ -454,9 +454,6 @@ class ExtendedPatternLayoutTest {
         assertNull(serializer);
     }
 
-    // Note: Log4j2's pattern parser doesn't throw exceptions for invalid patterns at build time,
-    // it logs warnings and then fails at runtime. Therefore we can't effectively test this.
-
     @Test
     void testBuilderWithNullCharset() {
         // Test the withCharset method with null charset (should use default)
