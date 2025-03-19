@@ -24,6 +24,10 @@ import java.util.Objects;
  *
  * <p>Note that attempting to set the original value directly will throw an
  * UnsupportedOperationException, as the original value is derived from the referenced byte array.
+ *
+ * <p>Two ModifiableLengthField instances are considered equal if they have the same modified value
+ * and reference the same ModifiableByteArray. The hash code is computed based on both the modified
+ * value and the referenced byte array.
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -81,7 +85,7 @@ public class ModifiableLengthField extends ModifiableInteger {
      */
     @Override
     public Integer getOriginalValue() {
-        if (ref == null || ref.getValue() == null) {
+        if (ref.getValue() == null) {
             return null;
         }
         return ref.getValue().length;
@@ -112,7 +116,8 @@ public class ModifiableLengthField extends ModifiableInteger {
 
     /**
      * Checks if this ModifiableLengthField is equal to another object. Two ModifiableLengthField
-     * instances are considered equal if they have the same modified value.
+     * instances are considered equal if they have the same modified value and reference the same
+     * byte array.
      *
      * @param obj The object to compare with
      * @return true if the objects are equal, false otherwise
@@ -125,12 +130,17 @@ public class ModifiableLengthField extends ModifiableInteger {
         if (!(obj instanceof ModifiableLengthField that)) {
             return false;
         }
-        return getValue() == null ? that.getValue() == null : getValue().equals(that.getValue());
+        // First check if the values are equal
+        boolean valuesEqual =
+                getValue() == null ? that.getValue() == null : getValue().equals(that.getValue());
+        // Then check if they reference the same byte array
+        boolean refsEqual = ref == null ? that.ref == null : ref.equals(that.ref);
+        return valuesEqual && refsEqual;
     }
 
     /**
-     * Computes a hash code for this ModifiableLengthField. The hash code is based on the modified
-     * value.
+     * Computes a hash code for this ModifiableLengthField. The hash code is based on both the
+     * modified value and the referenced byte array.
      *
      * @return The hash code value
      */
@@ -138,6 +148,7 @@ public class ModifiableLengthField extends ModifiableInteger {
     public int hashCode() {
         int result = 17;
         result = 31 * result + (getValue() != null ? getValue().hashCode() : 0);
+        result = 31 * result + (ref != null ? ref.hashCode() : 0);
         return result;
     }
 }

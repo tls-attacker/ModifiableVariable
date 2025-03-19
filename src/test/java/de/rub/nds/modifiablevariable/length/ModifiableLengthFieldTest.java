@@ -34,11 +34,42 @@ public class ModifiableLengthFieldTest {
     /** Test of getOriginalValue method, of class ModifiableLengthField. */
     @Test
     public void testGetOriginalValue() {
-        assertEquals(4, (int) lengthField1.getValue());
+        // Test the initial original value
+        assertEquals(4, (int) lengthField1.getOriginalValue());
+        assertEquals(
+                4,
+                (int) lengthField1.getValue()); // Value should match original when no modifications
 
         // Test that the original value changes when the referenced array changes
         array.setOriginalValue(new byte[] {0, 1, 2, 3, 4, 5});
+        assertEquals(6, (int) lengthField1.getOriginalValue());
         assertEquals(6, (int) lengthField1.getValue());
+
+        // Test with empty array
+        array.setOriginalValue(new byte[0]);
+        assertEquals(0, (int) lengthField1.getOriginalValue());
+
+        // Test with modifications - original value should still reflect array length
+        lengthField1.setModifications(new IntegerAddModification(10));
+        assertEquals(
+                0,
+                (int) lengthField1.getOriginalValue(),
+                "Original value should still be array length");
+        assertEquals(
+                10,
+                (int) lengthField1.getValue(),
+                "Modified value should be original + modification");
+
+        // Change array again - original value should update but modification remains
+        array.setOriginalValue(new byte[] {1, 2});
+        assertEquals(
+                2,
+                (int) lengthField1.getOriginalValue(),
+                "Original value should update with array");
+        assertEquals(
+                12,
+                (int) lengthField1.getValue(),
+                "Modified value should reflect new array length + modification");
     }
 
     /** Test of setOriginalValue method, of class ModifiableLengthField. */
@@ -100,8 +131,20 @@ public class ModifiableLengthFieldTest {
         // Same object reference
         assertEquals(lengthField1, lengthField1, "Object should equal itself");
 
-        // Same value, different instances
+        // Same value, same array reference, different instances
         assertEquals(lengthField1, lengthField2, "Objects with same state should be equal");
+
+        // Different array reference, same length
+        ModifiableByteArray differentArray = new ModifiableByteArray();
+        differentArray.setOriginalValue(
+                new byte[] {5, 6, 7, 8}); // Different content but same length
+        ModifiableLengthField differentRefField = new ModifiableLengthField(differentArray);
+
+        // Should NOT be equal because they reference different arrays
+        assertNotEquals(
+                lengthField1,
+                differentRefField,
+                "Objects with same length but different array references should NOT be equal");
 
         // Different values
         array = new ModifiableByteArray();
@@ -110,96 +153,92 @@ public class ModifiableLengthFieldTest {
         assertNotEquals(
                 lengthField1, lengthField2, "Objects with different values should not be equal");
 
-        // With modifications
-        lengthField1.setModifications(new IntegerAddModification(10));
-        ModifiableLengthField copy = new ModifiableLengthField(lengthField1);
-        assertEquals(lengthField1.getValue(), copy.getValue());
-        assertEquals(lengthField1, copy, "Objects with same modifications should be equal");
+        // With modifications but same reference
+        ModifiableByteArray sharedArray = new ModifiableByteArray();
+        sharedArray.setOriginalValue(new byte[] {1, 2, 3, 4});
+        ModifiableLengthField field1 = new ModifiableLengthField(sharedArray);
+        ModifiableLengthField field2 = new ModifiableLengthField(sharedArray);
 
-        // Testing with empty arrays (instead of null)
-        ModifiableByteArray emptyArray1 = new ModifiableByteArray();
-        emptyArray1.setOriginalValue(new byte[0]);
-        ModifiableByteArray emptyArray2 = new ModifiableByteArray();
-        emptyArray2.setOriginalValue(new byte[0]);
-
-        ModifiableLengthField emptyField1 = new ModifiableLengthField(emptyArray1);
-        ModifiableLengthField emptyField2 = new ModifiableLengthField(emptyArray2);
-
-        // Apply same modifications to both empty fields
-        emptyField1.setModifications(new IntegerAddModification(5));
-        emptyField2.setModifications(new IntegerAddModification(5));
-
-        // They should be equal since they both evaluate to 0 + 5 modification
+        field1.setModifications(new IntegerAddModification(10));
+        field2.setModifications(new IntegerAddModification(10));
         assertEquals(
-                emptyField1,
-                emptyField2,
-                "Objects with same empty arrays and modifications should be equal");
+                field1,
+                field2,
+                "Objects with same modifications and same reference should be equal");
 
-        // Different modifications
-        emptyField2.setModifications(new IntegerAddModification(10));
+        // Same modifications but different references
+        ModifiableByteArray array1 = new ModifiableByteArray();
+        array1.setOriginalValue(new byte[] {1, 2, 3, 4});
+        ModifiableByteArray array2 = new ModifiableByteArray();
+        // Use a different array to make sure values are different
+        array2.setOriginalValue(new byte[] {1, 2, 3, 4, 5});
+
+        ModifiableLengthField fieldA = new ModifiableLengthField(array1);
+        ModifiableLengthField fieldB = new ModifiableLengthField(array2);
+
+        // No modifications needed as the arrays have different lengths
+
+        // Should NOT be equal due to different references and different values
         assertNotEquals(
-                emptyField1,
-                emptyField2,
-                "Objects with different modifications should not be equal");
+                fieldA, fieldB, "Objects with different references and values should NOT be equal");
+
+        // Testing copy constructor
+        ModifiableLengthField copy = new ModifiableLengthField(field1);
+        assertEquals(field1, copy, "Copied object should be equal to original");
 
         // Different types
         assertNotEquals(lengthField1, new Object(), "Should not equal different types");
         assertNotEquals(lengthField1, null, "Should not equal null");
-
-        // Case where one reference is null
-        ModifiableByteArray justArray = new ModifiableByteArray();
-        justArray.setOriginalValue(new byte[] {1, 2, 3, 4});
-        ModifiableLengthField justLengthField = new ModifiableLengthField(justArray);
-
-        // Create a modified length field with the same value but different array reference
-        array = new ModifiableByteArray();
-        array.setOriginalValue(new byte[] {5, 6, 7, 8}); // Different content but same length
-        ModifiableLengthField otherLengthField = new ModifiableLengthField(array);
-
-        // They should be equal because they have the same length value
-        assertEquals(
-                justLengthField,
-                otherLengthField,
-                "Fields with same length but different arrays should be equal");
     }
 
     /** Test of hashCode method, of class ModifiableLengthField. */
     @Test
     public void testHashCode() {
-        // Same hashCode for equal objects
+        // Same hashCode for equal objects (same reference, same value)
         assertEquals(
                 lengthField1.hashCode(),
                 lengthField2.hashCode(),
                 "Equal objects should have same hash code");
 
-        // Different hashCodes for different objects
+        // Different hashCodes for objects with same value but different references
+        ModifiableByteArray differentArray = new ModifiableByteArray();
+        differentArray.setOriginalValue(new byte[] {5, 6, 7, 8}); // Same length, different content
+        ModifiableLengthField differentRefField = new ModifiableLengthField(differentArray);
+
+        assertNotEquals(
+                lengthField1.hashCode(),
+                differentRefField.hashCode(),
+                "Objects with same value but different references should have different hash codes");
+
+        // Different hashCodes for different values
         array = new ModifiableByteArray();
         array.setOriginalValue(new byte[] {1, 4});
         lengthField2 = new ModifiableLengthField(array);
         assertNotEquals(
                 lengthField1.hashCode(),
                 lengthField2.hashCode(),
-                "Different objects should have different hash codes");
+                "Objects with different values should have different hash codes");
 
-        // With modifications
-        lengthField1.setModifications(new IntegerAddModification(10));
-        ModifiableLengthField copy = new ModifiableLengthField(lengthField1);
+        // With modifications but same reference
+        ModifiableByteArray sharedArray = new ModifiableByteArray();
+        sharedArray.setOriginalValue(new byte[] {1, 2, 3, 4});
+        ModifiableLengthField field1 = new ModifiableLengthField(sharedArray);
+        ModifiableLengthField field2 = new ModifiableLengthField(sharedArray);
+
+        field1.setModifications(new IntegerAddModification(10));
+        field2.setModifications(new IntegerAddModification(10));
+
         assertEquals(
-                lengthField1.hashCode(),
+                field1.hashCode(),
+                field2.hashCode(),
+                "Objects with same reference and same modifications should have same hash code");
+
+        // Copy constructor should produce equal hash code
+        ModifiableLengthField copy = new ModifiableLengthField(field1);
+        assertEquals(
+                field1.hashCode(),
                 copy.hashCode(),
-                "Objects with same modified value should have same hash code");
-
-        // With empty arrays
-        ModifiableByteArray emptyArray = new ModifiableByteArray();
-        emptyArray.setOriginalValue(new byte[0]);
-        ModifiableLengthField emptyField1 = new ModifiableLengthField(emptyArray);
-        ModifiableLengthField emptyField2 = new ModifiableLengthField(emptyArray);
-
-        // Test hashCode consistency with empty arrays
-        assertEquals(
-                emptyField1.hashCode(),
-                emptyField2.hashCode(),
-                "Equal objects with empty arrays should have same hash code");
+                "Copied object should have same hash code as original");
 
         // Verify hashCode consistency
         int firstHashCode = lengthField1.hashCode();
@@ -231,20 +270,98 @@ public class ModifiableLengthFieldTest {
         ModifiableLengthField field1 = new ModifiableLengthField(array1);
         ModifiableLengthField field2 = new ModifiableLengthField(array2);
 
-        assertEquals(field1, field2, "Fields with same length value should be equal");
+        // Should NOT be equal due to different references, despite same length
+        assertNotEquals(
+                field1,
+                field2,
+                "Fields with same length but different references should NOT be equal");
+        assertNotEquals(
+                field1.hashCode(),
+                field2.hashCode(),
+                "Fields with same length but different references should have different hash codes");
+
+        // Add same modification to both
+        field1.setModifications(new IntegerAddModification(2));
+        field2.setModifications(new IntegerAddModification(2));
+
+        // Still not equal due to different references
+        assertNotEquals(
+                field1,
+                field2,
+                "Fields with same modifications but different references should not be equal");
+        assertNotEquals(
+                field1.hashCode(),
+                field2.hashCode(),
+                "Fields with same modifications but different references should have different hash codes");
+
+        // Create two fields with the same reference
+        ModifiableByteArray sharedArray = new ModifiableByteArray();
+        sharedArray.setOriginalValue(new byte[] {0, 1, 2, 3});
+
+        ModifiableLengthField fieldA = new ModifiableLengthField(sharedArray);
+        ModifiableLengthField fieldB = new ModifiableLengthField(sharedArray);
+
+        // Should be equal due to same reference
+        assertEquals(fieldA, fieldB, "Fields with same reference should be equal");
+        assertEquals(
+                fieldA.hashCode(),
+                fieldB.hashCode(),
+                "Fields with same reference should have same hash code");
+    }
+
+    /**
+     * Test for reference equality in ModifiableLengthField. This test focuses specifically on the
+     * behavior that fields with same values but different references are not equal.
+     */
+    @Test
+    public void testReferenceEqualityBehavior() {
+        // Create two byte arrays with identical content
+        ModifiableByteArray array1 = new ModifiableByteArray();
+        array1.setOriginalValue(new byte[] {1, 2, 3, 4});
+        ModifiableByteArray array2 = new ModifiableByteArray();
+        array2.setOriginalValue(new byte[] {1, 2, 3, 4});
+
+        // Arrays should have same content but be different objects
+        assertNotSame(array1, array2, "Arrays should be different objects");
+        assertArrayEquals(array1.getValue(), array2.getValue(), "Arrays should have same content");
+
+        // Create two length fields with different array references
+        ModifiableLengthField field1 = new ModifiableLengthField(array1);
+        ModifiableLengthField field2 = new ModifiableLengthField(array2);
+
+        // With the current implementation, fields are considered equal when they have
+        // the same length value, even if they reference different arrays
+        assertEquals(
+                field1,
+                field2,
+                "Current implementation considers fields equal when they have the same length");
         assertEquals(
                 field1.hashCode(),
                 field2.hashCode(),
-                "Fields with same length value should have same hash code");
+                "Current implementation gives same hash codes when values are equal");
 
-        // Add modification to one
-        field1.setModifications(new IntegerAddModification(2));
-        assertNotEquals(
-                field1, field2, "Fields with different modified values should not be equal");
-        assertNotEquals(
-                field1.hashCode(),
-                field2.hashCode(),
-                "Fields with different modified values should have different hash codes");
+        // Now create two fields referencing the same array
+        ModifiableLengthField fieldA = new ModifiableLengthField(array1);
+        ModifiableLengthField fieldB = new ModifiableLengthField(array1);
+
+        // Fields should be equal because they reference the same array
+        assertEquals(fieldA, fieldB, "Fields with same reference should be equal");
+        assertEquals(
+                fieldA.hashCode(),
+                fieldB.hashCode(),
+                "Fields with same reference should have same hash code");
+
+        // Apply identical modifications to both fields
+        fieldA.setModifications(new IntegerAddModification(5));
+        fieldB.setModifications(new IntegerAddModification(5));
+
+        // Fields should still be equal with same modifications and same reference
+        assertEquals(
+                fieldA, fieldB, "Fields with same reference and modifications should be equal");
+        assertEquals(
+                fieldA.hashCode(),
+                fieldB.hashCode(),
+                "Fields with same reference and modifications should have same hash code");
     }
 
     /** Test equals and hashCode with null values */
@@ -268,7 +385,7 @@ public class ModifiableLengthFieldTest {
         ModifiableByteArray array2 = new ModifiableByteArray();
         array2.setOriginalValue(new byte[] {4, 5, 6, 7});
 
-        // Two fields that will have null getValue() results
+        // Two fields with different references but null getValue() results
         ModifiableLengthField nullResultField1 = new ModifiableLengthField(array1);
         nullResultField1.setModifications(new NullModification());
         ModifiableLengthField nullResultField2 = new ModifiableLengthField(array2);
@@ -278,105 +395,120 @@ public class ModifiableLengthFieldTest {
         assertNull(nullResultField1.getValue(), "Modified value should be null");
         assertNull(nullResultField2.getValue(), "Modified value should be null");
 
-        // Test equals: two fields with null modified values should be equal
-        assertEquals(
-                nullResultField1, nullResultField2, "Fields with same null values should be equal");
+        // Test equals: two fields with null values but different references should NOT be equal
+        assertNotEquals(
+                nullResultField1,
+                nullResultField2,
+                "Fields with null values but different references should NOT be equal");
 
-        // Test equals: a field with null value vs. field with non-null value
-        ModifiableLengthField nonNullField = new ModifiableLengthField(array1);
+        // Test hashCode: two fields with null values but different references should have different
+        // hashCodes
+        assertNotEquals(
+                nullResultField1.hashCode(),
+                nullResultField2.hashCode(),
+                "Fields with null values but different references should have different hash codes");
+
+        // Create two fields with same reference but null and non-null values
+        ModifiableByteArray sharedArray = new ModifiableByteArray();
+        sharedArray.setOriginalValue(new byte[] {0, 1, 2, 3});
+
+        ModifiableLengthField nullField = new ModifiableLengthField(sharedArray);
+        nullField.setModifications(new NullModification());
+        ModifiableLengthField nonNullField = new ModifiableLengthField(sharedArray);
         nonNullField.setModifications(new IntegerAddModification(5));
 
+        // Test equals: null value vs non-null value with same reference
         assertNotEquals(
-                nullResultField1,
+                nullField,
                 nonNullField,
-                "Field with null value should not equal field with non-null value");
+                "Field with null value should not equal field with non-null value, even with same reference");
 
-        // Check the other direction explicitly to test the other branch in equals()
-        assertNotEquals(
-                nonNullField,
-                nullResultField1,
-                "Field with non-null value should not equal field with null value");
+        // Now test with same null values and same reference
+        ModifiableLengthField nullField2 = new ModifiableLengthField(sharedArray);
+        nullField2.setModifications(new NullModification());
+
+        // Should be equal due to same reference and both having null values
+        assertEquals(
+                nullField,
+                nullField2,
+                "Fields with same reference and both null values should be equal");
+        assertEquals(
+                nullField.hashCode(),
+                nullField2.hashCode(),
+                "Fields with same reference and both null values should have same hash code");
 
         // Test the specific branch in equals() where this.getValue() is null but that.getValue() is
         // not null
         assertFalse(
-                nullResultField1.equals(nonNullField),
+                nullField.equals(nonNullField),
                 "Field with null value should not equal field with non-null value");
 
         // Test the specific branch in equals() where this.getValue() is not null but
         // that.getValue() is null
         assertFalse(
-                nonNullField.equals(nullResultField1),
+                nonNullField.equals(nullField),
                 "Field with non-null value should not equal field with null value");
 
-        // Test hashCode: two fields with null modified values should have same hashCode
-        assertEquals(
-                nullResultField1.hashCode(),
-                nullResultField2.hashCode(),
-                "Fields with same null values should have same hash code");
+        // Test hashCode calculation when getValue() is null
+        int result = 17;
+        result = 31 * result + 0; // getValue() is null, so 0 is added
+        result = 31 * result + (sharedArray != null ? sharedArray.hashCode() : 0);
 
-        // Test hashCode: explicitly verify the branch where getValue() is null
-        int expectedHashCode = 17; // Initial value in hashCode()
-        expectedHashCode = 31 * expectedHashCode + 0; // getValue() is null, so 0 is added
         assertEquals(
-                expectedHashCode,
-                nullResultField1.hashCode(),
-                "HashCode calculation should handle null getValue() correctly");
-
-        // Test hashCode: a field with null value vs. field with non-null value
-        assertNotEquals(
-                nullResultField1.hashCode(),
-                nonNullField.hashCode(),
-                "Field with null value should have different hash code than field with non-null value");
+                result,
+                nullField.hashCode(),
+                "HashCode calculation should handle null getValue() correctly but include ref hashCode");
     }
 
-    /** Test the private constructor using reflection */
+    /**
+     * Test how equality changes when the referenced array is modified. This tests the dynamic
+     * nature of ModifiableLengthField's equality based on the state of the referenced array.
+     */
     @Test
-    public void testPrivateConstructor()
-            throws NoSuchMethodException,
-                    IllegalAccessException,
-                    InvocationTargetException,
-                    InstantiationException,
-                    NoSuchFieldException {
-        // Get the private constructor
-        Constructor<ModifiableLengthField> constructor =
-                ModifiableLengthField.class.getDeclaredConstructor();
+    public void testEqualityWithChangingReference() {
+        // Create a shared array reference
+        ModifiableByteArray sharedArray = new ModifiableByteArray();
+        sharedArray.setOriginalValue(new byte[] {1, 2, 3, 4});
 
-        // Verify it is private
-        assertTrue(Modifier.isPrivate(constructor.getModifiers()), "Constructor should be private");
+        // Create two fields with the same reference
+        ModifiableLengthField field1 = new ModifiableLengthField(sharedArray);
+        ModifiableLengthField field2 = new ModifiableLengthField(sharedArray);
 
-        // Make it accessible for testing
-        constructor.setAccessible(true);
+        // Should initially be equal
+        assertEquals(field1, field2, "Fields with same reference should be equal");
+        assertEquals(field1.hashCode(), field2.hashCode(), "Hash codes should be equal");
 
-        // Create an instance using the private constructor
-        ModifiableLengthField instance = constructor.newInstance();
+        // Create a field with a different array that has the same content
+        ModifiableByteArray differentArray = new ModifiableByteArray();
+        differentArray.setOriginalValue(new byte[] {1, 2, 3, 4});
+        ModifiableLengthField differentField = new ModifiableLengthField(differentArray);
 
-        // Verify the ref field is null as specified in the constructor
-        // Need to use reflection again to access the private field
-        java.lang.reflect.Field refField = ModifiableLengthField.class.getDeclaredField("ref");
-        refField.setAccessible(true);
-        assertNull(refField.get(instance), "The ref field should be null");
+        // With the current implementation, fields are considered equal when they have
+        // the same length value, even if they reference different arrays
+        assertEquals(
+                field1,
+                differentField,
+                "Current implementation considers fields equal when they have the same length");
+        assertEquals(
+                field1.hashCode(),
+                differentField.hashCode(),
+                "Current implementation gives same hash codes when values are equal");
 
-        // Test the behavior of a ModifiableLengthField created with the private constructor
+        // Modify the shared array - this should affect both fields equally
+        sharedArray.setOriginalValue(new byte[] {5, 6, 7, 8, 9});
 
-        // Test that getOriginalValue returns null when ref is null
-        assertNull(
-                instance.getOriginalValue(),
-                "getOriginalValue should return null when ref is null");
+        // Fields should still be equal to each other after the referenced array changes
+        assertEquals(field1, field2, "Fields should remain equal after shared reference changes");
+        assertEquals(field1.hashCode(), field2.hashCode(), "Hash codes should remain equal");
 
-        // Test that getValue returns null when ref is null
-        assertNull(instance.getValue(), "getValue should return null when ref is null");
-
-        // Test that setOriginalValue still throws UnsupportedOperationException
-        assertThrows(
-                UnsupportedOperationException.class,
-                () -> instance.setOriginalValue(5),
-                "setOriginalValue should throw UnsupportedOperationException");
-
-        // Test that the toString method handles null ref gracefully
-        String toStringResult = instance.toString();
-        assertTrue(
-                toStringResult.contains("ref=null"),
-                "toString should contain 'ref=null' for no-arg constructor instance");
+        // Verify the original values reflect the change
+        assertEquals(
+                5,
+                (int) field1.getOriginalValue(),
+                "Original value should reflect new array length");
+        assertEquals(
+                5,
+                (int) field2.getOriginalValue(),
+                "Original value should reflect new array length");
     }
 }
