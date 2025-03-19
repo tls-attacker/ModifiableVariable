@@ -13,11 +13,14 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import de.rub.nds.modifiablevariable.longint.LongSubtractModification;
-import de.rub.nds.modifiablevariable.longint.ModifiableLong;
 import java.util.Objects;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import de.rub.nds.modifiablevariable.longint.LongAddModification;
+import de.rub.nds.modifiablevariable.longint.LongSubtractModification;
+import de.rub.nds.modifiablevariable.longint.ModifiableLong;
 
 public class LongSubtractModificationTest {
 
@@ -60,10 +63,10 @@ public class LongSubtractModificationTest {
     @Test
     public void testEqualsWithDifferentTypes() {
         // Test equality with different modification types that have same numeric value
-        de.rub.nds.modifiablevariable.longint.LongAddModification addMod =
-                new de.rub.nds.modifiablevariable.longint.LongAddModification(subtrahend);
+        LongAddModification addMod = new LongAddModification(subtrahend);
 
-        // Should not be equal despite same numeric value because they're different types
+        // Should not be equal despite same numeric value because they're different
+        // types
         assertNotEquals(modification, addMod);
     }
 
@@ -157,7 +160,8 @@ public class LongSubtractModificationTest {
 
     @Test
     public void testHashCodeConsistency() {
-        // Test consistency: hashCode should return same value when called multiple times
+        // Test consistency: hashCode should return same value when called multiple
+        // times
         int firstHashCode = modification.hashCode();
         int secondHashCode = modification.hashCode();
         assertEquals(firstHashCode, secondHashCode);
@@ -170,7 +174,8 @@ public class LongSubtractModificationTest {
 
     @Test
     public void testHashCodeWithDifferentValues() {
-        // Different values should have different hash codes (not guaranteed but expected in this
+        // Different values should have different hash codes (not guaranteed but
+        // expected in this
         // case)
         LongSubtractModification mod1 = new LongSubtractModification(1L);
         LongSubtractModification mod2 = new LongSubtractModification(2L);
