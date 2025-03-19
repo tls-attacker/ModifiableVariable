@@ -112,7 +112,7 @@ public class ModifiableVariableFactoryTest {
                 ModifiableVariableFactory.safelySetValue(existing, originalValue);
 
         assertSame(existing, updated);
-        
+
         assertEquals(originalValue[0], updated.getValue()[0]);
         assertEquals(originalValue[1], updated.getValue()[1]);
         assertEquals(originalValue[2], updated.getValue()[2]);
