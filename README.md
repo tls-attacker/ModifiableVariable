@@ -102,14 +102,6 @@ VariableModification<BigInteger> bigIntMod = new BigIntegerAddModification(BigIn
 VariableModification<byte[]> byteArrayMod = new ByteArrayXorModification(new byte[] {2, 3}, 0);
 ```
 
-You can also use the `ModifiableVariableFactory` for safely setting values:
-
-```java
-ModifiableInteger mi = ModifiableVariableFactory.safelySetValue(null, 42);
-// Equivalent to:
-ModifiableInteger mi = new ModifiableInteger(42);
-```
-
 # Modifiable variables in XML
 
 Modifiable variables are serializable with Jakarta XML Binding (JAXB) into XML. You can use the following code to do that:
