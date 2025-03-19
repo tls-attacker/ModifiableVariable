@@ -23,15 +23,7 @@ $ cd ModifiableVariable
 $ mvn clean install
 ```
 
-If you want to use this project as a dependency, you do not have to compile it yourself and can include it in your pom.xml as follows:
-
-```xml
-<dependency>
-    <groupId>de.rub.nds</groupId>
-    <artifactId>modifiable-variable</artifactId>
-    <version>5.0.1</version>
-</dependency>
-```
+If you want to use this project as a dependency, you do not have to compile it yourself. You can find the latest version on [Maven Central](https://central.sonatype.com/artifact/de.rub.nds/modifiable-variable/overview).
 
 # Usage
 
