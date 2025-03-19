@@ -55,10 +55,6 @@ public class VariableModificationTest {
         public List<LogEvent> getLogEvents() {
             return new ArrayList<>(logEvents);
         }
-
-        public void clear() {
-            logEvents.clear();
-        }
     }
 
     @BeforeEach
