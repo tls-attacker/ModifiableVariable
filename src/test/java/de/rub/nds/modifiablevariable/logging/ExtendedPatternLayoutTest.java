@@ -339,7 +339,7 @@ class ExtendedPatternLayoutTest {
 
     @Test
     void testVeryLargeByteArray() {
-        // Test with a very large byte array (1KB, reduced from 10KB to avoid memory issues)
+        // Test with a large byte array
         byte[] veryLargeData = new byte[1024];
         for (int i = 0; i < veryLargeData.length; i++) {
             veryLargeData[i] = (byte) (i % 256);
@@ -355,7 +355,7 @@ class ExtendedPatternLayoutTest {
         assertFalse(result.contains("[B@"));
 
         // Should contain the hex representation from ArrayConverter
-        // (Note: we don't check the exact string since it would be very large)
+        // (Note: we don't check the exact string)
         assertTrue(result.length() > 2000); // A rough check that conversion happened
     }
 
