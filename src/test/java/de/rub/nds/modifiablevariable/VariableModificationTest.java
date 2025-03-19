@@ -7,12 +7,19 @@
  */
 package de.rub.nds.modifiablevariable;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.appender.AbstractAppender;
 import org.apache.logging.log4j.core.config.Property;
@@ -25,7 +32,7 @@ import org.junit.jupiter.api.Test;
 public class VariableModificationTest {
 
     private TestAppender testAppender;
-    private org.apache.logging.log4j.core.Logger logger;
+    private Logger logger;
 
     /** Custom appender to capture log messages */
     private static class TestAppender extends AbstractAppender {
