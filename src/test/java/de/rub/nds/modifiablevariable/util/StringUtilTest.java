@@ -151,4 +151,22 @@ public class StringUtilTest {
                 StringUtil.backslashEscapeString(
                         "\u0007\u001a\u001fÜfý\tu\u0011\u001d\\¢\u0086T\u009d¬\u001f5á\u00ad"));
     }
+
+    /**
+     * Test behavior with the highest valid Unicode code point. This verifies our code can handle
+     * edge cases at the boundary of valid code points.
+     */
+    @Test
+    public void testBackslashEscapeStringWithMaximumValidCodePoint() {
+        // Create a StringBuilder with the maximum valid code point
+        StringBuilder input = new StringBuilder("Test");
+        input.appendCodePoint(Character.MAX_CODE_POINT);
+
+        String result = StringUtil.backslashEscapeString(input.toString());
+
+        // The maximum code point should be properly escaped
+        assertTrue(
+                result.contains("\\uDBFF\\uDFFF"),
+                "Maximum valid code point should be properly escaped");
+    }
 }
