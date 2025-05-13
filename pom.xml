@@ -8,7 +8,7 @@
     </parent>
 
     <artifactId>modifiable-variable</artifactId>
-    <version>5.1.2-SNAPSHOT</version>
+    <version>5.1.2</version>
 
     <name>ModifiableVariable</name>
     <description>A Modifiable Variable concept allows for easy runtime modifications of basic data types like integers, booleans, or byte arrays</description>
@@ -51,7 +51,7 @@
     <scm>
         <connection>scm:git:https://github.com/tls-attacker/ModifiableVariable.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/tls-attacker/ModifiableVariable.git</developerConnection>
-        <tag>v5.0.0</tag>
+        <tag>v5.1.2</tag>
         <url>https://github.com/tls-attacker/ModifiableVariable</url>
     </scm>
 
