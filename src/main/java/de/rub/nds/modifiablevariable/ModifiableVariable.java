@@ -7,6 +7,7 @@
  */
 package de.rub.nds.modifiablevariable;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.xml.bind.annotation.*;
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -31,6 +32,7 @@ import java.util.stream.Collectors;
  */
 @XmlTransient
 @XmlAccessorType(XmlAccessType.FIELD)
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
 public abstract class ModifiableVariable<E> implements Serializable {
 
     /** The list of modifications that will be applied to the original value when accessed */
