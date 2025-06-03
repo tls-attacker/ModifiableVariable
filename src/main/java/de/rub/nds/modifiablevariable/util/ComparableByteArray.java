@@ -31,6 +31,12 @@ public class ComparableByteArray {
     /** The wrapped byte array */
     private byte[] array;
 
+    @SuppressWarnings("unused")
+    private ComparableByteArray() {
+        // Default constructor for deserialization or empty initialization
+        this.array = null;
+    }
+
     /**
      * Creates a new comparable wrapper for the given byte array.
      *
