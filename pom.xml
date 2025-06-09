@@ -8,7 +8,7 @@
     </parent>
 
     <artifactId>modifiable-variable</artifactId>
-    <version>5.1.3-SNAPSHOT</version>
+    <version>5.1.3-json</version>
 
     <name>ModifiableVariable</name>
     <description>A Modifiable Variable concept allows for easy runtime modifications of basic data types like integers, booleans, or byte arrays</description>
