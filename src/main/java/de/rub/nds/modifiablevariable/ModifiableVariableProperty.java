@@ -79,8 +79,6 @@ public @interface ModifiableVariableProperty {
         PLAINTEXT,
         /** Variable representing a random value, nonce, or salt */
         RANDOM,
-        /** Variable representing a protocol version or format identifier */
-        VERSION,
         /** Variable representing a session or connection identifier */
         IDENTIFIER,
         /** Variable representing a timestamp or temporal value */

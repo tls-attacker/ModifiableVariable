@@ -41,7 +41,7 @@ public class ModifiableVariablePropertyTest {
                 maxLength = 65)
         private ModifiableInteger enhancedProperty;
 
-        @ModifiableVariableProperty(purpose = Purpose.VERSION, expectedLength = 2)
+        @ModifiableVariableProperty(purpose = Purpose.CONSTANT, expectedLength = 2)
         private ModifiableInteger protocolVersion;
 
         @ModifiableVariableProperty(purpose = Purpose.RANDOM, expectedLength = 32)
@@ -129,7 +129,7 @@ public class ModifiableVariablePropertyTest {
                 versionField.getAnnotation(ModifiableVariableProperty.class);
 
         assertNotNull(versionAnnotation);
-        assertEquals(Purpose.VERSION, versionAnnotation.purpose());
+        assertEquals(Purpose.CONSTANT, versionAnnotation.purpose());
         assertEquals(2, versionAnnotation.expectedLength());
 
         Field randomField = TestClass.class.getDeclaredField("randomValue");
@@ -160,7 +160,7 @@ public class ModifiableVariablePropertyTest {
                 ModifiableVariableAnalyzer.groupFieldsByPurpose(TestClass.class);
         assertTrue(byPurpose.containsKey(Purpose.LENGTH));
         assertTrue(byPurpose.containsKey(Purpose.KEY_MATERIAL));
-        assertTrue(byPurpose.containsKey(Purpose.VERSION));
+        assertTrue(byPurpose.containsKey(Purpose.CONSTANT));
         assertTrue(byPurpose.containsKey(Purpose.RANDOM));
         assertTrue(byPurpose.containsKey(Purpose.PADDING));
 
