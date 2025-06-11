@@ -16,81 +16,183 @@ import java.lang.annotation.Target;
  * Annotation interface for marking and categorizing modifiable variables within a class.
  *
  * <p>This annotation provides metadata about a modifiable variable field, including its semantic
- * type (what kind of data it represents) and format (how the data is encoded). This information can
- * be used for reflection-based analysis, serialization, or other operations that need to understand
- * the purpose of different variables.
+ * type (what kind of data it represents) and format (how the data is encoded). This information is
+ * extensively used throughout the TLS-Attacker ecosystem for reflection-based analysis,
+ * serialization, testing scenarios, and attack implementations that need to understand the purpose
+ * and encoding of different protocol variables.
  *
- * <p>//TODO This class has not been touched or used much for a while and needs refactoring.
+ * <p>The annotation is retained at runtime and can only be applied to fields. It serves as the
+ * foundation for semantic classification of protocol message fields, enabling automated analysis
+ * and manipulation of protocol implementations.
  *
- * <p>The annotation is retained at runtime and can only be applied to fields.
+ * <p>Usage examples:
+ *
+ * <pre>{@code
+ * // Simple length field with constraints
+ * @ModifiableVariableProperty(purpose = Purpose.LENGTH, minLength = 1, maxLength = 4)
+ * private ModifiableInteger messageLength;
+ *
+ * // Signature with specific encoding and length
+ * @ModifiableVariableProperty(
+ *     purpose = Purpose.SIGNATURE,
+ *     encoding = Encoding.ASN1_DER,
+ *     minLength = 64,
+ *     maxLength = 256,
+ *     critical = true)
+ * private ModifiableByteArray digitalSignature;
+ *
+ * // Fixed-length random value
+ * @ModifiableVariableProperty(purpose = Purpose.RANDOM, expectedLength = 32)
+ * private ModifiableByteArray nonce;
+ *
+ * // Variable-length payload with description
+ * @ModifiableVariableProperty(
+ *     purpose = Purpose.PAYLOAD,
+ *     encoding = Encoding.UTF8,
+ *     maxLength = 1024,
+ *     description = "Application data payload")
+ * private ModifiableByteArray applicationData;
+ * }</pre>
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ModifiableVariableProperty {
 
     /**
-     * Semantic types that can be assigned to modifiable variables. These values describe the
-     * purpose or role of the variable.
+     * Semantic purpose categories for modifiable variables. These describe the role or function of
+     * the variable within any protocol or data structure.
      */
-    enum Type {
+    enum Purpose {
         /** Variable representing a length field */
         LENGTH,
-        /** Variable representing a count field */
+        /** Variable representing a count or quantity field */
         COUNT,
-        /** Variable representing padding */
+        /** Variable representing padding or filler bytes */
         PADDING,
-        /** Variable representing one or more (array of) TLS constants */
-        TLS_CONSTANT,
+        /** Variable representing a protocol constant or enumerated value */
+        CONSTANT,
         /** Variable representing a cryptographic signature */
         SIGNATURE,
-        /** Variable representing encrypted data */
+        /** Variable representing encrypted or ciphered data */
         CIPHERTEXT,
-        /** Variable representing a message authentication code */
-        HMAC,
-        /** Variable representing a public key */
-        PUBLIC_KEY,
-        /** Variable representing a private key */
-        PRIVATE_KEY,
-        /** Variable representing key material */
+        /** Variable representing a message authentication code or hash */
+        MAC,
+        /** Variable representing cryptographic key material */
         KEY_MATERIAL,
-        /** Variable representing a certificate */
+        /** Variable representing a certificate or credential */
         CERTIFICATE,
-        /** Variable representing a plain protocol message, always in a decrypted state */
-        PLAIN_PROTOCOL_MESSAGE,
-        /** Variable representing a plain record */
-        PLAIN_RECORD,
-        /** Variable representing a cookie */
-        COOKIE,
-        /** Default type when no specific type is applicable */
-        NONE,
-        /** Variable that switches behavior */
-        BEHAVIOR_SWITCH
-    }
-
-    /**
-     * Encoding formats that can be used for modifiable variables. These values describe how the
-     * data is encoded.
-     */
-    enum Format {
-        /** ASN.1 encoding format */
-        ASN1,
-        /** PKCS#1 encoding format */
-        PKCS1,
-        /** Default format when no specific format is applicable */
+        /** Variable representing plaintext protocol data */
+        PLAINTEXT,
+        /** Variable representing a random value, nonce, or salt */
+        RANDOM,
+        /** Variable representing a protocol version or format identifier */
+        VERSION,
+        /** Variable representing a session or connection identifier */
+        IDENTIFIER,
+        /** Variable representing a timestamp or temporal value */
+        TIMESTAMP,
+        /** Variable representing an extension or optional component */
+        EXTENSION,
+        /** Variable that controls protocol behavior or flags */
+        CONTROL,
+        /** Variable representing user or application data */
+        PAYLOAD,
+        /** Default purpose when no specific category applies */
         NONE
     }
 
     /**
-     * Specifies the semantic type of the annotated variable.
-     *
-     * @return The type of the variable
+     * Encoding formats for modifiable variables. These describe how the data is encoded,
+     * structured, or represented.
      */
-    Type type() default Type.NONE;
+    enum Encoding {
+        /** ASN.1 Distinguished Encoding Rules format */
+        ASN1_DER,
+        /** ASN.1 Basic Encoding Rules format */
+        ASN1_BER,
+        /** PKCS#1 format for RSA key encoding */
+        PKCS1,
+        /** PKCS#8 format for private key information */
+        PKCS8,
+        /** X.509 format for certificates */
+        X509,
+        /** PEM (Privacy-Enhanced Mail) text format */
+        PEM,
+        /** Base64 text encoding */
+        BASE64,
+        /** Hexadecimal string representation */
+        HEX,
+        /** Raw binary data */
+        BINARY,
+        /** UTF-8 text encoding */
+        UTF8,
+        /** Big-endian byte order */
+        BIG_ENDIAN,
+        /** Little-endian byte order */
+        LITTLE_ENDIAN,
+        /** Variable-length encoding (e.g., varint) */
+        VARINT,
+        /** Length-prefixed format */
+        LENGTH_PREFIXED,
+        /** JSON text format */
+        JSON,
+        /** XML text format */
+        XML,
+        /** Default encoding when not specified */
+        NONE
+    }
+
+    /**
+     * Specifies the semantic purpose of the annotated variable.
+     *
+     * @return The purpose category of the variable
+     */
+    Purpose purpose() default Purpose.NONE;
 
     /**
      * Specifies the encoding format of the annotated variable.
      *
-     * @return The format of the variable
+     * @return The encoding format of the variable
      */
-    Format format() default Format.NONE;
+    Encoding encoding() default Encoding.NONE;
+
+    /**
+     * Specifies the minimum length (in bytes) of the variable's value. Use -1 to indicate no
+     * minimum constraint.
+     *
+     * @return The minimum length in bytes, or -1 if unconstrained
+     */
+    int minLength() default -1;
+
+    /**
+     * Specifies the maximum length (in bytes) of the variable's value. Use -1 to indicate no
+     * maximum constraint.
+     *
+     * @return The maximum length in bytes, or -1 if unconstrained
+     */
+    int maxLength() default -1;
+
+    /**
+     * Specifies the expected or default length (in bytes) of the variable's value. Use -1 to
+     * indicate no expected length.
+     *
+     * @return The expected length in bytes, or -1 if variable
+     */
+    int expectedLength() default -1;
+
+    /**
+     * Provides a human-readable description of the variable's purpose. This can be used for
+     * documentation generation or debugging.
+     *
+     * @return A description of the variable's purpose
+     */
+    String description() default "";
+
+    /**
+     * Indicates whether this variable is critical for correct operation. Critical variables may
+     * require special handling during modification.
+     *
+     * @return true if the variable is critical, false otherwise
+     */
+    boolean critical() default false;
 }
