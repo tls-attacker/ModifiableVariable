@@ -37,7 +37,6 @@ public class ModifiableVariablePropertyTest {
                 purpose = Purpose.KEY_MATERIAL,
                 encoding = Encoding.X509,
                 description = "Server's public key for ECDH",
-                critical = true,
                 minLength = 32,
                 maxLength = 65)
         private ModifiableInteger enhancedProperty;
@@ -118,7 +117,6 @@ public class ModifiableVariablePropertyTest {
         assertEquals(Purpose.KEY_MATERIAL, annotation.purpose());
         assertEquals(Encoding.X509, annotation.encoding());
         assertEquals("Server's public key for ECDH", annotation.description());
-        assertTrue(annotation.critical());
         assertEquals(32, annotation.minLength());
         assertEquals(65, annotation.maxLength());
         assertEquals(-1, annotation.expectedLength());
@@ -166,10 +164,6 @@ public class ModifiableVariablePropertyTest {
         assertTrue(byPurpose.containsKey(Purpose.RANDOM));
         assertTrue(byPurpose.containsKey(Purpose.PADDING));
 
-        List<Field> criticalFields = ModifiableVariableAnalyzer.getCriticalFields(TestClass.class);
-        assertEquals(1, criticalFields.size());
-        assertEquals("enhancedProperty", criticalFields.get(0).getName());
-
         Map<String, List<Field>> byLengthConstraints =
                 ModifiableVariableAnalyzer.groupFieldsByLengthConstraints(TestClass.class);
         assertTrue(byLengthConstraints.containsKey("Fixed length (2 bytes)"));
@@ -213,7 +207,6 @@ public class ModifiableVariablePropertyTest {
                         "Total ModifiableVariable fields: 9")); // 8 annotated + 1 unannotated
         assertTrue(report.contains("Annotated fields: 8"));
         assertTrue(report.contains("Unannotated fields: 1"));
-        assertTrue(report.contains("Critical fields: enhancedProperty"));
         assertTrue(report.contains("Fields by Purpose:"));
         assertTrue(report.contains("Fields by Length Constraints:"));
         assertTrue(report.contains("Fixed length (32 bytes): randomValue"));

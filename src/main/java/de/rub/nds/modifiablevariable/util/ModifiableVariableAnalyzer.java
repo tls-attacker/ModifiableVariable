@@ -303,18 +303,6 @@ public final class ModifiableVariableAnalyzer {
     }
 
     /**
-     * Finds all fields marked as critical.
-     *
-     * @param clazz The class to analyze
-     * @return A list of fields marked as critical
-     */
-    public static List<Field> getCriticalFields(Class<?> clazz) {
-        return getAnnotatedFields(clazz).stream()
-                .filter(field -> field.getAnnotation(ModifiableVariableProperty.class).critical())
-                .collect(Collectors.toList());
-    }
-
-    /**
      * Finds all fields of a specific semantic purpose.
      *
      * @param clazz The class to analyze
@@ -473,16 +461,6 @@ public final class ModifiableVariableAnalyzer {
                                                     .collect(Collectors.joining(", ")));
                                     report.append("\n");
                                 });
-            }
-
-            List<Field> criticalFields = getCriticalFields(clazz);
-            if (!criticalFields.isEmpty()) {
-                report.append("\nCritical fields: ");
-                report.append(
-                        criticalFields.stream()
-                                .map(Field::getName)
-                                .collect(Collectors.joining(", ")));
-                report.append("\n");
             }
 
             Map<String, List<Field>> byLengthConstraints = groupFieldsByLengthConstraints(clazz);

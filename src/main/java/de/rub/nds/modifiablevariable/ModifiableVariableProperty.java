@@ -17,18 +17,14 @@ import java.lang.annotation.Target;
  *
  * <p>This annotation provides metadata about a modifiable variable field, including its semantic
  * type (what kind of data it represents) and format (how the data is encoded). This information is
- * extensively used throughout the TLS-Attacker ecosystem for reflection-based analysis,
- * serialization, testing scenarios, and attack implementations that need to understand the purpose
- * and encoding of different protocol variables.
+ * used for reflection-based analysis, serialization, and testing scenarios.
  *
- * <p>The annotation is retained at runtime and can only be applied to fields. It serves as the
- * foundation for semantic classification of protocol message fields, enabling automated analysis
- * and manipulation of protocol implementations.
+ * <p>The annotation is retained at runtime and can only be applied to fields.
  *
  * <p>Usage examples:
  *
  * <pre>{@code
- * // Simple length field with constraints
+ * // Variable length field
  * @ModifiableVariableProperty(purpose = Purpose.LENGTH, minLength = 1, maxLength = 4)
  * private ModifiableInteger messageLength;
  *
@@ -36,9 +32,8 @@ import java.lang.annotation.Target;
  * @ModifiableVariableProperty(
  *     purpose = Purpose.SIGNATURE,
  *     encoding = Encoding.ASN1_DER,
- *     minLength = 64,
- *     maxLength = 256,
- *     critical = true)
+ *     minLength = 70,
+ *     maxLength = 73)
  * private ModifiableByteArray digitalSignature;
  *
  * // Fixed-length random value
@@ -49,8 +44,7 @@ import java.lang.annotation.Target;
  * @ModifiableVariableProperty(
  *     purpose = Purpose.PAYLOAD,
  *     encoding = Encoding.UTF8,
- *     maxLength = 1024,
- *     description = "Application data payload")
+ *     maxLength = 1024)
  * private ModifiableByteArray applicationData;
  * }</pre>
  */
@@ -79,7 +73,7 @@ public @interface ModifiableVariableProperty {
         MAC,
         /** Variable representing cryptographic key material */
         KEY_MATERIAL,
-        /** Variable representing a certificate or credential */
+        /** Variable representing a certificate */
         CERTIFICATE,
         /** Variable representing plaintext protocol data */
         PLAINTEXT,
@@ -173,8 +167,9 @@ public @interface ModifiableVariableProperty {
     int maxLength() default -1;
 
     /**
-     * Specifies the expected or default length (in bytes) of the variable's value. Use -1 to
-     * indicate no expected length.
+     * Specifies the expected or typical length (in bytes) of the variable's value. This is a hint
+     * for the most common case, but the field may still accept other lengths within minLength and
+     * maxLength bounds. Use -1 to indicate no expected length.
      *
      * @return The expected length in bytes, or -1 if variable
      */
@@ -187,12 +182,4 @@ public @interface ModifiableVariableProperty {
      * @return A description of the variable's purpose
      */
     String description() default "";
-
-    /**
-     * Indicates whether this variable is critical for correct operation. Critical variables may
-     * require special handling during modification.
-     *
-     * @return true if the variable is critical, false otherwise
-     */
-    boolean critical() default false;
 }
