@@ -9,9 +9,12 @@ package de.rub.nds.modifiablevariable.util;
 
 import de.rub.nds.modifiablevariable.HoldsModifiableVariable;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
+import de.rub.nds.modifiablevariable.ModifiableVariableProperty;
+import de.rub.nds.modifiablevariable.ModifiableVariableProperty.Encoding;
+import de.rub.nds.modifiablevariable.ModifiableVariableProperty.Purpose;
 import java.lang.reflect.Field;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,6 +25,10 @@ import org.apache.logging.log4j.Logger;
  * including the ability to recursively scan complex object hierarchies. It uses reflection to
  * locate fields that are either of type ModifiableVariable or are annotated with {@link
  * HoldsModifiableVariable}.
+ *
+ * <p>Additionally, this class provides specialized methods for working with the {@link
+ * ModifiableVariableProperty} annotation to categorize and analyze fields by their semantic
+ * meaning, encoding format, and protocol context.
  *
  * <p>This class cannot be instantiated and all methods are static.
  */
@@ -204,5 +211,126 @@ public final class ModifiableVariableAnalyzer {
             result.addAll(getAllModifiableVariableHoldersRecursively(o));
         }
         return result;
+    }
+
+    /**
+     * Retrieves all fields in a class hierarchy that are annotated with ModifiableVariableProperty.
+     *
+     * @param clazz The class to analyze
+     * @return A list of fields annotated with ModifiableVariableProperty
+     */
+    public static List<Field> getAnnotatedFields(Class<?> clazz) {
+        List<Field> annotatedFields = new ArrayList<>();
+        Class<?> currentClass = clazz;
+
+        while (currentClass != null && currentClass != Object.class) {
+            for (Field field : currentClass.getDeclaredFields()) {
+                if (field.isAnnotationPresent(ModifiableVariableProperty.class)) {
+                    annotatedFields.add(field);
+                }
+            }
+            currentClass = currentClass.getSuperclass();
+        }
+
+        return annotatedFields;
+    }
+
+    /**
+     * Groups annotated fields by their semantic purpose.
+     *
+     * @param clazz The class to analyze
+     * @return A map where keys are Purpose enum values and values are lists of fields
+     */
+    public static Map<Purpose, List<Field>> groupFieldsByPurpose(Class<?> clazz) {
+        return getAnnotatedFields(clazz).stream()
+                .collect(
+                        Collectors.groupingBy(
+                                field ->
+                                        field.getAnnotation(ModifiableVariableProperty.class)
+                                                .purpose()));
+    }
+
+    /**
+     * Groups annotated fields by their encoding format.
+     *
+     * @param clazz The class to analyze
+     * @return A map where keys are Encoding enum values and values are lists of fields
+     */
+    public static Map<Encoding, List<Field>> groupFieldsByEncoding(Class<?> clazz) {
+        return getAnnotatedFields(clazz).stream()
+                .collect(
+                        Collectors.groupingBy(
+                                field ->
+                                        field.getAnnotation(ModifiableVariableProperty.class)
+                                                .encoding()));
+    }
+
+    /**
+     * Finds all fields of a specific semantic purpose.
+     *
+     * @param clazz The class to analyze
+     * @param purpose The semantic purpose to search for
+     * @return A list of fields with the specified purpose
+     */
+    public static List<Field> getFieldsByPurpose(Class<?> clazz, Purpose purpose) {
+        return getAnnotatedFields(clazz).stream()
+                .filter(
+                        field ->
+                                field.getAnnotation(ModifiableVariableProperty.class).purpose()
+                                        == purpose)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Finds all fields with a specific encoding format.
+     *
+     * @param clazz The class to analyze
+     * @param encoding The encoding format to search for
+     * @return A list of fields with the specified encoding
+     */
+    public static List<Field> getFieldsByEncoding(Class<?> clazz, Encoding encoding) {
+        return getAnnotatedFields(clazz).stream()
+                .filter(
+                        field ->
+                                field.getAnnotation(ModifiableVariableProperty.class).encoding()
+                                        == encoding)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Checks if a field has a ModifiableVariableProperty annotation.
+     *
+     * @param field The field to check
+     * @return true if the field is annotated, false otherwise
+     */
+    public static boolean isAnnotated(Field field) {
+        return field.isAnnotationPresent(ModifiableVariableProperty.class);
+    }
+
+    /**
+     * Gets the ModifiableVariableProperty annotation from a field.
+     *
+     * @param field The field to examine
+     * @return The annotation or null if not present
+     */
+    public static ModifiableVariableProperty getAnnotation(Field field) {
+        return field.getAnnotation(ModifiableVariableProperty.class);
+    }
+
+    /**
+     * Validates that all ModifiableVariable fields in a class have proper annotations. This is
+     * useful for ensuring coding standards compliance.
+     *
+     * @param clazz The class to validate
+     * @return A list of field names that are ModifiableVariable but lack annotations
+     */
+    public static List<String> getUnannotatedModifiableVariables(Class<?> clazz) {
+        List<Field> allModifiableFields =
+                ReflectionHelper.getFieldsUpTo(clazz, null, ModifiableVariable.class);
+
+        return allModifiableFields.stream()
+                .filter(field -> !isAnnotated(field))
+                .map(Field::getName)
+                .collect(Collectors.toList());
     }
 }
