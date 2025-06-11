@@ -40,9 +40,9 @@ import java.lang.annotation.Target;
  * @ModifiableVariableProperty(purpose = Purpose.RANDOM)
  * private ModifiableByteArray nonce;
  *
- * // Variable-length payload with description
+ * // Variable-length data with description
  * @ModifiableVariableProperty(
- *     purpose = Purpose.PAYLOAD,
+ *     purpose = Purpose.PLAINTEXT,
  *     encoding = Encoding.UTF8,
  *     maxLength = 1024)
  * private ModifiableByteArray applicationData;
@@ -83,12 +83,6 @@ public @interface ModifiableVariableProperty {
         IDENTIFIER,
         /** Variable representing a timestamp or temporal value */
         TIMESTAMP,
-        /** Variable representing an extension or optional component */
-        EXTENSION,
-        /** Variable that controls protocol behavior or flags */
-        CONTROL,
-        /** Variable representing user or application data */
-        PAYLOAD,
         /** Default purpose when no specific category applies */
         NONE
     }
