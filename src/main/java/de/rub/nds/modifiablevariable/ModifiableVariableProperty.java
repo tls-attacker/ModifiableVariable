@@ -107,7 +107,7 @@ public @interface ModifiableVariableProperty {
         /** Base64 text encoding */
         BASE64,
         /** Hexadecimal string representation */
-        HEX,
+        HEX_STRING,
         /** Raw binary data */
         BINARY,
         /** UTF-8 text encoding */
