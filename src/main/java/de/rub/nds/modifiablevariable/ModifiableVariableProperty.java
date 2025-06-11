@@ -36,8 +36,8 @@ import java.lang.annotation.Target;
  *     maxLength = 73)
  * private ModifiableByteArray digitalSignature;
  *
- * // Fixed-length random value
- * @ModifiableVariableProperty(purpose = Purpose.RANDOM, expectedLength = 32)
+ * // Random value
+ * @ModifiableVariableProperty(purpose = Purpose.RANDOM)
  * private ModifiableByteArray nonce;
  *
  * // Variable-length payload with description
