@@ -84,7 +84,7 @@ public @interface ModifiableVariableProperty {
         /** Variable representing a timestamp or temporal value */
         TIMESTAMP,
         /** Default purpose when no specific category applies */
-        NONE
+        UNSPECIFIED
     }
 
     /**
@@ -112,20 +112,21 @@ public @interface ModifiableVariableProperty {
         BINARY,
         /** UTF-8 text encoding */
         UTF8,
-        /** Big-endian byte order */
-        BIG_ENDIAN,
-        /** Little-endian byte order */
-        LITTLE_ENDIAN,
-        /** Variable-length encoding (e.g., varint) */
-        VARINT,
-        /** Length-prefixed format */
-        LENGTH_PREFIXED,
+        /** Unsigned big-endian encoding */
+        UNSIGNED_BIG_ENDIAN,
+        /** Unsigned little-endian encoding */
+        UNSIGNED_LITTLE_ENDIAN,
+        /** Signed big-endian encoding */
+        SIGNED_BIG_ENDIAN,
+        /** Signed little-endian encoding */
+        SIGNED_LITTLE_ENDIAN,
+
         /** JSON text format */
         JSON,
         /** XML text format */
         XML,
         /** Default encoding when not specified */
-        NONE
+        UNSPECIFIED
     }
 
     /**
@@ -133,14 +134,14 @@ public @interface ModifiableVariableProperty {
      *
      * @return The purpose category of the variable
      */
-    Purpose purpose() default Purpose.NONE;
+    Purpose purpose() default Purpose.UNSPECIFIED;
 
     /**
      * Specifies the encoding format of the annotated variable.
      *
      * @return The encoding format of the variable
      */
-    Encoding encoding() default Encoding.NONE;
+    Encoding encoding() default Encoding.UNSPECIFIED;
 
     /**
      * Specifies the minimum length (in bytes) of the variable's value. Use -1 to indicate no
@@ -157,21 +158,4 @@ public @interface ModifiableVariableProperty {
      * @return The maximum length in bytes, or -1 if unconstrained
      */
     int maxLength() default -1;
-
-    /**
-     * Specifies the expected or typical length (in bytes) of the variable's value. This is a hint
-     * for the most common case, but the field may still accept other lengths within minLength and
-     * maxLength bounds. Use -1 to indicate no expected length.
-     *
-     * @return The expected length in bytes, or -1 if variable
-     */
-    int expectedLength() default -1;
-
-    /**
-     * Provides a human-readable description of the variable's purpose. This can be used for
-     * documentation generation or debugging.
-     *
-     * @return A description of the variable's purpose
-     */
-    String description() default "";
 }

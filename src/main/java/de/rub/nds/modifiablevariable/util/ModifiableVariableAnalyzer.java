@@ -213,8 +213,6 @@ public final class ModifiableVariableAnalyzer {
         return result;
     }
 
-    // ===== ModifiableVariableProperty annotation analysis methods =====
-
     /**
      * Retrieves all fields in a class hierarchy that are annotated with ModifiableVariableProperty.
      *
@@ -268,41 +266,6 @@ public final class ModifiableVariableAnalyzer {
     }
 
     /**
-     * Groups annotated fields by their length constraints.
-     *
-     * @param clazz The class to analyze
-     * @return A map where keys describe length constraints and values are lists of fields
-     */
-    public static Map<String, List<Field>> groupFieldsByLengthConstraints(Class<?> clazz) {
-        return getAnnotatedFields(clazz).stream()
-                .collect(
-                        Collectors.groupingBy(
-                                field -> {
-                                    ModifiableVariableProperty annotation =
-                                            field.getAnnotation(ModifiableVariableProperty.class);
-                                    int minLen = annotation.minLength();
-                                    int maxLen = annotation.maxLength();
-                                    int expectedLen = annotation.expectedLength();
-
-                                    if (expectedLen > 0) {
-                                        return "Fixed length (" + expectedLen + " bytes)";
-                                    } else if (minLen > 0 && maxLen > 0) {
-                                        return "Variable length ("
-                                                + minLen
-                                                + "-"
-                                                + maxLen
-                                                + " bytes)";
-                                    } else if (minLen > 0) {
-                                        return "Minimum length (" + minLen + "+ bytes)";
-                                    } else if (maxLen > 0) {
-                                        return "Maximum length (≤" + maxLen + " bytes)";
-                                    } else {
-                                        return "Unconstrained length";
-                                    }
-                                }));
-    }
-
-    /**
      * Finds all fields of a specific semantic purpose.
      *
      * @param clazz The class to analyze
@@ -331,42 +294,6 @@ public final class ModifiableVariableAnalyzer {
                         field ->
                                 field.getAnnotation(ModifiableVariableProperty.class).encoding()
                                         == encoding)
-                .collect(Collectors.toList());
-    }
-
-    /**
-     * Finds all fields with length constraints.
-     *
-     * @param clazz The class to analyze
-     * @return A list of fields that have any length constraints defined
-     */
-    public static List<Field> getFieldsWithLengthConstraints(Class<?> clazz) {
-        return getAnnotatedFields(clazz).stream()
-                .filter(
-                        field -> {
-                            ModifiableVariableProperty annotation =
-                                    field.getAnnotation(ModifiableVariableProperty.class);
-                            return annotation.minLength() > 0
-                                    || annotation.maxLength() > 0
-                                    || annotation.expectedLength() > 0;
-                        })
-                .collect(Collectors.toList());
-    }
-
-    /**
-     * Finds all fields with a specific expected length.
-     *
-     * @param clazz The class to analyze
-     * @param expectedLength The expected length to search for
-     * @return A list of fields with the specified expected length
-     */
-    public static List<Field> getFieldsByExpectedLength(Class<?> clazz, int expectedLength) {
-        return getAnnotatedFields(clazz).stream()
-                .filter(
-                        field ->
-                                field.getAnnotation(ModifiableVariableProperty.class)
-                                                .expectedLength()
-                                        == expectedLength)
                 .collect(Collectors.toList());
     }
 
@@ -405,88 +332,5 @@ public final class ModifiableVariableAnalyzer {
                 .filter(field -> !isAnnotated(field))
                 .map(Field::getName)
                 .collect(Collectors.toList());
-    }
-
-    /**
-     * Generates a summary report of all annotated fields in a class.
-     *
-     * @param clazz The class to analyze
-     * @return A formatted string containing analysis results
-     */
-    public static String generatePropertyAnalysisReport(Class<?> clazz) {
-        StringBuilder report = new StringBuilder();
-        report.append("ModifiableVariableProperty Analysis Report for ")
-                .append(clazz.getSimpleName())
-                .append("\n");
-        report.append("=".repeat(60)).append("\n\n");
-
-        List<Field> annotatedFields = getAnnotatedFields(clazz);
-        List<Field> allModifiableFields =
-                ReflectionHelper.getFieldsUpTo(clazz, null, ModifiableVariable.class);
-
-        report.append("Total ModifiableVariable fields: ")
-                .append(allModifiableFields.size())
-                .append("\n");
-        report.append("Annotated fields: ").append(annotatedFields.size()).append("\n");
-        report.append("Unannotated fields: ")
-                .append(allModifiableFields.size() - annotatedFields.size())
-                .append("\n\n");
-
-        if (!annotatedFields.isEmpty()) {
-            report.append("Fields by Purpose:\n");
-            Map<Purpose, List<Field>> byPurpose = groupFieldsByPurpose(clazz);
-            byPurpose.entrySet().stream()
-                    .sorted(Map.Entry.<Purpose, List<Field>>comparingByKey())
-                    .forEach(
-                            entry -> {
-                                report.append("  ").append(entry.getKey()).append(": ");
-                                report.append(
-                                        entry.getValue().stream()
-                                                .map(Field::getName)
-                                                .collect(Collectors.joining(", ")));
-                                report.append("\n");
-                            });
-
-            Map<Encoding, List<Field>> byEncoding = groupFieldsByEncoding(clazz);
-            if (byEncoding.size() > 1 || !byEncoding.containsKey(Encoding.NONE)) {
-                report.append("\nFields by Encoding:\n");
-                byEncoding.entrySet().stream()
-                        .sorted(Map.Entry.comparingByKey())
-                        .forEach(
-                                entry -> {
-                                    report.append("  ").append(entry.getKey()).append(": ");
-                                    report.append(
-                                            entry.getValue().stream()
-                                                    .map(Field::getName)
-                                                    .collect(Collectors.joining(", ")));
-                                    report.append("\n");
-                                });
-            }
-
-            Map<String, List<Field>> byLengthConstraints = groupFieldsByLengthConstraints(clazz);
-            if (byLengthConstraints.size() > 1
-                    || !byLengthConstraints.containsKey("Unconstrained length")) {
-                report.append("\nFields by Length Constraints:\n");
-                byLengthConstraints.entrySet().stream()
-                        .sorted(Map.Entry.comparingByKey())
-                        .forEach(
-                                entry -> {
-                                    report.append("  ").append(entry.getKey()).append(": ");
-                                    report.append(
-                                            entry.getValue().stream()
-                                                    .map(Field::getName)
-                                                    .collect(Collectors.joining(", ")));
-                                    report.append("\n");
-                                });
-            }
-        }
-
-        List<String> unannotated = getUnannotatedModifiableVariables(clazz);
-        if (!unannotated.isEmpty()) {
-            report.append("\nUnannotated ModifiableVariable fields:\n");
-            unannotated.forEach(name -> report.append("  - ").append(name).append("\n"));
-        }
-
-        return report.toString();
     }
 }

@@ -25,7 +25,7 @@ public class ModifiableVariablePropertyTest {
         @ModifiableVariableProperty(purpose = Purpose.LENGTH, minLength = 1, maxLength = 4)
         private ModifiableInteger length;
 
-        @ModifiableVariableProperty(purpose = Purpose.COUNT, expectedLength = 2)
+        @ModifiableVariableProperty(purpose = Purpose.COUNT)
         private ModifiableInteger count;
 
         @ModifiableVariableProperty(purpose = Purpose.SIGNATURE, encoding = Encoding.ASN1_DER)
@@ -36,15 +36,14 @@ public class ModifiableVariablePropertyTest {
         @ModifiableVariableProperty(
                 purpose = Purpose.KEY_MATERIAL,
                 encoding = Encoding.X509,
-                description = "Server's public key for ECDH",
                 minLength = 32,
                 maxLength = 65)
         private ModifiableInteger enhancedProperty;
 
-        @ModifiableVariableProperty(purpose = Purpose.CONSTANT, expectedLength = 2)
+        @ModifiableVariableProperty(purpose = Purpose.CONSTANT)
         private ModifiableInteger protocolVersion;
 
-        @ModifiableVariableProperty(purpose = Purpose.RANDOM, expectedLength = 32)
+        @ModifiableVariableProperty(purpose = Purpose.RANDOM)
         private ModifiableInteger randomValue;
 
         @ModifiableVariableProperty(purpose = Purpose.PADDING, minLength = 0, maxLength = 255)
@@ -62,10 +61,9 @@ public class ModifiableVariablePropertyTest {
 
         assertNotNull(annotation);
         assertEquals(Purpose.LENGTH, annotation.purpose());
-        assertEquals(Encoding.NONE, annotation.encoding());
+        assertEquals(Encoding.UNSPECIFIED, annotation.encoding());
         assertEquals(1, annotation.minLength());
         assertEquals(4, annotation.maxLength());
-        assertEquals(-1, annotation.expectedLength());
     }
 
     @Test
@@ -76,10 +74,9 @@ public class ModifiableVariablePropertyTest {
 
         assertNotNull(annotation);
         assertEquals(Purpose.COUNT, annotation.purpose());
-        assertEquals(Encoding.NONE, annotation.encoding());
+        assertEquals(Encoding.UNSPECIFIED, annotation.encoding());
         assertEquals(-1, annotation.minLength());
         assertEquals(-1, annotation.maxLength());
-        assertEquals(2, annotation.expectedLength());
     }
 
     @Test
@@ -100,11 +97,10 @@ public class ModifiableVariablePropertyTest {
                 defaultField.getAnnotation(ModifiableVariableProperty.class);
 
         assertNotNull(annotation);
-        assertEquals(Purpose.NONE, annotation.purpose());
-        assertEquals(Encoding.NONE, annotation.encoding());
+        assertEquals(Purpose.UNSPECIFIED, annotation.purpose());
+        assertEquals(Encoding.UNSPECIFIED, annotation.encoding());
         assertEquals(-1, annotation.minLength());
         assertEquals(-1, annotation.maxLength());
-        assertEquals(-1, annotation.expectedLength());
     }
 
     @Test
@@ -116,10 +112,8 @@ public class ModifiableVariablePropertyTest {
         assertNotNull(annotation);
         assertEquals(Purpose.KEY_MATERIAL, annotation.purpose());
         assertEquals(Encoding.X509, annotation.encoding());
-        assertEquals("Server's public key for ECDH", annotation.description());
         assertEquals(32, annotation.minLength());
         assertEquals(65, annotation.maxLength());
-        assertEquals(-1, annotation.expectedLength());
     }
 
     @Test
@@ -130,7 +124,6 @@ public class ModifiableVariablePropertyTest {
 
         assertNotNull(versionAnnotation);
         assertEquals(Purpose.CONSTANT, versionAnnotation.purpose());
-        assertEquals(2, versionAnnotation.expectedLength());
 
         Field randomField = TestClass.class.getDeclaredField("randomValue");
         ModifiableVariableProperty randomAnnotation =
@@ -138,7 +131,6 @@ public class ModifiableVariablePropertyTest {
 
         assertNotNull(randomAnnotation);
         assertEquals(Purpose.RANDOM, randomAnnotation.purpose());
-        assertEquals(32, randomAnnotation.expectedLength());
 
         Field paddingField = TestClass.class.getDeclaredField("paddingLength");
         ModifiableVariableProperty paddingAnnotation =
@@ -164,12 +156,6 @@ public class ModifiableVariablePropertyTest {
         assertTrue(byPurpose.containsKey(Purpose.RANDOM));
         assertTrue(byPurpose.containsKey(Purpose.PADDING));
 
-        Map<String, List<Field>> byLengthConstraints =
-                ModifiableVariableAnalyzer.groupFieldsByLengthConstraints(TestClass.class);
-        assertTrue(byLengthConstraints.containsKey("Fixed length (2 bytes)"));
-        assertTrue(byLengthConstraints.containsKey("Fixed length (32 bytes)"));
-        assertTrue(byLengthConstraints.containsKey("Variable length (1-4 bytes)"));
-
         List<Field> lengthFields =
                 ModifiableVariableAnalyzer.getFieldsByPurpose(TestClass.class, Purpose.LENGTH);
         assertEquals(1, lengthFields.size());
@@ -180,37 +166,9 @@ public class ModifiableVariablePropertyTest {
         assertEquals(1, x509Fields.size());
         assertEquals("enhancedProperty", x509Fields.get(0).getName());
 
-        List<Field> withLengthConstraints =
-                ModifiableVariableAnalyzer.getFieldsWithLengthConstraints(TestClass.class);
-        assertEquals(
-                6, withLengthConstraints.size()); // All except defaultProperty and unannotatedField
-
-        List<Field> expectedLength32 =
-                ModifiableVariableAnalyzer.getFieldsByExpectedLength(TestClass.class, 32);
-        assertEquals(1, expectedLength32.size());
-        assertEquals("randomValue", expectedLength32.get(0).getName());
-
         List<String> unannotated =
                 ModifiableVariableAnalyzer.getUnannotatedModifiableVariables(TestClass.class);
         assertEquals(1, unannotated.size());
         assertEquals("unannotatedField", unannotated.get(0));
-    }
-
-    @Test
-    public void testAnalysisReport() {
-        String report = ModifiableVariableAnalyzer.generatePropertyAnalysisReport(TestClass.class);
-        assertNotNull(report);
-        assertTrue(report.contains("ModifiableVariableProperty Analysis Report"));
-        assertTrue(report.contains("TestClass"));
-        assertTrue(
-                report.contains(
-                        "Total ModifiableVariable fields: 9")); // 8 annotated + 1 unannotated
-        assertTrue(report.contains("Annotated fields: 8"));
-        assertTrue(report.contains("Unannotated fields: 1"));
-        assertTrue(report.contains("Fields by Purpose:"));
-        assertTrue(report.contains("Fields by Length Constraints:"));
-        assertTrue(report.contains("Fixed length (32 bytes): randomValue"));
-        assertTrue(report.contains("Variable length (1-4 bytes): length"));
-        assertTrue(report.contains("unannotatedField"));
     }
 }
