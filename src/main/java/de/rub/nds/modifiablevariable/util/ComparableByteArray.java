@@ -33,7 +33,7 @@ public class ComparableByteArray {
 
     @SuppressWarnings("unused")
     private ComparableByteArray() {
-        // Default constructor for deserialization or empty initialization
+        // Default constructor for deserialization
         this.array = null;
     }
 
