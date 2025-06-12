@@ -9,6 +9,7 @@ package de.rub.nds.modifiablevariable;
 
 import static de.rub.nds.modifiablevariable.util.StringUtil.backslashEscapeString;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -45,6 +46,7 @@ import org.apache.logging.log4j.Logger;
  */
 @XmlTransient
 @XmlAccessorType(XmlAccessType.FIELD)
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
 public abstract class VariableModification<E> implements Serializable {
 
     /** Logger for debugging modification applications */
