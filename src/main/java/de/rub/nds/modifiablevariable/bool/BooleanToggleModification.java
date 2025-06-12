@@ -8,6 +8,7 @@
 package de.rub.nds.modifiablevariable.bool;
 
 import de.rub.nds.modifiablevariable.VariableModification;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -28,22 +29,13 @@ public class BooleanToggleModification extends VariableModification<Boolean> {
     }
 
     /**
-     * Copy constructor.
-     *
-     * @param other The modification to copy
-     */
-    public BooleanToggleModification(BooleanToggleModification other) {
-        super();
-    }
-
-    /**
      * Creates a deep copy of this modification.
      *
      * @return A new instance of BooleanToggleModification
      */
     @Override
     public BooleanToggleModification createCopy() {
-        return new BooleanToggleModification(this);
+        return new BooleanToggleModification();
     }
 
     /**
@@ -59,6 +51,10 @@ public class BooleanToggleModification extends VariableModification<Boolean> {
      * @return The inverted Boolean value, or null if the input is null
      */
     @Override
+    @SuppressFBWarnings(
+            value = "NP_BOOLEAN_RETURN_NULL",
+            justification =
+                    "Returning null for null input is intentional design for null-safety in modification chain")
     protected Boolean modifyImplementationHook(Boolean input) {
         if (input == null) {
             return null;

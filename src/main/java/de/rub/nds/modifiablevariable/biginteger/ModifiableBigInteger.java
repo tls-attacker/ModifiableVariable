@@ -8,7 +8,7 @@
 package de.rub.nds.modifiablevariable.biginteger;
 
 import de.rub.nds.modifiablevariable.ModifiableVariable;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.math.BigInteger;
 
@@ -108,7 +108,7 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
      * @return The byte array representation of the BigInteger
      */
     public byte[] getByteArray() {
-        return ArrayConverter.bigIntegerToByteArray(getValue());
+        return DataConverter.bigIntegerToByteArray(getValue());
     }
 
     /**
@@ -118,7 +118,7 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
      * @return The byte array representation of the BigInteger
      */
     public byte[] getByteArray(int size) {
-        return ArrayConverter.bigIntegerToByteArray(getValue(), size, true);
+        return DataConverter.bigIntegerToByteArray(getValue(), size, true);
     }
 
     /**

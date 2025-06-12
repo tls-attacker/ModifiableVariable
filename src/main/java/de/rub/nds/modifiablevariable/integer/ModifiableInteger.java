@@ -8,7 +8,7 @@
 package de.rub.nds.modifiablevariable.integer;
 
 import de.rub.nds.modifiablevariable.ModifiableVariable;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -111,7 +111,7 @@ public class ModifiableInteger extends ModifiableVariable<Integer> {
      * @return The byte array representation of the integer
      */
     public byte[] getByteArray(int size) {
-        return ArrayConverter.intToBytes(getValue(), size);
+        return DataConverter.intToBytes(getValue(), size);
     }
 
     /**

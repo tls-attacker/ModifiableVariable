@@ -8,7 +8,7 @@
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Arrays;
 
@@ -114,7 +114,7 @@ public class ByteArrayDeleteModification extends VariableModification<byte[]> {
         byte[] ret1 = Arrays.copyOf(input, deleteStartPosition);
         if (deleteEndPosition < input.length) {
             byte[] ret2 = Arrays.copyOfRange(input, deleteEndPosition, input.length);
-            return ArrayConverter.concatenate(ret1, ret2);
+            return DataConverter.concatenate(ret1, ret2);
         }
         return ret1;
     }

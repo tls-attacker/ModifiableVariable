@@ -61,7 +61,7 @@ public class UnformattedByteArrayAdapter extends XmlAdapter<String, byte[]> {
     @Override
     public byte[] unmarshal(String value) {
         value = value.replaceAll("\\s", "");
-        return ArrayConverter.hexStringToByteArray(value);
+        return DataConverter.hexStringToByteArray(value);
     }
 
     /**
@@ -75,6 +75,6 @@ public class UnformattedByteArrayAdapter extends XmlAdapter<String, byte[]> {
      */
     @Override
     public String marshal(byte[] value) {
-        return ArrayConverter.bytesToHexString(value, false, false);
+        return DataConverter.bytesToHexString(value, false, false);
     }
 }

@@ -8,7 +8,7 @@
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -96,7 +96,7 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
         if (input == null) {
             return null;
         }
-        return ArrayConverter.concatenate(input, bytesToAppend);
+        return DataConverter.concatenate(input, bytesToAppend);
     }
 
     /**
@@ -167,7 +167,7 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
     @Override
     public String toString() {
         return "ByteArrayAppendValueModification{bytesToAppend="
-                + ArrayConverter.bytesToHexString(bytesToAppend)
+                + DataConverter.bytesToHexString(bytesToAppend)
                 + "}";
     }
 }

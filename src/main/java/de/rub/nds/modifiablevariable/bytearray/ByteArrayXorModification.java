@@ -8,7 +8,7 @@
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -126,10 +126,10 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
     /**
      * Gets the byte array used for the XOR operation.
      *
-     * @return The XOR byte array
+     * @return A copy of the XOR byte array
      */
     public byte[] getXor() {
-        return xor;
+        return xor == null ? null : xor.clone();
     }
 
     /**
@@ -138,7 +138,7 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
      * @param xor The new XOR byte array
      */
     public void setXor(byte[] xor) {
-        this.xor = xor;
+        this.xor = xor == null ? null : xor.clone();
     }
 
     /**
@@ -208,7 +208,7 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
     public String toString() {
         return "ByteArrayXorModification{"
                 + "xor="
-                + ArrayConverter.bytesToHexString(xor)
+                + DataConverter.bytesToHexString(xor)
                 + ", startPosition="
                 + startPosition
                 + '}';

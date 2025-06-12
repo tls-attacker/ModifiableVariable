@@ -32,12 +32,15 @@ public class LongSwapEndianModification extends VariableModification<Long> {
     }
 
     /**
-     * Copy constructor for creating a deep copy of an existing modification.
+     * Copy constructor.
      *
-     * @param other The modification to copy
+     * <p>Since this modification is stateless, this constructor just calls the default constructor.
+     *
+     * @param other The modification to copy (ignored since modification is stateless)
      */
+    @SuppressWarnings("unused")
     public LongSwapEndianModification(LongSwapEndianModification other) {
-        super();
+        this();
     }
 
     /**
@@ -47,7 +50,7 @@ public class LongSwapEndianModification extends VariableModification<Long> {
      */
     @Override
     public LongSwapEndianModification createCopy() {
-        return new LongSwapEndianModification(this);
+        return new LongSwapEndianModification();
     }
 
     /**

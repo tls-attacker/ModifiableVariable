@@ -34,22 +34,13 @@ public class IntegerSwapEndianModification extends VariableModification<Integer>
     }
 
     /**
-     * Copy constructor for creating a deep copy of an existing modification.
-     *
-     * @param other The modification to copy
-     */
-    public IntegerSwapEndianModification(IntegerSwapEndianModification other) {
-        super();
-    }
-
-    /**
      * Creates a deep copy of this modification.
      *
      * @return A new instance of this modification
      */
     @Override
     public IntegerSwapEndianModification createCopy() {
-        return new IntegerSwapEndianModification(this);
+        return new IntegerSwapEndianModification();
     }
 
     /**

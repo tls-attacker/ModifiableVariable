@@ -8,7 +8,7 @@
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -118,9 +118,9 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
         byte[] ret1 = Arrays.copyOf(input, insertPosition);
         if (insertPosition < input.length) {
             byte[] ret2 = Arrays.copyOfRange(input, insertPosition, input.length);
-            return ArrayConverter.concatenate(ret1, bytesToInsert, ret2);
+            return DataConverter.concatenate(ret1, bytesToInsert, ret2);
         }
-        return ArrayConverter.concatenate(ret1, bytesToInsert);
+        return DataConverter.concatenate(ret1, bytesToInsert);
     }
 
     /**
@@ -215,7 +215,7 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
     public String toString() {
         return "ByteArrayInsertModification{"
                 + "bytesToInsert="
-                + ArrayConverter.bytesToHexString(bytesToInsert)
+                + DataConverter.bytesToHexString(bytesToInsert)
                 + ", startPosition="
                 + startPosition
                 + '}';

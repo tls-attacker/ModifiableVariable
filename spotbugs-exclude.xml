@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+    <!-- Ignore EI_EXPOSE_REP and EI_EXPOSE_REP2 warnings -->
+    <!-- These are intentionally ignored because this library is designed for runtime 
+         modification of variables, and defensive copying would impact performance 
+         without significant security benefits for this use case -->
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+</FindBugsFilter>

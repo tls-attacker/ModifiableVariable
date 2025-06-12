@@ -7,7 +7,7 @@
  */
 package de.rub.nds.modifiablevariable.logging;
 
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -830,13 +830,13 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
                 for (Object param : event.getMessage().getParameters()) {
 
                     // Replace all ByteArrays with the String representation of the ByteArray
-                    // calculated by the ArrayConverter.
+                    // calculated by the DataConverter.
                     if (param != null && bArrayClass.equals(param.getClass())) {
                         builder.replace(
                                 builder.indexOf(Arrays.toString((byte[]) param)),
                                 builder.indexOf(Arrays.toString((byte[]) param))
                                         + Arrays.toString((byte[]) param).length(),
-                                ArrayConverter.bytesToHexString(
+                                DataConverter.bytesToHexString(
                                         (byte[]) param,
                                         Builder.prettyPrinting,
                                         Builder.initNewLine));

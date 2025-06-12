@@ -8,6 +8,7 @@
 package de.rub.nds.modifiablevariable.util;
 
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.util.List;
@@ -161,6 +162,9 @@ public final class DataConverter {
      * @return Byte array representing the integer. If the array size is larger, 00 bytes are
      *     prepended. If the number are larger, MSBs are omitted.
      */
+    @SuppressFBWarnings(
+            value = "ICAST_QUESTIONABLE_UNSIGNED_RIGHT_SHIFT",
+            justification = "Unsigned right shift is intentional for extracting bytes from integer")
     public static byte[] intToBytes(int value, int size) {
         if (size < 1) {
             throw new IllegalArgumentException("The array must be at least of size 1");
