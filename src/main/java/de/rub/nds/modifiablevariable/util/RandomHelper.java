@@ -7,6 +7,7 @@
  */
 package de.rub.nds.modifiablevariable.util;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Random;
 
 /**
@@ -32,6 +33,10 @@ public final class RandomHelper {
      *
      * @return A Random instance with a fixed seed of 0
      */
+    @SuppressFBWarnings(
+            value = "MS_EXPOSE_REP",
+            justification =
+                    "Intentionally sharing Random instance across application for deterministic testing")
     public static synchronized Random getRandom() {
         if (random == null) {
             random = new Random(0);
@@ -60,6 +65,10 @@ public final class RandomHelper {
      *
      * @param randomInstance The Random instance to use as the singleton
      */
+    @SuppressFBWarnings(
+            value = "EI_EXPOSE_STATIC_REP2",
+            justification =
+                    "Intentionally allowing external Random instances to be set for testing flexibility")
     public static synchronized void setRandom(Random randomInstance) {
         random = randomInstance;
     }

@@ -8,7 +8,7 @@
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -32,15 +32,6 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
     }
 
     /**
-     * Copy constructor for creating a deep copy of an existing modification.
-     *
-     * @param other The modification to copy
-     */
-    public ByteArrayDuplicateModification(ByteArrayDuplicateModification other) {
-        super();
-    }
-
-    /**
      * Creates a deep copy of this modification.
      *
      * <p>Since this modification is stateless, all instances are equivalent.
@@ -49,7 +40,7 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
      */
     @Override
     public ByteArrayDuplicateModification createCopy() {
-        return new ByteArrayDuplicateModification(this);
+        return new ByteArrayDuplicateModification();
     }
 
     /**
@@ -72,7 +63,7 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
         if (input == null) {
             return null;
         }
-        return ArrayConverter.concatenate(input, input);
+        return DataConverter.concatenate(input, input);
     }
 
     /**

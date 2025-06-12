@@ -100,6 +100,12 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
         </dependency>
+        <!-- scope: provided -->
+        <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-annotations</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <!-- scope: test -->
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
@@ -174,6 +180,7 @@
                     <target>${maven.compiler.target}</target>
                     <compilerArgs>
                         <compilerArg>-proc:full</compilerArg>
+                        <compilerArg>-Xlint:deprecation</compilerArg>
                     </compilerArgs>
                 </configuration>
             </plugin>
@@ -266,10 +273,21 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
+                <configuration>
+                    <excludeFilterFile>spotbugs-exclude.xml</excludeFilterFile>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
+                <configuration>
+                    <minimumTokens>150</minimumTokens>
+                    <excludes>
+                        <!-- Exclude shift modifications from CPD as duplication between Integer/Long is acceptable -->
+                        <exclude>**/integer/*ShiftModification.java</exclude>
+                        <exclude>**/longint/*ShiftModification.java</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
         </plugins>
     </build>

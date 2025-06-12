@@ -130,12 +130,12 @@ public class ModifiableLengthField extends ModifiableInteger {
         if (!(obj instanceof ModifiableLengthField that)) {
             return false;
         }
-        // First check if the values are equal
-        boolean valuesEqual =
-                getValue() == null ? that.getValue() == null : getValue().equals(that.getValue());
-        // Then check if they reference the same byte array
-        boolean refsEqual = ref.equals(that.ref);
-        return valuesEqual && refsEqual;
+        // First check if the parent class considers them equal
+        if (!super.equals(obj)) {
+            return false;
+        }
+        // Then check if they reference equal byte arrays
+        return Objects.equals(ref, that.ref);
     }
 
     /**

@@ -8,7 +8,7 @@
 package de.rub.nds.modifiablevariable.longint;
 
 import de.rub.nds.modifiablevariable.ModifiableVariable;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -133,7 +133,7 @@ public class ModifiableLong extends ModifiableVariable<Long> {
      * @return A byte array representation of the current value with the specified size
      */
     public byte[] getByteArray(int size) {
-        return ArrayConverter.longToBytes(getValue(), size);
+        return DataConverter.longToBytes(getValue(), size);
     }
 
     /**

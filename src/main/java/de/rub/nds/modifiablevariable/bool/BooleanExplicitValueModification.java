@@ -8,6 +8,7 @@
 package de.rub.nds.modifiablevariable.bool;
 
 import de.rub.nds.modifiablevariable.VariableModification;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -76,6 +77,10 @@ public class BooleanExplicitValueModification extends VariableModification<Boole
      * @return The explicit value, or null if input was null
      */
     @Override
+    @SuppressFBWarnings(
+            value = "NP_BOOLEAN_RETURN_NULL",
+            justification =
+                    "Returning null for null input is intentional design for null-safety in modification chain")
     protected Boolean modifyImplementationHook(Boolean input) {
         if (input == null) {
             return null;
