@@ -56,8 +56,8 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
      */
     public ByteArrayInsertValueModification(byte[] bytesToInsert, int startPosition) {
         super();
-        this.bytesToInsert =
-                Objects.requireNonNull(bytesToInsert, "BytesToInsert must not be null");
+        Objects.requireNonNull(bytesToInsert, "BytesToInsert must not be null");
+        this.bytesToInsert = bytesToInsert.clone();
         this.startPosition = startPosition;
     }
 
@@ -129,7 +129,7 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
      * @return The bytes to insert
      */
     public byte[] getBytesToInsert() {
-        return bytesToInsert;
+        return bytesToInsert == null ? null : bytesToInsert.clone();
     }
 
     /**
@@ -139,8 +139,8 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
      * @throws NullPointerException if bytesToInsert is null
      */
     public void setBytesToInsert(byte[] bytesToInsert) {
-        this.bytesToInsert =
-                Objects.requireNonNull(bytesToInsert, "bytesToInsert must not be null");
+        Objects.requireNonNull(bytesToInsert, "bytesToInsert must not be null");
+        this.bytesToInsert = bytesToInsert.clone();
     }
 
     /**

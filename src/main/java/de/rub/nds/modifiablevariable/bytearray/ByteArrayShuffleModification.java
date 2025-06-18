@@ -45,7 +45,8 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
      */
     public ByteArrayShuffleModification(int[] shuffle) {
         super();
-        this.shuffle = Objects.requireNonNull(shuffle, "Shuffle pattern must not be null");
+        Objects.requireNonNull(shuffle, "Shuffle pattern must not be null");
+        this.shuffle = shuffle.clone();
     }
 
     /**
@@ -113,7 +114,7 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
      * @return The int array containing the shuffle pattern
      */
     public int[] getShuffle() {
-        return shuffle;
+        return shuffle == null ? null : shuffle.clone();
     }
 
     /**
@@ -123,7 +124,8 @@ public class ByteArrayShuffleModification extends VariableModification<byte[]> {
      * @throws NullPointerException if shuffle is null
      */
     public void setShuffle(int[] shuffle) {
-        this.shuffle = Objects.requireNonNull(shuffle, "Shuffle pattern must not be null");
+        Objects.requireNonNull(shuffle, "Shuffle pattern must not be null");
+        this.shuffle = shuffle.clone();
     }
 
     /**

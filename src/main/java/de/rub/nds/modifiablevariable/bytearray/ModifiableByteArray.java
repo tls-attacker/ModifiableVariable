@@ -59,7 +59,7 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
      */
     public ModifiableByteArray(byte[] originalValue) {
         super();
-        this.originalValue = originalValue;
+        this.originalValue = originalValue == null ? null : originalValue.clone();
     }
 
     /**
@@ -99,7 +99,7 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
     @Override
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     public byte[] getOriginalValue() {
-        return originalValue;
+        return originalValue == null ? null : originalValue.clone();
     }
 
     /**
@@ -109,7 +109,7 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
      */
     @Override
     public void setOriginalValue(byte[] originalValue) {
-        this.originalValue = originalValue;
+        this.originalValue = originalValue == null ? null : originalValue.clone();
     }
 
     /**
@@ -121,7 +121,7 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
      */
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     public byte[] getAssertEquals() {
-        return assertEquals;
+        return assertEquals == null ? null : assertEquals.clone();
     }
 
     /**
@@ -130,7 +130,7 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
      * @param assertEquals The expected byte array value
      */
     public void setAssertEquals(byte[] assertEquals) {
-        this.assertEquals = assertEquals;
+        this.assertEquals = assertEquals == null ? null : assertEquals.clone();
     }
 
     /**

@@ -52,8 +52,8 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
      */
     public ByteArrayPrependValueModification(byte[] bytesToPrepend) {
         super();
-        this.bytesToPrepend =
-                Objects.requireNonNull(bytesToPrepend, "bytesToPrepend must not be null");
+        Objects.requireNonNull(bytesToPrepend, "bytesToPrepend must not be null");
+        this.bytesToPrepend = bytesToPrepend.clone();
     }
 
     /**
@@ -107,7 +107,7 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
      * @return The bytes to prepend
      */
     public byte[] getBytesToPrepend() {
-        return bytesToPrepend;
+        return bytesToPrepend == null ? null : bytesToPrepend.clone();
     }
 
     /**
@@ -117,8 +117,8 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
      * @throws NullPointerException if bytesToPrepend is null
      */
     public void setBytesToPrepend(byte[] bytesToPrepend) {
-        this.bytesToPrepend =
-                Objects.requireNonNull(bytesToPrepend, "bytesToPrepend must not be null");
+        Objects.requireNonNull(bytesToPrepend, "bytesToPrepend must not be null");
+        this.bytesToPrepend = bytesToPrepend.clone();
     }
 
     /**

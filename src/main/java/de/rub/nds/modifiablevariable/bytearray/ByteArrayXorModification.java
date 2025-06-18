@@ -49,7 +49,8 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
      */
     public ByteArrayXorModification(byte[] xor, int startPosition) {
         super();
-        this.xor = Objects.requireNonNull(xor, "XOR array must not be null");
+        Objects.requireNonNull(xor, "XOR array must not be null");
+        this.xor = xor.clone();
         this.startPosition = startPosition;
     }
 
@@ -126,10 +127,10 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
     /**
      * Gets the byte array used for the XOR operation.
      *
-     * @return The XOR byte array
+     * @return A copy of the XOR byte array
      */
     public byte[] getXor() {
-        return xor;
+        return xor == null ? null : xor.clone();
     }
 
     /**
@@ -138,7 +139,7 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
      * @param xor The new XOR byte array
      */
     public void setXor(byte[] xor) {
-        this.xor = xor;
+        this.xor = xor == null ? null : xor.clone();
     }
 
     /**

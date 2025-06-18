@@ -44,8 +44,8 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
      */
     public ByteArrayExplicitValueModification(byte[] explicitValue) {
         super();
-        this.explicitValue =
-                Objects.requireNonNull(explicitValue, "ExplicitValue must not be null");
+        Objects.requireNonNull(explicitValue, "ExplicitValue must not be null");
+        this.explicitValue = explicitValue.clone();
     }
 
     /**
@@ -91,7 +91,7 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
      * @return The explicit byte array
      */
     public byte[] getExplicitValue() {
-        return explicitValue;
+        return explicitValue == null ? null : explicitValue.clone();
     }
 
     /**
@@ -100,8 +100,8 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
      * @param explicitValue The new explicit byte array to use
      */
     public void setExplicitValue(byte[] explicitValue) {
-        this.explicitValue =
-                Objects.requireNonNull(explicitValue, "ExplicitValue must not be null");
+        Objects.requireNonNull(explicitValue, "ExplicitValue must not be null");
+        this.explicitValue = explicitValue.clone();
     }
 
     /**
