@@ -36,6 +36,7 @@ public class LongSwapEndianModification extends VariableModification<Long> {
      *
      * @param other The modification to copy
      */
+    @SuppressWarnings("PMD.UnusedFormalParameter")
     public LongSwapEndianModification(LongSwapEndianModification other) {
         super();
     }
