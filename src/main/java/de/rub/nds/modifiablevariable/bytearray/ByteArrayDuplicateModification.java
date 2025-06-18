@@ -36,6 +36,7 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
      *
      * @param other The modification to copy
      */
+    @SuppressWarnings("PMD.UnusedFormalParameter")
     public ByteArrayDuplicateModification(ByteArrayDuplicateModification other) {
         super();
     }
