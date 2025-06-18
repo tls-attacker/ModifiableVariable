@@ -32,6 +32,7 @@ public class BooleanToggleModification extends VariableModification<Boolean> {
      *
      * @param other The modification to copy
      */
+    @SuppressWarnings("PMD.UnusedFormalParameter")
     public BooleanToggleModification(BooleanToggleModification other) {
         super();
     }
