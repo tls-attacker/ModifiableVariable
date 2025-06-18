@@ -846,6 +846,11 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
             return builder;
         }
 
+        /**
+         * Determines if any formatter requires location information.
+         *
+         * @return true if location information is required, false otherwise
+         */
         public boolean requiresLocation() {
             return Arrays.stream(formatters).anyMatch(PatternFormatter::requiresLocation);
         }
