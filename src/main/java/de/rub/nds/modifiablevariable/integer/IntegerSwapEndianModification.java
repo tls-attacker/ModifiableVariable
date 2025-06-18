@@ -38,6 +38,7 @@ public class IntegerSwapEndianModification extends VariableModification<Integer>
      *
      * @param other The modification to copy
      */
+    @SuppressWarnings("PMD.UnusedFormalParameter")
     public IntegerSwapEndianModification(IntegerSwapEndianModification other) {
         super();
     }
