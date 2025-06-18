@@ -44,7 +44,7 @@ public class ComparableByteArray {
      */
     public ComparableByteArray(byte[] array) {
         super();
-        this.array = array;
+        this.array = array == null ? null : array.clone();
     }
 
     /**
@@ -53,7 +53,7 @@ public class ComparableByteArray {
      * @return A the wrapped byte array
      */
     public byte[] getArray() {
-        return array;
+        return array == null ? null : array.clone();
     }
 
     /**
@@ -62,7 +62,7 @@ public class ComparableByteArray {
      * @param array The new byte array to wrap
      */
     public void setArray(byte[] array) {
-        this.array = array;
+        this.array = array == null ? null : array.clone();
     }
 
     /**

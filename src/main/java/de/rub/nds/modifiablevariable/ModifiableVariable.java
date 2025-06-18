@@ -113,10 +113,10 @@ public abstract class ModifiableVariable<E> implements Serializable {
     /**
      * Returns all modifications that are set for this modifiable variable.
      *
-     * @return The list of modifications or null if no modifications are set
+     * @return A copy of the list of modifications or null if no modifications are set
      */
     public LinkedList<VariableModification<E>> getModifications() {
-        return modifications;
+        return modifications == null ? null : new LinkedList<>(modifications);
     }
 
     /**
