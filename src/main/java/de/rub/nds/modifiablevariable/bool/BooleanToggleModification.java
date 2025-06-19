@@ -22,7 +22,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class BooleanToggleModification extends VariableModification<Boolean> {
 
-    /** Default constructor */
+    /** Default constructor. */
     public BooleanToggleModification() {
         super();
     }
