@@ -9,7 +9,20 @@ package de.rub.nds.modifiablevariable;
 
 import static de.rub.nds.modifiablevariable.util.StringUtil.backslashEscapeString;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import de.rub.nds.modifiablevariable.biginteger.*;
+import de.rub.nds.modifiablevariable.bool.BooleanExplicitValueModification;
+import de.rub.nds.modifiablevariable.bool.BooleanToggleModification;
+import de.rub.nds.modifiablevariable.bytearray.*;
+import de.rub.nds.modifiablevariable.integer.*;
+import de.rub.nds.modifiablevariable.longint.*;
+import de.rub.nds.modifiablevariable.singlebyte.ByteAddModification;
+import de.rub.nds.modifiablevariable.singlebyte.ByteExplicitValueModification;
+import de.rub.nds.modifiablevariable.singlebyte.ByteSubtractModification;
+import de.rub.nds.modifiablevariable.singlebyte.ByteXorModification;
+import de.rub.nds.modifiablevariable.string.*;
 import de.rub.nds.modifiablevariable.util.DataConverter;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -46,7 +59,72 @@ import org.apache.logging.log4j.Logger;
  */
 @XmlTransient
 @XmlAccessorType(XmlAccessType.FIELD)
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
+@JsonSubTypes({
+    @JsonSubTypes.Type(name = "BigIntegerAdd", value = BigIntegerAddModification.class),
+    @JsonSubTypes.Type(
+            name = "BigIntegerExplicitValue",
+            value = BigIntegerExplicitValueModification.class),
+    @JsonSubTypes.Type(name = "BigIntegerMultiply", value = BigIntegerMultiplyModification.class),
+    @JsonSubTypes.Type(name = "BigIntegerShiftLeft", value = BigIntegerShiftLeftModification.class),
+    @JsonSubTypes.Type(
+            name = "BigIntegerShiftRight",
+            value = BigIntegerShiftRightModification.class),
+    @JsonSubTypes.Type(name = "BigIntegerSubtract", value = BigIntegerSubtractModification.class),
+    @JsonSubTypes.Type(name = "BigIntegerXor", value = BigIntegerXorModification.class),
+    @JsonSubTypes.Type(
+            name = "BooleanExplicitValue",
+            value = BooleanExplicitValueModification.class),
+    @JsonSubTypes.Type(name = "BooleanToggle", value = BooleanToggleModification.class),
+    @JsonSubTypes.Type(
+            name = "ByteArrayAppendValue",
+            value = ByteArrayAppendValueModification.class),
+    @JsonSubTypes.Type(name = "ByteArrayDelete", value = ByteArrayDeleteModification.class),
+    @JsonSubTypes.Type(name = "ByteArrayDuplicate", value = ByteArrayDuplicateModification.class),
+    @JsonSubTypes.Type(
+            name = "ByteArrayExplicitValue",
+            value = ByteArrayExplicitValueModification.class),
+    @JsonSubTypes.Type(
+            name = "ByteArrayInsertValue",
+            value = ByteArrayInsertValueModification.class),
+    @JsonSubTypes.Type(
+            name = "ByteArrayPrependValue",
+            value = ByteArrayPrependValueModification.class),
+    @JsonSubTypes.Type(name = "ByteArrayShuffle", value = ByteArrayShuffleModification.class),
+    @JsonSubTypes.Type(name = "ByteArrayXor", value = ByteArrayXorModification.class),
+    @JsonSubTypes.Type(name = "IntegerAdd", value = IntegerAddModification.class),
+    @JsonSubTypes.Type(
+            name = "IntegerExplicitValue",
+            value = IntegerExplicitValueModification.class),
+    @JsonSubTypes.Type(name = "IntegerMultiply", value = IntegerMultiplyModification.class),
+    @JsonSubTypes.Type(name = "IntegerShiftLeft", value = IntegerShiftLeftModification.class),
+    @JsonSubTypes.Type(name = "IntegerShiftRight", value = IntegerShiftRightModification.class),
+    @JsonSubTypes.Type(name = "IntegerSubtract", value = IntegerSubtractModification.class),
+    @JsonSubTypes.Type(name = "IntegerSwapEndian", value = IntegerSwapEndianModification.class),
+    @JsonSubTypes.Type(name = "IntegerXor", value = IntegerXorModification.class),
+    @JsonSubTypes.Type(name = "LongAdd", value = LongAddModification.class),
+    @JsonSubTypes.Type(name = "LongExplicitValue", value = LongExplicitValueModification.class),
+    @JsonSubTypes.Type(name = "LongMultiply", value = LongMultiplyModification.class),
+    @JsonSubTypes.Type(name = "LongShiftLeft", value = LongShiftLeftModification.class),
+    @JsonSubTypes.Type(name = "LongShiftRight", value = LongShiftRightModification.class),
+    @JsonSubTypes.Type(name = "LongSubtract", value = LongSubtractModification.class),
+    @JsonSubTypes.Type(name = "LongSwapEndian", value = LongSwapEndianModification.class),
+    @JsonSubTypes.Type(name = "LongXor", value = LongXorModification.class),
+    @JsonSubTypes.Type(name = "ByteAdd", value = ByteAddModification.class),
+    @JsonSubTypes.Type(name = "ByteExplicitValue", value = ByteExplicitValueModification.class),
+    @JsonSubTypes.Type(name = "ByteSubtract", value = ByteSubtractModification.class),
+    @JsonSubTypes.Type(name = "ByteXor", value = ByteXorModification.class),
+    @JsonSubTypes.Type(name = "StringAppendValue", value = StringAppendValueModification.class),
+    @JsonSubTypes.Type(name = "StringDelete", value = StringDeleteModification.class),
+    @JsonSubTypes.Type(name = "StringExplicitValue", value = StringExplicitValueModification.class),
+    @JsonSubTypes.Type(name = "StringInsertValue", value = StringInsertValueModification.class),
+    @JsonSubTypes.Type(name = "StringPrependValue", value = StringPrependValueModification.class),
+})
+@JsonAutoDetect(
+        fieldVisibility = JsonAutoDetect.Visibility.ANY,
+        getterVisibility = JsonAutoDetect.Visibility.NONE,
+        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
+        setterVisibility = JsonAutoDetect.Visibility.NONE)
 public abstract class VariableModification<E> implements Serializable {
 
     /** Logger for debugging modification applications */

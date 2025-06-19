@@ -9,63 +9,46 @@ package de.rub.nds.modifiablevariable.serialization;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.string.ModifiableString;
 import de.rub.nds.modifiablevariable.string.StringInsertValueModification;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Marshaller;
-import jakarta.xml.bind.Unmarshaller;
-import java.io.StringReader;
-import java.io.StringWriter;
+import de.rub.nds.modifiablevariable.util.ModifiableVariableModule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class StringSerializationTest {
 
     private static final Logger LOGGER = LogManager.getLogger();
+    private static ObjectMapper mapper;
 
     private ModifiableString start;
-
     private String expectedResult, result;
 
-    private StringWriter writer;
-
-    private JAXBContext context;
-
-    private Marshaller m;
-
-    private Unmarshaller um;
+    @BeforeAll
+    public static void setUpClass() {
+        mapper = new ObjectMapper();
+        mapper.registerModule(new ModifiableVariableModule());
+    }
 
     @BeforeEach
-    void setUp() throws JAXBException {
+    void setUp() {
         start = new ModifiableString("Hello from Test ❤️\\ \u0000 \u0001 \u0006");
         expectedResult = null;
         result = null;
-
-        writer = new StringWriter();
-        context =
-                JAXBContext.newInstance(
-                        ModifiableString.class, StringInsertValueModification.class);
-        m = context.createMarshaller();
-        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        um = context.createUnmarshaller();
     }
 
     @Test
     void testSerializeDeserializeSimple() throws Exception {
         start.clearModifications();
         start.setAssertEquals("Hello from Test 2 \\ \u0000 \u0001 \u0006");
-        m.marshal(start, writer);
 
-        String xmlString = writer.toString();
-        LOGGER.debug(xmlString);
-
-        um = context.createUnmarshaller();
-        ModifiableString unmarshalled =
-                (ModifiableString) um.unmarshal(new StringReader(xmlString));
+        String jsonString = mapper.writeValueAsString(start);
+        LOGGER.debug(jsonString);
+        ModifiableString unmarshalled = mapper.readValue(jsonString, ModifiableString.class);
 
         expectedResult = "Hello from Test ❤️\\ \u0000 \u0001 \u0006";
         result = unmarshalled.getValue();
@@ -76,14 +59,10 @@ class StringSerializationTest {
     void testSerializeDeserializeWithModification() throws Exception {
         VariableModification<String> modifier = new StringInsertValueModification("Uff! ", 0);
         start.setModifications(modifier);
-        m.marshal(start, writer);
 
-        String xmlString = writer.toString();
-        LOGGER.debug(xmlString);
-
-        um = context.createUnmarshaller();
-        ModifiableString unmarshalled =
-                (ModifiableString) um.unmarshal(new StringReader(xmlString));
+        String jsonString = mapper.writeValueAsString(start);
+        LOGGER.debug(jsonString);
+        ModifiableString unmarshalled = mapper.readValue(jsonString, ModifiableString.class);
 
         expectedResult = "Uff! Hello from Test ❤️\\ \u0000 \u0001 \u0006";
         result = unmarshalled.getValue();

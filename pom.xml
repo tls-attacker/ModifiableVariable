@@ -67,6 +67,7 @@
     </properties>
 
     <dependencies>
+        <!-- scope: compile -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
@@ -79,11 +80,6 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-yaml</artifactId>
-        </dependency>
-        <!-- scope: compile -->
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
@@ -106,11 +102,6 @@
             <scope>provided</scope>
         </dependency>
         <!-- scope: test -->
-        <dependency>
-            <groupId>org.glassfish.jaxb</groupId>
-            <artifactId>jaxb-runtime</artifactId>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -189,6 +180,34 @@
                                 <arg>-Alog4j.graalvm.artifactId=${project.artifactId}</arg>
                             </compilerArgs>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Generate JSON schema from Java classes -->
+            <plugin>
+                <groupId>com.github.victools</groupId>
+                <artifactId>jsonschema-maven-plugin</artifactId>
+                <version>4.38.0</version>
+                <configuration>
+                    <classNames>de.rub.nds.modifiablevariable.ModifiableVariable</classNames>
+                    <schemaFilePath>src/main/resources</schemaFilePath>
+                    <schemaFileName>{0}.schema.json</schemaFileName>
+                    <schemaVersion>DRAFT_2020_12</schemaVersion>
+                    <modules>
+                        <module>
+                            <name>Jackson</name>
+                            <options>
+                                <option>RESPECT_JSONPROPERTY_REQUIRED</option>
+                                <option>ALWAYS_REF_SUBTYPES</option>
+                            </options>
+                        </module>
+                    </modules>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>

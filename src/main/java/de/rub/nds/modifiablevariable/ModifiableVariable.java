@@ -7,7 +7,15 @@
  */
 package de.rub.nds.modifiablevariable;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.*;
+import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
+import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
+import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
+import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
+import de.rub.nds.modifiablevariable.length.ModifiableLengthField;
+import de.rub.nds.modifiablevariable.longint.ModifiableLong;
+import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
+import de.rub.nds.modifiablevariable.string.ModifiableString;
 import jakarta.xml.bind.annotation.*;
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -32,15 +40,32 @@ import java.util.stream.Collectors;
  */
 @XmlTransient
 @XmlAccessorType(XmlAccessType.FIELD)
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
+@JsonSubTypes({
+    @JsonSubTypes.Type(name = "BigInteger", value = ModifiableBigInteger.class),
+    @JsonSubTypes.Type(name = "Boolean", value = ModifiableBoolean.class),
+    @JsonSubTypes.Type(name = "ByteArray", value = ModifiableByteArray.class),
+    @JsonSubTypes.Type(name = "Integer", value = ModifiableInteger.class),
+    @JsonSubTypes.Type(name = "LengthField", value = ModifiableLengthField.class),
+    @JsonSubTypes.Type(name = "Long", value = ModifiableLong.class),
+    @JsonSubTypes.Type(name = "Byte", value = ModifiableByte.class),
+    @JsonSubTypes.Type(name = "String", value = ModifiableString.class),
+})
+@JsonAutoDetect(
+        fieldVisibility = JsonAutoDetect.Visibility.ANY,
+        getterVisibility = JsonAutoDetect.Visibility.NONE,
+        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
+        setterVisibility = JsonAutoDetect.Visibility.NONE)
 public abstract class ModifiableVariable<E> implements Serializable {
 
     /** The list of modifications that will be applied to the original value when accessed */
     @XmlElementWrapper
     @XmlAnyElement(lax = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private LinkedList<VariableModification<E>> modifications;
 
     /** The expected value for assertion validation */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     protected E assertEquals;
 
     /** Default constructor that creates an empty modifiable variable. */

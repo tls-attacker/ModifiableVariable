@@ -7,6 +7,7 @@
  */
 package de.rub.nds.modifiablevariable.biginteger;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.math.BigInteger;
@@ -27,6 +28,7 @@ import java.util.Objects;
 public class BigIntegerXorModification extends VariableModification<BigInteger> {
 
     /** The BigInteger value to XOR with the original value */
+    @JsonProperty(required = true)
     private BigInteger xor;
 
     /** Default constructor for serialization. */

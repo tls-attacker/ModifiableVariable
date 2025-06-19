@@ -7,6 +7,7 @@
  */
 package de.rub.nds.modifiablevariable.biginteger;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.math.BigInteger;
@@ -23,6 +24,7 @@ import java.util.Objects;
 public class BigIntegerAddModification extends VariableModification<BigInteger> {
 
     /** The value to add to the original BigInteger */
+    @JsonProperty(required = true)
     private BigInteger summand;
 
     /** Default constructor for serialization. */
