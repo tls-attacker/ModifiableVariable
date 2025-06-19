@@ -147,6 +147,17 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
         return new ExtendedPatternLayout.SerializerBuilder();
     }
 
+    /**
+     * Determines if this layout requires location information (i.e., class name, method name, line
+     * number).
+     *
+     * <p>Location information can be expensive to generate, so this method allows the logging
+     * framework to determine whether it needs to capture stack traces for log events processed by
+     * this layout.
+     *
+     * @return {@code true} if the configured event serializer requires location information, {@code
+     *     false} otherwise
+     */
     @Override
     public boolean requiresLocation() {
         return eventSerializer instanceof LocationAware
