@@ -147,6 +147,17 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
         return new ExtendedPatternLayout.SerializerBuilder();
     }
 
+    /**
+     * Determines if this layout requires location information (i.e., class name, method name, line
+     * number).
+     *
+     * <p>Location information can be expensive to generate, so this method allows the logging
+     * framework to determine whether it needs to capture stack traces for log events processed by
+     * this layout.
+     *
+     * @return {@code true} if the configured event serializer requires location information, {@code
+     *     false} otherwise
+     */
     @Override
     public boolean requiresLocation() {
         return eventSerializer instanceof LocationAware
@@ -530,6 +541,14 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
             return this;
         }
 
+        /**
+         * Builds a new ExtendedPatternLayout instance with the configured settings.
+         *
+         * <p>This method creates a new layout using all the settings configured on this builder. If
+         * no configuration has been explicitly set, a default configuration will be used.
+         *
+         * @return A new ExtendedPatternLayout instance configured with the specified settings
+         */
         @Override
         public ExtendedPatternLayout build() {
             if (configuration == null) {
@@ -637,6 +656,20 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
         private boolean disableAnsi;
         private boolean noConsoleNoAnsi;
 
+        /**
+         * Builds a serializer for formatting log events according to the configured settings.
+         *
+         * <p>This method creates an appropriate serializer based on the configured options:
+         *
+         * <ul>
+         *   <li>If both pattern and defaultPattern are empty, returns null
+         *   <li>If a patternSelector is configured, creates a PatternSelectorSerializer
+         *   <li>Otherwise, creates an ExtendedPatternLayoutSerializer based on the parsed pattern
+         * </ul>
+         *
+         * @return A configured serializer instance, or null if no pattern is available
+         * @throws IllegalArgumentException if the pattern cannot be parsed
+         */
         @Override
         public AbstractStringLayout.Serializer build() {
             if (Strings.isEmpty(pattern) && Strings.isEmpty(defaultPattern)) {
