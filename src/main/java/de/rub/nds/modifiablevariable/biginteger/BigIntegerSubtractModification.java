@@ -7,6 +7,7 @@
  */
 package de.rub.nds.modifiablevariable.biginteger;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.math.BigInteger;
@@ -24,6 +25,7 @@ import java.util.Objects;
 public class BigIntegerSubtractModification extends VariableModification<BigInteger> {
 
     /** The value to subtract from the original BigInteger */
+    @JsonProperty(required = true)
     private BigInteger subtrahend;
 
     /** Default constructor for serialization. */

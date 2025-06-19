@@ -10,66 +10,47 @@ package de.rub.nds.modifiablevariable.serialization;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.biginteger.BigIntegerAddModification;
 import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
-import de.rub.nds.modifiablevariable.bytearray.ByteArrayExplicitValueModification;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Marshaller;
-import jakarta.xml.bind.Unmarshaller;
-import java.io.StringReader;
-import java.io.StringWriter;
+import de.rub.nds.modifiablevariable.util.ModifiableVariableModule;
 import java.math.BigInteger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class BigIntegerSerializationTest {
 
-    private static final Logger LOGGER = LogManager.getLogger(BigIntegerSerializationTest.class);
+    private static final Logger LOGGER = LogManager.getLogger();
+    private static ObjectMapper mapper;
 
     private ModifiableBigInteger start;
-
     private BigInteger expectedResult, result;
 
-    private StringWriter writer;
-
-    private JAXBContext context;
-
-    private Marshaller m;
-
-    private Unmarshaller um;
+    @BeforeAll
+    static void setUpClass() {
+        mapper = new ObjectMapper();
+        mapper.registerModule(new ModifiableVariableModule());
+    }
 
     @BeforeEach
-    void setUp() throws JAXBException {
+    void setUp() {
         start = new ModifiableBigInteger();
         start.setOriginalValue(BigInteger.TEN);
         expectedResult = null;
         result = null;
-
-        writer = new StringWriter();
-        context =
-                JAXBContext.newInstance(
-                        ModifiableBigInteger.class,
-                        BigIntegerAddModification.class,
-                        ByteArrayExplicitValueModification.class);
-        m = context.createMarshaller();
-        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        um = context.createUnmarshaller();
     }
 
     @Test
     void testSerializeDeserializeSimple() throws Exception {
         start.clearModifications();
-        m.marshal(start, writer);
 
-        String xmlString = writer.toString();
-        LOGGER.info(xmlString);
-
-        um = context.createUnmarshaller();
-        ModifiableBigInteger mv = (ModifiableBigInteger) um.unmarshal(new StringReader(xmlString));
+        String jsonString = mapper.writeValueAsString(start);
+        LOGGER.debug(jsonString);
+        ModifiableBigInteger mv = mapper.readValue(jsonString, ModifiableBigInteger.class);
 
         expectedResult = new BigInteger("10");
         result = mv.getValue();
@@ -81,13 +62,10 @@ class BigIntegerSerializationTest {
     void testSerializeDeserializeWithModification() throws Exception {
         VariableModification<BigInteger> modifier = new BigIntegerAddModification(BigInteger.ONE);
         start.setModifications(modifier);
-        m.marshal(start, writer);
 
-        String xmlString = writer.toString();
-        LOGGER.debug(xmlString);
-
-        um = context.createUnmarshaller();
-        ModifiableBigInteger mv = (ModifiableBigInteger) um.unmarshal(new StringReader(xmlString));
+        String jsonString = mapper.writeValueAsString(start);
+        LOGGER.debug(jsonString);
+        ModifiableBigInteger mv = mapper.readValue(jsonString, ModifiableBigInteger.class);
 
         expectedResult = new BigInteger("11");
         result = mv.getValue();

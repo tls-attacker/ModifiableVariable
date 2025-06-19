@@ -7,6 +7,7 @@
  */
 package de.rub.nds.modifiablevariable.bytearray;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Arrays;
@@ -29,6 +30,7 @@ import java.util.Objects;
 public class ByteArrayShuffleModification extends VariableModification<byte[]> {
 
     /** The shuffle pattern defining which indices to swap */
+    @JsonProperty(required = true)
     private int[] shuffle;
 
     /** Default constructor for serialization. */
