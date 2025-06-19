@@ -26,7 +26,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class ByteArrayDuplicateModification extends VariableModification<byte[]> {
 
-    /** Default constructor */
+    /** Default constructor. */
     public ByteArrayDuplicateModification() {
         super();
     }
