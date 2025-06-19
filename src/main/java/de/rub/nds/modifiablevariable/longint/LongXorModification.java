@@ -7,8 +7,8 @@
  */
 package de.rub.nds.modifiablevariable.longint;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
-import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
@@ -20,10 +20,10 @@ import java.util.Objects;
  *
  * @see ModifiableLong
  */
-@XmlRootElement
 public class LongXorModification extends VariableModification<Long> {
 
     /** The XOR mask to apply to the original long */
+    @JsonProperty(required = true)
     private long xor;
 
     /** Default constructor for serialization. */

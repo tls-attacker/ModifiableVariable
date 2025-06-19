@@ -8,7 +8,6 @@
 package de.rub.nds.modifiablevariable.integer;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * A modification that swaps the byte order (endianness) of a ModifiableInteger.
@@ -25,7 +24,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * @see ModifiableInteger
  * @see de.rub.nds.modifiablevariable.longint.LongSwapEndianModification
  */
-@XmlRootElement
 public class IntegerSwapEndianModification extends VariableModification<Integer> {
 
     /** Default constructor. */

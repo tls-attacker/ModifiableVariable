@@ -7,11 +7,9 @@
  */
 package de.rub.nds.modifiablevariable.bytearray;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
-import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -27,11 +25,10 @@ import java.util.Objects;
  * @see ModifiableByteArray
  * @see ByteArrayPrependValueModification
  */
-@XmlRootElement
 public class ByteArrayAppendValueModification extends VariableModification<byte[]> {
 
     /** The bytes to append to the end of the original byte array */
-    @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
+    @JsonProperty(required = true)
     private byte[] bytesToAppend;
 
     /** Default constructor for serialization. */

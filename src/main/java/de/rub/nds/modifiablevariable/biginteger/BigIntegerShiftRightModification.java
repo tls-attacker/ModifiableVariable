@@ -7,8 +7,8 @@
  */
 package de.rub.nds.modifiablevariable.biginteger;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
-import jakarta.xml.bind.annotation.XmlRootElement;
 import java.math.BigInteger;
 
 /**
@@ -21,10 +21,10 @@ import java.math.BigInteger;
  * @see BigIntegerShiftLeftModification
  * @see ModifiableBigInteger
  */
-@XmlRootElement
 public class BigIntegerShiftRightModification extends VariableModification<BigInteger> {
 
     /** The number of bit positions to shift right */
+    @JsonProperty(required = true)
     private int shift;
 
     /** Default constructor for serialization. */

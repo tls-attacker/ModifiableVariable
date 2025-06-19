@@ -9,8 +9,6 @@ package de.rub.nds.modifiablevariable;
 
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.ReflectionHelper;
-import jakarta.xml.bind.annotation.XmlType;
-import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.LinkedList;
@@ -35,11 +33,8 @@ import org.apache.logging.log4j.Logger;
  *
  * <p>This class is the backbone of the modifiable variable framework, as it allows for systematic
  * manipulation and inspection of protocol data structures that contain modifiable variables.
- *
- * <p>Classes that extend this base class can be serialized to XML using JAXB.
  */
-@XmlType(name = "ModVarHolder")
-public abstract class ModifiableVariableHolder implements Serializable {
+public abstract class ModifiableVariableHolder {
 
     /** Logger for this class */
     private static final Logger LOGGER = LogManager.getLogger();

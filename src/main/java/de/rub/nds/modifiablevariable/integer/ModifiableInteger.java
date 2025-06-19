@@ -7,9 +7,9 @@
  */
 package de.rub.nds.modifiablevariable.integer;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * A modifiable variable implementation for Integer values.
@@ -27,10 +27,10 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * @see IntegerSwapEndianModification
  * @see IntegerExplicitValueModification
  */
-@XmlRootElement
 public class ModifiableInteger extends ModifiableVariable<Integer> {
 
     /** The original integer value before any modifications */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer originalValue;
 
     /** Default constructor that creates an empty ModifiableInteger with no original value. */

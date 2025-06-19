@@ -9,12 +9,8 @@ package de.rub.nds.modifiablevariable.string;
 
 import static de.rub.nds.modifiablevariable.util.StringUtil.backslashEscapeString;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
-import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -24,20 +20,16 @@ import java.nio.charset.StandardCharsets;
  * String values. It supports various string-specific modifications such as appending, prepending,
  * inserting and deleting.
  *
- * <p>This class uses property-based XML access and the {@link IllegalStringAdapter} to handle
- * proper serialization of strings that might contain characters that are problematic in XML.
- *
  * @see ModifiableVariable
  * @see StringAppendValueModification
  * @see StringPrependValueModification
  * @see StringInsertValueModification
  * @see StringDeleteModification
  */
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.PROPERTY)
 public class ModifiableString extends ModifiableVariable<String> {
 
     /** The original string value before any modifications */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     protected String originalValue;
 
     /** Default constructor that creates an empty ModifiableString with no original value. */
@@ -84,7 +76,6 @@ public class ModifiableString extends ModifiableVariable<String> {
      *
      * @return The assertion value
      */
-    @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     public String getAssertEquals() {
         return assertEquals;
     }
@@ -144,7 +135,6 @@ public class ModifiableString extends ModifiableVariable<String> {
      * @return The original value
      */
     @Override
-    @XmlJavaTypeAdapter(IllegalStringAdapter.class)
     public String getOriginalValue() {
         return originalValue;
     }

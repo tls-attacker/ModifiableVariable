@@ -7,8 +7,8 @@
  */
 package de.rub.nds.modifiablevariable.singlebyte;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
-import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
@@ -19,10 +19,10 @@ import java.util.Objects;
  *
  * @see ModifiableByte
  */
-@XmlRootElement
 public class ByteXorModification extends VariableModification<Byte> {
 
     /** The byte value to XOR with the input byte */
+    @JsonProperty(required = true)
     private byte xor;
 
     /** Default constructor for serialization. */

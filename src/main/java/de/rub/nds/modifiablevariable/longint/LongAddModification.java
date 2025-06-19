@@ -7,8 +7,8 @@
  */
 package de.rub.nds.modifiablevariable.longint;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
-import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
@@ -19,10 +19,10 @@ import java.util.Objects;
  *
  * @see ModifiableLong
  */
-@XmlRootElement
 public class LongAddModification extends VariableModification<Long> {
 
     /** The value to add to the original long */
+    @JsonProperty(required = true)
     private long summand;
 
     /** Default constructor for serialization. */

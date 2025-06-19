@@ -7,8 +7,8 @@
  */
 package de.rub.nds.modifiablevariable.integer;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
-import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
@@ -19,10 +19,10 @@ import java.util.Objects;
  *
  * @see ModifiableInteger
  */
-@XmlRootElement
 public class IntegerExplicitValueModification extends VariableModification<Integer> {
 
     /** The explicit value that will replace the original value */
+    @JsonProperty(required = true)
     protected int explicitValue;
 
     /** Default constructor for serialization. */

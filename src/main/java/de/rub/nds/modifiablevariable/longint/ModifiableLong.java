@@ -7,9 +7,9 @@
  */
 package de.rub.nds.modifiablevariable.longint;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * A modifiable long integer variable.
@@ -33,10 +33,10 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * @see LongSwapEndianModification
  * @see LongExplicitValueModification
  */
-@XmlRootElement
 public class ModifiableLong extends ModifiableVariable<Long> {
 
     /** The original, unmodified value of this variable */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long originalValue;
 
     /**

@@ -7,13 +7,9 @@
  */
 package de.rub.nds.modifiablevariable.bytearray;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Arrays;
 
 /**
@@ -40,11 +36,10 @@ import java.util.Arrays;
  * @see ByteArrayXorModification
  * @see ByteArrayShuffleModification
  */
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.PROPERTY)
 public class ModifiableByteArray extends ModifiableVariable<byte[]> {
 
     /** The original byte array value before any modifications */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private byte[] originalValue;
 
     /** Default constructor that creates an empty ModifiableByteArray with no original value. */
@@ -97,7 +92,6 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
      * @return The original byte array value
      */
     @Override
-    @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     public byte[] getOriginalValue() {
         return originalValue;
     }
@@ -119,7 +113,6 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
      *
      * @return The assertion value
      */
-    @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
     public byte[] getAssertEquals() {
         return assertEquals;
     }

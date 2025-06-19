@@ -7,8 +7,15 @@
  */
 package de.rub.nds.modifiablevariable;
 
-import jakarta.xml.bind.annotation.*;
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.*;
+import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
+import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
+import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
+import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
+import de.rub.nds.modifiablevariable.length.ModifiableLengthField;
+import de.rub.nds.modifiablevariable.longint.ModifiableLong;
+import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
+import de.rub.nds.modifiablevariable.string.ModifiableString;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,23 +29,32 @@ import java.util.stream.Collectors;
  * modified through a chain of {@link VariableModification} operations before being accessed. Each
  * subclass represents a specific data type that can be modified at runtime.
  *
- * <p>The class is defined as transient to allow proper XML serialization with propOrder definition
- * in subclasses. See: <a
- * href="http://blog.bdoughan.com/2011/06/ignoring-inheritance-with-xmltransient.html">Ignoring
- * Inheritance with XmlTransient</a> for details.
- *
  * @param <E> The type of value this modifiable variable holds (e.g., Integer, String, byte[])
  */
-@XmlTransient
-@XmlAccessorType(XmlAccessType.FIELD)
-public abstract class ModifiableVariable<E> implements Serializable {
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
+@JsonSubTypes({
+    @JsonSubTypes.Type(name = "BigInteger", value = ModifiableBigInteger.class),
+    @JsonSubTypes.Type(name = "Boolean", value = ModifiableBoolean.class),
+    @JsonSubTypes.Type(name = "ByteArray", value = ModifiableByteArray.class),
+    @JsonSubTypes.Type(name = "Integer", value = ModifiableInteger.class),
+    @JsonSubTypes.Type(name = "LengthField", value = ModifiableLengthField.class),
+    @JsonSubTypes.Type(name = "Long", value = ModifiableLong.class),
+    @JsonSubTypes.Type(name = "Byte", value = ModifiableByte.class),
+    @JsonSubTypes.Type(name = "String", value = ModifiableString.class),
+})
+@JsonAutoDetect(
+        fieldVisibility = JsonAutoDetect.Visibility.ANY,
+        getterVisibility = JsonAutoDetect.Visibility.NONE,
+        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
+        setterVisibility = JsonAutoDetect.Visibility.NONE)
+public abstract class ModifiableVariable<E> {
 
     /** The list of modifications that will be applied to the original value when accessed */
-    @XmlElementWrapper
-    @XmlAnyElement(lax = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private LinkedList<VariableModification<E>> modifications;
 
     /** The expected value for assertion validation */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     protected E assertEquals;
 
     /** Default constructor that creates an empty modifiable variable. */

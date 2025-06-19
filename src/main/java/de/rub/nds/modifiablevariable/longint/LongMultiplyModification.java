@@ -7,8 +7,8 @@
  */
 package de.rub.nds.modifiablevariable.longint;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
-import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
@@ -19,10 +19,10 @@ import java.util.Objects;
  *
  * @see ModifiableLong
  */
-@XmlRootElement
 public class LongMultiplyModification extends VariableModification<Long> {
 
     /** The factor to multiply by */
+    @JsonProperty(required = true)
     private long factor;
 
     /** Default constructor for serialization. */

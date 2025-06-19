@@ -7,8 +7,8 @@
  */
 package de.rub.nds.modifiablevariable.integer;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
-import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * A modification that performs a signed right bit shift on a ModifiableInteger.
@@ -20,10 +20,10 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * @see ModifiableInteger
  * @see IntegerShiftLeftModification
  */
-@XmlRootElement
 public class IntegerShiftRightModification extends VariableModification<Integer> {
 
     /** The number of bit positions to shift right */
+    @JsonProperty(required = true)
     private int shift;
 
     /** Default constructor for serialization. */

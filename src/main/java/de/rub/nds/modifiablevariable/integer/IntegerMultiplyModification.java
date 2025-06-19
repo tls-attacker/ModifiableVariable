@@ -7,8 +7,8 @@
  */
 package de.rub.nds.modifiablevariable.integer;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
-import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
@@ -19,10 +19,10 @@ import java.util.Objects;
  *
  * @see ModifiableInteger
  */
-@XmlRootElement
 public class IntegerMultiplyModification extends VariableModification<Integer> {
 
     /** The factor by which to multiply the original integer value */
+    @JsonProperty(required = true)
     private int factor;
 
     /** Default constructor for serialization. */

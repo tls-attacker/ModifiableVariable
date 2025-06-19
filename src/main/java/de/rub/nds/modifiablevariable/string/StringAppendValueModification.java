@@ -9,10 +9,8 @@ package de.rub.nds.modifiablevariable.string;
 
 import static de.rub.nds.modifiablevariable.util.StringUtil.backslashEscapeString;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
-import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Objects;
 
 /**
@@ -25,11 +23,9 @@ import java.util.Objects;
  * @see StringPrependValueModification
  * @see StringInsertValueModification
  */
-@XmlRootElement
 public class StringAppendValueModification extends VariableModification<String> {
 
-    /** The string value to append to the input */
-    @XmlJavaTypeAdapter(IllegalStringAdapter.class)
+    @JsonProperty(required = true)
     private String appendValue;
 
     /** Default constructor for serialization. */

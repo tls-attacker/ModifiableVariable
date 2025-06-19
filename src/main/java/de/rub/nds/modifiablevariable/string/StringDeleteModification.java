@@ -7,8 +7,8 @@
  */
 package de.rub.nds.modifiablevariable.string;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
-import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
@@ -21,13 +21,14 @@ import java.util.Objects;
  * @see ModifiableString
  * @see StringInsertValueModification
  */
-@XmlRootElement
 public class StringDeleteModification extends VariableModification<String> {
 
     /** The number of characters to delete */
+    @JsonProperty(required = true)
     private int count;
 
     /** The position from which to start deletion (0-based index) */
+    @JsonProperty(required = true)
     private int startPosition;
 
     /** Default constructor for serialization. */

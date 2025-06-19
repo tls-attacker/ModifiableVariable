@@ -7,11 +7,10 @@
  */
 package de.rub.nds.modifiablevariable.length;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
@@ -29,11 +28,11 @@ import java.util.Objects;
  * and reference the same ModifiableByteArray. The hash code is computed based on both the modified
  * value and the referenced byte array.
  */
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 public class ModifiableLengthField extends ModifiableInteger {
 
     /** The byte array whose length this field represents */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonProperty(required = true)
     private final ModifiableByteArray ref;
 
     /** Default constructor for serialization. */

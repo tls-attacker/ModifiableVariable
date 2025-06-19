@@ -7,8 +7,8 @@
  */
 package de.rub.nds.modifiablevariable.biginteger;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
-import jakarta.xml.bind.annotation.XmlRootElement;
 import java.math.BigInteger;
 import java.util.Objects;
 
@@ -21,10 +21,10 @@ import java.util.Objects;
  *
  * @see ModifiableBigInteger
  */
-@XmlRootElement
 public class BigIntegerExplicitValueModification extends VariableModification<BigInteger> {
 
     /** The explicit value that will replace the original value */
+    @JsonProperty(required = true)
     private BigInteger explicitValue;
 
     /** Default constructor for serialization. */

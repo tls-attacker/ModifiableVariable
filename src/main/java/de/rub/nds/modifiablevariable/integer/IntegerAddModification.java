@@ -7,8 +7,8 @@
  */
 package de.rub.nds.modifiablevariable.integer;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
-import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
@@ -19,10 +19,10 @@ import java.util.Objects;
  *
  * @see ModifiableInteger
  */
-@XmlRootElement
 public class IntegerAddModification extends VariableModification<Integer> {
 
     /** The value to add to the original integer */
+    @JsonProperty(required = true)
     private int summand;
 
     /** Default constructor for serialization. */

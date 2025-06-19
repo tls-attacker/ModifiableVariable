@@ -8,7 +8,6 @@
 package de.rub.nds.modifiablevariable.bool;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * A modification that inverts (toggles) a ModifiableBoolean value.
@@ -19,7 +18,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * @see ModifiableBoolean
  * @see BooleanExplicitValueModification
  */
-@XmlRootElement
 public class BooleanToggleModification extends VariableModification<Boolean> {
 
     /** Default constructor */

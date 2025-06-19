@@ -9,7 +9,6 @@ package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
-import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * A modification that duplicates a ModifiableByteArray by concatenating it with itself.
@@ -23,7 +22,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * @see ModifiableByteArray
  * @see ByteArrayAppendValueModification
  */
-@XmlRootElement
 public class ByteArrayDuplicateModification extends VariableModification<byte[]> {
 
     /** Default constructor */
