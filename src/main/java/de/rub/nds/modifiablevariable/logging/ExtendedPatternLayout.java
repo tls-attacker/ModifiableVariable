@@ -541,6 +541,14 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
             return this;
         }
 
+        /**
+         * Builds a new ExtendedPatternLayout instance with the configured settings.
+         *
+         * <p>This method creates a new layout using all the settings configured on this builder. If
+         * no configuration has been explicitly set, a default configuration will be used.
+         *
+         * @return A new ExtendedPatternLayout instance configured with the specified settings
+         */
         @Override
         public ExtendedPatternLayout build() {
             if (configuration == null) {
