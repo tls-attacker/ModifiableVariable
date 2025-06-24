@@ -12,14 +12,18 @@ import static org.junit.jupiter.api.Assertions.*;
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.regex.Pattern;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.DefaultConfiguration;
+import org.apache.logging.log4j.core.impl.LocationAware;
 import org.apache.logging.log4j.core.impl.Log4jLogEvent;
 import org.apache.logging.log4j.core.layout.AbstractStringLayout;
 import org.apache.logging.log4j.core.layout.PatternSelector;
 import org.apache.logging.log4j.core.pattern.PatternFormatter;
+import org.apache.logging.log4j.core.pattern.PatternParser;
 import org.apache.logging.log4j.core.pattern.RegexReplacement;
 import org.apache.logging.log4j.message.ParameterizedMessage;
 import org.apache.logging.log4j.message.SimpleMessage;
@@ -495,6 +499,156 @@ class ExtendedPatternLayoutTest {
         assertNotNull(serializer);
     }
 
+    @Test
+    void testPatternSelectorSerializer() {
+        // Test PatternSelectorSerializer functionality
+        LocationAwarePatternSelector patternSelector = new LocationAwarePatternSelector(false);
+        RegexReplacement regexReplacement =
+                RegexReplacement.createRegexReplacement(Pattern.compile("test"), "TEST");
+
+        ExtendedPatternLayout layout =
+                ExtendedPatternLayout.newBuilder()
+                        .withPattern("%m%n")
+                        .withPatternSelector(patternSelector)
+                        .withRegexReplacement(regexReplacement)
+                        .build();
+
+        String message = "This is a test message";
+        LogEvent event = createLogEvent(new SimpleMessage(message));
+        String result = layout.toSerializable(event);
+
+        // Should replace "test" with "TEST"
+        assertTrue(result.contains("This is a TEST message"));
+    }
+
+    @Test
+    void testPatternSelectorSerializerToString() {
+        // Test toString method of PatternSelectorSerializer
+        LocationAwarePatternSelector patternSelector = new LocationAwarePatternSelector(false);
+        RegexReplacement regexReplacement =
+                RegexReplacement.createRegexReplacement(Pattern.compile("test"), "TEST");
+
+        ExtendedPatternLayout.SerializerBuilder builder =
+                ExtendedPatternLayout.newSerializerBuilder();
+        builder.setPattern("%m%n");
+        builder.setPatternSelector(patternSelector);
+        builder.setReplace(regexReplacement);
+
+        AbstractStringLayout.Serializer serializer = builder.build();
+        assertNotNull(serializer);
+
+        // The serializer should have a meaningful toString
+        String toStringResult = serializer.toString();
+        assertNotNull(toStringResult);
+        assertTrue(toStringResult.contains("patternSelector"));
+    }
+
+    @Test
+    void testLocationAwarePatternSelector() {
+        // Test with LocationAware pattern selector that requires location
+        LocationAwarePatternSelector patternSelector = new LocationAwarePatternSelector(true);
+
+        ExtendedPatternLayout layout =
+                ExtendedPatternLayout.newBuilder()
+                        .withPattern("%m%n")
+                        .withPatternSelector(patternSelector)
+                        .build();
+
+        assertTrue(layout.requiresLocation());
+
+        // Test with LocationAware pattern selector that doesn't require location
+        LocationAwarePatternSelector patternSelector2 = new LocationAwarePatternSelector(false);
+
+        ExtendedPatternLayout layout2 =
+                ExtendedPatternLayout.newBuilder()
+                        .withPattern("%m%n")
+                        .withPatternSelector(patternSelector2)
+                        .build();
+
+        assertFalse(layout2.requiresLocation());
+    }
+
+    @Test
+    void testPatternSelectorSerializerWithoutReplace() {
+        // Test PatternSelectorSerializer without regex replacement
+        LocationAwarePatternSelector patternSelector = new LocationAwarePatternSelector(false);
+
+        ExtendedPatternLayout layout =
+                ExtendedPatternLayout.newBuilder()
+                        .withPattern("%m%n")
+                        .withPatternSelector(patternSelector)
+                        .build();
+
+        String message = "This is a test message";
+        LogEvent event = createLogEvent(new SimpleMessage(message));
+        String result = layout.toSerializable(event);
+
+        // Should contain the original message
+        assertTrue(result.contains("This is a test message"));
+    }
+
+    @Test
+    void testSerializerBuilderWithOnlyPatternSelector() {
+        // Test creating serializer with pattern selector but no pattern
+        PatternSelector patternSelector = new LocationAwarePatternSelector(false);
+
+        ExtendedPatternLayout.SerializerBuilder builder =
+                ExtendedPatternLayout.newSerializerBuilder();
+        builder.setPatternSelector(patternSelector);
+        builder.setDefaultPattern("%m%n");
+
+        AbstractStringLayout.Serializer serializer = builder.build();
+        assertNotNull(serializer);
+    }
+
+    @Test
+    void testBuilderConstants() {
+        // Test the pattern constants
+        assertEquals("%m%n", ExtendedPatternLayout.DEFAULT_CONVERSION_PATTERN);
+        assertEquals(
+                "%r [%t] %p %c %notEmpty{%x }- %m%n",
+                ExtendedPatternLayout.TTCC_CONVERSION_PATTERN);
+        assertEquals("%d [%t] %p %c - %m%n", ExtendedPatternLayout.SIMPLE_CONVERSION_PATTERN);
+        assertEquals("Converter", ExtendedPatternLayout.KEY);
+    }
+
+    @Test
+    void testInvalidPatternInSerializerBuilder() {
+        // Test with an invalid pattern that causes exception
+        // Log4j will not throw an exception for invalid patterns, it will just log an error
+        // So let's remove this test as it's not valid
+        ExtendedPatternLayout.SerializerBuilder builder =
+                ExtendedPatternLayout.newSerializerBuilder();
+        builder.setPattern("%INVALID");
+        builder.setConfiguration(new DefaultConfiguration());
+
+        // The build should not throw - invalid patterns are logged as errors
+        AbstractStringLayout.Serializer serializer = builder.build();
+        assertNotNull(serializer);
+    }
+
+    @Test
+    void testPatternSelectorSerializerDirectly() {
+        // Test PatternSelectorSerializer's toSerializable(LogEvent) method directly
+        LocationAwarePatternSelector patternSelector = new LocationAwarePatternSelector(false);
+
+        ExtendedPatternLayout.SerializerBuilder builder =
+                ExtendedPatternLayout.newSerializerBuilder();
+        builder.setPatternSelector(patternSelector);
+        builder.setDefaultPattern("%m%n");
+
+        AbstractStringLayout.Serializer serializer = builder.build();
+        assertNotNull(serializer);
+
+        // Test the toSerializable(LogEvent) method
+        String message = "Test message";
+        LogEvent event = createLogEvent(new SimpleMessage(message));
+        String result = serializer.toSerializable(event);
+
+        assertNotNull(result);
+        assertTrue(result.contains("Test message"));
+    }
+
     private LogEvent createLogEvent(org.apache.logging.log4j.message.Message message) {
         return Log4jLogEvent.newBuilder()
                 .setLoggerName("TestLogger")
@@ -519,6 +673,34 @@ class ExtendedPatternLayoutTest {
         @Override
         public String toString() {
             return name;
+        }
+    }
+
+    // LocationAware PatternSelector implementation for testing
+    private static class LocationAwarePatternSelector implements PatternSelector, LocationAware {
+        private final boolean requiresLocation;
+        private final PatternFormatter[] formatters;
+
+        public LocationAwarePatternSelector(boolean requiresLocation) {
+            this.requiresLocation = requiresLocation;
+            PatternParser parser = ExtendedPatternLayout.createPatternParser(null);
+            List<PatternFormatter> formatterList = parser.parse("%m%n");
+            this.formatters = formatterList.toArray(new PatternFormatter[0]);
+        }
+
+        @Override
+        public PatternFormatter[] getFormatters(LogEvent event) {
+            return formatters;
+        }
+
+        @Override
+        public boolean requiresLocation() {
+            return requiresLocation;
+        }
+
+        @Override
+        public String toString() {
+            return "LocationAwarePatternSelector";
         }
     }
 }
