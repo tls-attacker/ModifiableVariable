@@ -12,10 +12,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 /** Tests for the {@link BadFixedRandom} class. */
-public class BadFixedRandomTest {
+class BadFixedRandomTest {
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         byte fixedValue = 42;
         BadFixedRandom badFixedRandom = new BadFixedRandom(fixedValue);
 
@@ -29,7 +29,7 @@ public class BadFixedRandomTest {
     }
 
     @Test
-    public void testNextBytesWithZeroLength() {
+    void testNextBytesWithZeroLength() {
         byte fixedValue = 42;
         BadFixedRandom badFixedRandom = new BadFixedRandom(fixedValue);
 
@@ -42,7 +42,7 @@ public class BadFixedRandomTest {
     }
 
     @Test
-    public void testNextBytesWithLargeArray() {
+    void testNextBytesWithLargeArray() {
         byte fixedValue = (byte) 0xFF; // Using -1 in two's complement
         BadFixedRandom badFixedRandom = new BadFixedRandom(fixedValue);
 
@@ -57,7 +57,7 @@ public class BadFixedRandomTest {
     }
 
     @Test
-    public void testMultipleNextBytesCall() {
+    void testMultipleNextBytesCall() {
         byte fixedValue = 123;
         BadFixedRandom badFixedRandom = new BadFixedRandom(fixedValue);
 
@@ -80,7 +80,7 @@ public class BadFixedRandomTest {
     }
 
     @Test
-    public void testSetSeed() {
+    void testSetSeed() {
         byte fixedValue = 77;
         BadFixedRandom badFixedRandom = new BadFixedRandom(fixedValue);
 
@@ -103,7 +103,7 @@ public class BadFixedRandomTest {
     }
 
     @Test
-    public void testNegativeFixedValue() {
+    void testNegativeFixedValue() {
         byte fixedValue = -128; // Minimum value for a byte
         BadFixedRandom badFixedRandom = new BadFixedRandom(fixedValue);
 
@@ -116,7 +116,7 @@ public class BadFixedRandomTest {
     }
 
     @Test
-    public void testZeroFixedValue() {
+    void testZeroFixedValue() {
         byte fixedValue = 0;
         BadFixedRandom badFixedRandom = new BadFixedRandom(fixedValue);
 

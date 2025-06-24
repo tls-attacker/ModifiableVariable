@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ByteArrayPrependValueModificationTest {
+class ByteArrayPrependValueModificationTest {
 
     private ByteArrayPrependValueModification b1;
     private ByteArrayPrependValueModification b2;
@@ -20,7 +20,7 @@ public class ByteArrayPrependValueModificationTest {
     private Object b4;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         b1 = new ByteArrayPrependValueModification(new byte[] {0x01, 0x02, 0x03});
         b2 = new ByteArrayPrependValueModification(new byte[] {0x01, 0x02, 0x03});
         b3 = new ByteArrayPrependValueModification(new byte[] {0x04, 0x05, 0x06});
@@ -29,7 +29,7 @@ public class ByteArrayPrependValueModificationTest {
 
     /** Test of modifyImplementationHook method, of class ByteArrayPrependValueModification. */
     @Test
-    public void testModifyImplementationHook() {
+    void testModifyImplementationHook() {
         // Test with a normal byte array
         byte[] input = new byte[] {0x10, 0x11, 0x12};
         byte[] expected = new byte[] {0x01, 0x02, 0x03, 0x10, 0x11, 0x12}; // bytesToPrepend + Input
@@ -46,7 +46,7 @@ public class ByteArrayPrependValueModificationTest {
 
     /** Test of createCopy method, of class ByteArrayPrependValueModification. */
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         ByteArrayPrependValueModification copy = b1.createCopy();
         assertNotSame(b1, copy);
         assertEquals(b1, copy);
@@ -55,7 +55,7 @@ public class ByteArrayPrependValueModificationTest {
 
     /** Test copy constructor */
     @Test
-    public void testCopyConstructor() {
+    void testCopyConstructor() {
         ByteArrayPrependValueModification copy = new ByteArrayPrependValueModification(b1);
         assertNotSame(b1, copy);
         assertEquals(b1, copy);
@@ -64,13 +64,13 @@ public class ByteArrayPrependValueModificationTest {
 
     /** Test of getBytesToPrepend method, of class ByteArrayPrependValueModification. */
     @Test
-    public void testGetBytesToPrepend() {
+    void testGetBytesToPrepend() {
         assertArrayEquals(new byte[] {0x01, 0x02, 0x03}, b1.getBytesToPrepend());
     }
 
     /** Test of setBytesToPrepend method, of class ByteArrayPrependValueModification. */
     @Test
-    public void testSetBytesToPrepend() {
+    void testSetBytesToPrepend() {
         ByteArrayPrependValueModification mod =
                 new ByteArrayPrependValueModification(new byte[] {0x01, 0x02});
         mod.setBytesToPrepend(new byte[] {0x0A, 0x0B, 0x0C});
@@ -79,7 +79,7 @@ public class ByteArrayPrependValueModificationTest {
 
     /** Test setBytesToPrepend with null value */
     @Test
-    public void testSetBytesToPrependNull() {
+    void testSetBytesToPrependNull() {
         ByteArrayPrependValueModification mod =
                 new ByteArrayPrependValueModification(new byte[] {0x01, 0x02});
         assertThrows(NullPointerException.class, () -> mod.setBytesToPrepend(null));
@@ -87,7 +87,7 @@ public class ByteArrayPrependValueModificationTest {
 
     /** Test constructor with null value */
     @Test
-    public void testConstructorNull() {
+    void testConstructorNull() {
         assertThrows(
                 NullPointerException.class,
                 () -> new ByteArrayPrependValueModification((byte[]) null));
@@ -95,14 +95,14 @@ public class ByteArrayPrependValueModificationTest {
 
     /** Test of hashCode method, of class ByteArrayPrependValueModification. */
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         assertEquals(b1.hashCode(), b2.hashCode()); // Same values
         assertNotEquals(b1.hashCode(), b3.hashCode()); // Different values
     }
 
     /** Test of equals method, of class ByteArrayPrependValueModification. */
     @Test
-    public void testEquals() {
+    void testEquals() {
         // Same object reference
         assertEquals(b1, b1);
 
@@ -121,7 +121,7 @@ public class ByteArrayPrependValueModificationTest {
 
     /** Test of toString method, of class ByteArrayPrependValueModification. */
     @Test
-    public void testToString() {
+    void testToString() {
         String expected = "ByteArrayPrependValueModification{bytesToPrepend=01 02 03}";
         assertEquals(expected, b1.toString());
     }

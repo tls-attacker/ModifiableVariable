@@ -18,7 +18,7 @@ import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class BigIntegerXorModificationTest {
+class BigIntegerXorModificationTest {
 
     private BigIntegerXorModification b1;
     private BigIntegerXorModification b2;
@@ -26,7 +26,7 @@ public class BigIntegerXorModificationTest {
     private Integer integer1;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         b1 = new BigIntegerXorModification(BigInteger.ONE);
         b2 = new BigIntegerXorModification(BigInteger.TEN);
         b3 = new BigIntegerXorModification(BigInteger.ONE);
@@ -35,7 +35,7 @@ public class BigIntegerXorModificationTest {
 
     /** Test of modifyImplementationHook method, of class BigIntegerXorModification. */
     @Test
-    public void testModifyImplementationHook() {
+    void testModifyImplementationHook() {
         // Basic XOR operations
         // 10 XOR 1 = 11 (binary: 1010 XOR 0001 = 1011)
         assertEquals(BigInteger.valueOf(11), b1.modifyImplementationHook(BigInteger.TEN));
@@ -50,7 +50,7 @@ public class BigIntegerXorModificationTest {
 
     /** Test of getXor method, of class BigIntegerXorModification. */
     @Test
-    public void testGetXor() {
+    void testGetXor() {
         assertEquals(BigInteger.ONE, b1.getXor());
         assertEquals(BigInteger.TEN, b2.getXor());
 
@@ -60,7 +60,7 @@ public class BigIntegerXorModificationTest {
 
     /** Test of setXor method, of class BigIntegerXorModification. */
     @Test
-    public void testSetXor() {
+    void testSetXor() {
         // Change XOR value and verify
         assertNotEquals(BigInteger.valueOf(5), b1.getXor());
         b1.setXor(BigInteger.valueOf(5));
@@ -73,7 +73,7 @@ public class BigIntegerXorModificationTest {
 
     /** Test of hashCode method, of class BigIntegerXorModification. */
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         // Same XOR value should have same hash code
         assertEquals(b1.hashCode(), b3.hashCode());
 
@@ -98,7 +98,7 @@ public class BigIntegerXorModificationTest {
 
     /** Test of equals method, of class BigIntegerXorModification. */
     @Test
-    public void testEquals() {
+    void testEquals() {
         // Same instance
         assertTrue(b1.equals(b1));
 
@@ -131,7 +131,7 @@ public class BigIntegerXorModificationTest {
 
     /** Test of createCopy method */
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         BigIntegerXorModification copy = b1.createCopy();
 
         // Verify it's a different instance but equal
@@ -148,7 +148,7 @@ public class BigIntegerXorModificationTest {
 
     /** Test of toString method */
     @Test
-    public void testToString() {
+    void testToString() {
         String toString = b1.toString();
         assertTrue(toString.contains("BigIntegerXorModification"));
         assertTrue(toString.contains("xor=1"));
@@ -161,7 +161,7 @@ public class BigIntegerXorModificationTest {
 
     /** Test constructor with null value */
     @Test
-    public void testConstructorWithNullValue() {
+    void testConstructorWithNullValue() {
         // Using try-catch because we expect an exception
         try {
             // Explicitly specify null as BigInteger to avoid ambiguity with copy constructor
@@ -177,7 +177,7 @@ public class BigIntegerXorModificationTest {
 
     /** Test setXor with null value */
     @Test
-    public void testSetXorWithNullValue() {
+    void testSetXorWithNullValue() {
         // Using try-catch because we expect an exception
         try {
             b1.setXor(null);

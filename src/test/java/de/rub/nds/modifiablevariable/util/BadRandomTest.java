@@ -13,10 +13,10 @@ import java.util.Random;
 import org.junit.jupiter.api.Test;
 
 /** Tests for the {@link BadRandom} class. */
-public class BadRandomTest {
+class BadRandomTest {
 
     @Test
-    public void testDefaultConstructor() {
+    void testDefaultConstructor() {
         BadRandom badRandom = new BadRandom();
 
         // The underlying Random should be initialized with seed 0
@@ -29,7 +29,7 @@ public class BadRandomTest {
     }
 
     @Test
-    public void testConstructorWithRandom() {
+    void testConstructorWithRandom() {
         // Create a BadRandom with two different Random instances with the same seed
         Random random1 = new Random(42);
         BadRandom badRandom1 = new BadRandom(random1);
@@ -45,7 +45,7 @@ public class BadRandomTest {
 
     @Test
     @SuppressWarnings("deprecation")
-    public void testDeprecatedConstructorWithRandomAndSeed() {
+    void testDeprecatedConstructorWithRandomAndSeed() {
         // Test that the deprecated constructor works
         // Use a fresh Random for each BadRandom to ensure we're testing functionality
         Random random1 = new Random(42);
@@ -72,7 +72,7 @@ public class BadRandomTest {
 
     @Test
     @SuppressWarnings("deprecation")
-    public void testDeprecatedConstructorWithRandomAndSpiAndProvider() {
+    void testDeprecatedConstructorWithRandomAndSpiAndProvider() {
         // Test that the deprecated constructor works
         Random random1 = new Random(42);
         BadRandom badRandom = new BadRandom(random1, null, null);
@@ -94,7 +94,7 @@ public class BadRandomTest {
     }
 
     @Test
-    public void testGenerateSeed() {
+    void testGenerateSeed() {
         BadRandom badRandom = new BadRandom();
         int numBytes = 10;
         byte[] seed = badRandom.generateSeed(numBytes);
@@ -109,7 +109,7 @@ public class BadRandomTest {
     }
 
     @Test
-    public void testNextBytes() {
+    void testNextBytes() {
         BadRandom badRandom = new BadRandom();
         byte[] bytes = new byte[10];
         badRandom.nextBytes(bytes);
@@ -123,7 +123,7 @@ public class BadRandomTest {
     }
 
     @Test
-    public void testSetSeedLong() {
+    void testSetSeedLong() {
         BadRandom badRandom1 = new BadRandom();
         BadRandom badRandom2 = new BadRandom();
 
@@ -141,7 +141,7 @@ public class BadRandomTest {
     }
 
     @Test
-    public void testSetSeedBytes() {
+    void testSetSeedBytes() {
         BadRandom badRandom = new BadRandom();
         // Get some values before setting the seed
         int val1 = badRandom.nextInt();
@@ -155,7 +155,7 @@ public class BadRandomTest {
     }
 
     @Test
-    public void testGetAlgorithm() {
+    void testGetAlgorithm() {
         BadRandom badRandom = new BadRandom();
         String algorithm = badRandom.getAlgorithm();
 
@@ -165,7 +165,7 @@ public class BadRandomTest {
     }
 
     @Test
-    public void testNumericMethods() {
+    void testNumericMethods() {
         BadRandom badRandom1 = new BadRandom();
         BadRandom badRandom2 = new BadRandom();
 

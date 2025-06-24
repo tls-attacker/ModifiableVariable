@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ByteArrayShuffleModificationTest {
+class ByteArrayShuffleModificationTest {
 
     private ByteArrayShuffleModification b1;
     private ByteArrayShuffleModification b2;
@@ -20,7 +20,7 @@ public class ByteArrayShuffleModificationTest {
     private Object b4;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         b1 =
                 new ByteArrayShuffleModification(
                         new int[] {0, 2, 1, 3}); // Swap positions 0 and 2, 1 and 3
@@ -31,7 +31,7 @@ public class ByteArrayShuffleModificationTest {
 
     /** Test of modifyImplementationHook method with normal-sized array */
     @Test
-    public void testModifyImplementationHook() {
+    void testModifyImplementationHook() {
         // Test with array size <= 255
         byte[] input = new byte[] {0x10, 0x11, 0x12, 0x13};
 
@@ -53,7 +53,7 @@ public class ByteArrayShuffleModificationTest {
 
     /** Test modifyImplementationHook with a large array (size > 255) */
     @Test
-    public void testModifyImplementationHookLargeArray() {
+    void testModifyImplementationHookLargeArray() {
         // Create a large array (> 255 bytes)
         byte[] largeArray = new byte[300];
         for (int i = 0; i < largeArray.length; i++) {
@@ -77,7 +77,7 @@ public class ByteArrayShuffleModificationTest {
 
     /** Test of createCopy method, of class ByteArrayShuffleModification. */
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         ByteArrayShuffleModification copy = b1.createCopy();
         assertNotSame(b1, copy);
         assertEquals(b1, copy);
@@ -86,13 +86,13 @@ public class ByteArrayShuffleModificationTest {
 
     /** Test of getShuffle method, of class ByteArrayShuffleModification. */
     @Test
-    public void testGetShuffle() {
+    void testGetShuffle() {
         assertArrayEquals(new int[] {0, 2, 1, 3}, b1.getShuffle());
     }
 
     /** Test of setShuffle method, of class ByteArrayShuffleModification. */
     @Test
-    public void testSetShuffle() {
+    void testSetShuffle() {
         ByteArrayShuffleModification mod = new ByteArrayShuffleModification(new int[] {1, 2, 3});
         mod.setShuffle(new int[] {5, 6, 7, 8});
         assertArrayEquals(new int[] {5, 6, 7, 8}, mod.getShuffle());
@@ -100,14 +100,14 @@ public class ByteArrayShuffleModificationTest {
 
     /** Test of hashCode method, of class ByteArrayShuffleModification. */
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         assertEquals(b1.hashCode(), b2.hashCode());
         assertNotEquals(b1.hashCode(), b3.hashCode());
     }
 
     /** Test of equals method, of class ByteArrayShuffleModification. */
     @Test
-    public void testEquals() {
+    void testEquals() {
         // Same object reference
         assertEquals(b1, b1);
 
@@ -126,7 +126,7 @@ public class ByteArrayShuffleModificationTest {
 
     /** Test of toString method, of class ByteArrayShuffleModification. */
     @Test
-    public void testToString() {
+    void testToString() {
         String expected = "ByteArrayShuffleModification{shuffle=[0, 2, 1, 3]}";
         assertEquals(expected, b1.toString());
 

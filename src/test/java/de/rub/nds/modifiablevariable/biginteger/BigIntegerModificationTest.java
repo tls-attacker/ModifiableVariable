@@ -14,14 +14,14 @@ import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class BigIntegerModificationTest {
+class BigIntegerModificationTest {
 
     private ModifiableBigInteger start;
 
     private BigInteger expectedResult, result;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         start = new ModifiableBigInteger();
         start.setOriginalValue(BigInteger.TEN);
         expectedResult = null;
@@ -30,7 +30,7 @@ public class BigIntegerModificationTest {
 
     /** Test of add method, of class BigIntegerAddModification. */
     @Test
-    public void testAdd() {
+    void testAdd() {
         VariableModification<BigInteger> modifier = new BigIntegerAddModification(BigInteger.ONE);
         start.setModifications(modifier);
         expectedResult = new BigInteger("11");
@@ -42,7 +42,7 @@ public class BigIntegerModificationTest {
 
     /** Test of sub method, of class BigIntegerSubtractModification. */
     @Test
-    public void testSub() {
+    void testSub() {
         VariableModification<BigInteger> modifier =
                 new BigIntegerSubtractModification(BigInteger.ONE);
         start.setModifications(modifier);
@@ -55,7 +55,7 @@ public class BigIntegerModificationTest {
 
     /** Test of xor method, of class BigIntegerXorModification. */
     @Test
-    public void testXor() {
+    void testXor() {
         VariableModification<BigInteger> modifier =
                 new BigIntegerXorModification(new BigInteger("2"));
         start.setModifications(modifier);
@@ -68,7 +68,7 @@ public class BigIntegerModificationTest {
 
     /** Test of explicitValue method, of class BigIntegerExplicitValueModification. */
     @Test
-    public void testExplicitValue() {
+    void testExplicitValue() {
         VariableModification<BigInteger> modifier =
                 new BigIntegerExplicitValueModification(new BigInteger("7"));
         start.setModifications(modifier);
@@ -81,7 +81,7 @@ public class BigIntegerModificationTest {
 
     /** Test of add method, of class BigIntegerAddModification. */
     @Test
-    public void testIsOriginalValueModified() {
+    void testIsOriginalValueModified() {
         assertFalse(start.isOriginalValueModified());
         VariableModification<BigInteger> modifier = new BigIntegerAddModification(BigInteger.ZERO);
         start.setModifications(modifier);
@@ -92,7 +92,7 @@ public class BigIntegerModificationTest {
     }
 
     @Test
-    public void testShiftLeft() {
+    void testShiftLeft() {
         VariableModification<BigInteger> modifier = new BigIntegerShiftLeftModification(2);
         start.setModifications(modifier);
         expectedResult = new BigInteger("40");
@@ -103,7 +103,7 @@ public class BigIntegerModificationTest {
     }
 
     @Test
-    public void testShiftRight() {
+    void testShiftRight() {
         VariableModification<BigInteger> modifier = new BigIntegerShiftRightModification(1);
         start.setModifications(modifier);
         expectedResult = new BigInteger("5");

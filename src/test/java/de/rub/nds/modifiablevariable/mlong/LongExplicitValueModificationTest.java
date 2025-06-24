@@ -18,18 +18,18 @@ import de.rub.nds.modifiablevariable.longint.ModifiableLong;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class LongExplicitValueModificationTest {
+class LongExplicitValueModificationTest {
 
     private LongExplicitValueModification modification;
     private final Long explicitValue = 42L;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         modification = new LongExplicitValueModification(explicitValue);
     }
 
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         LongExplicitValueModification copy = modification.createCopy();
         assertNotNull(copy);
         assertEquals(modification, copy);
@@ -38,7 +38,7 @@ public class LongExplicitValueModificationTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         LongExplicitValueModification equalModification =
                 new LongExplicitValueModification(explicitValue);
         LongExplicitValueModification differentModification =
@@ -60,7 +60,7 @@ public class LongExplicitValueModificationTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         LongExplicitValueModification equalModification =
                 new LongExplicitValueModification(explicitValue);
 
@@ -69,25 +69,25 @@ public class LongExplicitValueModificationTest {
     }
 
     @Test
-    public void testGetExplicitValue() {
+    void testGetExplicitValue() {
         assertEquals(explicitValue, modification.getExplicitValue());
     }
 
     @Test
-    public void testSetExplicitValue() {
+    void testSetExplicitValue() {
         Long newValue = 20L;
         modification.setExplicitValue(newValue);
         assertEquals(newValue, modification.getExplicitValue());
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         String expected = "LongExplicitValueModification{explicitValue=42}";
         assertEquals(expected, modification.toString());
     }
 
     @Test
-    public void testConstructors() {
+    void testConstructors() {
         // Test default constructor
         LongExplicitValueModification constructor = new LongExplicitValueModification(5L);
         assertNotNull(constructor);
@@ -102,7 +102,7 @@ public class LongExplicitValueModificationTest {
     // but we can indirectly test its behavior through public methods
 
     @Test
-    public void testModifyWithNull() {
+    void testModifyWithNull() {
         // Create a ModifiableLong with null value
         ModifiableLong modifiable = new ModifiableLong();
         modifiable.setOriginalValue(null);

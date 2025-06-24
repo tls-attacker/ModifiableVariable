@@ -19,13 +19,13 @@ import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ModifiableBigIntegerTest {
+class ModifiableBigIntegerTest {
 
     private ModifiableBigInteger integer1;
     private ModifiableBigInteger integer2;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         integer1 = new ModifiableBigInteger();
         integer1.setOriginalValue(BigInteger.ONE);
         integer2 = new ModifiableBigInteger();
@@ -34,7 +34,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test default constructor */
     @Test
-    public void testDefaultConstructor() {
+    void testDefaultConstructor() {
         ModifiableBigInteger defaultInteger = new ModifiableBigInteger();
         assertNull(defaultInteger.getOriginalValue());
         assertNull(defaultInteger.getValue());
@@ -42,7 +42,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test constructor with original value */
     @Test
-    public void testConstructorWithValue() {
+    void testConstructorWithValue() {
         ModifiableBigInteger valueInteger = new ModifiableBigInteger(BigInteger.valueOf(42));
         assertEquals(BigInteger.valueOf(42), valueInteger.getOriginalValue());
         assertEquals(BigInteger.valueOf(42), valueInteger.getValue());
@@ -50,7 +50,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test copy constructor */
     @Test
-    public void testCopyConstructor() {
+    void testCopyConstructor() {
         // Set up an integer with modifications
         integer1.setModifications(new BigIntegerAddModification(BigInteger.valueOf(5)));
         integer1.setAssertEquals(BigInteger.valueOf(6));
@@ -67,7 +67,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test the createCopy method */
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         // Set up an integer with modifications
         integer1.setModifications(new BigIntegerMultiplyModification(BigInteger.valueOf(3)));
         integer1.setAssertEquals(BigInteger.valueOf(3));
@@ -84,7 +84,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test of getAssertEquals and setAssertEquals methods */
     @Test
-    public void testGetAndSetAssertEquals() {
+    void testGetAndSetAssertEquals() {
         // Initially null
         assertNull(integer1.getAssertEquals());
 
@@ -100,7 +100,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test of isOriginalValueModified method */
     @Test
-    public void testIsOriginalValueModified() {
+    void testIsOriginalValueModified() {
         // Not modified initially
         assertFalse(integer1.isOriginalValueModified());
 
@@ -119,7 +119,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test of getByteArray method without arguments */
     @Test
-    public void testGetByteArray_0args() {
+    void testGetByteArray_0args() {
         // Test with positive value
         byte[] expected = new byte[] {0x0A}; // BigInteger.TEN as byte array
         byte[] actual = integer2.getByteArray();
@@ -134,7 +134,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test of getByteArray method with size parameter */
     @Test
-    public void testGetByteArray_int() {
+    void testGetByteArray_int() {
         // Test with specific size
         byte[] expected = new byte[] {0x00, 0x00, 0x0A}; // BigInteger.TEN as 3-byte array
         byte[] actual = integer2.getByteArray(3);
@@ -154,7 +154,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test of validateAssertions method */
     @Test
-    public void testValidateAssertions() {
+    void testValidateAssertions() {
         // No assertions set initially
         assertTrue(integer1.validateAssertions());
 
@@ -173,7 +173,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test of getOriginalValue and setOriginalValue methods */
     @Test
-    public void testGetAndSetOriginalValue() {
+    void testGetAndSetOriginalValue() {
         assertEquals(BigInteger.ONE, integer1.getOriginalValue());
 
         // Set a different value
@@ -190,7 +190,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test of toString method */
     @Test
-    public void testToString() {
+    void testToString() {
         String expectedToString = "ModifiableBigInteger{originalValue=1}";
         assertEquals(expectedToString, integer1.toString());
 
@@ -206,14 +206,14 @@ public class ModifiableBigIntegerTest {
 
     /** Test equals method with same object */
     @Test
-    public void testEqualsSameObject() {
+    void testEqualsSameObject() {
         // Same object reference should be equal
         assertTrue(integer1.equals(integer1));
     }
 
     /** Test equals method with same values */
     @Test
-    public void testEqualsSameValues() {
+    void testEqualsSameValues() {
         // Equal objects with same original value
         ModifiableBigInteger integer3 = new ModifiableBigInteger();
         integer3.setOriginalValue(BigInteger.ONE);
@@ -223,7 +223,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test equals method with modifications */
     @Test
-    public void testEqualsWithModifications() {
+    void testEqualsWithModifications() {
         // Equal objects with same modifications
         ModifiableBigInteger integer3 = new ModifiableBigInteger();
         integer3.setOriginalValue(BigInteger.ONE);
@@ -245,7 +245,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test equals method with different values */
     @Test
-    public void testEqualsWithDifferentValues() {
+    void testEqualsWithDifferentValues() {
         // Different objects with different modifications
         ModifiableBigInteger integer3 = new ModifiableBigInteger();
         integer3.setOriginalValue(BigInteger.ONE);
@@ -256,7 +256,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test equals method with different types of modification */
     @Test
-    public void testEqualsWithDifferentModificationTypes() {
+    void testEqualsWithDifferentModificationTypes() {
         // Objects with different types of modifications but same final value
         ModifiableBigInteger integer3 = new ModifiableBigInteger();
         integer3.setOriginalValue(BigInteger.ONE);
@@ -272,7 +272,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test equals method with null values */
     @Test
-    public void testEqualsWithNullValues() {
+    void testEqualsWithNullValues() {
         // Equal objects with null values
         ModifiableBigInteger nullInteger1 = new ModifiableBigInteger();
         ModifiableBigInteger nullInteger2 = new ModifiableBigInteger();
@@ -287,7 +287,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test equals method with null and different types */
     @Test
-    public void testEqualsWithNullAndDifferentTypes() {
+    void testEqualsWithNullAndDifferentTypes() {
         // Inequality with null and different types
         assertFalse(integer1.equals(null));
         assertFalse(integer1.equals("NotABigInteger"));
@@ -297,7 +297,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test equals method with explicit values */
     @Test
-    public void testEqualsWithExplicitValues() {
+    void testEqualsWithExplicitValues() {
         // Two objects with different original values but same explicit value
         ModifiableBigInteger integer3 = new ModifiableBigInteger(BigInteger.valueOf(42));
         ModifiableBigInteger integer4 = new ModifiableBigInteger(BigInteger.valueOf(100));
@@ -312,7 +312,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test equals method with different modification types but same result */
     @Test
-    public void testEqualsWithDifferentModificationTypesSameResult() {
+    void testEqualsWithDifferentModificationTypesSameResult() {
         // Different modification types resulting in the same final value
         ModifiableBigInteger integer1 = new ModifiableBigInteger(BigInteger.valueOf(10));
         ModifiableBigInteger integer2 = new ModifiableBigInteger(BigInteger.valueOf(5));
@@ -336,7 +336,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test equals method with chained modifications */
     @Test
-    public void testEqualsWithChainedModifications() {
+    void testEqualsWithChainedModifications() {
         // Two objects with the same chain of modifications
         ModifiableBigInteger integer1 = new ModifiableBigInteger(BigInteger.valueOf(5));
         ModifiableBigInteger integer2 = new ModifiableBigInteger(BigInteger.valueOf(5));
@@ -364,7 +364,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test equals method with modified null and non-null original values */
     @Test
-    public void testEqualsWithMixedNullOriginalValues() {
+    void testEqualsWithMixedNullOriginalValues() {
         // Initialize with different original values (one null, one non-null)
         ModifiableBigInteger nullOriginal = new ModifiableBigInteger();
         ModifiableBigInteger nonNullOriginal = new ModifiableBigInteger(BigInteger.valueOf(5));
@@ -392,7 +392,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test hashCode method with basic values */
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         // Equal objects should have same hash code
         ModifiableBigInteger integer3 = new ModifiableBigInteger();
         integer3.setOriginalValue(BigInteger.ONE);
@@ -401,7 +401,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test hashCode method with modifications */
     @Test
-    public void testHashCodeWithModifications() {
+    void testHashCodeWithModifications() {
         // Objects with same modified value should have same hash code
         ModifiableBigInteger integer3 = new ModifiableBigInteger();
         integer3.setOriginalValue(BigInteger.ONE);
@@ -416,7 +416,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test hashCode method with different values */
     @Test
-    public void testHashCodeWithDifferentValues() {
+    void testHashCodeWithDifferentValues() {
         // Objects with different modified values should have different hash codes
         ModifiableBigInteger integer3 = new ModifiableBigInteger();
         integer3.setOriginalValue(BigInteger.valueOf(42));
@@ -426,7 +426,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test hashCode method with same result from different original values */
     @Test
-    public void testHashCodeWithSameResult() {
+    void testHashCodeWithSameResult() {
         // Different original values but same final value should have same hash code
         ModifiableBigInteger integer3 = new ModifiableBigInteger();
         integer3.setOriginalValue(BigInteger.ZERO);
@@ -442,7 +442,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test hashCode method with explicit values */
     @Test
-    public void testHashCodeWithExplicitValues() {
+    void testHashCodeWithExplicitValues() {
         // Different original values but same explicit value should have same hash code
         ModifiableBigInteger integer3 = new ModifiableBigInteger(BigInteger.valueOf(42));
         ModifiableBigInteger integer4 = new ModifiableBigInteger(BigInteger.valueOf(100));
@@ -458,7 +458,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test hashCode method with null value */
     @Test
-    public void testHashCodeWithNull() {
+    void testHashCodeWithNull() {
         // Null value handling
         ModifiableBigInteger nullInteger = new ModifiableBigInteger();
         int hashCode = nullInteger.hashCode();
@@ -474,7 +474,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test hashCode with chained modifications */
     @Test
-    public void testHashCodeWithChainedModifications() {
+    void testHashCodeWithChainedModifications() {
         // Same chain of modifications should produce same hash code
         ModifiableBigInteger integer1 = new ModifiableBigInteger(BigInteger.valueOf(5));
         ModifiableBigInteger integer2 = new ModifiableBigInteger(BigInteger.valueOf(5));
@@ -500,7 +500,7 @@ public class ModifiableBigIntegerTest {
 
     /** Test hashCode consistency with equals method */
     @Test
-    public void testHashCodeEqualsConsistency() {
+    void testHashCodeEqualsConsistency() {
         // Objects that are equal must have the same hash code
 
         // Different original values, same final result through different means

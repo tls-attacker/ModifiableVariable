@@ -13,13 +13,13 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ByteModificationTest {
+class ByteModificationTest {
 
     private ModifiableByte start;
     private Byte expectedResult, result;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         start = new ModifiableByte();
         start.setOriginalValue(Byte.valueOf("10"));
         expectedResult = null;
@@ -28,7 +28,7 @@ public class ByteModificationTest {
 
     /** Test of add method, of class ByteAddModification. */
     @Test
-    public void testAdd() {
+    void testAdd() {
         VariableModification<Byte> modifier = new ByteAddModification(Byte.valueOf("1"));
         start.setModifications(modifier);
         expectedResult = Byte.valueOf("11");
@@ -39,7 +39,7 @@ public class ByteModificationTest {
 
     /** Test edge cases for ByteAddModification */
     @Test
-    public void testAddEdgeCases() {
+    void testAddEdgeCases() {
         // Test overflow: 127 + 1 = -128 (byte overflow)
         ModifiableByte maxByte = new ModifiableByte(Byte.MAX_VALUE);
         ByteAddModification overflowModifier = new ByteAddModification((byte) 1);
@@ -93,7 +93,7 @@ public class ByteModificationTest {
 
     /** Test of sub method, of class ByteSubtractModification. */
     @Test
-    public void testSub() {
+    void testSub() {
         VariableModification<Byte> modifier = new ByteSubtractModification(Byte.valueOf("1"));
         start.setModifications(modifier);
         expectedResult = Byte.valueOf("9");
@@ -104,7 +104,7 @@ public class ByteModificationTest {
 
     /** Test edge cases for ByteSubtractModification */
     @Test
-    public void testSubEdgeCases() {
+    void testSubEdgeCases() {
         // Test underflow: -128 - 1 = 127 (byte underflow)
         ModifiableByte minByte = new ModifiableByte(Byte.MIN_VALUE);
         ByteSubtractModification underflowModifier = new ByteSubtractModification((byte) 1);
@@ -159,7 +159,7 @@ public class ByteModificationTest {
 
     /** Test of xor method, of class ByteXorModification. */
     @Test
-    public void testXor() {
+    void testXor() {
         VariableModification<Byte> modifier = new ByteXorModification(Byte.valueOf("2"));
         start.setModifications(modifier);
         expectedResult = Byte.valueOf("8");
@@ -170,7 +170,7 @@ public class ByteModificationTest {
 
     /** Test edge cases for ByteXorModification */
     @Test
-    public void testXorEdgeCases() {
+    void testXorEdgeCases() {
 
         // Test XOR with same value (should be 0)
         ByteXorModification sameModifier = new ByteXorModification((byte) 10);
@@ -220,7 +220,7 @@ public class ByteModificationTest {
 
     /** Test of explicitValue method, of class ByteExplicitValueModification. */
     @Test
-    public void testExplicitValue() {
+    void testExplicitValue() {
         VariableModification<Byte> modifier = new ByteExplicitValueModification(Byte.valueOf("7"));
         start.setModifications(modifier);
         expectedResult = Byte.valueOf("7");
@@ -231,7 +231,7 @@ public class ByteModificationTest {
 
     /** Test edge cases for ByteExplicitValueModification */
     @Test
-    public void testExplicitValueEdgeCases() {
+    void testExplicitValueEdgeCases() {
         // Test with extreme values
         ByteExplicitValueModification maxModifier =
                 new ByteExplicitValueModification(Byte.MAX_VALUE);
@@ -297,7 +297,7 @@ public class ByteModificationTest {
 
     /** Test chaining multiple modifications together */
     @Test
-    public void testModificationChaining() {
+    void testModificationChaining() {
         // Chain add and XOR
         ByteAddModification addMod = new ByteAddModification((byte) 2);
         ByteXorModification xorMod = new ByteXorModification((byte) 3);
@@ -323,7 +323,7 @@ public class ByteModificationTest {
 
     /** Test CreateCopy methods for all modification types */
     @Test
-    public void testCreateCopyForModifications() {
+    void testCreateCopyForModifications() {
         // Test ByteAddModification
         ByteAddModification addMod = new ByteAddModification((byte) 5);
         VariableModification<Byte> addCopy = addMod.createCopy();

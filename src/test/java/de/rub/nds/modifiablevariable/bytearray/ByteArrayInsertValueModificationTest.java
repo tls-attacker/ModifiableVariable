@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ByteArrayInsertValueModificationTest {
+class ByteArrayInsertValueModificationTest {
 
     private ByteArrayInsertValueModification b1;
     private ByteArrayInsertValueModification b2;
@@ -21,7 +21,7 @@ public class ByteArrayInsertValueModificationTest {
     private Object b5;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         b1 = new ByteArrayInsertValueModification(new byte[] {0x01, 0x02, 0x03}, 1);
         b2 = new ByteArrayInsertValueModification(new byte[] {0x01, 0x02, 0x03}, 1);
         b3 = new ByteArrayInsertValueModification(new byte[] {0x01, 0x02, 0x03}, 2);
@@ -31,7 +31,7 @@ public class ByteArrayInsertValueModificationTest {
 
     /** Test of modifyImplementationHook method, of class ByteArrayInsertValueModification. */
     @Test
-    public void testModifyImplementationHook() {
+    void testModifyImplementationHook() {
         // Test insert in the middle of array
         byte[] input = new byte[] {0x10, 0x11, 0x12, 0x13};
         byte[] expected = new byte[] {0x10, 0x01, 0x02, 0x03, 0x11, 0x12, 0x13};
@@ -77,7 +77,7 @@ public class ByteArrayInsertValueModificationTest {
 
     /** Test of createCopy method, of class ByteArrayInsertValueModification. */
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         ByteArrayInsertValueModification copy = b1.createCopy();
         assertNotSame(b1, copy);
         assertEquals(b1, copy);
@@ -87,7 +87,7 @@ public class ByteArrayInsertValueModificationTest {
 
     /** Test copy constructor */
     @Test
-    public void testCopyConstructor() {
+    void testCopyConstructor() {
         ByteArrayInsertValueModification copy = new ByteArrayInsertValueModification(b1);
         assertNotSame(b1, copy);
         assertEquals(b1, copy);
@@ -97,13 +97,13 @@ public class ByteArrayInsertValueModificationTest {
 
     /** Test of getBytesToInsert method, of class ByteArrayInsertValueModification. */
     @Test
-    public void testGetBytesToInsert() {
+    void testGetBytesToInsert() {
         assertArrayEquals(new byte[] {0x01, 0x02, 0x03}, b1.getBytesToInsert());
     }
 
     /** Test of setBytesToInsert method, of class ByteArrayInsertValueModification. */
     @Test
-    public void testSetBytesToInsert() {
+    void testSetBytesToInsert() {
         ByteArrayInsertValueModification mod =
                 new ByteArrayInsertValueModification(new byte[] {0x01, 0x02}, 1);
         mod.setBytesToInsert(new byte[] {0x0A, 0x0B, 0x0C});
@@ -112,14 +112,14 @@ public class ByteArrayInsertValueModificationTest {
 
     /** Test of getStartPosition method, of class ByteArrayInsertValueModification. */
     @Test
-    public void testGetStartPosition() {
+    void testGetStartPosition() {
         assertEquals(1, b1.getStartPosition());
         assertEquals(2, b3.getStartPosition());
     }
 
     /** Test of setStartPosition method, of class ByteArrayInsertValueModification. */
     @Test
-    public void testSetStartPosition() {
+    void testSetStartPosition() {
         ByteArrayInsertValueModification mod =
                 new ByteArrayInsertValueModification(new byte[] {0x01, 0x02}, 1);
         mod.setStartPosition(5);
@@ -128,7 +128,7 @@ public class ByteArrayInsertValueModificationTest {
 
     /** Test setBytesToInsert with null value */
     @Test
-    public void testSetBytesToInsertNull() {
+    void testSetBytesToInsertNull() {
         ByteArrayInsertValueModification mod =
                 new ByteArrayInsertValueModification(new byte[] {0x01, 0x02}, 1);
         assertThrows(NullPointerException.class, () -> mod.setBytesToInsert(null));
@@ -136,7 +136,7 @@ public class ByteArrayInsertValueModificationTest {
 
     /** Test constructor with null value */
     @Test
-    public void testConstructorNull() {
+    void testConstructorNull() {
         assertThrows(
                 NullPointerException.class,
                 () -> new ByteArrayInsertValueModification((byte[]) null, 1));
@@ -144,7 +144,7 @@ public class ByteArrayInsertValueModificationTest {
 
     /** Test of hashCode method, of class ByteArrayInsertValueModification. */
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         assertEquals(b1.hashCode(), b2.hashCode()); // Same values and position
         assertNotEquals(b1.hashCode(), b3.hashCode()); // Same values but different position
         assertNotEquals(b1.hashCode(), b4.hashCode()); // Different values but same position
@@ -152,7 +152,7 @@ public class ByteArrayInsertValueModificationTest {
 
     /** Test of equals method, of class ByteArrayInsertValueModification. */
     @Test
-    public void testEquals() {
+    void testEquals() {
         // Same object reference
         assertEquals(b1, b1);
 
@@ -174,7 +174,7 @@ public class ByteArrayInsertValueModificationTest {
 
     /** Test of toString method, of class ByteArrayInsertValueModification. */
     @Test
-    public void testToString() {
+    void testToString() {
         String expected = "ByteArrayInsertModification{bytesToInsert=01 02 03, startPosition=1}";
         assertEquals(expected, b1.toString());
     }

@@ -15,20 +15,20 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class IntegerShiftRightModificationTest {
+class IntegerShiftRightModificationTest {
 
     private ModifiableInteger modifiableInteger;
     private int originalValue;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         modifiableInteger = new ModifiableInteger();
         originalValue = 123456;
         modifiableInteger.setOriginalValue(originalValue);
     }
 
     @Test
-    public void testShiftRightModification() {
+    void testShiftRightModification() {
         int shift = 4;
         IntegerShiftRightModification modification = new IntegerShiftRightModification(shift);
         modifiableInteger.setModifications(modification);
@@ -40,7 +40,7 @@ public class IntegerShiftRightModificationTest {
     }
 
     @Test
-    public void testShiftRightWithNegativeNumber() {
+    void testShiftRightWithNegativeNumber() {
         int negativeValue = -98765;
         modifiableInteger.setOriginalValue(negativeValue);
 
@@ -55,7 +55,7 @@ public class IntegerShiftRightModificationTest {
     }
 
     @Test
-    public void testShiftRightWithZeroShift() {
+    void testShiftRightWithZeroShift() {
         int shift = 0;
         IntegerShiftRightModification modification = new IntegerShiftRightModification(shift);
         modifiableInteger.setModifications(modification);
@@ -67,7 +67,7 @@ public class IntegerShiftRightModificationTest {
     }
 
     @Test
-    public void testShiftRightWithMaxShift() {
+    void testShiftRightWithMaxShift() {
         int shift = 31; // Max shift for int is 31 bits
         IntegerShiftRightModification modification = new IntegerShiftRightModification(shift);
         modifiableInteger.setModifications(modification);
@@ -79,7 +79,7 @@ public class IntegerShiftRightModificationTest {
     }
 
     @Test
-    public void testShiftRightWithNullInput() {
+    void testShiftRightWithNullInput() {
         modifiableInteger.setOriginalValue(null);
 
         int shift = 4;
@@ -89,7 +89,7 @@ public class IntegerShiftRightModificationTest {
     }
 
     @Test
-    public void testShiftRightGetterAndSetter() {
+    void testShiftRightGetterAndSetter() {
         IntegerShiftRightModification modification = new IntegerShiftRightModification(5);
 
         int shift = 15;
@@ -99,7 +99,7 @@ public class IntegerShiftRightModificationTest {
     }
 
     @Test
-    public void testCopyConstructor() {
+    void testCopyConstructor() {
         int shift = 7;
         IntegerShiftRightModification original = new IntegerShiftRightModification(shift);
         IntegerShiftRightModification copy = new IntegerShiftRightModification(original);
@@ -109,7 +109,7 @@ public class IntegerShiftRightModificationTest {
     }
 
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         int shift = 7;
         IntegerShiftRightModification original = new IntegerShiftRightModification(shift);
         IntegerShiftRightModification copy = original.createCopy();
@@ -120,7 +120,7 @@ public class IntegerShiftRightModificationTest {
     }
 
     @Test
-    public void testEqualsAndHashCode() {
+    void testEqualsAndHashCode() {
         int shift1 = 5;
         int shift2 = 5;
         int shift3 = 10;
@@ -154,7 +154,7 @@ public class IntegerShiftRightModificationTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         int shift = 42;
         IntegerShiftRightModification modification = new IntegerShiftRightModification(shift);
         String toString = modification.toString();

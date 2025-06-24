@@ -18,18 +18,18 @@ import de.rub.nds.modifiablevariable.longint.ModifiableLong;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class LongShiftRightModificationTest {
+class LongShiftRightModificationTest {
 
     private LongShiftRightModification modification;
     private final int shift = 3;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         modification = new LongShiftRightModification(shift);
     }
 
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         LongShiftRightModification copy = modification.createCopy();
         assertNotNull(copy);
         assertEquals(modification, copy);
@@ -38,7 +38,7 @@ public class LongShiftRightModificationTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         LongShiftRightModification equalModification = new LongShiftRightModification(shift);
         LongShiftRightModification differentModification = new LongShiftRightModification(10);
 
@@ -58,7 +58,7 @@ public class LongShiftRightModificationTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         LongShiftRightModification equalModification = new LongShiftRightModification(shift);
 
         // Equal objects should have equal hash codes
@@ -66,25 +66,25 @@ public class LongShiftRightModificationTest {
     }
 
     @Test
-    public void testGetShift() {
+    void testGetShift() {
         assertEquals(shift, modification.getShift());
     }
 
     @Test
-    public void testSetShift() {
+    void testSetShift() {
         int newShift = 20;
         modification.setShift(newShift);
         assertEquals(newShift, modification.getShift());
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         String expected = "LongShiftRightModification{shift=3}";
         assertEquals(expected, modification.toString());
     }
 
     @Test
-    public void testConstructors() {
+    void testConstructors() {
         LongShiftRightModification constructor = new LongShiftRightModification(5);
         assertNotNull(constructor);
         assertEquals(5, constructor.getShift());
@@ -95,7 +95,7 @@ public class LongShiftRightModificationTest {
     }
 
     @Test
-    public void testModifyWithNull() {
+    void testModifyWithNull() {
         // Create a ModifiableLong with null value
         ModifiableLong modifiable = new ModifiableLong();
         modifiable.setOriginalValue(null);
