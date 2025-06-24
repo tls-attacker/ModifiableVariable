@@ -15,16 +15,16 @@ import java.util.Random;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-public class RandomHelperTest {
+class RandomHelperTest {
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         // Reset to default random for other tests
         RandomHelper.setRandom(new Random(0));
     }
 
     @Test
-    public void testGetRandom() {
+    void testGetRandom() {
         Random random = RandomHelper.getRandom();
         assertNotNull(random);
 
@@ -37,7 +37,7 @@ public class RandomHelperTest {
     }
 
     @Test
-    public void testSetRandom() {
+    void testSetRandom() {
         Random customRandom = new Random(42);
         RandomHelper.setRandom(customRandom);
 
@@ -51,7 +51,7 @@ public class RandomHelperTest {
     }
 
     @Test
-    public void testGetBadSecureRandom() {
+    void testGetBadSecureRandom() {
         BadRandom badRandom = RandomHelper.getBadSecureRandom();
         assertNotNull(badRandom);
 
@@ -67,7 +67,7 @@ public class RandomHelperTest {
     }
 
     @Test
-    public void testBadRandomImplementation() {
+    void testBadRandomImplementation() {
         BadRandom badRandom = new BadRandom();
 
         // Test default constructor
@@ -96,7 +96,7 @@ public class RandomHelperTest {
 
     @Test
     @SuppressWarnings("deprecation")
-    public void testBadRandomConstructors() {
+    void testBadRandomConstructors() {
         Random customRandom = new Random(123);
 
         // Test constructor with Random and seed
@@ -109,7 +109,7 @@ public class RandomHelperTest {
     }
 
     @Test
-    public void testBadFixedRandom() {
+    void testBadFixedRandom() {
         byte fixedValue = 42; // Using a single byte as per the class implementation
         BadFixedRandom fixedRandom = new BadFixedRandom(fixedValue);
 

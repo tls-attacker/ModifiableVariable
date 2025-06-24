@@ -12,13 +12,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ModifiableByteTest {
+class ModifiableByteTest {
 
     private ModifiableByte byte1;
     private ModifiableByte byte2;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         byte1 = new ModifiableByte();
         byte1.setOriginalValue((byte) 3);
         byte2 = new ModifiableByte();
@@ -27,7 +27,7 @@ public class ModifiableByteTest {
 
     /** Test of getAssertEquals method, of class ModifiableByte. */
     @Test
-    public void testGetAssertEquals() {
+    void testGetAssertEquals() {
         assertNull(byte1.getAssertEquals());
 
         Byte expected = (byte) 5;
@@ -37,7 +37,7 @@ public class ModifiableByteTest {
 
     /** Test of setAssertEquals method, of class ModifiableByte. */
     @Test
-    public void testSetAssertEquals() {
+    void testSetAssertEquals() {
         Byte expected = (byte) 42;
         byte1.setAssertEquals(expected);
         assertEquals(expected, byte1.getAssertEquals());
@@ -49,7 +49,7 @@ public class ModifiableByteTest {
 
     /** Test of isOriginalValueModified method, of class ModifiableByte. */
     @Test
-    public void testIsOriginalValueModified() {
+    void testIsOriginalValueModified() {
         // Initially not modified
         assertFalse(byte1.isOriginalValueModified());
 
@@ -71,7 +71,7 @@ public class ModifiableByteTest {
 
     /** Test of validateAssertions method, of class ModifiableByte. */
     @Test
-    public void testValidateAssertions() {
+    void testValidateAssertions() {
         // No assertion set
         assertTrue(byte1.validateAssertions());
 
@@ -90,7 +90,7 @@ public class ModifiableByteTest {
 
     /** Test of getOriginalValue method, of class ModifiableByte. */
     @Test
-    public void testGetOriginalValue() {
+    void testGetOriginalValue() {
         assertEquals((byte) 3, byte1.getOriginalValue());
 
         ModifiableByte emptyByte = new ModifiableByte();
@@ -102,7 +102,7 @@ public class ModifiableByteTest {
 
     /** Test of setOriginalValue method, of class ModifiableByte. */
     @Test
-    public void testSetOriginalValue() {
+    void testSetOriginalValue() {
         byte1.setOriginalValue((byte) 77);
         assertEquals((byte) 77, byte1.getOriginalValue());
 
@@ -113,7 +113,7 @@ public class ModifiableByteTest {
 
     /** Test of toString method, of class ModifiableByte. */
     @Test
-    public void testToString() {
+    void testToString() {
         String result = byte1.toString();
         assertTrue(result.contains("originalValue=3"));
 
@@ -126,7 +126,7 @@ public class ModifiableByteTest {
 
     /** Test of equals method, of class ModifiableByte. */
     @Test
-    public void testEquals() {
+    void testEquals() {
         // Initial test from original code
         assertEquals(byte1, byte2);
         byte2.setOriginalValue((byte) 4);
@@ -183,7 +183,7 @@ public class ModifiableByteTest {
 
     /** Test of hashCode method, of class ModifiableByte. */
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         // Equal objects should have equal hash codes
         assertEquals(byte1.hashCode(), byte2.hashCode());
 
@@ -203,7 +203,7 @@ public class ModifiableByteTest {
 
     /** Test of copy constructor and createCopy method. */
     @Test
-    public void testCopyMethods() {
+    void testCopyMethods() {
         // Set up a ModifiableByte with modifications and assertion
         byte1.setModifications(new ByteAddModification((byte) 2));
         byte1.setAssertEquals((byte) 5);

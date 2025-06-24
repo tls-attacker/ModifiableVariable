@@ -28,7 +28,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /** Tests for the {@link VariableModification} abstract class. */
-public class VariableModificationTest {
+class VariableModificationTest {
 
     private TestAppender testAppender;
     private Logger logger;
@@ -51,13 +51,13 @@ public class VariableModificationTest {
             logEvents.add(event.toImmutable());
         }
 
-        public List<LogEvent> getLogEvents() {
+        List<LogEvent> getLogEvents() {
             return new ArrayList<>(logEvents);
         }
     }
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         // Set up logger with a test appender to capture log events
         logger =
                 (org.apache.logging.log4j.core.Logger)
@@ -69,7 +69,7 @@ public class VariableModificationTest {
     }
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         logger.removeAppender(testAppender);
         testAppender.stop();
     }
@@ -125,7 +125,7 @@ public class VariableModificationTest {
     }
 
     @Test
-    public void testModifyWithNonNullInput() {
+    void testModifyWithNonNullInput() {
         VariableModification<String> modification = new TestModification();
         String input = "test";
         String result = modification.modify(input);
@@ -134,7 +134,7 @@ public class VariableModificationTest {
     }
 
     @Test
-    public void testModifyWithNullInput() {
+    void testModifyWithNullInput() {
         VariableModification<String> modification = new TestModification();
         String result = modification.modify(null);
 
@@ -142,7 +142,7 @@ public class VariableModificationTest {
     }
 
     @Test
-    public void testModifyReturningNull() {
+    void testModifyReturningNull() {
         VariableModification<String> modification = new NullReturningModification();
         String result = modification.modify("any input");
 
@@ -150,7 +150,7 @@ public class VariableModificationTest {
     }
 
     @Test
-    public void testDebugLoggingWithNonNullValue() {
+    void testDebugLoggingWithNonNullValue() {
         VariableModification<String> modification = new TestModification();
         modification.modify("test");
 
@@ -167,7 +167,7 @@ public class VariableModificationTest {
     }
 
     @Test
-    public void testDebugLoggingWithNullValue() {
+    void testDebugLoggingWithNullValue() {
         VariableModification<String> modification = new NullReturningModification();
         modification.modify("will return null");
 
@@ -184,7 +184,7 @@ public class VariableModificationTest {
     }
 
     @Test
-    public void testModifyByteArray() {
+    void testModifyByteArray() {
         VariableModification<byte[]> modification = new ByteArrayModification();
         byte[] input = new byte[] {1, 2, 3};
         byte[] result = modification.modify(input);
@@ -196,7 +196,7 @@ public class VariableModificationTest {
     }
 
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         VariableModification<String> original = new TestModification();
         VariableModification<String> copy = original.createCopy();
 
@@ -208,7 +208,7 @@ public class VariableModificationTest {
     }
 
     @Test
-    public void testDebugLoggingWithStringValue() {
+    void testDebugLoggingWithStringValue() {
         VariableModification<String> modification = new TestModification();
         modification.modify("test\nwith\tspecial\"chars");
 

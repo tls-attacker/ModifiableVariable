@@ -17,7 +17,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-public class ReflectionHelperTest {
+class ReflectionHelperTest {
 
     // Helper method to set private fields using reflection
     private static void setPrivateField(Object object, String fieldName, Object value)
@@ -62,7 +62,7 @@ public class ReflectionHelperTest {
     }
 
     @Test
-    public void testGetFieldsUpTo() {
+    void testGetFieldsUpTo() {
         // Get all fields from ChildClass up to but not including Object
         List<Field> fields = ReflectionHelper.getFieldsUpTo(ChildClass.class, Object.class, null);
 
@@ -104,7 +104,7 @@ public class ReflectionHelperTest {
     }
 
     @Test
-    public void testGetFieldsUpToWithFilter() {
+    void testGetFieldsUpToWithFilter() {
         // Get only String fields
         List<Field> stringFields =
                 ReflectionHelper.getFieldsUpTo(ChildClass.class, Object.class, String.class);
@@ -133,7 +133,7 @@ public class ReflectionHelperTest {
     }
 
     @Test
-    public void testGetValuesFromFieldList() throws IllegalAccessException {
+    void testGetValuesFromFieldList() throws IllegalAccessException {
         ChildClass childClass = new ChildClass();
         // Use reflection to set private fields instead of direct access
         setPrivateField(childClass, "baseField", "BaseValue");
@@ -152,7 +152,7 @@ public class ReflectionHelperTest {
     }
 
     @Test
-    public void testGetParameterizedTypes() {
+    void testGetParameterizedTypes() {
         StringGenericImpl impl = new StringGenericImpl();
         Type[] types = ReflectionHelper.getParameterizedTypes(impl);
 

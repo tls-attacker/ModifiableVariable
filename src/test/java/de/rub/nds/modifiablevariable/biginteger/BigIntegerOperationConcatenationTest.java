@@ -14,20 +14,20 @@ import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class BigIntegerOperationConcatenationTest {
+class BigIntegerOperationConcatenationTest {
 
     private ModifiableBigInteger start;
 
     private BigInteger expectedResult, result;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         start = new ModifiableBigInteger();
         start.setOriginalValue(BigInteger.TEN);
     }
 
     @Test
-    public void testAddThenMultiplyWithInnerClass() {
+    void testAddThenMultiplyWithInnerClass() {
         // (input + 4) ^ 3 = (10 + 4) ^ 3 = 13
         start.setModifications(
                 new VariableModification<>() {

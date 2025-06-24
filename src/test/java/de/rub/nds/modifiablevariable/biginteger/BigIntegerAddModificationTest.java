@@ -17,14 +17,14 @@ import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class BigIntegerAddModificationTest {
+class BigIntegerAddModificationTest {
 
     private BigIntegerAddModification b1;
     private BigIntegerAddModification b2;
     private BigIntegerAddModification b3;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         b1 = new BigIntegerAddModification(BigInteger.ONE);
         b2 = new BigIntegerAddModification(BigInteger.TEN);
         b3 = new BigIntegerAddModification(BigInteger.ONE);
@@ -32,7 +32,7 @@ public class BigIntegerAddModificationTest {
 
     /** Test of modifyImplementationHook method, of class BigIntegerAddModification. */
     @Test
-    public void testModifyImplementationHook() {
+    void testModifyImplementationHook() {
         assertEquals(BigInteger.valueOf(11), b1.modifyImplementationHook(BigInteger.TEN));
         assertEquals(BigInteger.valueOf(2), b3.modifyImplementationHook(BigInteger.ONE));
         assertEquals(null, b1.modifyImplementationHook(null));
@@ -40,14 +40,14 @@ public class BigIntegerAddModificationTest {
 
     /** Test of getSummand method, of class BigIntegerAddModification. */
     @Test
-    public void testGetSummand() {
+    void testGetSummand() {
         assertEquals(BigInteger.ONE, b1.getSummand());
         assertEquals(BigInteger.TEN, b2.getSummand());
     }
 
     /** Test of setSummand method, of class BigIntegerAddModification. */
     @Test
-    public void testSetSummand() {
+    void testSetSummand() {
         assertNotEquals(BigInteger.ONE, b2.getSummand());
         b2.setSummand(BigInteger.ONE);
         assertEquals(BigInteger.ONE, b2.getSummand());
@@ -55,20 +55,20 @@ public class BigIntegerAddModificationTest {
 
     /** Test that setSummand throws NullPointerException if given null */
     @Test
-    public void testSetSummandWithNull() {
+    void testSetSummandWithNull() {
         assertThrows(NullPointerException.class, () -> b1.setSummand(null));
     }
 
     /** Test that constructor throws NullPointerException if given null */
     @Test
-    public void testConstructorWithNull() {
+    void testConstructorWithNull() {
         assertThrows(
                 NullPointerException.class, () -> new BigIntegerAddModification((BigInteger) null));
     }
 
     /** Test of createCopy method */
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         BigIntegerAddModification copy = b1.createCopy();
 
         // Verify the copy has the same properties
@@ -87,7 +87,7 @@ public class BigIntegerAddModificationTest {
 
     /** Test of hashCode method, of class BigIntegerAddModification. */
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         // Equal objects should have same hash code
         assertEquals(b1.hashCode(), b3.hashCode());
 
@@ -102,7 +102,7 @@ public class BigIntegerAddModificationTest {
 
     /** Test of equals method with reflexivity property */
     @Test
-    public void testEqualsReflexivity() {
+    void testEqualsReflexivity() {
         // An object must equal itself
         assertTrue(b1.equals(b1));
         assertTrue(b2.equals(b2));
@@ -111,7 +111,7 @@ public class BigIntegerAddModificationTest {
 
     /** Test of equals method with symmetry property */
     @Test
-    public void testEqualsSymmetry() {
+    void testEqualsSymmetry() {
         // If a equals b, then b equals a
         assertTrue(b1.equals(b3));
         assertTrue(b3.equals(b1));
@@ -122,7 +122,7 @@ public class BigIntegerAddModificationTest {
 
     /** Test of equals method with transitivity property */
     @Test
-    public void testEqualsTransitivity() {
+    void testEqualsTransitivity() {
         // If a equals b and b equals c, then a equals c
         BigIntegerAddModification b4 = new BigIntegerAddModification(BigInteger.ONE);
 
@@ -133,7 +133,7 @@ public class BigIntegerAddModificationTest {
 
     /** Test of equals method with null comparison */
     @Test
-    public void testEqualsNull() {
+    void testEqualsNull() {
         // Comparison with null should return false
         assertFalse(b1.equals(null));
         assertFalse(b2.equals(null));
@@ -142,7 +142,7 @@ public class BigIntegerAddModificationTest {
 
     /** Test of equals method with different object types */
     @Test
-    public void testEqualsDifferentTypes() {
+    void testEqualsDifferentTypes() {
         // Comparison with different types should return false
         assertFalse(b1.equals("Not a BigIntegerAddModification"));
         assertFalse(b1.equals(BigInteger.ONE));
@@ -151,7 +151,7 @@ public class BigIntegerAddModificationTest {
 
     /** Test of equals method after state change */
     @Test
-    public void testEqualsAfterStateChange() {
+    void testEqualsAfterStateChange() {
         // Initially equal
         assertTrue(b1.equals(b3));
 
@@ -170,7 +170,7 @@ public class BigIntegerAddModificationTest {
 
     /** Test of toString method */
     @Test
-    public void testToString() {
+    void testToString() {
         String toString = b1.toString();
 
         // Verify the string contains the class name and summand value

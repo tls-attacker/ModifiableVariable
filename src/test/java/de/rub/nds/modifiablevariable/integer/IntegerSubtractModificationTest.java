@@ -15,20 +15,20 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class IntegerSubtractModificationTest {
+class IntegerSubtractModificationTest {
 
     private ModifiableInteger modifiableInteger;
     private int originalValue;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         modifiableInteger = new ModifiableInteger();
         originalValue = 123;
         modifiableInteger.setOriginalValue(originalValue);
     }
 
     @Test
-    public void testSubtractModification() {
+    void testSubtractModification() {
         int subtrahend = 50;
         IntegerSubtractModification modification = new IntegerSubtractModification(subtrahend);
         modifiableInteger.setModifications(modification);
@@ -41,7 +41,7 @@ public class IntegerSubtractModificationTest {
     }
 
     @Test
-    public void testSubtractZero() {
+    void testSubtractZero() {
         int subtrahend = 0;
         IntegerSubtractModification modification = new IntegerSubtractModification(subtrahend);
         modifiableInteger.setModifications(modification);
@@ -53,7 +53,7 @@ public class IntegerSubtractModificationTest {
     }
 
     @Test
-    public void testSubtractNegative() {
+    void testSubtractNegative() {
         int subtrahend = -25;
         IntegerSubtractModification modification = new IntegerSubtractModification(subtrahend);
         modifiableInteger.setModifications(modification);
@@ -66,7 +66,7 @@ public class IntegerSubtractModificationTest {
     }
 
     @Test
-    public void testSubtractWithNullInput() {
+    void testSubtractWithNullInput() {
         modifiableInteger.setOriginalValue(null);
 
         int subtrahend = 50;
@@ -76,7 +76,7 @@ public class IntegerSubtractModificationTest {
     }
 
     @Test
-    public void testSubtractMinValue() {
+    void testSubtractMinValue() {
         modifiableInteger.setOriginalValue(Integer.MIN_VALUE);
 
         int subtrahend = 1;
@@ -91,7 +91,7 @@ public class IntegerSubtractModificationTest {
     }
 
     @Test
-    public void testSubtractMaxValue() {
+    void testSubtractMaxValue() {
         modifiableInteger.setOriginalValue(Integer.MAX_VALUE);
 
         int subtrahend = -1;
@@ -106,7 +106,7 @@ public class IntegerSubtractModificationTest {
     }
 
     @Test
-    public void testGetSubtrahend() {
+    void testGetSubtrahend() {
         int subtrahend = 42;
         IntegerSubtractModification modification = new IntegerSubtractModification(subtrahend);
 
@@ -114,7 +114,7 @@ public class IntegerSubtractModificationTest {
     }
 
     @Test
-    public void testSetSubtrahend() {
+    void testSetSubtrahend() {
         IntegerSubtractModification modification = new IntegerSubtractModification(10);
 
         int newSubtrahend = 42;
@@ -124,7 +124,7 @@ public class IntegerSubtractModificationTest {
     }
 
     @Test
-    public void testCopyConstructor() {
+    void testCopyConstructor() {
         int subtrahend = 42;
         IntegerSubtractModification original = new IntegerSubtractModification(subtrahend);
         IntegerSubtractModification copy = new IntegerSubtractModification(original);
@@ -133,7 +133,7 @@ public class IntegerSubtractModificationTest {
     }
 
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         int subtrahend = 42;
         IntegerSubtractModification original = new IntegerSubtractModification(subtrahend);
         IntegerSubtractModification copy = original.createCopy();
@@ -144,7 +144,7 @@ public class IntegerSubtractModificationTest {
     }
 
     @Test
-    public void testEqualsAndHashCode() {
+    void testEqualsAndHashCode() {
         int subtrahend1 = 42;
         int subtrahend2 = 42;
         int subtrahend3 = 100;
@@ -179,7 +179,7 @@ public class IntegerSubtractModificationTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         int subtrahend = 42;
         IntegerSubtractModification modification = new IntegerSubtractModification(subtrahend);
         String toString = modification.toString();

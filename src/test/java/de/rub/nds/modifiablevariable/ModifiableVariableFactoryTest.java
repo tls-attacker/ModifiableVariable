@@ -21,10 +21,10 @@ import de.rub.nds.modifiablevariable.string.ModifiableString;
 import java.math.BigInteger;
 import org.junit.jupiter.api.Test;
 
-public class ModifiableVariableFactoryTest {
+class ModifiableVariableFactoryTest {
 
     @Test
-    public void testSafelySetValueBigInteger() {
+    void testSafelySetValueBigInteger() {
         // Test with null ModifiableBigInteger
         BigInteger originalValue = new BigInteger("12345");
         ModifiableBigInteger result = ModifiableVariableFactory.safelySetValue(null, originalValue);
@@ -42,7 +42,7 @@ public class ModifiableVariableFactoryTest {
     }
 
     @Test
-    public void testSafelySetValueString() {
+    void testSafelySetValueString() {
         // Test with null ModifiableString
         String originalValue = "test string";
         ModifiableString result = ModifiableVariableFactory.safelySetValue(null, originalValue);
@@ -60,7 +60,7 @@ public class ModifiableVariableFactoryTest {
     }
 
     @Test
-    public void testSafelySetValueInteger() {
+    void testSafelySetValueInteger() {
         // Test with null ModifiableInteger
         Integer originalValue = 42;
         ModifiableInteger result = ModifiableVariableFactory.safelySetValue(null, originalValue);
@@ -78,7 +78,7 @@ public class ModifiableVariableFactoryTest {
     }
 
     @Test
-    public void testSafelySetValueByte() {
+    void testSafelySetValueByte() {
         // Test with null ModifiableByte
         Byte originalValue = (byte) 0xAB;
         ModifiableByte result = ModifiableVariableFactory.safelySetValue(null, originalValue);
@@ -95,7 +95,7 @@ public class ModifiableVariableFactoryTest {
     }
 
     @Test
-    public void testSafelySetValueByteArray() {
+    void testSafelySetValueByteArray() {
         // Test with null ModifiableByteArray
         byte[] originalValue = new byte[] {0x01, 0x02, 0x03};
         ModifiableByteArray result = ModifiableVariableFactory.safelySetValue(null, originalValue);
@@ -119,7 +119,7 @@ public class ModifiableVariableFactoryTest {
     }
 
     @Test
-    public void testSafelySetValueLong() {
+    void testSafelySetValueLong() {
         // Test with null ModifiableLong
         Long originalValue = 9999999999L;
         ModifiableLong result = ModifiableVariableFactory.safelySetValue(null, originalValue);
@@ -136,7 +136,7 @@ public class ModifiableVariableFactoryTest {
     }
 
     @Test
-    public void testSafelySetValueBoolean() {
+    void testSafelySetValueBoolean() {
         // Test with null ModifiableBoolean
         Boolean originalValue = Boolean.TRUE;
         ModifiableBoolean result = ModifiableVariableFactory.safelySetValue(null, originalValue);

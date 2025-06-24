@@ -16,20 +16,20 @@ import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class BigIntegerShiftLeftModificationTest {
+class BigIntegerShiftLeftModificationTest {
 
     private ModifiableBigInteger modifiableBigInteger;
     private BigInteger originalValue;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         modifiableBigInteger = new ModifiableBigInteger();
         originalValue = new BigInteger("12345678901234567890");
         modifiableBigInteger.setOriginalValue(originalValue);
     }
 
     @Test
-    public void testShiftLeftModification() {
+    void testShiftLeftModification() {
         int shift = 8;
         BigIntegerShiftLeftModification modification = new BigIntegerShiftLeftModification(shift);
         modifiableBigInteger.setModifications(modification);
@@ -41,7 +41,7 @@ public class BigIntegerShiftLeftModificationTest {
     }
 
     @Test
-    public void testShiftLeftNegativeNumber() {
+    void testShiftLeftNegativeNumber() {
         BigInteger negativeValue = new BigInteger("-987654321");
         modifiableBigInteger.setOriginalValue(negativeValue);
 
@@ -56,7 +56,7 @@ public class BigIntegerShiftLeftModificationTest {
     }
 
     @Test
-    public void testShiftLeftWithZeroShift() {
+    void testShiftLeftWithZeroShift() {
         int shift = 0;
         BigIntegerShiftLeftModification modification = new BigIntegerShiftLeftModification(shift);
         modifiableBigInteger.setModifications(modification);
@@ -68,7 +68,7 @@ public class BigIntegerShiftLeftModificationTest {
     }
 
     @Test
-    public void testShiftLeftWithLargeShift() {
+    void testShiftLeftWithLargeShift() {
         int shift = 128;
         BigIntegerShiftLeftModification modification = new BigIntegerShiftLeftModification(shift);
         modifiableBigInteger.setModifications(modification);
@@ -80,7 +80,7 @@ public class BigIntegerShiftLeftModificationTest {
     }
 
     @Test
-    public void testShiftLeftWithNullInput() {
+    void testShiftLeftWithNullInput() {
         modifiableBigInteger.setOriginalValue(null);
 
         int shift = 10;
@@ -94,7 +94,7 @@ public class BigIntegerShiftLeftModificationTest {
     }
 
     @Test
-    public void testEqualsAndHashCode() {
+    void testEqualsAndHashCode() {
         int shift = 15;
         BigIntegerShiftLeftModification modification1 = new BigIntegerShiftLeftModification(shift);
         BigIntegerShiftLeftModification modification2 = new BigIntegerShiftLeftModification(shift);
@@ -111,7 +111,7 @@ public class BigIntegerShiftLeftModificationTest {
     }
 
     @Test
-    public void testEqualsComprehensive() {
+    void testEqualsComprehensive() {
         // Same instance equality (reflexivity)
         BigIntegerShiftLeftModification modification = new BigIntegerShiftLeftModification(8);
         assertTrue(modification.equals(modification));
@@ -167,7 +167,7 @@ public class BigIntegerShiftLeftModificationTest {
     }
 
     @Test
-    public void testGetterAndSetter() {
+    void testGetterAndSetter() {
         BigIntegerShiftLeftModification modification = new BigIntegerShiftLeftModification(5);
 
         int shift = 25;
@@ -177,7 +177,7 @@ public class BigIntegerShiftLeftModificationTest {
     }
 
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         int shift = 12;
         BigIntegerShiftLeftModification original = new BigIntegerShiftLeftModification(shift);
         BigIntegerShiftLeftModification copy = original.createCopy();
@@ -197,7 +197,7 @@ public class BigIntegerShiftLeftModificationTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         int shift = 7;
         BigIntegerShiftLeftModification modification = new BigIntegerShiftLeftModification(shift);
         String toString = modification.toString();

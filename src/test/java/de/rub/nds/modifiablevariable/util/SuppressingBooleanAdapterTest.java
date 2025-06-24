@@ -12,10 +12,10 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
-public class SuppressingBooleanAdapterTest {
+class SuppressingBooleanAdapterTest {
 
     @Test
-    public void testSuppressingTrueBooleanAdapter() throws Exception {
+    void testSuppressingTrueBooleanAdapter() throws Exception {
         SuppressingBooleanAdapter adapter = new SuppressingTrueBooleanAdapter();
 
         // Test getValueToSuppress
@@ -34,7 +34,7 @@ public class SuppressingBooleanAdapterTest {
     }
 
     @Test
-    public void testSuppressingFalseBooleanAdapter() throws Exception {
+    void testSuppressingFalseBooleanAdapter() throws Exception {
         SuppressingBooleanAdapter adapter = new SuppressingFalseBooleanAdapter();
 
         // Test getValueToSuppress

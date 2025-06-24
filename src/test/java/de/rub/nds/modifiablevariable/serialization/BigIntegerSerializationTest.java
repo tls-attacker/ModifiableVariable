@@ -26,7 +26,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class BigIntegerSerializationTest {
+class BigIntegerSerializationTest {
 
     private static final Logger LOGGER = LogManager.getLogger(BigIntegerSerializationTest.class);
 
@@ -43,7 +43,7 @@ public class BigIntegerSerializationTest {
     private Unmarshaller um;
 
     @BeforeEach
-    public void setUp() throws JAXBException {
+    void setUp() throws JAXBException {
         start = new ModifiableBigInteger();
         start.setOriginalValue(BigInteger.TEN);
         expectedResult = null;
@@ -61,7 +61,7 @@ public class BigIntegerSerializationTest {
     }
 
     @Test
-    public void testSerializeDeserializeSimple() throws Exception {
+    void testSerializeDeserializeSimple() throws Exception {
         start.clearModifications();
         m.marshal(start, writer);
 
@@ -78,7 +78,7 @@ public class BigIntegerSerializationTest {
     }
 
     @Test
-    public void testSerializeDeserializeWithModification() throws Exception {
+    void testSerializeDeserializeWithModification() throws Exception {
         VariableModification<BigInteger> modifier = new BigIntegerAddModification(BigInteger.ONE);
         start.setModifications(modifier);
         m.marshal(start, writer);

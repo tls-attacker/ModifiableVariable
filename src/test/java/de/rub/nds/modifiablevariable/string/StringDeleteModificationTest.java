@@ -12,20 +12,20 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class StringDeleteModificationTest {
+class StringDeleteModificationTest {
 
     private ModifiableString modifiableString;
     private final String originalString = "testString";
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         modifiableString = new ModifiableString();
         modifiableString.setOriginalValue(originalString);
     }
 
     /** Test the basic deletion from the start of the string */
     @Test
-    public void testBasicDeleteFromStart() {
+    void testBasicDeleteFromStart() {
         StringDeleteModification modifier = new StringDeleteModification(0, 4);
         modifiableString.setModifications(modifier);
         assertEquals("String", modifiableString.getValue());
@@ -34,7 +34,7 @@ public class StringDeleteModificationTest {
 
     /** Test deletion from the middle of the string */
     @Test
-    public void testDeleteFromMiddle() {
+    void testDeleteFromMiddle() {
         StringDeleteModification modifier = new StringDeleteModification(4, 2);
         modifiableString.setModifications(modifier);
         assertEquals("testring", modifiableString.getValue());
@@ -42,7 +42,7 @@ public class StringDeleteModificationTest {
 
     /** Test deletion from the end of the string */
     @Test
-    public void testDeleteFromEnd() {
+    void testDeleteFromEnd() {
         StringDeleteModification modifier = new StringDeleteModification(6, 4);
         modifiableString.setModifications(modifier);
         assertEquals("testSt", modifiableString.getValue());
@@ -50,7 +50,7 @@ public class StringDeleteModificationTest {
 
     /** Test deletion with count exceeding string length */
     @Test
-    public void testDeleteCountOverflow() {
+    void testDeleteCountOverflow() {
         StringDeleteModification modifier = new StringDeleteModification(2, 100);
         modifiableString.setModifications(modifier);
         assertEquals("te", modifiableString.getValue());
@@ -58,7 +58,7 @@ public class StringDeleteModificationTest {
 
     /** Test deletion with negative start position */
     @Test
-    public void testDeleteWithNegativeStart() {
+    void testDeleteWithNegativeStart() {
         StringDeleteModification modifier = new StringDeleteModification(-1, 1);
         modifiableString.setModifications(modifier);
         assertEquals("testStrin", modifiableString.getValue());
@@ -66,7 +66,7 @@ public class StringDeleteModificationTest {
 
     /** Test deletion with start position exceeding string length (wrap around using modulo) */
     @Test
-    public void testDeleteWithStartOverflow() {
+    void testDeleteWithStartOverflow() {
         StringDeleteModification modifier = new StringDeleteModification(20, 2);
         modifiableString.setModifications(modifier);
         // 20 % 10 = 0, so it should delete from position 0
@@ -75,7 +75,7 @@ public class StringDeleteModificationTest {
 
     /** Test with empty string input */
     @Test
-    public void testDeleteFromEmptyString() {
+    void testDeleteFromEmptyString() {
         ModifiableString emptyString = new ModifiableString();
         emptyString.setOriginalValue("");
 
@@ -88,7 +88,7 @@ public class StringDeleteModificationTest {
 
     /** Test with null input */
     @Test
-    public void testDeleteFromNullString() {
+    void testDeleteFromNullString() {
         ModifiableString nullString = new ModifiableString();
         nullString.setOriginalValue(null);
 
@@ -101,7 +101,7 @@ public class StringDeleteModificationTest {
 
     /** Test deletion with zero count */
     @Test
-    public void testDeleteZeroCount() {
+    void testDeleteZeroCount() {
         StringDeleteModification modifier = new StringDeleteModification(2, 0);
         modifiableString.setModifications(modifier);
         // No characters should be deleted
@@ -110,7 +110,7 @@ public class StringDeleteModificationTest {
 
     /** Test deletion with negative count (should be treated as zero) */
     @Test
-    public void testDeleteNegativeCount() {
+    void testDeleteNegativeCount() {
         StringDeleteModification modifier = new StringDeleteModification(2, -3);
         modifiableString.setModifications(modifier);
         // Negative count should be treated as zero
@@ -119,7 +119,7 @@ public class StringDeleteModificationTest {
 
     /** Test the getter and setter for count */
     @Test
-    public void testCountGetterAndSetter() {
+    void testCountGetterAndSetter() {
         StringDeleteModification modifier = new StringDeleteModification(0, 5);
         assertEquals(5, modifier.getCount());
 
@@ -129,7 +129,7 @@ public class StringDeleteModificationTest {
 
     /** Test the getter and setter for startPosition */
     @Test
-    public void testStartPositionGetterAndSetter() {
+    void testStartPositionGetterAndSetter() {
         StringDeleteModification modifier = new StringDeleteModification(3, 2);
         assertEquals(3, modifier.getStartPosition());
 
@@ -139,7 +139,7 @@ public class StringDeleteModificationTest {
 
     /** Test the equals method */
     @Test
-    public void testEqualsMethod() {
+    void testEqualsMethod() {
         StringDeleteModification mod1 = new StringDeleteModification(3, 4);
         StringDeleteModification mod2 = new StringDeleteModification(3, 4);
         StringDeleteModification mod3 = new StringDeleteModification(2, 4);
@@ -164,7 +164,7 @@ public class StringDeleteModificationTest {
 
     /** Test the hashCode method */
     @Test
-    public void testHashCodeMethod() {
+    void testHashCodeMethod() {
         StringDeleteModification mod1 = new StringDeleteModification(3, 4);
         StringDeleteModification mod2 = new StringDeleteModification(3, 4);
 
@@ -178,7 +178,7 @@ public class StringDeleteModificationTest {
 
     /** Test the toString method */
     @Test
-    public void testToStringMethod() {
+    void testToStringMethod() {
         StringDeleteModification modifier = new StringDeleteModification(2, 3);
         String toString = modifier.toString();
 
@@ -189,7 +189,7 @@ public class StringDeleteModificationTest {
 
     /** Test the copy constructor */
     @Test
-    public void testCopyConstructor() {
+    void testCopyConstructor() {
         StringDeleteModification original = new StringDeleteModification(4, 6);
         StringDeleteModification copy = new StringDeleteModification(original);
 
@@ -205,7 +205,7 @@ public class StringDeleteModificationTest {
 
     /** Test the createCopy method */
     @Test
-    public void testCreateCopyMethod() {
+    void testCreateCopyMethod() {
         StringDeleteModification original = new StringDeleteModification(3, 5);
         StringDeleteModification copy = original.createCopy();
 

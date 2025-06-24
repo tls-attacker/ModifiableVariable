@@ -20,18 +20,18 @@ import java.util.Objects;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class LongSubtractModificationTest {
+class LongSubtractModificationTest {
 
     private LongSubtractModification modification;
     private final Long subtrahend = 5L;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         modification = new LongSubtractModification(subtrahend);
     }
 
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         LongSubtractModification copy = modification.createCopy();
         assertNotNull(copy);
         assertEquals(modification, copy);
@@ -39,7 +39,7 @@ public class LongSubtractModificationTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         LongSubtractModification equalModification = new LongSubtractModification(subtrahend);
         LongSubtractModification differentModification = new LongSubtractModification(10L);
 
@@ -59,7 +59,7 @@ public class LongSubtractModificationTest {
     }
 
     @Test
-    public void testEqualsWithDifferentTypes() {
+    void testEqualsWithDifferentTypes() {
         // Test equality with different modification types that have same numeric value
         LongAddModification addMod = new LongAddModification(subtrahend);
 
@@ -69,7 +69,7 @@ public class LongSubtractModificationTest {
     }
 
     @Test
-    public void testEqualsTransitivity() {
+    void testEqualsTransitivity() {
         // Test transitivity property of equals
         LongSubtractModification mod1 = new LongSubtractModification(subtrahend);
         LongSubtractModification mod2 = new LongSubtractModification(subtrahend);
@@ -82,7 +82,7 @@ public class LongSubtractModificationTest {
     }
 
     @Test
-    public void testEqualsAfterModification() {
+    void testEqualsAfterModification() {
         // Create equal modifications
         LongSubtractModification mod1 = new LongSubtractModification(subtrahend);
         LongSubtractModification mod2 = new LongSubtractModification(subtrahend);
@@ -104,7 +104,7 @@ public class LongSubtractModificationTest {
     }
 
     @Test
-    public void testEqualsWithBoundaryValues() {
+    void testEqualsWithBoundaryValues() {
         // Test with boundary values
         LongSubtractModification minMod = new LongSubtractModification(Long.MIN_VALUE);
         LongSubtractModification maxMod = new LongSubtractModification(Long.MAX_VALUE);
@@ -120,7 +120,7 @@ public class LongSubtractModificationTest {
     }
 
     @Test
-    public void testEqualsCopyConstructor() {
+    void testEqualsCopyConstructor() {
         // Test equals with copy constructor
         LongSubtractModification original = new LongSubtractModification(42L);
         LongSubtractModification copy = new LongSubtractModification(original);
@@ -136,7 +136,7 @@ public class LongSubtractModificationTest {
     }
 
     @Test
-    public void testEqualsWithNull() {
+    void testEqualsWithNull() {
         // Explicitly test the null case in equals
         LongSubtractModification mod = new LongSubtractModification(42L);
 
@@ -149,7 +149,7 @@ public class LongSubtractModificationTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         LongSubtractModification equalModification = new LongSubtractModification(subtrahend);
 
         // Equal objects should have equal hash codes
@@ -157,7 +157,7 @@ public class LongSubtractModificationTest {
     }
 
     @Test
-    public void testHashCodeConsistency() {
+    void testHashCodeConsistency() {
         // Test consistency: hashCode should return same value when called multiple
         // times
         int firstHashCode = modification.hashCode();
@@ -171,7 +171,7 @@ public class LongSubtractModificationTest {
     }
 
     @Test
-    public void testHashCodeWithDifferentValues() {
+    void testHashCodeWithDifferentValues() {
         // Different values should have different hash codes (not guaranteed but
         // expected in this
         // case)
@@ -182,7 +182,7 @@ public class LongSubtractModificationTest {
     }
 
     @Test
-    public void testHashCodeAfterModification() {
+    void testHashCodeAfterModification() {
         // Hash code should change when the object state changes
         LongSubtractModification mutableMod = new LongSubtractModification(subtrahend);
         int initialHash = mutableMod.hashCode();
@@ -196,25 +196,25 @@ public class LongSubtractModificationTest {
     }
 
     @Test
-    public void testGetSubtrahend() {
+    void testGetSubtrahend() {
         assertEquals(subtrahend, modification.getSubtrahend());
     }
 
     @Test
-    public void testSetSubtrahend() {
+    void testSetSubtrahend() {
         Long newSubtrahend = 20L;
         modification.setSubtrahend(newSubtrahend);
         assertEquals(newSubtrahend, modification.getSubtrahend());
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         String expected = "LongSubtractModification{subtrahend=5}";
         assertEquals(expected, modification.toString());
     }
 
     @Test
-    public void testConstructors() {
+    void testConstructors() {
         LongSubtractModification constructor = new LongSubtractModification(5L);
         assertNotNull(constructor);
         assertEquals(5, constructor.getSubtrahend());
@@ -225,7 +225,7 @@ public class LongSubtractModificationTest {
     }
 
     @Test
-    public void testModifyWithNull() {
+    void testModifyWithNull() {
         // Create a ModifiableLong with null value
         ModifiableLong modifiable = new ModifiableLong();
         modifiable.setOriginalValue(null);
@@ -238,7 +238,7 @@ public class LongSubtractModificationTest {
     }
 
     @Test
-    public void testGetValueWithNullInput() {
+    void testGetValueWithNullInput() {
         // Test direct call to modify with null input
         Long result = modification.modify(null);
 

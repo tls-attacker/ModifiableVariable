@@ -17,11 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-public class ModifiableVariableTest {
+class ModifiableVariableTest {
 
     /** Test setModifications with a list of modifications. */
     @Test
-    public void testSetModifications() {
+    void testSetModifications() {
         ModifiableInteger integer = new ModifiableInteger();
         integer.setOriginalValue(100);
 
@@ -39,7 +39,7 @@ public class ModifiableVariableTest {
 
     /** Test clear modifications. */
     @Test
-    public void testClearModifications() {
+    void testClearModifications() {
         ModifiableInteger integer = new ModifiableInteger();
         integer.setOriginalValue(100);
 
@@ -56,7 +56,7 @@ public class ModifiableVariableTest {
 
     /** Test addModification with null. */
     @Test
-    public void testAddModificationWithNull() {
+    void testAddModificationWithNull() {
         ModifiableInteger integer = new ModifiableInteger();
         integer.setOriginalValue(100);
 
@@ -69,7 +69,7 @@ public class ModifiableVariableTest {
 
     /** Test copy constructor with modifications. */
     @Test
-    public void testCopyConstructorWithModifications() {
+    void testCopyConstructorWithModifications() {
         // Create and set up original instance
         ModifiableInteger original = new ModifiableInteger();
         original.setOriginalValue(100);
@@ -87,7 +87,7 @@ public class ModifiableVariableTest {
 
     /** Test getModifications method. */
     @Test
-    public void testGetModifications() {
+    void testGetModifications() {
         ModifiableInteger integer = new ModifiableInteger();
         integer.setOriginalValue(100);
 
@@ -114,7 +114,7 @@ public class ModifiableVariableTest {
 
     /** Test containsAssertion method. */
     @Test
-    public void testContainsAssertion() {
+    void testContainsAssertion() {
         ModifiableInteger integer = new ModifiableInteger();
 
         // Initially no assertion
@@ -131,7 +131,7 @@ public class ModifiableVariableTest {
 
     /** Test innerToString method through subclass toString. */
     @Test
-    public void testInnerToString() {
+    void testInnerToString() {
         // Test with no modifications or assertions
         ModifiableInteger integer1 = new ModifiableInteger();
         integer1.setOriginalValue(100);

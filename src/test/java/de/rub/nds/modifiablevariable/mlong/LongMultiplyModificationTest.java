@@ -18,18 +18,18 @@ import de.rub.nds.modifiablevariable.longint.ModifiableLong;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class LongMultiplyModificationTest {
+class LongMultiplyModificationTest {
 
     private LongMultiplyModification modification;
     private final Long factor = 5L;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         modification = new LongMultiplyModification(factor);
     }
 
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         LongMultiplyModification copy = modification.createCopy();
         assertNotNull(copy);
         assertEquals(modification, copy);
@@ -38,7 +38,7 @@ public class LongMultiplyModificationTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         LongMultiplyModification equalModification = new LongMultiplyModification(factor);
         LongMultiplyModification differentModification = new LongMultiplyModification(10L);
 
@@ -58,7 +58,7 @@ public class LongMultiplyModificationTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         LongMultiplyModification equalModification = new LongMultiplyModification(factor);
 
         // Equal objects should have equal hash codes
@@ -66,25 +66,25 @@ public class LongMultiplyModificationTest {
     }
 
     @Test
-    public void testGetFactor() {
+    void testGetFactor() {
         assertEquals(factor, modification.getFactor());
     }
 
     @Test
-    public void testSetFactor() {
+    void testSetFactor() {
         Long newFactor = 20L;
         modification.setFactor(newFactor);
         assertEquals(newFactor, modification.getFactor());
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         String expected = "LongMultiplyModification{factor=5}";
         assertEquals(expected, modification.toString());
     }
 
     @Test
-    public void testConstructors() {
+    void testConstructors() {
         LongMultiplyModification constructor = new LongMultiplyModification(5L);
         assertNotNull(constructor);
         assertEquals(5L, constructor.getFactor());
@@ -95,7 +95,7 @@ public class LongMultiplyModificationTest {
     }
 
     @Test
-    public void testModifyWithNull() {
+    void testModifyWithNull() {
         // Create a ModifiableLong with null value
         ModifiableLong modifiable = new ModifiableLong();
         modifiable.setOriginalValue(null);

@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ByteArrayDeleteModificationTest {
+class ByteArrayDeleteModificationTest {
 
     private ByteArrayDeleteModification b1;
     private ByteArrayDeleteModification b2;
@@ -21,7 +21,7 @@ public class ByteArrayDeleteModificationTest {
     private Object differentType;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         b1 = new ByteArrayDeleteModification(0, 0);
         b2 = new ByteArrayDeleteModification(0, 0);
         b3 = new ByteArrayDeleteModification(0, 1);
@@ -31,7 +31,7 @@ public class ByteArrayDeleteModificationTest {
 
     /** Test of modifyImplementationHook method with normal byte array */
     @Test
-    public void testModifyImplementationHookNormal() {
+    void testModifyImplementationHookNormal() {
         byte[] input = new byte[] {0, 1, 2, 3, 4};
         byte[] expected = new byte[] {1, 2, 3, 4};
         ByteArrayDeleteModification mod = new ByteArrayDeleteModification(0, 1);
@@ -40,7 +40,7 @@ public class ByteArrayDeleteModificationTest {
 
     /** Test of modifyImplementationHook method with deletion in the middle */
     @Test
-    public void testModifyImplementationHookMiddle() {
+    void testModifyImplementationHookMiddle() {
         byte[] input = new byte[] {0, 1, 2, 3, 4};
         byte[] expected = new byte[] {0, 1, 4};
         ByteArrayDeleteModification mod = new ByteArrayDeleteModification(2, 2);
@@ -49,7 +49,7 @@ public class ByteArrayDeleteModificationTest {
 
     /** Test of modifyImplementationHook method with deletion at the end */
     @Test
-    public void testModifyImplementationHookEnd() {
+    void testModifyImplementationHookEnd() {
         byte[] input = new byte[] {0, 1, 2, 3, 4};
         byte[] expected = new byte[] {0, 1, 2};
         ByteArrayDeleteModification mod = new ByteArrayDeleteModification(3, 2);
@@ -58,7 +58,7 @@ public class ByteArrayDeleteModificationTest {
 
     /** Test of modifyImplementationHook method with zero count (no deletion) */
     @Test
-    public void testModifyImplementationHookZeroCount() {
+    void testModifyImplementationHookZeroCount() {
         byte[] input = new byte[] {0, 1, 2, 3, 4};
         ByteArrayDeleteModification mod = new ByteArrayDeleteModification(2, 0);
         assertArrayEquals(input, mod.modifyImplementationHook(input));
@@ -66,7 +66,7 @@ public class ByteArrayDeleteModificationTest {
 
     /** Test of modifyImplementationHook method with negative count (should be treated as 0) */
     @Test
-    public void testModifyImplementationHookNegativeCount() {
+    void testModifyImplementationHookNegativeCount() {
         byte[] input = new byte[] {0, 1, 2, 3, 4};
         ByteArrayDeleteModification mod = new ByteArrayDeleteModification(2, -1);
         // Negative count should be treated as 0 due to Math.max(0, count)
@@ -75,7 +75,7 @@ public class ByteArrayDeleteModificationTest {
 
     /** Test of modifyImplementationHook method with negative start position */
     @Test
-    public void testModifyImplementationHookNegativePosition() {
+    void testModifyImplementationHookNegativePosition() {
         byte[] input = new byte[] {0, 1, 2, 3, 4};
         // -1 should wrap to position 3 (length-1 + position)
         ByteArrayDeleteModification mod = new ByteArrayDeleteModification(-1, 1);
@@ -85,7 +85,7 @@ public class ByteArrayDeleteModificationTest {
 
     /** Test of modifyImplementationHook method with start position beyond array length */
     @Test
-    public void testModifyImplementationHookPositionBeyondLength() {
+    void testModifyImplementationHookPositionBeyondLength() {
         byte[] input = new byte[] {0, 1, 2, 3, 4};
         // Position 10 should wrap to position 0 (10 % 5)
         ByteArrayDeleteModification mod = new ByteArrayDeleteModification(10, 2);
@@ -95,7 +95,7 @@ public class ByteArrayDeleteModificationTest {
 
     /** Test of modifyImplementationHook method with count extending beyond array length */
     @Test
-    public void testModifyImplementationHookCountBeyondLength() {
+    void testModifyImplementationHookCountBeyondLength() {
         byte[] input = new byte[] {0, 1, 2, 3, 4};
         // Delete from position 3 with count 10 should delete to the end
         ByteArrayDeleteModification mod = new ByteArrayDeleteModification(3, 10);
@@ -105,14 +105,14 @@ public class ByteArrayDeleteModificationTest {
 
     /** Test of modifyImplementationHook method with null input */
     @Test
-    public void testModifyImplementationHookNullInput() {
+    void testModifyImplementationHookNullInput() {
         ByteArrayDeleteModification mod = new ByteArrayDeleteModification(0, 1);
         assertNull(mod.modifyImplementationHook(null));
     }
 
     /** Test of modifyImplementationHook method with empty array */
     @Test
-    public void testModifyImplementationHookEmptyArray() {
+    void testModifyImplementationHookEmptyArray() {
         byte[] emptyArray = new byte[0];
         ByteArrayDeleteModification mod = new ByteArrayDeleteModification(0, 1);
         assertArrayEquals(emptyArray, mod.modifyImplementationHook(emptyArray));
@@ -120,7 +120,7 @@ public class ByteArrayDeleteModificationTest {
 
     /** Test of createCopy method */
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         ByteArrayDeleteModification original = new ByteArrayDeleteModification(2, 3);
         ByteArrayDeleteModification copy = original.createCopy();
 
@@ -139,7 +139,7 @@ public class ByteArrayDeleteModificationTest {
 
     /** Test copy constructor */
     @Test
-    public void testCopyConstructor() {
+    void testCopyConstructor() {
         ByteArrayDeleteModification original = new ByteArrayDeleteModification(2, 3);
         ByteArrayDeleteModification copy = new ByteArrayDeleteModification(original);
 
@@ -154,7 +154,7 @@ public class ByteArrayDeleteModificationTest {
 
     /** Test of getStartPosition method */
     @Test
-    public void testGetStartPosition() {
+    void testGetStartPosition() {
         assertEquals(0, b1.getStartPosition());
         assertEquals(0, b3.getStartPosition());
         assertEquals(1, b4.getStartPosition());
@@ -162,7 +162,7 @@ public class ByteArrayDeleteModificationTest {
 
     /** Test of setStartPosition method */
     @Test
-    public void testSetStartPosition() {
+    void testSetStartPosition() {
         b1.setStartPosition(5);
         assertEquals(5, b1.getStartPosition());
 
@@ -173,7 +173,7 @@ public class ByteArrayDeleteModificationTest {
 
     /** Test of getCount method */
     @Test
-    public void testGetCount() {
+    void testGetCount() {
         assertEquals(0, b1.getCount());
         assertEquals(1, b3.getCount());
         assertEquals(0, b4.getCount());
@@ -181,7 +181,7 @@ public class ByteArrayDeleteModificationTest {
 
     /** Test of setCount method */
     @Test
-    public void testSetCount() {
+    void testSetCount() {
         b1.setCount(10);
         assertEquals(10, b1.getCount());
 
@@ -192,25 +192,25 @@ public class ByteArrayDeleteModificationTest {
 
     /** Test of hashCode method with identical objects */
     @Test
-    public void testHashCodeIdentical() {
+    void testHashCodeIdentical() {
         assertEquals(b1.hashCode(), b2.hashCode());
     }
 
     /** Test of hashCode method with different count */
     @Test
-    public void testHashCodeDifferentCount() {
+    void testHashCodeDifferentCount() {
         assertNotEquals(b1.hashCode(), b3.hashCode());
     }
 
     /** Test of hashCode method with different position */
     @Test
-    public void testHashCodeDifferentPosition() {
+    void testHashCodeDifferentPosition() {
         assertNotEquals(b1.hashCode(), b4.hashCode());
     }
 
     /** Test of hashCode method consistency */
     @Test
-    public void testHashCodeConsistency() {
+    void testHashCodeConsistency() {
         int hash1 = b1.hashCode();
         int hash2 = b1.hashCode();
         assertEquals(hash1, hash2);
@@ -218,44 +218,44 @@ public class ByteArrayDeleteModificationTest {
 
     /** Test of equals method with same object reference */
     @Test
-    public void testEqualsSameReference() {
+    void testEqualsSameReference() {
         assertTrue(b1.equals(b1));
     }
 
     /** Test of equals method with equal objects */
     @Test
-    public void testEqualsEqualObjects() {
+    void testEqualsEqualObjects() {
         assertTrue(b1.equals(b2));
         assertTrue(b2.equals(b1)); // symmetry
     }
 
     /** Test of equals method with different count */
     @Test
-    public void testEqualsDifferentCount() {
+    void testEqualsDifferentCount() {
         assertFalse(b1.equals(b3));
     }
 
     /** Test of equals method with different position */
     @Test
-    public void testEqualsDifferentPosition() {
+    void testEqualsDifferentPosition() {
         assertFalse(b1.equals(b4));
     }
 
     /** Test of equals method with null */
     @Test
-    public void testEqualsNull() {
+    void testEqualsNull() {
         assertFalse(b1.equals(null));
     }
 
     /** Test of equals method with different type */
     @Test
-    public void testEqualsDifferentType() {
+    void testEqualsDifferentType() {
         assertFalse(b1.equals(differentType));
     }
 
     /** Test of equals method transitivity */
     @Test
-    public void testEqualsTransitivity() {
+    void testEqualsTransitivity() {
         ByteArrayDeleteModification a = new ByteArrayDeleteModification(5, 10);
         ByteArrayDeleteModification b = new ByteArrayDeleteModification(5, 10);
         ByteArrayDeleteModification c = new ByteArrayDeleteModification(5, 10);
@@ -267,7 +267,7 @@ public class ByteArrayDeleteModificationTest {
 
     /** Test of toString method */
     @Test
-    public void testToString() {
+    void testToString() {
         String expected = "ByteArrayDeleteModification{count=0, startPosition=0}";
         assertEquals(expected, b1.toString());
 

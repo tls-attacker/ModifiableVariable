@@ -21,13 +21,13 @@ import de.rub.nds.modifiablevariable.longint.ModifiableLong;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ModifiableLongTest {
+class ModifiableLongTest {
 
     private ModifiableLong long1;
     private ModifiableLong long2;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         long1 = new ModifiableLong();
         long1.setOriginalValue(2L);
         long2 = new ModifiableLong();
@@ -36,7 +36,7 @@ public class ModifiableLongTest {
 
     /** Test of getAssertEquals method, of class ModifiableLong. */
     @Test
-    public void testGetAssertEquals() {
+    void testGetAssertEquals() {
         assertNull(long1.getAssertEquals());
         long1.setAssertEquals(42L);
         assertEquals(Long.valueOf(42L), long1.getAssertEquals());
@@ -44,7 +44,7 @@ public class ModifiableLongTest {
 
     /** Test of setAssertEquals method, of class ModifiableLong. */
     @Test
-    public void testSetAssertEquals() {
+    void testSetAssertEquals() {
         long1.setAssertEquals(42L);
         assertEquals(Long.valueOf(42L), long1.getAssertEquals());
 
@@ -54,7 +54,7 @@ public class ModifiableLongTest {
 
     /** Test of isOriginalValueModified method, of class ModifiableLong. */
     @Test
-    public void testIsOriginalValueModified() {
+    void testIsOriginalValueModified() {
         // Initial state - not modified
         assertFalse(long1.isOriginalValueModified());
 
@@ -69,7 +69,7 @@ public class ModifiableLongTest {
 
     /** Test of getByteArray method, of class ModifiableLong. */
     @Test
-    public void testGetByteArray() {
+    void testGetByteArray() {
         // Test 8-byte representation
         byte[] expected8 = new byte[] {0, 0, 0, 0, 0, 0, 0, 2};
         assertArrayEquals(expected8, long1.getByteArray(8));
@@ -86,7 +86,7 @@ public class ModifiableLongTest {
 
     /** Test of validateAssertions method, of class ModifiableLong. */
     @Test
-    public void testValidateAssertions() {
+    void testValidateAssertions() {
         // No assertions set
         assertTrue(long1.validateAssertions());
 
@@ -106,7 +106,7 @@ public class ModifiableLongTest {
 
     /** Test of getOriginalValue method, of class ModifiableLong. */
     @Test
-    public void testGetOriginalValue() {
+    void testGetOriginalValue() {
         assertEquals(2L, long1.getOriginalValue());
 
         ModifiableLong nullLong = new ModifiableLong();
@@ -115,7 +115,7 @@ public class ModifiableLongTest {
 
     /** Test of setOriginalValue method, of class ModifiableLong. */
     @Test
-    public void testSetOriginalValue() {
+    void testSetOriginalValue() {
         long1.setOriginalValue(42L);
         assertEquals(42L, long1.getOriginalValue());
 
@@ -125,7 +125,7 @@ public class ModifiableLongTest {
 
     /** Test of toString method, of class ModifiableLong. */
     @Test
-    public void testToString() {
+    void testToString() {
         String expected = "ModifiableLong{originalValue=2}";
         assertEquals(expected, long1.toString());
 
@@ -144,7 +144,7 @@ public class ModifiableLongTest {
 
     /** Test of equals method, of class ModifiableLong. */
     @Test
-    public void testEquals() {
+    void testEquals() {
         assertEquals(long1, long2);
 
         // Different original value but same computed value
@@ -196,7 +196,7 @@ public class ModifiableLongTest {
 
     /** Test of hashCode method, of class ModifiableLong. */
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         assertEquals(long1.hashCode(), long2.hashCode());
 
         // Same computed value, different original
@@ -221,7 +221,7 @@ public class ModifiableLongTest {
     }
 
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         ModifiableLong copy = long1.createCopy();
         assertEquals(long1, copy);
         assertEquals(long1.getOriginalValue(), copy.getOriginalValue());
@@ -233,7 +233,7 @@ public class ModifiableLongTest {
     }
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         ModifiableLong defaultConstructor = new ModifiableLong();
         assertNull(defaultConstructor.getOriginalValue());
 

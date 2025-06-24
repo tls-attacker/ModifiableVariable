@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 
-public class ModifiableVariablePropertyTest {
+class ModifiableVariablePropertyTest {
 
     // Test class with annotated fields
     private static class TestClass {
@@ -54,7 +54,7 @@ public class ModifiableVariablePropertyTest {
     }
 
     @Test
-    public void testLengthProperty() throws NoSuchFieldException {
+    void testLengthProperty() throws NoSuchFieldException {
         Field lengthField = TestClass.class.getDeclaredField("length");
         ModifiableVariableProperty annotation =
                 lengthField.getAnnotation(ModifiableVariableProperty.class);
@@ -67,7 +67,7 @@ public class ModifiableVariablePropertyTest {
     }
 
     @Test
-    public void testCountProperty() throws NoSuchFieldException {
+    void testCountProperty() throws NoSuchFieldException {
         Field countField = TestClass.class.getDeclaredField("count");
         ModifiableVariableProperty annotation =
                 countField.getAnnotation(ModifiableVariableProperty.class);
@@ -80,7 +80,7 @@ public class ModifiableVariablePropertyTest {
     }
 
     @Test
-    public void testSignatureWithEncodingProperty() throws NoSuchFieldException {
+    void testSignatureWithEncodingProperty() throws NoSuchFieldException {
         Field signatureField = TestClass.class.getDeclaredField("signatureWithEncoding");
         ModifiableVariableProperty annotation =
                 signatureField.getAnnotation(ModifiableVariableProperty.class);
@@ -91,7 +91,7 @@ public class ModifiableVariablePropertyTest {
     }
 
     @Test
-    public void testDefaultProperty() throws NoSuchFieldException {
+    void testDefaultProperty() throws NoSuchFieldException {
         Field defaultField = TestClass.class.getDeclaredField("defaultProperty");
         ModifiableVariableProperty annotation =
                 defaultField.getAnnotation(ModifiableVariableProperty.class);
@@ -104,7 +104,7 @@ public class ModifiableVariablePropertyTest {
     }
 
     @Test
-    public void testEnhancedProperty() throws NoSuchFieldException {
+    void testEnhancedProperty() throws NoSuchFieldException {
         Field enhancedField = TestClass.class.getDeclaredField("enhancedProperty");
         ModifiableVariableProperty annotation =
                 enhancedField.getAnnotation(ModifiableVariableProperty.class);
@@ -117,7 +117,7 @@ public class ModifiableVariablePropertyTest {
     }
 
     @Test
-    public void testNewPurposeEnums() throws NoSuchFieldException {
+    void testNewPurposeEnums() throws NoSuchFieldException {
         Field versionField = TestClass.class.getDeclaredField("protocolVersion");
         ModifiableVariableProperty versionAnnotation =
                 versionField.getAnnotation(ModifiableVariableProperty.class);
@@ -143,7 +143,7 @@ public class ModifiableVariablePropertyTest {
     }
 
     @Test
-    public void testModifiableVariableAnalyzer() {
+    void testModifiableVariableAnalyzer() {
         List<Field> annotatedFields =
                 ModifiableVariableAnalyzer.getAnnotatedFields(TestClass.class);
         assertEquals(8, annotatedFields.size()); // 8 annotated fields in TestClass

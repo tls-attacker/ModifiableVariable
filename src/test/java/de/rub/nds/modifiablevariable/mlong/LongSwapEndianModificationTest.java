@@ -18,17 +18,17 @@ import de.rub.nds.modifiablevariable.longint.ModifiableLong;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class LongSwapEndianModificationTest {
+class LongSwapEndianModificationTest {
 
     private LongSwapEndianModification modification;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         modification = new LongSwapEndianModification();
     }
 
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         LongSwapEndianModification copy = modification.createCopy();
         assertNotNull(copy);
         assertEquals(modification, copy);
@@ -36,7 +36,7 @@ public class LongSwapEndianModificationTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         LongSwapEndianModification equalModification = new LongSwapEndianModification();
 
         // Test reflexivity
@@ -52,7 +52,7 @@ public class LongSwapEndianModificationTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         LongSwapEndianModification equalModification = new LongSwapEndianModification();
 
         // Equal objects should have equal hash codes
@@ -60,13 +60,13 @@ public class LongSwapEndianModificationTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         String expected = "LongSwapEndianModification{}";
         assertEquals(expected, modification.toString());
     }
 
     @Test
-    public void testConstructors() {
+    void testConstructors() {
         // Test default constructor
         LongSwapEndianModification defaultConstructor = new LongSwapEndianModification();
         assertNotNull(defaultConstructor);
@@ -77,7 +77,7 @@ public class LongSwapEndianModificationTest {
     }
 
     @Test
-    public void testModifyWithNull() {
+    void testModifyWithNull() {
         // Create a ModifiableLong with null value
         ModifiableLong modifiable = new ModifiableLong();
         modifiable.setOriginalValue(null);

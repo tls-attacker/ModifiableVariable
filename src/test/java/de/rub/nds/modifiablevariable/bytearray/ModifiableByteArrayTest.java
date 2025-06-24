@@ -19,7 +19,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ModifiableByteArrayTest {
+class ModifiableByteArrayTest {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -32,7 +32,7 @@ public class ModifiableByteArrayTest {
     private byte[] modification2;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         originalValue =
                 new byte[] {(byte) 0, (byte) 1, (byte) 2, (byte) 3, (byte) 4, (byte) 5, (byte) 6};
         modification1 = new byte[] {(byte) 2, (byte) 3};
@@ -47,7 +47,7 @@ public class ModifiableByteArrayTest {
 
     /** Test of setValue method, of class ModifiableByteArray. */
     @Test
-    public void testSetValue() {
+    void testSetValue() {
         LOGGER.info("testSetValue");
         ModifiableByteArray instance = new ModifiableByteArray();
         byte[] test = originalValue.clone();
@@ -57,7 +57,7 @@ public class ModifiableByteArrayTest {
 
     /** Test of setExplicitValue method, of class ModifiableByteArray. */
     @Test
-    public void testExplicitValue() {
+    void testExplicitValue() {
         LOGGER.info("testExplicitValue");
         VariableModification<byte[]> modifier =
                 new ByteArrayExplicitValueModification(modification1);
@@ -67,7 +67,7 @@ public class ModifiableByteArrayTest {
 
     /** Test of setXorFirstBytes method, of class ModifiableByteArray. */
     @Test
-    public void testXorFirstBytes() {
+    void testXorFirstBytes() {
         LOGGER.info("testXorFirstBytes");
         VariableModification<byte[]> modifier = new ByteArrayXorModification(modification1, 0);
         start.setModifications(modifier);
@@ -90,7 +90,7 @@ public class ModifiableByteArrayTest {
 
     /** Test of setXorLastBytes method, of class ModifiableByteArray. */
     @Test
-    public void testXorLastBytes() {
+    void testXorLastBytes() {
         LOGGER.info("testXorLastBytes");
 
         byte[] expResult = originalValue.clone();
@@ -118,7 +118,7 @@ public class ModifiableByteArrayTest {
 
     /** Test of setPrependBytes method, of class ModifiableByteArray. */
     @Test
-    public void testPrependBytes() {
+    void testPrependBytes() {
         LOGGER.info("testPrepend");
         int len = originalValue.length + modification1.length;
         byte[] expResult = new byte[len];
@@ -141,7 +141,7 @@ public class ModifiableByteArrayTest {
 
     /** Test of setAppendBytes method, of class ModifiableByteArray. */
     @Test
-    public void testAppendBytes() {
+    void testAppendBytes() {
         LOGGER.info("testAppendBytes");
         int len = originalValue.length + modification1.length;
         byte[] expResult = new byte[len];
@@ -164,7 +164,7 @@ public class ModifiableByteArrayTest {
 
     /** Test of setDeleteLastBytes method, of class ModifiableByteArray. */
     @Test
-    public void testDeleteLastBytes() {
+    void testDeleteLastBytes() {
         LOGGER.info("testDeleteLastBytes");
         // Deletes modification length many bytes
         assumeTrue(modification1.length < originalValue.length);
@@ -182,7 +182,7 @@ public class ModifiableByteArrayTest {
 
     /** Test of setDeleteFirstBytes method, of class ModifiableByteArray. */
     @Test
-    public void testDeleteFirstBytes() {
+    void testDeleteFirstBytes() {
         LOGGER.info("testDeleteFirstBytes");
         // Deletes modification length many bytes
         assumeTrue(modification1.length < originalValue.length);
@@ -202,7 +202,7 @@ public class ModifiableByteArrayTest {
 
     /** Test of setDeleteBytes method, of class ModifiableByteArray. */
     @Test
-    public void testDeleteBytes() {
+    void testDeleteBytes() {
         LOGGER.info("testDeleteBytes");
         // try to cover edge cases
         LOGGER.debug("Testing Delete all Bytes");
@@ -250,7 +250,7 @@ public class ModifiableByteArrayTest {
 
     /** Test of setInsertBytes method, of class ModifiableByteArray. */
     @Test
-    public void testInsertBytes() {
+    void testInsertBytes() {
         LOGGER.info("testInsertBytes");
         // Insert at negative position -> wrap around
         assumeTrue(modification1.length < originalValue.length);
@@ -289,7 +289,7 @@ public class ModifiableByteArrayTest {
 
     /** Test of add method, of class BigIntegerModificationFactory. */
     @Test
-    public void testIsOriginalValueModified() {
+    void testIsOriginalValueModified() {
         assertFalse(start.isOriginalValueModified());
         VariableModification<byte[]> modifier = new ByteArrayXorModification(new byte[] {}, 0);
         start.setModifications(modifier);
@@ -303,7 +303,7 @@ public class ModifiableByteArrayTest {
     }
 
     @Test
-    public void testDuplicateModification() {
+    void testDuplicateModification() {
         LOGGER.info("testDuplicateModification");
         byte[] expResult = ArrayConverter.concatenate(originalValue, originalValue);
 
@@ -317,7 +317,7 @@ public class ModifiableByteArrayTest {
 
     /** Test Shuffle */
     @Test
-    public void testShuffle() {
+    void testShuffle() {
         LOGGER.info("testShuffle");
         VariableModification<byte[]> modifier = new ByteArrayShuffleModification(new int[] {0, 1});
         start.setModifications(modifier);
@@ -336,7 +336,7 @@ public class ModifiableByteArrayTest {
     }
 
     @Test
-    public void toStringTest() {
+    void toStringTest() {
         ModifiableByteArray toTest = new ModifiableByteArray();
         toTest =
                 ModifiableVariableFactory.safelySetValue(
@@ -345,7 +345,7 @@ public class ModifiableByteArrayTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         ModifiableByteArray array1 = new ModifiableByteArray();
         array1.setOriginalValue(
                 new byte[] {
@@ -363,21 +363,21 @@ public class ModifiableByteArrayTest {
 
     /** Test equals with same object reference */
     @Test
-    public void testEqualsSameReference() {
+    void testEqualsSameReference() {
         ModifiableByteArray array = new ModifiableByteArray(new byte[] {1, 2, 3});
         assertTrue(array.equals(array));
     }
 
     /** Test equals with null */
     @Test
-    public void testEqualsNull() {
+    void testEqualsNull() {
         ModifiableByteArray array = new ModifiableByteArray(new byte[] {1, 2, 3});
         assertFalse(array.equals(null));
     }
 
     /** Test equals with different class */
     @Test
-    public void testEqualsDifferentClass() {
+    void testEqualsDifferentClass() {
         ModifiableByteArray array = new ModifiableByteArray(new byte[] {1, 2, 3});
         Object obj = new Object();
         assertFalse(array.equals(obj));
@@ -385,7 +385,7 @@ public class ModifiableByteArrayTest {
 
     /** Test equals with modified values producing same result */
     @Test
-    public void testEqualsModifiedSameValue() {
+    void testEqualsModifiedSameValue() {
         ModifiableByteArray array1 = new ModifiableByteArray(new byte[] {1, 2, 3});
         ByteArrayXorModification xorMod = new ByteArrayXorModification(new byte[] {0, 0, 0}, 0);
         array1.setModifications(xorMod);
@@ -400,7 +400,7 @@ public class ModifiableByteArrayTest {
 
     /** Test equals with modified values producing different results */
     @Test
-    public void testEqualsModifiedDifferentValue() {
+    void testEqualsModifiedDifferentValue() {
         ModifiableByteArray array1 = new ModifiableByteArray(new byte[] {1, 2, 3});
         ByteArrayXorModification xorMod = new ByteArrayXorModification(new byte[] {1, 0, 0}, 0);
         array1.setModifications(xorMod);
@@ -412,7 +412,7 @@ public class ModifiableByteArrayTest {
 
     /** Test equals with null values */
     @Test
-    public void testEqualsNullValues() {
+    void testEqualsNullValues() {
         ModifiableByteArray array1 = new ModifiableByteArray();
         ModifiableByteArray array2 = new ModifiableByteArray();
 
@@ -421,7 +421,7 @@ public class ModifiableByteArrayTest {
 
     /** Test hashCode method */
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         ModifiableByteArray array1 = new ModifiableByteArray(new byte[] {1, 2, 3});
         ModifiableByteArray array2 = new ModifiableByteArray(new byte[] {1, 2, 3});
 
@@ -433,7 +433,7 @@ public class ModifiableByteArrayTest {
 
     /** Test hashCode with modified values */
     @Test
-    public void testHashCodeModified() {
+    void testHashCodeModified() {
         ModifiableByteArray array1 = new ModifiableByteArray(new byte[] {1, 2, 3});
         ByteArrayXorModification xorMod = new ByteArrayXorModification(new byte[] {1, 0, 0}, 0);
         array1.setModifications(xorMod);
@@ -445,7 +445,7 @@ public class ModifiableByteArrayTest {
 
     /** Test hashCode with null values */
     @Test
-    public void testHashCodeNull() {
+    void testHashCodeNull() {
         ModifiableByteArray array1 = new ModifiableByteArray();
         ModifiableByteArray array2 = new ModifiableByteArray();
 
@@ -454,7 +454,7 @@ public class ModifiableByteArrayTest {
 
     /** Test copy constructor */
     @Test
-    public void testCopyConstructor() {
+    void testCopyConstructor() {
         ModifiableByteArray original = new ModifiableByteArray(new byte[] {1, 2, 3});
         ByteArrayXorModification xorMod = new ByteArrayXorModification(new byte[] {1, 0, 0}, 0);
         original.setModifications(xorMod);
@@ -475,7 +475,7 @@ public class ModifiableByteArrayTest {
 
     /** Test copy constructor with assertions */
     @Test
-    public void testCopyConstructorWithAssertions() {
+    void testCopyConstructorWithAssertions() {
         ModifiableByteArray original = new ModifiableByteArray(new byte[] {1, 2, 3});
         original.setAssertEquals(new byte[] {0, 2, 3});
 
@@ -488,7 +488,7 @@ public class ModifiableByteArrayTest {
 
     /** Test createCopy method */
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         ModifiableByteArray original = new ModifiableByteArray(new byte[] {1, 2, 3});
         ByteArrayXorModification xorMod = new ByteArrayXorModification(new byte[] {1, 0, 0}, 0);
         original.setModifications(xorMod);
@@ -505,7 +505,7 @@ public class ModifiableByteArrayTest {
 
     /** Test of getAssertEquals method */
     @Test
-    public void testGetAssertEquals() {
+    void testGetAssertEquals() {
         byte[] assertValue = new byte[] {1, 2, 3};
         ModifiableByteArray array = new ModifiableByteArray();
         array.setAssertEquals(assertValue);
@@ -515,7 +515,7 @@ public class ModifiableByteArrayTest {
 
     /** Test of validateAssertions method with matching values */
     @Test
-    public void testValidateAssertionsMatch() {
+    void testValidateAssertionsMatch() {
         byte[] originalValue = new byte[] {1, 2, 3};
         byte[] assertValue = new byte[] {1, 2, 3};
 
@@ -527,7 +527,7 @@ public class ModifiableByteArrayTest {
 
     /** Test of validateAssertions method with non-matching values */
     @Test
-    public void testValidateAssertionsNoMatch() {
+    void testValidateAssertionsNoMatch() {
         byte[] originalValue = new byte[] {1, 2, 3};
         byte[] assertValue = new byte[] {3, 4, 5};
 
@@ -539,7 +539,7 @@ public class ModifiableByteArrayTest {
 
     /** Test of validateAssertions method with no assertions */
     @Test
-    public void testValidateAssertionsNoAssertions() {
+    void testValidateAssertionsNoAssertions() {
         ModifiableByteArray array = new ModifiableByteArray(new byte[] {1, 2, 3});
 
         assertTrue(array.validateAssertions());
@@ -547,7 +547,7 @@ public class ModifiableByteArrayTest {
 
     /** Test of isOriginalValueModified method with null original value */
     @Test
-    public void testIsOriginalValueModifiedNull() {
+    void testIsOriginalValueModifiedNull() {
         ModifiableByteArray array = new ModifiableByteArray();
 
         assertThrows(IllegalStateException.class, () -> array.isOriginalValueModified());
@@ -555,7 +555,7 @@ public class ModifiableByteArrayTest {
 
     /** Test of toString method with null original value */
     @Test
-    public void testToStringNullOriginalValue() {
+    void testToStringNullOriginalValue() {
         ModifiableByteArray array = new ModifiableByteArray();
 
         assertEquals("ModifiableByteArray{originalValue=}", array.toString());
@@ -563,7 +563,7 @@ public class ModifiableByteArrayTest {
 
     /** Test of toString method with modifications */
     @Test
-    public void testToStringWithModifications() {
+    void testToStringWithModifications() {
         ModifiableByteArray array = new ModifiableByteArray(new byte[] {1, 2, 3});
         ByteArrayXorModification xorMod = new ByteArrayXorModification(new byte[] {1, 0, 0}, 0);
         array.setModifications(xorMod);

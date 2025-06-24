@@ -18,7 +18,7 @@ import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class BigIntegerSubtractModificationTest {
+class BigIntegerSubtractModificationTest {
 
     private BigIntegerSubtractModification b1;
     private BigIntegerSubtractModification b2;
@@ -26,7 +26,7 @@ public class BigIntegerSubtractModificationTest {
     private Integer integer1;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         b1 = new BigIntegerSubtractModification(BigInteger.ONE);
         b2 = new BigIntegerSubtractModification(BigInteger.TEN);
         b3 = new BigIntegerSubtractModification(BigInteger.ONE);
@@ -35,7 +35,7 @@ public class BigIntegerSubtractModificationTest {
 
     /** Test of modifyImplementationHook method, of class BigIntegerSubtractModification. */
     @Test
-    public void testModifyImplementationHook() {
+    void testModifyImplementationHook() {
         // Regular subtraction
         assertEquals(BigInteger.valueOf(9), b1.modifyImplementationHook(BigInteger.TEN));
         assertEquals(BigInteger.valueOf(0), b2.modifyImplementationHook(BigInteger.TEN));
@@ -53,7 +53,7 @@ public class BigIntegerSubtractModificationTest {
 
     /** Test of getSubtrahend method, of class BigIntegerSubtractModification. */
     @Test
-    public void testGetSubtrahend() {
+    void testGetSubtrahend() {
         assertEquals(BigInteger.ONE, b1.getSubtrahend());
         assertEquals(BigInteger.TEN, b2.getSubtrahend());
 
@@ -63,7 +63,7 @@ public class BigIntegerSubtractModificationTest {
 
     /** Test of setSubtrahend method, of class BigIntegerSubtractModification. */
     @Test
-    public void testSetSubtrahend() {
+    void testSetSubtrahend() {
         // Change subtrahend and verify
         assertNotEquals(BigInteger.valueOf(5), b1.getSubtrahend());
         b1.setSubtrahend(BigInteger.valueOf(5));
@@ -75,7 +75,7 @@ public class BigIntegerSubtractModificationTest {
 
     /** Test of hashCode method, of class BigIntegerSubtractModification. */
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         // Same subtrahend should have same hash code
         assertEquals(b1.hashCode(), b3.hashCode());
 
@@ -102,7 +102,7 @@ public class BigIntegerSubtractModificationTest {
 
     /** Test of equals method, of class BigIntegerSubtractModification. */
     @Test
-    public void testEquals() {
+    void testEquals() {
         // Same instance
         assertTrue(b1.equals(b1));
 
@@ -135,7 +135,7 @@ public class BigIntegerSubtractModificationTest {
 
     /** Test of createCopy method */
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         BigIntegerSubtractModification copy = b1.createCopy();
 
         // Verify it's a different instance but equal
@@ -152,7 +152,7 @@ public class BigIntegerSubtractModificationTest {
 
     /** Test of toString method */
     @Test
-    public void testToString() {
+    void testToString() {
         String toString = b1.toString();
         assertTrue(toString.contains("BigIntegerSubtractModification"));
         assertTrue(toString.contains("subtrahend=1"));
@@ -165,7 +165,7 @@ public class BigIntegerSubtractModificationTest {
 
     /** Test constructor with null value */
     @Test
-    public void testConstructorWithNullValue() {
+    void testConstructorWithNullValue() {
         // Using try-catch because we expect an exception
         try {
             // Explicitly specify null as BigInteger to avoid ambiguity with copy constructor
@@ -181,7 +181,7 @@ public class BigIntegerSubtractModificationTest {
 
     /** Test setSubtrahend with null value */
     @Test
-    public void testSetSubtrahendWithNullValue() {
+    void testSetSubtrahendWithNullValue() {
         // Using try-catch because we expect an exception
         try {
             b1.setSubtrahend(null);

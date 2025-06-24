@@ -18,18 +18,18 @@ import de.rub.nds.modifiablevariable.longint.ModifiableLong;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class LongXorModificationTest {
+class LongXorModificationTest {
 
     private LongXorModification modification;
     private final Long xor = 5L;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         modification = new LongXorModification(xor);
     }
 
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         LongXorModification copy = modification.createCopy();
         assertNotNull(copy);
         assertEquals(modification, copy);
@@ -38,7 +38,7 @@ public class LongXorModificationTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         LongXorModification equalModification = new LongXorModification(xor);
         LongXorModification differentModification = new LongXorModification(10L);
 
@@ -58,7 +58,7 @@ public class LongXorModificationTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         LongXorModification equalModification = new LongXorModification(xor);
 
         // Equal objects should have equal hash codes
@@ -66,25 +66,25 @@ public class LongXorModificationTest {
     }
 
     @Test
-    public void testGetXor() {
+    void testGetXor() {
         assertEquals(xor, modification.getXor());
     }
 
     @Test
-    public void testSetXor() {
+    void testSetXor() {
         Long newXor = 20L;
         modification.setXor(newXor);
         assertEquals(newXor, modification.getXor());
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         String expected = "LongXorModification{xor=5}";
         assertEquals(expected, modification.toString());
     }
 
     @Test
-    public void testConstructors() {
+    void testConstructors() {
         LongXorModification constuctor = new LongXorModification(2L);
         assertNotNull(constuctor);
         assertEquals(2L, constuctor.getXor());
@@ -98,7 +98,7 @@ public class LongXorModificationTest {
     // but we can indirectly test its behavior through public methods
 
     @Test
-    public void testModifyWithNull() {
+    void testModifyWithNull() {
         // Create a ModifiableLong with null value
         ModifiableLong modifiable = new ModifiableLong();
         modifiable.setOriginalValue(null);
