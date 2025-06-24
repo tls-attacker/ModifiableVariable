@@ -8,6 +8,8 @@
 package de.rub.nds.modifiablevariable;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import de.rub.nds.modifiablevariable.validation.ModifiableVariableValidator;
+import de.rub.nds.modifiablevariable.validation.ValidationResult;
 import jakarta.xml.bind.annotation.*;
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -188,6 +190,33 @@ public abstract class ModifiableVariable<E> implements Serializable {
      */
     public boolean containsAssertion() {
         return assertEquals != null;
+    }
+
+    /**
+     * Validates this variable against the constraints defined in a ModifiableVariableProperty
+     * annotation.
+     *
+     * <p>This method checks if the current value satisfies the constraints specified in the
+     * property annotation, such as minimum and maximum length requirements.
+     *
+     * @param property The ModifiableVariableProperty annotation containing constraints
+     * @return A ValidationResult indicating whether validation passed or failed
+     */
+    public ValidationResult validateProperty(ModifiableVariableProperty property) {
+        return ModifiableVariableValidator.validateVariable(this, property);
+    }
+
+    /**
+     * Validates this variable against the constraints defined in a ModifiableVariableProperty
+     * annotation, with field context for better error messages.
+     *
+     * @param property The ModifiableVariableProperty annotation containing constraints
+     * @param fieldName The name of the field being validated
+     * @return A ValidationResult indicating whether validation passed or failed
+     */
+    public ValidationResult validateProperty(
+            ModifiableVariableProperty property, String fieldName) {
+        return ModifiableVariableValidator.validateVariable(this, property, fieldName);
     }
 
     /**

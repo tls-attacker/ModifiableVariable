@@ -9,6 +9,8 @@ package de.rub.nds.modifiablevariable;
 
 import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import de.rub.nds.modifiablevariable.util.ReflectionHelper;
+import de.rub.nds.modifiablevariable.validation.ModifiableVariableValidator;
+import de.rub.nds.modifiablevariable.validation.ValidationResult;
 import jakarta.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -143,6 +145,67 @@ public abstract class ModifiableVariableHolder implements Serializable {
                 }
             }
         }
+    }
+
+    /**
+     * Validates all ModifiableVariable fields that have ModifiableVariableProperty annotations.
+     *
+     * <p>This method uses reflection to find all fields with ModifiableVariableProperty annotations
+     * and validates them against their constraints. It also recursively validates any nested
+     * ModifiableVariableHolder objects marked with the HoldsModifiableVariable annotation.
+     *
+     * @return A combined ValidationResult for all annotated fields
+     */
+    public ValidationResult validatePropertyAnnotations() {
+        return ModifiableVariableValidator.validateObject(this);
+    }
+
+    /**
+     * Validates all assertions set on ModifiableVariable fields in this object.
+     *
+     * <p>This method checks all ModifiableVariable fields and calls their validateAssertions()
+     * method. It also recursively validates assertions in nested ModifiableVariableHolder objects
+     * marked with the HoldsModifiableVariable annotation.
+     *
+     * @return true if all assertions pass or no assertions are set, false otherwise
+     */
+    public boolean validateAssertions() {
+        List<Field> fields = getAllModifiableVariableFields();
+        for (Field field : fields) {
+            field.setAccessible(true);
+            try {
+                ModifiableVariable<?> mv = (ModifiableVariable<?>) field.get(this);
+                if (mv != null && mv.containsAssertion() && !mv.validateAssertions()) {
+                    return false;
+                }
+            } catch (IllegalArgumentException | IllegalAccessException ex) {
+                LOGGER.warn("Could not validate assertions for field: " + field.getName());
+                LOGGER.debug(ex);
+                return false;
+            }
+        }
+
+        // Also check nested ModifiableVariableHolder objects
+        List<Field> allFields = ReflectionHelper.getFieldsUpTo(getClass(), null, null);
+        for (Field field : allFields) {
+            if (field.isAnnotationPresent(HoldsModifiableVariable.class)) {
+                field.setAccessible(true);
+                try {
+                    Object value = field.get(this);
+                    if (value instanceof ModifiableVariableHolder) {
+                        if (!((ModifiableVariableHolder) value).validateAssertions()) {
+                            return false;
+                        }
+                    }
+                } catch (IllegalArgumentException | IllegalAccessException ex) {
+                    LOGGER.warn("Could not validate nested holder: " + field.getName());
+                    LOGGER.debug(ex);
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     /**
