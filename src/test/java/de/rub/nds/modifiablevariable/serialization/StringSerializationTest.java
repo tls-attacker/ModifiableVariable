@@ -23,7 +23,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class StringSerializationTest {
+class StringSerializationTest {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -40,7 +40,7 @@ public class StringSerializationTest {
     private Unmarshaller um;
 
     @BeforeEach
-    public void setUp() throws JAXBException {
+    void setUp() throws JAXBException {
         start = new ModifiableString("Hello from Test ❤️\\ \u0000 \u0001 \u0006");
         expectedResult = null;
         result = null;
@@ -55,7 +55,7 @@ public class StringSerializationTest {
     }
 
     @Test
-    public void testSerializeDeserializeSimple() throws Exception {
+    void testSerializeDeserializeSimple() throws Exception {
         start.clearModifications();
         start.setAssertEquals("Hello from Test 2 \\ \u0000 \u0001 \u0006");
         m.marshal(start, writer);
@@ -73,7 +73,7 @@ public class StringSerializationTest {
     }
 
     @Test
-    public void testSerializeDeserializeWithModification() throws Exception {
+    void testSerializeDeserializeWithModification() throws Exception {
         VariableModification<String> modifier = new StringInsertValueModification("Uff! ", 0);
         start.setModifications(modifier);
         m.marshal(start, writer);

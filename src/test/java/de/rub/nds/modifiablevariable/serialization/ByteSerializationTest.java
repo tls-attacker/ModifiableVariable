@@ -19,7 +19,7 @@ import java.io.StringWriter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ByteSerializationTest {
+class ByteSerializationTest {
 
     private ModifiableByte start;
     private Byte expectedResult, result;
@@ -29,7 +29,7 @@ public class ByteSerializationTest {
     private Unmarshaller um;
 
     @BeforeEach
-    public void setUp() throws JAXBException {
+    void setUp() throws JAXBException {
         start = new ModifiableByte();
         start.setOriginalValue((byte) 10);
 
@@ -47,7 +47,7 @@ public class ByteSerializationTest {
     }
 
     @Test
-    public void testSerializeDeserializeSimple() throws Exception {
+    void testSerializeDeserializeSimple() throws Exception {
         start.clearModifications();
         m.marshal(start, writer);
 
@@ -63,7 +63,7 @@ public class ByteSerializationTest {
     }
 
     @Test
-    public void testSerializeDeserializeWithAddModification() throws Exception {
+    void testSerializeDeserializeWithAddModification() throws Exception {
         ByteAddModification mod = new ByteAddModification((byte) 5);
         start.setModifications(mod);
 
@@ -80,7 +80,7 @@ public class ByteSerializationTest {
     }
 
     @Test
-    public void testSerializeDeserializeWithSubtractModification() throws Exception {
+    void testSerializeDeserializeWithSubtractModification() throws Exception {
         ByteSubtractModification mod = new ByteSubtractModification((byte) 3);
         start.setModifications(mod);
 
@@ -97,7 +97,7 @@ public class ByteSerializationTest {
     }
 
     @Test
-    public void testSerializeDeserializeWithXorModification() throws Exception {
+    void testSerializeDeserializeWithXorModification() throws Exception {
         ByteXorModification mod = new ByteXorModification((byte) 6);
         start.setModifications(mod);
 
@@ -114,7 +114,7 @@ public class ByteSerializationTest {
     }
 
     @Test
-    public void testSerializeDeserializeWithExplicitValueModification() throws Exception {
+    void testSerializeDeserializeWithExplicitValueModification() throws Exception {
         ByteExplicitValueModification mod = new ByteExplicitValueModification((byte) 42);
         start.setModifications(mod);
 
@@ -131,7 +131,7 @@ public class ByteSerializationTest {
     }
 
     @Test
-    public void testSerializeDeserializeWithDoubleModification() throws Exception {
+    void testSerializeDeserializeWithDoubleModification() throws Exception {
         // Create a chain of modifications: add 5, then XOR with 3
         ByteAddModification addMod = new ByteAddModification((byte) 5);
         ByteXorModification xorMod = new ByteXorModification((byte) 3);
@@ -156,7 +156,7 @@ public class ByteSerializationTest {
     }
 
     @Test
-    public void testSerializeDeserializeWithNullValue() throws Exception {
+    void testSerializeDeserializeWithNullValue() throws Exception {
         ModifiableByte nullByte = new ModifiableByte();
 
         m.marshal(nullByte, writer);
@@ -169,7 +169,7 @@ public class ByteSerializationTest {
     }
 
     @Test
-    public void testSerializeDeserializeWithAssertions() throws Exception {
+    void testSerializeDeserializeWithAssertions() throws Exception {
         start.setAssertEquals((byte) 15);
         start.setModifications(new ByteAddModification((byte) 5));
 
@@ -184,7 +184,7 @@ public class ByteSerializationTest {
     }
 
     @Test
-    public void testSerializeDeserializeWithMinMaxValues() throws Exception {
+    void testSerializeDeserializeWithMinMaxValues() throws Exception {
         // Test with MIN_VALUE
         start.setOriginalValue(Byte.MIN_VALUE);
 
@@ -210,7 +210,7 @@ public class ByteSerializationTest {
     }
 
     @Test
-    public void testCopyConstructorSerializationConsistency() throws Exception {
+    void testCopyConstructorSerializationConsistency() throws Exception {
         // Set up original with modifications
         start.setModifications(new ByteAddModification((byte) 5));
         start.setAssertEquals((byte) 15);

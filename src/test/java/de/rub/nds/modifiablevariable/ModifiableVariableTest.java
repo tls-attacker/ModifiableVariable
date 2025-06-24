@@ -17,11 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-public class ModifiableVariableTest {
+class ModifiableVariableTest {
 
     /** Test setModifications with a list of modifications. */
     @Test
-    public void testSetModifications() {
+    void testSetModifications() {
         ModifiableInteger integer = new ModifiableInteger();
         integer.setOriginalValue(100);
 
@@ -39,7 +39,7 @@ public class ModifiableVariableTest {
 
     /** Test clear modifications. */
     @Test
-    public void testClearModifications() {
+    void testClearModifications() {
         ModifiableInteger integer = new ModifiableInteger();
         integer.setOriginalValue(100);
 
@@ -56,7 +56,7 @@ public class ModifiableVariableTest {
 
     /** Test addModification with null. */
     @Test
-    public void testAddModificationWithNull() {
+    void testAddModificationWithNull() {
         ModifiableInteger integer = new ModifiableInteger();
         integer.setOriginalValue(100);
 
@@ -69,7 +69,7 @@ public class ModifiableVariableTest {
 
     /** Test copy constructor with modifications. */
     @Test
-    public void testCopyConstructorWithModifications() {
+    void testCopyConstructorWithModifications() {
         // Create and set up original instance
         ModifiableInteger original = new ModifiableInteger();
         original.setOriginalValue(100);
@@ -83,5 +83,90 @@ public class ModifiableVariableTest {
         copy.addModification(new IntegerMultiplyModification(2));
         assertEquals(150, original.getValue());
         assertEquals(300, copy.getValue());
+    }
+
+    /** Test getModifications method. */
+    @Test
+    void testGetModifications() {
+        ModifiableInteger integer = new ModifiableInteger();
+        integer.setOriginalValue(100);
+
+        // Initially no modifications
+        assertNull(integer.getModifications());
+
+        // Add modifications
+        IntegerAddModification addMod = new IntegerAddModification(50);
+        IntegerMultiplyModification multiplyMod = new IntegerMultiplyModification(2);
+        integer.addModification(addMod);
+        integer.addModification(multiplyMod);
+
+        // Get modifications
+        List<VariableModification<Integer>> mods = integer.getModifications();
+        assertNotNull(mods);
+        assertEquals(2, mods.size());
+        assertEquals(addMod, mods.get(0));
+        assertEquals(multiplyMod, mods.get(1));
+
+        // Clear modifications
+        integer.clearModifications();
+        assertNull(integer.getModifications());
+    }
+
+    /** Test containsAssertion method. */
+    @Test
+    void testContainsAssertion() {
+        ModifiableInteger integer = new ModifiableInteger();
+
+        // Initially no assertion
+        assertFalse(integer.containsAssertion());
+
+        // Set assertEquals value
+        integer.setAssertEquals(150);
+        assertTrue(integer.containsAssertion());
+
+        // Create new instance without assertion
+        ModifiableInteger noAssertion = new ModifiableInteger();
+        assertFalse(noAssertion.containsAssertion());
+    }
+
+    /** Test innerToString method through subclass toString. */
+    @Test
+    void testInnerToString() {
+        // Test with no modifications or assertions
+        ModifiableInteger integer1 = new ModifiableInteger();
+        integer1.setOriginalValue(100);
+        String str1 = integer1.toString();
+        assertTrue(str1.contains("originalValue=100"));
+        assertFalse(str1.contains("modifications="));
+        assertFalse(str1.contains("assertEquals="));
+
+        // Test with modifications
+        ModifiableInteger integer2 = new ModifiableInteger();
+        integer2.setOriginalValue(100);
+        integer2.addModification(new IntegerAddModification(50));
+        integer2.addModification(new IntegerMultiplyModification(2));
+        String str2 = integer2.toString();
+        assertTrue(str2.contains("originalValue=100"));
+        assertTrue(str2.contains("modifications=["));
+        assertTrue(str2.contains("IntegerAddModification"));
+        assertTrue(str2.contains("IntegerMultiplyModification"));
+
+        // Test with assertions
+        ModifiableInteger integer3 = new ModifiableInteger();
+        integer3.setOriginalValue(100);
+        integer3.setAssertEquals(150);
+        String str3 = integer3.toString();
+        assertTrue(str3.contains("originalValue=100"));
+        assertTrue(str3.contains("assertEquals=150"));
+
+        // Test with both modifications and assertions
+        ModifiableInteger integer4 = new ModifiableInteger();
+        integer4.setOriginalValue(100);
+        integer4.addModification(new IntegerAddModification(50));
+        integer4.setAssertEquals(150);
+        String str4 = integer4.toString();
+        assertTrue(str4.contains("originalValue=100"));
+        assertTrue(str4.contains("modifications=["));
+        assertTrue(str4.contains("assertEquals=150"));
     }
 }

@@ -18,17 +18,17 @@ import org.junit.jupiter.params.provider.ValueSource;
  *
  * <p>Tests all methods and edge cases in the StringUtil class.
  */
-public class StringUtilTest {
+class StringUtilTest {
 
     /** Test backslashEscapeString with null input. */
     @Test
-    public void testBackslashEscapeStringWithNull() {
+    void testBackslashEscapeStringWithNull() {
         assertNull(StringUtil.backslashEscapeString(null), "Null input should return null");
     }
 
     /** Test backslashEscapeString with empty string. */
     @Test
-    public void testBackslashEscapeStringWithEmptyString() {
+    void testBackslashEscapeStringWithEmptyString() {
         assertEquals("", StringUtil.backslashEscapeString(""), "Empty string should remain empty");
     }
 
@@ -45,7 +45,7 @@ public class StringUtilTest {
                 "0123456789",
                 "!@#$%^&*()_+-={}[]|:;'<>,.?/~`"
             })
-    public void testBackslashEscapeStringWithPlainText(String input) {
+    void testBackslashEscapeStringWithPlainText(String input) {
         assertEquals(
                 input,
                 StringUtil.backslashEscapeString(input),
@@ -54,7 +54,7 @@ public class StringUtilTest {
 
     /** Test backslashEscapeString with common escape characters. */
     @Test
-    public void testBackslashEscapeStringWithEscapeChars() {
+    void testBackslashEscapeStringWithEscapeChars() {
         // Test backspace character
         assertEquals(
                 "a\\b",
@@ -88,7 +88,7 @@ public class StringUtilTest {
 
     /** Test backslashEscapeString with non-ASCII and control characters. */
     @Test
-    public void testBackslashEscapeStringWithNonAsciiAndControlChars() {
+    void testBackslashEscapeStringWithNonAsciiAndControlChars() {
         // Test string with various control characters and non-ASCII characters
         assertEquals(
                 "Null byte \\u0000 and bell \\u0007",
@@ -103,7 +103,7 @@ public class StringUtilTest {
 
     /** Test backslashEscapeString with supplementary characters (characters outside BMP). */
     @Test
-    public void testBackslashEscapeStringWithSupplementaryChars() {
+    void testBackslashEscapeStringWithSupplementaryChars() {
         // Test string with emoji and other supplementary characters
         assertEquals(
                 "Emoji: \\uD83D\\uDE00 \\uD83D\\uDE04 \\uD83D\\uDE2D",
@@ -121,7 +121,7 @@ public class StringUtilTest {
      * Test backslashEscapeString with a complex mixed string containing various character types.
      */
     @Test
-    public void testBackslashEscapeStringWithComplexString() {
+    void testBackslashEscapeStringWithComplexString() {
         String input =
                 "ASCII with control chars \n\t\r\f\b\\ and non-ASCII äöü and emoji 👨‍👩‍👧‍👦";
         String expected =
@@ -135,7 +135,7 @@ public class StringUtilTest {
 
     /** Test backslashEscapeString with real-world examples from previous test. */
     @Test
-    public void testBackslashEscapeStringWithExistingExamples() {
+    void testBackslashEscapeStringWithExistingExamples() {
         // Existing test cases for reference and regression
         assertEquals(
                 "String with line-\\nbreak, tab\\tstop and backslash \\\\",
@@ -157,7 +157,7 @@ public class StringUtilTest {
      * edge cases at the boundary of valid code points.
      */
     @Test
-    public void testBackslashEscapeStringWithMaximumValidCodePoint() {
+    void testBackslashEscapeStringWithMaximumValidCodePoint() {
         // Create a StringBuilder with the maximum valid code point
         StringBuilder input = new StringBuilder("Test");
         input.appendCodePoint(Character.MAX_CODE_POINT);

@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ByteArrayExplicitValueModificationTest {
+class ByteArrayExplicitValueModificationTest {
 
     private ByteArrayExplicitValueModification b1;
     private ByteArrayExplicitValueModification b2;
@@ -20,7 +20,7 @@ public class ByteArrayExplicitValueModificationTest {
     private Object b4;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         b1 = new ByteArrayExplicitValueModification(new byte[] {0x01, 0x02, 0x03});
         b2 = new ByteArrayExplicitValueModification(new byte[] {0x01, 0x02, 0x03});
         b3 = new ByteArrayExplicitValueModification(new byte[] {0x04, 0x05, 0x06});
@@ -29,7 +29,7 @@ public class ByteArrayExplicitValueModificationTest {
 
     /** Test of modifyImplementationHook method, of class ByteArrayExplicitValueModification. */
     @Test
-    public void testModifyImplementationHook() {
+    void testModifyImplementationHook() {
         // Test with any input, should always return explicit value
         byte[] input = new byte[] {0x10, 0x11, 0x12, 0x13};
         assertArrayEquals(new byte[] {0x01, 0x02, 0x03}, b1.modifyImplementationHook(input));
@@ -60,7 +60,7 @@ public class ByteArrayExplicitValueModificationTest {
 
     /** Test of createCopy method, of class ByteArrayExplicitValueModification. */
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         ByteArrayExplicitValueModification copy = b1.createCopy();
         assertNotSame(b1, copy);
         assertEquals(b1, copy);
@@ -69,7 +69,7 @@ public class ByteArrayExplicitValueModificationTest {
 
     /** Test copy constructor */
     @Test
-    public void testCopyConstructor() {
+    void testCopyConstructor() {
         ByteArrayExplicitValueModification copy = new ByteArrayExplicitValueModification(b1);
         assertNotSame(b1, copy);
         assertEquals(b1, copy);
@@ -78,13 +78,13 @@ public class ByteArrayExplicitValueModificationTest {
 
     /** Test of getExplicitValue method, of class ByteArrayExplicitValueModification. */
     @Test
-    public void testGetExplicitValue() {
+    void testGetExplicitValue() {
         assertArrayEquals(new byte[] {0x01, 0x02, 0x03}, b1.getExplicitValue());
     }
 
     /** Test of setExplicitValue method, of class ByteArrayExplicitValueModification. */
     @Test
-    public void testSetExplicitValue() {
+    void testSetExplicitValue() {
         ByteArrayExplicitValueModification mod =
                 new ByteArrayExplicitValueModification(new byte[] {0x01, 0x02});
         mod.setExplicitValue(new byte[] {0x0A, 0x0B, 0x0C});
@@ -93,7 +93,7 @@ public class ByteArrayExplicitValueModificationTest {
 
     /** Test setExplicitValue with null value */
     @Test
-    public void testSetExplicitValueNull() {
+    void testSetExplicitValueNull() {
         ByteArrayExplicitValueModification mod =
                 new ByteArrayExplicitValueModification(new byte[] {0x01, 0x02});
         assertThrows(NullPointerException.class, () -> mod.setExplicitValue(null));
@@ -101,7 +101,7 @@ public class ByteArrayExplicitValueModificationTest {
 
     /** Test constructor with null value */
     @Test
-    public void testConstructorNull() {
+    void testConstructorNull() {
         assertThrows(
                 NullPointerException.class,
                 () -> new ByteArrayExplicitValueModification((byte[]) null));
@@ -109,14 +109,14 @@ public class ByteArrayExplicitValueModificationTest {
 
     /** Test of hashCode method, of class ByteArrayExplicitValueModification. */
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         assertEquals(b1.hashCode(), b2.hashCode()); // Same explicit value
         assertNotEquals(b1.hashCode(), b3.hashCode()); // Different explicit value
     }
 
     /** Test of equals method, of class ByteArrayExplicitValueModification. */
     @Test
-    public void testEquals() {
+    void testEquals() {
         // Same object reference
         assertEquals(b1, b1);
 
@@ -135,7 +135,7 @@ public class ByteArrayExplicitValueModificationTest {
 
     /** Test of toString method, of class ByteArrayExplicitValueModification. */
     @Test
-    public void testToString() {
+    void testToString() {
         String expected = "ByteArrayExplicitValueModification{explicitValue=01 02 03}";
         assertEquals(expected, b1.toString());
     }

@@ -13,17 +13,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class UnformattedByteArrayAdapterTest {
+class UnformattedByteArrayAdapterTest {
 
     private UnformattedByteArrayAdapter adapter;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         adapter = new UnformattedByteArrayAdapter();
     }
 
     @Test
-    public void testMarshal() throws Exception {
+    void testMarshal() throws Exception {
         byte[] input = new byte[] {0x01, 0x02, 0x03, (byte) 0xAB, (byte) 0xCD, (byte) 0xEF};
         String expected = "01 02 03 AB CD EF";
 
@@ -31,7 +31,7 @@ public class UnformattedByteArrayAdapterTest {
     }
 
     @Test
-    public void testUnmarshalCompactFormat() throws Exception {
+    void testUnmarshalCompactFormat() throws Exception {
         String input = "0102ABCDEF";
         byte[] expected = new byte[] {0x01, 0x02, (byte) 0xAB, (byte) 0xCD, (byte) 0xEF};
 
@@ -39,7 +39,7 @@ public class UnformattedByteArrayAdapterTest {
     }
 
     @Test
-    public void testUnmarshalWithSpaces() throws Exception {
+    void testUnmarshalWithSpaces() throws Exception {
         String input = "01 02 AB CD EF";
         byte[] expected = new byte[] {0x01, 0x02, (byte) 0xAB, (byte) 0xCD, (byte) 0xEF};
 
@@ -47,7 +47,7 @@ public class UnformattedByteArrayAdapterTest {
     }
 
     @Test
-    public void testUnmarshalWithNewlinesAndSpaces() throws Exception {
+    void testUnmarshalWithNewlinesAndSpaces() throws Exception {
         String input = "01 02\nAB CD\r\nEF";
         byte[] expected = new byte[] {0x01, 0x02, (byte) 0xAB, (byte) 0xCD, (byte) 0xEF};
 
@@ -55,7 +55,7 @@ public class UnformattedByteArrayAdapterTest {
     }
 
     @Test
-    public void testMarshalEmptyArray() throws Exception {
+    void testMarshalEmptyArray() throws Exception {
         byte[] input = new byte[0];
         String expected = "";
 
@@ -63,7 +63,7 @@ public class UnformattedByteArrayAdapterTest {
     }
 
     @Test
-    public void testUnmarshalEmptyString() throws Exception {
+    void testUnmarshalEmptyString() throws Exception {
         String input = "";
         byte[] expected = new byte[0];
 
@@ -71,7 +71,7 @@ public class UnformattedByteArrayAdapterTest {
     }
 
     @Test
-    public void testUnmarshalOnlyWhitespace() throws Exception {
+    void testUnmarshalOnlyWhitespace() throws Exception {
         String input = " \n\t\r ";
         byte[] expected = new byte[0];
 

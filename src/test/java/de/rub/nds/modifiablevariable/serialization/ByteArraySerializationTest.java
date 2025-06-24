@@ -23,7 +23,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ByteArraySerializationTest {
+class ByteArraySerializationTest {
 
     private static final Logger LOGGER = LogManager.getLogger(ByteArraySerializationTest.class);
 
@@ -40,7 +40,7 @@ public class ByteArraySerializationTest {
     private Unmarshaller um;
 
     @BeforeEach
-    public void setUp() throws JAXBException {
+    void setUp() throws JAXBException {
         start = new ModifiableByteArray();
         start.setOriginalValue(new byte[] {(byte) 0xff, 1, 2, 3});
         expectedResult = null;
@@ -60,7 +60,7 @@ public class ByteArraySerializationTest {
     }
 
     @Test
-    public void testSerializeDeserializeSimple() throws Exception {
+    void testSerializeDeserializeSimple() throws Exception {
         start.clearModifications();
         start.setAssertEquals(new byte[] {(byte) 0xff, 5, 44, 3});
         m.marshal(start, writer);
@@ -78,7 +78,7 @@ public class ByteArraySerializationTest {
     }
 
     @Test
-    public void testSerializeDeserializeWithModification() throws Exception {
+    void testSerializeDeserializeWithModification() throws Exception {
         VariableModification<byte[]> modifier =
                 new ByteArrayInsertValueModification(new byte[] {1, 2}, 0);
         start.setModifications(modifier);

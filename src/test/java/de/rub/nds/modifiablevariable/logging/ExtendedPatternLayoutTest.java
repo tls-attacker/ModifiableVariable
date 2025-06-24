@@ -507,7 +507,7 @@ class ExtendedPatternLayoutTest {
     private static class SimpleTestPatternSelector implements PatternSelector {
         private final String name;
 
-        public SimpleTestPatternSelector(String name) {
+        SimpleTestPatternSelector(String name) {
             this.name = name;
         }
 

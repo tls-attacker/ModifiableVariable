@@ -12,21 +12,21 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class StringExplicitValueModificationTest {
+class StringExplicitValueModificationTest {
 
     private ModifiableString modifiableString;
     private final String originalString = "testString";
     private final String explicitValue = "EXPLICIT";
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         modifiableString = new ModifiableString();
         modifiableString.setOriginalValue(originalString);
     }
 
     /** Test basic explicit value modification */
     @Test
-    public void testBasicExplicitValue() {
+    void testBasicExplicitValue() {
         StringExplicitValueModification modifier =
                 new StringExplicitValueModification(explicitValue);
         modifiableString.setModifications(modifier);
@@ -36,7 +36,7 @@ public class StringExplicitValueModificationTest {
 
     /** Test with empty explicit value */
     @Test
-    public void testEmptyExplicitValue() {
+    void testEmptyExplicitValue() {
         StringExplicitValueModification modifier = new StringExplicitValueModification("");
         modifiableString.setModifications(modifier);
         assertEquals("", modifiableString.getValue());
@@ -44,7 +44,7 @@ public class StringExplicitValueModificationTest {
 
     /** Test with explicit value applied to empty string */
     @Test
-    public void testExplicitValueOnEmptyString() {
+    void testExplicitValueOnEmptyString() {
         ModifiableString emptyString = new ModifiableString();
         emptyString.setOriginalValue("");
 
@@ -57,7 +57,7 @@ public class StringExplicitValueModificationTest {
 
     /** Test with explicit value applied to null string */
     @Test
-    public void testExplicitValueOnNullString() {
+    void testExplicitValueOnNullString() {
         ModifiableString nullString = new ModifiableString();
         nullString.setOriginalValue(null);
 
@@ -71,7 +71,7 @@ public class StringExplicitValueModificationTest {
 
     /** Test that null explicit value is not allowed */
     @Test
-    public void testNullExplicitValue() {
+    void testNullExplicitValue() {
         assertThrows(
                 NullPointerException.class,
                 () -> {
@@ -82,7 +82,7 @@ public class StringExplicitValueModificationTest {
 
     /** Test the getter and setter for explicitValue */
     @Test
-    public void testExplicitValueGetterAndSetter() {
+    void testExplicitValueGetterAndSetter() {
         StringExplicitValueModification modifier = new StringExplicitValueModification("initial");
         assertEquals("initial", modifier.getExplicitValue());
 
@@ -99,7 +99,7 @@ public class StringExplicitValueModificationTest {
 
     /** Test with special characters in explicit value */
     @Test
-    public void testExplicitValueWithSpecialCharacters() {
+    void testExplicitValueWithSpecialCharacters() {
         String specialChars = "@#$%^&*()";
         StringExplicitValueModification modifier =
                 new StringExplicitValueModification(specialChars);
@@ -109,7 +109,7 @@ public class StringExplicitValueModificationTest {
 
     /** Test the equals method */
     @Test
-    public void testEqualsMethod() {
+    void testEqualsMethod() {
         StringExplicitValueModification mod1 = new StringExplicitValueModification("value");
         StringExplicitValueModification mod2 = new StringExplicitValueModification("value");
         StringExplicitValueModification mod3 = new StringExplicitValueModification("different");
@@ -130,7 +130,7 @@ public class StringExplicitValueModificationTest {
 
     /** Test the hashCode method */
     @Test
-    public void testHashCodeMethod() {
+    void testHashCodeMethod() {
         StringExplicitValueModification mod1 = new StringExplicitValueModification("value");
         StringExplicitValueModification mod2 = new StringExplicitValueModification("value");
 
@@ -144,7 +144,7 @@ public class StringExplicitValueModificationTest {
 
     /** Test the toString method */
     @Test
-    public void testToStringMethod() {
+    void testToStringMethod() {
         StringExplicitValueModification modifier = new StringExplicitValueModification("test");
         String toString = modifier.toString();
 
@@ -154,7 +154,7 @@ public class StringExplicitValueModificationTest {
 
     /** Test the copy constructor */
     @Test
-    public void testCopyConstructor() {
+    void testCopyConstructor() {
         StringExplicitValueModification original = new StringExplicitValueModification("original");
         StringExplicitValueModification copy = new StringExplicitValueModification(original);
 
@@ -169,7 +169,7 @@ public class StringExplicitValueModificationTest {
 
     /** Test the createCopy method */
     @Test
-    public void testCreateCopyMethod() {
+    void testCreateCopyMethod() {
         StringExplicitValueModification original = new StringExplicitValueModification("original");
         StringExplicitValueModification copy = original.createCopy();
 

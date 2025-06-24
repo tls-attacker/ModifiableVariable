@@ -17,14 +17,14 @@ import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class AssertionTest {
+class AssertionTest {
 
     private ModifiableInteger mi;
 
     private ModifiableByteArray mba;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         mi = new ModifiableInteger();
         mi.setOriginalValue(10);
         mba = new ModifiableByteArray();
@@ -32,7 +32,7 @@ public class AssertionTest {
     }
 
     @Test
-    public void testAssertionInteger() {
+    void testAssertionInteger() {
         mi.setAssertEquals(10);
         assertTrue(mi.validateAssertions());
         mi.setAssertEquals(0);
@@ -40,7 +40,7 @@ public class AssertionTest {
     }
 
     @Test
-    public void testAddInteger() {
+    void testAddInteger() {
         VariableModification<Integer> modifier = new IntegerAddModification(1);
         mi.setModifications(modifier);
         mi.setAssertEquals(11);
@@ -48,7 +48,7 @@ public class AssertionTest {
     }
 
     @Test
-    public void testAssertionByteArray() {
+    void testAssertionByteArray() {
         mba.setAssertEquals(new byte[] {0, 1});
         assertTrue(mba.validateAssertions());
         mba.setAssertEquals(new byte[] {0, 0});

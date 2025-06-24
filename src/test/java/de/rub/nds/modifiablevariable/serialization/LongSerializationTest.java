@@ -24,7 +24,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class LongSerializationTest {
+class LongSerializationTest {
 
     private static final Logger LOGGER = LogManager.getLogger(LongSerializationTest.class);
 
@@ -41,7 +41,7 @@ public class LongSerializationTest {
     private Unmarshaller um;
 
     @BeforeEach
-    public void setUp() throws JAXBException {
+    void setUp() throws JAXBException {
         start = new ModifiableLong();
         start.setOriginalValue(10L);
         expectedResult = null;
@@ -59,7 +59,7 @@ public class LongSerializationTest {
     }
 
     @Test
-    public void testSerializeDeserializeSimple() throws Exception {
+    void testSerializeDeserializeSimple() throws Exception {
         start.clearModifications();
         m.marshal(start, writer);
 
@@ -75,7 +75,7 @@ public class LongSerializationTest {
     }
 
     @Test
-    public void testSerializeDeserializeWithModification() throws Exception {
+    void testSerializeDeserializeWithModification() throws Exception {
         VariableModification<Long> modifier = new LongAddModification(1L);
         start.setModifications(modifier);
         m.marshal(start, writer);

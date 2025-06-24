@@ -15,13 +15,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
-public class IllegalStringAdapterTest {
+class IllegalStringAdapterTest {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
     /** Test of unmarshal method, of class IllegalStringAdapter. */
     @Test
-    public void testUnmarshal() {
+    void testUnmarshal() {
         IllegalStringAdapter instance = new IllegalStringAdapter();
         byte[] data = new byte[256];
         for (int i = 0; i < data.length; i++) {
