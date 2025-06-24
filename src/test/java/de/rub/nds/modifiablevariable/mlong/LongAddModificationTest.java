@@ -87,7 +87,7 @@ class LongAddModificationTest {
     void testConstructors() {
         LongAddModification constructor = new LongAddModification(5L);
         assertNotNull(constructor);
-        assertEquals(constructor.getSummand(), 5);
+        assertEquals(5L, constructor.getSummand());
 
         // Test copy constructor
         LongAddModification copy = new LongAddModification(modification);

@@ -91,7 +91,7 @@ class LongExplicitValueModificationTest {
         // Test default constructor
         LongExplicitValueModification constructor = new LongExplicitValueModification(5L);
         assertNotNull(constructor);
-        assertEquals(constructor.getExplicitValue(), 5);
+        assertEquals(5L, constructor.getExplicitValue());
 
         // Test copy constructor
         LongExplicitValueModification copy = new LongExplicitValueModification(modification);
