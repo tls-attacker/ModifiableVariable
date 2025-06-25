@@ -230,11 +230,11 @@
                         </goals>
                         <phase>prepare-package</phase>
                         <configuration>
-                            <mainClass>de.rub.nds.modifiablevariable.serialization.JsonSchemaCliGenerator</mainClass>
+                            <mainClass>de.rub.nds.modifiablevariable.json.JsonSchemaCliGenerator</mainClass>
                             <arguments>
                                 <argument>de.rub.nds.modifiablevariable.ModifiableVariable</argument>
                                 <argument>src/main/resources/ModifiableVariable.schema.json</argument>
-                                <argument>de.rub.nds.modifiablevariable.serialization.ModifiableVariableModule</argument>
+                                <argument>de.rub.nds.modifiablevariable.json.ModifiableVariableModule</argument>
                             </arguments>
                         </configuration>
                     </execution>

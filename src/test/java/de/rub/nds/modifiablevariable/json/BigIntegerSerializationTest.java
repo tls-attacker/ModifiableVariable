@@ -5,27 +5,29 @@
  *
  * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-package de.rub.nds.modifiablevariable.serialization;
+package de.rub.nds.modifiablevariable.json;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.bytearray.*;
+import de.rub.nds.modifiablevariable.biginteger.BigIntegerAddModification;
+import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
+import java.math.BigInteger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ByteArraySerializationTest {
+class BigIntegerSerializationTest {
 
     private static final Logger LOGGER = LogManager.getLogger();
     private static ObjectMapper mapper;
 
-    private ModifiableByteArray start;
-    private byte[] expectedResult, result;
+    private ModifiableBigInteger start;
+    private BigInteger expectedResult, result;
 
     @BeforeAll
     static void setUpClass() {
@@ -36,8 +38,8 @@ class ByteArraySerializationTest {
 
     @BeforeEach
     void setUp() {
-        start = new ModifiableByteArray();
-        start.setOriginalValue(new byte[] {(byte) 0xff, 1, 2, 3});
+        start = new ModifiableBigInteger();
+        start.setOriginalValue(BigInteger.TEN);
         expectedResult = null;
         result = null;
     }
@@ -45,31 +47,29 @@ class ByteArraySerializationTest {
     @Test
     void testSerializeDeserializeSimple() throws Exception {
         start.clearModifications();
-        start.setAssertEquals(new byte[] {(byte) 0xff, 5, 44, 3});
 
         String jsonString = mapper.writeValueAsString(start);
         LOGGER.debug(jsonString);
-        ModifiableByteArray mba = mapper.readValue(jsonString, ModifiableByteArray.class);
+        ModifiableBigInteger mv = mapper.readValue(jsonString, ModifiableBigInteger.class);
 
-        expectedResult = new byte[] {(byte) 0xff, 1, 2, 3};
-        result = mba.getValue();
-        assertArrayEquals(expectedResult, result);
+        expectedResult = new BigInteger("10");
+        result = mv.getValue();
+        assertEquals(expectedResult, result);
         assertNotSame(expectedResult, result);
     }
 
     @Test
     void testSerializeDeserializeWithModification() throws Exception {
-        VariableModification<byte[]> modifier =
-                new ByteArrayInsertValueModification(new byte[] {1, 2}, 0);
+        VariableModification<BigInteger> modifier = new BigIntegerAddModification(BigInteger.ONE);
         start.setModifications(modifier);
 
         String jsonString = mapper.writeValueAsString(start);
         LOGGER.debug(jsonString);
-        ModifiableByteArray mba = mapper.readValue(jsonString, ModifiableByteArray.class);
+        ModifiableBigInteger mv = mapper.readValue(jsonString, ModifiableBigInteger.class);
 
-        expectedResult = new byte[] {1, 2, (byte) 0xff, 1, 2, 3};
-        result = mba.getValue();
-        assertArrayEquals(expectedResult, result);
+        expectedResult = new BigInteger("11");
+        result = mv.getValue();
+        assertEquals(expectedResult, result);
         assertNotSame(expectedResult, result);
     }
 }
