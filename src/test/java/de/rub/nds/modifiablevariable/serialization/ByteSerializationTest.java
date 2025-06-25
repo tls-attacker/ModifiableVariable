@@ -29,6 +29,7 @@ class ByteSerializationTest {
     public static void setUpClass() {
         mapper = new ObjectMapper();
         mapper.registerModule(new ModifiableVariableModule());
+        mapper.setVisibility(ModifiableVariableModule.getFieldVisibilityChecker());
     }
 
     @BeforeEach

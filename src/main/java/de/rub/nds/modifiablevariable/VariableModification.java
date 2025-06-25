@@ -9,7 +9,6 @@ package de.rub.nds.modifiablevariable;
 
 import static de.rub.nds.modifiablevariable.util.StringUtil.backslashEscapeString;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import de.rub.nds.modifiablevariable.util.DataConverter;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -51,11 +50,6 @@ import org.apache.logging.log4j.Logger;
         use = JsonTypeInfo.Id.SIMPLE_NAME,
         include = JsonTypeInfo.As.PROPERTY,
         property = "@type")
-@JsonAutoDetect(
-        fieldVisibility = JsonAutoDetect.Visibility.ANY,
-        getterVisibility = JsonAutoDetect.Visibility.NONE,
-        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
-        setterVisibility = JsonAutoDetect.Visibility.NONE)
 public abstract class VariableModification<E> implements Serializable {
 
     /** Logger for debugging modification applications */
