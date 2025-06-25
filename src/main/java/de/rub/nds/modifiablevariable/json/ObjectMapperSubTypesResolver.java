@@ -28,6 +28,7 @@ import com.github.victools.jsonschema.generator.impl.AttributeCollector;
 import com.github.victools.jsonschema.module.jackson.JacksonOption;
 import com.github.victools.jsonschema.module.jackson.JsonIdentityReferenceDefinitionProvider;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.NotImplementedException;
@@ -119,6 +120,12 @@ public class ObjectMapperSubTypesResolver implements SubtypeResolver, CustomDefi
                 .map(typeContext::resolve)
                 // Do not include the declared type itself in the subtype list
                 .filter(resolvedType -> !resolvedType.equals(declaredType))
+                // Do not resolve to interfaces or abstract types
+                .filter(
+                        resolvedType ->
+                                !resolvedType.getErasedType().isInterface()
+                                        && !Modifier.isAbstract(
+                                                resolvedType.getErasedType().getModifiers()))
                 // Do not include subtypes that do not have the same type bindings as the declared
                 // type
                 .filter(

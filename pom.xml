@@ -67,11 +67,11 @@
     </properties>
 
     <dependencies>
+        <!-- scope: compile -->
         <dependency>
             <groupId>com.fasterxml</groupId>
             <artifactId>classmate</artifactId>
         </dependency>
-        <!-- scope: compile -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
