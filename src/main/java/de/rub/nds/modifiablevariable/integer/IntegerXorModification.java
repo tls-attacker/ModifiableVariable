@@ -7,6 +7,7 @@
  */
 package de.rub.nds.modifiablevariable.integer;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
@@ -24,6 +25,7 @@ import java.util.Objects;
 public class IntegerXorModification extends VariableModification<Integer> {
 
     /** The XOR mask to apply to the original integer */
+    @JsonProperty(required = true)
     private int xor;
 
     /** Default constructor for serialization. */

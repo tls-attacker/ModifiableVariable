@@ -9,6 +9,7 @@ package de.rub.nds.modifiablevariable.string;
 
 import static de.rub.nds.modifiablevariable.util.StringUtil.backslashEscapeString;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -29,6 +30,7 @@ public class StringExplicitValueModification extends VariableModification<String
 
     /** The explicit string that will replace the original value */
     @XmlJavaTypeAdapter(IllegalStringAdapter.class)
+    @JsonProperty(required = true)
     private String explicitValue;
 
     /** Default constructor for serialization. */

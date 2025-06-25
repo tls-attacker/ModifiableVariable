@@ -1,0 +1,824 @@
+{
+  "$schema" : "https://json-schema.org/draft/2020-12/schema",
+  "$defs" : {
+    "BigIntegerAddModification" : {
+      "type" : "object",
+      "properties" : {
+        "summand" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "BigIntegerAddModification"
+        }
+      },
+      "required" : [ "summand", "@type" ]
+    },
+    "BigIntegerExplicitValueModification" : {
+      "type" : "object",
+      "properties" : {
+        "explicitValue" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "BigIntegerExplicitValueModification"
+        }
+      },
+      "required" : [ "explicitValue", "@type" ]
+    },
+    "BigIntegerMultiplyModification" : {
+      "type" : "object",
+      "properties" : {
+        "factor" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "BigIntegerMultiplyModification"
+        }
+      },
+      "required" : [ "factor", "@type" ]
+    },
+    "BigIntegerShiftLeftModification" : {
+      "type" : "object",
+      "properties" : {
+        "shift" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "BigIntegerShiftLeftModification"
+        }
+      },
+      "required" : [ "shift", "@type" ]
+    },
+    "BigIntegerShiftRightModification" : {
+      "type" : "object",
+      "properties" : {
+        "shift" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "BigIntegerShiftRightModification"
+        }
+      },
+      "required" : [ "shift", "@type" ]
+    },
+    "BigIntegerSubtractModification" : {
+      "type" : "object",
+      "properties" : {
+        "subtrahend" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "BigIntegerSubtractModification"
+        }
+      },
+      "required" : [ "subtrahend", "@type" ]
+    },
+    "BigIntegerXorModification" : {
+      "type" : "object",
+      "properties" : {
+        "xor" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "BigIntegerXorModification"
+        }
+      },
+      "required" : [ "xor", "@type" ]
+    },
+    "BooleanExplicitValueModification" : {
+      "type" : "object",
+      "properties" : {
+        "explicitValue" : {
+          "type" : "boolean"
+        },
+        "@type" : {
+          "const" : "BooleanExplicitValueModification"
+        }
+      },
+      "required" : [ "explicitValue", "@type" ]
+    },
+    "BooleanToggleModification" : {
+      "type" : "object",
+      "properties" : {
+        "@type" : {
+          "const" : "BooleanToggleModification"
+        }
+      },
+      "required" : [ "@type" ]
+    },
+    "ByteAddModification" : {
+      "type" : "object",
+      "properties" : {
+        "summand" : {
+          "type" : "string"
+        },
+        "@type" : {
+          "const" : "ByteAddModification"
+        }
+      },
+      "required" : [ "summand", "@type" ]
+    },
+    "ByteArrayAppendValueModification" : {
+      "type" : "object",
+      "properties" : {
+        "bytesToAppend" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "@type" : {
+          "const" : "ByteArrayAppendValueModification"
+        }
+      },
+      "required" : [ "bytesToAppend", "@type" ]
+    },
+    "ByteArrayDeleteModification" : {
+      "type" : "object",
+      "properties" : {
+        "count" : {
+          "type" : "integer"
+        },
+        "startPosition" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "ByteArrayDeleteModification"
+        }
+      },
+      "required" : [ "count", "startPosition", "@type" ]
+    },
+    "ByteArrayDuplicateModification" : {
+      "type" : "object",
+      "properties" : {
+        "@type" : {
+          "const" : "ByteArrayDuplicateModification"
+        }
+      },
+      "required" : [ "@type" ]
+    },
+    "ByteArrayExplicitValueModification" : {
+      "type" : "object",
+      "properties" : {
+        "explicitValue" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "@type" : {
+          "const" : "ByteArrayExplicitValueModification"
+        }
+      },
+      "required" : [ "explicitValue", "@type" ]
+    },
+    "ByteArrayInsertValueModification" : {
+      "type" : "object",
+      "properties" : {
+        "bytesToInsert" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "startPosition" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "ByteArrayInsertValueModification"
+        }
+      },
+      "required" : [ "bytesToInsert", "startPosition", "@type" ]
+    },
+    "ByteArrayPrependValueModification" : {
+      "type" : "object",
+      "properties" : {
+        "bytesToPrepend" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "@type" : {
+          "const" : "ByteArrayPrependValueModification"
+        }
+      },
+      "required" : [ "bytesToPrepend", "@type" ]
+    },
+    "ByteArrayShuffleModification" : {
+      "type" : "object",
+      "properties" : {
+        "shuffle" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer"
+          }
+        },
+        "@type" : {
+          "const" : "ByteArrayShuffleModification"
+        }
+      },
+      "required" : [ "shuffle", "@type" ]
+    },
+    "ByteArrayXorModification" : {
+      "type" : "object",
+      "properties" : {
+        "startPosition" : {
+          "type" : "integer"
+        },
+        "xor" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "@type" : {
+          "const" : "ByteArrayXorModification"
+        }
+      },
+      "required" : [ "startPosition", "xor", "@type" ]
+    },
+    "ByteExplicitValueModification" : {
+      "type" : "object",
+      "properties" : {
+        "explicitValue" : {
+          "type" : "string"
+        },
+        "@type" : {
+          "const" : "ByteExplicitValueModification"
+        }
+      },
+      "required" : [ "explicitValue", "@type" ]
+    },
+    "ByteSubtractModification" : {
+      "type" : "object",
+      "properties" : {
+        "subtrahend" : {
+          "type" : "string"
+        },
+        "@type" : {
+          "const" : "ByteSubtractModification"
+        }
+      },
+      "required" : [ "subtrahend", "@type" ]
+    },
+    "ByteXorModification" : {
+      "type" : "object",
+      "properties" : {
+        "xor" : {
+          "type" : "string"
+        },
+        "@type" : {
+          "const" : "ByteXorModification"
+        }
+      },
+      "required" : [ "xor", "@type" ]
+    },
+    "IntegerAddModification" : {
+      "type" : "object",
+      "properties" : {
+        "summand" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "IntegerAddModification"
+        }
+      },
+      "required" : [ "summand", "@type" ]
+    },
+    "IntegerExplicitValueModification" : {
+      "type" : "object",
+      "properties" : {
+        "explicitValue" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "IntegerExplicitValueModification"
+        }
+      },
+      "required" : [ "explicitValue", "@type" ]
+    },
+    "IntegerMultiplyModification" : {
+      "type" : "object",
+      "properties" : {
+        "factor" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "IntegerMultiplyModification"
+        }
+      },
+      "required" : [ "factor", "@type" ]
+    },
+    "IntegerShiftLeftModification" : {
+      "type" : "object",
+      "properties" : {
+        "shift" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "IntegerShiftLeftModification"
+        }
+      },
+      "required" : [ "shift", "@type" ]
+    },
+    "IntegerShiftRightModification" : {
+      "type" : "object",
+      "properties" : {
+        "shift" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "IntegerShiftRightModification"
+        }
+      },
+      "required" : [ "shift", "@type" ]
+    },
+    "IntegerSubtractModification" : {
+      "type" : "object",
+      "properties" : {
+        "subtrahend" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "IntegerSubtractModification"
+        }
+      },
+      "required" : [ "subtrahend", "@type" ]
+    },
+    "IntegerSwapEndianModification" : {
+      "type" : "object",
+      "properties" : {
+        "@type" : {
+          "const" : "IntegerSwapEndianModification"
+        }
+      },
+      "required" : [ "@type" ]
+    },
+    "IntegerXorModification" : {
+      "type" : "object",
+      "properties" : {
+        "xor" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "IntegerXorModification"
+        }
+      },
+      "required" : [ "xor", "@type" ]
+    },
+    "LongAddModification" : {
+      "type" : "object",
+      "properties" : {
+        "summand" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "LongAddModification"
+        }
+      },
+      "required" : [ "summand", "@type" ]
+    },
+    "LongExplicitValueModification" : {
+      "type" : "object",
+      "properties" : {
+        "explicitValue" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "LongExplicitValueModification"
+        }
+      },
+      "required" : [ "explicitValue", "@type" ]
+    },
+    "LongMultiplyModification" : {
+      "type" : "object",
+      "properties" : {
+        "factor" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "LongMultiplyModification"
+        }
+      },
+      "required" : [ "factor", "@type" ]
+    },
+    "LongShiftLeftModification" : {
+      "type" : "object",
+      "properties" : {
+        "shift" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "LongShiftLeftModification"
+        }
+      },
+      "required" : [ "shift", "@type" ]
+    },
+    "LongShiftRightModification" : {
+      "type" : "object",
+      "properties" : {
+        "shift" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "LongShiftRightModification"
+        }
+      },
+      "required" : [ "shift", "@type" ]
+    },
+    "LongSubtractModification" : {
+      "type" : "object",
+      "properties" : {
+        "subtrahend" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "LongSubtractModification"
+        }
+      },
+      "required" : [ "subtrahend", "@type" ]
+    },
+    "LongSwapEndianModification" : {
+      "type" : "object",
+      "properties" : {
+        "@type" : {
+          "const" : "LongSwapEndianModification"
+        }
+      },
+      "required" : [ "@type" ]
+    },
+    "LongXorModification" : {
+      "type" : "object",
+      "properties" : {
+        "xor" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "LongXorModification"
+        }
+      },
+      "required" : [ "xor", "@type" ]
+    },
+    "ModifiableBigInteger" : {
+      "type" : "object",
+      "properties" : {
+        "assertEquals" : {
+          "type" : "integer"
+        },
+        "modifications" : {
+          "type" : "array",
+          "items" : {
+            "anyOf" : [ {
+              "$ref" : "#/$defs/BigIntegerAddModification"
+            }, {
+              "$ref" : "#/$defs/BigIntegerExplicitValueModification"
+            }, {
+              "$ref" : "#/$defs/BigIntegerMultiplyModification"
+            }, {
+              "$ref" : "#/$defs/BigIntegerShiftLeftModification"
+            }, {
+              "$ref" : "#/$defs/BigIntegerShiftRightModification"
+            }, {
+              "$ref" : "#/$defs/BigIntegerSubtractModification"
+            }, {
+              "$ref" : "#/$defs/BigIntegerXorModification"
+            } ]
+          }
+        },
+        "originalValue" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "ModifiableBigInteger"
+        }
+      },
+      "required" : [ "@type" ]
+    },
+    "ModifiableBoolean" : {
+      "type" : "object",
+      "properties" : {
+        "assertEquals" : {
+          "type" : "boolean"
+        },
+        "modifications" : {
+          "type" : "array",
+          "items" : {
+            "anyOf" : [ {
+              "$ref" : "#/$defs/BooleanExplicitValueModification"
+            }, {
+              "$ref" : "#/$defs/BooleanToggleModification"
+            } ]
+          }
+        },
+        "originalValue" : {
+          "type" : "boolean"
+        },
+        "@type" : {
+          "const" : "ModifiableBoolean"
+        }
+      },
+      "required" : [ "@type" ]
+    },
+    "ModifiableByte" : {
+      "type" : "object",
+      "properties" : {
+        "assertEquals" : {
+          "type" : "string"
+        },
+        "modifications" : {
+          "type" : "array",
+          "items" : {
+            "anyOf" : [ {
+              "$ref" : "#/$defs/ByteAddModification"
+            }, {
+              "$ref" : "#/$defs/ByteExplicitValueModification"
+            }, {
+              "$ref" : "#/$defs/ByteSubtractModification"
+            }, {
+              "$ref" : "#/$defs/ByteXorModification"
+            } ]
+          }
+        },
+        "originalValue" : {
+          "type" : "string"
+        },
+        "@type" : {
+          "const" : "ModifiableByte"
+        }
+      },
+      "required" : [ "@type" ]
+    },
+    "ModifiableByteArray" : {
+      "type" : "object",
+      "properties" : {
+        "assertEquals" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "modifications" : {
+          "type" : "array",
+          "items" : {
+            "anyOf" : [ {
+              "$ref" : "#/$defs/ByteArrayAppendValueModification"
+            }, {
+              "$ref" : "#/$defs/ByteArrayDeleteModification"
+            }, {
+              "$ref" : "#/$defs/ByteArrayDuplicateModification"
+            }, {
+              "$ref" : "#/$defs/ByteArrayExplicitValueModification"
+            }, {
+              "$ref" : "#/$defs/ByteArrayInsertValueModification"
+            }, {
+              "$ref" : "#/$defs/ByteArrayPrependValueModification"
+            }, {
+              "$ref" : "#/$defs/ByteArrayShuffleModification"
+            }, {
+              "$ref" : "#/$defs/ByteArrayXorModification"
+            } ]
+          }
+        },
+        "originalValue" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "@type" : {
+          "const" : "ModifiableByteArray"
+        }
+      },
+      "required" : [ "@type" ]
+    },
+    "ModifiableInteger" : {
+      "type" : "object",
+      "properties" : {
+        "assertEquals" : {
+          "type" : "integer"
+        },
+        "modifications" : {
+          "type" : "array",
+          "items" : {
+            "anyOf" : [ {
+              "$ref" : "#/$defs/IntegerAddModification"
+            }, {
+              "$ref" : "#/$defs/IntegerExplicitValueModification"
+            }, {
+              "$ref" : "#/$defs/IntegerMultiplyModification"
+            }, {
+              "$ref" : "#/$defs/IntegerShiftLeftModification"
+            }, {
+              "$ref" : "#/$defs/IntegerShiftRightModification"
+            }, {
+              "$ref" : "#/$defs/IntegerSubtractModification"
+            }, {
+              "$ref" : "#/$defs/IntegerSwapEndianModification"
+            }, {
+              "$ref" : "#/$defs/IntegerXorModification"
+            } ]
+          }
+        },
+        "originalValue" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "ModifiableInteger"
+        }
+      },
+      "required" : [ "@type" ]
+    },
+    "ModifiableLengthField" : {
+      "type" : "object",
+      "properties" : {
+        "assertEquals" : {
+          "type" : "integer"
+        },
+        "modifications" : {
+          "type" : "array",
+          "items" : {
+            "anyOf" : [ {
+              "$ref" : "#/$defs/IntegerAddModification"
+            }, {
+              "$ref" : "#/$defs/IntegerExplicitValueModification"
+            }, {
+              "$ref" : "#/$defs/IntegerMultiplyModification"
+            }, {
+              "$ref" : "#/$defs/IntegerShiftLeftModification"
+            }, {
+              "$ref" : "#/$defs/IntegerShiftRightModification"
+            }, {
+              "$ref" : "#/$defs/IntegerSubtractModification"
+            }, {
+              "$ref" : "#/$defs/IntegerSwapEndianModification"
+            }, {
+              "$ref" : "#/$defs/IntegerXorModification"
+            } ]
+          }
+        },
+        "originalValue" : {
+          "type" : "integer"
+        },
+        "ref" : {
+          "$ref" : "#/$defs/ModifiableByteArray"
+        },
+        "@type" : {
+          "const" : "ModifiableLengthField"
+        }
+      },
+      "required" : [ "ref", "@type" ]
+    },
+    "ModifiableLong" : {
+      "type" : "object",
+      "properties" : {
+        "assertEquals" : {
+          "type" : "integer"
+        },
+        "modifications" : {
+          "type" : "array",
+          "items" : {
+            "anyOf" : [ {
+              "$ref" : "#/$defs/LongAddModification"
+            }, {
+              "$ref" : "#/$defs/LongExplicitValueModification"
+            }, {
+              "$ref" : "#/$defs/LongMultiplyModification"
+            }, {
+              "$ref" : "#/$defs/LongShiftLeftModification"
+            }, {
+              "$ref" : "#/$defs/LongShiftRightModification"
+            }, {
+              "$ref" : "#/$defs/LongSubtractModification"
+            }, {
+              "$ref" : "#/$defs/LongSwapEndianModification"
+            }, {
+              "$ref" : "#/$defs/LongXorModification"
+            } ]
+          }
+        },
+        "originalValue" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "ModifiableLong"
+        }
+      },
+      "required" : [ "@type" ]
+    },
+    "ModifiableString" : {
+      "type" : "object",
+      "properties" : {
+        "assertEquals" : {
+          "type" : "string"
+        },
+        "modifications" : {
+          "type" : "array",
+          "items" : {
+            "anyOf" : [ {
+              "$ref" : "#/$defs/StringAppendValueModification"
+            }, {
+              "$ref" : "#/$defs/StringDeleteModification"
+            }, {
+              "$ref" : "#/$defs/StringExplicitValueModification"
+            }, {
+              "$ref" : "#/$defs/StringInsertValueModification"
+            }, {
+              "$ref" : "#/$defs/StringPrependValueModification"
+            } ]
+          }
+        },
+        "originalValue" : {
+          "type" : "string"
+        },
+        "@type" : {
+          "const" : "ModifiableString"
+        }
+      },
+      "required" : [ "@type" ]
+    },
+    "StringAppendValueModification" : {
+      "type" : "object",
+      "properties" : {
+        "appendValue" : {
+          "type" : "string"
+        },
+        "@type" : {
+          "const" : "StringAppendValueModification"
+        }
+      },
+      "required" : [ "appendValue", "@type" ]
+    },
+    "StringDeleteModification" : {
+      "type" : "object",
+      "properties" : {
+        "count" : {
+          "type" : "integer"
+        },
+        "startPosition" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "StringDeleteModification"
+        }
+      },
+      "required" : [ "count", "startPosition", "@type" ]
+    },
+    "StringExplicitValueModification" : {
+      "type" : "object",
+      "properties" : {
+        "explicitValue" : {
+          "type" : "string"
+        },
+        "@type" : {
+          "const" : "StringExplicitValueModification"
+        }
+      },
+      "required" : [ "explicitValue", "@type" ]
+    },
+    "StringInsertValueModification" : {
+      "type" : "object",
+      "properties" : {
+        "insertValue" : {
+          "type" : "string"
+        },
+        "startPosition" : {
+          "type" : "integer"
+        },
+        "@type" : {
+          "const" : "StringInsertValueModification"
+        }
+      },
+      "required" : [ "insertValue", "startPosition", "@type" ]
+    },
+    "StringPrependValueModification" : {
+      "type" : "object",
+      "properties" : {
+        "prependValue" : {
+          "type" : "string"
+        },
+        "@type" : {
+          "const" : "StringPrependValueModification"
+        }
+      },
+      "required" : [ "prependValue", "@type" ]
+    }
+  },
+  "anyOf" : [ {
+    "$ref" : "#/$defs/ModifiableBigInteger"
+  }, {
+    "$ref" : "#/$defs/ModifiableBoolean"
+  }, {
+    "$ref" : "#/$defs/ModifiableByteArray"
+  }, {
+    "$ref" : "#/$defs/ModifiableInteger"
+  }, {
+    "$ref" : "#/$defs/ModifiableLengthField"
+  }, {
+    "$ref" : "#/$defs/ModifiableLong"
+  }, {
+    "$ref" : "#/$defs/ModifiableByte"
+  }, {
+    "$ref" : "#/$defs/ModifiableString"
+  } ]
+}

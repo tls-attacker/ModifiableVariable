@@ -46,7 +46,10 @@ import org.apache.logging.log4j.Logger;
  */
 @XmlTransient
 @XmlAccessorType(XmlAccessType.FIELD)
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.SIMPLE_NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "@type")
 public abstract class VariableModification<E> implements Serializable {
 
     /** Logger for debugging modification applications */

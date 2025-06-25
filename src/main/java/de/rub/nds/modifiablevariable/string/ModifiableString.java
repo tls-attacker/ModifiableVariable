@@ -9,6 +9,7 @@ package de.rub.nds.modifiablevariable.string;
 
 import static de.rub.nds.modifiablevariable.util.StringUtil.backslashEscapeString;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.util.IllegalStringAdapter;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -38,6 +39,7 @@ import java.nio.charset.StandardCharsets;
 public class ModifiableString extends ModifiableVariable<String> {
 
     /** The original string value before any modifications */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     protected String originalValue;
 
     /** Default constructor that creates an empty ModifiableString with no original value. */

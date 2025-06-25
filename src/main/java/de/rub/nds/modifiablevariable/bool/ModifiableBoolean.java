@@ -7,6 +7,7 @@
  */
 package de.rub.nds.modifiablevariable.bool;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
@@ -24,6 +25,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 public class ModifiableBoolean extends ModifiableVariable<Boolean> {
 
     /** The original Boolean value before any modifications */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean originalValue;
 
     /** Default constructor that creates an empty ModifiableBoolean with no original value. */
