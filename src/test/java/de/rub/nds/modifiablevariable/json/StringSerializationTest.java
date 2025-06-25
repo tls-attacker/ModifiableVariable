@@ -5,27 +5,27 @@
  *
  * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-package de.rub.nds.modifiablevariable.serialization;
+package de.rub.nds.modifiablevariable.json;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.longint.LongAddModification;
-import de.rub.nds.modifiablevariable.longint.ModifiableLong;
+import de.rub.nds.modifiablevariable.string.ModifiableString;
+import de.rub.nds.modifiablevariable.string.StringInsertValueModification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class LongSerializationTest {
+class StringSerializationTest {
 
     private static final Logger LOGGER = LogManager.getLogger();
     private static ObjectMapper mapper;
 
-    private ModifiableLong start;
-    private Long expectedResult, result;
+    private ModifiableString start;
+    private String expectedResult, result;
 
     @BeforeAll
     public static void setUpClass() {
@@ -36,8 +36,7 @@ class LongSerializationTest {
 
     @BeforeEach
     void setUp() {
-        start = new ModifiableLong();
-        start.setOriginalValue(10L);
+        start = new ModifiableString("Hello from Test ❤️\\ \u0000 \u0001 \u0006");
         expectedResult = null;
         result = null;
     }
@@ -45,27 +44,28 @@ class LongSerializationTest {
     @Test
     void testSerializeDeserializeSimple() throws Exception {
         start.clearModifications();
+        start.setAssertEquals("Hello from Test 2 \\ \u0000 \u0001 \u0006");
 
         String jsonString = mapper.writeValueAsString(start);
         LOGGER.debug(jsonString);
-        ModifiableLong mv = mapper.readValue(jsonString, ModifiableLong.class);
+        ModifiableString unmarshalled = mapper.readValue(jsonString, ModifiableString.class);
 
-        expectedResult = 10L;
-        result = mv.getValue();
+        expectedResult = "Hello from Test ❤️\\ \u0000 \u0001 \u0006";
+        result = unmarshalled.getValue();
         assertEquals(expectedResult, result);
     }
 
     @Test
     void testSerializeDeserializeWithModification() throws Exception {
-        VariableModification<Long> modifier = new LongAddModification(1L);
+        VariableModification<String> modifier = new StringInsertValueModification("Uff! ", 0);
         start.setModifications(modifier);
 
         String jsonString = mapper.writeValueAsString(start);
         LOGGER.debug(jsonString);
-        ModifiableLong mv = mapper.readValue(jsonString, ModifiableLong.class);
+        ModifiableString unmarshalled = mapper.readValue(jsonString, ModifiableString.class);
 
-        expectedResult = 11L;
-        result = mv.getValue();
+        expectedResult = "Uff! Hello from Test ❤️\\ \u0000 \u0001 \u0006";
+        result = unmarshalled.getValue();
         assertEquals(expectedResult, result);
     }
 }

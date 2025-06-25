@@ -5,7 +5,7 @@
  *
  * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-package de.rub.nds.modifiablevariable.serialization;
+package de.rub.nds.modifiablevariable.json;
 
 import com.fasterxml.classmate.ResolvedType;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
