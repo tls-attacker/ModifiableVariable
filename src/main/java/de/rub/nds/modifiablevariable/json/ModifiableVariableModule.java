@@ -10,7 +10,6 @@ package de.rub.nds.modifiablevariable.json;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
@@ -35,8 +34,10 @@ public class ModifiableVariableModule extends SimpleModule {
 
     /** Default constructor that sets the module name and version. */
     public ModifiableVariableModule() {
-        super(MODULE_NAME, new Version(1, 0, 0, null, "de.rub.nds", "modifiable-variable"));
+        super(MODULE_NAME);
+        // Serializers
         addSerializer(byte[].class, new UnformattedByteArraySerializer());
+        // Deserializers
         addDeserializer(byte[].class, new UnformattedByteArrayDeserializer());
         // Subtypes
         Reflections reflections = new Reflections("de.rub.nds.modifiablevariable");
