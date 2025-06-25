@@ -36,11 +36,6 @@ import java.util.stream.Collectors;
         use = JsonTypeInfo.Id.SIMPLE_NAME,
         include = JsonTypeInfo.As.PROPERTY,
         property = "@type")
-@JsonAutoDetect(
-        fieldVisibility = JsonAutoDetect.Visibility.ANY,
-        getterVisibility = JsonAutoDetect.Visibility.NONE,
-        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
-        setterVisibility = JsonAutoDetect.Visibility.NONE)
 public abstract class ModifiableVariable<E> implements Serializable {
 
     /** The list of modifications that will be applied to the original value when accessed */

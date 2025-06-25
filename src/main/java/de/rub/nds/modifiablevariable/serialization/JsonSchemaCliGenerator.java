@@ -25,6 +25,7 @@ public class JsonSchemaCliGenerator {
      */
     public static void main(String[] args) {
         ObjectMapper mapper = new ObjectMapper();
+        mapper.setVisibility(ModifiableVariableModule.getFieldVisibilityChecker());
 
         // Register additional modules (if any) passed as command line arguments
         for (int i = 2; i < args.length; i++) {

@@ -7,17 +7,19 @@
  */
 package de.rub.nds.modifiablevariable.serialization;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import java.io.IOException;
 import org.reflections.Reflections;
 
@@ -50,7 +52,7 @@ public class ModifiableVariableModule extends SimpleModule {
         @Override
         public void serialize(byte[] value, JsonGenerator gen, SerializerProvider serializers)
                 throws IOException {
-            gen.writeString(ArrayConverter.bytesToRawHexString(value));
+            gen.writeString(DataConverter.bytesToRawHexString(value));
         }
     }
 
@@ -61,7 +63,15 @@ public class ModifiableVariableModule extends SimpleModule {
 
         @Override
         public byte[] deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-            return ArrayConverter.hexStringToByteArray(p.getText());
+            return DataConverter.hexStringToByteArray(p.getText());
         }
+    }
+
+    public static VisibilityChecker<?> getFieldVisibilityChecker() {
+        return VisibilityChecker.Std.defaultInstance()
+                .withFieldVisibility(JsonAutoDetect.Visibility.ANY)
+                .withGetterVisibility(JsonAutoDetect.Visibility.NONE)
+                .withSetterVisibility(JsonAutoDetect.Visibility.NONE)
+                .withIsGetterVisibility(JsonAutoDetect.Visibility.NONE);
     }
 }
