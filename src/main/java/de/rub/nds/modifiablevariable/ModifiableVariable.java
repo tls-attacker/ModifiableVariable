@@ -8,14 +8,6 @@
 package de.rub.nds.modifiablevariable;
 
 import com.fasterxml.jackson.annotation.*;
-import de.rub.nds.modifiablevariable.biginteger.ModifiableBigInteger;
-import de.rub.nds.modifiablevariable.bool.ModifiableBoolean;
-import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
-import de.rub.nds.modifiablevariable.integer.ModifiableInteger;
-import de.rub.nds.modifiablevariable.length.ModifiableLengthField;
-import de.rub.nds.modifiablevariable.longint.ModifiableLong;
-import de.rub.nds.modifiablevariable.singlebyte.ModifiableByte;
-import de.rub.nds.modifiablevariable.string.ModifiableString;
 import jakarta.xml.bind.annotation.*;
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -40,17 +32,10 @@ import java.util.stream.Collectors;
  */
 @XmlTransient
 @XmlAccessorType(XmlAccessType.FIELD)
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
-@JsonSubTypes({
-    @JsonSubTypes.Type(name = "BigInteger", value = ModifiableBigInteger.class),
-    @JsonSubTypes.Type(name = "Boolean", value = ModifiableBoolean.class),
-    @JsonSubTypes.Type(name = "ByteArray", value = ModifiableByteArray.class),
-    @JsonSubTypes.Type(name = "Integer", value = ModifiableInteger.class),
-    @JsonSubTypes.Type(name = "LengthField", value = ModifiableLengthField.class),
-    @JsonSubTypes.Type(name = "Long", value = ModifiableLong.class),
-    @JsonSubTypes.Type(name = "Byte", value = ModifiableByte.class),
-    @JsonSubTypes.Type(name = "String", value = ModifiableString.class),
-})
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.SIMPLE_NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "@type")
 @JsonAutoDetect(
         fieldVisibility = JsonAutoDetect.Visibility.ANY,
         getterVisibility = JsonAutoDetect.Visibility.NONE,

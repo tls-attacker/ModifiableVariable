@@ -8,7 +8,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "BigIntegerAdd"
+          "const" : "BigIntegerAddModification"
         }
       },
       "required" : [ "summand", "@type" ]
@@ -20,7 +20,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "BigIntegerExplicitValue"
+          "const" : "BigIntegerExplicitValueModification"
         }
       },
       "required" : [ "explicitValue", "@type" ]
@@ -32,7 +32,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "BigIntegerMultiply"
+          "const" : "BigIntegerMultiplyModification"
         }
       },
       "required" : [ "factor", "@type" ]
@@ -44,7 +44,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "BigIntegerShiftLeft"
+          "const" : "BigIntegerShiftLeftModification"
         }
       },
       "required" : [ "shift", "@type" ]
@@ -56,7 +56,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "BigIntegerShiftRight"
+          "const" : "BigIntegerShiftRightModification"
         }
       },
       "required" : [ "shift", "@type" ]
@@ -68,7 +68,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "BigIntegerSubtract"
+          "const" : "BigIntegerSubtractModification"
         }
       },
       "required" : [ "subtrahend", "@type" ]
@@ -80,7 +80,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "BigIntegerXor"
+          "const" : "BigIntegerXorModification"
         }
       },
       "required" : [ "xor", "@type" ]
@@ -92,7 +92,7 @@
           "type" : "boolean"
         },
         "@type" : {
-          "const" : "BooleanExplicitValue"
+          "const" : "BooleanExplicitValueModification"
         }
       },
       "required" : [ "explicitValue", "@type" ]
@@ -101,7 +101,7 @@
       "type" : "object",
       "properties" : {
         "@type" : {
-          "const" : "BooleanToggle"
+          "const" : "BooleanToggleModification"
         }
       },
       "required" : [ "@type" ]
@@ -113,7 +113,7 @@
           "type" : "string"
         },
         "@type" : {
-          "const" : "ByteAdd"
+          "const" : "ByteAddModification"
         }
       },
       "required" : [ "summand", "@type" ]
@@ -128,7 +128,7 @@
           }
         },
         "@type" : {
-          "const" : "ByteArrayAppendValue"
+          "const" : "ByteArrayAppendValueModification"
         }
       },
       "required" : [ "bytesToAppend", "@type" ]
@@ -143,7 +143,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "ByteArrayDelete"
+          "const" : "ByteArrayDeleteModification"
         }
       },
       "required" : [ "count", "startPosition", "@type" ]
@@ -152,7 +152,7 @@
       "type" : "object",
       "properties" : {
         "@type" : {
-          "const" : "ByteArrayDuplicate"
+          "const" : "ByteArrayDuplicateModification"
         }
       },
       "required" : [ "@type" ]
@@ -167,7 +167,7 @@
           }
         },
         "@type" : {
-          "const" : "ByteArrayExplicitValue"
+          "const" : "ByteArrayExplicitValueModification"
         }
       },
       "required" : [ "explicitValue", "@type" ]
@@ -185,7 +185,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "ByteArrayInsertValue"
+          "const" : "ByteArrayInsertValueModification"
         }
       },
       "required" : [ "bytesToInsert", "startPosition", "@type" ]
@@ -200,7 +200,7 @@
           }
         },
         "@type" : {
-          "const" : "ByteArrayPrependValue"
+          "const" : "ByteArrayPrependValueModification"
         }
       },
       "required" : [ "bytesToPrepend", "@type" ]
@@ -215,7 +215,7 @@
           }
         },
         "@type" : {
-          "const" : "ByteArrayShuffle"
+          "const" : "ByteArrayShuffleModification"
         }
       },
       "required" : [ "shuffle", "@type" ]
@@ -233,7 +233,7 @@
           }
         },
         "@type" : {
-          "const" : "ByteArrayXor"
+          "const" : "ByteArrayXorModification"
         }
       },
       "required" : [ "startPosition", "xor", "@type" ]
@@ -245,7 +245,7 @@
           "type" : "string"
         },
         "@type" : {
-          "const" : "ByteExplicitValue"
+          "const" : "ByteExplicitValueModification"
         }
       },
       "required" : [ "explicitValue", "@type" ]
@@ -257,7 +257,7 @@
           "type" : "string"
         },
         "@type" : {
-          "const" : "ByteSubtract"
+          "const" : "ByteSubtractModification"
         }
       },
       "required" : [ "subtrahend", "@type" ]
@@ -269,7 +269,7 @@
           "type" : "string"
         },
         "@type" : {
-          "const" : "ByteXor"
+          "const" : "ByteXorModification"
         }
       },
       "required" : [ "xor", "@type" ]
@@ -281,7 +281,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "IntegerAdd"
+          "const" : "IntegerAddModification"
         }
       },
       "required" : [ "summand", "@type" ]
@@ -293,7 +293,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "IntegerExplicitValue"
+          "const" : "IntegerExplicitValueModification"
         }
       },
       "required" : [ "explicitValue", "@type" ]
@@ -305,7 +305,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "IntegerMultiply"
+          "const" : "IntegerMultiplyModification"
         }
       },
       "required" : [ "factor", "@type" ]
@@ -317,7 +317,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "IntegerShiftLeft"
+          "const" : "IntegerShiftLeftModification"
         }
       },
       "required" : [ "shift", "@type" ]
@@ -329,7 +329,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "IntegerShiftRight"
+          "const" : "IntegerShiftRightModification"
         }
       },
       "required" : [ "shift", "@type" ]
@@ -341,7 +341,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "IntegerSubtract"
+          "const" : "IntegerSubtractModification"
         }
       },
       "required" : [ "subtrahend", "@type" ]
@@ -350,7 +350,7 @@
       "type" : "object",
       "properties" : {
         "@type" : {
-          "const" : "IntegerSwapEndian"
+          "const" : "IntegerSwapEndianModification"
         }
       },
       "required" : [ "@type" ]
@@ -362,7 +362,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "IntegerXor"
+          "const" : "IntegerXorModification"
         }
       },
       "required" : [ "xor", "@type" ]
@@ -374,7 +374,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "LongAdd"
+          "const" : "LongAddModification"
         }
       },
       "required" : [ "summand", "@type" ]
@@ -386,7 +386,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "LongExplicitValue"
+          "const" : "LongExplicitValueModification"
         }
       },
       "required" : [ "explicitValue", "@type" ]
@@ -398,7 +398,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "LongMultiply"
+          "const" : "LongMultiplyModification"
         }
       },
       "required" : [ "factor", "@type" ]
@@ -410,7 +410,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "LongShiftLeft"
+          "const" : "LongShiftLeftModification"
         }
       },
       "required" : [ "shift", "@type" ]
@@ -422,7 +422,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "LongShiftRight"
+          "const" : "LongShiftRightModification"
         }
       },
       "required" : [ "shift", "@type" ]
@@ -434,7 +434,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "LongSubtract"
+          "const" : "LongSubtractModification"
         }
       },
       "required" : [ "subtrahend", "@type" ]
@@ -443,7 +443,7 @@
       "type" : "object",
       "properties" : {
         "@type" : {
-          "const" : "LongSwapEndian"
+          "const" : "LongSwapEndianModification"
         }
       },
       "required" : [ "@type" ]
@@ -455,7 +455,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "LongXor"
+          "const" : "LongXorModification"
         }
       },
       "required" : [ "xor", "@type" ]
@@ -483,76 +483,6 @@
               "$ref" : "#/$defs/BigIntegerSubtractModification"
             }, {
               "$ref" : "#/$defs/BigIntegerXorModification"
-            }, {
-              "$ref" : "#/$defs/BooleanExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/BooleanToggleModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayAppendValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayDeleteModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayDuplicateModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayInsertValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayPrependValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayShuffleModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayXorModification"
-            }, {
-              "$ref" : "#/$defs/IntegerAddModification"
-            }, {
-              "$ref" : "#/$defs/IntegerExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/IntegerMultiplyModification"
-            }, {
-              "$ref" : "#/$defs/IntegerShiftLeftModification"
-            }, {
-              "$ref" : "#/$defs/IntegerShiftRightModification"
-            }, {
-              "$ref" : "#/$defs/IntegerSubtractModification"
-            }, {
-              "$ref" : "#/$defs/IntegerSwapEndianModification"
-            }, {
-              "$ref" : "#/$defs/IntegerXorModification"
-            }, {
-              "$ref" : "#/$defs/LongAddModification"
-            }, {
-              "$ref" : "#/$defs/LongExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/LongMultiplyModification"
-            }, {
-              "$ref" : "#/$defs/LongShiftLeftModification"
-            }, {
-              "$ref" : "#/$defs/LongShiftRightModification"
-            }, {
-              "$ref" : "#/$defs/LongSubtractModification"
-            }, {
-              "$ref" : "#/$defs/LongSwapEndianModification"
-            }, {
-              "$ref" : "#/$defs/LongXorModification"
-            }, {
-              "$ref" : "#/$defs/ByteAddModification"
-            }, {
-              "$ref" : "#/$defs/ByteExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteSubtractModification"
-            }, {
-              "$ref" : "#/$defs/ByteXorModification"
-            }, {
-              "$ref" : "#/$defs/StringAppendValueModification"
-            }, {
-              "$ref" : "#/$defs/StringDeleteModification"
-            }, {
-              "$ref" : "#/$defs/StringExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/StringInsertValueModification"
-            }, {
-              "$ref" : "#/$defs/StringPrependValueModification"
             } ]
           }
         },
@@ -560,7 +490,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "BigInteger"
+          "const" : "ModifiableBigInteger"
         }
       },
       "required" : [ "@type" ]
@@ -575,89 +505,9 @@
           "type" : "array",
           "items" : {
             "anyOf" : [ {
-              "$ref" : "#/$defs/BigIntegerAddModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerMultiplyModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerShiftLeftModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerShiftRightModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerSubtractModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerXorModification"
-            }, {
               "$ref" : "#/$defs/BooleanExplicitValueModification"
             }, {
               "$ref" : "#/$defs/BooleanToggleModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayAppendValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayDeleteModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayDuplicateModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayInsertValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayPrependValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayShuffleModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayXorModification"
-            }, {
-              "$ref" : "#/$defs/IntegerAddModification"
-            }, {
-              "$ref" : "#/$defs/IntegerExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/IntegerMultiplyModification"
-            }, {
-              "$ref" : "#/$defs/IntegerShiftLeftModification"
-            }, {
-              "$ref" : "#/$defs/IntegerShiftRightModification"
-            }, {
-              "$ref" : "#/$defs/IntegerSubtractModification"
-            }, {
-              "$ref" : "#/$defs/IntegerSwapEndianModification"
-            }, {
-              "$ref" : "#/$defs/IntegerXorModification"
-            }, {
-              "$ref" : "#/$defs/LongAddModification"
-            }, {
-              "$ref" : "#/$defs/LongExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/LongMultiplyModification"
-            }, {
-              "$ref" : "#/$defs/LongShiftLeftModification"
-            }, {
-              "$ref" : "#/$defs/LongShiftRightModification"
-            }, {
-              "$ref" : "#/$defs/LongSubtractModification"
-            }, {
-              "$ref" : "#/$defs/LongSwapEndianModification"
-            }, {
-              "$ref" : "#/$defs/LongXorModification"
-            }, {
-              "$ref" : "#/$defs/ByteAddModification"
-            }, {
-              "$ref" : "#/$defs/ByteExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteSubtractModification"
-            }, {
-              "$ref" : "#/$defs/ByteXorModification"
-            }, {
-              "$ref" : "#/$defs/StringAppendValueModification"
-            }, {
-              "$ref" : "#/$defs/StringDeleteModification"
-            }, {
-              "$ref" : "#/$defs/StringExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/StringInsertValueModification"
-            }, {
-              "$ref" : "#/$defs/StringPrependValueModification"
             } ]
           }
         },
@@ -665,7 +515,7 @@
           "type" : "boolean"
         },
         "@type" : {
-          "const" : "Boolean"
+          "const" : "ModifiableBoolean"
         }
       },
       "required" : [ "@type" ]
@@ -680,72 +530,6 @@
           "type" : "array",
           "items" : {
             "anyOf" : [ {
-              "$ref" : "#/$defs/BigIntegerAddModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerMultiplyModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerShiftLeftModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerShiftRightModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerSubtractModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerXorModification"
-            }, {
-              "$ref" : "#/$defs/BooleanExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/BooleanToggleModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayAppendValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayDeleteModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayDuplicateModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayInsertValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayPrependValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayShuffleModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayXorModification"
-            }, {
-              "$ref" : "#/$defs/IntegerAddModification"
-            }, {
-              "$ref" : "#/$defs/IntegerExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/IntegerMultiplyModification"
-            }, {
-              "$ref" : "#/$defs/IntegerShiftLeftModification"
-            }, {
-              "$ref" : "#/$defs/IntegerShiftRightModification"
-            }, {
-              "$ref" : "#/$defs/IntegerSubtractModification"
-            }, {
-              "$ref" : "#/$defs/IntegerSwapEndianModification"
-            }, {
-              "$ref" : "#/$defs/IntegerXorModification"
-            }, {
-              "$ref" : "#/$defs/LongAddModification"
-            }, {
-              "$ref" : "#/$defs/LongExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/LongMultiplyModification"
-            }, {
-              "$ref" : "#/$defs/LongShiftLeftModification"
-            }, {
-              "$ref" : "#/$defs/LongShiftRightModification"
-            }, {
-              "$ref" : "#/$defs/LongSubtractModification"
-            }, {
-              "$ref" : "#/$defs/LongSwapEndianModification"
-            }, {
-              "$ref" : "#/$defs/LongXorModification"
-            }, {
               "$ref" : "#/$defs/ByteAddModification"
             }, {
               "$ref" : "#/$defs/ByteExplicitValueModification"
@@ -753,16 +537,6 @@
               "$ref" : "#/$defs/ByteSubtractModification"
             }, {
               "$ref" : "#/$defs/ByteXorModification"
-            }, {
-              "$ref" : "#/$defs/StringAppendValueModification"
-            }, {
-              "$ref" : "#/$defs/StringDeleteModification"
-            }, {
-              "$ref" : "#/$defs/StringExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/StringInsertValueModification"
-            }, {
-              "$ref" : "#/$defs/StringPrependValueModification"
             } ]
           }
         },
@@ -770,7 +544,7 @@
           "type" : "string"
         },
         "@type" : {
-          "const" : "Byte"
+          "const" : "ModifiableByte"
         }
       },
       "required" : [ "@type" ]
@@ -788,24 +562,6 @@
           "type" : "array",
           "items" : {
             "anyOf" : [ {
-              "$ref" : "#/$defs/BigIntegerAddModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerMultiplyModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerShiftLeftModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerShiftRightModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerSubtractModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerXorModification"
-            }, {
-              "$ref" : "#/$defs/BooleanExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/BooleanToggleModification"
-            }, {
               "$ref" : "#/$defs/ByteArrayAppendValueModification"
             }, {
               "$ref" : "#/$defs/ByteArrayDeleteModification"
@@ -821,56 +577,6 @@
               "$ref" : "#/$defs/ByteArrayShuffleModification"
             }, {
               "$ref" : "#/$defs/ByteArrayXorModification"
-            }, {
-              "$ref" : "#/$defs/IntegerAddModification"
-            }, {
-              "$ref" : "#/$defs/IntegerExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/IntegerMultiplyModification"
-            }, {
-              "$ref" : "#/$defs/IntegerShiftLeftModification"
-            }, {
-              "$ref" : "#/$defs/IntegerShiftRightModification"
-            }, {
-              "$ref" : "#/$defs/IntegerSubtractModification"
-            }, {
-              "$ref" : "#/$defs/IntegerSwapEndianModification"
-            }, {
-              "$ref" : "#/$defs/IntegerXorModification"
-            }, {
-              "$ref" : "#/$defs/LongAddModification"
-            }, {
-              "$ref" : "#/$defs/LongExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/LongMultiplyModification"
-            }, {
-              "$ref" : "#/$defs/LongShiftLeftModification"
-            }, {
-              "$ref" : "#/$defs/LongShiftRightModification"
-            }, {
-              "$ref" : "#/$defs/LongSubtractModification"
-            }, {
-              "$ref" : "#/$defs/LongSwapEndianModification"
-            }, {
-              "$ref" : "#/$defs/LongXorModification"
-            }, {
-              "$ref" : "#/$defs/ByteAddModification"
-            }, {
-              "$ref" : "#/$defs/ByteExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteSubtractModification"
-            }, {
-              "$ref" : "#/$defs/ByteXorModification"
-            }, {
-              "$ref" : "#/$defs/StringAppendValueModification"
-            }, {
-              "$ref" : "#/$defs/StringDeleteModification"
-            }, {
-              "$ref" : "#/$defs/StringExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/StringInsertValueModification"
-            }, {
-              "$ref" : "#/$defs/StringPrependValueModification"
             } ]
           }
         },
@@ -881,7 +587,7 @@
           }
         },
         "@type" : {
-          "const" : "ByteArray"
+          "const" : "ModifiableByteArray"
         }
       },
       "required" : [ "@type" ]
@@ -896,40 +602,6 @@
           "type" : "array",
           "items" : {
             "anyOf" : [ {
-              "$ref" : "#/$defs/BigIntegerAddModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerMultiplyModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerShiftLeftModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerShiftRightModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerSubtractModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerXorModification"
-            }, {
-              "$ref" : "#/$defs/BooleanExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/BooleanToggleModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayAppendValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayDeleteModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayDuplicateModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayInsertValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayPrependValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayShuffleModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayXorModification"
-            }, {
               "$ref" : "#/$defs/IntegerAddModification"
             }, {
               "$ref" : "#/$defs/IntegerExplicitValueModification"
@@ -945,40 +617,6 @@
               "$ref" : "#/$defs/IntegerSwapEndianModification"
             }, {
               "$ref" : "#/$defs/IntegerXorModification"
-            }, {
-              "$ref" : "#/$defs/LongAddModification"
-            }, {
-              "$ref" : "#/$defs/LongExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/LongMultiplyModification"
-            }, {
-              "$ref" : "#/$defs/LongShiftLeftModification"
-            }, {
-              "$ref" : "#/$defs/LongShiftRightModification"
-            }, {
-              "$ref" : "#/$defs/LongSubtractModification"
-            }, {
-              "$ref" : "#/$defs/LongSwapEndianModification"
-            }, {
-              "$ref" : "#/$defs/LongXorModification"
-            }, {
-              "$ref" : "#/$defs/ByteAddModification"
-            }, {
-              "$ref" : "#/$defs/ByteExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteSubtractModification"
-            }, {
-              "$ref" : "#/$defs/ByteXorModification"
-            }, {
-              "$ref" : "#/$defs/StringAppendValueModification"
-            }, {
-              "$ref" : "#/$defs/StringDeleteModification"
-            }, {
-              "$ref" : "#/$defs/StringExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/StringInsertValueModification"
-            }, {
-              "$ref" : "#/$defs/StringPrependValueModification"
             } ]
           }
         },
@@ -986,7 +624,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "Integer"
+          "const" : "ModifiableInteger"
         }
       },
       "required" : [ "@type" ]
@@ -1001,40 +639,6 @@
           "type" : "array",
           "items" : {
             "anyOf" : [ {
-              "$ref" : "#/$defs/BigIntegerAddModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerMultiplyModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerShiftLeftModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerShiftRightModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerSubtractModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerXorModification"
-            }, {
-              "$ref" : "#/$defs/BooleanExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/BooleanToggleModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayAppendValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayDeleteModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayDuplicateModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayInsertValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayPrependValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayShuffleModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayXorModification"
-            }, {
               "$ref" : "#/$defs/IntegerAddModification"
             }, {
               "$ref" : "#/$defs/IntegerExplicitValueModification"
@@ -1050,40 +654,6 @@
               "$ref" : "#/$defs/IntegerSwapEndianModification"
             }, {
               "$ref" : "#/$defs/IntegerXorModification"
-            }, {
-              "$ref" : "#/$defs/LongAddModification"
-            }, {
-              "$ref" : "#/$defs/LongExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/LongMultiplyModification"
-            }, {
-              "$ref" : "#/$defs/LongShiftLeftModification"
-            }, {
-              "$ref" : "#/$defs/LongShiftRightModification"
-            }, {
-              "$ref" : "#/$defs/LongSubtractModification"
-            }, {
-              "$ref" : "#/$defs/LongSwapEndianModification"
-            }, {
-              "$ref" : "#/$defs/LongXorModification"
-            }, {
-              "$ref" : "#/$defs/ByteAddModification"
-            }, {
-              "$ref" : "#/$defs/ByteExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteSubtractModification"
-            }, {
-              "$ref" : "#/$defs/ByteXorModification"
-            }, {
-              "$ref" : "#/$defs/StringAppendValueModification"
-            }, {
-              "$ref" : "#/$defs/StringDeleteModification"
-            }, {
-              "$ref" : "#/$defs/StringExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/StringInsertValueModification"
-            }, {
-              "$ref" : "#/$defs/StringPrependValueModification"
             } ]
           }
         },
@@ -1094,7 +664,7 @@
           "$ref" : "#/$defs/ModifiableByteArray"
         },
         "@type" : {
-          "const" : "LengthField"
+          "const" : "ModifiableLengthField"
         }
       },
       "required" : [ "ref", "@type" ]
@@ -1109,56 +679,6 @@
           "type" : "array",
           "items" : {
             "anyOf" : [ {
-              "$ref" : "#/$defs/BigIntegerAddModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerMultiplyModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerShiftLeftModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerShiftRightModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerSubtractModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerXorModification"
-            }, {
-              "$ref" : "#/$defs/BooleanExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/BooleanToggleModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayAppendValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayDeleteModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayDuplicateModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayInsertValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayPrependValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayShuffleModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayXorModification"
-            }, {
-              "$ref" : "#/$defs/IntegerAddModification"
-            }, {
-              "$ref" : "#/$defs/IntegerExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/IntegerMultiplyModification"
-            }, {
-              "$ref" : "#/$defs/IntegerShiftLeftModification"
-            }, {
-              "$ref" : "#/$defs/IntegerShiftRightModification"
-            }, {
-              "$ref" : "#/$defs/IntegerSubtractModification"
-            }, {
-              "$ref" : "#/$defs/IntegerSwapEndianModification"
-            }, {
-              "$ref" : "#/$defs/IntegerXorModification"
-            }, {
               "$ref" : "#/$defs/LongAddModification"
             }, {
               "$ref" : "#/$defs/LongExplicitValueModification"
@@ -1174,24 +694,6 @@
               "$ref" : "#/$defs/LongSwapEndianModification"
             }, {
               "$ref" : "#/$defs/LongXorModification"
-            }, {
-              "$ref" : "#/$defs/ByteAddModification"
-            }, {
-              "$ref" : "#/$defs/ByteExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteSubtractModification"
-            }, {
-              "$ref" : "#/$defs/ByteXorModification"
-            }, {
-              "$ref" : "#/$defs/StringAppendValueModification"
-            }, {
-              "$ref" : "#/$defs/StringDeleteModification"
-            }, {
-              "$ref" : "#/$defs/StringExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/StringInsertValueModification"
-            }, {
-              "$ref" : "#/$defs/StringPrependValueModification"
             } ]
           }
         },
@@ -1199,7 +701,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "Long"
+          "const" : "ModifiableLong"
         }
       },
       "required" : [ "@type" ]
@@ -1214,80 +716,6 @@
           "type" : "array",
           "items" : {
             "anyOf" : [ {
-              "$ref" : "#/$defs/BigIntegerAddModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerMultiplyModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerShiftLeftModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerShiftRightModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerSubtractModification"
-            }, {
-              "$ref" : "#/$defs/BigIntegerXorModification"
-            }, {
-              "$ref" : "#/$defs/BooleanExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/BooleanToggleModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayAppendValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayDeleteModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayDuplicateModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayInsertValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayPrependValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayShuffleModification"
-            }, {
-              "$ref" : "#/$defs/ByteArrayXorModification"
-            }, {
-              "$ref" : "#/$defs/IntegerAddModification"
-            }, {
-              "$ref" : "#/$defs/IntegerExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/IntegerMultiplyModification"
-            }, {
-              "$ref" : "#/$defs/IntegerShiftLeftModification"
-            }, {
-              "$ref" : "#/$defs/IntegerShiftRightModification"
-            }, {
-              "$ref" : "#/$defs/IntegerSubtractModification"
-            }, {
-              "$ref" : "#/$defs/IntegerSwapEndianModification"
-            }, {
-              "$ref" : "#/$defs/IntegerXorModification"
-            }, {
-              "$ref" : "#/$defs/LongAddModification"
-            }, {
-              "$ref" : "#/$defs/LongExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/LongMultiplyModification"
-            }, {
-              "$ref" : "#/$defs/LongShiftLeftModification"
-            }, {
-              "$ref" : "#/$defs/LongShiftRightModification"
-            }, {
-              "$ref" : "#/$defs/LongSubtractModification"
-            }, {
-              "$ref" : "#/$defs/LongSwapEndianModification"
-            }, {
-              "$ref" : "#/$defs/LongXorModification"
-            }, {
-              "$ref" : "#/$defs/ByteAddModification"
-            }, {
-              "$ref" : "#/$defs/ByteExplicitValueModification"
-            }, {
-              "$ref" : "#/$defs/ByteSubtractModification"
-            }, {
-              "$ref" : "#/$defs/ByteXorModification"
-            }, {
               "$ref" : "#/$defs/StringAppendValueModification"
             }, {
               "$ref" : "#/$defs/StringDeleteModification"
@@ -1304,7 +732,7 @@
           "type" : "string"
         },
         "@type" : {
-          "const" : "String"
+          "const" : "ModifiableString"
         }
       },
       "required" : [ "@type" ]
@@ -1316,7 +744,7 @@
           "type" : "string"
         },
         "@type" : {
-          "const" : "StringAppendValue"
+          "const" : "StringAppendValueModification"
         }
       },
       "required" : [ "appendValue", "@type" ]
@@ -1331,7 +759,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "StringDelete"
+          "const" : "StringDeleteModification"
         }
       },
       "required" : [ "count", "startPosition", "@type" ]
@@ -1343,7 +771,7 @@
           "type" : "string"
         },
         "@type" : {
-          "const" : "StringExplicitValue"
+          "const" : "StringExplicitValueModification"
         }
       },
       "required" : [ "explicitValue", "@type" ]
@@ -1358,7 +786,7 @@
           "type" : "integer"
         },
         "@type" : {
-          "const" : "StringInsertValue"
+          "const" : "StringInsertValueModification"
         }
       },
       "required" : [ "insertValue", "startPosition", "@type" ]
@@ -1370,7 +798,7 @@
           "type" : "string"
         },
         "@type" : {
-          "const" : "StringPrependValue"
+          "const" : "StringPrependValueModification"
         }
       },
       "required" : [ "prependValue", "@type" ]
