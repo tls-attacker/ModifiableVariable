@@ -67,6 +67,10 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.fasterxml</groupId>
+            <artifactId>classmate</artifactId>
+        </dependency>
         <!-- scope: compile -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -79,6 +83,14 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.victools</groupId>
+            <artifactId>jsonschema-generator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.victools</groupId>
+            <artifactId>jsonschema-module-jackson</artifactId>
         </dependency>
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
@@ -100,6 +112,10 @@
             <groupId>com.github.spotbugs</groupId>
             <artifactId>spotbugs-annotations</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
         </dependency>
         <!-- scope: test -->
         <dependency>
@@ -183,34 +199,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Generate JSON schema from Java classes -->
-            <plugin>
-                <groupId>com.github.victools</groupId>
-                <artifactId>jsonschema-maven-plugin</artifactId>
-                <version>4.38.0</version>
-                <configuration>
-                    <classNames>de.rub.nds.modifiablevariable.ModifiableVariable</classNames>
-                    <schemaFilePath>src/main/resources</schemaFilePath>
-                    <schemaFileName>{0}.schema.json</schemaFileName>
-                    <schemaVersion>DRAFT_2020_12</schemaVersion>
-                    <modules>
-                        <module>
-                            <name>Jackson</name>
-                            <options>
-                                <option>RESPECT_JSONPROPERTY_REQUIRED</option>
-                                <option>ALWAYS_REF_SUBTYPES</option>
-                            </options>
-                        </module>
-                    </modules>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <!-- Execute unit tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -229,6 +217,28 @@
                     <excludedGroups>IntegrationTest</excludedGroups>
                     <skipTests>${skip.surefire.tests}</skipTests>
                 </configuration>
+            </plugin>
+            <!-- Generate JSON schema from Java classes -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>generate-json-schema</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <phase>prepare-package</phase>
+                        <configuration>
+                            <mainClass>de.rub.nds.modifiablevariable.serialization.JsonSchemaCliGenerator</mainClass>
+                            <arguments>
+                                <argument>de.rub.nds.modifiablevariable.ModifiableVariable</argument>
+                                <argument>src/main/resources/ModifiableVariable.schema.json</argument>
+                                <argument>de.rub.nds.modifiablevariable.serialization.ModifiableVariableModule</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <!-- Build jar file -->
             <plugin>

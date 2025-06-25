@@ -5,7 +5,7 @@
  *
  * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-package de.rub.nds.modifiablevariable.util;
+package de.rub.nds.modifiablevariable.serialization;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -15,7 +15,11 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import de.rub.nds.modifiablevariable.ModifiableVariable;
+import de.rub.nds.modifiablevariable.VariableModification;
+import de.rub.nds.modifiablevariable.util.ArrayConverter;
 import java.io.IOException;
+import org.reflections.Reflections;
 
 /**
  * A Jackson module for the ModifiableVariable library. It registers serializers and deserializers
@@ -32,6 +36,10 @@ public class ModifiableVariableModule extends SimpleModule {
         super(MODULE_NAME, new Version(1, 0, 0, null, "de.rub.nds", "modifiable-variable"));
         addSerializer(byte[].class, new UnformattedByteArraySerializer());
         addDeserializer(byte[].class, new UnformattedByteArrayDeserializer());
+        // Subtypes
+        Reflections reflections = new Reflections("de.rub.nds.modifiablevariable");
+        reflections.getSubTypesOf(ModifiableVariable.class).forEach(this::registerSubtypes);
+        reflections.getSubTypesOf(VariableModification.class).forEach(this::registerSubtypes);
     }
 
     public static class UnformattedByteArraySerializer extends StdSerializer<byte[]> {
