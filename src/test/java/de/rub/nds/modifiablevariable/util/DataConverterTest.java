@@ -1173,6 +1173,77 @@ class DataConverterTest {
         }
     }
 
+    @Test
+    void testIntToBytesWithNegativeValues() {
+        // Test negative int values to ensure unsigned right shift is handled correctly
+        int negativeValue = -1;
+        byte[] result = DataConverter.intToBytes(negativeValue, 4);
+        assertArrayEquals(
+                new byte[] {(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
+                result,
+                "Negative -1 should produce all FF bytes");
+
+        // Test another negative value
+        negativeValue = -256; // 0xFFFFFF00
+        result = DataConverter.intToBytes(negativeValue, 4);
+        assertArrayEquals(
+                new byte[] {(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0x00},
+                result,
+                "Negative -256 should produce correct bytes");
+
+        // Test with size larger than int
+        negativeValue = -1;
+        result = DataConverter.intToBytes(negativeValue, 6);
+        assertArrayEquals(
+                new byte[] {0x00, 0x00, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
+                result,
+                "Negative -1 with size 6 should be padded with zeros");
+    }
+
+    @Test
+    void testLongToBytesWithNegativeValues() {
+        // Test negative long values to ensure unsigned right shift is handled correctly
+        long negativeValue = -1L;
+        byte[] result = DataConverter.longToBytes(negativeValue, 8);
+        assertArrayEquals(
+                new byte[] {
+                    (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+                    (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF
+                },
+                result,
+                "Negative -1L should produce all FF bytes");
+
+        // Test another negative value
+        negativeValue = -256L; // 0xFFFFFFFFFFFFFF00
+        result = DataConverter.longToBytes(negativeValue, 8);
+        assertArrayEquals(
+                new byte[] {
+                    (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+                    (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0x00
+                },
+                result,
+                "Negative -256L should produce correct bytes");
+
+        // Test with size larger than long
+        negativeValue = -1L;
+        result = DataConverter.longToBytes(negativeValue, 10);
+        assertArrayEquals(
+                new byte[] {
+                    0x00,
+                    0x00,
+                    (byte) 0xFF,
+                    (byte) 0xFF,
+                    (byte) 0xFF,
+                    (byte) 0xFF,
+                    (byte) 0xFF,
+                    (byte) 0xFF,
+                    (byte) 0xFF,
+                    (byte) 0xFF
+                },
+                result,
+                "Negative -1L with size 10 should be padded with zeros");
+    }
+
     /** Test of indexOf method, of class DataConverter. */
     @Test
     void testIndexOf() {
