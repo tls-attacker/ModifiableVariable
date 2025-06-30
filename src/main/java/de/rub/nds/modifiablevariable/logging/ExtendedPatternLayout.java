@@ -101,7 +101,9 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
             boolean disableAnsi,
             boolean noConsoleNoAnsi,
             String headerPattern,
-            String footerPattern) {
+            String footerPattern,
+            boolean initNewLine,
+            boolean prettyPrinting) {
         super(
                 config,
                 charset,
@@ -113,6 +115,8 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
                         .setDisableAnsi(disableAnsi)
                         .setNoConsoleNoAnsi(noConsoleNoAnsi)
                         .setPattern(headerPattern)
+                        .setInitNewLine(initNewLine)
+                        .setPrettyPrinting(prettyPrinting)
                         .build(),
                 newSerializerBuilder()
                         .setConfiguration(config)
@@ -122,6 +126,8 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
                         .setDisableAnsi(disableAnsi)
                         .setNoConsoleNoAnsi(noConsoleNoAnsi)
                         .setPattern(footerPattern)
+                        .setInitNewLine(initNewLine)
+                        .setPrettyPrinting(prettyPrinting)
                         .build());
         conversionPattern = eventPattern;
         this.patternSelector = patternSelector;
@@ -135,6 +141,8 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
                         .setNoConsoleNoAnsi(noConsoleNoAnsi)
                         .setPattern(eventPattern)
                         .setDefaultPattern("%m%n")
+                        .setInitNewLine(initNewLine)
+                        .setPrettyPrinting(prettyPrinting)
                         .build();
     }
 
@@ -339,6 +347,8 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
                 .withNoConsoleNoAnsi(noConsoleNoAnsi)
                 .withHeader(headerPattern)
                 .withFooter(footerPattern)
+                .withInitNewLine(false)
+                .withPrettyPrinting(false)
                 .build();
     }
 
@@ -404,12 +414,8 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
         @PluginBuilderAttribute private boolean noConsoleNoAnsi;
         @PluginBuilderAttribute private String header;
         @PluginBuilderAttribute private String footer;
-
-        @PluginBuilderAttribute("initNewLine")
-        private static boolean initNewLine;
-
-        @PluginBuilderAttribute("prettyPrinting")
-        private static boolean prettyPrinting;
+        @PluginBuilderAttribute private boolean initNewLine;
+        @PluginBuilderAttribute private boolean prettyPrinting;
 
         private Builder() {
             super();
@@ -542,6 +548,28 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
         }
 
         /**
+         * Sets whether to start byte array output on a new line.
+         *
+         * @param initNewLine Whether to initialize byte array output on a new line
+         * @return This builder instance
+         */
+        public ExtendedPatternLayout.Builder withInitNewLine(boolean initNewLine) {
+            this.initNewLine = initNewLine;
+            return this;
+        }
+
+        /**
+         * Sets whether to format byte arrays with spaces between bytes for readability.
+         *
+         * @param prettyPrinting Whether to pretty print byte arrays
+         * @return This builder instance
+         */
+        public ExtendedPatternLayout.Builder withPrettyPrinting(boolean prettyPrinting) {
+            this.prettyPrinting = prettyPrinting;
+            return this;
+        }
+
+        /**
          * Builds a new ExtendedPatternLayout instance with the configured settings.
          *
          * <p>This method creates a new layout using all the settings configured on this builder. If
@@ -565,7 +593,9 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
                     disableAnsi,
                     noConsoleNoAnsi,
                     header,
-                    footer);
+                    footer,
+                    initNewLine,
+                    prettyPrinting);
         }
     }
 
@@ -655,6 +685,8 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
         private boolean alwaysWriteExceptions;
         private boolean disableAnsi;
         private boolean noConsoleNoAnsi;
+        private boolean initNewLine;
+        private boolean prettyPrinting;
 
         /**
          * Builds a serializer for formatting log events according to the configured settings.
@@ -685,7 +717,7 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
                                     noConsoleNoAnsi);
                     PatternFormatter[] formatters = list.toArray(new PatternFormatter[0]);
                     return new ExtendedPatternLayout.ExtendedPatternLayoutSerializer(
-                            formatters, replace);
+                            formatters, replace, initNewLine, prettyPrinting);
                 } catch (RuntimeException var4) {
                     throw new IllegalArgumentException(
                             "Cannot parse pattern '" + pattern + "'", var4);
@@ -786,18 +818,47 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
             this.noConsoleNoAnsi = noConsoleNoAnsi;
             return this;
         }
+
+        /**
+         * Sets whether to start byte array output on a new line.
+         *
+         * @param initNewLine Whether to initialize byte array output on a new line
+         * @return This builder instance
+         */
+        public ExtendedPatternLayout.SerializerBuilder setInitNewLine(boolean initNewLine) {
+            this.initNewLine = initNewLine;
+            return this;
+        }
+
+        /**
+         * Sets whether to format byte arrays with spaces between bytes for readability.
+         *
+         * @param prettyPrinting Whether to pretty print byte arrays
+         * @return This builder instance
+         */
+        public ExtendedPatternLayout.SerializerBuilder setPrettyPrinting(boolean prettyPrinting) {
+            this.prettyPrinting = prettyPrinting;
+            return this;
+        }
     }
 
     private static final class ExtendedPatternLayoutSerializer
             implements AbstractStringLayout.Serializer, LocationAware {
         private final PatternFormatter[] formatters;
         private final RegexReplacement replace;
+        private final boolean initNewLine;
+        private final boolean prettyPrinting;
 
         private ExtendedPatternLayoutSerializer(
-                PatternFormatter[] formatters, RegexReplacement replace) {
+                PatternFormatter[] formatters,
+                RegexReplacement replace,
+                boolean initNewLine,
+                boolean prettyPrinting) {
             super();
             this.formatters = formatters;
             this.replace = replace;
+            this.initNewLine = initNewLine;
+            this.prettyPrinting = prettyPrinting;
         }
 
         @Override
@@ -831,11 +892,13 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
          *       </ul>
          * </ol>
          *
-         * <p>The byte array formatting is controlled by two static configuration options:
+         * <p>The byte array formatting is controlled by two configuration options:
          *
          * <ul>
-         *   <li>{@link Builder#prettyPrinting} - Whether to format with spaces between bytes
-         *   <li>{@link Builder#initNewLine} - Whether to start byte arrays on a new line
+         *   <li>{@link ExtendedPatternLayoutSerializer#prettyPrinting} - Whether to format with
+         *       spaces between bytes
+         *   <li>{@link ExtendedPatternLayoutSerializer#initNewLine} - Whether to start byte arrays
+         *       on a new line
          * </ul>
          *
          * @param event The LogEvent to serialize
@@ -870,9 +933,7 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
                                 builder.indexOf(Arrays.toString((byte[]) param))
                                         + Arrays.toString((byte[]) param).length(),
                                 DataConverter.bytesToHexString(
-                                        (byte[]) param,
-                                        Builder.prettyPrinting,
-                                        Builder.initNewLine));
+                                        (byte[]) param, prettyPrinting, initNewLine));
                     }
                 }
             }
