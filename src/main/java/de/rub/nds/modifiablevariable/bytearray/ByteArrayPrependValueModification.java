@@ -83,7 +83,7 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
      * Modifies the input by prepending bytes to the beginning of the array.
      *
      * <p>This method concatenates the bytes to prepend with the input byte array using the
-     * ArrayConverter's concatenate method. A new byte array is created with the bytes to prepend at
+     * DataConverter's concatenate method. A new byte array is created with the bytes to prepend at
      * the beginning followed by the original input bytes.
      *
      * <p>Note that this operation creates a new array that is longer than the original input by the
