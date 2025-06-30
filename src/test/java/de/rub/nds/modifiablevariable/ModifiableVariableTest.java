@@ -9,10 +9,7 @@ package de.rub.nds.modifiablevariable;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import de.rub.nds.modifiablevariable.biginteger.*;
-import de.rub.nds.modifiablevariable.bytearray.*;
 import de.rub.nds.modifiablevariable.integer.*;
-import de.rub.nds.modifiablevariable.singlebyte.*;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;

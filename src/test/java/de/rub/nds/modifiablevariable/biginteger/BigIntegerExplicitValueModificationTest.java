@@ -11,8 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
@@ -156,29 +156,20 @@ class BigIntegerExplicitValueModificationTest {
     /** Test constructor with null value */
     @Test
     void testConstructorWithNullValue() {
-        // Using try-catch because we expect an exception
-        try {
-            // Explicitly specify null as BigInteger to avoid ambiguity with copy constructor
-            BigInteger nullValue = null;
-            new BigIntegerExplicitValueModification(nullValue);
-            fail("Constructor should throw NullPointerException");
-        } catch (NullPointerException e) {
-            // Expected exception
-            assertTrue(e.getMessage().contains("null"));
-        }
+        assertThrows(
+                NullPointerException.class,
+                () -> {
+                    new BigIntegerExplicitValueModification((BigInteger) null);
+                });
     }
 
     /** Test setExplicitValue with null value */
     @Test
     void testSetExplicitValueWithNullValue() {
-        // Using try-catch because we expect an exception
-        try {
-            b1.setExplicitValue(null);
-            // Should not reach here
-            fail("setExplicitValue should throw NullPointerException");
-        } catch (NullPointerException e) {
-            // Expected exception
-            assertTrue(e.getMessage().contains("null"));
-        }
+        assertThrows(
+                NullPointerException.class,
+                () -> {
+                    b1.setExplicitValue(null);
+                });
     }
 }

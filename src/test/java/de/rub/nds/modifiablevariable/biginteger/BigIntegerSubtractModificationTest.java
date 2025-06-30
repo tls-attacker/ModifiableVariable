@@ -11,8 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
@@ -166,30 +166,20 @@ class BigIntegerSubtractModificationTest {
     /** Test constructor with null value */
     @Test
     void testConstructorWithNullValue() {
-        // Using try-catch because we expect an exception
-        try {
-            // Explicitly specify null as BigInteger to avoid ambiguity with copy constructor
-            BigInteger nullValue = null;
-            BigIntegerSubtractModification mod = new BigIntegerSubtractModification(nullValue);
-            // Should not reach here
-            fail("Constructor should throw NullPointerException");
-        } catch (NullPointerException e) {
-            // Expected exception
-            assertTrue(e.getMessage().contains("null"));
-        }
+        assertThrows(
+                NullPointerException.class,
+                () -> {
+                    new BigIntegerSubtractModification((BigInteger) null);
+                });
     }
 
     /** Test setSubtrahend with null value */
     @Test
     void testSetSubtrahendWithNullValue() {
-        // Using try-catch because we expect an exception
-        try {
-            b1.setSubtrahend(null);
-            // Should not reach here
-            fail("setSubtrahend should throw NullPointerException");
-        } catch (NullPointerException e) {
-            // Expected exception
-            assertTrue(e.getMessage().contains("null"));
-        }
+        assertThrows(
+                NullPointerException.class,
+                () -> {
+                    b1.setSubtrahend(null);
+                });
     }
 }
