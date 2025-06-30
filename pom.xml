@@ -177,10 +177,20 @@
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
-                    <compilerArgs>
-                        <compilerArg>-proc:full</compilerArg>
-                    </compilerArgs>
+                    <proc>full</proc>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <configuration>
+                            <compilerArgs>
+                                <!-- The following arguments are required for Log4J plugins (ExtendedPatternLayout) since Log4J 2.25.0 -->
+                                <arg>-Alog4j.graalvm.groupId=${project.groupId}</arg>
+                                <arg>-Alog4j.graalvm.artifactId=${project.artifactId}</arg>
+                            </compilerArgs>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <!-- Execute unit tests -->
             <plugin>
