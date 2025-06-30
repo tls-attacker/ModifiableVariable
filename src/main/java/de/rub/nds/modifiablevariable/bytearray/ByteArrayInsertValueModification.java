@@ -97,7 +97,7 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
      *   <li>If the position exceeds the array length, it's adjusted using modulo arithmetic
      * </ul>
      *
-     * <p>The implementation uses ArrayConverter for efficient concatenation operations, ensuring
+     * <p>The implementation uses DataConverter for efficient concatenation operations, ensuring
      * optimal performance even with large arrays.
      *
      * @param input The original byte array
