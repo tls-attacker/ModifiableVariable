@@ -279,7 +279,7 @@ class ModifiableVariableAnalyzerTest {
     }
 
     /** Utility method to check if a list of Fields contains a field with the given name. */
-    private boolean containsFieldName(String name, List<Field> list) {
+    private static boolean containsFieldName(String name, List<Field> list) {
         for (Field f : list) {
             if (f.getName().equals(name)) {
                 return true;
