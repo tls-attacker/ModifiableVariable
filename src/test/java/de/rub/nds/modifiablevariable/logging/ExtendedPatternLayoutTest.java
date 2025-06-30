@@ -389,12 +389,12 @@ class ExtendedPatternLayoutTest {
         String pattern = "%m%n";
         Configuration config = new DefaultConfiguration();
 
-        ExtendedPatternLayout layout =
+        ExtendedPatternLayout testLayout =
                 ExtendedPatternLayout.createLayout(
                         pattern, null, config, null, CHARSET, true, false, null, null);
 
-        assertNotNull(layout);
-        assertEquals(pattern, layout.getConversionPattern());
+        assertNotNull(testLayout);
+        assertEquals(pattern, testLayout.getConversionPattern());
     }
 
     @Test
@@ -405,7 +405,7 @@ class ExtendedPatternLayoutTest {
         String header = "HEADER";
         String footer = "FOOTER";
 
-        ExtendedPatternLayout layout =
+        ExtendedPatternLayout testLayout =
                 ExtendedPatternLayout.newBuilder()
                         .withPattern(PATTERN)
                         .withPatternSelector(patternSelector)
@@ -419,8 +419,8 @@ class ExtendedPatternLayoutTest {
                         .withFooter(footer)
                         .build();
 
-        assertNotNull(layout);
-        assertEquals(PATTERN, layout.getConversionPattern());
+        assertNotNull(testLayout);
+        assertEquals(PATTERN, testLayout.getConversionPattern());
     }
 
     @Test
@@ -457,14 +457,14 @@ class ExtendedPatternLayoutTest {
     @Test
     void testBuilderWithNullCharset() {
         // Test the withCharset method with null charset (should use default)
-        ExtendedPatternLayout layout =
+        ExtendedPatternLayout testLayout =
                 ExtendedPatternLayout.newBuilder().withPattern(PATTERN).withCharset(null).build();
 
-        assertNotNull(layout);
+        assertNotNull(testLayout);
         // Verify it works correctly
         String message = "Test message";
         LogEvent event = createLogEvent(new SimpleMessage(message));
-        String result = layout.toSerializable(event);
+        String result = testLayout.toSerializable(event);
         assertEquals(message + System.lineSeparator(), result);
     }
 

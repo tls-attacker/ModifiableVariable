@@ -314,52 +314,52 @@ class ModifiableBigIntegerTest {
     @Test
     void testEqualsWithDifferentModificationTypesSameResult() {
         // Different modification types resulting in the same final value
-        ModifiableBigInteger integer1 = new ModifiableBigInteger(BigInteger.valueOf(10));
-        ModifiableBigInteger integer2 = new ModifiableBigInteger(BigInteger.valueOf(5));
+        ModifiableBigInteger testInteger1 = new ModifiableBigInteger(BigInteger.valueOf(10));
+        ModifiableBigInteger testInteger2 = new ModifiableBigInteger(BigInteger.valueOf(5));
         ModifiableBigInteger integer3 = new ModifiableBigInteger(BigInteger.valueOf(2));
 
         // 10 + 10 = 20
-        integer1.setModifications(new BigIntegerAddModification(BigInteger.valueOf(10)));
+        testInteger1.setModifications(new BigIntegerAddModification(BigInteger.valueOf(10)));
         // 5 * 4 = 20
-        integer2.setModifications(new BigIntegerMultiplyModification(BigInteger.valueOf(4)));
+        testInteger2.setModifications(new BigIntegerMultiplyModification(BigInteger.valueOf(4)));
         // 2 << 3 = 16, then + 4 = 20
         integer3.setModifications(new BigIntegerShiftLeftModification(3));
         integer3.addModification(new BigIntegerAddModification(BigInteger.valueOf(4)));
 
         // All should be equal since they result in the same value (20)
-        assertEquals(integer1.getValue(), integer2.getValue());
-        assertEquals(integer2.getValue(), integer3.getValue());
-        assertEquals(integer1, integer2);
-        assertEquals(integer2, integer3);
-        assertEquals(integer1, integer3);
+        assertEquals(testInteger1.getValue(), testInteger2.getValue());
+        assertEquals(testInteger2.getValue(), integer3.getValue());
+        assertEquals(testInteger1, testInteger2);
+        assertEquals(testInteger2, integer3);
+        assertEquals(testInteger1, integer3);
     }
 
     /** Test equals method with chained modifications */
     @Test
     void testEqualsWithChainedModifications() {
         // Two objects with the same chain of modifications
-        ModifiableBigInteger integer1 = new ModifiableBigInteger(BigInteger.valueOf(5));
-        ModifiableBigInteger integer2 = new ModifiableBigInteger(BigInteger.valueOf(5));
+        ModifiableBigInteger testInteger1 = new ModifiableBigInteger(BigInteger.valueOf(5));
+        ModifiableBigInteger testInteger2 = new ModifiableBigInteger(BigInteger.valueOf(5));
 
         // Apply a sequence of modifications to both integers
-        integer1.setModifications(new BigIntegerAddModification(BigInteger.valueOf(5)));
-        integer1.addModification(new BigIntegerMultiplyModification(BigInteger.valueOf(2)));
-        integer1.addModification(new BigIntegerXorModification(BigInteger.valueOf(3)));
+        testInteger1.setModifications(new BigIntegerAddModification(BigInteger.valueOf(5)));
+        testInteger1.addModification(new BigIntegerMultiplyModification(BigInteger.valueOf(2)));
+        testInteger1.addModification(new BigIntegerXorModification(BigInteger.valueOf(3)));
 
-        integer2.setModifications(new BigIntegerAddModification(BigInteger.valueOf(5)));
-        integer2.addModification(new BigIntegerMultiplyModification(BigInteger.valueOf(2)));
-        integer2.addModification(new BigIntegerXorModification(BigInteger.valueOf(3)));
+        testInteger2.setModifications(new BigIntegerAddModification(BigInteger.valueOf(5)));
+        testInteger2.addModification(new BigIntegerMultiplyModification(BigInteger.valueOf(2)));
+        testInteger2.addModification(new BigIntegerXorModification(BigInteger.valueOf(3)));
 
         // Should be equal
-        assertEquals(integer1.getValue(), integer2.getValue());
-        assertEquals(integer1, integer2);
+        assertEquals(testInteger1.getValue(), testInteger2.getValue());
+        assertEquals(testInteger1, testInteger2);
 
         // Modify one by adding another modification
-        integer1.addModification(new BigIntegerAddModification(BigInteger.valueOf(1)));
+        testInteger1.addModification(new BigIntegerAddModification(BigInteger.valueOf(1)));
 
         // No longer equal
-        assertNotEquals(integer1.getValue(), integer2.getValue());
-        assertNotEquals(integer1, integer2);
+        assertNotEquals(testInteger1.getValue(), testInteger2.getValue());
+        assertNotEquals(testInteger1, testInteger2);
     }
 
     /** Test equals method with modified null and non-null original values */
@@ -476,26 +476,26 @@ class ModifiableBigIntegerTest {
     @Test
     void testHashCodeWithChainedModifications() {
         // Same chain of modifications should produce same hash code
-        ModifiableBigInteger integer1 = new ModifiableBigInteger(BigInteger.valueOf(5));
-        ModifiableBigInteger integer2 = new ModifiableBigInteger(BigInteger.valueOf(5));
+        ModifiableBigInteger testInteger1 = new ModifiableBigInteger(BigInteger.valueOf(5));
+        ModifiableBigInteger testInteger2 = new ModifiableBigInteger(BigInteger.valueOf(5));
 
         // Create identical modification chains
-        integer1.setModifications(new BigIntegerAddModification(BigInteger.valueOf(5)));
-        integer1.addModification(new BigIntegerMultiplyModification(BigInteger.valueOf(2)));
+        testInteger1.setModifications(new BigIntegerAddModification(BigInteger.valueOf(5)));
+        testInteger1.addModification(new BigIntegerMultiplyModification(BigInteger.valueOf(2)));
 
-        integer2.setModifications(new BigIntegerAddModification(BigInteger.valueOf(5)));
-        integer2.addModification(new BigIntegerMultiplyModification(BigInteger.valueOf(2)));
+        testInteger2.setModifications(new BigIntegerAddModification(BigInteger.valueOf(5)));
+        testInteger2.addModification(new BigIntegerMultiplyModification(BigInteger.valueOf(2)));
 
         // Hash codes should be equal
-        assertEquals(integer1.getValue(), integer2.getValue());
-        assertEquals(integer1.hashCode(), integer2.hashCode());
+        assertEquals(testInteger1.getValue(), testInteger2.getValue());
+        assertEquals(testInteger1.hashCode(), testInteger2.hashCode());
 
         // Different modifications with same result should have same hash code
         ModifiableBigInteger integer3 = new ModifiableBigInteger(BigInteger.valueOf(5));
-        integer3.setModifications(new BigIntegerExplicitValueModification(integer1.getValue()));
+        integer3.setModifications(new BigIntegerExplicitValueModification(testInteger1.getValue()));
 
-        assertEquals(integer1.getValue(), integer3.getValue());
-        assertEquals(integer1.hashCode(), integer3.hashCode());
+        assertEquals(testInteger1.getValue(), integer3.getValue());
+        assertEquals(testInteger1.hashCode(), integer3.hashCode());
     }
 
     /** Test hashCode consistency with equals method */
@@ -504,26 +504,26 @@ class ModifiableBigIntegerTest {
         // Objects that are equal must have the same hash code
 
         // Different original values, same final result through different means
-        ModifiableBigInteger integer1 = new ModifiableBigInteger(BigInteger.valueOf(10));
-        ModifiableBigInteger integer2 = new ModifiableBigInteger(BigInteger.valueOf(5));
+        ModifiableBigInteger testInteger1 = new ModifiableBigInteger(BigInteger.valueOf(10));
+        ModifiableBigInteger testInteger2 = new ModifiableBigInteger(BigInteger.valueOf(5));
         ModifiableBigInteger integer3 = new ModifiableBigInteger(BigInteger.valueOf(2));
 
         // 10 + 10 = 20
-        integer1.setModifications(new BigIntegerAddModification(BigInteger.valueOf(10)));
+        testInteger1.setModifications(new BigIntegerAddModification(BigInteger.valueOf(10)));
         // 5 * 4 = 20
-        integer2.setModifications(new BigIntegerMultiplyModification(BigInteger.valueOf(4)));
+        testInteger2.setModifications(new BigIntegerMultiplyModification(BigInteger.valueOf(4)));
         // 2 << 3 = 16, then + 4 = 20
         integer3.setModifications(new BigIntegerShiftLeftModification(3));
         integer3.addModification(new BigIntegerAddModification(BigInteger.valueOf(4)));
 
         // All should have the same hash code since they're equal
-        assertEquals(integer1, integer2);
-        assertEquals(integer1.hashCode(), integer2.hashCode());
+        assertEquals(testInteger1, testInteger2);
+        assertEquals(testInteger1.hashCode(), testInteger2.hashCode());
 
-        assertEquals(integer2, integer3);
-        assertEquals(integer2.hashCode(), integer3.hashCode());
+        assertEquals(testInteger2, integer3);
+        assertEquals(testInteger2.hashCode(), integer3.hashCode());
 
-        assertEquals(integer1, integer3);
-        assertEquals(integer1.hashCode(), integer3.hashCode());
+        assertEquals(testInteger1, integer3);
+        assertEquals(testInteger1.hashCode(), integer3.hashCode());
     }
 }

@@ -429,57 +429,56 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
         /**
          * Sets the conversion pattern to use for formatting log events.
          *
-         * @param pattern The pattern string
+         * @param patternValue The pattern string
          * @return This builder instance
          */
-        public ExtendedPatternLayout.Builder withPattern(String pattern) {
-            this.pattern = pattern;
+        public ExtendedPatternLayout.Builder withPattern(String patternValue) {
+            this.pattern = patternValue;
             return this;
         }
 
         /**
          * Sets the pattern selector for dynamic pattern selection based on log event properties.
          *
-         * @param patternSelector The pattern selector to use
+         * @param selector The pattern selector to use
          * @return This builder instance
          */
-        public ExtendedPatternLayout.Builder withPatternSelector(PatternSelector patternSelector) {
-            this.patternSelector = patternSelector;
+        public ExtendedPatternLayout.Builder withPatternSelector(PatternSelector selector) {
+            this.patternSelector = selector;
             return this;
         }
 
         /**
          * Sets the configuration to use for this layout.
          *
-         * @param configuration The configuration
+         * @param config The configuration
          * @return This builder instance
          */
-        public ExtendedPatternLayout.Builder withConfiguration(Configuration configuration) {
-            this.configuration = configuration;
+        public ExtendedPatternLayout.Builder withConfiguration(Configuration config) {
+            this.configuration = config;
             return this;
         }
 
         /**
          * Sets the regex replacement to apply to the formatted output.
          *
-         * @param regexReplacement The regex replacement
+         * @param replacement The regex replacement
          * @return This builder instance
          */
-        public ExtendedPatternLayout.Builder withRegexReplacement(
-                RegexReplacement regexReplacement) {
-            this.regexReplacement = regexReplacement;
+        public ExtendedPatternLayout.Builder withRegexReplacement(RegexReplacement replacement) {
+            this.regexReplacement = replacement;
             return this;
         }
 
         /**
          * Sets the character set to use for encoding the output.
          *
-         * @param charset The character set
+         * @param charsetValue The character set
          * @return This builder instance
          */
-        public ExtendedPatternLayout.Builder withCharset(Charset charset) {
-            if (charset != null) {
-                this.charset = charset;
+        public ExtendedPatternLayout.Builder withCharset(Charset charsetValue) {
+            if (charsetValue != null) {
+                this.charset = charsetValue;
             }
 
             return this;
@@ -488,56 +487,55 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
         /**
          * Sets whether to always include exception information in the output.
          *
-         * @param alwaysWriteExceptions Whether to always write exceptions
+         * @param writeExceptions Whether to always write exceptions
          * @return This builder instance
          */
-        public ExtendedPatternLayout.Builder withAlwaysWriteExceptions(
-                boolean alwaysWriteExceptions) {
-            this.alwaysWriteExceptions = alwaysWriteExceptions;
+        public ExtendedPatternLayout.Builder withAlwaysWriteExceptions(boolean writeExceptions) {
+            this.alwaysWriteExceptions = writeExceptions;
             return this;
         }
 
         /**
          * Sets whether to disable ANSI escape codes in the output.
          *
-         * @param disableAnsi Whether to disable ANSI escape codes
+         * @param disable Whether to disable ANSI escape codes
          * @return This builder instance
          */
-        public ExtendedPatternLayout.Builder withDisableAnsi(boolean disableAnsi) {
-            this.disableAnsi = disableAnsi;
+        public ExtendedPatternLayout.Builder withDisableAnsi(boolean disable) {
+            this.disableAnsi = disable;
             return this;
         }
 
         /**
          * Sets whether to disable ANSI escapes when output is not to a console.
          *
-         * @param noConsoleNoAnsi Whether to disable ANSI when not writing to console
+         * @param noAnsi Whether to disable ANSI when not writing to console
          * @return This builder instance
          */
-        public ExtendedPatternLayout.Builder withNoConsoleNoAnsi(boolean noConsoleNoAnsi) {
-            this.noConsoleNoAnsi = noConsoleNoAnsi;
+        public ExtendedPatternLayout.Builder withNoConsoleNoAnsi(boolean noAnsi) {
+            this.noConsoleNoAnsi = noAnsi;
             return this;
         }
 
         /**
          * Sets the pattern to use for the header.
          *
-         * @param header The header pattern
+         * @param headerValue The header pattern
          * @return This builder instance
          */
-        public ExtendedPatternLayout.Builder withHeader(String header) {
-            this.header = header;
+        public ExtendedPatternLayout.Builder withHeader(String headerValue) {
+            this.header = headerValue;
             return this;
         }
 
         /**
          * Sets the pattern to use for the footer.
          *
-         * @param footer The footer pattern
+         * @param footerValue The footer pattern
          * @return This builder instance
          */
-        public ExtendedPatternLayout.Builder withFooter(String footer) {
-            this.footer = footer;
+        public ExtendedPatternLayout.Builder withFooter(String footerValue) {
+            this.footer = footerValue;
             return this;
         }
 
