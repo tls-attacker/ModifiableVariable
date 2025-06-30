@@ -93,7 +93,7 @@ class ByteArrayExplicitValueModificationTest {
 
     /** Test setExplicitValue with null value */
     @Test
-    void testSetExplicitValueNull() {
+    static void testSetExplicitValueNull() {
         ByteArrayExplicitValueModification mod =
                 new ByteArrayExplicitValueModification(new byte[] {0x01, 0x02});
         assertThrows(NullPointerException.class, () -> mod.setExplicitValue(null));
@@ -101,7 +101,7 @@ class ByteArrayExplicitValueModificationTest {
 
     /** Test constructor with null value */
     @Test
-    void testConstructorNull() {
+    static void testConstructorNull() {
         assertThrows(
                 NullPointerException.class,
                 () -> new ByteArrayExplicitValueModification((byte[]) null));

@@ -79,7 +79,7 @@ class ByteArrayPrependValueModificationTest {
 
     /** Test setBytesToPrepend with null value */
     @Test
-    void testSetBytesToPrependNull() {
+    static void testSetBytesToPrependNull() {
         ByteArrayPrependValueModification mod =
                 new ByteArrayPrependValueModification(new byte[] {0x01, 0x02});
         assertThrows(NullPointerException.class, () -> mod.setBytesToPrepend(null));
@@ -87,7 +87,7 @@ class ByteArrayPrependValueModificationTest {
 
     /** Test constructor with null value */
     @Test
-    void testConstructorNull() {
+    static void testConstructorNull() {
         assertThrows(
                 NullPointerException.class,
                 () -> new ByteArrayPrependValueModification((byte[]) null));

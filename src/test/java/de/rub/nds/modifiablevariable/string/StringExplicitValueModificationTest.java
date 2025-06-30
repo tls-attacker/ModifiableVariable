@@ -71,7 +71,7 @@ class StringExplicitValueModificationTest {
 
     /** Test that null explicit value is not allowed */
     @Test
-    void testNullExplicitValue() {
+    static void testNullExplicitValue() {
         assertThrows(
                 NullPointerException.class,
                 () -> {

@@ -91,7 +91,7 @@ class ComparableByteArrayTest {
     }
 
     @Test
-    void testEqualsWithNull() {
+    static void testEqualsWithNull() {
         byte[] array = new byte[] {1, 2, 3, 4, 5};
         ComparableByteArray comparable = new ComparableByteArray(array);
 

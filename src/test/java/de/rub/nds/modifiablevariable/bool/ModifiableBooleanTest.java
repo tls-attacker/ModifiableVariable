@@ -65,7 +65,7 @@ class ModifiableBooleanTest {
 
     /** Test of isOriginalValueModified method with null original value */
     @Test
-    void testIsOriginalValueModifiedNull() {
+    static void testIsOriginalValueModifiedNull() {
         ModifiableBoolean nullBoolean = new ModifiableBoolean();
         assertThrows(IllegalStateException.class, nullBoolean::isOriginalValueModified);
     }
@@ -199,7 +199,7 @@ class ModifiableBooleanTest {
 
     /** Test equals with both null values */
     @Test
-    void testEqualsWithNullValues() {
+    static void testEqualsWithNullValues() {
         ModifiableBoolean nullBool1 = new ModifiableBoolean();
         ModifiableBoolean nullBool2 = new ModifiableBoolean();
 

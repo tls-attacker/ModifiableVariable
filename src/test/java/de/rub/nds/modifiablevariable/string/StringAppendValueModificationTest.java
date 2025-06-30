@@ -67,7 +67,7 @@ class StringAppendValueModificationTest {
 
     /** Test that null append value is not allowed */
     @Test
-    void testNullAppendValue() {
+    static void testNullAppendValue() {
         assertThrows(
                 NullPointerException.class,
                 () -> {

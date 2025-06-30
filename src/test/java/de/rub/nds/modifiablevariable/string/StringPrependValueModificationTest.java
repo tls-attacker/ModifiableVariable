@@ -67,7 +67,7 @@ class StringPrependValueModificationTest {
 
     /** Test that null prepend value is not allowed */
     @Test
-    void testNullPrependValue() {
+    static void testNullPrependValue() {
         assertThrows(
                 NullPointerException.class,
                 () -> {

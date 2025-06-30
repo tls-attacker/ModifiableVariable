@@ -56,7 +56,7 @@ class ModifiableVariableTest {
 
     /** Test addModification with null. */
     @Test
-    void testAddModificationWithNull() {
+    static void testAddModificationWithNull() {
         ModifiableInteger integer = new ModifiableInteger();
         integer.setOriginalValue(100);
 

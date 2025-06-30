@@ -104,7 +104,7 @@ class StringInsertValueModificationTest {
 
     /** Test that null insert value is not allowed */
     @Test
-    void testNullInsertValue() {
+    static void testNullInsertValue() {
         assertThrows(
                 NullPointerException.class,
                 () -> {

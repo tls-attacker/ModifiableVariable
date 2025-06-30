@@ -105,7 +105,7 @@ class ByteArrayDeleteModificationTest {
 
     /** Test of modifyImplementationHook method with null input */
     @Test
-    void testModifyImplementationHookNullInput() {
+    static void testModifyImplementationHookNullInput() {
         ByteArrayDeleteModification mod = new ByteArrayDeleteModification(0, 1);
         assertNull(mod.modifyImplementationHook(null));
     }

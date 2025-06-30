@@ -198,7 +198,7 @@ class ModifiableByteTest {
         // Test with null value
         ModifiableByte nullByte = new ModifiableByte();
         // The actual hashCode implementation varies by JVM and implementation
-        int nullByteHash = nullByte.hashCode();
+        nullByte.hashCode();
     }
 
     /** Test of copy constructor and createCopy method. */
