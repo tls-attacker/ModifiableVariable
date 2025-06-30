@@ -88,7 +88,7 @@ class StringDeleteModificationTest {
 
     /** Test with null input */
     @Test
-    void testDeleteFromNullString() {
+    static void testDeleteFromNullString() {
         ModifiableString nullString = new ModifiableString();
         nullString.setOriginalValue(null);
 

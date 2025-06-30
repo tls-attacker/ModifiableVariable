@@ -128,7 +128,7 @@ class ByteArrayInsertValueModificationTest {
 
     /** Test setBytesToInsert with null value */
     @Test
-    void testSetBytesToInsertNull() {
+    static void testSetBytesToInsertNull() {
         ByteArrayInsertValueModification mod =
                 new ByteArrayInsertValueModification(new byte[] {0x01, 0x02}, 1);
         assertThrows(NullPointerException.class, () -> mod.setBytesToInsert(null));
@@ -136,7 +136,7 @@ class ByteArrayInsertValueModificationTest {
 
     /** Test constructor with null value */
     @Test
-    void testConstructorNull() {
+    static void testConstructorNull() {
         assertThrows(
                 NullPointerException.class,
                 () -> new ByteArrayInsertValueModification((byte[]) null, 1));

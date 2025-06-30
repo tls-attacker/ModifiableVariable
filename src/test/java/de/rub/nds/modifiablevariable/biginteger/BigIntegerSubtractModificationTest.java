@@ -165,7 +165,7 @@ class BigIntegerSubtractModificationTest {
 
     /** Test constructor with null value */
     @Test
-    void testConstructorWithNullValue() {
+    static void testConstructorWithNullValue() {
         // Using try-catch because we expect an exception
         try {
             // Explicitly specify null as BigInteger to avoid ambiguity with copy constructor

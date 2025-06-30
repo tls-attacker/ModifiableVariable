@@ -272,7 +272,7 @@ class ModifiableBigIntegerTest {
 
     /** Test equals method with null values */
     @Test
-    void testEqualsWithNullValues() {
+    static void testEqualsWithNullValues() {
         // Equal objects with null values
         ModifiableBigInteger nullInteger1 = new ModifiableBigInteger();
         ModifiableBigInteger nullInteger2 = new ModifiableBigInteger();
@@ -364,7 +364,7 @@ class ModifiableBigIntegerTest {
 
     /** Test equals method with modified null and non-null original values */
     @Test
-    void testEqualsWithMixedNullOriginalValues() {
+    static void testEqualsWithMixedNullOriginalValues() {
         // Initialize with different original values (one null, one non-null)
         ModifiableBigInteger nullOriginal = new ModifiableBigInteger();
         ModifiableBigInteger nonNullOriginal = new ModifiableBigInteger(BigInteger.valueOf(5));
@@ -458,7 +458,7 @@ class ModifiableBigIntegerTest {
 
     /** Test hashCode method with null value */
     @Test
-    void testHashCodeWithNull() {
+    static void testHashCodeWithNull() {
         // Null value handling
         ModifiableBigInteger nullInteger = new ModifiableBigInteger();
         int hashCode = nullInteger.hashCode();

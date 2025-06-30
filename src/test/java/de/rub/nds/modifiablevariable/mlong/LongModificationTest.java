@@ -99,7 +99,7 @@ class LongModificationTest {
     }
 
     @Test
-    void testMultiplyWithNull() {
+    static void testMultiplyWithNull() {
         ModifiableLong nullStart = new ModifiableLong();
         VariableModification<Long> modifier = new LongMultiplyModification(5L);
         nullStart.setModifications(modifier);
@@ -127,7 +127,7 @@ class LongModificationTest {
     }
 
     @Test
-    void testShiftLeftWithNull() {
+    static void testShiftLeftWithNull() {
         ModifiableLong nullStart = new ModifiableLong();
         VariableModification<Long> modifier = new LongShiftLeftModification(2);
         nullStart.setModifications(modifier);

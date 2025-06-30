@@ -79,7 +79,7 @@ class ByteArrayAppendValueModificationTest {
 
     /** Test setBytesToAppend with null value */
     @Test
-    void testSetBytesToAppendNull() {
+    static void testSetBytesToAppendNull() {
         ByteArrayAppendValueModification mod =
                 new ByteArrayAppendValueModification(new byte[] {0x01, 0x02});
         assertThrows(NullPointerException.class, () -> mod.setBytesToAppend(null));
@@ -87,7 +87,7 @@ class ByteArrayAppendValueModificationTest {
 
     /** Test constructor with null value */
     @Test
-    void testConstructorNull() {
+    static void testConstructorNull() {
         assertThrows(
                 NullPointerException.class,
                 () -> new ByteArrayAppendValueModification((byte[]) null));

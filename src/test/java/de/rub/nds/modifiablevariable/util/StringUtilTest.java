@@ -22,7 +22,7 @@ class StringUtilTest {
 
     /** Test backslashEscapeString with null input. */
     @Test
-    void testBackslashEscapeStringWithNull() {
+    static void testBackslashEscapeStringWithNull() {
         assertNull(StringUtil.backslashEscapeString(null), "Null input should return null");
     }
 

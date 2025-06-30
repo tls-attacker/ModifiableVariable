@@ -136,7 +136,7 @@ class LongSubtractModificationTest {
     }
 
     @Test
-    void testEqualsWithNull() {
+    static void testEqualsWithNull() {
         // Explicitly test the null case in equals
         LongSubtractModification mod = new LongSubtractModification(42L);
 

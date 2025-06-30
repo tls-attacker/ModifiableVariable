@@ -61,7 +61,7 @@ class BigIntegerAddModificationTest {
 
     /** Test that constructor throws NullPointerException if given null */
     @Test
-    void testConstructorWithNull() {
+    static void testConstructorWithNull() {
         assertThrows(
                 NullPointerException.class, () -> new BigIntegerAddModification((BigInteger) null));
     }

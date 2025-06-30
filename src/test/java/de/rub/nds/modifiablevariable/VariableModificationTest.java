@@ -125,7 +125,7 @@ class VariableModificationTest {
     }
 
     @Test
-    void testModifyWithNonNullInput() {
+    static void testModifyWithNonNullInput() {
         VariableModification<String> modification = new TestModification();
         String input = "test";
         String result = modification.modify(input);
@@ -134,7 +134,7 @@ class VariableModificationTest {
     }
 
     @Test
-    void testModifyWithNullInput() {
+    static void testModifyWithNullInput() {
         VariableModification<String> modification = new TestModification();
         String result = modification.modify(null);
 
@@ -142,7 +142,7 @@ class VariableModificationTest {
     }
 
     @Test
-    void testModifyReturningNull() {
+    static void testModifyReturningNull() {
         VariableModification<String> modification = new NullReturningModification();
         String result = modification.modify("any input");
 

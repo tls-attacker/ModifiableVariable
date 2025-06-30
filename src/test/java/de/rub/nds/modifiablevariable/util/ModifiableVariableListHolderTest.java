@@ -59,7 +59,7 @@ class ModifiableVariableListHolderTest {
 
     /** Test constructor with null object. */
     @Test
-    void testConstructorWithNullObject() {
+    static void testConstructorWithNullObject() {
         List<Field> fieldList = new ArrayList<>();
 
         ModifiableVariableListHolder holder = new ModifiableVariableListHolder(null, fieldList);
@@ -71,7 +71,7 @@ class ModifiableVariableListHolderTest {
 
     /** Test constructor with null fields list. */
     @Test
-    void testConstructorWithNullFields() {
+    static void testConstructorWithNullFields() {
         TestClass testObject = new TestClass();
 
         ModifiableVariableListHolder holder = new ModifiableVariableListHolder(testObject, null);
@@ -137,7 +137,7 @@ class ModifiableVariableListHolderTest {
 
     /** Test setting fields to null. */
     @Test
-    void testSetFieldsToNull() {
+    static void testSetFieldsToNull() {
         TestClass testObject = new TestClass();
         List<Field> fieldList = new ArrayList<>();
 

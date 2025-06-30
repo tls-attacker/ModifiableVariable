@@ -138,7 +138,7 @@ class ModifiableStringTest {
 
     /** Test assertions with null values */
     @Test
-    void testAssertionsWithNull() {
+    static void testAssertionsWithNull() {
         // When original value is null and no assertion is set
         ModifiableString nullString = new ModifiableString();
         assertTrue(nullString.validateAssertions());
@@ -161,7 +161,7 @@ class ModifiableStringTest {
 
     /** Test getByteArray with null value */
     @Test
-    void testGetByteArrayWithNull() {
+    static void testGetByteArrayWithNull() {
         ModifiableString nullString = new ModifiableString();
         assertThrows(NullPointerException.class, () -> nullString.getByteArray());
     }
@@ -234,7 +234,7 @@ class ModifiableStringTest {
 
     /** Test equals method with null values */
     @Test
-    void testEqualsWithNullValues() {
+    static void testEqualsWithNullValues() {
         // Equal objects with null values
         ModifiableString nullString1 = new ModifiableString();
         ModifiableString nullString2 = new ModifiableString();
