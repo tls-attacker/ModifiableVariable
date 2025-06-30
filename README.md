@@ -1,7 +1,6 @@
 # Modifiable Variables
 
 ![licence](https://img.shields.io/badge/License-Apachev2-brightgreen.svg)
-[![jenkins](https://hydrogen.cloud.nds.rub.de/buildStatus/icon.svg?job=ModifiableVariable)](https://hydrogen.cloud.nds.rub.de/job/ModifiableVariable/)
 
 Modifiable Variable allows you to set modifications to basic types after or before their values are actually determined. When their actual values are determined and you access the value via getters, the original value will be returned in a modified form according to the defined modifications.
 
@@ -94,289 +93,319 @@ VariableModification<BigInteger> bigIntMod = new BigIntegerAddModification(BigIn
 VariableModification<byte[]> byteArrayMod = new ByteArrayXorModification(new byte[] {2, 3}, 0);
 ```
 
-# Modifiable variables in XML
+# Modifiable Variables in JSON
 
-Modifiable variables are serializable with Jakarta XML Binding (JAXB) into XML. You can use the following code to do that:
+Modifiable variables are serializable into JSON using Jackson. You can use the following code to do that:
 
 ```java
 ModifiableByteArray mba = new ModifiableByteArray();
 mba.setOriginalValue(new byte[]{1, 2, 3});
-StringWriter writer = new StringWriter();
 
-// Create a JAXB context with all classes you'll need for serialization
-JAXBContext context = JAXBContext.newInstance(
-        ModifiableByteArray.class, 
-        ByteArrayDeleteModification.class,
-        ByteArrayExplicitValueModification.class, 
-        ByteArrayInsertValueModification.class,
-        ByteArrayXorModification.class
-);
-
-// Create a marshaller with formatted output
-Marshaller m = context.createMarshaller();
-m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+// Create a Jackson object mapper for serialization
+ObjectMapper mapper = new ObjectMapper();
+mapper.registerModule(new ModifiableVariableModule());
+mapper.setVisibility(ModifiableVariableModule.getFieldVisibilityChecker());
         
-// Marshal the array into XML
-m.marshal(mba, writer);
-String xmlString = writer.toString();
-System.out.println(xmlString);
+// Serialize the array into JSON
+String jsonString = mapper.writeValueAsString(mba);
+System.out.println(jsonString);
 
-// Use the XML to create a modifiable byte array variable again
-Unmarshaller um = context.createUnmarshaller();
-ModifiableByteArray test = (ModifiableByteArray) um.unmarshal(new StringReader(xmlString));
-System.out.println(ArrayConverter.bytesToHexString(test.getValue()));
+// Use the JSON to create a modifiable byte array variable again
+ModifiableByteArray test = mapper.readValue(jsonString, ModifiableByteArray.class);
+System.out.println(DataConverter.bytesToHexString(test.getValue()));
 ```
 
-When creating the JAXBContext, make sure to include all modification classes you intend to use. The example above only includes a subset of the available modifications.
+When creating the object mapper, make sure to register an instance of the `ModifiableVariableModule` and set the
+visibility to `ModifiableVariableModule.getFieldVisibilityChecker()` to ensure proper (de-)serialization.
+When using custom modification or variable classes, you will need to register the corresponding classes with the object
+mappers' `registerSubtypes` method. All classes that are part of the ModifiableVariable package are already registered in the `ModifiableVariableModule`.
 
 The result of the serialized modifiable byte array looks as follows:
 
-```xml
-<modifiableByteArray>
-    <originalValue>01 02 03</originalValue>
-</modifiableByteArray>
+```json
+{
+  "@type": "ModifiableByteArray",
+  "originalValue": "010203"
+}
 ```
 
 If you were to use a byte array with an insertion modification, the result would look as follows:
 
-```xml
-<modifiableByteArray>
-    <originalValue>01 02 03</originalValue>
-    <modifications>
-        <byteArrayInsertValueModification>
-            <bytesToInsert>02 03</bytesToInsert>
-            <startPosition>1</startPosition>
-        </byteArrayInsertValueModification>
-    </modifications>
-</modifiableByteArray>
+```json
+{
+  "@type": "ModifiableByteArray",
+  "modifications": [
+    {
+      "@type": "ByteArrayInsertValueModification",
+      "bytesToInsert": "0203",
+      "startPosition": 1
+    }
+  ],
+  "originalValue":"010203"
+}
 ```
 
-Below are examples of XML representations for various modification types:
+A schema for the JSON representation of a single `ModifiableVariable` including all standard variable and modification types
+can be found in the `src/main/resources` directory. The schema is named `ModifiableVariable.schema.json`.
+
+Below are examples of JSON representations for various modification types.
 
 ## Integer Modifications
 
 - Explicit value:
 
-```xml
-<integerExplicitValueModification>
-    <explicitValue>25872</explicitValue>
-</integerExplicitValueModification>
+```json
+{
+  "@type": "IntegerExplicitValueModification",
+  "explicitValue": 25872
+}
 ```
 
 - Add:
 
-```xml
-<integerAddModification>
-    <summand>960</summand>
-</integerAddModification>
+```json
+{
+  "@type": "IntegerAddModification",
+  "summand": 960
+}
 ```
 
 - Subtract:
 
-```xml
-<integerSubtractModification>
-    <subtrahend>30959</subtrahend>
-</integerSubtractModification>
+```json
+{
+  "@type": "IntegerSubtractModification",
+  "subtrahend": 30959
+}
 ```
 
 - Multiply:
 
-```xml
-<integerMultiplyModification>
-    <factor>2</factor>
-</integerMultiplyModification>
+```json
+{
+  "@type": "IntegerMultiplyModification",
+  "factor": 2
+}
 ```
 
 - Right shift:
 
-```xml
-<integerShiftRightModification>
-    <shift>13</shift>
-</integerShiftRightModification>
+```json
+{
+  "@type": "IntegerShiftRightModification",
+  "shift": 13
+}
 ```
 
 - Left shift:
 
-```xml
-<integerShiftLeftModification>
-    <shift>13</shift>
-</integerShiftLeftModification>
+```json
+{
+  "@type": "IntegerShiftLeftModification",
+  "shift": 13
+}
 ```
 
 - XOR:
 
-```xml
-<integerXorModification>
-    <xor>22061</xor>
-</integerXorModification>
+```json
+{
+  "@type": "IntegerXorModification",
+  "xor": 22061
+}
 ```
 
 - Swap endian:
 
-```xml
-<integerSwapEndianModification/>
+```json
+{
+  "@type": "IntegerSwapEndianModification"
+}
 ```
 
 ## BigInteger Modifications
 
-BigInteger supports similar operations to Integer:
+BigInteger supports similar operations to Integer, for example:
 
-```xml
-<bigIntegerAddModification>
-    <summand>1</summand>
-</bigIntegerAddModification>
+```json
+{
+  "@type": "BigIntegerAddModification",
+  "summand": 1
+}
 ```
 
-```xml
-<bigIntegerMultiplyModification>
-    <factor>42</factor>
-</bigIntegerMultiplyModification>
+```json
+{
+  "@type": "BigIntegerMultiplyModification",
+  "factor": 42
+}
 ```
 
-```xml
-<bigIntegerXorModification>
-    <xor>1337</xor>
-</bigIntegerXorModification>
+```json
+{
+  "@type": "BigIntegerXorModification",
+  "xor": 1337
+}
 ```
 
 ## Long Modifications
 
-ModifiableLong supports the same operations as Integer:
+ModifiableLong supports the same operations as Integer, for example:
 
-```xml
-<longAddModification>
-    <summand>10000</summand>
-</longAddModification>
+```json
+{
+  "@type": "LongAddModification",
+  "summand": 10000
+}
 ```
 
-```xml
-<longSwapEndianModification/>
+```json
+{
+  "@type": "LongSwapEndianModification"
+}
 ```
 
 ## Byte Array Modifications
 
 - Explicit value:
 
-```xml
-<byteArrayExplicitValueModification>
-    <explicitValue>4F 3F 8C FC 17 8E 66 0A 53 DF 4D 4E E9 0B D0</explicitValue>
-</byteArrayExplicitValueModification>
+```json
+{
+  "@type": "ByteArrayExplicitValueModification",
+  "explicitValue": "4F3F8CFC178E660A53DF4D4EE90BD0"
+}
 ```
 
 - XOR:
 
-```xml
-<byteArrayXorModification>
-    <xor>11 22</xor>
-    <startPosition>1</startPosition>
-</byteArrayXorModification>
+```json
+{
+  "@type": "ByteArrayXorModification",
+  "xor": "1122",
+  "startPosition": 1
+}
 ```
 
 - Insert:
 
-```xml
-<byteArrayInsertValueModification>
-    <bytesToInsert>3D 9F 3B 77 65 03 F9 8A 93 6D 94 CD 7E 4A C5 1B</bytesToInsert>
-    <startPosition>0</startPosition>
-</byteArrayInsertValueModification>
+```json
+{
+  "@type": "ByteArrayInsertValueModification",
+  "bytesToInsert": "3D9F3B776503F98A936D94CD7E4AC51B",
+  "startPosition": 0
+}
 ```
 
 - Append:
 
-```xml
-<byteArrayAppendValueModification>
-    <bytesToAppend>AA BB CC</bytesToAppend>
-</byteArrayAppendValueModification>
+```json
+{
+  "@type": "ByteArrayAppendValueModification",
+  "bytesToAppend": "AABBCC"
+}
 ```
 
 - Prepend:
 
-```xml
-<byteArrayPrependValueModification>
-    <byteArrayToPrepend>AA BB CC</byteArrayToPrepend>
-</byteArrayPrependValueModification>
+```json
+{
+  "@type": "ByteArrayPrependValueModification",
+  "bytesToPrepend": "AABBCC"
+}
 ```
 
 - Delete:
 
-```xml
-<byteArrayDeleteModification>
-    <count>2</count>
-    <startPosition>0</startPosition>
-</byteArrayDeleteModification>
+```json
+{
+  "@type": "ByteArrayDeleteModification",
+  "count": 2,
+  "startPosition": 0
+}
 ```
 
 - Duplicate:
 
-```xml
-<byteArrayDuplicateModification/>
+```json
+{
+  "@type": "ByteArrayDuplicateModification"
+}
 ```
 
 - Shuffle:
 
-```xml
-<byteArrayShuffleModification>
-    <shuffle>00 01</shuffle>
-</byteArrayShuffleModification>
+```json
+{
+  "@type": "ByteArrayShuffleModification",
+  "shuffle": [ 0, 1 ]
+}
 ```
 
 ## Boolean Modifications
 
 - Explicit value:
 
-```xml
-<booleanExplicitValueModification>
-    <explicitValue>true</explicitValue>
-</booleanExplicitValueModification>
+```json
+{
+  "@type": "BooleanExplicitValueModification",
+  "explicitValue": true
+}
 ```
 
-- Toggle:
+- Toggle / Negation:
 
-```xml
-<booleanToggleModification/>
+```json
+{
+  "@type": "BooleanToggleModification"
+}
 ```
 
 ## String Modifications
 
 - Explicit value:
 
-```xml
-<stringExplicitValueModification>
-    <explicitValue>abc</explicitValue>
-</stringExplicitValueModification>
+```json
+{
+  "@type": "StringExplicitValueModification",
+  "explicitValue": "abc"
+}
 ```
 
 - Append value:
 
-```xml
-<stringAppendValueModification>
-    <appendValue>def</appendValue>
-</stringAppendValueModification>
+```json
+{
+  "@type": "StringAppendValueModification",
+  "appendValue": "def"
+}
 ```
 
 - Prepend value:
 
-```xml
-<stringPrependValueModification>
-    <prependValue>xyz</prependValue>
-</stringPrependValueModification>
+```json
+{
+  "@type": "StringPrependValueModification",
+  "prependValue": "xyz"
+}
 ```
 
 - Insert value:
 
-```xml
-<stringInsertValueModification>
-    <insertValue>123</insertValue>
-    <insertPosition>2</insertPosition>
-</stringInsertValueModification>
+```json
+{
+  "@type": "StringInsertValueModification",
+  "insertValue": "123",
+  "insertPosition": 2
+}
 ```
 
 - Delete:
 
-```xml
-<stringDeleteModification>
-    <count>2</count>
-    <startPosition>1</startPosition>
-</stringDeleteModification>
+```json
+{
+  "@type": "StringDeleteModification",
+  "count": 2,
+  "startPosition": 1
+}
 ```
 
