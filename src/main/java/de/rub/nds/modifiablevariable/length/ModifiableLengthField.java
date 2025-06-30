@@ -127,15 +127,30 @@ public class ModifiableLengthField extends ModifiableInteger {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof ModifiableLengthField that)) {
+        if (obj == null) {
             return false;
         }
-        // First check if the values are equal
-        boolean valuesEqual =
-                getValue() == null ? that.getValue() == null : getValue().equals(that.getValue());
-        // Then check if they reference the same byte array
-        boolean refsEqual = ref.equals(that.ref);
-        return valuesEqual && refsEqual;
+
+        // For ModifiableLengthField instances, check both value and reference
+        if (obj instanceof ModifiableLengthField that) {
+            // First check if the values are equal
+            boolean valuesEqual =
+                    getValue() == null
+                            ? that.getValue() == null
+                            : getValue().equals(that.getValue());
+            // Then check if they reference the same byte array
+            boolean refsEqual = ref.equals(that.ref);
+            return valuesEqual && refsEqual;
+        }
+
+        // For other ModifiableInteger subclasses, only compare values for symmetry
+        if (obj instanceof ModifiableInteger that) {
+            return getValue() == null
+                    ? that.getValue() == null
+                    : getValue().equals(that.getValue());
+        }
+
+        return false;
     }
 
     /**
