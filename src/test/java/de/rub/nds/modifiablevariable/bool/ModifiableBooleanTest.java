@@ -91,7 +91,8 @@ class ModifiableBooleanTest {
     }
 
     /** Helper method to set the protected assertEquals field using reflection */
-    private void setAssertEquals(ModifiableBoolean variable, Boolean value) throws Exception {
+    private static void setAssertEquals(ModifiableBoolean variable, Boolean value)
+            throws Exception {
         Field field = variable.getClass().getSuperclass().getDeclaredField("assertEquals");
         field.setAccessible(true);
         field.set(variable, value);
