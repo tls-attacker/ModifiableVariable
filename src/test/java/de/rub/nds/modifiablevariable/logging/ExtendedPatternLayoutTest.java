@@ -417,6 +417,8 @@ class ExtendedPatternLayoutTest {
                         .withNoConsoleNoAnsi(true)
                         .withHeader(header)
                         .withFooter(footer)
+                        .withInitNewLine(false)
+                        .withPrettyPrinting(false)
                         .build();
 
         assertNotNull(layout);
@@ -441,6 +443,8 @@ class ExtendedPatternLayoutTest {
         builder.setAlwaysWriteExceptions(true);
         builder.setDisableAnsi(true);
         builder.setNoConsoleNoAnsi(true);
+        builder.setInitNewLine(false);
+        builder.setPrettyPrinting(false);
 
         AbstractStringLayout.Serializer serializer = builder.build();
         assertNotNull(serializer);
