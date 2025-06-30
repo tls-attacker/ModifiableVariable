@@ -9,7 +9,7 @@ package de.rub.nds.modifiablevariable.logging;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import org.apache.logging.log4j.Level;
@@ -78,8 +78,8 @@ class ExtendedPatternLayoutTest {
         // Should NOT contain the default "[B@..." representation
         assertFalse(result.contains("[B@"));
 
-        // Should contain the hex representation from ArrayConverter
-        String expectedHex = ArrayConverter.bytesToHexString(data, false, false);
+        // Should contain the hex representation from DataConverter
+        String expectedHex = DataConverter.bytesToHexString(data, false, false);
         assertTrue(result.contains(expectedHex));
     }
 
@@ -94,8 +94,8 @@ class ExtendedPatternLayoutTest {
         String result = layout.toSerializable(event);
 
         // Should contain both hex representations
-        String expectedHex1 = ArrayConverter.bytesToHexString(data1, false, false);
-        String expectedHex2 = ArrayConverter.bytesToHexString(data2, false, false);
+        String expectedHex1 = DataConverter.bytesToHexString(data1, false, false);
+        String expectedHex2 = DataConverter.bytesToHexString(data2, false, false);
         assertTrue(result.contains(expectedHex1));
         assertTrue(result.contains(expectedHex2));
     }
@@ -115,7 +115,7 @@ class ExtendedPatternLayoutTest {
         String result = layout.toSerializable(event);
 
         // Should contain properly formatted parameters
-        String expectedHex = ArrayConverter.bytesToHexString(data, false, false);
+        String expectedHex = DataConverter.bytesToHexString(data, false, false);
         assertTrue(result.contains(expectedHex));
         assertTrue(result.contains(stringParam));
         assertTrue(result.contains(intParam.toString()));
@@ -134,7 +134,7 @@ class ExtendedPatternLayoutTest {
         String result = layout.toSerializable(event);
 
         // Verify that the hex representation is included
-        assertTrue(result.contains(ArrayConverter.bytesToHexString(data, false, false)));
+        assertTrue(result.contains(DataConverter.bytesToHexString(data, false, false)));
     }
 
     @Test
@@ -153,8 +153,8 @@ class ExtendedPatternLayoutTest {
         // Verify that the array was serialized correctly (shouldn't contain [B@...)
         assertFalse(result.contains("[B@"));
 
-        // Should contain the hex representation from ArrayConverter
-        String expectedHex = ArrayConverter.bytesToHexString(longData, false, false);
+        // Should contain the hex representation from DataConverter
+        String expectedHex = DataConverter.bytesToHexString(longData, false, false);
         assertTrue(result.contains(expectedHex));
     }
 
@@ -171,7 +171,7 @@ class ExtendedPatternLayoutTest {
         assertFalse(result.contains("[B@"));
 
         // Should contain the formatted hex string (use exact bytes for matching)
-        String expectedHex = ArrayConverter.bytesToHexString(data, false, false);
+        String expectedHex = DataConverter.bytesToHexString(data, false, false);
         assertTrue(result.contains(expectedHex));
     }
 
@@ -218,7 +218,7 @@ class ExtendedPatternLayoutTest {
         String result = layout.toSerializable(event);
 
         // Should contain the hex representation of an empty array
-        String expectedHex = ArrayConverter.bytesToHexString(emptyData, false, false);
+        String expectedHex = DataConverter.bytesToHexString(emptyData, false, false);
         assertTrue(result.contains(expectedHex));
     }
 
@@ -324,7 +324,7 @@ class ExtendedPatternLayoutTest {
         String result = layout.toSerializable(event);
 
         // Should contain the hex representation twice (both instances replaced)
-        String expectedHex = ArrayConverter.bytesToHexString(data, false, false);
+        String expectedHex = DataConverter.bytesToHexString(data, false, false);
 
         // Count occurrences of the hex string
         int count = 0;
@@ -354,7 +354,7 @@ class ExtendedPatternLayoutTest {
         // Should NOT contain the default "[B@..." representation
         assertFalse(result.contains("[B@"));
 
-        // Should contain the hex representation from ArrayConverter
+        // Should contain the hex representation from DataConverter
         // (Note: we don't check the exact string)
         assertTrue(result.length() > 2000); // A rough check that conversion happened
     }

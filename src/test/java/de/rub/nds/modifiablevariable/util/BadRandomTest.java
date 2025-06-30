@@ -45,7 +45,7 @@ class BadRandomTest {
 
     @Test
     @SuppressWarnings("deprecation")
-    void testDeprecatedConstructorWithRandomAndSeed() {
+    static void testDeprecatedConstructorWithRandomAndSeed() {
         // Test that the deprecated constructor works
         // Use a fresh Random for each BadRandom to ensure we're testing functionality
         Random random1 = new Random(42);
@@ -72,7 +72,7 @@ class BadRandomTest {
 
     @Test
     @SuppressWarnings("deprecation")
-    void testDeprecatedConstructorWithRandomAndSpiAndProvider() {
+    static void testDeprecatedConstructorWithRandomAndSpiAndProvider() {
         // Test that the deprecated constructor works
         Random random1 = new Random(42);
         BadRandom badRandom = new BadRandom(random1, null, null);
