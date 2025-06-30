@@ -125,7 +125,7 @@ class ModifiableVariableHolderTest {
     void testReset() {
         // Apply a modification to test reset
         VariableModification<Integer> modification =
-                new VariableModification<Integer>() {
+                new VariableModification<>() {
                     @Override
                     protected Integer modifyImplementationHook(Integer input) {
                         return input + 100;
