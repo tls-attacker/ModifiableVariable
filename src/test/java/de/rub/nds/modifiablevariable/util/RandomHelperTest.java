@@ -109,6 +109,39 @@ class RandomHelperTest {
     }
 
     @Test
+    void testIntentionalMutableRandomExposure() {
+        // This test documents the intentional design decision to expose the mutable Random instance
+        Random random1 = RandomHelper.getRandom();
+        Random random2 = RandomHelper.getRandom();
+
+        // Verify we get the same instance (singleton pattern)
+        assertTrue(random1 == random2, "Should return the same Random instance");
+
+        // Verify that external modifications affect the singleton
+        // This is intentional behavior for testing flexibility
+        random1.setSeed(42);
+
+        // Create a separate Random with same seed to compare expected values
+        Random expectedRandom = new Random(42);
+
+        // Both references should produce the same value as the expected Random
+        int expectedValue = expectedRandom.nextInt();
+        int random1Value = random1.nextInt();
+        assertEquals(expectedValue, random1Value, "Modified Random should produce expected value");
+
+        // Reset and get second value to verify both references see same state
+        random1.setSeed(42);
+        expectedRandom.setSeed(42);
+        assertEquals(
+                expectedRandom.nextInt(),
+                random2.nextInt(),
+                "All references to the singleton should see the same state");
+
+        // Reset for other tests
+        RandomHelper.setRandom(new Random(0));
+    }
+
+    @Test
     void testBadFixedRandom() {
         byte fixedValue = 42; // Using a single byte as per the class implementation
         BadFixedRandom fixedRandom = new BadFixedRandom(fixedValue);
