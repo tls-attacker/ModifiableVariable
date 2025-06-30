@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import de.rub.nds.modifiablevariable.ModifiableVariableFactory;
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import java.util.Arrays;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -103,7 +103,7 @@ class ModifiableByteArrayTest {
         start.setModifications(modifier);
 
         LOGGER.debug("Expected: {}", expResult);
-        LOGGER.debug("Computed: {}", () -> ArrayConverter.bytesToHexString(start.getValue()));
+        LOGGER.debug("Computed: {}", () -> DataConverter.bytesToHexString(start.getValue()));
         assertArrayEquals(expResult, start.getValue());
 
         byte[] expResult2 = originalValue.clone();
@@ -135,7 +135,7 @@ class ModifiableByteArrayTest {
         start.setModifications(modifier);
 
         LOGGER.debug("Expected: {}", expResult);
-        LOGGER.debug("Computed: {}", () -> ArrayConverter.bytesToHexString(start.getValue()));
+        LOGGER.debug("Computed: {}", () -> DataConverter.bytesToHexString(start.getValue()));
         assertArrayEquals(expResult, start.getValue());
     }
 
@@ -158,7 +158,7 @@ class ModifiableByteArrayTest {
         start.setModifications(modifier);
 
         LOGGER.debug("Expected: {}", expResult);
-        LOGGER.debug("Computed: {}", () -> ArrayConverter.bytesToHexString(start.getValue()));
+        LOGGER.debug("Computed: {}", () -> DataConverter.bytesToHexString(start.getValue()));
         assertArrayEquals(expResult, start.getValue());
     }
 
@@ -176,7 +176,7 @@ class ModifiableByteArrayTest {
         start.setModifications(modifier);
 
         LOGGER.debug("Expected: {}", expResult);
-        LOGGER.debug("Computed: {}", () -> ArrayConverter.bytesToHexString(start.getValue()));
+        LOGGER.debug("Computed: {}", () -> DataConverter.bytesToHexString(start.getValue()));
         assertArrayEquals(expResult, start.getValue());
     }
 
@@ -196,7 +196,7 @@ class ModifiableByteArrayTest {
         start.setModifications(modifier);
 
         LOGGER.debug("Expected: {}", expResult);
-        LOGGER.debug("Computed: {}", () -> ArrayConverter.bytesToHexString(start.getValue()));
+        LOGGER.debug("Computed: {}", () -> DataConverter.bytesToHexString(start.getValue()));
         assertArrayEquals(expResult, start.getValue());
     }
 
@@ -259,7 +259,7 @@ class ModifiableByteArrayTest {
                 new ByteArrayInsertValueModification(modification1, -2 * originalValue.length);
         start.setModifications(modifier);
         byte[] expResult =
-                ArrayConverter.concatenate(
+                DataConverter.concatenate(
                         Arrays.copyOf(originalValue, 1),
                         modification1,
                         Arrays.copyOfRange(originalValue, 1, originalValue.length));
@@ -279,7 +279,7 @@ class ModifiableByteArrayTest {
         modifier = new ByteArrayInsertValueModification(modification1, originalValue.length * 2);
         start.setModifications(modifier);
         expResult =
-                ArrayConverter.concatenate(
+                DataConverter.concatenate(
                         Arrays.copyOf(originalValue, originalValue.length - 1),
                         modification1,
                         Arrays.copyOfRange(
@@ -305,13 +305,13 @@ class ModifiableByteArrayTest {
     @Test
     void testDuplicateModification() {
         LOGGER.info("testDuplicateModification");
-        byte[] expResult = ArrayConverter.concatenate(originalValue, originalValue);
+        byte[] expResult = DataConverter.concatenate(originalValue, originalValue);
 
         VariableModification<byte[]> modifier = new ByteArrayDuplicateModification();
         start.setModifications(modifier);
 
         LOGGER.debug("Expected: {}", expResult);
-        LOGGER.debug("Computed: {}", () -> ArrayConverter.bytesToHexString(start.getValue()));
+        LOGGER.debug("Computed: {}", () -> DataConverter.bytesToHexString(start.getValue()));
         assertArrayEquals(expResult, start.getValue());
     }
 

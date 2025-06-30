@@ -8,7 +8,7 @@
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -72,7 +72,7 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
         if (input == null) {
             return null;
         }
-        return ArrayConverter.concatenate(input, input);
+        return DataConverter.concatenate(input, input);
     }
 
     /**

@@ -8,7 +8,7 @@
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.ModifiableVariable;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -213,7 +213,7 @@ public class ModifiableByteArray extends ModifiableVariable<byte[]> {
     public String toString() {
         return "ModifiableByteArray{"
                 + "originalValue="
-                + (originalValue != null ? ArrayConverter.bytesToHexString(originalValue) : "")
+                + (originalValue != null ? DataConverter.bytesToHexString(originalValue) : "")
                 + innerToString()
                 + '}';
     }
