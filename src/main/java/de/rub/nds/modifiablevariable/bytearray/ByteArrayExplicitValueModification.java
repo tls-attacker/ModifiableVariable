@@ -7,6 +7,7 @@
  */
 package de.rub.nds.modifiablevariable.bytearray;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.DataConverter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
@@ -29,6 +30,7 @@ public class ByteArrayExplicitValueModification extends VariableModification<byt
 
     /** The explicit byte array that will replace the original value */
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
+    @JsonProperty(required = true)
     private byte[] explicitValue;
 
     /** Default constructor for serialization. */

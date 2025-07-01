@@ -7,6 +7,7 @@
  */
 package de.rub.nds.modifiablevariable.longint;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.util.DataConverter;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -37,6 +38,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 public class ModifiableLong extends ModifiableVariable<Long> {
 
     /** The original, unmodified value of this variable */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long originalValue;
 
     /**

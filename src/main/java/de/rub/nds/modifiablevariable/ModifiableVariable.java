@@ -7,7 +7,7 @@
  */
 package de.rub.nds.modifiablevariable;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.xml.bind.annotation.*;
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -32,15 +32,20 @@ import java.util.stream.Collectors;
  */
 @XmlTransient
 @XmlAccessorType(XmlAccessType.FIELD)
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.SIMPLE_NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "@type")
 public abstract class ModifiableVariable<E> implements Serializable {
 
     /** The list of modifications that will be applied to the original value when accessed */
     @XmlElementWrapper
     @XmlAnyElement(lax = true)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private LinkedList<VariableModification<E>> modifications;
 
     /** The expected value for assertion validation */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     protected E assertEquals;
 
     /** Default constructor that creates an empty modifiable variable. */

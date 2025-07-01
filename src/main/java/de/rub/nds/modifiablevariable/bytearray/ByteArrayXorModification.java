@@ -7,6 +7,7 @@
  */
 package de.rub.nds.modifiablevariable.bytearray;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.DataConverter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
@@ -29,9 +30,11 @@ public class ByteArrayXorModification extends VariableModification<byte[]> {
 
     /** The byte array to XOR with the original byte array */
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
+    @JsonProperty(required = true)
     private byte[] xor;
 
     /** The position in the original byte array where the XOR operation starts */
+    @JsonProperty(required = true)
     private int startPosition;
 
     /** Default constructor for serialization. */
