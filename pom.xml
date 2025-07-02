@@ -4,11 +4,11 @@
     <parent>
         <groupId>de.rub.nds</groupId>
         <artifactId>protocol-toolkit-bom</artifactId>
-        <version>6.0.1</version>
+        <version>6.2.1</version>
     </parent>
 
     <artifactId>modifiable-variable</artifactId>
-    <version>5.2.1-SNAPSHOT</version>
+    <version>5.3.1-SNAPSHOT</version>
 
     <name>ModifiableVariable</name>
     <description>A Modifiable Variable concept allows for easy runtime modifications of basic data types like integers, booleans, or byte arrays</description>
@@ -67,6 +67,11 @@
     </properties>
 
     <dependencies>
+        <!-- scope: compile -->
+        <dependency>
+            <groupId>com.fasterxml</groupId>
+            <artifactId>classmate</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
@@ -80,10 +85,13 @@
             <artifactId>jackson-databind</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-yaml</artifactId>
+            <groupId>com.github.victools</groupId>
+            <artifactId>jsonschema-generator</artifactId>
         </dependency>
-        <!-- scope: compile -->
+        <dependency>
+            <groupId>com.github.victools</groupId>
+            <artifactId>jsonschema-module-jackson</artifactId>
+        </dependency>
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
@@ -101,16 +109,15 @@
             <artifactId>log4j-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.github.spotbugs</groupId>
             <artifactId>spotbugs-annotations</artifactId>
             <scope>provided</scope>
         </dependency>
         <!-- scope: test -->
-        <dependency>
-            <groupId>org.glassfish.jaxb</groupId>
-            <artifactId>jaxb-runtime</artifactId>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -137,7 +144,7 @@
                             <spacesPerTab>4</spacesPerTab>
                         </indent>
                         <googleJavaFormat>
-                            <version>1.25.2</version>
+                            <version>${plugin.spotless-maven-plugin.google-java-format.version}</version>
                             <style>AOSP</style>
                         </googleJavaFormat>
                         <licenseHeader>
@@ -177,10 +184,20 @@
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
-                    <compilerArgs>
-                        <compilerArg>-proc:full</compilerArg>
-                    </compilerArgs>
+                    <proc>full</proc>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <configuration>
+                            <compilerArgs>
+                                <!-- The following arguments are required for Log4J plugins (ExtendedPatternLayout) since Log4J 2.25.0 -->
+                                <arg>-Alog4j.graalvm.groupId=${project.groupId}</arg>
+                                <arg>-Alog4j.graalvm.artifactId=${project.artifactId}</arg>
+                            </compilerArgs>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <!-- Execute unit tests -->
             <plugin>
@@ -200,6 +217,28 @@
                     <excludedGroups>IntegrationTest</excludedGroups>
                     <skipTests>${skip.surefire.tests}</skipTests>
                 </configuration>
+            </plugin>
+            <!-- Generate JSON schema from Java classes -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>generate-json-schema</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <phase>prepare-package</phase>
+                        <configuration>
+                            <mainClass>de.rub.nds.modifiablevariable.json.JsonSchemaCliGenerator</mainClass>
+                            <arguments>
+                                <argument>de.rub.nds.modifiablevariable.ModifiableVariable</argument>
+                                <argument>src/main/resources/ModifiableVariable.schema.json</argument>
+                                <argument>de.rub.nds.modifiablevariable.json.ModifiableVariableModule</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <!-- Build jar file -->
             <plugin>

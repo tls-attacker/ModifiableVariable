@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Random;
 import org.junit.jupiter.api.Test;
 
+@SuppressWarnings("deprecation")
 class ArrayConverterTest {
 
     /** Test of longToUint64Bytes method, of class ArrayConverter. */

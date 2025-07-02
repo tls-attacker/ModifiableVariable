@@ -7,6 +7,7 @@
  */
 package de.rub.nds.modifiablevariable.bytearray;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.DataConverter;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -27,9 +28,11 @@ import java.util.Arrays;
 public class ByteArrayDeleteModification extends VariableModification<byte[]> {
 
     /** The number of bytes to delete */
+    @JsonProperty(required = true)
     private int count;
 
     /** The position from which to start deletion (0-based index) */
+    @JsonProperty(required = true)
     private int startPosition;
 
     /** Default constructor for serialization. */

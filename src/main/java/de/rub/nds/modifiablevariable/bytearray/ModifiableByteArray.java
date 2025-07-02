@@ -7,6 +7,7 @@
  */
 package de.rub.nds.modifiablevariable.bytearray;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.util.DataConverter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
@@ -45,6 +46,7 @@ import java.util.Arrays;
 public class ModifiableByteArray extends ModifiableVariable<byte[]> {
 
     /** The original byte array value before any modifications */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private byte[] originalValue;
 
     /** Default constructor that creates an empty ModifiableByteArray with no original value. */
