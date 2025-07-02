@@ -544,4 +544,38 @@ class ModifiableLengthFieldTest {
                 "Original value should still be array length");
         assertEquals(13, (int) lengthField.getValue(), "Value should include modification");
     }
+
+    /** Test edge case: comparing fields where one has modifications resulting in null */
+    @Test
+    public void testEqualsWithOneNullValue() {
+        // Create two fields with the same reference
+        ModifiableByteArray sharedArray = new ModifiableByteArray();
+        sharedArray.setOriginalValue(new byte[] {1, 2, 3, 4});
+
+        ModifiableLengthField field1 = new ModifiableLengthField(sharedArray);
+        ModifiableLengthField field2 = new ModifiableLengthField(sharedArray);
+
+        // Create a special modification that returns null
+        class NullResultModification extends IntegerAddModification {
+            public NullResultModification() {
+                super(0);
+            }
+
+            @Override
+            protected Integer modifyImplementationHook(Integer input) {
+                return null;
+            }
+        }
+
+        // Apply null modification to only one field
+        field1.setModifications(new NullResultModification());
+
+        // field1.getValue() is null, field2.getValue() is 4
+        assertNull(field1.getValue());
+        assertEquals(4, (int) field2.getValue());
+
+        // They should not be equal
+        assertNotEquals(field1, field2);
+        assertNotEquals(field2, field1);
+    }
 }
