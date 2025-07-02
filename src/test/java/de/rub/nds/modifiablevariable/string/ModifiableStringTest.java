@@ -22,20 +22,20 @@ import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ModifiableStringTest {
+class ModifiableStringTest {
 
     private static final Logger LOGGER = LogManager.getLogger();
     private ModifiableString string;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         string = new ModifiableString();
         string.setOriginalValue("TestString");
     }
 
     /** Test default constructor */
     @Test
-    public void testDefaultConstructor() {
+    void testDefaultConstructor() {
         ModifiableString defaultString = new ModifiableString();
         assertNull(defaultString.getOriginalValue());
         assertNull(defaultString.getValue());
@@ -43,7 +43,7 @@ public class ModifiableStringTest {
 
     /** Test constructor with original value */
     @Test
-    public void testConstructorWithValue() {
+    void testConstructorWithValue() {
         ModifiableString valueString = new ModifiableString("InitialValue");
         assertEquals("InitialValue", valueString.getOriginalValue());
         assertEquals("InitialValue", valueString.getValue());
@@ -51,7 +51,7 @@ public class ModifiableStringTest {
 
     /** Test copy constructor */
     @Test
-    public void testCopyConstructor() {
+    void testCopyConstructor() {
         // Set up a string with modifications
         string.setModifications(new StringAppendValueModification("_Appended"));
         string.setAssertEquals("TestString_Appended");
@@ -68,7 +68,7 @@ public class ModifiableStringTest {
 
     /** Test the createCopy method */
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         // Set up a string with modifications
         string.setModifications(new StringPrependValueModification("Prepended_"));
         string.setAssertEquals("Prepended_TestString");
@@ -85,7 +85,7 @@ public class ModifiableStringTest {
 
     /** Test isOriginalValueModified method */
     @Test
-    public void testIsOriginalValueModified() {
+    void testIsOriginalValueModified() {
         // Without modifications
         assertFalse(string.isOriginalValueModified());
 
@@ -106,7 +106,7 @@ public class ModifiableStringTest {
 
     /** Test getter and setter methods */
     @Test
-    public void testGetterAndSetterMethods() {
+    void testGetterAndSetterMethods() {
         assertEquals("TestString", string.getOriginalValue());
         assertEquals("TestString", string.getValue());
 
@@ -122,7 +122,7 @@ public class ModifiableStringTest {
 
     /** Test assertion methods */
     @Test
-    public void testAssertions() {
+    void testAssertions() {
         // When assertion equals original value
         string.setAssertEquals("TestString");
         assertTrue(string.validateAssertions());
@@ -138,7 +138,7 @@ public class ModifiableStringTest {
 
     /** Test assertions with null values */
     @Test
-    public void testAssertionsWithNull() {
+    void testAssertionsWithNull() {
         // When original value is null and no assertion is set
         ModifiableString nullString = new ModifiableString();
         assertTrue(nullString.validateAssertions());
@@ -146,7 +146,7 @@ public class ModifiableStringTest {
 
     /** Test getByteArray method */
     @Test
-    public void testGetByteArray() {
+    void testGetByteArray() {
         // Test with regular string
         byte[] expected = "TestString".getBytes(StandardCharsets.ISO_8859_1);
         byte[] actual = string.getByteArray();
@@ -161,21 +161,21 @@ public class ModifiableStringTest {
 
     /** Test getByteArray with null value */
     @Test
-    public void testGetByteArrayWithNull() {
+    void testGetByteArrayWithNull() {
         ModifiableString nullString = new ModifiableString();
         assertThrows(NullPointerException.class, () -> nullString.getByteArray());
     }
 
     /** Test equals method with same object */
     @Test
-    public void testEqualsSameObject() {
+    void testEqualsSameObject() {
         // Same object reference should be equal
         assertTrue(string.equals(string));
     }
 
     /** Test equals method with same values */
     @Test
-    public void testEqualsSameValues() {
+    void testEqualsSameValues() {
         // Equal objects with same original value
         ModifiableString string2 = new ModifiableString();
         string2.setOriginalValue("TestString");
@@ -185,7 +185,7 @@ public class ModifiableStringTest {
 
     /** Test equals method with modifications */
     @Test
-    public void testEqualsWithModifications() {
+    void testEqualsWithModifications() {
         // Equal objects with same modifications
         ModifiableString string2 = new ModifiableString();
         string2.setOriginalValue("TestString");
@@ -207,7 +207,7 @@ public class ModifiableStringTest {
 
     /** Test equals method with different string values */
     @Test
-    public void testEqualsWithDifferentValues() {
+    void testEqualsWithDifferentValues() {
         // Different objects with different modifications
         ModifiableString string2 = new ModifiableString();
         string2.setOriginalValue("TestString");
@@ -218,7 +218,7 @@ public class ModifiableStringTest {
 
     /** Test equals method with different types of modification */
     @Test
-    public void testEqualsWithDifferentModificationTypes() {
+    void testEqualsWithDifferentModificationTypes() {
         // Objects with different types of modifications but same final value
         ModifiableString string1 = new ModifiableString();
         string1.setOriginalValue("Test");
@@ -234,7 +234,7 @@ public class ModifiableStringTest {
 
     /** Test equals method with null values */
     @Test
-    public void testEqualsWithNullValues() {
+    void testEqualsWithNullValues() {
         // Equal objects with null values
         ModifiableString nullString1 = new ModifiableString();
         ModifiableString nullString2 = new ModifiableString();
@@ -249,7 +249,7 @@ public class ModifiableStringTest {
 
     /** Test equals method with null and different types */
     @Test
-    public void testEqualsWithNullAndDifferentTypes() {
+    void testEqualsWithNullAndDifferentTypes() {
         // Inequality with null and different types
         assertFalse(string.equals(null));
         assertFalse(string.equals("TestString"));
@@ -259,7 +259,7 @@ public class ModifiableStringTest {
 
     /** Test equals method with explicit values */
     @Test
-    public void testEqualsWithExplicitValues() {
+    void testEqualsWithExplicitValues() {
         // Two objects with different original values but same explicit value
         ModifiableString string1 = new ModifiableString("Original1");
         ModifiableString string2 = new ModifiableString("Original2");
@@ -272,7 +272,7 @@ public class ModifiableStringTest {
 
     /** Test hashCode method with basic values */
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         // Equal objects should have same hash code
         ModifiableString string2 = new ModifiableString();
         string2.setOriginalValue("TestString");
@@ -281,7 +281,7 @@ public class ModifiableStringTest {
 
     /** Test hashCode method with modifications */
     @Test
-    public void testHashCodeWithModifications() {
+    void testHashCodeWithModifications() {
         // Objects with same modified value should have same hash code
         ModifiableString string1 = new ModifiableString();
         string1.setOriginalValue("TestString");
@@ -296,7 +296,7 @@ public class ModifiableStringTest {
 
     /** Test hashCode method with different values */
     @Test
-    public void testHashCodeWithDifferentValues() {
+    void testHashCodeWithDifferentValues() {
         // Objects with different modified values should have different hash codes
         ModifiableString string1 = new ModifiableString();
         string1.setOriginalValue("TestString");
@@ -309,7 +309,7 @@ public class ModifiableStringTest {
 
     /** Test hashCode method with same result from different original values */
     @Test
-    public void testHashCodeWithSameResult() {
+    void testHashCodeWithSameResult() {
         // Different original values but same final value should have same hash code
         ModifiableString string1 = new ModifiableString();
         string1.setOriginalValue("Test");
@@ -325,7 +325,7 @@ public class ModifiableStringTest {
 
     /** Test hashCode method with explicit values */
     @Test
-    public void testHashCodeWithExplicitValues() {
+    void testHashCodeWithExplicitValues() {
         // Different original values but same explicit value should have same hash code
         ModifiableString string1 = new ModifiableString("Original1");
         ModifiableString string2 = new ModifiableString("Original2");
@@ -339,7 +339,7 @@ public class ModifiableStringTest {
 
     /** Test hashCode method with null value */
     @Test
-    public void testHashCodeWithNull() {
+    void testHashCodeWithNull() {
         // Null value handling
         ModifiableString nullString = new ModifiableString();
         int hashCode = nullString.hashCode();
@@ -355,7 +355,7 @@ public class ModifiableStringTest {
 
     /** Test toString method */
     @Test
-    public void testToString() {
+    void testToString() {
         String expectedToString = "ModifiableString{originalValue='TestString'}";
         assertEquals(expectedToString, string.toString());
 
@@ -377,7 +377,7 @@ public class ModifiableStringTest {
 
     /** Test with complex modification chains */
     @Test
-    public void testComplexModifications() {
+    void testComplexModifications() {
         // Create a chain of modifications
         StringAppendValueModification append = new StringAppendValueModification("_Append");
         StringPrependValueModification prepend = new StringPrependValueModification("Prepend_");
@@ -391,7 +391,7 @@ public class ModifiableStringTest {
 
     /** Test modification reset */
     @Test
-    public void testModificationReset() {
+    void testModificationReset() {
         string.setModifications(new StringAppendValueModification("_Appended"));
         assertEquals("TestString_Appended", string.getValue());
 

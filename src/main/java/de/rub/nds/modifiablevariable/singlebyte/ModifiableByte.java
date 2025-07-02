@@ -7,6 +7,7 @@
  */
 package de.rub.nds.modifiablevariable.singlebyte;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
@@ -24,6 +25,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 public class ModifiableByte extends ModifiableVariable<Byte> {
 
     /** The original byte value before any modifications */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Byte originalValue;
 
     /** Default constructor that creates an empty ModifiableByte with no original value. */

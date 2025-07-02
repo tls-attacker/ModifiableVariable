@@ -7,8 +7,9 @@
  */
 package de.rub.nds.modifiablevariable.bytearray;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -33,9 +34,11 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
 
     /** The bytes to insert into the original byte array */
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
+    @JsonProperty(required = true)
     private byte[] bytesToInsert;
 
     /** The position at which to insert the bytes (0-based index) */
+    @JsonProperty(required = true)
     private int startPosition;
 
     /** Default constructor for serialization. */
@@ -97,7 +100,7 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
      *   <li>If the position exceeds the array length, it's adjusted using modulo arithmetic
      * </ul>
      *
-     * <p>The implementation uses ArrayConverter for efficient concatenation operations, ensuring
+     * <p>The implementation uses DataConverter for efficient concatenation operations, ensuring
      * optimal performance even with large arrays.
      *
      * @param input The original byte array
@@ -118,9 +121,9 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
         byte[] ret1 = Arrays.copyOf(input, insertPosition);
         if (insertPosition < input.length) {
             byte[] ret2 = Arrays.copyOfRange(input, insertPosition, input.length);
-            return ArrayConverter.concatenate(ret1, bytesToInsert, ret2);
+            return DataConverter.concatenate(ret1, bytesToInsert, ret2);
         }
-        return ArrayConverter.concatenate(ret1, bytesToInsert);
+        return DataConverter.concatenate(ret1, bytesToInsert);
     }
 
     /**
@@ -215,7 +218,7 @@ public class ByteArrayInsertValueModification extends VariableModification<byte[
     public String toString() {
         return "ByteArrayInsertModification{"
                 + "bytesToInsert="
-                + ArrayConverter.bytesToHexString(bytesToInsert)
+                + DataConverter.bytesToHexString(bytesToInsert)
                 + ", startPosition="
                 + startPosition
                 + '}';

@@ -7,8 +7,9 @@
  */
 package de.rub.nds.modifiablevariable.longint;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -37,6 +38,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 public class ModifiableLong extends ModifiableVariable<Long> {
 
     /** The original, unmodified value of this variable */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long originalValue;
 
     /**
@@ -126,14 +128,14 @@ public class ModifiableLong extends ModifiableVariable<Long> {
     /**
      * Converts the modified long value to a byte array of the specified size.
      *
-     * <p>This method uses {@link ArrayConverter} to convert the current value to a byte array. The
+     * <p>This method uses {@link DataConverter} to convert the current value to a byte array. The
      * resulting array will have the specified size, with padding or truncation as necessary.
      *
      * @param size The desired size of the resulting byte array
      * @return A byte array representation of the current value with the specified size
      */
     public byte[] getByteArray(int size) {
-        return ArrayConverter.longToBytes(getValue(), size);
+        return DataConverter.longToBytes(getValue(), size);
     }
 
     /**

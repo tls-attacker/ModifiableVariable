@@ -15,20 +15,20 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class IntegerMultiplyModificationTest {
+class IntegerMultiplyModificationTest {
 
     private ModifiableInteger modifiableInteger;
     private int originalValue;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         modifiableInteger = new ModifiableInteger();
         originalValue = 123;
         modifiableInteger.setOriginalValue(originalValue);
     }
 
     @Test
-    public void testMultiplyModification() {
+    void testMultiplyModification() {
         int factor = 2;
         IntegerMultiplyModification modification = new IntegerMultiplyModification(factor);
         modifiableInteger.setModifications(modification);
@@ -41,7 +41,7 @@ public class IntegerMultiplyModificationTest {
     }
 
     @Test
-    public void testMultiplyByZero() {
+    void testMultiplyByZero() {
         int factor = 0;
         IntegerMultiplyModification modification = new IntegerMultiplyModification(factor);
         modifiableInteger.setModifications(modification);
@@ -53,7 +53,7 @@ public class IntegerMultiplyModificationTest {
     }
 
     @Test
-    public void testMultiplyByOne() {
+    void testMultiplyByOne() {
         int factor = 1;
         IntegerMultiplyModification modification = new IntegerMultiplyModification(factor);
         modifiableInteger.setModifications(modification);
@@ -65,7 +65,7 @@ public class IntegerMultiplyModificationTest {
     }
 
     @Test
-    public void testMultiplyByNegative() {
+    void testMultiplyByNegative() {
         int factor = -1;
         IntegerMultiplyModification modification = new IntegerMultiplyModification(factor);
         modifiableInteger.setModifications(modification);
@@ -77,7 +77,7 @@ public class IntegerMultiplyModificationTest {
     }
 
     @Test
-    public void testMultiplyWithNullInput() {
+    void testMultiplyWithNullInput() {
         modifiableInteger.setOriginalValue(null);
 
         int factor = 5;
@@ -87,7 +87,7 @@ public class IntegerMultiplyModificationTest {
     }
 
     @Test
-    public void testMultiplyMaxValue() {
+    void testMultiplyMaxValue() {
         modifiableInteger.setOriginalValue(Integer.MAX_VALUE);
 
         int factor = 2;
@@ -101,7 +101,7 @@ public class IntegerMultiplyModificationTest {
     }
 
     @Test
-    public void testMultiplyMinValue() {
+    void testMultiplyMinValue() {
         modifiableInteger.setOriginalValue(Integer.MIN_VALUE);
 
         int factor = 2;
@@ -115,7 +115,7 @@ public class IntegerMultiplyModificationTest {
     }
 
     @Test
-    public void testGetFactor() {
+    void testGetFactor() {
         int factor = 5;
         IntegerMultiplyModification modification = new IntegerMultiplyModification(factor);
 
@@ -123,7 +123,7 @@ public class IntegerMultiplyModificationTest {
     }
 
     @Test
-    public void testSetFactor() {
+    void testSetFactor() {
         IntegerMultiplyModification modification = new IntegerMultiplyModification(2);
 
         int newFactor = 10;
@@ -133,7 +133,7 @@ public class IntegerMultiplyModificationTest {
     }
 
     @Test
-    public void testCopyConstructor() {
+    void testCopyConstructor() {
         int factor = 7;
         IntegerMultiplyModification original = new IntegerMultiplyModification(factor);
         IntegerMultiplyModification copy = new IntegerMultiplyModification(original);
@@ -142,7 +142,7 @@ public class IntegerMultiplyModificationTest {
     }
 
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         int factor = 7;
         IntegerMultiplyModification original = new IntegerMultiplyModification(factor);
         IntegerMultiplyModification copy = original.createCopy();
@@ -157,7 +157,7 @@ public class IntegerMultiplyModificationTest {
     }
 
     @Test
-    public void testEqualsAndHashCode() {
+    void testEqualsAndHashCode() {
         int factor1 = 5;
         int factor2 = 5;
         int factor3 = 10;
@@ -190,7 +190,7 @@ public class IntegerMultiplyModificationTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         int factor = 42;
         IntegerMultiplyModification modification = new IntegerMultiplyModification(factor);
         String toString = modification.toString();

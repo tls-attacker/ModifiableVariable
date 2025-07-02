@@ -7,7 +7,7 @@
  */
 package de.rub.nds.modifiablevariable.logging;
 
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -36,7 +36,7 @@ import org.apache.logging.log4j.util.Strings;
  * handling for byte array parameters in log messages. While the standard PatternLayout would format
  * byte arrays using {@link Arrays#toString(byte[])}, which produces output like "[B@1a2b3c4]", this
  * layout intercepts byte array parameters and formats them as readable hexadecimal strings using
- * {@link ArrayConverter#bytesToHexString(byte[])}.
+ * {@link DataConverter#bytesToHexString(byte[])}.
  *
  * <p>The layout supports all standard PatternLayout features including:
  *
@@ -101,7 +101,9 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
             boolean disableAnsi,
             boolean noConsoleNoAnsi,
             String headerPattern,
-            String footerPattern) {
+            String footerPattern,
+            boolean initNewLine,
+            boolean prettyPrinting) {
         super(
                 config,
                 charset,
@@ -113,6 +115,8 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
                         .setDisableAnsi(disableAnsi)
                         .setNoConsoleNoAnsi(noConsoleNoAnsi)
                         .setPattern(headerPattern)
+                        .setInitNewLine(initNewLine)
+                        .setPrettyPrinting(prettyPrinting)
                         .build(),
                 newSerializerBuilder()
                         .setConfiguration(config)
@@ -122,6 +126,8 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
                         .setDisableAnsi(disableAnsi)
                         .setNoConsoleNoAnsi(noConsoleNoAnsi)
                         .setPattern(footerPattern)
+                        .setInitNewLine(initNewLine)
+                        .setPrettyPrinting(prettyPrinting)
                         .build());
         conversionPattern = eventPattern;
         this.patternSelector = patternSelector;
@@ -135,6 +141,8 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
                         .setNoConsoleNoAnsi(noConsoleNoAnsi)
                         .setPattern(eventPattern)
                         .setDefaultPattern("%m%n")
+                        .setInitNewLine(initNewLine)
+                        .setPrettyPrinting(prettyPrinting)
                         .build();
     }
 
@@ -339,6 +347,8 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
                 .withNoConsoleNoAnsi(noConsoleNoAnsi)
                 .withHeader(headerPattern)
                 .withFooter(footerPattern)
+                .withInitNewLine(false)
+                .withPrettyPrinting(false)
                 .build();
     }
 
@@ -404,12 +414,8 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
         @PluginBuilderAttribute private boolean noConsoleNoAnsi;
         @PluginBuilderAttribute private String header;
         @PluginBuilderAttribute private String footer;
-
-        @PluginBuilderAttribute("initNewLine")
-        private static boolean initNewLine;
-
-        @PluginBuilderAttribute("prettyPrinting")
-        private static boolean prettyPrinting;
+        @PluginBuilderAttribute private boolean initNewLine;
+        @PluginBuilderAttribute private boolean prettyPrinting;
 
         private Builder() {
             super();
@@ -542,6 +548,28 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
         }
 
         /**
+         * Sets whether to start byte array output on a new line.
+         *
+         * @param initNewLine Whether to initialize byte array output on a new line
+         * @return This builder instance
+         */
+        public ExtendedPatternLayout.Builder withInitNewLine(boolean initNewLine) {
+            this.initNewLine = initNewLine;
+            return this;
+        }
+
+        /**
+         * Sets whether to format byte arrays with spaces between bytes for readability.
+         *
+         * @param prettyPrinting Whether to pretty print byte arrays
+         * @return This builder instance
+         */
+        public ExtendedPatternLayout.Builder withPrettyPrinting(boolean prettyPrinting) {
+            this.prettyPrinting = prettyPrinting;
+            return this;
+        }
+
+        /**
          * Builds a new ExtendedPatternLayout instance with the configured settings.
          *
          * <p>This method creates a new layout using all the settings configured on this builder. If
@@ -565,7 +593,9 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
                     disableAnsi,
                     noConsoleNoAnsi,
                     header,
-                    footer);
+                    footer,
+                    initNewLine,
+                    prettyPrinting);
         }
     }
 
@@ -655,6 +685,8 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
         private boolean alwaysWriteExceptions;
         private boolean disableAnsi;
         private boolean noConsoleNoAnsi;
+        private boolean initNewLine;
+        private boolean prettyPrinting;
 
         /**
          * Builds a serializer for formatting log events according to the configured settings.
@@ -685,7 +717,7 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
                                     noConsoleNoAnsi);
                     PatternFormatter[] formatters = list.toArray(new PatternFormatter[0]);
                     return new ExtendedPatternLayout.ExtendedPatternLayoutSerializer(
-                            formatters, replace);
+                            formatters, replace, initNewLine, prettyPrinting);
                 } catch (RuntimeException var4) {
                     throw new IllegalArgumentException(
                             "Cannot parse pattern '" + pattern + "'", var4);
@@ -786,18 +818,47 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
             this.noConsoleNoAnsi = noConsoleNoAnsi;
             return this;
         }
+
+        /**
+         * Sets whether to start byte array output on a new line.
+         *
+         * @param initNewLine Whether to initialize byte array output on a new line
+         * @return This builder instance
+         */
+        public ExtendedPatternLayout.SerializerBuilder setInitNewLine(boolean initNewLine) {
+            this.initNewLine = initNewLine;
+            return this;
+        }
+
+        /**
+         * Sets whether to format byte arrays with spaces between bytes for readability.
+         *
+         * @param prettyPrinting Whether to pretty print byte arrays
+         * @return This builder instance
+         */
+        public ExtendedPatternLayout.SerializerBuilder setPrettyPrinting(boolean prettyPrinting) {
+            this.prettyPrinting = prettyPrinting;
+            return this;
+        }
     }
 
     private static final class ExtendedPatternLayoutSerializer
             implements AbstractStringLayout.Serializer, LocationAware {
         private final PatternFormatter[] formatters;
         private final RegexReplacement replace;
+        private final boolean initNewLine;
+        private final boolean prettyPrinting;
 
         private ExtendedPatternLayoutSerializer(
-                PatternFormatter[] formatters, RegexReplacement replace) {
+                PatternFormatter[] formatters,
+                RegexReplacement replace,
+                boolean initNewLine,
+                boolean prettyPrinting) {
             super();
             this.formatters = formatters;
             this.replace = replace;
+            this.initNewLine = initNewLine;
+            this.prettyPrinting = prettyPrinting;
         }
 
         @Override
@@ -827,15 +888,17 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
          *         <li>It identifies any byte array parameters in the log message
          *         <li>It locates the default string representation of these byte arrays in the
          *             builder
-         *         <li>It replaces them with formatted hexadecimal strings using ArrayConverter
+         *         <li>It replaces them with formatted hexadecimal strings using DataConverter
          *       </ul>
          * </ol>
          *
-         * <p>The byte array formatting is controlled by two static configuration options:
+         * <p>The byte array formatting is controlled by two configuration options:
          *
          * <ul>
-         *   <li>{@link Builder#prettyPrinting} - Whether to format with spaces between bytes
-         *   <li>{@link Builder#initNewLine} - Whether to start byte arrays on a new line
+         *   <li>{@link ExtendedPatternLayoutSerializer#prettyPrinting} - Whether to format with
+         *       spaces between bytes
+         *   <li>{@link ExtendedPatternLayoutSerializer#initNewLine} - Whether to start byte arrays
+         *       on a new line
          * </ul>
          *
          * @param event The LogEvent to serialize
@@ -863,16 +926,14 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
                 for (Object param : event.getMessage().getParameters()) {
 
                     // Replace all ByteArrays with the String representation of the ByteArray
-                    // calculated by the ArrayConverter.
+                    // calculated by the DataConverter.
                     if (param != null && bArrayClass.equals(param.getClass())) {
                         builder.replace(
                                 builder.indexOf(Arrays.toString((byte[]) param)),
                                 builder.indexOf(Arrays.toString((byte[]) param))
                                         + Arrays.toString((byte[]) param).length(),
-                                ArrayConverter.bytesToHexString(
-                                        (byte[]) param,
-                                        Builder.prettyPrinting,
-                                        Builder.initNewLine));
+                                DataConverter.bytesToHexString(
+                                        (byte[]) param, prettyPrinting, initNewLine));
                     }
                 }
             }

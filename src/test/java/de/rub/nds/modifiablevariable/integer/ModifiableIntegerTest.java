@@ -25,7 +25,7 @@ class ModifiableIntegerTest {
         integer1.setOriginalValue(2);
         integer2 = new ModifiableInteger();
         integer2.setOriginalValue(2);
-        nullInteger = new ModifiableInteger();
+        this.nullInteger = new ModifiableInteger();
     }
 
     /** Test of default constructor, of class ModifiableInteger. */
@@ -76,7 +76,7 @@ class ModifiableIntegerTest {
     void testGetAssertEquals() {
         integer1.setAssertEquals(2);
         assertEquals(2, integer1.getAssertEquals());
-        assertNull(nullInteger.getAssertEquals());
+        assertNull(this.nullInteger.getAssertEquals());
     }
 
     /** Test of setAssertEquals method, of class ModifiableInteger. */
@@ -109,7 +109,7 @@ class ModifiableIntegerTest {
     void testValidateAssertions() {
         // No assertions set - should be valid
         assertTrue(integer1.validateAssertions());
-        assertTrue(nullInteger.validateAssertions());
+        assertTrue(this.nullInteger.validateAssertions());
 
         // Set matching assertion
         integer1.setAssertEquals(2);
@@ -148,7 +148,7 @@ class ModifiableIntegerTest {
         org.junit.jupiter.api.Assertions.assertThrows(
                 IllegalStateException.class,
                 () -> {
-                    nullInteger.isOriginalValueModified();
+                    this.nullInteger.isOriginalValueModified();
                 });
 
         ModifiableInteger nullIntWithExplicit = new ModifiableInteger((Integer) null);
@@ -165,7 +165,7 @@ class ModifiableIntegerTest {
     @Test
     void testGetOriginalValue() {
         assertEquals(2, integer1.getOriginalValue());
-        assertNull(nullInteger.getOriginalValue());
+        assertNull(this.nullInteger.getOriginalValue());
     }
 
     /** Test of setOriginalValue method, of class ModifiableInteger. */
@@ -188,7 +188,7 @@ class ModifiableIntegerTest {
         integer1.setOriginalValue(4);
         assertNotEquals(integer1.toString(), integer2.toString());
 
-        String nullString = nullInteger.toString();
+        String nullString = this.nullInteger.toString();
         assertTrue(nullString.contains("originalValue=null"));
 
         // Test with modification
@@ -250,7 +250,7 @@ class ModifiableIntegerTest {
         assertEquals(hash1, hash2);
 
         // Test with null value
-        int nullHash = nullInteger.hashCode();
+        int nullHash = this.nullInteger.hashCode();
         assertEquals(527, nullHash); // Expected value: 17 * 31 + 0 = 527
     }
 

@@ -7,8 +7,9 @@
  */
 package de.rub.nds.modifiablevariable.biginteger;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.math.BigInteger;
 
@@ -31,6 +32,7 @@ import java.math.BigInteger;
 public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
 
     /** The original BigInteger value before any modifications */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private BigInteger originalValue;
 
     /** Default constructor that creates an empty ModifiableBigInteger with no original value. */
@@ -108,7 +110,7 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
      * @return The byte array representation of the BigInteger
      */
     public byte[] getByteArray() {
-        return ArrayConverter.bigIntegerToByteArray(getValue());
+        return DataConverter.bigIntegerToByteArray(getValue());
     }
 
     /**
@@ -118,7 +120,7 @@ public class ModifiableBigInteger extends ModifiableVariable<BigInteger> {
      * @return The byte array representation of the BigInteger
      */
     public byte[] getByteArray(int size) {
-        return ArrayConverter.bigIntegerToByteArray(getValue(), size, true);
+        return DataConverter.bigIntegerToByteArray(getValue(), size, true);
     }
 
     /**

@@ -7,6 +7,7 @@
  */
 package de.rub.nds.modifiablevariable.bool;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
@@ -24,6 +25,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 public class BooleanExplicitValueModification extends VariableModification<Boolean> {
 
     /** The explicit boolean value that will replace the original value */
+    @JsonProperty(required = true)
     private boolean explicitValue;
 
     /** Default constructor for serialization. */

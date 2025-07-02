@@ -7,6 +7,7 @@
  */
 package de.rub.nds.modifiablevariable.biginteger;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.math.BigInteger;
@@ -24,6 +25,7 @@ import java.util.Objects;
 public class BigIntegerMultiplyModification extends VariableModification<BigInteger> {
 
     /** The factor to multiply by */
+    @JsonProperty(required = true)
     private BigInteger factor;
 
     /** Default constructor for serialization. */

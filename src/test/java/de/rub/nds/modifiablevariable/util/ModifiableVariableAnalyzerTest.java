@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
  * <p>Tests all public methods of the ModifiableVariableAnalyzer class with various inputs including
  * edge cases like null objects, empty collections, and nested object hierarchies.
  */
-public class ModifiableVariableAnalyzerTest {
+class ModifiableVariableAnalyzerTest {
 
     private SimpleClassWithModVariables simpleObject;
     private ComplexClassWithModVariables complexObject;
@@ -38,7 +38,7 @@ public class ModifiableVariableAnalyzerTest {
     private ClassWithNoModVariables emptyObject;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         // Initialize test objects
         simpleObject = new SimpleClassWithModVariables();
         simpleObject.bi = new ModifiableBigInteger();
@@ -68,7 +68,7 @@ public class ModifiableVariableAnalyzerTest {
 
     /** Test of getAllModifiableVariableFields method with a simple object. */
     @Test
-    public void testGetAllModifiableVariableFields() {
+    void testGetAllModifiableVariableFields() {
         String[] fieldNames = {"bi", "array", "i"};
         List<Field> fields =
                 ModifiableVariableAnalyzer.getAllModifiableVariableFields(simpleObject);
@@ -87,14 +87,14 @@ public class ModifiableVariableAnalyzerTest {
 
     /** Test getAllModifiableVariableFields with object having no modifiable variables. */
     @Test
-    public void testGetAllModifiableVariableFieldsEmpty() {
+    void testGetAllModifiableVariableFieldsEmpty() {
         List<Field> fields = ModifiableVariableAnalyzer.getAllModifiableVariableFields(emptyObject);
         assertTrue(fields.isEmpty(), "Empty object should have no modifiable fields");
     }
 
     /** Test of getRandomModifiableVariableField method. */
     @Test
-    public void testGetRandomModifiableVariableField() {
+    void testGetRandomModifiableVariableField() {
         // Test with object containing modifiable variables
         Field randomField =
                 ModifiableVariableAnalyzer.getRandomModifiableVariableField(simpleObject);
@@ -112,7 +112,7 @@ public class ModifiableVariableAnalyzerTest {
 
     /** Test of isModifiableVariableHolder method. */
     @Test
-    public void testIsModifiableVariableHolder() {
+    void testIsModifiableVariableHolder() {
         // Test with object containing modifiable variables
         assertTrue(
                 ModifiableVariableAnalyzer.isModifiableVariableHolder(simpleObject),
@@ -132,7 +132,7 @@ public class ModifiableVariableAnalyzerTest {
 
     /** Test of getAllModifiableVariableFieldsRecursively method with simple object. */
     @Test
-    public void testGetAllModifiableVariableFieldsRecursively() {
+    void testGetAllModifiableVariableFieldsRecursively() {
         // Test with simple object
         List<ModifiableVariableField> fields =
                 ModifiableVariableAnalyzer.getAllModifiableVariableFieldsRecursively(simpleObject);
@@ -151,7 +151,7 @@ public class ModifiableVariableAnalyzerTest {
 
     /** Test getAllModifiableVariableFieldsRecursively with nested objects. */
     @Test
-    public void testGetAllModifiableVariableFieldsRecursivelyNested() {
+    void testGetAllModifiableVariableFieldsRecursivelyNested() {
         List<ModifiableVariableField> fields =
                 ModifiableVariableAnalyzer.getAllModifiableVariableFieldsRecursively(complexObject);
 
@@ -161,7 +161,7 @@ public class ModifiableVariableAnalyzerTest {
 
     /** Test getAllModifiableVariableFieldsRecursively with a List. */
     @Test
-    public void testGetAllModifiableVariableFieldsRecursivelyWithList() {
+    void testGetAllModifiableVariableFieldsRecursivelyWithList() {
         List<ModifiableVariableField> fields =
                 ModifiableVariableAnalyzer.getAllModifiableVariableFieldsRecursively(listObject);
 
@@ -172,7 +172,7 @@ public class ModifiableVariableAnalyzerTest {
 
     /** Test getAllModifiableVariableFieldsRecursively with an array. */
     @Test
-    public void testGetAllModifiableVariableFieldsRecursivelyWithArray() {
+    void testGetAllModifiableVariableFieldsRecursivelyWithArray() {
         List<ModifiableVariableField> fields =
                 ModifiableVariableAnalyzer.getAllModifiableVariableFieldsRecursively(arrayObject);
 
@@ -182,7 +182,7 @@ public class ModifiableVariableAnalyzerTest {
 
     /** Test that the order of fields is consistent when analyzing the same type of object. */
     @Test
-    public void testGetAllModifiableVariableFieldsRecursivelyOrder() {
+    void testGetAllModifiableVariableFieldsRecursivelyOrder() {
         // Create two identical objects with nested structure
         SimpleClassWithModVariables test1 = new SimpleClassWithModVariables();
         test1.bi = new ModifiableBigInteger();
@@ -210,7 +210,7 @@ public class ModifiableVariableAnalyzerTest {
 
     /** Test of getAllModifiableVariableHoldersRecursively method. */
     @Test
-    public void testGetAllModifiableVariableHoldersRecursively() {
+    void testGetAllModifiableVariableHoldersRecursively() {
         // Test with simple object
         List<ModifiableVariableListHolder> holders =
                 ModifiableVariableAnalyzer.getAllModifiableVariableHoldersRecursively(simpleObject);
@@ -231,7 +231,7 @@ public class ModifiableVariableAnalyzerTest {
 
     /** Test getAllModifiableVariableHoldersFromList method. */
     @Test
-    public void testGetAllModifiableVariableHoldersFromList() {
+    void testGetAllModifiableVariableHoldersFromList() {
         // Create a list with two objects containing modifiable variables
         List<Object> testList = new LinkedList<>();
         testList.add(new SimpleClassWithModVariables());
@@ -246,7 +246,7 @@ public class ModifiableVariableAnalyzerTest {
 
     /** Test getAllModifiableVariableHoldersFromList with empty list. */
     @Test
-    public void testGetAllModifiableVariableHoldersFromEmptyList() {
+    void testGetAllModifiableVariableHoldersFromEmptyList() {
         List<Object> emptyList = Collections.emptyList();
         List<ModifiableVariableListHolder> holders =
                 ModifiableVariableAnalyzer.getAllModifiableVariableHoldersFromList(emptyList);
@@ -256,7 +256,7 @@ public class ModifiableVariableAnalyzerTest {
 
     /** Test getAllModifiableVariableHoldersFromArray method. */
     @Test
-    public void testGetAllModifiableVariableHoldersFromArray() {
+    void testGetAllModifiableVariableHoldersFromArray() {
         // Create an array with two objects containing modifiable variables
         Object[] testArray = new Object[2];
         testArray[0] = new SimpleClassWithModVariables();
@@ -270,7 +270,7 @@ public class ModifiableVariableAnalyzerTest {
 
     /** Test getAllModifiableVariableHoldersFromArray with empty array. */
     @Test
-    public void testGetAllModifiableVariableHoldersFromEmptyArray() {
+    void testGetAllModifiableVariableHoldersFromEmptyArray() {
         Object[] emptyArray = new Object[0];
         List<ModifiableVariableListHolder> holders =
                 ModifiableVariableAnalyzer.getAllModifiableVariableHoldersFromArray(emptyArray);
@@ -279,7 +279,7 @@ public class ModifiableVariableAnalyzerTest {
     }
 
     /** Utility method to check if a list of Fields contains a field with the given name. */
-    private boolean containsFieldName(String name, List<Field> list) {
+    private static boolean containsFieldName(String name, List<Field> list) {
         for (Field f : list) {
             if (f.getName().equals(name)) {
                 return true;

@@ -12,21 +12,21 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class StringInsertValueModificationTest {
+class StringInsertValueModificationTest {
 
     private ModifiableString modifiableString;
     private final String originalString = "testString";
     private final String insertValue = "INSERT";
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         modifiableString = new ModifiableString();
         modifiableString.setOriginalValue(originalString);
     }
 
     /** Test basic insertion at the beginning of the string */
     @Test
-    public void testInsertAtBeginning() {
+    void testInsertAtBeginning() {
         StringInsertValueModification modifier = new StringInsertValueModification(insertValue, 0);
         modifiableString.setModifications(modifier);
         assertEquals("INSERTtestString", modifiableString.getValue());
@@ -35,7 +35,7 @@ public class StringInsertValueModificationTest {
 
     /** Test insertion in the middle of the string */
     @Test
-    public void testInsertInMiddle() {
+    void testInsertInMiddle() {
         StringInsertValueModification modifier = new StringInsertValueModification(insertValue, 4);
         modifiableString.setModifications(modifier);
         assertEquals("testINSERTString", modifiableString.getValue());
@@ -43,7 +43,7 @@ public class StringInsertValueModificationTest {
 
     /** Test insertion at the end of the string */
     @Test
-    public void testInsertAtEnd() {
+    void testInsertAtEnd() {
         StringInsertValueModification modifier = new StringInsertValueModification(insertValue, 10);
         modifiableString.setModifications(modifier);
         assertEquals("testStringINSERT", modifiableString.getValue());
@@ -51,7 +51,7 @@ public class StringInsertValueModificationTest {
 
     /** Test insertion with negative position (inserts from the end) */
     @Test
-    public void testInsertWithNegativePosition() {
+    void testInsertWithNegativePosition() {
         StringInsertValueModification modifier = new StringInsertValueModification(insertValue, -1);
         modifiableString.setModifications(modifier);
         // -1 means to insert before the last character
@@ -60,7 +60,7 @@ public class StringInsertValueModificationTest {
 
     /** Test insertion with position exceeding string length (appends to the end) */
     @Test
-    public void testInsertWithPositionOverflow() {
+    void testInsertWithPositionOverflow() {
         StringInsertValueModification modifier = new StringInsertValueModification(insertValue, 22);
         modifiableString.setModifications(modifier);
         // Position beyond string length should append to the end
@@ -69,7 +69,7 @@ public class StringInsertValueModificationTest {
 
     /** Test insertion with empty string as the original value */
     @Test
-    public void testInsertIntoEmptyString() {
+    void testInsertIntoEmptyString() {
         ModifiableString emptyString = new ModifiableString();
         emptyString.setOriginalValue("");
 
@@ -81,7 +81,7 @@ public class StringInsertValueModificationTest {
 
     /** Test insertion with empty string as the insert value */
     @Test
-    public void testInsertEmptyString() {
+    void testInsertEmptyString() {
         StringInsertValueModification modifier = new StringInsertValueModification("", 5);
         modifiableString.setModifications(modifier);
 
@@ -91,7 +91,7 @@ public class StringInsertValueModificationTest {
 
     /** Test with null input */
     @Test
-    public void testInsertIntoNullString() {
+    void testInsertIntoNullString() {
         ModifiableString nullString = new ModifiableString();
         nullString.setOriginalValue(null);
 
@@ -104,7 +104,7 @@ public class StringInsertValueModificationTest {
 
     /** Test that null insert value is not allowed */
     @Test
-    public void testNullInsertValue() {
+    void testNullInsertValue() {
         assertThrows(
                 NullPointerException.class,
                 () -> {
@@ -114,7 +114,7 @@ public class StringInsertValueModificationTest {
 
     /** Test the getter and setter for insertValue */
     @Test
-    public void testInsertValueGetterAndSetter() {
+    void testInsertValueGetterAndSetter() {
         StringInsertValueModification modifier = new StringInsertValueModification("initial", 0);
         assertEquals("initial", modifier.getInsertValue());
 
@@ -131,7 +131,7 @@ public class StringInsertValueModificationTest {
 
     /** Test the getter and setter for startPosition */
     @Test
-    public void testStartPositionGetterAndSetter() {
+    void testStartPositionGetterAndSetter() {
         StringInsertValueModification modifier = new StringInsertValueModification(insertValue, 3);
         assertEquals(3, modifier.getStartPosition());
 
@@ -141,7 +141,7 @@ public class StringInsertValueModificationTest {
 
     /** Test the equals method */
     @Test
-    public void testEqualsMethod() {
+    void testEqualsMethod() {
         StringInsertValueModification mod1 = new StringInsertValueModification("value", 3);
         StringInsertValueModification mod2 = new StringInsertValueModification("value", 3);
         StringInsertValueModification mod3 = new StringInsertValueModification("value", 4);
@@ -166,7 +166,7 @@ public class StringInsertValueModificationTest {
 
     /** Test the hashCode method */
     @Test
-    public void testHashCodeMethod() {
+    void testHashCodeMethod() {
         StringInsertValueModification mod1 = new StringInsertValueModification("value", 3);
         StringInsertValueModification mod2 = new StringInsertValueModification("value", 3);
 
@@ -180,7 +180,7 @@ public class StringInsertValueModificationTest {
 
     /** Test the toString method */
     @Test
-    public void testToStringMethod() {
+    void testToStringMethod() {
         StringInsertValueModification modifier = new StringInsertValueModification("test", 2);
         String toString = modifier.toString();
 
@@ -191,7 +191,7 @@ public class StringInsertValueModificationTest {
 
     /** Test the copy constructor */
     @Test
-    public void testCopyConstructor() {
+    void testCopyConstructor() {
         StringInsertValueModification original = new StringInsertValueModification("original", 4);
         StringInsertValueModification copy = new StringInsertValueModification(original);
 
@@ -207,7 +207,7 @@ public class StringInsertValueModificationTest {
 
     /** Test the createCopy method */
     @Test
-    public void testCreateCopyMethod() {
+    void testCreateCopyMethod() {
         StringInsertValueModification original = new StringInsertValueModification("original", 3);
         StringInsertValueModification copy = original.createCopy();
 

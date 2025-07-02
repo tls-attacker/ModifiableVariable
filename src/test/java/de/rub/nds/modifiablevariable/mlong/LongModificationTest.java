@@ -23,14 +23,14 @@ import de.rub.nds.modifiablevariable.longint.ModifiableLong;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class LongModificationTest {
+class LongModificationTest {
 
     private ModifiableLong start;
 
     private Long expectedResult, result;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         start = new ModifiableLong();
         start.setOriginalValue(10L);
         expectedResult = null;
@@ -38,7 +38,7 @@ public class LongModificationTest {
     }
 
     @Test
-    public void testAdd() {
+    void testAdd() {
 
         VariableModification<Long> modifier = new LongAddModification(1L);
         start.setModifications(modifier);
@@ -49,7 +49,7 @@ public class LongModificationTest {
     }
 
     @Test
-    public void testSub() {
+    void testSub() {
         VariableModification<Long> modifier = new LongSubtractModification(1L);
         start.setModifications(modifier);
         expectedResult = 9L;
@@ -59,7 +59,7 @@ public class LongModificationTest {
     }
 
     @Test
-    public void testXor() {
+    void testXor() {
         VariableModification<Long> modifier = new LongXorModification(2L);
         start.setModifications(modifier);
         expectedResult = 8L;
@@ -69,7 +69,7 @@ public class LongModificationTest {
     }
 
     @Test
-    public void testExplicitValue() {
+    void testExplicitValue() {
         VariableModification<Long> modifier = new LongExplicitValueModification(7L);
         start.setModifications(modifier);
         expectedResult = 7L;
@@ -79,7 +79,7 @@ public class LongModificationTest {
     }
 
     @Test
-    public void testMultiply() {
+    void testMultiply() {
         VariableModification<Long> modifier = new LongMultiplyModification(3L);
         start.setModifications(modifier);
         expectedResult = 30L;
@@ -89,7 +89,7 @@ public class LongModificationTest {
     }
 
     @Test
-    public void testMultiplyWithZero() {
+    void testMultiplyWithZero() {
         VariableModification<Long> modifier = new LongMultiplyModification(0L);
         start.setModifications(modifier);
         expectedResult = 0L;
@@ -99,7 +99,7 @@ public class LongModificationTest {
     }
 
     @Test
-    public void testMultiplyWithNull() {
+    void testMultiplyWithNull() {
         ModifiableLong nullStart = new ModifiableLong();
         VariableModification<Long> modifier = new LongMultiplyModification(5L);
         nullStart.setModifications(modifier);
@@ -107,7 +107,7 @@ public class LongModificationTest {
     }
 
     @Test
-    public void testShiftLeft() {
+    void testShiftLeft() {
         VariableModification<Long> modifier = new LongShiftLeftModification(2);
         start.setModifications(modifier);
         expectedResult = 40L; // 10 << 2 = 40
@@ -117,7 +117,7 @@ public class LongModificationTest {
     }
 
     @Test
-    public void testShiftLeftWithLargeShift() {
+    void testShiftLeftWithLargeShift() {
         VariableModification<Long> modifier = new LongShiftLeftModification(65);
         start.setModifications(modifier);
         expectedResult = 20L; // (10 << 65) % 64 = (10 << 1) = 20
@@ -127,7 +127,7 @@ public class LongModificationTest {
     }
 
     @Test
-    public void testShiftLeftWithNull() {
+    void testShiftLeftWithNull() {
         ModifiableLong nullStart = new ModifiableLong();
         VariableModification<Long> modifier = new LongShiftLeftModification(2);
         nullStart.setModifications(modifier);
@@ -135,7 +135,7 @@ public class LongModificationTest {
     }
 
     @Test
-    public void testShiftRight() {
+    void testShiftRight() {
         start.setOriginalValue(40L);
         VariableModification<Long> modifier = new LongShiftRightModification(2);
         start.setModifications(modifier);
@@ -146,7 +146,7 @@ public class LongModificationTest {
     }
 
     @Test
-    public void testShiftRightWithLargeShift() {
+    void testShiftRightWithLargeShift() {
         start.setOriginalValue(40L);
         VariableModification<Long> modifier = new LongShiftRightModification(66);
         start.setModifications(modifier);
@@ -157,7 +157,7 @@ public class LongModificationTest {
     }
 
     @Test
-    public void testShiftRightWithNull() {
+    void testShiftRightWithNull() {
         ModifiableLong nullStart = new ModifiableLong();
         VariableModification<Long> modifier = new LongShiftRightModification(2);
         nullStart.setModifications(modifier);
@@ -167,7 +167,7 @@ public class LongModificationTest {
     }
 
     @Test
-    public void testSwapEndian() {
+    void testSwapEndian() {
         start.setOriginalValue(0x1122334455667788L);
         VariableModification<Long> modifier = new LongSwapEndianModification();
         start.setModifications(modifier);
@@ -178,7 +178,7 @@ public class LongModificationTest {
     }
 
     @Test
-    public void testSwapEndianWithNull() {
+    void testSwapEndianWithNull() {
         ModifiableLong nullStart = new ModifiableLong();
         VariableModification<Long> modifier = new LongSwapEndianModification();
         nullStart.setModifications(modifier);
@@ -186,7 +186,7 @@ public class LongModificationTest {
     }
 
     @Test
-    public void testMultipleModifications() {
+    void testMultipleModifications() {
         // Test add followed by multiply
         VariableModification<Long> addModifier = new LongAddModification(5L);
         VariableModification<Long> multiplyModifier = new LongMultiplyModification(2L);
@@ -199,7 +199,7 @@ public class LongModificationTest {
     }
 
     @Test
-    public void testBoundaryValues() {
+    void testBoundaryValues() {
         // Test with Long.MAX_VALUE
         start.setOriginalValue(Long.MAX_VALUE);
         VariableModification<Long> addModifier = new LongAddModification(1L);

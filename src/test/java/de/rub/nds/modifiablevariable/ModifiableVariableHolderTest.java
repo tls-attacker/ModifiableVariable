@@ -21,7 +21,7 @@ import java.util.Random;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ModifiableVariableHolderTest {
+class ModifiableVariableHolderTest {
 
     private TestModifiableVariableHolder holder;
 
@@ -34,7 +34,7 @@ public class ModifiableVariableHolderTest {
         private String regularString;
         private NestedHolder nestedHolder;
 
-        public TestModifiableVariableHolder() {
+        TestModifiableVariableHolder() {
             intValue = new ModifiableInteger();
             stringValue = new ModifiableString();
             byteArrayValue = new ModifiableByteArray();
@@ -47,14 +47,14 @@ public class ModifiableVariableHolderTest {
     private static class NestedHolder extends ModifiableVariableHolder {
         private ModifiableInteger nestedInt;
 
-        public NestedHolder() {
+        NestedHolder() {
             nestedInt = new ModifiableInteger();
             nestedInt.setOriginalValue(42);
         }
     }
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         holder = new TestModifiableVariableHolder();
         holder.intValue.setOriginalValue(123);
         holder.stringValue.setOriginalValue("Test String");
@@ -62,7 +62,7 @@ public class ModifiableVariableHolderTest {
     }
 
     @Test
-    public void testGetAllModifiableVariableFields() {
+    void testGetAllModifiableVariableFields() {
         List<Field> fields = holder.getAllModifiableVariableFields();
 
         // Should find 3 fields: intValue, stringValue, byteArrayValue
@@ -93,7 +93,7 @@ public class ModifiableVariableHolderTest {
     }
 
     @Test
-    public void testGetRandomModifiableVariableField() {
+    void testGetRandomModifiableVariableField() {
         // Use a fixed seed for reproducible test
         Random random = new Random(123);
 
@@ -103,7 +103,7 @@ public class ModifiableVariableHolderTest {
     }
 
     @Test
-    public void testGetAllModifiableVariableHolders() {
+    void testGetAllModifiableVariableHolders() {
         List<ModifiableVariableHolder> holders = holder.getAllModifiableVariableHolders();
 
         // Should only contain the holder itself by default
@@ -112,7 +112,7 @@ public class ModifiableVariableHolderTest {
     }
 
     @Test
-    public void testGetRandomModifiableVariableHolder() {
+    void testGetRandomModifiableVariableHolder() {
         // Use a fixed seed for reproducible test
         Random random = new Random(123);
 
@@ -122,10 +122,10 @@ public class ModifiableVariableHolderTest {
     }
 
     @Test
-    public void testReset() {
+    void testReset() {
         // Apply a modification to test reset
         VariableModification<Integer> modification =
-                new VariableModification<Integer>() {
+                new VariableModification<>() {
                     @Override
                     protected Integer modifyImplementationHook(Integer input) {
                         return input + 100;
@@ -150,7 +150,7 @@ public class ModifiableVariableHolderTest {
     }
 
     @Test
-    public void testGetExtendedString() {
+    void testGetExtendedString() {
         String result = holder.getExtendedString();
         System.out.println("Extended string content: " + result);
 

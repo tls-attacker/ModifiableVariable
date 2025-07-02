@@ -19,7 +19,7 @@ import java.lang.reflect.Field;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ModifiableVariableFieldTest {
+class ModifiableVariableFieldTest {
 
     private static class TestClass {
         private ModifiableInteger integerField = new ModifiableInteger(42);
@@ -33,7 +33,7 @@ public class ModifiableVariableFieldTest {
     private Field nonModifiableField;
 
     @BeforeEach
-    public void setUp() throws NoSuchFieldException {
+    void setUp() throws NoSuchFieldException {
         testObject = new TestClass();
         integerField = TestClass.class.getDeclaredField("integerField");
         stringField = TestClass.class.getDeclaredField("stringField");
@@ -41,7 +41,7 @@ public class ModifiableVariableFieldTest {
     }
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         ModifiableVariableField field = new ModifiableVariableField(testObject, integerField);
 
         assertNotNull(field);
@@ -50,7 +50,7 @@ public class ModifiableVariableFieldTest {
     }
 
     @Test
-    public void testGetObject() {
+    void testGetObject() {
         ModifiableVariableField field = new ModifiableVariableField(testObject, integerField);
 
         Object result = field.getObject();
@@ -59,7 +59,7 @@ public class ModifiableVariableFieldTest {
     }
 
     @Test
-    public void testSetObject() {
+    void testSetObject() {
         ModifiableVariableField field = new ModifiableVariableField(testObject, integerField);
         TestClass newObject = new TestClass();
 
@@ -69,7 +69,7 @@ public class ModifiableVariableFieldTest {
     }
 
     @Test
-    public void testGetField() {
+    void testGetField() {
         ModifiableVariableField field = new ModifiableVariableField(testObject, integerField);
 
         Field result = field.getField();
@@ -78,7 +78,7 @@ public class ModifiableVariableFieldTest {
     }
 
     @Test
-    public void testSetField() {
+    void testSetField() {
         ModifiableVariableField field = new ModifiableVariableField(testObject, integerField);
 
         field.setField(stringField);
@@ -87,7 +87,7 @@ public class ModifiableVariableFieldTest {
     }
 
     @Test
-    public void testGetModifiableVariable_Integer()
+    void testGetModifiableVariable_Integer()
             throws IllegalArgumentException, IllegalAccessException {
         ModifiableVariableField field = new ModifiableVariableField(testObject, integerField);
 
@@ -99,7 +99,7 @@ public class ModifiableVariableFieldTest {
     }
 
     @Test
-    public void testGetModifiableVariable_String()
+    void testGetModifiableVariable_String()
             throws IllegalArgumentException, IllegalAccessException {
         ModifiableVariableField field = new ModifiableVariableField(testObject, stringField);
 
@@ -111,7 +111,7 @@ public class ModifiableVariableFieldTest {
     }
 
     @Test
-    public void testGetModifiableVariable_NonModifiableField() {
+    void testGetModifiableVariable_NonModifiableField() {
         ModifiableVariableField field = new ModifiableVariableField(testObject, nonModifiableField);
 
         assertThrows(
@@ -122,7 +122,7 @@ public class ModifiableVariableFieldTest {
     }
 
     @Test
-    public void testGetModifiableVariable_NullObject() {
+    void testGetModifiableVariable_NullObject() {
         ModifiableVariableField field = new ModifiableVariableField(null, integerField);
 
         assertThrows(

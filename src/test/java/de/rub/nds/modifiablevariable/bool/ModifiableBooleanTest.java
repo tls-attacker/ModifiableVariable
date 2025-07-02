@@ -18,14 +18,14 @@ import java.lang.reflect.Field;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ModifiableBooleanTest {
+class ModifiableBooleanTest {
 
     private ModifiableBoolean boolean1;
     private ModifiableBoolean boolean2;
     private ModifiableBoolean boolean3;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         boolean1 = new ModifiableBoolean();
         boolean1.setOriginalValue(Boolean.TRUE);
 
@@ -37,27 +37,27 @@ public class ModifiableBooleanTest {
 
     /** Test of getOriginalValue method, of class ModifiableBoolean. */
     @Test
-    public void testGetOriginalValue() {
+    void testGetOriginalValue() {
         assertEquals(Boolean.TRUE, boolean1.getOriginalValue());
         assertEquals(Boolean.FALSE, boolean3.getOriginalValue());
     }
 
     /** Test of setOriginalValue method, of class ModifiableBoolean. */
     @Test
-    public void testSetOriginalValue() {
+    void testSetOriginalValue() {
         boolean1.setOriginalValue(Boolean.FALSE);
         assertEquals(Boolean.FALSE, boolean1.getOriginalValue());
     }
 
     /** Test of isOriginalValueModified method with unmodified value */
     @Test
-    public void testIsOriginalValueModifiedFalse() {
+    void testIsOriginalValueModifiedFalse() {
         assertFalse(boolean1.isOriginalValueModified());
     }
 
     /** Test of isOriginalValueModified method with modified value */
     @Test
-    public void testIsOriginalValueModifiedTrue() {
+    void testIsOriginalValueModifiedTrue() {
         BooleanToggleModification modification = new BooleanToggleModification();
         boolean1.addModification(modification);
         assertTrue(boolean1.isOriginalValueModified());
@@ -65,33 +65,34 @@ public class ModifiableBooleanTest {
 
     /** Test of isOriginalValueModified method with null original value */
     @Test
-    public void testIsOriginalValueModifiedNull() {
+    void testIsOriginalValueModifiedNull() {
         ModifiableBoolean nullBoolean = new ModifiableBoolean();
         assertThrows(IllegalStateException.class, nullBoolean::isOriginalValueModified);
     }
 
     /** Test of validateAssertions method with no assertions */
     @Test
-    public void testValidateAssertionsNoAssertions() {
+    void testValidateAssertionsNoAssertions() {
         assertTrue(boolean1.validateAssertions());
     }
 
     /** Test of validateAssertions method with assertions equal to value */
     @Test
-    public void testValidateAssertionsEqualValue() throws Exception {
+    void testValidateAssertionsEqualValue() throws Exception {
         setAssertEquals(boolean1, Boolean.TRUE);
         assertTrue(boolean1.validateAssertions());
     }
 
     /** Test of validateAssertions method with assertions not equal to value */
     @Test
-    public void testValidateAssertionsNotEqualValue() throws Exception {
+    void testValidateAssertionsNotEqualValue() throws Exception {
         setAssertEquals(boolean1, Boolean.FALSE);
         assertFalse(boolean1.validateAssertions());
     }
 
     /** Helper method to set the protected assertEquals field using reflection */
-    private void setAssertEquals(ModifiableBoolean variable, Boolean value) throws Exception {
+    private static void setAssertEquals(ModifiableBoolean variable, Boolean value)
+            throws Exception {
         Field field = variable.getClass().getSuperclass().getDeclaredField("assertEquals");
         field.setAccessible(true);
         field.set(variable, value);
@@ -99,7 +100,7 @@ public class ModifiableBooleanTest {
 
     /** Test of toString method */
     @Test
-    public void testToString() {
+    void testToString() {
         String expected = "ModifiableBoolean{originalValue=true}";
         assertEquals(expected, boolean1.toString());
 
@@ -112,7 +113,7 @@ public class ModifiableBooleanTest {
 
     /** Test of equals method with equal objects */
     @Test
-    public void testEquals() {
+    void testEquals() {
         // Same values
         assertEquals(boolean1, boolean2);
 
@@ -131,21 +132,21 @@ public class ModifiableBooleanTest {
 
     /** Test of equals method with same object (reflexivity) */
     @Test
-    public void testEqualsSameObject() {
+    void testEqualsSameObject() {
         assertEquals(boolean1, boolean1);
         assertTrue(boolean1.equals(boolean1));
     }
 
     /** Test of equals method with null */
     @Test
-    public void testEqualsNull() {
+    void testEqualsNull() {
         assertNotEquals(null, boolean1);
         assertFalse(boolean1.equals(null));
     }
 
     /** Test of equals method with different class */
     @Test
-    public void testEqualsDifferentClass() {
+    void testEqualsDifferentClass() {
         // With Object
         assertNotEquals(boolean1, new Object());
         assertFalse(boolean1.equals(new Object()));
@@ -158,7 +159,7 @@ public class ModifiableBooleanTest {
 
     /** Test equals with transitivity property */
     @Test
-    public void testEqualsTransitivity() {
+    void testEqualsTransitivity() {
         ModifiableBoolean a = new ModifiableBoolean(Boolean.TRUE);
         ModifiableBoolean b = new ModifiableBoolean(Boolean.TRUE);
         ModifiableBoolean c = new ModifiableBoolean(Boolean.TRUE);
@@ -171,7 +172,7 @@ public class ModifiableBooleanTest {
 
     /** Test of equals method with modified values */
     @Test
-    public void testEqualsModifiedValues() {
+    void testEqualsModifiedValues() {
         BooleanToggleModification modification = new BooleanToggleModification();
         boolean1.addModification(modification);
         boolean2.addModification(modification);
@@ -198,7 +199,7 @@ public class ModifiableBooleanTest {
 
     /** Test equals with both null values */
     @Test
-    public void testEqualsWithNullValues() {
+    void testEqualsWithNullValues() {
         ModifiableBoolean nullBool1 = new ModifiableBoolean();
         ModifiableBoolean nullBool2 = new ModifiableBoolean();
 
@@ -220,7 +221,7 @@ public class ModifiableBooleanTest {
 
     /** Test equals with assertions */
     @Test
-    public void testEqualsWithAssertions() throws Exception {
+    void testEqualsWithAssertions() throws Exception {
         ModifiableBoolean bool1WithAssertion = new ModifiableBoolean(Boolean.TRUE);
         ModifiableBoolean bool2WithAssertion = new ModifiableBoolean(Boolean.TRUE);
 
@@ -242,7 +243,7 @@ public class ModifiableBooleanTest {
 
     /** Test of hashCode method for equal objects */
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         // Equal objects should have equal hash codes
         assertEquals(boolean1.hashCode(), boolean2.hashCode());
 
@@ -265,7 +266,7 @@ public class ModifiableBooleanTest {
 
     /** Test of hashCode with null original value */
     @Test
-    public void testHashCodeWithNullValue() {
+    void testHashCodeWithNullValue() {
         ModifiableBoolean nullBool1 = new ModifiableBoolean();
         ModifiableBoolean nullBool2 = new ModifiableBoolean();
 
@@ -283,7 +284,7 @@ public class ModifiableBooleanTest {
 
     /** Test hashCode consistency with modifications */
     @Test
-    public void testHashCodeConsistencyWithModifications() {
+    void testHashCodeConsistencyWithModifications() {
         // Capture original hash code
         int originalHash = boolean1.hashCode();
 
@@ -310,14 +311,14 @@ public class ModifiableBooleanTest {
 
     /** Test of constructor with initial value */
     @Test
-    public void testConstructorWithValue() {
+    void testConstructorWithValue() {
         ModifiableBoolean booleanVar = new ModifiableBoolean(Boolean.TRUE);
         assertEquals(Boolean.TRUE, booleanVar.getOriginalValue());
     }
 
     /** Test of copy constructor */
     @Test
-    public void testCopyConstructor() {
+    void testCopyConstructor() {
         BooleanToggleModification modification = new BooleanToggleModification();
         boolean1.addModification(modification);
 
@@ -329,7 +330,7 @@ public class ModifiableBooleanTest {
 
     /** Test of createCopy method */
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         BooleanToggleModification modification = new BooleanToggleModification();
         boolean1.addModification(modification);
 
@@ -342,7 +343,7 @@ public class ModifiableBooleanTest {
 
     /** Test of containsAssertion method */
     @Test
-    public void testContainsAssertion() throws Exception {
+    void testContainsAssertion() throws Exception {
         assertFalse(boolean1.containsAssertion());
 
         setAssertEquals(boolean1, Boolean.TRUE);

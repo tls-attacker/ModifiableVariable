@@ -7,6 +7,7 @@
  */
 package de.rub.nds.modifiablevariable.singlebyte;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
@@ -24,6 +25,7 @@ import java.util.Objects;
 public class ByteAddModification extends VariableModification<Byte> {
 
     /** The value to be added to the original byte */
+    @JsonProperty(required = true)
     private byte summand;
 
     /** Default constructor for serialization. */

@@ -16,38 +16,38 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class BooleanToggleModificationTest {
+class BooleanToggleModificationTest {
 
     private BooleanToggleModification modification1;
     private BooleanToggleModification modification2;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         modification1 = new BooleanToggleModification();
         modification2 = new BooleanToggleModification();
     }
 
     /** Test of modifyImplementationHook method with true input */
     @Test
-    public void testModifyImplementationHookTrue() {
+    void testModifyImplementationHookTrue() {
         assertFalse(modification1.modifyImplementationHook(true));
     }
 
     /** Test of modifyImplementationHook method with false input */
     @Test
-    public void testModifyImplementationHookFalse() {
+    void testModifyImplementationHookFalse() {
         assertTrue(modification1.modifyImplementationHook(false));
     }
 
     /** Test of modifyImplementationHook method with null input */
     @Test
-    public void testModifyImplementationHookNull() {
+    void testModifyImplementationHookNull() {
         assertNull(modification1.modifyImplementationHook(null));
     }
 
     /** Test of createCopy method */
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         BooleanToggleModification copy = modification1.createCopy();
         assertEquals(modification1, copy);
         assertNotEquals(System.identityHashCode(modification1), System.identityHashCode(copy));
@@ -55,13 +55,13 @@ public class BooleanToggleModificationTest {
 
     /** Test of hashCode method */
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         assertEquals(modification1.hashCode(), modification2.hashCode());
     }
 
     /** Test of equals method with equal objects */
     @Test
-    public void testEqualsTrue() {
+    void testEqualsTrue() {
         assertEquals(modification1, modification2);
         assertEquals(modification1, modification1);
 
@@ -74,14 +74,14 @@ public class BooleanToggleModificationTest {
 
     /** Test of equals method with null */
     @Test
-    public void testEqualsNull() {
+    void testEqualsNull() {
         assertNotEquals(null, modification1);
         assertFalse(modification1.equals(null));
     }
 
     /** Test of equals method with different class */
     @Test
-    public void testEqualsDifferentClass() {
+    void testEqualsDifferentClass() {
         assertNotEquals(modification1, new Object());
         assertNotEquals(modification1, new BooleanExplicitValueModification(true));
         assertFalse(modification1.equals(new Object()));
@@ -89,7 +89,7 @@ public class BooleanToggleModificationTest {
 
     /** Test equals with a subclass */
     @Test
-    public void testEqualsWithSubclass() {
+    void testEqualsWithSubclass() {
         BooleanToggleModification regularMod = new BooleanToggleModification();
         SubclassToggleModification subclassMod = new SubclassToggleModification();
 
@@ -104,7 +104,7 @@ public class BooleanToggleModificationTest {
 
     /** Test of toString method */
     @Test
-    public void testToString() {
+    void testToString() {
         assertEquals("BooleanToggleModification{}", modification1.toString());
     }
 }

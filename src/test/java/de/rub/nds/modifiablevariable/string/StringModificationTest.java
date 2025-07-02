@@ -14,19 +14,19 @@ import de.rub.nds.modifiablevariable.VariableModification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class StringModificationTest {
+class StringModificationTest {
 
     private ModifiableString modifiableString;
     private String originalValue = "TestValue";
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         modifiableString = new ModifiableString();
         modifiableString.setOriginalValue(originalValue);
     }
 
     @Test
-    public void testAppendModification() {
+    void testAppendModification() {
         String appendValue = "Appended";
         VariableModification<String> modifier = new StringAppendValueModification(appendValue);
         modifiableString.setModifications(modifier);
@@ -35,7 +35,7 @@ public class StringModificationTest {
     }
 
     @Test
-    public void testPrependModification() {
+    void testPrependModification() {
         String prependValue = "Prepended";
         VariableModification<String> modifier = new StringPrependValueModification(prependValue);
         modifiableString.setModifications(modifier);
@@ -44,7 +44,7 @@ public class StringModificationTest {
     }
 
     @Test
-    public void testExplicitValueModification() {
+    void testExplicitValueModification() {
         String explicitValue = "CompletelyDifferent";
         VariableModification<String> modifier = new StringExplicitValueModification(explicitValue);
         modifiableString.setModifications(modifier);
@@ -54,7 +54,7 @@ public class StringModificationTest {
     }
 
     @Test
-    public void testAppendWithEmptyString() {
+    void testAppendWithEmptyString() {
         String appendValue = "";
         VariableModification<String> modifier = new StringAppendValueModification(appendValue);
         modifiableString.setModifications(modifier);
@@ -63,7 +63,7 @@ public class StringModificationTest {
     }
 
     @Test
-    public void testPrependWithEmptyString() {
+    void testPrependWithEmptyString() {
         String prependValue = "";
         VariableModification<String> modifier = new StringPrependValueModification(prependValue);
         modifiableString.setModifications(modifier);
@@ -72,7 +72,7 @@ public class StringModificationTest {
     }
 
     @Test
-    public void testAppendToEmptyString() {
+    void testAppendToEmptyString() {
         modifiableString.setOriginalValue("");
         String appendValue = "JustAppended";
         VariableModification<String> modifier = new StringAppendValueModification(appendValue);
@@ -82,7 +82,7 @@ public class StringModificationTest {
     }
 
     @Test
-    public void testPrependToEmptyString() {
+    void testPrependToEmptyString() {
         modifiableString.setOriginalValue("");
         String prependValue = "JustPrepended";
         VariableModification<String> modifier = new StringPrependValueModification(prependValue);
@@ -92,7 +92,7 @@ public class StringModificationTest {
     }
 
     @Test
-    public void testModifierEquality() {
+    void testModifierEquality() {
         String appendValue = "SomeValue";
         StringAppendValueModification modifier1 = new StringAppendValueModification(appendValue);
         StringAppendValueModification modifier2 = new StringAppendValueModification(appendValue);

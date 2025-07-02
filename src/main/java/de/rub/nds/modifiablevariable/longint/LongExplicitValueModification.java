@@ -7,6 +7,7 @@
  */
 package de.rub.nds.modifiablevariable.longint;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
@@ -24,6 +25,7 @@ import java.util.Objects;
 public class LongExplicitValueModification extends VariableModification<Long> {
 
     /** The explicit value that will replace the original value */
+    @JsonProperty(required = true)
     protected long explicitValue;
 
     /** Default constructor for serialization. */

@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ByteArrayAppendValueModificationTest {
+class ByteArrayAppendValueModificationTest {
 
     private ByteArrayAppendValueModification b1;
     private ByteArrayAppendValueModification b2;
@@ -20,7 +20,7 @@ public class ByteArrayAppendValueModificationTest {
     private Object b4;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         b1 = new ByteArrayAppendValueModification(new byte[] {0x01, 0x02, 0x03});
         b2 = new ByteArrayAppendValueModification(new byte[] {0x01, 0x02, 0x03});
         b3 = new ByteArrayAppendValueModification(new byte[] {0x04, 0x05, 0x06});
@@ -29,7 +29,7 @@ public class ByteArrayAppendValueModificationTest {
 
     /** Test of modifyImplementationHook method, of class ByteArrayAppendValueModification. */
     @Test
-    public void testModifyImplementationHook() {
+    void testModifyImplementationHook() {
         // Test with a normal byte array
         byte[] input = new byte[] {0x10, 0x11, 0x12};
         byte[] expected = new byte[] {0x10, 0x11, 0x12, 0x01, 0x02, 0x03}; // Input + bytesToAppend
@@ -46,7 +46,7 @@ public class ByteArrayAppendValueModificationTest {
 
     /** Test of createCopy method, of class ByteArrayAppendValueModification. */
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         ByteArrayAppendValueModification copy = b1.createCopy();
         assertNotSame(b1, copy);
         assertEquals(b1, copy);
@@ -55,7 +55,7 @@ public class ByteArrayAppendValueModificationTest {
 
     /** Test copy constructor */
     @Test
-    public void testCopyConstructor() {
+    void testCopyConstructor() {
         ByteArrayAppendValueModification copy = new ByteArrayAppendValueModification(b1);
         assertNotSame(b1, copy);
         assertEquals(b1, copy);
@@ -64,13 +64,13 @@ public class ByteArrayAppendValueModificationTest {
 
     /** Test of getBytesToAppend method, of class ByteArrayAppendValueModification. */
     @Test
-    public void testGetBytesToAppend() {
+    void testGetBytesToAppend() {
         assertArrayEquals(new byte[] {0x01, 0x02, 0x03}, b1.getBytesToAppend());
     }
 
     /** Test of setBytesToAppend method, of class ByteArrayAppendValueModification. */
     @Test
-    public void testSetBytesToAppend() {
+    void testSetBytesToAppend() {
         ByteArrayAppendValueModification mod =
                 new ByteArrayAppendValueModification(new byte[] {0x01, 0x02});
         mod.setBytesToAppend(new byte[] {0x0A, 0x0B, 0x0C});
@@ -79,7 +79,7 @@ public class ByteArrayAppendValueModificationTest {
 
     /** Test setBytesToAppend with null value */
     @Test
-    public void testSetBytesToAppendNull() {
+    void testSetBytesToAppendNull() {
         ByteArrayAppendValueModification mod =
                 new ByteArrayAppendValueModification(new byte[] {0x01, 0x02});
         assertThrows(NullPointerException.class, () -> mod.setBytesToAppend(null));
@@ -87,7 +87,7 @@ public class ByteArrayAppendValueModificationTest {
 
     /** Test constructor with null value */
     @Test
-    public void testConstructorNull() {
+    void testConstructorNull() {
         assertThrows(
                 NullPointerException.class,
                 () -> new ByteArrayAppendValueModification((byte[]) null));
@@ -95,14 +95,14 @@ public class ByteArrayAppendValueModificationTest {
 
     /** Test of hashCode method, of class ByteArrayAppendValueModification. */
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         assertEquals(b1.hashCode(), b2.hashCode()); // Same values
         assertNotEquals(b1.hashCode(), b3.hashCode()); // Different values
     }
 
     /** Test of equals method, of class ByteArrayAppendValueModification. */
     @Test
-    public void testEquals() {
+    void testEquals() {
         // Same object reference
         assertEquals(b1, b1);
 
@@ -121,7 +121,7 @@ public class ByteArrayAppendValueModificationTest {
 
     /** Test of toString method, of class ByteArrayAppendValueModification. */
     @Test
-    public void testToString() {
+    void testToString() {
         String expected = "ByteArrayAppendValueModification{bytesToAppend=01 02 03}";
         assertEquals(expected, b1.toString());
     }

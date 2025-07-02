@@ -16,14 +16,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class BooleanExplicitValueModificationTest {
+class BooleanExplicitValueModificationTest {
 
     private BooleanExplicitValueModification b1;
     private BooleanExplicitValueModification b2;
     private BooleanExplicitValueModification b3;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         b1 = new BooleanExplicitValueModification(true);
         b2 = new BooleanExplicitValueModification(false);
         b3 = new BooleanExplicitValueModification(true);
@@ -31,7 +31,7 @@ public class BooleanExplicitValueModificationTest {
 
     /** Test constructor with value */
     @Test
-    public void testConstructorWithValue() {
+    void testConstructorWithValue() {
         BooleanExplicitValueModification modification = new BooleanExplicitValueModification(true);
         assertTrue(modification.getExplicitValue());
 
@@ -42,7 +42,7 @@ public class BooleanExplicitValueModificationTest {
 
     /** Test copy constructor */
     @Test
-    public void testCopyConstructor() {
+    void testCopyConstructor() {
         BooleanExplicitValueModification original = new BooleanExplicitValueModification(true);
         BooleanExplicitValueModification copy = new BooleanExplicitValueModification(original);
 
@@ -53,34 +53,34 @@ public class BooleanExplicitValueModificationTest {
 
     /** Test of modifyImplementationHook method, of class BooleanExplicitValueModification. */
     @Test
-    public void testModifyImplementationHook() {
+    void testModifyImplementationHook() {
         assertTrue(b1.modifyImplementationHook(true));
         assertTrue(b1.modifyImplementationHook(false));
     }
 
     /** Test of modifyImplementationHook method with null input. */
     @Test
-    public void testModifyImplementationHookNullInput() {
+    void testModifyImplementationHookNullInput() {
         assertNull(b1.modifyImplementationHook(null));
     }
 
     /** Test of getExplicitValue method, of class BooleanExplicitValueModification. */
     @Test
-    public void testGetExplicitValue() {
+    void testGetExplicitValue() {
         assertTrue(b1.getExplicitValue());
         assertFalse(b2.getExplicitValue());
     }
 
     /** Test of setExplicitValue method, of class BooleanExplicitValueModification. */
     @Test
-    public void testSetExplicitValue() {
+    void testSetExplicitValue() {
         b2.setExplicitValue(true);
         assertTrue(b2.getExplicitValue());
     }
 
     /** Test of createCopy method */
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         BooleanExplicitValueModification copy = b1.createCopy();
 
         assertEquals(b1.getExplicitValue(), copy.getExplicitValue());
@@ -90,21 +90,21 @@ public class BooleanExplicitValueModificationTest {
 
     /** Test of hashCode method, of class BooleanExplicitValueModification. */
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         assertEquals(b3.hashCode(), b1.hashCode());
         assertNotEquals(b1.hashCode(), b2.hashCode());
     }
 
     /** Test of equals method with equal objects */
     @Test
-    public void testEqualsTrue() {
+    void testEqualsTrue() {
         assertEquals(b1, b3);
         assertEquals(b1, b1); // Same object
     }
 
     /** Test of equals method with unequal objects */
     @Test
-    public void testEqualsFalse() {
+    void testEqualsFalse() {
         assertNotEquals(b1, b2);
         assertNotEquals(b1, null);
         assertNotEquals(b1, new Object());
@@ -112,7 +112,7 @@ public class BooleanExplicitValueModificationTest {
 
     /** Test of toString method, of class BooleanExplicitValueModification. */
     @Test
-    public void testToString() {
+    void testToString() {
         String expected1 = "BooleanExplicitValueModification{explicitValue=true}";
         String expected2 = "BooleanExplicitValueModification{explicitValue=false}";
 

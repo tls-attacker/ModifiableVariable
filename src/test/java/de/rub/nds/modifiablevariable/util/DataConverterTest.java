@@ -21,11 +21,11 @@ import java.util.List;
 import java.util.Random;
 import org.junit.jupiter.api.Test;
 
-public class DataConverterTest {
+class DataConverterTest {
 
     /** Test of longToUint64Bytes method, of class DataConverter. */
     @Test
-    public void testLongToUint64Bytes() {
+    void testLongToUint64Bytes() {
         long testValue = 0x0123456789ABCDEFL;
         byte[] result = DataConverter.longToUint64Bytes(testValue);
         byte[] expected = {
@@ -52,7 +52,7 @@ public class DataConverterTest {
 
     /** Test of longToUint32Bytes method, of class DataConverter. */
     @Test
-    public void testLongToUint32Bytes() {
+    void testLongToUint32Bytes() {
         long testValue = 0x89ABCDEFL;
         byte[] result = DataConverter.longToUint32Bytes(testValue);
         byte[] expected = {(byte) 0x89, (byte) 0xAB, (byte) 0xCD, (byte) 0xEF};
@@ -84,7 +84,7 @@ public class DataConverterTest {
 
     /** Test of intToBytes method, of class DataConverter. */
     @Test
-    public void testIntToBytes() {
+    void testIntToBytes() {
         int toParse = 5717;
         byte[] result = DataConverter.intToBytes(toParse, 2);
         assertArrayEquals(
@@ -106,7 +106,7 @@ public class DataConverterTest {
     }
 
     @Test
-    public void testIntToBytesOverflow() {
+    void testIntToBytesOverflow() {
         int toParse = 5717;
         byte[] result = DataConverter.intToBytes(toParse, 5);
         assertArrayEquals(
@@ -117,7 +117,7 @@ public class DataConverterTest {
 
     /** Test of intToBytes method, of class DataConverter. */
     @Test
-    public void testLongToBytes() {
+    void testLongToBytes() {
         long toParse = 5717;
         byte[] result = DataConverter.longToBytes(toParse, 2);
         assertArrayEquals(
@@ -127,7 +127,7 @@ public class DataConverterTest {
     }
 
     @Test
-    public void testLongToBytesOverflow() {
+    void testLongToBytesOverflow() {
         int toParse = 5717;
         byte[] result = DataConverter.longToBytes(toParse, 10);
         assertArrayEquals(
@@ -139,7 +139,7 @@ public class DataConverterTest {
 
     /** Test longToBytes with invalid size parameter (less than 1). */
     @Test
-    public void testLongToBytesWithInvalidSize() {
+    void testLongToBytesWithInvalidSize() {
         int value = 42;
         // Test with size 0
         assertThrows(
@@ -156,7 +156,7 @@ public class DataConverterTest {
 
     /** Test of bytesToInt method, of class DataConverter. */
     @Test
-    public void testBytesToInt() {
+    void testBytesToInt() {
         byte[] toParse = {0x16, 0x55};
         int expectedResult = 5717;
         assertEquals(
@@ -195,7 +195,7 @@ public class DataConverterTest {
     }
 
     @Test
-    public void testModifiableVariableToHexString() {
+    void testModifiableVariableToHexString() {
         assertThrows(
                 IllegalArgumentException.class,
                 () -> DataConverter.bytesToHexString((ModifiableByteArray) null),
@@ -203,7 +203,7 @@ public class DataConverterTest {
     }
 
     @Test
-    public void testConcatatenateGenericArray() {
+    void testConcatatenateGenericArray() {
         assertThrows(
                 IllegalArgumentException.class,
                 () -> DataConverter.concatenate(new Object[][] {}),
@@ -212,7 +212,7 @@ public class DataConverterTest {
 
     /** Test of bytesToLong method, of class DataConverter. */
     @Test
-    public void testBytesToLong() {
+    void testBytesToLong() {
         byte[] toParse = {
             0x01, 0x23, 0x45, 0x67, (byte) 0x89, (byte) 0xAB, (byte) 0xCD, (byte) 0xEF
         };
@@ -264,7 +264,7 @@ public class DataConverterTest {
 
     /** Test of bytesToHexString method, of class DataConverter. */
     @Test
-    public void testBytesToHexString_byteArr() {
+    void testBytesToHexString_byteArr() {
         byte[] toTest = {0x00, 0x11, 0x22, 0x33, 0x44};
         assertEquals("00 11 22 33 44", DataConverter.bytesToHexString(toTest));
         toTest = new byte[] {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
@@ -304,7 +304,7 @@ public class DataConverterTest {
 
     /** Test of bytesToHexString method, of class DataConverter. */
     @Test
-    public void testBytesToHexString_byteArr_boolean() {
+    void testBytesToHexString_byteArr_boolean() {
         byte[] toTest = {
             0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04,
             0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01,
@@ -326,7 +326,7 @@ public class DataConverterTest {
 
     /** Test of bytesToHexString method, of class DataConverter. */
     @Test
-    public void testBytesToHexString_3args() {
+    void testBytesToHexString_3args() {
         byte[] toTest = {
             0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D,
             0x0E, 0x0F
@@ -378,7 +378,7 @@ public class DataConverterTest {
 
     /** Test DataConverter.bytesToRawHexString(). */
     @Test
-    public void testBytesToRawHexString() {
+    void testBytesToRawHexString() {
         byte[] toTest = {
             0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04,
             0x05, 0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x00, 0x01,
@@ -403,7 +403,7 @@ public class DataConverterTest {
 
     /** Test of concatenate method, of class DataConverter. */
     @Test
-    public void testConcatenate_GenericType() {
+    void testConcatenate_GenericType() {
         String[] array1 = {"a", "b", "c"};
         String[] array2 = {"d", "e", "f"};
         String[] array3 = {"g", "h"};
@@ -449,7 +449,7 @@ public class DataConverterTest {
 
     /** Test of concatenate method, of class DataConverter. */
     @Test
-    public void testConcatenate_byteArrArr() {
+    void testConcatenate_byteArrArr() {
         byte[] array1 = {0x01, 0x02, 0x03};
         byte[] array2 = {0x04, 0x05, 0x06};
         byte[] array3 = {0x07, 0x08};
@@ -547,7 +547,7 @@ public class DataConverterTest {
 
     /** Test of makeArrayNonZero method, of class DataConverter. */
     @Test
-    public void testMakeArrayNonZero() {
+    void testMakeArrayNonZero() {
         // Test with array containing zeros
         byte[] testArray = {0x00, 0x01, 0x00, 0x02, 0x00, 0x03, 0x00};
         byte[] expectedArray = {0x01, 0x01, 0x01, 0x02, 0x01, 0x03, 0x01};
@@ -587,7 +587,7 @@ public class DataConverterTest {
 
     /** Test of bigIntegerToByteArray method, of class DataConverter. */
     @Test
-    public void testBigIntegerToByteArray_3args() {
+    void testBigIntegerToByteArray_3args() {
         // Test with expected length and remove sign byte
         BigInteger testValue = new BigInteger("ABCDEF1234567890", 16);
 
@@ -636,7 +636,7 @@ public class DataConverterTest {
 
     /** Test of bigIntegerToByteArray method, of class DataConverter. */
     @Test
-    public void testBigIntegerToByteArray_BigInteger() {
+    void testBigIntegerToByteArray_BigInteger() {
         // Test with simple positive value
         BigInteger testValue = new BigInteger("ABCDEF1234567890", 16);
         byte[] expected = DataConverter.hexStringToByteArray("ABCDEF1234567890");
@@ -666,7 +666,7 @@ public class DataConverterTest {
 
     /** Test of convertListToArray method, of class DataConverter. */
     @Test
-    public void testConvertListToArray() {
+    void testConvertListToArray() {
         List<BigInteger> testList = new ArrayList<>();
         testList.add(BigInteger.valueOf(1));
         testList.add(BigInteger.valueOf(2));
@@ -711,7 +711,7 @@ public class DataConverterTest {
 
     /** Test of hexStringToByteArray method, of class DataConverter. */
     @Test
-    public void testHexStringToByteArray() {
+    void testHexStringToByteArray() {
         String hex = "01";
         assertArrayEquals(
                 new byte[] {0x01},
@@ -742,7 +742,7 @@ public class DataConverterTest {
     }
 
     @Test
-    public void testBigIntegerToNullPaddedByteArray() {
+    void testBigIntegerToNullPaddedByteArray() {
         BigInteger test = new BigInteger("1D42C86F7923DFEC", 16);
 
         assertArrayEquals(
@@ -766,7 +766,7 @@ public class DataConverterTest {
     }
 
     @Test
-    public void testLongToUint48Bytes() {
+    void testLongToUint48Bytes() {
         long testValue = 0x0000123456789ABCL;
         byte[] expectedResult = DataConverter.hexStringToByteArray("123456789ABC");
 
@@ -789,7 +789,7 @@ public class DataConverterTest {
      * methods should be visible in the other tests since the methods just pass the .getValue().
      */
     @Test
-    public void testBytesToHexString_ModifiableByteArray() {
+    void testBytesToHexString_ModifiableByteArray() {
         ModifiableByteArray toTest = new ModifiableByteArray();
         toTest =
                 ModifiableVariableFactory.safelySetValue(
@@ -843,7 +843,7 @@ public class DataConverterTest {
      * DataConverter.
      */
     @Test
-    public void testBytesToHexString_ModifiableByteArray_3args() {
+    void testBytesToHexString_ModifiableByteArray_3args() {
         ModifiableByteArray toTest = new ModifiableByteArray();
         toTest =
                 ModifiableVariableFactory.safelySetValue(
@@ -909,7 +909,7 @@ public class DataConverterTest {
      * DataConverter.
      */
     @Test
-    public void testBytesToHexString_ModifiableByteArray_boolean() {
+    void testBytesToHexString_ModifiableByteArray_boolean() {
         ModifiableByteArray toTest = new ModifiableByteArray();
 
         // Test a short array (5 bytes) with pretty printing disabled
@@ -971,7 +971,7 @@ public class DataConverterTest {
     }
 
     @Test
-    public void testModifiableByteArrayWithNullValue() {
+    void testModifiableByteArrayWithNullValue() {
         // Create a ModifiableByteArray with a null value
         ModifiableByteArray mba = new ModifiableByteArray();
 
@@ -996,7 +996,7 @@ public class DataConverterTest {
 
     /** Test of reverseByteOrder method, of class DataConverter. */
     @Test
-    public void testReverseByteOrder() {
+    void testReverseByteOrder() {
         byte[] array = {0x00, 0x01, 0x02, 0x03, 0x04};
 
         assertArrayEquals(
@@ -1018,7 +1018,7 @@ public class DataConverterTest {
     }
 
     @Test
-    public void testBigIntegerReconversion() {
+    void testBigIntegerReconversion() {
         Random r = new Random(0);
         for (int i = 0; i < 10000; i++) {
             BigInteger b = new BigInteger(1024 + r.nextInt(1000), r);
@@ -1029,14 +1029,14 @@ public class DataConverterTest {
     }
 
     @Test
-    public void testBigIntegerToByteArrayWithZero() {
+    void testBigIntegerToByteArrayWithZero() {
         // Test with BigInteger.ZERO
         byte[] result = DataConverter.bigIntegerToByteArray(BigInteger.ZERO);
         assertArrayEquals(new byte[0], result, "BigInteger.ZERO should convert to new byte[0]");
     }
 
     @Test
-    public void testByteToUnsignedInt() {
+    void testByteToUnsignedInt() {
         // Test with positive byte values (0-127)
         assertEquals(
                 0,
@@ -1067,7 +1067,7 @@ public class DataConverterTest {
     }
 
     @Test
-    public void testUInt64BytesToLong() {
+    void testUInt64BytesToLong() {
         // Test with normal values
         byte[] testBytes = {
             0x01, 0x23, 0x45, 0x67, (byte) 0x89, (byte) 0xAB, (byte) 0xCD, (byte) 0xEF
@@ -1112,7 +1112,7 @@ public class DataConverterTest {
     }
 
     @Test
-    public void testUInt32BytesToLong() {
+    void testUInt32BytesToLong() {
         // Test with normal values
         byte[] testBytes = {(byte) 0x89, (byte) 0xAB, (byte) 0xCD, (byte) 0xEF};
         long expected = 0x89ABCDEFL;
@@ -1163,7 +1163,7 @@ public class DataConverterTest {
     }
 
     @Test
-    public void testIntegerReconversion() {
+    void testIntegerReconversion() {
         Random r = new Random(0);
         for (int i = 0; i < 10000; i++) {
             Integer b = r.nextInt();
@@ -1173,9 +1173,80 @@ public class DataConverterTest {
         }
     }
 
+    @Test
+    void testIntToBytesWithNegativeValues() {
+        // Test negative int values to ensure unsigned right shift is handled correctly
+        int negativeValue = -1;
+        byte[] result = DataConverter.intToBytes(negativeValue, 4);
+        assertArrayEquals(
+                new byte[] {(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
+                result,
+                "Negative -1 should produce all FF bytes");
+
+        // Test another negative value
+        negativeValue = -256; // 0xFFFFFF00
+        result = DataConverter.intToBytes(negativeValue, 4);
+        assertArrayEquals(
+                new byte[] {(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0x00},
+                result,
+                "Negative -256 should produce correct bytes");
+
+        // Test with size larger than int
+        negativeValue = -1;
+        result = DataConverter.intToBytes(negativeValue, 6);
+        assertArrayEquals(
+                new byte[] {0x00, 0x00, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF},
+                result,
+                "Negative -1 with size 6 should be padded with zeros");
+    }
+
+    @Test
+    void testLongToBytesWithNegativeValues() {
+        // Test negative long values to ensure unsigned right shift is handled correctly
+        long negativeValue = -1L;
+        byte[] result = DataConverter.longToBytes(negativeValue, 8);
+        assertArrayEquals(
+                new byte[] {
+                    (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+                    (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF
+                },
+                result,
+                "Negative -1L should produce all FF bytes");
+
+        // Test another negative value
+        negativeValue = -256L; // 0xFFFFFFFFFFFFFF00
+        result = DataConverter.longToBytes(negativeValue, 8);
+        assertArrayEquals(
+                new byte[] {
+                    (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+                    (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0x00
+                },
+                result,
+                "Negative -256L should produce correct bytes");
+
+        // Test with size larger than long
+        negativeValue = -1L;
+        result = DataConverter.longToBytes(negativeValue, 10);
+        assertArrayEquals(
+                new byte[] {
+                    0x00,
+                    0x00,
+                    (byte) 0xFF,
+                    (byte) 0xFF,
+                    (byte) 0xFF,
+                    (byte) 0xFF,
+                    (byte) 0xFF,
+                    (byte) 0xFF,
+                    (byte) 0xFF,
+                    (byte) 0xFF
+                },
+                result,
+                "Negative -1L with size 10 should be padded with zeros");
+    }
+
     /** Test of indexOf method, of class DataConverter. */
     @Test
-    public void testIndexOf() {
+    void testIndexOf() {
         byte[] outerArray = DataConverter.hexStringToByteArray("AABBCCDDAABBCCDD");
         byte[] innerArray1 = DataConverter.hexStringToByteArray("BBCCDD");
         byte[] innerArray2 = DataConverter.hexStringToByteArray("BBCCDDEE");

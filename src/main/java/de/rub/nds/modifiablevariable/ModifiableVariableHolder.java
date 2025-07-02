@@ -7,7 +7,7 @@
  */
 package de.rub.nds.modifiablevariable;
 
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import de.rub.nds.modifiablevariable.util.ReflectionHelper;
 import jakarta.xml.bind.annotation.XmlType;
 import java.io.Serializable;
@@ -194,7 +194,7 @@ public abstract class ModifiableVariableHolder implements Serializable {
                     stringBuilder.append("\t".repeat(Math.max(0, depth)));
                     stringBuilder.append(field.getName());
                     stringBuilder.append(": ");
-                    stringBuilder.append(ArrayConverter.bytesToHexString(temp));
+                    stringBuilder.append(DataConverter.bytesToHexString(temp));
                     stringBuilder.append("\n");
                 }
                 if (tempObject instanceof ModifiableVariableHolder) {

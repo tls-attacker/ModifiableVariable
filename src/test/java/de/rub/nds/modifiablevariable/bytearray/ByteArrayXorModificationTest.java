@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ByteArrayXorModificationTest {
+class ByteArrayXorModificationTest {
 
     private ByteArrayXorModification b1;
     private ByteArrayXorModification b2;
@@ -21,7 +21,7 @@ public class ByteArrayXorModificationTest {
     private Object b5;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         b1 = new ByteArrayXorModification(new byte[] {0x01, 0x02, 0x03}, 0);
         b2 = new ByteArrayXorModification(new byte[] {0x01, 0x02, 0x03}, 0);
         b3 = new ByteArrayXorModification(new byte[] {0x01, 0x02, 0x03}, 1);
@@ -31,7 +31,7 @@ public class ByteArrayXorModificationTest {
 
     /** Test of modifyImplementationHook method, of class ByteArrayXorModification. */
     @Test
-    public void testModifyImplementationHook() {
+    void testModifyImplementationHook() {
         // Test with a normal byte array
         byte[] input = new byte[] {0x10, 0x11, 0x12, 0x13};
         byte[] expected =
@@ -66,7 +66,7 @@ public class ByteArrayXorModificationTest {
 
     /** Test of createCopy method, of class ByteArrayXorModification. */
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         ByteArrayXorModification copy = b1.createCopy();
         assertNotSame(b1, copy);
         assertEquals(b1, copy);
@@ -76,13 +76,13 @@ public class ByteArrayXorModificationTest {
 
     /** Test of getXor method, of class ByteArrayXorModification. */
     @Test
-    public void testGetXor() {
+    void testGetXor() {
         assertArrayEquals(new byte[] {0x01, 0x02, 0x03}, b1.getXor());
     }
 
     /** Test of setXor method, of class ByteArrayXorModification. */
     @Test
-    public void testSetXor() {
+    void testSetXor() {
         ByteArrayXorModification mod = new ByteArrayXorModification(new byte[] {0x01, 0x02}, 0);
         mod.setXor(new byte[] {0x0A, 0x0B});
         assertArrayEquals(new byte[] {0x0A, 0x0B}, mod.getXor());
@@ -90,14 +90,14 @@ public class ByteArrayXorModificationTest {
 
     /** Test of getStartPosition method, of class ByteArrayXorModification. */
     @Test
-    public void testGetStartPosition() {
+    void testGetStartPosition() {
         assertEquals(0, b1.getStartPosition());
         assertEquals(1, b3.getStartPosition());
     }
 
     /** Test of setStartPosition method, of class ByteArrayXorModification. */
     @Test
-    public void testSetStartPosition() {
+    void testSetStartPosition() {
         ByteArrayXorModification mod = new ByteArrayXorModification(new byte[] {0x01, 0x02}, 0);
         mod.setStartPosition(5);
         assertEquals(5, mod.getStartPosition());
@@ -105,7 +105,7 @@ public class ByteArrayXorModificationTest {
 
     /** Test of hashCode method, of class ByteArrayXorModification. */
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         assertEquals(b1.hashCode(), b2.hashCode());
         assertNotEquals(b1.hashCode(), b3.hashCode());
         assertNotEquals(b1.hashCode(), b4.hashCode());
@@ -113,7 +113,7 @@ public class ByteArrayXorModificationTest {
 
     /** Test of equals method, of class ByteArrayXorModification. */
     @Test
-    public void testEquals() {
+    void testEquals() {
         // Same object reference
         assertEquals(b1, b1);
 
@@ -135,7 +135,7 @@ public class ByteArrayXorModificationTest {
 
     /** Test of toString method, of class ByteArrayXorModification. */
     @Test
-    public void testToString() {
+    void testToString() {
         String expected = "ByteArrayXorModification{xor=01 02 03, startPosition=0}";
         assertEquals(expected, b1.toString());
 

@@ -15,20 +15,20 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class IntegerXorModificationTest {
+class IntegerXorModificationTest {
 
     private ModifiableInteger modifiableInteger;
     private int originalValue;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         modifiableInteger = new ModifiableInteger();
         originalValue = 123; // 01111011 in binary
         modifiableInteger.setOriginalValue(originalValue);
     }
 
     @Test
-    public void testXorModification() {
+    void testXorModification() {
         int xor = 42; // 00101010 in binary
         IntegerXorModification modification = new IntegerXorModification(xor);
         modifiableInteger.setModifications(modification);
@@ -41,7 +41,7 @@ public class IntegerXorModificationTest {
     }
 
     @Test
-    public void testXorZero() {
+    void testXorZero() {
         int xor = 0;
         IntegerXorModification modification = new IntegerXorModification(xor);
         modifiableInteger.setModifications(modification);
@@ -53,7 +53,7 @@ public class IntegerXorModificationTest {
     }
 
     @Test
-    public void testXorSelf() {
+    void testXorSelf() {
         int xor = originalValue;
         IntegerXorModification modification = new IntegerXorModification(xor);
         modifiableInteger.setModifications(modification);
@@ -65,7 +65,7 @@ public class IntegerXorModificationTest {
     }
 
     @Test
-    public void testXorAllBitsSet() {
+    void testXorAllBitsSet() {
         int xor = -1; // All bits set to 1
         IntegerXorModification modification = new IntegerXorModification(xor);
         modifiableInteger.setModifications(modification);
@@ -77,7 +77,7 @@ public class IntegerXorModificationTest {
     }
 
     @Test
-    public void testXorIdempotent() {
+    void testXorIdempotent() {
         int xor = 42;
         IntegerXorModification modification1 = new IntegerXorModification(xor);
         IntegerXorModification modification2 = new IntegerXorModification(xor);
@@ -91,7 +91,7 @@ public class IntegerXorModificationTest {
     }
 
     @Test
-    public void testXorWithNullInput() {
+    void testXorWithNullInput() {
         modifiableInteger.setOriginalValue(null);
 
         int xor = 42;
@@ -101,7 +101,7 @@ public class IntegerXorModificationTest {
     }
 
     @Test
-    public void testXorMinValue() {
+    void testXorMinValue() {
         modifiableInteger.setOriginalValue(Integer.MIN_VALUE);
 
         int xor = 1; // Flip the sign bit
@@ -115,7 +115,7 @@ public class IntegerXorModificationTest {
     }
 
     @Test
-    public void testXorMaxValue() {
+    void testXorMaxValue() {
         modifiableInteger.setOriginalValue(Integer.MAX_VALUE);
 
         int xor = 1;
@@ -129,7 +129,7 @@ public class IntegerXorModificationTest {
     }
 
     @Test
-    public void testGetXor() {
+    void testGetXor() {
         int xor = 42;
         IntegerXorModification modification = new IntegerXorModification(xor);
 
@@ -137,7 +137,7 @@ public class IntegerXorModificationTest {
     }
 
     @Test
-    public void testSetXor() {
+    void testSetXor() {
         IntegerXorModification modification = new IntegerXorModification(10);
 
         int newXor = 42;
@@ -147,7 +147,7 @@ public class IntegerXorModificationTest {
     }
 
     @Test
-    public void testCopyConstructor() {
+    void testCopyConstructor() {
         int xor = 42;
         IntegerXorModification original = new IntegerXorModification(xor);
         IntegerXorModification copy = new IntegerXorModification(original);
@@ -156,7 +156,7 @@ public class IntegerXorModificationTest {
     }
 
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         int xor = 42;
         IntegerXorModification original = new IntegerXorModification(xor);
         IntegerXorModification copy = original.createCopy();
@@ -167,7 +167,7 @@ public class IntegerXorModificationTest {
     }
 
     @Test
-    public void testEqualsAndHashCode() {
+    void testEqualsAndHashCode() {
         int xor1 = 42;
         int xor2 = 42;
         int xor3 = 100;
@@ -200,7 +200,7 @@ public class IntegerXorModificationTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         int xor = 42;
         IntegerXorModification modification = new IntegerXorModification(xor);
         String toString = modification.toString();
