@@ -5,60 +5,49 @@
  *
  * Licensed under Apache License 2.0 http://www.apache.org/licenses/LICENSE-2.0
  */
-package de.rub.nds.modifiablevariable.length;
+package de.rub.nds.modifiablevariable.json;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.rub.nds.modifiablevariable.bytearray.ModifiableByteArray;
 import de.rub.nds.modifiablevariable.integer.IntegerAddModification;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Marshaller;
-import jakarta.xml.bind.Unmarshaller;
-import java.io.StringReader;
-import java.io.StringWriter;
+import de.rub.nds.modifiablevariable.length.ModifiableLengthField;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ModifiableLengthFieldSerializationTest {
+public class LengthFieldSerializationTest {
 
-    private static final Logger LOGGER =
-            LogManager.getLogger(ModifiableLengthFieldSerializationTest.class);
+    private static final Logger LOGGER = LogManager.getLogger();
+    private static ObjectMapper mapper;
 
     private ModifiableLengthField lengthField;
     private ModifiableByteArray byteArray;
-    private JAXBContext context;
-    private Marshaller marshaller;
-    private Unmarshaller unmarshaller;
+
+    @BeforeAll
+    public static void setUpClass() {
+        mapper = new ObjectMapper();
+        mapper.registerModule(new ModifiableVariableModule());
+        mapper.setVisibility(ModifiableVariableModule.getFieldVisibilityChecker());
+    }
 
     @BeforeEach
-    public void setUp() throws JAXBException {
+    public void setUp() {
         byteArray = new ModifiableByteArray();
         byteArray.setOriginalValue(new byte[] {1, 2, 3, 4, 5});
         lengthField = new ModifiableLengthField(byteArray);
-
-        context =
-                JAXBContext.newInstance(
-                        ModifiableLengthField.class,
-                        ModifiableByteArray.class,
-                        IntegerAddModification.class);
-        marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        unmarshaller = context.createUnmarshaller();
     }
 
     @Test
     public void testSerializeDeserializeSimple() throws Exception {
-        StringWriter writer = new StringWriter();
-        marshaller.marshal(lengthField, writer);
-
-        String xmlString = writer.toString();
-        LOGGER.debug("Serialized XML: {}", xmlString);
+        String jsonString = mapper.writeValueAsString(lengthField);
+        LOGGER.debug("Serialized JSON: {}", jsonString);
 
         ModifiableLengthField deserialized =
-                (ModifiableLengthField) unmarshaller.unmarshal(new StringReader(xmlString));
+                mapper.readValue(jsonString, ModifiableLengthField.class);
 
         assertNotNull(deserialized);
         assertEquals(5, (int) deserialized.getOriginalValue());
@@ -70,14 +59,11 @@ public class ModifiableLengthFieldSerializationTest {
         lengthField.setModifications(new IntegerAddModification(10));
         assertEquals(15, (int) lengthField.getValue());
 
-        StringWriter writer = new StringWriter();
-        marshaller.marshal(lengthField, writer);
-
-        String xmlString = writer.toString();
-        LOGGER.debug("Serialized XML with modification: {}", xmlString);
+        String jsonString = mapper.writeValueAsString(lengthField);
+        LOGGER.debug("Serialized JSON with modification: {}", jsonString);
 
         ModifiableLengthField deserialized =
-                (ModifiableLengthField) unmarshaller.unmarshal(new StringReader(xmlString));
+                mapper.readValue(jsonString, ModifiableLengthField.class);
 
         assertNotNull(deserialized);
         assertEquals(5, (int) deserialized.getOriginalValue());
@@ -90,14 +76,11 @@ public class ModifiableLengthFieldSerializationTest {
         assertNull(lengthField.getOriginalValue());
         assertNull(lengthField.getValue());
 
-        StringWriter writer = new StringWriter();
-        marshaller.marshal(lengthField, writer);
-
-        String xmlString = writer.toString();
-        LOGGER.debug("Serialized XML with null byte array: {}", xmlString);
+        String jsonString = mapper.writeValueAsString(lengthField);
+        LOGGER.debug("Serialized JSON with null byte array: {}", jsonString);
 
         ModifiableLengthField deserialized =
-                (ModifiableLengthField) unmarshaller.unmarshal(new StringReader(xmlString));
+                mapper.readValue(jsonString, ModifiableLengthField.class);
 
         assertNotNull(deserialized);
         assertNull(deserialized.getOriginalValue());
@@ -108,12 +91,9 @@ public class ModifiableLengthFieldSerializationTest {
     public void testSerializedFieldReferencesArePreserved() throws Exception {
         lengthField.setModifications(new IntegerAddModification(3));
 
-        StringWriter writer = new StringWriter();
-        marshaller.marshal(lengthField, writer);
-        String xmlString = writer.toString();
-
+        String jsonString = mapper.writeValueAsString(lengthField);
         ModifiableLengthField deserialized =
-                (ModifiableLengthField) unmarshaller.unmarshal(new StringReader(xmlString));
+                mapper.readValue(jsonString, ModifiableLengthField.class);
 
         byteArray.setOriginalValue(new byte[] {1, 2});
         assertEquals(2, (int) lengthField.getOriginalValue());
