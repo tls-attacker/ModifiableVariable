@@ -7,6 +7,7 @@
  */
 package de.rub.nds.modifiablevariable.longint;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
@@ -24,6 +25,7 @@ import java.util.Objects;
 public class LongSubtractModification extends VariableModification<Long> {
 
     /** The value to subtract from the original long */
+    @JsonProperty(required = true)
     private long subtrahend;
 
     /** Default constructor for serialization. */

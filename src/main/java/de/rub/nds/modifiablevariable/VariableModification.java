@@ -10,7 +10,7 @@ package de.rub.nds.modifiablevariable;
 import static de.rub.nds.modifiablevariable.util.StringUtil.backslashEscapeString;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlTransient;
@@ -46,7 +46,10 @@ import org.apache.logging.log4j.Logger;
  */
 @XmlTransient
 @XmlAccessorType(XmlAccessType.FIELD)
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.SIMPLE_NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "@type")
 public abstract class VariableModification<E> implements Serializable {
 
     /** Logger for debugging modification applications */
@@ -137,7 +140,7 @@ public abstract class VariableModification<E> implements Serializable {
             } else {
                 String valueString =
                         switch (value) {
-                            case byte[] bytes -> ArrayConverter.bytesToHexString(bytes);
+                            case byte[] bytes -> DataConverter.bytesToHexString(bytes);
                             case String s -> backslashEscapeString(s);
                             default -> value.toString();
                         };

@@ -12,21 +12,21 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class StringAppendValueModificationTest {
+class StringAppendValueModificationTest {
 
     private ModifiableString modifiableString;
     private final String originalString = "testString";
     private final String appendValue = "APPEND";
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         modifiableString = new ModifiableString();
         modifiableString.setOriginalValue(originalString);
     }
 
     /** Test basic append functionality */
     @Test
-    public void testBasicAppend() {
+    void testBasicAppend() {
         StringAppendValueModification modifier = new StringAppendValueModification(appendValue);
         modifiableString.setModifications(modifier);
         assertEquals(originalString + appendValue, modifiableString.getValue());
@@ -35,7 +35,7 @@ public class StringAppendValueModificationTest {
 
     /** Test append with empty string */
     @Test
-    public void testAppendEmptyString() {
+    void testAppendEmptyString() {
         StringAppendValueModification modifier = new StringAppendValueModification("");
         modifiableString.setModifications(modifier);
         assertEquals(originalString, modifiableString.getValue());
@@ -43,7 +43,7 @@ public class StringAppendValueModificationTest {
 
     /** Test append to empty string */
     @Test
-    public void testAppendToEmptyString() {
+    void testAppendToEmptyString() {
         ModifiableString emptyString = new ModifiableString();
         emptyString.setOriginalValue("");
 
@@ -55,7 +55,7 @@ public class StringAppendValueModificationTest {
 
     /** Test append to null string */
     @Test
-    public void testAppendToNullString() {
+    void testAppendToNullString() {
         ModifiableString nullString = new ModifiableString();
         nullString.setOriginalValue(null);
 
@@ -67,7 +67,7 @@ public class StringAppendValueModificationTest {
 
     /** Test that null append value is not allowed */
     @Test
-    public void testNullAppendValue() {
+    void testNullAppendValue() {
         assertThrows(
                 NullPointerException.class,
                 () -> {
@@ -78,7 +78,7 @@ public class StringAppendValueModificationTest {
 
     /** Test the getter and setter for appendValue */
     @Test
-    public void testAppendValueGetterAndSetter() {
+    void testAppendValueGetterAndSetter() {
         StringAppendValueModification modifier = new StringAppendValueModification("initial");
         assertEquals("initial", modifier.getAppendValue());
 
@@ -95,7 +95,7 @@ public class StringAppendValueModificationTest {
 
     /** Test append with special characters */
     @Test
-    public void testAppendWithSpecialCharacters() {
+    void testAppendWithSpecialCharacters() {
         String specialChars = "@#$%^&*()";
         StringAppendValueModification modifier = new StringAppendValueModification(specialChars);
         modifiableString.setModifications(modifier);
@@ -104,7 +104,7 @@ public class StringAppendValueModificationTest {
 
     /** Test the equals method */
     @Test
-    public void testEqualsMethod() {
+    void testEqualsMethod() {
         StringAppendValueModification mod1 = new StringAppendValueModification("value");
         StringAppendValueModification mod2 = new StringAppendValueModification("value");
         StringAppendValueModification mod3 = new StringAppendValueModification("different");
@@ -125,7 +125,7 @@ public class StringAppendValueModificationTest {
 
     /** Test the hashCode method */
     @Test
-    public void testHashCodeMethod() {
+    void testHashCodeMethod() {
         StringAppendValueModification mod1 = new StringAppendValueModification("value");
         StringAppendValueModification mod2 = new StringAppendValueModification("value");
 
@@ -139,7 +139,7 @@ public class StringAppendValueModificationTest {
 
     /** Test the toString method */
     @Test
-    public void testToStringMethod() {
+    void testToStringMethod() {
         StringAppendValueModification modifier = new StringAppendValueModification("test");
         String toString = modifier.toString();
 
@@ -149,7 +149,7 @@ public class StringAppendValueModificationTest {
 
     /** Test the copy constructor */
     @Test
-    public void testCopyConstructor() {
+    void testCopyConstructor() {
         StringAppendValueModification original = new StringAppendValueModification("original");
         StringAppendValueModification copy = new StringAppendValueModification(original);
 
@@ -164,7 +164,7 @@ public class StringAppendValueModificationTest {
 
     /** Test the createCopy method */
     @Test
-    public void testCreateCopyMethod() {
+    void testCreateCopyMethod() {
         StringAppendValueModification original = new StringAppendValueModification("original");
         StringAppendValueModification copy = original.createCopy();
 

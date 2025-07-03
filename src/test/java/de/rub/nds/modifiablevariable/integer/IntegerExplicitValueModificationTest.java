@@ -15,20 +15,20 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class IntegerExplicitValueModificationTest {
+class IntegerExplicitValueModificationTest {
 
     private ModifiableInteger modifiableInteger;
     private int originalValue;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         modifiableInteger = new ModifiableInteger();
         originalValue = 123;
         modifiableInteger.setOriginalValue(originalValue);
     }
 
     @Test
-    public void testExplicitValueModification() {
+    void testExplicitValueModification() {
         int explicitValue = 999;
         IntegerExplicitValueModification modification =
                 new IntegerExplicitValueModification(explicitValue);
@@ -41,7 +41,7 @@ public class IntegerExplicitValueModificationTest {
     }
 
     @Test
-    public void testExplicitValueZero() {
+    void testExplicitValueZero() {
         int explicitValue = 0;
         IntegerExplicitValueModification modification =
                 new IntegerExplicitValueModification(explicitValue);
@@ -54,7 +54,7 @@ public class IntegerExplicitValueModificationTest {
     }
 
     @Test
-    public void testExplicitValueNegative() {
+    void testExplicitValueNegative() {
         int explicitValue = -500;
         IntegerExplicitValueModification modification =
                 new IntegerExplicitValueModification(explicitValue);
@@ -67,7 +67,7 @@ public class IntegerExplicitValueModificationTest {
     }
 
     @Test
-    public void testExplicitValueWithNullInput() {
+    void testExplicitValueWithNullInput() {
         modifiableInteger.setOriginalValue(null);
 
         int explicitValue = 999;
@@ -78,7 +78,7 @@ public class IntegerExplicitValueModificationTest {
     }
 
     @Test
-    public void testExplicitValueMaxValue() {
+    void testExplicitValueMaxValue() {
         int explicitValue = Integer.MAX_VALUE;
         IntegerExplicitValueModification modification =
                 new IntegerExplicitValueModification(explicitValue);
@@ -91,7 +91,7 @@ public class IntegerExplicitValueModificationTest {
     }
 
     @Test
-    public void testExplicitValueMinValue() {
+    void testExplicitValueMinValue() {
         int explicitValue = Integer.MIN_VALUE;
         IntegerExplicitValueModification modification =
                 new IntegerExplicitValueModification(explicitValue);
@@ -104,7 +104,7 @@ public class IntegerExplicitValueModificationTest {
     }
 
     @Test
-    public void testGetExplicitValue() {
+    void testGetExplicitValue() {
         int explicitValue = 42;
         IntegerExplicitValueModification modification =
                 new IntegerExplicitValueModification(explicitValue);
@@ -113,7 +113,7 @@ public class IntegerExplicitValueModificationTest {
     }
 
     @Test
-    public void testSetExplicitValue() {
+    void testSetExplicitValue() {
         IntegerExplicitValueModification modification = new IntegerExplicitValueModification(10);
 
         int newExplicitValue = 42;
@@ -123,7 +123,7 @@ public class IntegerExplicitValueModificationTest {
     }
 
     @Test
-    public void testCopyConstructor() {
+    void testCopyConstructor() {
         int explicitValue = 42;
         IntegerExplicitValueModification original =
                 new IntegerExplicitValueModification(explicitValue);
@@ -133,7 +133,7 @@ public class IntegerExplicitValueModificationTest {
     }
 
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         int explicitValue = 42;
         IntegerExplicitValueModification original =
                 new IntegerExplicitValueModification(explicitValue);
@@ -145,7 +145,7 @@ public class IntegerExplicitValueModificationTest {
     }
 
     @Test
-    public void testEqualsAndHashCode() {
+    void testEqualsAndHashCode() {
         int explicitValue1 = 42;
         int explicitValue2 = 42;
         int explicitValue3 = 100;
@@ -184,7 +184,7 @@ public class IntegerExplicitValueModificationTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         int explicitValue = 42;
         IntegerExplicitValueModification modification =
                 new IntegerExplicitValueModification(explicitValue);

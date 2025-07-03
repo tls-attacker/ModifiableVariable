@@ -7,6 +7,7 @@
  */
 package de.rub.nds.modifiablevariable.integer;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
@@ -24,6 +25,7 @@ import java.util.Objects;
 public class IntegerSubtractModification extends VariableModification<Integer> {
 
     /** The value to subtract from the original integer */
+    @JsonProperty(required = true)
     private int subtrahend;
 
     /** Default constructor for serialization. */

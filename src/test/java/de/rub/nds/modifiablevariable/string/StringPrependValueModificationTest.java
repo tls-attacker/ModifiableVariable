@@ -12,21 +12,21 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class StringPrependValueModificationTest {
+class StringPrependValueModificationTest {
 
     private ModifiableString modifiableString;
     private final String originalString = "testString";
     private final String prependValue = "PREPEND";
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         modifiableString = new ModifiableString();
         modifiableString.setOriginalValue(originalString);
     }
 
     /** Test basic prepend functionality */
     @Test
-    public void testBasicPrepend() {
+    void testBasicPrepend() {
         StringPrependValueModification modifier = new StringPrependValueModification(prependValue);
         modifiableString.setModifications(modifier);
         assertEquals(prependValue + originalString, modifiableString.getValue());
@@ -35,7 +35,7 @@ public class StringPrependValueModificationTest {
 
     /** Test prepend with empty string */
     @Test
-    public void testPrependEmptyString() {
+    void testPrependEmptyString() {
         StringPrependValueModification modifier = new StringPrependValueModification("");
         modifiableString.setModifications(modifier);
         assertEquals(originalString, modifiableString.getValue());
@@ -43,7 +43,7 @@ public class StringPrependValueModificationTest {
 
     /** Test prepend to empty string */
     @Test
-    public void testPrependToEmptyString() {
+    void testPrependToEmptyString() {
         ModifiableString emptyString = new ModifiableString();
         emptyString.setOriginalValue("");
 
@@ -55,7 +55,7 @@ public class StringPrependValueModificationTest {
 
     /** Test prepend to null string */
     @Test
-    public void testPrependToNullString() {
+    void testPrependToNullString() {
         ModifiableString nullString = new ModifiableString();
         nullString.setOriginalValue(null);
 
@@ -67,7 +67,7 @@ public class StringPrependValueModificationTest {
 
     /** Test that null prepend value is not allowed */
     @Test
-    public void testNullPrependValue() {
+    void testNullPrependValue() {
         assertThrows(
                 NullPointerException.class,
                 () -> {
@@ -78,7 +78,7 @@ public class StringPrependValueModificationTest {
 
     /** Test the getter and setter for prependValue */
     @Test
-    public void testPrependValueGetterAndSetter() {
+    void testPrependValueGetterAndSetter() {
         StringPrependValueModification modifier = new StringPrependValueModification("initial");
         assertEquals("initial", modifier.getPrependValue());
 
@@ -95,7 +95,7 @@ public class StringPrependValueModificationTest {
 
     /** Test prepend with special characters */
     @Test
-    public void testPrependWithSpecialCharacters() {
+    void testPrependWithSpecialCharacters() {
         String specialChars = "@#$%^&*()";
         StringPrependValueModification modifier = new StringPrependValueModification(specialChars);
         modifiableString.setModifications(modifier);
@@ -104,7 +104,7 @@ public class StringPrependValueModificationTest {
 
     /** Test the equals method */
     @Test
-    public void testEqualsMethod() {
+    void testEqualsMethod() {
         StringPrependValueModification mod1 = new StringPrependValueModification("value");
         StringPrependValueModification mod2 = new StringPrependValueModification("value");
         StringPrependValueModification mod3 = new StringPrependValueModification("different");
@@ -125,7 +125,7 @@ public class StringPrependValueModificationTest {
 
     /** Test the hashCode method */
     @Test
-    public void testHashCodeMethod() {
+    void testHashCodeMethod() {
         StringPrependValueModification mod1 = new StringPrependValueModification("value");
         StringPrependValueModification mod2 = new StringPrependValueModification("value");
 
@@ -139,7 +139,7 @@ public class StringPrependValueModificationTest {
 
     /** Test the toString method */
     @Test
-    public void testToStringMethod() {
+    void testToStringMethod() {
         StringPrependValueModification modifier = new StringPrependValueModification("test");
         String toString = modifier.toString();
 
@@ -149,7 +149,7 @@ public class StringPrependValueModificationTest {
 
     /** Test the copy constructor */
     @Test
-    public void testCopyConstructor() {
+    void testCopyConstructor() {
         StringPrependValueModification original = new StringPrependValueModification("original");
         StringPrependValueModification copy = new StringPrependValueModification(original);
 
@@ -164,7 +164,7 @@ public class StringPrependValueModificationTest {
 
     /** Test the createCopy method */
     @Test
-    public void testCreateCopyMethod() {
+    void testCreateCopyMethod() {
         StringPrependValueModification original = new StringPrependValueModification("original");
         StringPrependValueModification copy = original.createCopy();
 

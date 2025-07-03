@@ -7,8 +7,9 @@
  */
 package de.rub.nds.modifiablevariable.bytearray;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -33,6 +34,7 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
 
     /** The bytes to prepend to the beginning of the original byte array */
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
+    @JsonProperty(required = true)
     private byte[] bytesToPrepend;
 
     /** Default constructor for serialization. */
@@ -83,7 +85,7 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
      * Modifies the input by prepending bytes to the beginning of the array.
      *
      * <p>This method concatenates the bytes to prepend with the input byte array using the
-     * ArrayConverter's concatenate method. A new byte array is created with the bytes to prepend at
+     * DataConverter's concatenate method. A new byte array is created with the bytes to prepend at
      * the beginning followed by the original input bytes.
      *
      * <p>Note that this operation creates a new array that is longer than the original input by the
@@ -98,7 +100,7 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
         if (input == null) {
             return null;
         }
-        return ArrayConverter.concatenate(bytesToPrepend, input);
+        return DataConverter.concatenate(bytesToPrepend, input);
     }
 
     /**
@@ -169,7 +171,7 @@ public class ByteArrayPrependValueModification extends VariableModification<byte
     @Override
     public String toString() {
         return "ByteArrayPrependValueModification{bytesToPrepend="
-                + ArrayConverter.bytesToHexString(bytesToPrepend)
+                + DataConverter.bytesToHexString(bytesToPrepend)
                 + "}";
     }
 }

@@ -7,6 +7,7 @@
  */
 package de.rub.nds.modifiablevariable.singlebyte;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
@@ -23,6 +24,7 @@ import java.util.Objects;
 public class ByteExplicitValueModification extends VariableModification<Byte> {
 
     /** The value that will replace the original byte */
+    @JsonProperty(required = true)
     protected byte explicitValue;
 
     /** Default constructor for serialization. */

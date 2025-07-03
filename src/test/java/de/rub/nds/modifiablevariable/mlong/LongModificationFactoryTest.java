@@ -22,10 +22,10 @@ import de.rub.nds.modifiablevariable.longint.LongSwapEndianModification;
 import de.rub.nds.modifiablevariable.longint.LongXorModification;
 import org.junit.jupiter.api.Test;
 
-public class LongModificationFactoryTest {
+class LongModificationFactoryTest {
 
     @Test
-    public void testAddWithLong() {
+    void testAddWithLong() {
         Long summand = 10L;
         VariableModification<Long> modification = new LongAddModification(summand);
 
@@ -35,7 +35,7 @@ public class LongModificationFactoryTest {
     }
 
     @Test
-    public void testSubWithLong() {
+    void testSubWithLong() {
         Long subtrahend = 10L;
         VariableModification<Long> modification = new LongSubtractModification(subtrahend);
 
@@ -45,7 +45,7 @@ public class LongModificationFactoryTest {
     }
 
     @Test
-    public void testXorWithLong() {
+    void testXorWithLong() {
         Long xorValue = 10L;
         VariableModification<Long> modification = new LongXorModification(xorValue);
 
@@ -55,7 +55,7 @@ public class LongModificationFactoryTest {
     }
 
     @Test
-    public void testSwapEndian() {
+    void testSwapEndian() {
         VariableModification<Long> modification = new LongSwapEndianModification();
 
         assertNotNull(modification);
@@ -63,7 +63,7 @@ public class LongModificationFactoryTest {
     }
 
     @Test
-    public void testExplicitValueWithLong() {
+    void testExplicitValueWithLong() {
         Long explicitValue = 10L;
         VariableModification<Long> modification = new LongExplicitValueModification(explicitValue);
 
@@ -74,7 +74,7 @@ public class LongModificationFactoryTest {
     }
 
     @Test
-    public void testMultiply() {
+    void testMultiply() {
         Long factor = 10L;
         VariableModification<Long> modification = new LongMultiplyModification(factor);
 
@@ -84,7 +84,7 @@ public class LongModificationFactoryTest {
     }
 
     @Test
-    public void testShiftLeft() {
+    void testShiftLeft() {
         int shift = 5;
         VariableModification<Long> modification = new LongShiftLeftModification(shift);
 
@@ -94,7 +94,7 @@ public class LongModificationFactoryTest {
     }
 
     @Test
-    public void testShiftRight() {
+    void testShiftRight() {
         int shift = 5;
         VariableModification<Long> modification = new LongShiftRightModification(shift);
 

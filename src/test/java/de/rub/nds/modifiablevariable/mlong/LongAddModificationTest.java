@@ -18,18 +18,18 @@ import de.rub.nds.modifiablevariable.longint.ModifiableLong;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class LongAddModificationTest {
+class LongAddModificationTest {
 
     private LongAddModification modification;
     private final Long summand = 5L;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         modification = new LongAddModification(summand);
     }
 
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         LongAddModification copy = modification.createCopy();
         assertNotNull(copy);
         assertEquals(modification, copy);
@@ -38,7 +38,7 @@ public class LongAddModificationTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         LongAddModification equalModification = new LongAddModification(summand);
         LongAddModification differentModification = new LongAddModification(10L);
 
@@ -58,7 +58,7 @@ public class LongAddModificationTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         LongAddModification equalModification = new LongAddModification(summand);
 
         // Equal objects should have equal hash codes
@@ -66,28 +66,28 @@ public class LongAddModificationTest {
     }
 
     @Test
-    public void testGetSummand() {
+    void testGetSummand() {
         assertEquals(summand, modification.getSummand());
     }
 
     @Test
-    public void testSetSummand() {
+    void testSetSummand() {
         Long newSummand = 20L;
         modification.setSummand(newSummand);
         assertEquals(newSummand, modification.getSummand());
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         String expected = "LongAddModification{summand=5}";
         assertEquals(expected, modification.toString());
     }
 
     @Test
-    public void testConstructors() {
+    void testConstructors() {
         LongAddModification constructor = new LongAddModification(5L);
         assertNotNull(constructor);
-        assertEquals(constructor.getSummand(), 5);
+        assertEquals(5L, constructor.getSummand());
 
         // Test copy constructor
         LongAddModification copy = new LongAddModification(modification);
@@ -98,7 +98,7 @@ public class LongAddModificationTest {
     // but we can indirectly test its behavior through public methods
 
     @Test
-    public void testModifyWithNull() {
+    void testModifyWithNull() {
         // Create a ModifiableLong with null value
         ModifiableLong modifiable = new ModifiableLong();
         modifiable.setOriginalValue(null);

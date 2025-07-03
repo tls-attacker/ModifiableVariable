@@ -11,14 +11,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class BigIntegerExplicitValueModificationTest {
+class BigIntegerExplicitValueModificationTest {
 
     private BigIntegerExplicitValueModification b1;
     private BigIntegerExplicitValueModification b2;
@@ -26,7 +26,7 @@ public class BigIntegerExplicitValueModificationTest {
     private Integer integer1;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         b1 = new BigIntegerExplicitValueModification(BigInteger.ONE);
         b2 = new BigIntegerExplicitValueModification(BigInteger.TEN);
         b3 = new BigIntegerExplicitValueModification(BigInteger.ONE);
@@ -35,7 +35,7 @@ public class BigIntegerExplicitValueModificationTest {
 
     /** Test of modifyImplementationHook method, of class BigIntegerExplicitValueModification. */
     @Test
-    public void testModifyImplementationHook() {
+    void testModifyImplementationHook() {
         // Should always return explicit value, regardless of input
         assertEquals(BigInteger.ONE, b1.modifyImplementationHook(BigInteger.ZERO));
         assertEquals(BigInteger.ONE, b1.modifyImplementationHook(BigInteger.valueOf(-42)));
@@ -48,13 +48,13 @@ public class BigIntegerExplicitValueModificationTest {
 
     /** Test of getExplicitValue method, of class BigIntegerExplicitValueModification. */
     @Test
-    public void testGetExplicitValue() {
+    void testGetExplicitValue() {
         assertEquals(BigInteger.ONE, b1.getExplicitValue());
     }
 
     /** Test of setExplicitValue method, of class BigIntegerExplicitValueModification. */
     @Test
-    public void testSetExplicitValue() {
+    void testSetExplicitValue() {
         // Change explicit value and verify
         assertNotEquals(BigInteger.valueOf(42), b1.getExplicitValue());
         b1.setExplicitValue(BigInteger.valueOf(42));
@@ -63,7 +63,7 @@ public class BigIntegerExplicitValueModificationTest {
 
     /** Test of hashCode method, of class BigIntegerExplicitValueModification. */
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         // Same explicit value should have same hash code
         assertEquals(b1.hashCode(), b3.hashCode());
 
@@ -91,7 +91,7 @@ public class BigIntegerExplicitValueModificationTest {
 
     /** Test of equals method, of class BigIntegerExplicitValueModification. */
     @Test
-    public void testEquals() {
+    void testEquals() {
         // Same instance
         assertTrue(b1.equals(b1));
 
@@ -125,7 +125,7 @@ public class BigIntegerExplicitValueModificationTest {
 
     /** Test of createCopy method */
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         BigIntegerExplicitValueModification copy = b1.createCopy();
 
         // Verify it's a different instance but equal
@@ -142,7 +142,7 @@ public class BigIntegerExplicitValueModificationTest {
 
     /** Test of toString method */
     @Test
-    public void testToString() {
+    void testToString() {
         String toString = b1.toString();
         assertTrue(toString.contains("BigIntegerExplicitValueModification"));
         assertTrue(toString.contains("explicitValue=1"));
@@ -155,30 +155,21 @@ public class BigIntegerExplicitValueModificationTest {
 
     /** Test constructor with null value */
     @Test
-    public void testConstructorWithNullValue() {
-        // Using try-catch because we expect an exception
-        try {
-            // Explicitly specify null as BigInteger to avoid ambiguity with copy constructor
-            BigInteger nullValue = null;
-            new BigIntegerExplicitValueModification(nullValue);
-            fail("Constructor should throw NullPointerException");
-        } catch (NullPointerException e) {
-            // Expected exception
-            assertTrue(e.getMessage().contains("null"));
-        }
+    void testConstructorWithNullValue() {
+        assertThrows(
+                NullPointerException.class,
+                () -> {
+                    new BigIntegerExplicitValueModification((BigInteger) null);
+                });
     }
 
     /** Test setExplicitValue with null value */
     @Test
-    public void testSetExplicitValueWithNullValue() {
-        // Using try-catch because we expect an exception
-        try {
-            b1.setExplicitValue(null);
-            // Should not reach here
-            fail("setExplicitValue should throw NullPointerException");
-        } catch (NullPointerException e) {
-            // Expected exception
-            assertTrue(e.getMessage().contains("null"));
-        }
+    void testSetExplicitValueWithNullValue() {
+        assertThrows(
+                NullPointerException.class,
+                () -> {
+                    b1.setExplicitValue(null);
+                });
     }
 }

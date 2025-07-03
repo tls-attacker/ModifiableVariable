@@ -12,14 +12,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ByteArrayDuplicateModificationTest {
+class ByteArrayDuplicateModificationTest {
 
     private ByteArrayDuplicateModification b1;
     private ByteArrayDuplicateModification b2;
     private Object b3;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         b1 = new ByteArrayDuplicateModification();
         b2 = new ByteArrayDuplicateModification();
         b3 = new Object();
@@ -27,7 +27,7 @@ public class ByteArrayDuplicateModificationTest {
 
     /** Test of modifyImplementationHook method, of class ByteArrayDuplicateModification. */
     @Test
-    public void testModifyImplementationHook() {
+    void testModifyImplementationHook() {
         // Test with a normal byte array
         byte[] input = new byte[] {1, 2, 3, 4};
         byte[] expected = new byte[] {1, 2, 3, 4, 1, 2, 3, 4};
@@ -42,7 +42,7 @@ public class ByteArrayDuplicateModificationTest {
 
     /** Test of createCopy method, of class ByteArrayDuplicateModification. */
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         ByteArrayDuplicateModification copy = b1.createCopy();
         assertNotSame(b1, copy);
         assertEquals(b1, copy);
@@ -50,13 +50,13 @@ public class ByteArrayDuplicateModificationTest {
 
     /** Test of hashCode method, of class ByteArrayDuplicateModification. */
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         assertEquals(b1.hashCode(), b2.hashCode());
     }
 
     /** Test of equals method, of class ByteArrayDuplicateModification. */
     @Test
-    public void testEquals() {
+    void testEquals() {
         // Same object reference
         assertEquals(b1, b1);
 
@@ -72,7 +72,7 @@ public class ByteArrayDuplicateModificationTest {
 
     /** Test of toString method, of class ByteArrayDuplicateModification. */
     @Test
-    public void testToString() {
+    void testToString() {
         assertEquals(b1.toString(), b2.toString());
         assertEquals("ByteArrayDuplicateModification{}", b1.toString());
     }

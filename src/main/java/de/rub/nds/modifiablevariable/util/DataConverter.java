@@ -169,7 +169,7 @@ public final class DataConverter {
         int shift = 0;
         int finalPosition = size > Integer.BYTES ? size - Integer.BYTES : 0;
         for (int i = size - 1; i >= finalPosition; i--) {
-            result[i] = (byte) (value >>> shift);
+            result[i] = (byte) ((value >>> shift) & 0xFF);
             shift += 8;
         }
 
@@ -192,7 +192,7 @@ public final class DataConverter {
         int shift = 0;
         int finalPosition = size > Long.BYTES ? size - Long.BYTES : 0;
         for (int i = size - 1; i >= finalPosition; i--) {
-            result[i] = (byte) (value >>> shift);
+            result[i] = (byte) ((value >>> shift) & 0xFF);
             shift += 8;
         }
 

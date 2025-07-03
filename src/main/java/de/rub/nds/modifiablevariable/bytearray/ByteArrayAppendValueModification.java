@@ -7,8 +7,9 @@
  */
 package de.rub.nds.modifiablevariable.bytearray;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import de.rub.nds.modifiablevariable.util.UnformattedByteArrayAdapter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -32,6 +33,7 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
 
     /** The bytes to append to the end of the original byte array */
     @XmlJavaTypeAdapter(UnformattedByteArrayAdapter.class)
+    @JsonProperty(required = true)
     private byte[] bytesToAppend;
 
     /** Default constructor for serialization. */
@@ -82,8 +84,8 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
      * Modifies the input by appending bytes to the end of the array.
      *
      * <p>This method concatenates the bytes to append to the end of the input byte array using the
-     * ArrayConverter's concatenate method. A new byte array is created with the original input
-     * bytes followed by the bytes to append.
+     * DataConverter's concatenate method. A new byte array is created with the original input bytes
+     * followed by the bytes to append.
      *
      * <p>Note that this operation creates a new array that is longer than the original input by the
      * length of the bytes to append. The original input remains unchanged.
@@ -96,7 +98,7 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
         if (input == null) {
             return null;
         }
-        return ArrayConverter.concatenate(input, bytesToAppend);
+        return DataConverter.concatenate(input, bytesToAppend);
     }
 
     /**
@@ -167,7 +169,7 @@ public class ByteArrayAppendValueModification extends VariableModification<byte[
     @Override
     public String toString() {
         return "ByteArrayAppendValueModification{bytesToAppend="
-                + ArrayConverter.bytesToHexString(bytesToAppend)
+                + DataConverter.bytesToHexString(bytesToAppend)
                 + "}";
     }
 }

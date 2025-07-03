@@ -21,7 +21,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 /** Tests for the {@link ModifiableVariableListHolder} class. */
-public class ModifiableVariableListHolderTest {
+class ModifiableVariableListHolderTest {
 
     /** Test class with modifiable variable fields for testing. */
     private static class TestClass {
@@ -36,7 +36,7 @@ public class ModifiableVariableListHolderTest {
 
     /** Test constructor creates a properly initialized object. */
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         TestClass testObject = new TestClass();
         List<Field> fieldList = new ArrayList<>();
 
@@ -59,7 +59,7 @@ public class ModifiableVariableListHolderTest {
 
     /** Test constructor with null object. */
     @Test
-    public void testConstructorWithNullObject() {
+    void testConstructorWithNullObject() {
         List<Field> fieldList = new ArrayList<>();
 
         ModifiableVariableListHolder holder = new ModifiableVariableListHolder(null, fieldList);
@@ -71,7 +71,7 @@ public class ModifiableVariableListHolderTest {
 
     /** Test constructor with null fields list. */
     @Test
-    public void testConstructorWithNullFields() {
+    void testConstructorWithNullFields() {
         TestClass testObject = new TestClass();
 
         ModifiableVariableListHolder holder = new ModifiableVariableListHolder(testObject, null);
@@ -82,7 +82,7 @@ public class ModifiableVariableListHolderTest {
 
     /** Test constructor with empty fields list. */
     @Test
-    public void testConstructorWithEmptyFields() {
+    void testConstructorWithEmptyFields() {
         TestClass testObject = new TestClass();
         List<Field> fieldList = Collections.emptyList();
 
@@ -97,7 +97,7 @@ public class ModifiableVariableListHolderTest {
 
     /** Test setter for object. */
     @Test
-    public void testSetObject() {
+    void testSetObject() {
         TestClass testObject1 = new TestClass();
         TestClass testObject2 = new TestClass();
         List<Field> fieldList = new ArrayList<>();
@@ -112,7 +112,7 @@ public class ModifiableVariableListHolderTest {
 
     /** Test setter for fields. */
     @Test
-    public void testSetFields() {
+    void testSetFields() {
         TestClass testObject = new TestClass();
         List<Field> fieldList1 = new ArrayList<>();
         List<Field> fieldList2 = new ArrayList<>();
@@ -137,7 +137,7 @@ public class ModifiableVariableListHolderTest {
 
     /** Test setting fields to null. */
     @Test
-    public void testSetFieldsToNull() {
+    void testSetFieldsToNull() {
         TestClass testObject = new TestClass();
         List<Field> fieldList = new ArrayList<>();
 
@@ -157,7 +157,7 @@ public class ModifiableVariableListHolderTest {
 
     /** Test that all fields are actually ModifiableVariable fields. */
     @Test
-    public void testFieldsAreModifiableVariables() {
+    void testFieldsAreModifiableVariables() {
         TestClass testObject = new TestClass();
         testObject.intValue = new ModifiableInteger();
         testObject.stringValue = new ModifiableString();

@@ -17,14 +17,14 @@ import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class BigIntegerMultiplyModificationTest {
+class BigIntegerMultiplyModificationTest {
 
     private BigIntegerMultiplyModification m1;
     private BigIntegerMultiplyModification m2;
     private BigIntegerMultiplyModification m3;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         m1 = new BigIntegerMultiplyModification(BigInteger.valueOf(2));
         m2 = new BigIntegerMultiplyModification(BigInteger.valueOf(5));
         m3 = new BigIntegerMultiplyModification(BigInteger.valueOf(2));
@@ -32,7 +32,7 @@ public class BigIntegerMultiplyModificationTest {
 
     /** Test of modifyImplementationHook method */
     @Test
-    public void testModifyImplementationHook() {
+    void testModifyImplementationHook() {
         // Regular multiplication
         assertEquals(BigInteger.valueOf(20), m1.modifyImplementationHook(BigInteger.TEN));
         assertEquals(BigInteger.valueOf(50), m2.modifyImplementationHook(BigInteger.TEN));
@@ -47,14 +47,14 @@ public class BigIntegerMultiplyModificationTest {
 
     /** Test of getFactor method */
     @Test
-    public void testGetFactor() {
+    void testGetFactor() {
         assertEquals(BigInteger.valueOf(2), m1.getFactor());
         assertEquals(BigInteger.valueOf(5), m2.getFactor());
     }
 
     /** Test of setFactor method */
     @Test
-    public void testSetFactor() {
+    void testSetFactor() {
         // Change factor and verify
         assertNotEquals(BigInteger.valueOf(3), m1.getFactor());
         m1.setFactor(BigInteger.valueOf(3));
@@ -66,7 +66,7 @@ public class BigIntegerMultiplyModificationTest {
 
     /** Test of hashCode method */
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         // Same factor should have same hash code
         assertEquals(m1.hashCode(), m3.hashCode());
 
@@ -87,7 +87,7 @@ public class BigIntegerMultiplyModificationTest {
 
     /** Test of equals method */
     @Test
-    public void testEquals() {
+    void testEquals() {
         // Same instance
         assertTrue(m1.equals(m1));
 
@@ -120,7 +120,7 @@ public class BigIntegerMultiplyModificationTest {
 
     /** Test of createCopy method */
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         BigIntegerMultiplyModification copy = m1.createCopy();
 
         // Verify it's a different instance but equal
@@ -135,7 +135,7 @@ public class BigIntegerMultiplyModificationTest {
 
     /** Test of toString method */
     @Test
-    public void testToString() {
+    void testToString() {
         String toString = m1.toString();
         assertTrue(toString.contains("BigIntegerMultiplyModification"));
         assertTrue(toString.contains("factor=2"));

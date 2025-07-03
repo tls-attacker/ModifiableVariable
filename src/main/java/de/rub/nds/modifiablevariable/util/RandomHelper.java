@@ -7,6 +7,7 @@
  */
 package de.rub.nds.modifiablevariable.util;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Random;
 
 /**
@@ -30,8 +31,20 @@ public final class RandomHelper {
      * <p>The fixed seed ensures reproducible "random" behavior across test runs. If the Random
      * instance hasn't been initialized yet, this method initializes it.
      *
+     * <p><b>Note:</b> This method intentionally returns the mutable Random instance directly to
+     * allow for flexible testing scenarios. The setRandom() method is also provided to replace the
+     * instance entirely. This design is intentional for testing frameworks that need full control
+     * over randomness.
+     *
      * @return A Random instance with a fixed seed of 0
      */
+    @SuppressFBWarnings(
+            value = "MS_EXPOSE_REP",
+            justification =
+                    "Intentionally exposing mutable static Random for testing flexibility. "
+                            + "This class is designed for test environments where controlled randomness "
+                            + "is required, and the ability to modify or replace the Random instance "
+                            + "is a feature, not a bug.")
     public static synchronized Random getRandom() {
         if (random == null) {
             random = new Random(0);
@@ -60,6 +73,13 @@ public final class RandomHelper {
      *
      * @param randomInstance The Random instance to use as the singleton
      */
+    @SuppressFBWarnings(
+            value = "EI_EXPOSE_STATIC_REP2",
+            justification =
+                    "Intentionally allowing external Random instances to be set for testing flexibility. "
+                            + "This class is designed for test environments where controlled randomness "
+                            + "is required, and the ability to replace the Random instance "
+                            + "is a feature, not a bug.")
     public static synchronized void setRandom(Random randomInstance) {
         random = randomInstance;
     }

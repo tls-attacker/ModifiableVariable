@@ -8,7 +8,7 @@
 package de.rub.nds.modifiablevariable.bytearray;
 
 import de.rub.nds.modifiablevariable.VariableModification;
-import de.rub.nds.modifiablevariable.util.ArrayConverter;
+import de.rub.nds.modifiablevariable.util.DataConverter;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -59,7 +59,7 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
      * copy of itself, effectively doubling the length of the array. The operation preserves the
      * original array's contents and ordering, simply repeating it.
      *
-     * <p>The implementation uses the ArrayConverter's concatenate method for efficient array
+     * <p>The implementation uses the DataConverter's concatenate method for efficient array
      * manipulation and guarantees that the original array is not modified, maintaining
      * immutability.
      *
@@ -72,7 +72,7 @@ public class ByteArrayDuplicateModification extends VariableModification<byte[]>
         if (input == null) {
             return null;
         }
-        return ArrayConverter.concatenate(input, input);
+        return DataConverter.concatenate(input, input);
     }
 
     /**

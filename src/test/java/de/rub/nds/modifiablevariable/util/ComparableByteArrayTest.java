@@ -15,10 +15,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-public class ComparableByteArrayTest {
+class ComparableByteArrayTest {
 
     @Test
-    public void testConstructorAndGetters() {
+    void testConstructorAndGetters() {
         byte[] array = new byte[] {1, 2, 3, 4, 5};
         ComparableByteArray comparableArray = new ComparableByteArray(array);
 
@@ -26,7 +26,7 @@ public class ComparableByteArrayTest {
     }
 
     @Test
-    public void testSetArray() {
+    void testSetArray() {
         byte[] initialArray = new byte[] {1, 2, 3};
         ComparableByteArray comparableArray = new ComparableByteArray(initialArray);
 
@@ -37,7 +37,7 @@ public class ComparableByteArrayTest {
     }
 
     @Test
-    public void testEqualsWithSameContent() {
+    void testEqualsWithSameContent() {
         byte[] array1 = new byte[] {1, 2, 3, 4, 5};
         byte[] array2 = new byte[] {1, 2, 3, 4, 5}; // Same content but different object
 
@@ -53,7 +53,7 @@ public class ComparableByteArrayTest {
     }
 
     @Test
-    public void testEqualsWithDifferentContent() {
+    void testEqualsWithDifferentContent() {
         byte[] array1 = new byte[] {1, 2, 3, 4, 5};
         byte[] array2 = new byte[] {1, 2, 3, 4, 6}; // Different at last position
 
@@ -69,7 +69,7 @@ public class ComparableByteArrayTest {
     }
 
     @Test
-    public void testEqualsWithDifferentLength() {
+    void testEqualsWithDifferentLength() {
         byte[] array1 = new byte[] {1, 2, 3};
         byte[] array2 = new byte[] {1, 2, 3, 4}; // Extra element
 
@@ -82,7 +82,7 @@ public class ComparableByteArrayTest {
     }
 
     @Test
-    public void testEqualsWithSameInstance() {
+    void testEqualsWithSameInstance() {
         byte[] array = new byte[] {1, 2, 3, 4, 5};
         ComparableByteArray comparable = new ComparableByteArray(array);
 
@@ -91,7 +91,7 @@ public class ComparableByteArrayTest {
     }
 
     @Test
-    public void testEqualsWithNull() {
+    void testEqualsWithNull() {
         byte[] array = new byte[] {1, 2, 3, 4, 5};
         ComparableByteArray comparable = new ComparableByteArray(array);
 
@@ -100,7 +100,7 @@ public class ComparableByteArrayTest {
     }
 
     @Test
-    public void testEqualsWithDifferentClass() {
+    void testEqualsWithDifferentClass() {
         byte[] array = new byte[] {1, 2, 3, 4, 5};
         ComparableByteArray comparable = new ComparableByteArray(array);
 

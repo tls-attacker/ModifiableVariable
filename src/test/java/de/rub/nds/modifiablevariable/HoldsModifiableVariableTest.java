@@ -17,7 +17,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-public class HoldsModifiableVariableTest {
+class HoldsModifiableVariableTest {
 
     // Test class with HoldsModifiableVariable annotations
     private static class TestClass {

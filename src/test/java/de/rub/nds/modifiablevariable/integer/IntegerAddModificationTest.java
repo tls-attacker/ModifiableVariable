@@ -15,20 +15,20 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class IntegerAddModificationTest {
+class IntegerAddModificationTest {
 
     private ModifiableInteger modifiableInteger;
     private int originalValue;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         modifiableInteger = new ModifiableInteger();
         originalValue = 123;
         modifiableInteger.setOriginalValue(originalValue);
     }
 
     @Test
-    public void testAddModification() {
+    void testAddModification() {
         int summand = 100;
         IntegerAddModification modification = new IntegerAddModification(summand);
         modifiableInteger.setModifications(modification);
@@ -41,7 +41,7 @@ public class IntegerAddModificationTest {
     }
 
     @Test
-    public void testAddZero() {
+    void testAddZero() {
         int summand = 0;
         IntegerAddModification modification = new IntegerAddModification(summand);
         modifiableInteger.setModifications(modification);
@@ -53,7 +53,7 @@ public class IntegerAddModificationTest {
     }
 
     @Test
-    public void testAddNegative() {
+    void testAddNegative() {
         int summand = -50;
         IntegerAddModification modification = new IntegerAddModification(summand);
         modifiableInteger.setModifications(modification);
@@ -66,7 +66,7 @@ public class IntegerAddModificationTest {
     }
 
     @Test
-    public void testAddWithNullInput() {
+    void testAddWithNullInput() {
         modifiableInteger.setOriginalValue(null);
 
         int summand = 100;
@@ -76,7 +76,7 @@ public class IntegerAddModificationTest {
     }
 
     @Test
-    public void testAddMaxValue() {
+    void testAddMaxValue() {
         modifiableInteger.setOriginalValue(Integer.MAX_VALUE);
 
         int summand = 1;
@@ -91,7 +91,7 @@ public class IntegerAddModificationTest {
     }
 
     @Test
-    public void testAddMinValue() {
+    void testAddMinValue() {
         modifiableInteger.setOriginalValue(Integer.MIN_VALUE);
 
         int summand = -1;
@@ -106,7 +106,7 @@ public class IntegerAddModificationTest {
     }
 
     @Test
-    public void testGetSummand() {
+    void testGetSummand() {
         int summand = 42;
         IntegerAddModification modification = new IntegerAddModification(summand);
 
@@ -114,7 +114,7 @@ public class IntegerAddModificationTest {
     }
 
     @Test
-    public void testSetSummand() {
+    void testSetSummand() {
         IntegerAddModification modification = new IntegerAddModification(10);
 
         int newSummand = 42;
@@ -124,7 +124,7 @@ public class IntegerAddModificationTest {
     }
 
     @Test
-    public void testCopyConstructor() {
+    void testCopyConstructor() {
         int summand = 42;
         IntegerAddModification original = new IntegerAddModification(summand);
         IntegerAddModification copy = new IntegerAddModification(original);
@@ -133,7 +133,7 @@ public class IntegerAddModificationTest {
     }
 
     @Test
-    public void testCreateCopy() {
+    void testCreateCopy() {
         int summand = 42;
         IntegerAddModification original = new IntegerAddModification(summand);
         IntegerAddModification copy = original.createCopy();
@@ -144,7 +144,7 @@ public class IntegerAddModificationTest {
     }
 
     @Test
-    public void testEqualsAndHashCode() {
+    void testEqualsAndHashCode() {
         int summand1 = 42;
         int summand2 = 42;
         int summand3 = 100;
@@ -180,7 +180,7 @@ public class IntegerAddModificationTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         int summand = 42;
         IntegerAddModification modification = new IntegerAddModification(summand);
         String toString = modification.toString();
