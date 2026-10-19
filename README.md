@@ -102,9 +102,11 @@ ModifiableByteArray mba = new ModifiableByteArray();
 mba.setOriginalValue(new byte[]{1, 2, 3});
 
 // Create a Jackson object mapper for serialization
-ObjectMapper mapper = new ObjectMapper();
-mapper.registerModule(new ModifiableVariableModule());
-mapper.setVisibility(ModifiableVariableModule.getFieldVisibilityChecker());
+ObjectMapper mapper =
+        JsonMapper.builder()
+                .addModule(new ModifiableVariableModule())
+                .changeDefaultVisibility(vc -> ModifiableVariableModule.getFieldVisibilityChecker())
+                .build();
         
 // Serialize the array into JSON
 String jsonString = mapper.writeValueAsString(mba);
