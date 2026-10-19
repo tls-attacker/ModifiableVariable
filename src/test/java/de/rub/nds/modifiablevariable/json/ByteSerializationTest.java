@@ -9,13 +9,14 @@ package de.rub.nds.modifiablevariable.json;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import de.rub.nds.modifiablevariable.singlebyte.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 
 class ByteSerializationTest {
 
@@ -27,9 +28,12 @@ class ByteSerializationTest {
 
     @BeforeAll
     public static void setUpClass() {
-        mapper = new ObjectMapper();
-        mapper.registerModule(new ModifiableVariableModule());
-        mapper.setVisibility(ModifiableVariableModule.getFieldVisibilityChecker());
+        mapper =
+                JsonMapper.builder()
+                        .addModule(new ModifiableVariableModule())
+                        .changeDefaultVisibility(
+                                vc -> ModifiableVariableModule.getFieldVisibilityChecker())
+                        .build();
     }
 
     @BeforeEach

@@ -9,12 +9,6 @@ package de.rub.nds.modifiablevariable.json;
 
 import com.fasterxml.classmate.ResolvedType;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.introspect.AnnotatedClass;
-import com.fasterxml.jackson.databind.introspect.AnnotatedClassResolver;
-import com.fasterxml.jackson.databind.jsontype.NamedType;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.victools.jsonschema.generator.CustomDefinition;
 import com.github.victools.jsonschema.generator.CustomDefinitionProviderV2;
 import com.github.victools.jsonschema.generator.FieldScope;
@@ -32,6 +26,12 @@ import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.NotImplementedException;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.introspect.AnnotatedClass;
+import tools.jackson.databind.introspect.AnnotatedClassResolver;
+import tools.jackson.databind.jsontype.NamedType;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.ObjectNode;
 
 /**
  * Look-up of subtypes from a {@link ObjectMapper} instance. Based on {@link
@@ -108,12 +108,13 @@ public class ObjectMapperSubTypesResolver implements SubtypeResolver, CustomDefi
 
         AnnotatedClass annotatedClass =
                 AnnotatedClassResolver.resolveWithoutSuperTypes(
-                        objectMapper.getDeserializationConfig(), declaredType.getErasedType());
+                        objectMapper.deserializationConfig(), declaredType.getErasedType());
         Collection<NamedType> registeredSubtypes =
                 objectMapper
+                        .deserializationConfig()
                         .getSubtypeResolver()
                         .collectAndResolveSubtypesByTypeId(
-                                objectMapper.getDeserializationConfig(), annotatedClass);
+                                objectMapper.deserializationConfig(), annotatedClass);
 
         return registeredSubtypes.stream()
                 .map(NamedType::getType)
@@ -136,11 +137,14 @@ public class ObjectMapperSubTypesResolver implements SubtypeResolver, CustomDefi
     }
 
     /**
-     * Filter subtypes to ensure that they have the same type bindings as the declared type.
+     * Filter subtypes to ensure that their type bindings are compatible with the declared type,
+     * i.e. each type parameter of the subtype is assignable to the corresponding type parameter of
+     * the declared type. Unbound type variables of the declared type are resolved to their bound
+     * (e.g. {@link Object}) and therefore match any subtype.
      *
      * @param declaredType the supertype for which subtypes are being resolved
      * @param resolvedType the resolved subtype to check against the declared type
-     * @return true if the subtype has the same type bindings as the declared type, false otherwise
+     * @return true if the subtype has compatible type bindings, false otherwise
      */
     public boolean filterSubtypesWithMatchingTypeBindings(
             ResolvedType declaredType, ResolvedType resolvedType) {
@@ -150,9 +154,23 @@ public class ObjectMapperSubTypesResolver implements SubtypeResolver, CustomDefi
             // If the resolved type does not have the declared type as a parent, return false
             return false;
         }
-        return declaredType.getTypeBindings().isEmpty()
-                || resolvedTypeParameters.equals(
-                        declaredType.getTypeBindings().getTypeParameters());
+        List<ResolvedType> declaredTypeParameters =
+                declaredType.getTypeBindings().getTypeParameters();
+        if (declaredTypeParameters.isEmpty()) {
+            return true;
+        }
+        if (declaredTypeParameters.size() != resolvedTypeParameters.size()) {
+            return false;
+        }
+        for (int i = 0; i < declaredTypeParameters.size(); i++) {
+            if (!declaredTypeParameters
+                    .get(i)
+                    .getErasedType()
+                    .isAssignableFrom(resolvedTypeParameters.get(i).getErasedType())) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /*

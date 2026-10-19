@@ -8,25 +8,24 @@
 package de.rub.nds.modifiablevariable.json;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import de.rub.nds.modifiablevariable.ModifiableVariable;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.util.DataConverter;
-import java.io.IOException;
 import org.reflections.Reflections;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.core.JsonParser;
+import tools.jackson.databind.DeserializationContext;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.deser.std.StdDeserializer;
+import tools.jackson.databind.introspect.VisibilityChecker;
+import tools.jackson.databind.module.SimpleModule;
+import tools.jackson.databind.ser.std.StdSerializer;
 
 /**
  * A Jackson module for the ModifiableVariable library. It registers serializers and deserializers
  * required for modifiable variables. Make sure to include it using {@code
- * ObjectMapper.registerModule(new ModifiableVariableModule())} in your Jackson configuration before
- * serializing or deserializing modifiable variables.
+ * JsonMapper.builder().addModule(new ModifiableVariableModule())} in your Jackson configuration
+ * before serializing or deserializing modifiable variables.
  */
 public class ModifiableVariableModule extends SimpleModule {
 
@@ -51,8 +50,7 @@ public class ModifiableVariableModule extends SimpleModule {
         }
 
         @Override
-        public void serialize(byte[] value, JsonGenerator gen, SerializerProvider serializers)
-                throws IOException {
+        public void serialize(byte[] value, JsonGenerator gen, SerializationContext serializers) {
             gen.writeString(DataConverter.bytesToRawHexString(value));
         }
     }
@@ -63,13 +61,13 @@ public class ModifiableVariableModule extends SimpleModule {
         }
 
         @Override
-        public byte[] deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-            return DataConverter.hexStringToByteArray(p.getText());
+        public byte[] deserialize(JsonParser p, DeserializationContext ctxt) {
+            return DataConverter.hexStringToByteArray(p.getString());
         }
     }
 
-    public static VisibilityChecker<?> getFieldVisibilityChecker() {
-        return VisibilityChecker.Std.defaultInstance()
+    public static VisibilityChecker getFieldVisibilityChecker() {
+        return VisibilityChecker.defaultInstance()
                 .withFieldVisibility(JsonAutoDetect.Visibility.ANY)
                 .withGetterVisibility(JsonAutoDetect.Visibility.NONE)
                 .withSetterVisibility(JsonAutoDetect.Visibility.NONE)

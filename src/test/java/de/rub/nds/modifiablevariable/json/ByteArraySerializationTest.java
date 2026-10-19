@@ -10,7 +10,6 @@ package de.rub.nds.modifiablevariable.json;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import de.rub.nds.modifiablevariable.VariableModification;
 import de.rub.nds.modifiablevariable.bytearray.*;
 import org.apache.logging.log4j.LogManager;
@@ -18,6 +17,8 @@ import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 
 class ByteArraySerializationTest {
 
@@ -29,9 +30,12 @@ class ByteArraySerializationTest {
 
     @BeforeAll
     static void setUpClass() {
-        mapper = new ObjectMapper();
-        mapper.registerModule(new ModifiableVariableModule());
-        mapper.setVisibility(ModifiableVariableModule.getFieldVisibilityChecker());
+        mapper =
+                JsonMapper.builder()
+                        .addModule(new ModifiableVariableModule())
+                        .changeDefaultVisibility(
+                                vc -> ModifiableVariableModule.getFieldVisibilityChecker())
+                        .build();
     }
 
     @BeforeEach
