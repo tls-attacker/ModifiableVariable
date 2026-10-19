@@ -7,12 +7,13 @@
  */
 package de.rub.nds.modifiablevariable.json;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.Module;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.victools.jsonschema.generator.*;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
+import tools.jackson.databind.JacksonModule;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 
 public class JsonSchemaCliGenerator {
 
@@ -24,14 +25,16 @@ public class JsonSchemaCliGenerator {
      *     additional Jackson modules to register.
      */
     public static void main(String[] args) {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.setVisibility(ModifiableVariableModule.getFieldVisibilityChecker());
+        JsonMapper.Builder mapperBuilder =
+                JsonMapper.builder()
+                        .changeDefaultVisibility(
+                                vc -> ModifiableVariableModule.getFieldVisibilityChecker());
 
         // Register additional modules (if any) passed as command line arguments
         for (int i = 2; i < args.length; i++) {
             try {
-                mapper.registerModule(
-                        (Module) Class.forName(args[i]).getConstructor().newInstance());
+                mapperBuilder.addModule(
+                        (JacksonModule) Class.forName(args[i]).getConstructor().newInstance());
             } catch (InstantiationException
                     | IllegalAccessException
                     | InvocationTargetException
@@ -40,6 +43,7 @@ public class JsonSchemaCliGenerator {
                 throw new RuntimeException(e);
             }
         }
+        ObjectMapper mapper = mapperBuilder.build();
 
         // Prepare the schema generator
         SchemaGeneratorConfigBuilder builder =
