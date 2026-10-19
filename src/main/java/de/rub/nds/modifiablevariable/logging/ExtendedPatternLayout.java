@@ -438,9 +438,21 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
          * @param pattern The pattern string
          * @return This builder instance
          */
-        public ExtendedPatternLayout.Builder withPattern(String pattern) {
+        public ExtendedPatternLayout.Builder setPattern(String pattern) {
             this.pattern = pattern;
             return this;
+        }
+
+        /**
+         * Sets the conversion pattern to use for formatting log events.
+         *
+         * @param pattern The pattern string
+         * @return This builder instance
+         * @deprecated Use {@link #setPattern(String)} instead
+         */
+        @Deprecated
+        public ExtendedPatternLayout.Builder withPattern(String pattern) {
+            return setPattern(pattern);
         }
 
         /**
@@ -483,7 +495,7 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
          * @param charset The character set
          * @return This builder instance
          */
-        public ExtendedPatternLayout.Builder withCharset(Charset charset) {
+        public ExtendedPatternLayout.Builder setCharset(Charset charset) {
             if (charset != null) {
                 this.charset = charset;
             }
@@ -492,15 +504,40 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
         }
 
         /**
+         * Sets the character set to use for encoding the output.
+         *
+         * @param charset The character set
+         * @return This builder instance
+         * @deprecated Use {@link #setCharset(Charset)} instead
+         */
+        @Deprecated
+        public ExtendedPatternLayout.Builder withCharset(Charset charset) {
+            return setCharset(charset);
+        }
+
+        /**
          * Sets whether to always include exception information in the output.
          *
          * @param alwaysWriteExceptions Whether to always write exceptions
          * @return This builder instance
          */
-        public ExtendedPatternLayout.Builder withAlwaysWriteExceptions(
+        public ExtendedPatternLayout.Builder setAlwaysWriteExceptions(
                 boolean alwaysWriteExceptions) {
             this.alwaysWriteExceptions = alwaysWriteExceptions;
             return this;
+        }
+
+        /**
+         * Sets whether to always include exception information in the output.
+         *
+         * @param alwaysWriteExceptions Whether to always write exceptions
+         * @return This builder instance
+         * @deprecated Use {@link #setAlwaysWriteExceptions(boolean)} instead
+         */
+        @Deprecated
+        public ExtendedPatternLayout.Builder withAlwaysWriteExceptions(
+                boolean alwaysWriteExceptions) {
+            return setAlwaysWriteExceptions(alwaysWriteExceptions);
         }
 
         /**
@@ -509,9 +546,21 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
          * @param disableAnsi Whether to disable ANSI escape codes
          * @return This builder instance
          */
-        public ExtendedPatternLayout.Builder withDisableAnsi(boolean disableAnsi) {
+        public ExtendedPatternLayout.Builder setDisableAnsi(boolean disableAnsi) {
             this.disableAnsi = disableAnsi;
             return this;
+        }
+
+        /**
+         * Sets whether to disable ANSI escape codes in the output.
+         *
+         * @param disableAnsi Whether to disable ANSI escape codes
+         * @return This builder instance
+         * @deprecated Use {@link #setDisableAnsi(boolean)} instead
+         */
+        @Deprecated
+        public ExtendedPatternLayout.Builder withDisableAnsi(boolean disableAnsi) {
+            return setDisableAnsi(disableAnsi);
         }
 
         /**
@@ -520,9 +569,21 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
          * @param noConsoleNoAnsi Whether to disable ANSI when not writing to console
          * @return This builder instance
          */
-        public ExtendedPatternLayout.Builder withNoConsoleNoAnsi(boolean noConsoleNoAnsi) {
+        public ExtendedPatternLayout.Builder setNoConsoleNoAnsi(boolean noConsoleNoAnsi) {
             this.noConsoleNoAnsi = noConsoleNoAnsi;
             return this;
+        }
+
+        /**
+         * Sets whether to disable ANSI escapes when output is not to a console.
+         *
+         * @param noConsoleNoAnsi Whether to disable ANSI when not writing to console
+         * @return This builder instance
+         * @deprecated Use {@link #setNoConsoleNoAnsi(boolean)} instead
+         */
+        @Deprecated
+        public ExtendedPatternLayout.Builder withNoConsoleNoAnsi(boolean noConsoleNoAnsi) {
+            return setNoConsoleNoAnsi(noConsoleNoAnsi);
         }
 
         /**
@@ -531,9 +592,21 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
          * @param header The header pattern
          * @return This builder instance
          */
-        public ExtendedPatternLayout.Builder withHeader(String header) {
+        public ExtendedPatternLayout.Builder setHeader(String header) {
             this.header = header;
             return this;
+        }
+
+        /**
+         * Sets the pattern to use for the header.
+         *
+         * @param header The header pattern
+         * @return This builder instance
+         * @deprecated Use {@link #setHeader(String)} instead
+         */
+        @Deprecated
+        public ExtendedPatternLayout.Builder withHeader(String header) {
+            return setHeader(header);
         }
 
         /**
@@ -542,9 +615,21 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
          * @param footer The footer pattern
          * @return This builder instance
          */
-        public ExtendedPatternLayout.Builder withFooter(String footer) {
+        public ExtendedPatternLayout.Builder setFooter(String footer) {
             this.footer = footer;
             return this;
+        }
+
+        /**
+         * Sets the pattern to use for the footer.
+         *
+         * @param footer The footer pattern
+         * @return This builder instance
+         * @deprecated Use {@link #setFooter(String)} instead
+         */
+        @Deprecated
+        public ExtendedPatternLayout.Builder withFooter(String footer) {
+            return setFooter(footer);
         }
 
         /**
@@ -553,9 +638,21 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
          * @param initNewLine Whether to initialize byte array output on a new line
          * @return This builder instance
          */
-        public ExtendedPatternLayout.Builder withInitNewLine(boolean initNewLine) {
+        public ExtendedPatternLayout.Builder setInitNewLine(boolean initNewLine) {
             this.initNewLine = initNewLine;
             return this;
+        }
+
+        /**
+         * Sets whether to start byte array output on a new line.
+         *
+         * @param initNewLine Whether to initialize byte array output on a new line
+         * @return This builder instance
+         * @deprecated Use {@link #setInitNewLine(boolean)} instead
+         */
+        @Deprecated
+        public ExtendedPatternLayout.Builder withInitNewLine(boolean initNewLine) {
+            return setInitNewLine(initNewLine);
         }
 
         /**
@@ -564,9 +661,21 @@ public final class ExtendedPatternLayout extends AbstractStringLayout {
          * @param prettyPrinting Whether to pretty print byte arrays
          * @return This builder instance
          */
-        public ExtendedPatternLayout.Builder withPrettyPrinting(boolean prettyPrinting) {
+        public ExtendedPatternLayout.Builder setPrettyPrinting(boolean prettyPrinting) {
             this.prettyPrinting = prettyPrinting;
             return this;
+        }
+
+        /**
+         * Sets whether to format byte arrays with spaces between bytes for readability.
+         *
+         * @param prettyPrinting Whether to pretty print byte arrays
+         * @return This builder instance
+         * @deprecated Use {@link #setPrettyPrinting(boolean)} instead
+         */
+        @Deprecated
+        public ExtendedPatternLayout.Builder withPrettyPrinting(boolean prettyPrinting) {
+            return setPrettyPrinting(prettyPrinting);
         }
 
         /**
